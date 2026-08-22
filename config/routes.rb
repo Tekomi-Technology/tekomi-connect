@@ -182,6 +182,7 @@ Rails.application.routes.draw do
               post :mute
               post :unmute
               post :transcript
+              post :external_ticket
               post :toggle_status
               post :toggle_priority
               post :toggle_typing_status
@@ -232,6 +233,7 @@ Rails.application.routes.draw do
             end
             member do
               get :contactable_inboxes
+              post :match_crm
               post :destroy_custom_attributes
               delete :avatar
             end

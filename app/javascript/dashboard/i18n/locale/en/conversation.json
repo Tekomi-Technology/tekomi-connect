@@ -411,13 +411,20 @@
     "SEND_EMAIL_SUCCESS": "The chat transcript was sent successfully",
     "SEND_EMAIL_ERROR": "There was an error, please try again",
     "SEND_EMAIL_PAYMENT_REQUIRED": "Email transcript is not available on your current plan. Please upgrade to use this feature.",
+    "SEND_EXTERNAL_SYSTEM_SUCCESS": "The conversation was sent to the external system successfully",
+    "SEND_EXTERNAL_SYSTEM_ERROR": "There was an error sending to the external system, please try again",
     "FORM": {
       "SEND_TO_CONTACT": "Send the transcript to the customer",
       "SEND_TO_AGENT": "Send the transcript to the assigned agent",
       "SEND_TO_OTHER_EMAIL_ADDRESS": "Send the transcript to another email address",
+      "SEND_TO_EXTERNAL_SYSTEM": "Send the conversation to another system",
+      "EXTERNAL_SYSTEM_DISABLED_HINT": "Match this contact with the CRM in the sidebar before sending",
       "EMAIL": {
         "PLACEHOLDER": "Enter an email address",
         "ERROR": "Please enter a valid email address"
+      },
+      "NOTE": {
+        "PLACEHOLDER": "Add a note (optional)"
       }
     }
   },
@@ -461,6 +468,7 @@
       "CONVERSATION_ACTIONS": "Conversation Actions",
       "CONVERSATION_LABELS": "Conversation Labels",
       "CONVERSATION_INFO": "Conversation Information",
+      "CRM_INFO": "CRM Information",
       "CONTACT_NOTES": "Contact Notes",
       "CONTACT_ATTRIBUTES": "Contact Attributes",
       "PREVIOUS_CONVERSATION": "Previous Conversations",
@@ -468,6 +476,11 @@
       "LINEAR_ISSUES": "Linked Linear Issues",
       "SHOPIFY_ORDERS": "Shopify Orders",
       "SHARED_FILES": "Attachments"
+    },
+    "CRM_INFO": {
+      "USERID_LABEL": "CRM ID",
+      "RELOAD": "Reload",
+      "NOT_FOUND": "Could not find this customer in the CRM"
     },
     "SHARED_FILES": {
       "EMPTY": "No attachments yet",

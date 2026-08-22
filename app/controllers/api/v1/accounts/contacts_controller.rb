@@ -13,7 +13,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
 
   before_action :check_authorization
   before_action :set_current_page, only: [:index, :active, :search, :filter]
-  before_action :fetch_contact, only: [:show, :update, :destroy, :avatar, :contactable_inboxes, :destroy_custom_attributes]
+  before_action :fetch_contact, only: [:show, :update, :destroy, :avatar, :contactable_inboxes, :destroy_custom_attributes, :match_crm]
   before_action :set_include_contact_inboxes, only: [:index, :active, :search, :filter, :show, :update]
 
   def index
@@ -74,6 +74,18 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   def contactable_inboxes
     @all_contactable_inboxes = Contacts::ContactableInboxesService.new(contact: @contact).get
     @contactable_inboxes = @all_contactable_inboxes.select { |contactable_inbox| policy(contactable_inbox[:inbox]).show? }
+  end
+
+  def match_crm
+    client = Crm::Perfex::Api::CustomerClient.new(
+      base_url: ENV.fetch('EXTERNAL_TICKET_SYSTEM_URL'),
+      api_key: ENV.fetch('EXTERNAL_TICKET_SYSTEM_API_KEY')
+    )
+    Crm::Perfex::CustomerMatcherService.new(client).match_one(@contact)
+    render json: @contact.reload.additional_attributes
+  rescue Crm::Perfex::Api::BaseClient::ApiError => e
+    Rails.logger.error "Crm::Perfex customer match failed for contact #{@contact.id}: #{e.message}"
+    render json: { error: 'crm_unreachable' }, status: :bad_gateway
   end
 
   # TODO : refactor this method into dedicated contacts/custom_attributes controller class and routes

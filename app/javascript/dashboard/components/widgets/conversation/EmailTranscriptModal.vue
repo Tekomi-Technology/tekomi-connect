@@ -25,6 +25,7 @@ export default {
   data() {
     return {
       email: '',
+      note: '',
       selectedType: '',
       isSubmitting: false,
     };
@@ -47,6 +48,15 @@ export default {
     },
     sentToOtherEmailAddress() {
       return this.selectedType === 'other_email_address';
+    },
+    sentToExternalSystem() {
+      return this.selectedType === 'other_system';
+    },
+    isCrmMatched() {
+      const senderId = this.currentChat.meta?.sender?.id;
+      if (!senderId) return false;
+      const contact = this.$store.getters['contacts/getContact'](senderId);
+      return !!contact?.additional_attributes?.external?.perfex_id;
     },
     isFormValid() {
       if (this.selectedType) {
@@ -78,16 +88,26 @@ export default {
     async onSubmit() {
       this.isSubmitting = false;
       try {
-        await this.$store.dispatch('sendEmailTranscript', {
-          email: this.selectedEmailAddress,
-          conversationId: this.currentChat.id,
-        });
-        useAlert(this.$t('EMAIL_TRANSCRIPT.SEND_EMAIL_SUCCESS'));
+        if (this.sentToExternalSystem) {
+          await this.$store.dispatch('sendConversationToExternalSystem', {
+            conversationId: this.currentChat.id,
+            note: this.note,
+          });
+          useAlert(this.$t('EMAIL_TRANSCRIPT.SEND_EXTERNAL_SYSTEM_SUCCESS'));
+        } else {
+          await this.$store.dispatch('sendEmailTranscript', {
+            email: this.selectedEmailAddress,
+            conversationId: this.currentChat.id,
+          });
+          useAlert(this.$t('EMAIL_TRANSCRIPT.SEND_EMAIL_SUCCESS'));
+        }
         this.onCancel();
       } catch (error) {
         const status = error?.response?.status;
         if (status === 402) {
           useAlert(this.$t('EMAIL_TRANSCRIPT.SEND_EMAIL_PAYMENT_REQUIRED'));
+        } else if (this.sentToExternalSystem) {
+          useAlert(this.$t('EMAIL_TRANSCRIPT.SEND_EXTERNAL_SYSTEM_ERROR'));
         } else {
           useAlert(this.$t('EMAIL_TRANSCRIPT.SEND_EMAIL_ERROR'));
         }
@@ -152,6 +172,30 @@ export default {
             <label for="other_email_address">{{
               $t('EMAIL_TRANSCRIPT.FORM.SEND_TO_OTHER_EMAIL_ADDRESS')
             }}</label>
+          </div>
+          <div class="flex items-center gap-2">
+            <input
+              id="other_system"
+              v-model="selectedType"
+              type="radio"
+              name="selectedType"
+              value="other_system"
+              :disabled="!isCrmMatched"
+            />
+            <label for="other_system">{{
+              $t('EMAIL_TRANSCRIPT.FORM.SEND_TO_EXTERNAL_SYSTEM')
+            }}</label>
+            <span v-if="!isCrmMatched" class="text-xs text-n-slate-11">
+              {{ $t('EMAIL_TRANSCRIPT.FORM.EXTERNAL_SYSTEM_DISABLED_HINT') }}
+            </span>
+          </div>
+          <div v-if="sentToExternalSystem" class="w-full mt-1">
+            <textarea
+              v-model="note"
+              rows="3"
+              class="w-full"
+              :placeholder="$t('EMAIL_TRANSCRIPT.FORM.NOTE.PLACEHOLDER')"
+            />
           </div>
           <div v-if="sentToOtherEmailAddress" class="w-[50%] mt-1">
             <label :class="{ error: v$.email.$error }">

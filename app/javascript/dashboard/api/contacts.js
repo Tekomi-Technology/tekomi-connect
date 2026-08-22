@@ -43,6 +43,10 @@ class ContactAPI extends ApiClient {
     return axios.get(`${this.url}/${contactId}/contactable_inboxes`);
   }
 
+  matchCrm(contactId) {
+    return axios.post(`${this.url}/${contactId}/match_crm`);
+  }
+
   getContactLabels(contactId) {
     return axios.get(`${this.url}/${contactId}/labels`);
   }

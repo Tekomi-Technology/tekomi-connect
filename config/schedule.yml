@@ -20,6 +20,12 @@ trigger_hourly_scheduled_items_job:
   class: 'Internal::TriggerHourlyScheduledItemsJob'
   queue: scheduled_jobs
 
+# executed hourly — matches unmatched Chatwoot contacts against the Perfex CRM customer list
+crm_perfex_sync_customers_job:
+  cron: '15 * * * *'
+  class: 'Crm::Perfex::SyncCustomersJob'
+  queue: scheduled_jobs
+
 # executed At every minute..
 trigger_imap_email_inboxes_job:
   cron: '*/1 * * * *'

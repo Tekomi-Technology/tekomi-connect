@@ -481,6 +481,13 @@ const actions = {
     await ConversationApi.sendEmailTranscript({ conversationId, email });
   },
 
+  sendConversationToExternalSystem: async (_, { conversationId, note }) => {
+    await ConversationApi.sendConversationToExternalSystem({
+      conversationId,
+      note,
+    });
+  },
+
   updateCustomAttributes: async (
     { commit },
     { conversationId, customAttributes }

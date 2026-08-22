@@ -241,6 +241,18 @@ export const actions = {
     }
   },
 
+  matchCrm: async ({ commit }, id) => {
+    try {
+      const response = await ContactAPI.matchCrm(id);
+      commit(types.SET_CONTACT_ITEM, {
+        id: Number(id),
+        additional_attributes: response.data,
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+
   fetchContactableInbox: async ({ commit }, id) => {
     commit(types.SET_CONTACT_UI_FLAG, { isFetchingInboxes: true });
     try {

@@ -18,6 +18,7 @@ import ContactNotes from './contact/ContactNotes.vue';
 import ConversationInfo from './ConversationInfo.vue';
 import CustomAttributes from './customAttributes/CustomAttributes.vue';
 import SharedFiles from './SharedFiles.vue';
+import CrmInfoPanel from 'dashboard/components/widgets/conversation/CrmInfoPanel.vue';
 import Draggable from 'vuedraggable';
 import MacrosList from './Macros/List.vue';
 import ShopifyOrdersList from 'dashboard/components/widgets/conversation/ShopifyOrdersList.vue';
@@ -218,6 +219,16 @@ onMounted(() => {
                   $t('CONVERSATION_CUSTOM_ATTRIBUTES.NO_RECORDS_FOUND')
                 "
               />
+            </AccordionItem>
+          </div>
+          <div v-else-if="element.name === 'crm_info'">
+            <AccordionItem
+              :title="$t('CONVERSATION_SIDEBAR.ACCORDION.CRM_INFO')"
+              :is-open="isContactSidebarItemOpen('is_crm_info_open')"
+              compact
+              @toggle="value => toggleSidebarUIState('is_crm_info_open', value)"
+            >
+              <CrmInfoPanel :contact-id="contactId" />
             </AccordionItem>
           </div>
           <div v-else-if="element.name === 'previous_conversation'">

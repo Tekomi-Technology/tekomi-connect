@@ -114,6 +114,12 @@ class ConversationApi extends ApiClient {
     return axios.post(`${this.url}/${conversationId}/transcript`, { email });
   }
 
+  sendConversationToExternalSystem({ conversationId, note }) {
+    return axios.post(`${this.url}/${conversationId}/external_ticket`, {
+      note,
+    });
+  }
+
   updateCustomAttributes({ conversationId, customAttributes }) {
     return axios.post(`${this.url}/${conversationId}/custom_attributes`, {
       custom_attributes: customAttributes,

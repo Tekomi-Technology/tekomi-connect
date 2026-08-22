@@ -1216,6 +1216,55 @@ RSpec.describe 'Conversations API', type: :request do
     end
   end
 
+  describe 'POST /api/v1/accounts/{account.id}/conversations/:id/external_ticket' do
+    let(:contact) { create(:contact, account: account) }
+    let(:conversation) { create(:conversation, account: account, contact: contact) }
+
+    context 'when it is an unauthenticated user' do
+      it 'returns unauthorized' do
+        post "/api/v1/accounts/#{account.id}/conversations/#{conversation.display_id}/external_ticket"
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when it is an authenticated user' do
+      let(:agent) { create(:user, account: account, role: :agent) }
+
+      before do
+        create(:inbox_member, user: agent, inbox: conversation.inbox)
+      end
+
+      context 'when the contact is not matched with the CRM' do
+        it 'returns unprocessable_entity' do
+          post "/api/v1/accounts/#{account.id}/conversations/#{conversation.display_id}/external_ticket",
+               headers: agent.create_new_auth_token,
+               params: { note: 'Please check' },
+               as: :json
+
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+      end
+
+      context 'when the contact is matched with the CRM' do
+        before do
+          contact.update!(additional_attributes: { 'external' => { 'perfex_id' => '1' } })
+        end
+
+        it 'enqueues the ticket delivery job' do
+          expect do
+            post "/api/v1/accounts/#{account.id}/conversations/#{conversation.display_id}/external_ticket",
+                 headers: agent.create_new_auth_token,
+                 params: { note: 'Please check' },
+                 as: :json
+          end.to have_enqueued_job(Crm::Perfex::TicketDeliveryJob).with(conversation, 'Please check')
+
+          expect(response).to have_http_status(:success)
+        end
+      end
+    end
+  end
+
   describe 'POST /api/v1/accounts/{account.id}/conversations/:id/custom_attributes' do
     let(:conversation) { create(:conversation, account: account) }
 

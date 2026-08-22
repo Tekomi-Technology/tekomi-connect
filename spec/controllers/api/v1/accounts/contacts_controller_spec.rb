@@ -789,6 +789,44 @@ RSpec.describe 'Contacts API', type: :request do
     end
   end
 
+  describe 'POST /api/v1/accounts/{account.id}/contacts/:id/match_crm' do
+    let!(:contact) { create(:contact, account: account, phone_number: '+842437758899') }
+    let(:matcher) { instance_double(Crm::Perfex::CustomerMatcherService) }
+
+    before do
+      allow(Crm::Perfex::CustomerMatcherService).to receive(:new).and_return(matcher)
+    end
+
+    context 'when it is an unauthenticated user' do
+      it 'returns unauthorized' do
+        post "/api/v1/accounts/#{account.id}/contacts/#{contact.id}/match_crm"
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when it is an authenticated user' do
+      let(:admin) { create(:user, account: account, role: :administrator) }
+
+      it 'matches the contact and returns the updated additional_attributes' do
+        allow(matcher).to receive(:match_one) do |c|
+          c.update!(additional_attributes: { 'external' => { 'perfex_id' => '1' }, 'crm' => { 'company' => 'Acme' } })
+          c
+        end
+
+        with_modified_env(EXTERNAL_TICKET_SYSTEM_URL: 'https://crm.techxanh.com/rest_api/v1/',
+                           EXTERNAL_TICKET_SYSTEM_API_KEY: 'test-key') do
+          post "/api/v1/accounts/#{account.id}/contacts/#{contact.id}/match_crm",
+               headers: admin.create_new_auth_token,
+               as: :json
+        end
+
+        expect(response).to have_http_status(:success)
+        expect(response.parsed_body.dig('external', 'perfex_id')).to eq('1')
+      end
+    end
+  end
+
   describe 'DELETE /api/v1/accounts/{account.id}/contacts/:id/avatar' do
     let(:contact) { create(:contact, account: account) }
     let(:agent) { create(:user, account: account, role: :agent) }

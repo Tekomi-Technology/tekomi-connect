@@ -47,6 +47,10 @@ class ContactPolicy < ApplicationPolicy
     true
   end
 
+  def match_crm?
+    true
+  end
+
   def destroy?
     @account_user.administrator?
   end
