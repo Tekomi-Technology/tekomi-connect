@@ -528,6 +528,26 @@ RSpec.describe 'Inboxes API', type: :request do
         expect(response.body).to include('+123456789')
       end
 
+      it 'creates a phone inbox when administrator' do
+        post "/api/v1/accounts/#{account.id}/inboxes",
+             headers: admin.create_new_auth_token,
+             params: {
+               name: 'PBX Phone',
+               channel: {
+                 type: 'phone',
+                 wss_url: 'wss://pbx.example.com:7443',
+                 sip_domain: 'pbx.example.com',
+                 sip_username: 'agent1001',
+                 sip_password: 'secret-password'
+               }
+             },
+             as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include('PBX Phone')
+        expect(Channel::Phone.last.sip_username).to eq('agent1001')
+      end
+
       it 'creates the webwidget inbox that allow messages after conversation is resolved' do
         post "/api/v1/accounts/#{account.id}/inboxes",
              headers: admin.create_new_auth_token,
@@ -538,6 +558,34 @@ RSpec.describe 'Inboxes API', type: :request do
         json_response = response.parsed_body
         expect(json_response['allow_messages_after_resolved']).to be true
       end
+    end
+  end
+
+  describe 'GET /api/v1/accounts/{account.id}/inboxes/{inbox.id}/phone_credentials' do
+    let(:phone_channel) { create(:channel_phone, account: account) }
+    let(:inbox) { phone_channel.inbox }
+
+    it 'returns SIP credentials to an assigned agent' do
+      create(:inbox_member, user: agent, inbox: inbox)
+
+      get "/api/v1/accounts/#{account.id}/inboxes/#{inbox.id}/phone_credentials",
+          headers: agent.create_new_auth_token,
+          as: :json
+
+      expect(response).to have_http_status(:success)
+      expect(response.parsed_body).to include(
+        'sip_username' => phone_channel.sip_username,
+        'sip_password' => phone_channel.sip_password,
+        'wss_url' => phone_channel.wss_url
+      )
+    end
+
+    it 'rejects an unassigned agent' do
+      get "/api/v1/accounts/#{account.id}/inboxes/#{inbox.id}/phone_credentials",
+          headers: agent.create_new_auth_token,
+          as: :json
+
+      expect(response).to have_http_status(:unauthorized)
     end
   end
 

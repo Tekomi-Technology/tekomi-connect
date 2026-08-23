@@ -15,6 +15,19 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
 
   def show; end
 
+  def phone_credentials
+    return head :not_found unless @inbox.phone?
+
+    render json: {
+      inbox_id: @inbox.id,
+      wss_url: @inbox.channel.wss_url,
+      sip_domain: @inbox.channel.sip_domain,
+      sip_username: @inbox.channel.sip_username,
+      sip_password: @inbox.channel.sip_password,
+      stun_url: @inbox.channel.stun_url
+    }
+  end
+
   # Deprecated: This API will be removed in 2.7.0
   def assignable_agents
     @assignable_agents = @inbox.assignable_agents
@@ -105,7 +118,7 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   end
 
   def allowed_channel_types
-    %w[web_widget api email line telegram whatsapp sms]
+    %w[web_widget api email line telegram whatsapp sms phone]
   end
 
   def update_inbox_working_hours
@@ -215,7 +228,8 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
       'line' => Channel::Line,
       'telegram' => Channel::Telegram,
       'whatsapp' => Channel::Whatsapp,
-      'sms' => Channel::Sms
+      'sms' => Channel::Sms,
+      'phone' => Channel::Phone
     }[permitted_params[:channel][:type]]
   end
 

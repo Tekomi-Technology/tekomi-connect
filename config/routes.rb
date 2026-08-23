@@ -301,6 +301,7 @@ Rails.application.routes.draw do
             post :sync_templates, on: :member
             put :whatsapp_business_management_token, on: :member
             get :health, on: :member
+            get :phone_credentials, on: :member
             post :register_webhook, on: :member
             post :reset_secret, on: :member
             if ChatwootApp.enterprise?
