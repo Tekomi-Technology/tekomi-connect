@@ -676,6 +676,7 @@ Rails.application.routes.draw do
   post 'webhooks/tiktok', to: 'webhooks/tiktok#events'
   post 'webhooks/shopify', to: 'webhooks/shopify#events'
   post 'webhooks/zalo_oa', to: 'webhooks/zalo_oa#process_payload'
+  post 'webhooks/pbx/calls', to: 'webhooks/pbx/calls#process_payload'
   get 'zalo_oa/callback', to: 'zalo_oa/callbacks#show'
 
   namespace :twitter do
