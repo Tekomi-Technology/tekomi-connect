@@ -44,6 +44,7 @@ const emit = defineEmits([
   'search',
   'applyFilter',
   'clearFilters',
+  'reload',
 ]);
 
 const { t } = useI18n();
@@ -290,6 +291,7 @@ defineExpose({
     @filter="onToggleFilters"
     @create-segment="openCreateSegmentDialog"
     @delete-segment="openDeleteSegmentDialog"
+    @reload="emit('reload')"
   >
     <template #filter>
       <div

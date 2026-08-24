@@ -32,6 +32,7 @@ const emit = defineEmits([
   'applyFilter',
   'clearFilters',
   'loadMore',
+  'reload',
 ]);
 
 const route = useRoute();
@@ -97,6 +98,7 @@ const showPagination = computed(() => {
         @search="emit('search', $event)"
         @apply-filter="emit('applyFilter', $event)"
         @clear-filters="emit('clearFilters')"
+        @reload="emit('reload')"
       />
       <main class="flex-1 overflow-y-auto px-6">
         <div class="w-full mx-auto max-w-5xl">

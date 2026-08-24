@@ -12,19 +12,25 @@ class Crm::Perfex::Mappers::TicketMessageFormatter
   end
 
   def transcript_text
-    return I18n.t('crm.no_message') if transcript_messages.empty?
-
-    I18n.t('crm.transcript_activity',
-           brand_name: brand_name,
-           channel_info: conversation.inbox.name,
-           display_id: conversation.display_id,
-           url: conversation_url,
-           format_messages: format_messages)
+    I18n.with_locale(:en) { build_transcript_text }
   end
 
   private
 
   attr_reader :conversation
+
+  def build_transcript_text
+    return I18n.t('crm.no_message') if transcript_messages.empty?
+
+    text = I18n.t('crm.ticket_message',
+                   brand_name: escape(brand_name),
+                   channel_info: escape(conversation.inbox.inbox_type),
+                   company_line: company_line,
+                   url: conversation_url_html,
+                   format_messages: format_messages)
+
+    text.gsub("\n", '<br>')
+  end
 
   def transcript_messages
     @transcript_messages ||= conversation.messages.chat.select(&:conversation_transcriptable?)
@@ -50,7 +56,7 @@ class Crm::Perfex::Mappers::TicketMessageFormatter
 
   def format_message(message)
     <<~MESSAGE.strip
-      [#{message_time(message)}] #{sender_name(message)}: #{message_content(message)}#{attachment_info(message)}
+      [#{message_time(message)}] #{escape(sender_name(message))}: #{escape(message_content(message))}#{attachment_info(message)}
     MESSAGE
   end
 
@@ -71,15 +77,31 @@ class Crm::Perfex::Mappers::TicketMessageFormatter
   def attachment_info(message)
     return '' unless message.attachments.any?
 
-    attachments = message.attachments.map { |a| I18n.t('crm.attachment', type: a.file_type) }.join(', ')
+    attachments = message.attachments.map { |a| I18n.t('crm.attachment', type: escape(a.file_type)) }.join(', ')
     "\n#{attachments}"
+  end
+
+  def company_line
+    company_name = conversation.contact.additional_attributes['company_name']
+    return '' if company_name.blank?
+
+    "\nCompany: #{escape(company_name)}"
   end
 
   def conversation_url
     app_account_conversation_url(account_id: conversation.account.id, id: conversation.display_id)
   end
 
+  def conversation_url_html
+    url = conversation_url
+    "<a href=\"#{url}\">#{url}</a>"
+  end
+
   def brand_name
     ::GlobalConfig.get('BRAND_NAME')['BRAND_NAME'] || 'Chatwoot'
+  end
+
+  def escape(text)
+    ERB::Util.html_escape(text)
   end
 end

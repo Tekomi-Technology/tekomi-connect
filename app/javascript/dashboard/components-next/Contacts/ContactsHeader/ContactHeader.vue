@@ -31,6 +31,7 @@ const emit = defineEmits([
   'export',
   'createSegment',
   'deleteSegment',
+  'reload',
 ]);
 const { t } = useI18n();
 const store = useStore();
@@ -39,11 +40,9 @@ const isSyncingCrm = ref(false);
 const syncCrm = async () => {
   isSyncingCrm.value = true;
   try {
-    const { created } = await store.dispatch('contacts/syncCrm');
-    useAlert(t('CONTACTS_LAYOUT.HEADER.SYNC_CRM_SUCCESS', { count: created }));
-    if (created > 0) {
-      window.location.reload();
-    }
+    const { imported } = await store.dispatch('contacts/syncCrm');
+    useAlert(t('CONTACTS_LAYOUT.HEADER.SYNC_CRM_SUCCESS', { count: imported }));
+    emit('reload');
   } catch (error) {
     useAlert(error.message);
   } finally {
@@ -139,6 +138,7 @@ const syncCrm = async () => {
             slate
             size="sm"
             :is-loading="isSyncingCrm"
+            :disabled="isSyncingCrm"
             :label="t('CONTACTS_LAYOUT.HEADER.SYNC_CRM_BUTTON')"
             @click="syncCrm"
           />

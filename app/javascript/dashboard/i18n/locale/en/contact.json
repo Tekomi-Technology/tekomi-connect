@@ -299,7 +299,7 @@
       "SEARCH_PLACEHOLDER": "Search...",
       "MESSAGE_BUTTON": "Message",
       "SYNC_CRM_BUTTON": "Reload",
-      "SYNC_CRM_SUCCESS": "Imported {count} new contact(s) from the CRM",
+      "SYNC_CRM_SUCCESS": "Added {count} new contact(s) from the CRM",
       "SEND_MESSAGE": "Send message",
       "BLOCK_CONTACT": "Block contact",
       "UNBLOCK_CONTACT": "Unblock contact",

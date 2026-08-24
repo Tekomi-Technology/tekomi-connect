@@ -89,14 +89,15 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   end
 
   def sync_crm
-    client = Crm::Perfex::Api::CustomerClient.new(
+    client = Crm::Perfex::Api::ContactClient.new(
       base_url: ENV.fetch('EXTERNAL_TICKET_SYSTEM_URL'),
       api_key: ENV.fetch('EXTERNAL_TICKET_SYSTEM_API_KEY')
     )
-    created_count = Crm::Perfex::CustomerImporterService.new(client, Current.account).import_all
-    render json: { created: created_count }
+    matched_count = Crm::Perfex::ContactMatcherService.new(client).match_all(Current.account.contacts)
+    imported_count = Crm::Perfex::ContactImporterService.new(client, Current.account).import_all
+    render json: { matched: matched_count, imported: imported_count }
   rescue Crm::Perfex::Api::BaseClient::ApiError => e
-    Rails.logger.error "Crm::Perfex customer import failed: #{e.message}"
+    Rails.logger.error "Crm::Perfex contact sync failed: #{e.message}"
     render json: { error: 'crm_unreachable' }, status: :bad_gateway
   end
 

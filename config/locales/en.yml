@@ -597,6 +597,12 @@ en:
 
       Transcript:
       %{format_messages}
+    ticket_message: |
+      Channel: %{channel_info}%{company_line}
+      View in %{brand_name}: %{url}
+
+      Transcript:
+      %{format_messages}
   agent_capacity_policy:
     inbox_already_assigned: 'Inbox has already been assigned to this policy'
   portals:

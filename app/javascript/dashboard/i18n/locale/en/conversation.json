@@ -417,7 +417,7 @@
       "SEND_TO_CONTACT": "Send the transcript to the customer",
       "SEND_TO_AGENT": "Send the transcript to the assigned agent",
       "SEND_TO_OTHER_EMAIL_ADDRESS": "Send the transcript to another email address",
-      "SEND_TO_EXTERNAL_SYSTEM": "Send the conversation to another system",
+      "SEND_TO_EXTERNAL_SYSTEM": "Send the Ticket to CRM system",
       "EXTERNAL_SYSTEM_DISABLED_HINT": "Match this contact with the CRM in the sidebar before sending",
       "EMAIL": {
         "PLACEHOLDER": "Enter an email address",

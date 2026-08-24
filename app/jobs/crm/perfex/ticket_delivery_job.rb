@@ -7,14 +7,15 @@ class Crm::Perfex::TicketDeliveryJob < ApplicationJob
     customer_id = contact.additional_attributes.dig('external', 'perfex_customer_id')
     return if contact_id.blank?
 
-    message = "#{Crm::Perfex::Mappers::TicketMessageFormatter.transcript_text(conversation)}\n\n---\nGhi chú: #{note}"
+    transcript = Crm::Perfex::Mappers::TicketMessageFormatter.transcript_text(conversation)
+    message = "#{transcript}<br><br>---<br>Ghi chú: #{ERB::Util.html_escape(note)}"
 
     client = Crm::Perfex::Api::TicketClient.new(
       base_url: ENV.fetch('EXTERNAL_TICKET_SYSTEM_URL'),
       api_key: ENV.fetch('EXTERNAL_TICKET_SYSTEM_API_KEY')
     )
     client.create_ticket(
-      subject: "[Chatwoot ##{conversation.display_id}] #{contact.name}",
+      subject: "[Tekomi Chatbot] #{contact.name}",
       message: message,
       department: ENV.fetch('EXTERNAL_TICKET_DEPARTMENT_ID'),
       userid: customer_id,
