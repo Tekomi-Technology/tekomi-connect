@@ -18,7 +18,9 @@ const additionalAttributes = computed(
   () => contact.value.additional_attributes || {}
 );
 
-const perfexId = computed(() => additionalAttributes.value.external?.perfex_id);
+const perfexId = computed(
+  () => additionalAttributes.value.external?.perfex_contact_id
+);
 const crmInfo = computed(() => additionalAttributes.value.crm || {});
 const hasFailed = computed(
   () => !!crmInfo.value.match_failed_at && !perfexId.value
@@ -42,7 +44,7 @@ const reload = async () => {
   <div class="px-4 py-2 text-n-slate-12">
     <div v-if="perfexId">
       <p class="text-sm font-medium text-n-slate-12">
-        {{ crmInfo.company }}
+        {{ crmInfo.name }}
       </p>
       <p class="text-xs text-n-slate-11">
         {{ $t('CONVERSATION_SIDEBAR.CRM_INFO.USERID_LABEL') }}: {{ perfexId }}

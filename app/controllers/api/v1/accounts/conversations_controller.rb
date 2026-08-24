@@ -80,8 +80,8 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
   end
 
   def external_ticket
-    userid = @conversation.contact.additional_attributes.dig('external', 'perfex_id')
-    return render json: { error: 'contact not matched with crm' }, status: :unprocessable_entity if userid.blank?
+    contact_id = @conversation.contact.additional_attributes.dig('external', 'perfex_contact_id')
+    return render json: { error: 'contact not matched with crm' }, status: :unprocessable_entity if contact_id.blank?
 
     Crm::Perfex::TicketDeliveryJob.perform_later(@conversation, params[:note])
     head :ok

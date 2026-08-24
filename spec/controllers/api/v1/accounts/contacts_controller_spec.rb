@@ -791,10 +791,10 @@ RSpec.describe 'Contacts API', type: :request do
 
   describe 'POST /api/v1/accounts/{account.id}/contacts/:id/match_crm' do
     let!(:contact) { create(:contact, account: account, phone_number: '+842437758899') }
-    let(:matcher) { instance_double(Crm::Perfex::CustomerMatcherService) }
+    let(:matcher) { instance_double(Crm::Perfex::ContactMatcherService) }
 
     before do
-      allow(Crm::Perfex::CustomerMatcherService).to receive(:new).and_return(matcher)
+      allow(Crm::Perfex::ContactMatcherService).to receive(:new).and_return(matcher)
     end
 
     context 'when it is an unauthenticated user' do

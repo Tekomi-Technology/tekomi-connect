@@ -3,8 +3,9 @@ class Crm::Perfex::TicketDeliveryJob < ApplicationJob
 
   def perform(conversation, note)
     contact = conversation.contact
-    userid = contact.additional_attributes.dig('external', 'perfex_id')
-    return if userid.blank?
+    contact_id = contact.additional_attributes.dig('external', 'perfex_contact_id')
+    customer_id = contact.additional_attributes.dig('external', 'perfex_customer_id')
+    return if contact_id.blank?
 
     message = "#{Crm::Perfex::Mappers::TicketMessageFormatter.transcript_text(conversation)}\n\n---\nGhi chú: #{note}"
 
@@ -16,7 +17,8 @@ class Crm::Perfex::TicketDeliveryJob < ApplicationJob
       subject: "[Chatwoot ##{conversation.display_id}] #{contact.name}",
       message: message,
       department: ENV.fetch('EXTERNAL_TICKET_DEPARTMENT_ID'),
-      userid: userid
+      userid: customer_id,
+      contactid: contact_id
     )
   rescue Crm::Perfex::Api::BaseClient::ApiError => e
     Rails.logger.error "Crm::Perfex::TicketDeliveryJob failed for conversation #{conversation.id}: #{e.message}"

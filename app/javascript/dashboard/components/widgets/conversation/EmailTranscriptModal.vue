@@ -56,7 +56,7 @@ export default {
       const senderId = this.currentChat.meta?.sender?.id;
       if (!senderId) return false;
       const contact = this.$store.getters['contacts/getContact'](senderId);
-      return !!contact?.additional_attributes?.external?.perfex_id;
+      return !!contact?.additional_attributes?.external?.perfex_contact_id;
     },
     isFormValid() {
       if (this.selectedType) {
