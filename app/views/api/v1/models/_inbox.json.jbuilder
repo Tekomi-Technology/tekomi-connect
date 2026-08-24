@@ -127,6 +127,14 @@ end
 
 json.provider resource.channel.try(:provider)
 
+if resource.phone? && Current.account_user&.administrator?
+  json.wss_url resource.channel.wss_url
+  json.sip_domain resource.channel.sip_domain
+  json.ice_servers resource.channel.ice_servers
+  json.turn_credential_ttl resource.channel.turn_credential_ttl
+  json.turn_configured resource.channel.turn_configured?
+end
+
 ## Telegram Attributes
 json.bot_name resource.channel.try(:bot_name) if resource.telegram?
 

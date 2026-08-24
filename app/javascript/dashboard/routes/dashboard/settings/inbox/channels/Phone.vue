@@ -16,9 +16,9 @@ const form = reactive({
   name: '',
   wssUrl: '',
   sipDomain: '',
-  sipUsername: '',
-  sipPassword: '',
   stunUrl: '',
+  turnUrls: '',
+  turnSharedSecret: '',
 });
 
 const isCreating = computed(
@@ -29,8 +29,7 @@ const isValid = computed(() => {
     form.name.trim() &&
     form.wssUrl.trim().startsWith('wss://') &&
     form.sipDomain.trim() &&
-    form.sipUsername.trim() &&
-    form.sipPassword
+    (!form.turnUrls.trim() || form.turnSharedSecret)
   );
 });
 
@@ -41,15 +40,24 @@ const createChannel = async () => {
   }
 
   try {
+    const iceServers = [];
+    if (form.stunUrl.trim()) {
+      iceServers.push({ urls: [form.stunUrl.trim()] });
+    }
+    const turnUrls = form.turnUrls
+      .split(/[\n,]/)
+      .map(url => url.trim())
+      .filter(Boolean);
+    if (turnUrls.length) iceServers.push({ urls: turnUrls });
+
     const inbox = await store.dispatch('inboxes/createChannel', {
       name: form.name.trim(),
       channel: {
         type: 'phone',
         wss_url: form.wssUrl.trim(),
         sip_domain: form.sipDomain.trim(),
-        sip_username: form.sipUsername.trim(),
-        sip_password: form.sipPassword,
-        stun_url: form.stunUrl.trim() || null,
+        ice_servers: iceServers,
+        turn_shared_secret: form.turnSharedSecret || null,
       },
     });
 
@@ -106,26 +114,6 @@ const createChannel = async () => {
       </label>
 
       <label class="flex flex-col gap-1 text-sm font-medium text-n-slate-12">
-        {{ $t('INBOX_MGMT.ADD.PHONE_CHANNEL.SIP_USERNAME') }}
-        <input
-          v-model="form.sipUsername"
-          class="h-10 rounded-lg border border-n-weak bg-n-alpha-2 px-3 font-normal outline-none focus:border-n-brand"
-          type="text"
-          autocomplete="username"
-        />
-      </label>
-
-      <label class="flex flex-col gap-1 text-sm font-medium text-n-slate-12">
-        {{ $t('INBOX_MGMT.ADD.PHONE_CHANNEL.SIP_PASSWORD') }}
-        <input
-          v-model="form.sipPassword"
-          class="h-10 rounded-lg border border-n-weak bg-n-alpha-2 px-3 font-normal outline-none focus:border-n-brand"
-          type="password"
-          autocomplete="new-password"
-        />
-      </label>
-
-      <label class="flex flex-col gap-1 text-sm font-medium text-n-slate-12">
         {{ $t('INBOX_MGMT.ADD.PHONE_CHANNEL.STUN_URL') }}
         <input
           v-model="form.stunUrl"
@@ -133,6 +121,26 @@ const createChannel = async () => {
           type="text"
           :placeholder="$t('INBOX_MGMT.ADD.PHONE_CHANNEL.STUN_PLACEHOLDER')"
           autocomplete="off"
+        />
+      </label>
+
+      <label class="flex flex-col gap-1 text-sm font-medium text-n-slate-12">
+        {{ $t('INBOX_MGMT.ADD.PHONE_CHANNEL.TURN_URLS') }}
+        <textarea
+          v-model="form.turnUrls"
+          rows="2"
+          class="rounded-lg border border-n-weak bg-n-alpha-2 px-3 py-2 font-normal outline-none focus:border-n-brand"
+          :placeholder="$t('INBOX_MGMT.ADD.PHONE_CHANNEL.TURN_PLACEHOLDER')"
+        />
+      </label>
+
+      <label class="flex flex-col gap-1 text-sm font-medium text-n-slate-12">
+        {{ $t('INBOX_MGMT.ADD.PHONE_CHANNEL.TURN_SECRET') }}
+        <input
+          v-model="form.turnSharedSecret"
+          class="h-10 rounded-lg border border-n-weak bg-n-alpha-2 px-3 font-normal outline-none focus:border-n-brand"
+          type="password"
+          autocomplete="new-password"
         />
       </label>
 

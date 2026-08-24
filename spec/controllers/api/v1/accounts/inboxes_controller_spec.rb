@@ -537,15 +537,14 @@ RSpec.describe 'Inboxes API', type: :request do
                  type: 'phone',
                  wss_url: 'wss://pbx.example.com:7443',
                  sip_domain: 'pbx.example.com',
-                 sip_username: 'agent1001',
-                 sip_password: 'secret-password'
+                 ice_servers: [{ urls: ['stun:stun.example.com:3478'] }]
                }
              },
              as: :json
 
         expect(response).to have_http_status(:success)
         expect(response.body).to include('PBX Phone')
-        expect(Channel::Phone.last.sip_username).to eq('agent1001')
+        expect(Channel::Phone.last.ice_servers).to eq([{ 'urls' => ['stun:stun.example.com:3478'] }])
       end
 
       it 'creates the webwidget inbox that allow messages after conversation is resolved' do
@@ -567,6 +566,7 @@ RSpec.describe 'Inboxes API', type: :request do
 
     it 'returns SIP credentials to an assigned agent' do
       create(:inbox_member, user: agent, inbox: inbox)
+      extension = create(:phone_extension, inbox: inbox, account: account, user: agent)
 
       get "/api/v1/accounts/#{account.id}/inboxes/#{inbox.id}/phone_credentials",
           headers: agent.create_new_auth_token,
@@ -574,10 +574,21 @@ RSpec.describe 'Inboxes API', type: :request do
 
       expect(response).to have_http_status(:success)
       expect(response.parsed_body).to include(
-        'sip_username' => phone_channel.sip_username,
-        'sip_password' => phone_channel.sip_password,
-        'wss_url' => phone_channel.wss_url
+        'sip_username' => extension.sip_username,
+        'sip_password' => extension.sip_password,
+        'wss_url' => phone_channel.wss_url,
+        'ice_servers' => [{ 'urls' => ['stun:stun.example.com:3478'] }]
       )
+    end
+
+    it 'returns not found when the assigned agent has no enabled extension' do
+      create(:inbox_member, user: agent, inbox: inbox)
+
+      get "/api/v1/accounts/#{account.id}/inboxes/#{inbox.id}/phone_credentials",
+          headers: agent.create_new_auth_token,
+          as: :json
+
+      expect(response).to have_http_status(:not_found)
     end
 
     it 'rejects an unassigned agent' do

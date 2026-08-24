@@ -41,8 +41,8 @@ export const useSoftphoneStore = defineStore('softphone', {
       try {
         const { data } = await InboxesAPI.getPhoneCredentials(inboxId);
         this.sipDomain = data.sip_domain;
-        this.pcConfig = data.stun_url
-          ? { iceServers: [{ urls: data.stun_url }] }
+        this.pcConfig = data.ice_servers?.length
+          ? { iceServers: data.ice_servers }
           : undefined;
         const socket = new JsSIP.WebSocketInterface(data.wss_url);
         const configuration = {

@@ -18,13 +18,15 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   def phone_credentials
     return head :not_found unless @inbox.phone?
 
+    extension = @inbox.phone_extensions.enabled.find_by!(user: Current.user)
+
     render json: {
       inbox_id: @inbox.id,
       wss_url: @inbox.channel.wss_url,
       sip_domain: @inbox.channel.sip_domain,
-      sip_username: @inbox.channel.sip_username,
-      sip_password: @inbox.channel.sip_password,
-      stun_url: @inbox.channel.stun_url
+      sip_username: extension.sip_username,
+      sip_password: extension.sip_password,
+      ice_servers: Phone::IceServerBuilder.new(channel: @inbox.channel, user: Current.user).call
     }
   end
 

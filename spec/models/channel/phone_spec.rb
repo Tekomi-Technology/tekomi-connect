@@ -14,16 +14,21 @@ RSpec.describe Channel::Phone do
     expect(channel.errors[:wss_url]).to be_present
   end
 
-  it 'requires a unique SIP identity per account and domain' do
-    existing_channel = create(:channel_phone)
-    duplicate = build(
-      :channel_phone,
-      account: existing_channel.account,
-      sip_domain: existing_channel.sip_domain,
-      sip_username: existing_channel.sip_username
-    )
+  it 'requires a shared secret for TURN endpoints' do
+    channel.ice_servers = [{ 'urls' => ['turn:turn.example.com:3478'] }]
 
-    expect(duplicate).not_to be_valid
-    expect(duplicate.errors[:sip_username]).to be_present
+    expect(channel).not_to be_valid
+    expect(channel.errors[:turn_shared_secret]).to be_present
+
+    channel.turn_shared_secret = 'coturn-secret'
+
+    expect(channel).to be_valid
+  end
+
+  it 'rejects invalid ICE endpoint schemes' do
+    channel.ice_servers = [{ 'urls' => ['https://turn.example.com'] }]
+
+    expect(channel).not_to be_valid
+    expect(channel.errors[:ice_servers]).to be_present
   end
 end
