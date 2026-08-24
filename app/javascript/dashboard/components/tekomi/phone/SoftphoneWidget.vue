@@ -25,7 +25,7 @@ const dialpad = [
 const inboxes = useMapGetter('inboxes/getInboxes');
 const { t } = useI18n();
 const phoneInbox = computed(() => {
-  return inboxes.value.find(inbox => inbox.channelType === INBOX_TYPES.PHONE);
+  return inboxes.value.find(inbox => inbox.channel_type === INBOX_TYPES.PHONE);
 });
 
 const softphone = useSoftphoneStore();
