@@ -587,6 +587,17 @@ RSpec.describe 'Inboxes API', type: :request do
 
       expect(response).to have_http_status(:unauthorized)
     end
+
+    it 'returns not found for an assigned non-phone inbox' do
+      non_phone_inbox = create(:inbox, account: account)
+      create(:inbox_member, user: agent, inbox: non_phone_inbox)
+
+      get "/api/v1/accounts/#{account.id}/inboxes/#{non_phone_inbox.id}/phone_credentials",
+          headers: agent.create_new_auth_token,
+          as: :json
+
+      expect(response).to have_http_status(:not_found)
+    end
   end
 
   describe 'PATCH /api/v1/accounts/{account.id}/inboxes/:id' do

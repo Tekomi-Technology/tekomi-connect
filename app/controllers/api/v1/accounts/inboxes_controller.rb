@@ -3,7 +3,7 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   before_action :fetch_inbox, except: [:index, :create]
   before_action :fetch_agent_bot, only: [:set_agent_bot]
   # we are already handling the authorization in fetch inbox
-  before_action :check_authorization, except: [:show]
+  before_action :check_authorization, except: [:show, :phone_credentials]
 
   include Api::V1::Accounts::Concerns::WhatsappHealthManagement
 
