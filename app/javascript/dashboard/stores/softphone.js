@@ -76,6 +76,11 @@ export const useSoftphoneStore = defineStore('softphone', {
 
         this.ua = markRaw(new JsSIP.UA(configuration));
         this.ua.on('registered', () => {
+          // JsSIP replaces the plain password with the HA1 calculated for the
+          // REGISTER challenge. FreeSWITCH can challenge an outbound INVITE
+          // with a different realm, so retain the password to let JsSIP build
+          // the matching Proxy-Authorization digest.
+          this.ua.set('password', data.sip_password);
           this.registered = true;
           this.status = this.session ? this.status : 'ready';
           this.error = '';

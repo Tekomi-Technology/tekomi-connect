@@ -11,6 +11,7 @@ const mockUa = {
   }),
   start: vi.fn(),
   stop: vi.fn(),
+  set: vi.fn(),
   call: vi.fn(),
 };
 
@@ -87,6 +88,7 @@ describe('softphone store', () => {
     expect(mockUa.start).toHaveBeenCalled();
 
     uaHandlers.registered();
+    expect(mockUa.set).toHaveBeenCalledWith('password', 'sip-secret');
     store.call('0342387314');
 
     expect(mockUa.call).toHaveBeenCalledWith('sip:0342387314@pbx.example.com', {
