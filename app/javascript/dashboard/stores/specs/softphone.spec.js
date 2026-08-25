@@ -90,9 +90,26 @@ describe('softphone store', () => {
     store.call('0342387314');
 
     expect(mockUa.call).toHaveBeenCalledWith('sip:0342387314@pbx.example.com', {
+      eventHandlers: {
+        icecandidate: expect.any(Function),
+      },
       mediaConstraints: { audio: true, video: false },
       pcConfig: { iceServers, iceTransportPolicy: 'relay' },
     });
+
+    const { icecandidate } = mockUa.call.mock.calls[0][1].eventHandlers;
+    const ready = vi.fn();
+    icecandidate({
+      candidate: { type: 'host', candidate: 'candidate:1 typ host' },
+      ready,
+    });
+    expect(ready).not.toHaveBeenCalled();
+
+    icecandidate({
+      candidate: { type: 'relay', candidate: 'candidate:2 typ relay' },
+      ready,
+    });
+    expect(ready).toHaveBeenCalledOnce();
   });
 
   it('passes ICE servers when answering an inbound call', async () => {
