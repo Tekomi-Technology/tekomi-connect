@@ -6,6 +6,16 @@ import InboxesAPI from 'dashboard/api/inboxes';
 
 const MEDIA_CONSTRAINTS = { audio: true, video: false };
 
+const hasTurnServer = iceServers =>
+  iceServers.some(server =>
+    (Array.isArray(server.urls) ? server.urls : [server.urls]).some(
+      url => url?.startsWith('turn:') || url?.startsWith('turns:')
+    )
+  );
+
+const isRelayCandidate = candidate =>
+  candidate?.type === 'relay' || candidate?.candidate?.includes(' typ relay ');
+
 export const useSoftphoneStore = defineStore('softphone', {
   state: () => ({
     inboxId: null,
@@ -41,8 +51,14 @@ export const useSoftphoneStore = defineStore('softphone', {
       try {
         const { data } = await InboxesAPI.getPhoneCredentials(inboxId);
         this.sipDomain = data.sip_domain;
-        this.pcConfig = data.ice_servers?.length
-          ? { iceServers: data.ice_servers }
+        const iceServers = data.ice_servers || [];
+        this.pcConfig = iceServers.length
+          ? {
+              iceServers,
+              ...(hasTurnServer(iceServers) && {
+                iceTransportPolicy: 'relay',
+              }),
+            }
           : undefined;
         const socket = new JsSIP.WebSocketInterface(data.wss_url);
         const configuration = {
@@ -97,6 +113,13 @@ export const useSoftphoneStore = defineStore('softphone', {
             event.streams?.[0] || new MediaStream([event.track])
           );
         });
+      });
+
+      // JsSIP otherwise waits for every configured ICE transport to finish.
+      // A TURN relay is sufficient for this non-trickle SIP call, so send the
+      // offer/answer as soon as the first relay candidate is available.
+      session.on('icecandidate', ({ candidate, ready }) => {
+        if (isRelayCandidate(candidate)) ready();
       });
 
       // An outbound RTCSession can emit peerconnection before newRTCSession.

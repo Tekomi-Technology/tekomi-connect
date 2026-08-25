@@ -91,7 +91,7 @@ describe('softphone store', () => {
 
     expect(mockUa.call).toHaveBeenCalledWith('sip:0342387314@pbx.example.com', {
       mediaConstraints: { audio: true, video: false },
-      pcConfig: { iceServers },
+      pcConfig: { iceServers, iceTransportPolicy: 'relay' },
     });
   });
 
@@ -144,5 +144,30 @@ describe('softphone store', () => {
     sessionHandlers.accepted();
 
     expect(store.remoteStream.getTracks()).toEqual([remoteTrack]);
+  });
+
+  it('finishes ICE gathering when a TURN relay candidate is available', () => {
+    const store = useSoftphoneStore();
+    const sessionHandlers = {};
+    const session = {
+      remote_identity: { uri: { user: '0342387314' } },
+      on: vi.fn((event, callback) => {
+        sessionHandlers[event] = callback;
+      }),
+    };
+    const ready = vi.fn();
+
+    store.handleNewSession('remote', session);
+    sessionHandlers.icecandidate({
+      candidate: { type: 'host', candidate: 'candidate:1 typ host' },
+      ready,
+    });
+    expect(ready).not.toHaveBeenCalled();
+
+    sessionHandlers.icecandidate({
+      candidate: { type: 'relay', candidate: 'candidate:2 typ relay' },
+      ready,
+    });
+    expect(ready).toHaveBeenCalledOnce();
   });
 });
