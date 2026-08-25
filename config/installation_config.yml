@@ -9,7 +9,6 @@
 # description: the description of the config displayed in the dashboard UI
 # locked: if you don't specify locked attribute in yaml, the default value will be true,
 #         which means the particular config will be locked and won't be available in `super_admin/installation_configs`
-# premium: These values get overwritten unless the user is on a premium plan
 # type: The type of the config. Default is text, select and boolean are also supported
 # options: For select types, its required to have options for the select in the following pattern: "option_value":"Human readable option"
 
@@ -321,12 +320,6 @@
 # ------- End of Chatwoot Internal Config for Cloud ----#
 
 # ------- Chatwoot Internal Config for Self Hosted ----#
-- name: INSTALLATION_PRICING_PLAN
-  value: 'community'
-  description: 'The pricing plan for the installation, retrieved from the billing API'
-- name: INSTALLATION_PRICING_PLAN_QUANTITY
-  value: 0
-  description: 'The number of licenses purchased for the installation, retrieved from the billing API'
 - name: CHATWOOT_SUPPORT_WEBSITE_TOKEN
   value:
   description: 'The Chatwoot website token, used to identify the Chatwoot inbox and display the "Contact Support" option on the billing page'

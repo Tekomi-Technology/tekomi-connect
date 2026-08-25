@@ -30,13 +30,6 @@ export function useConfig() {
   const isEnterprise = config.isEnterprise === 'true';
 
   /**
-   * The name of the enterprise plan, if applicable.
-   * Returns "community" or "enterprise"
-   * @type {string|undefined}
-   */
-  const enterprisePlanName = config.enterprisePlanName;
-
-  /**
    * Indicates whether inbox webhook events (ENABLE_INBOX_EVENTS) are enabled.
    * @type {boolean}
    */
@@ -47,7 +40,6 @@ export function useConfig() {
     vapidPublicKey,
     enabledLanguages,
     isEnterprise,
-    enterprisePlanName,
     inboxEventsEnabled,
   };
 }

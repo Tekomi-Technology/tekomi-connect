@@ -3,7 +3,8 @@ class Enterprise::Api::V1::AccountsController < Api::BaseController
   before_action :fetch_account
   before_action :validate_token_api_access, if: :authenticate_by_access_token?
   before_action :check_authorization
-  before_action :check_cloud_env, only: [:limits, :toggle_deletion, :topup_options]
+  before_action :check_cloud_env,
+                only: [:subscription, :select_billing_currency, :limits, :checkout, :toggle_deletion, :topup_checkout, :topup_options]
 
   def subscription
     return render json: currency_selection_payload if @account.billing_currency_selection_required?

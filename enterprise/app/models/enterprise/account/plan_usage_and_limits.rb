@@ -5,6 +5,17 @@ module Enterprise::Account::PlanUsageAndLimits # rubocop:disable Metrics/ModuleL
   CAPTAIN_DOCUMENTS_USAGE = 'captain_documents_usage'.freeze
 
   def usage_limits
+    unless ChatwootApp.chatwoot_cloud?
+      return {
+        agents: ChatwootApp.max_limit,
+        inboxes: ChatwootApp.max_limit,
+        captain: {
+          documents: unrestricted_captain_limit,
+          responses: unrestricted_captain_limit
+        }
+      }
+    end
+
     {
       agents: agent_limits.to_i,
       inboxes: get_limits(:inboxes).to_i,
@@ -30,6 +41,8 @@ module Enterprise::Account::PlanUsageAndLimits # rubocop:disable Metrics/ModuleL
   end
 
   def email_transcript_enabled?
+    return true unless ChatwootApp.chatwoot_cloud?
+
     default_plan = InstallationConfig.find_by(name: 'CHATWOOT_CLOUD_PLANS')&.value&.first
     return true if default_plan.blank?
 
@@ -57,6 +70,14 @@ module Enterprise::Account::PlanUsageAndLimits # rubocop:disable Metrics/ModuleL
   end
 
   private
+
+  def unrestricted_captain_limit
+    {
+      total_count: ChatwootApp.max_limit,
+      current_available: ChatwootApp.max_limit,
+      consumed: 0
+    }
+  end
 
   def get_captain_limits(type)
     total_count = captain_monthly_limit[type.to_s].to_i

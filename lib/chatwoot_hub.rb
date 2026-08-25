@@ -22,30 +22,10 @@ class ChatwootHub
     "#{base_url}/events"
   end
 
-  def self.billing_base_url
-    "#{base_url}/billing"
-  end
-
   def self.installation_identifier
     identifier = InstallationConfig.find_by(name: 'INSTALLATION_IDENTIFIER')&.value
     identifier ||= InstallationConfig.create!(name: 'INSTALLATION_IDENTIFIER', value: SecureRandom.uuid).value
     identifier
-  end
-
-  def self.billing_url
-    "#{billing_base_url}?installation_identifier=#{installation_identifier}"
-  end
-
-  def self.pricing_plan
-    return 'community' unless ChatwootApp.enterprise?
-
-    InstallationConfig.find_by(name: 'INSTALLATION_PRICING_PLAN')&.value || 'community'
-  end
-
-  def self.pricing_plan_quantity
-    return 0 unless ChatwootApp.enterprise?
-
-    InstallationConfig.find_by(name: 'INSTALLATION_PRICING_PLAN_QUANTITY')&.value || 0
   end
 
   def self.support_config

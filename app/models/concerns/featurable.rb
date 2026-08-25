@@ -11,6 +11,7 @@ module Featurable
   }.freeze
 
   FEATURE_LIST = YAML.safe_load(Rails.root.join('config/features.yml').read).freeze
+  UNRESTRICTED_FEATURES = FEATURE_LIST.reject { |feature| feature['chatwoot_internal'] || feature['deprecated'] }.pluck('name').freeze
 
   def self.feature_flag_mappings_for(feature_list)
     features_by_column = feature_list.group_by { |feature| feature['column'].presence || DEFAULT_FEATURE_FLAG_COLUMN }
@@ -93,6 +94,8 @@ module Featurable
   end
 
   def feature_enabled?(name)
+    return true if !ChatwootApp.chatwoot_cloud? && UNRESTRICTED_FEATURES.include?(name.to_s)
+
     send("feature_#{name}?")
   end
 

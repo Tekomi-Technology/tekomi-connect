@@ -56,7 +56,9 @@ export const FEATURE_FLAGS = {
   UNREAD_COUNT_FOR_FILTERS: 'unread_count_for_filters',
 };
 
-export const PREMIUM_FEATURES = [
+// Chatwoot Cloud can still use subscription-specific availability. Self-hosted
+// installations do not consult this list and expose every public feature.
+export const CLOUD_PAID_FEATURES = [
   FEATURE_FLAGS.SLA,
   FEATURE_FLAGS.CAPTAIN,
   FEATURE_FLAGS.CAPTAIN_CUSTOM_TOOLS,
