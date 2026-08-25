@@ -34,6 +34,22 @@ describe('softphone store', () => {
     setActivePinia(createPinia());
     vi.clearAllMocks();
     Object.keys(uaHandlers).forEach(key => delete uaHandlers[key]);
+    vi.stubGlobal(
+      'MediaStream',
+      class MediaStream {
+        constructor() {
+          this.tracks = [];
+        }
+
+        addTrack(track) {
+          this.tracks.push(track);
+        }
+
+        getTracks() {
+          return this.tracks;
+        }
+      }
+    );
   });
 
   it('registers the current agent extension and passes ICE servers to outbound calls', async () => {
@@ -104,5 +120,27 @@ describe('softphone store', () => {
       mediaConstraints: { audio: true, video: false },
       pcConfig: { iceServers },
     });
+  });
+
+  it('recovers an existing outbound peer connection remote track', () => {
+    const store = useSoftphoneStore();
+    const remoteTrack = { kind: 'audio' };
+    const peerconnection = {
+      addEventListener: vi.fn(),
+      getReceivers: vi.fn(() => [{ track: remoteTrack }]),
+    };
+    const session = {
+      connection: peerconnection,
+      remote_identity: { uri: { user: '0342387314' } },
+      on: vi.fn(),
+    };
+
+    store.handleNewSession('local', session);
+
+    expect(peerconnection.addEventListener).toHaveBeenCalledWith(
+      'track',
+      expect.any(Function)
+    );
+    expect(store.remoteStream.getTracks()).toEqual([remoteTrack]);
   });
 });

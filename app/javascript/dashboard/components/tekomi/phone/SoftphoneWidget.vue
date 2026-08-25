@@ -73,12 +73,23 @@ watch(isIncoming, incoming => {
   if (incoming) isOpen.value = true;
 });
 
-watch(remoteStream, stream => {
-  if (remoteAudio.value && stream) {
-    remoteAudio.value.srcObject = stream;
-    remoteAudio.value.play().catch(() => {});
-  }
-});
+watch(
+  [remoteStream, remoteAudio],
+  ([stream, audioElement]) => {
+    if (!audioElement) return;
+
+    if (audioElement.srcObject !== stream) {
+      audioElement.srcObject = stream || null;
+    }
+    if (!stream) return;
+
+    audioElement.play().catch(playbackError => {
+      // eslint-disable-next-line no-console
+      console.warn('[Softphone] Unable to play remote audio:', playbackError);
+    });
+  },
+  { flush: 'post', immediate: true }
+);
 
 const appendDigit = digit => {
   if (isActive.value) {
@@ -283,7 +294,7 @@ onBeforeUnmount(() => softphone.disconnect());
         />
       </button>
 
-      <audio ref="remoteAudio" autoplay />
+      <audio ref="remoteAudio" autoplay playsinline />
     </div>
   </div>
 </template>
