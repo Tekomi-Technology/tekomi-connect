@@ -26,6 +26,10 @@ class InboxPolicy < ApplicationPolicy
     Current.user.assigned_inboxes.include? record
   end
 
+  def phone_credentials?
+    show?
+  end
+
   def assignable_agents?
     true
   end

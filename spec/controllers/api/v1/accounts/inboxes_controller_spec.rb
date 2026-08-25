@@ -528,6 +528,25 @@ RSpec.describe 'Inboxes API', type: :request do
         expect(response.body).to include('+123456789')
       end
 
+      it 'creates a phone inbox when administrator' do
+        post "/api/v1/accounts/#{account.id}/inboxes",
+             headers: admin.create_new_auth_token,
+             params: {
+               name: 'PBX Phone',
+               channel: {
+                 type: 'phone',
+                 wss_url: 'wss://pbx.example.com:7443',
+                 sip_domain: 'pbx.example.com',
+                 ice_servers: [{ urls: ['stun:stun.example.com:3478'] }]
+               }
+             },
+             as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include('PBX Phone')
+        expect(Channel::Phone.last.ice_servers).to eq([{ 'urls' => ['stun:stun.example.com:3478'] }])
+      end
+
       it 'creates the webwidget inbox that allow messages after conversation is resolved' do
         post "/api/v1/accounts/#{account.id}/inboxes",
              headers: admin.create_new_auth_token,
@@ -538,6 +557,57 @@ RSpec.describe 'Inboxes API', type: :request do
         json_response = response.parsed_body
         expect(json_response['allow_messages_after_resolved']).to be true
       end
+    end
+  end
+
+  describe 'GET /api/v1/accounts/{account.id}/inboxes/{inbox.id}/phone_credentials' do
+    let(:phone_channel) { create(:channel_phone, account: account) }
+    let(:inbox) { phone_channel.inbox }
+
+    it 'returns SIP credentials to an assigned agent' do
+      create(:inbox_member, user: agent, inbox: inbox)
+      extension = create(:phone_extension, inbox: inbox, account: account, user: agent)
+
+      get "/api/v1/accounts/#{account.id}/inboxes/#{inbox.id}/phone_credentials",
+          headers: agent.create_new_auth_token,
+          as: :json
+
+      expect(response).to have_http_status(:success)
+      expect(response.parsed_body).to include(
+        'sip_username' => extension.sip_username,
+        'sip_password' => extension.sip_password,
+        'wss_url' => phone_channel.wss_url,
+        'ice_servers' => [{ 'urls' => ['stun:stun.example.com:3478'] }]
+      )
+    end
+
+    it 'returns not found when the assigned agent has no enabled extension' do
+      create(:inbox_member, user: agent, inbox: inbox)
+
+      get "/api/v1/accounts/#{account.id}/inboxes/#{inbox.id}/phone_credentials",
+          headers: agent.create_new_auth_token,
+          as: :json
+
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it 'rejects an unassigned agent' do
+      get "/api/v1/accounts/#{account.id}/inboxes/#{inbox.id}/phone_credentials",
+          headers: agent.create_new_auth_token,
+          as: :json
+
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'returns not found for an assigned non-phone inbox' do
+      non_phone_inbox = create(:inbox, account: account)
+      create(:inbox_member, user: agent, inbox: non_phone_inbox)
+
+      get "/api/v1/accounts/#{account.id}/inboxes/#{non_phone_inbox.id}/phone_credentials",
+          headers: agent.create_new_auth_token,
+          as: :json
+
+      expect(response).to have_http_status(:not_found)
     end
   end
 

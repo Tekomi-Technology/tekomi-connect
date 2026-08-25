@@ -492,6 +492,74 @@
           "SUBTITLE": "You have to configure the webhook URL in Zalo Official Account settings with the URL mentioned here."
         }
       },
+      "PHONE_CHANNEL": {
+        "TITLE": "Phone Channel",
+        "DESC": "Connect Chatwoot to the PBX, then assign a SIP extension to each agent.",
+        "NAME": "Inbox name",
+        "WSS_URL": "Secure WebSocket URL",
+        "SIP_DOMAIN": "SIP domain",
+        "SIP_USERNAME": "SIP username / extension",
+        "SIP_PASSWORD": "SIP password",
+        "STUN_URL": "STUN URL (optional)",
+        "TURN_URLS": "TURN URLs (optional, one per line)",
+        "TURN_SECRET": "TURN shared secret",
+        "WSS_PLACEHOLDER": "wss://pbx.example.com:7443",
+        "DOMAIN_PLACEHOLDER": "pbx.example.com",
+        "STUN_PLACEHOLDER": "stun:stun.example.com:3478",
+        "TURN_PLACEHOLDER": "turn:turn.example.com:3478?transport=udp",
+        "SUBMIT_BUTTON": "Create Phone Channel",
+        "VALIDATION_ERROR": "Enter the inbox name, a wss:// URL and SIP domain. TURN URLs require a shared secret.",
+        "API": {
+          "ERROR_MESSAGE": "We were not able to create the phone channel"
+        }
+      },
+      "SOFTPHONE": {
+        "HIDE": "Hide dialer",
+        "INCOMING": "Incoming call",
+        "REJECT": "Reject",
+        "ANSWER": "Answer",
+        "HANGUP": "End call",
+        "MUTE": "Mute microphone",
+        "UNMUTE": "Unmute microphone",
+        "DESTINATION": "Enter a phone number",
+        "BACKSPACE": "Delete one digit",
+        "CALL": "Call",
+        "OPEN": "Open softphone",
+        "CLOSE": "Hide softphone",
+        "STATUS": {
+          "IDLE": "Not initialized",
+          "CONNECTING": "Connecting to PBX…",
+          "READY": "Ready",
+          "DISCONNECTED": "Disconnected",
+          "CALLING": "Calling…",
+          "INCOMING_RINGING": "Incoming call",
+          "OUTGOING_RINGING": "Ringing…",
+          "ACTIVE": "In call",
+          "ERROR": "Connection error"
+        }
+      },
+      "PHONE_CONFIGURATION": {
+        "CONNECTION_TITLE": "PBX and ICE connectivity",
+        "CONNECTION_DESC": "WSS carries SIP signaling. ICE uses STUN for direct media and TURN as a fallback.",
+        "STUN_URLS": "STUN URLs (one per line)",
+        "TURN_URLS": "TURN URLs (one per line)",
+        "TURN_SECRET": "TURN shared secret",
+        "TURN_SECRET_HELP": "Must match PBX_TURN_SHARED_SECRET on the PBX. Leave blank to keep the encrypted value.",
+        "TURN_TTL": "Temporary TURN credential lifetime (seconds)",
+        "SAVE_CONNECTION": "Save connectivity",
+        "CHANNEL_SAVED": "Phone connectivity settings saved.",
+        "TURN_SECRET_REQUIRED": "A shared secret is required when TURN servers are configured.",
+        "EXTENSIONS_TITLE": "Agent SIP extensions",
+        "EXTENSIONS_DESC": "Assign a unique PBX extension to every agent in this inbox.",
+        "ENABLED": "Softphone enabled",
+        "PASSWORD_PLACEHOLDER": "Leave blank to keep the password",
+        "SAVE_EXTENSION": "Save",
+        "DELETE_EXTENSION": "Remove",
+        "EXTENSION_REQUIRED": "SIP username and password are required for a new extension.",
+        "EXTENSION_SAVED": "Agent extension saved.",
+        "EXTENSION_DELETED": "Agent extension removed.",
+        "NO_MEMBERS": "Add agents to this inbox before assigning SIP extensions."
+      },
       "AUTH": {
         "TITLE": "Choose a channel",
         "DESC": "Chatwoot supports live-chat widgets, Facebook Messenger, WhatsApp, Emails, etc., as channels. If you want to build a custom channel, you can create it using the API channel. To get started, choose one of the channels below.",
@@ -537,6 +605,10 @@
           "ZALO_OA": {
             "TITLE": "Zalo OA",
             "DESCRIPTION": "Connect your Zalo Official Account"
+          },
+          "PHONE": {
+            "TITLE": "Phone",
+            "DESCRIPTION": "Make and receive calls through your existing PBX"
           },
           "INSTAGRAM": {
             "TITLE": "Instagram",
@@ -692,7 +764,8 @@
       "ACCOUNT_HEALTH": "Account Health",
       "CSAT": "CSAT",
       "VOICE": "Voice",
-      "CALLS": "Calls"
+      "CALLS": "Calls",
+      "SOFTPHONE": "Softphone"
     },
     "VOICE_CONFIGURATION": {
       "ENABLE_VOICE": {

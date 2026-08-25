@@ -467,6 +467,49 @@
           "ERROR_MESSAGE": "Chúng tôi không thể lưu kênh \btelegram"
         }
       },
+      "PHONE_CHANNEL": {
+        "TITLE": "Kênh điện thoại",
+        "DESC": "Kết nối extension SIP FreeSWITCH hiện có để gọi và nhận cuộc gọi trên trình duyệt.",
+        "NAME": "Tên hộp thư",
+        "WSS_URL": "URL WebSocket bảo mật",
+        "SIP_DOMAIN": "SIP domain",
+        "SIP_USERNAME": "SIP username / extension",
+        "SIP_PASSWORD": "Mật khẩu SIP",
+        "STUN_URL": "STUN URL (không bắt buộc)",
+        "WSS_PLACEHOLDER": "wss://pbx.example.com:7443",
+        "DOMAIN_PLACEHOLDER": "pbx.example.com",
+        "STUN_PLACEHOLDER": "stun:stun.example.com:3478",
+        "SUBMIT_BUTTON": "Tạo kênh điện thoại",
+        "VALIDATION_ERROR": "Hãy nhập tên hộp thư, URL wss://, SIP domain, username và mật khẩu.",
+        "API": {
+          "ERROR_MESSAGE": "Không thể tạo kênh điện thoại"
+        }
+      },
+      "SOFTPHONE": {
+        "HIDE": "Ẩn bàn phím gọi điện",
+        "INCOMING": "Cuộc gọi đến",
+        "REJECT": "Từ chối",
+        "ANSWER": "Trả lời",
+        "HANGUP": "Kết thúc cuộc gọi",
+        "MUTE": "Tắt microphone",
+        "UNMUTE": "Bật microphone",
+        "DESTINATION": "Nhập số điện thoại",
+        "BACKSPACE": "Xóa một số",
+        "CALL": "Gọi",
+        "OPEN": "Mở softphone",
+        "CLOSE": "Ẩn softphone",
+        "STATUS": {
+          "IDLE": "Chưa khởi tạo",
+          "CONNECTING": "Đang kết nối tổng đài…",
+          "READY": "Sẵn sàng",
+          "DISCONNECTED": "Mất kết nối",
+          "CALLING": "Đang gọi…",
+          "INCOMING_RINGING": "Cuộc gọi đến",
+          "OUTGOING_RINGING": "Đang đổ chuông…",
+          "ACTIVE": "Đang đàm thoại",
+          "ERROR": "Lỗi kết nối"
+        }
+      },
       "AUTH": {
         "TITLE": "Chọn kênh",
         "DESC": "Chatwoot hỗ trợ các tiện ích trò chuyện trực tiếp, Facebook Messenger, hồ sơ Twitter, WhatsApp, Email, v. v., dưới dạng các kênh. Nếu bạn muốn xây dựng một kênh tùy chỉnh, bạn có thể tạo kênh này bằng cách sử dụng kênh API. Để bắt đầu, hãy chọn một trong các kênh bên dưới.",
@@ -508,6 +551,10 @@
           "LINE": {
             "TITLE": "Line",
             "DESCRIPTION": "Integrate your Line channel"
+          },
+          "PHONE": {
+            "TITLE": "Điện thoại",
+            "DESCRIPTION": "Gọi và nhận cuộc gọi qua tổng đài hiện có"
           },
           "INSTAGRAM": {
             "TITLE": "Instagram",

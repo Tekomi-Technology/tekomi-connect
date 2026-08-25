@@ -60,4 +60,15 @@ RSpec.describe InboxMember do
       end.to change { store.built_in_filter_version(account_id: account.id, user_id: admin.id) }.by(1)
     end
   end
+
+  describe 'phone extension cleanup' do
+    it 'removes the SIP extension when an agent is removed from a phone inbox' do
+      extension = create(:phone_extension)
+      inbox_member = extension.inbox.inbox_members.find_by!(user: extension.user)
+
+      inbox_member.destroy!
+
+      expect(PhoneExtension.exists?(extension.id)).to be(false)
+    end
+  end
 end

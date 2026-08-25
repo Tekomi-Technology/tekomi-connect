@@ -21,6 +21,10 @@ const FloatingCallWidget = defineAsyncComponent(
   () => import('dashboard/components-next/call/FloatingCallWidget.vue')
 );
 
+const SoftphoneWidget = defineAsyncComponent(
+  () => import('dashboard/components/tekomi/phone/SoftphoneWidget.vue')
+);
+
 import CopilotLauncher from 'dashboard/components-next/copilot/CopilotLauncher.vue';
 import CopilotContainer from 'dashboard/components/copilot/CopilotContainer.vue';
 
@@ -37,6 +41,7 @@ export default {
     CopilotLauncher,
     CopilotContainer,
     FloatingCallWidget,
+    SoftphoneWidget,
     MobileSidebarLauncher,
   },
   setup() {
@@ -161,6 +166,7 @@ export default {
         />
         <CopilotContainer />
         <FloatingCallWidget v-if="hasActiveCall || hasIncomingCall" />
+        <SoftphoneWidget />
       </template>
       <CommandBar :is-paywalled="isAccountPaywalled" />
       <AddAccountModal

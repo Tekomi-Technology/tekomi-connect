@@ -295,6 +295,7 @@ Rails.application.routes.draw do
           resources :custom_filters, only: [:index, :show, :create, :update, :destroy]
           resource :branded_email_layout, only: [:show, :update]
           resources :inboxes, only: [:index, :show, :create, :update, :destroy] do
+            resources :phone_extensions, only: [:index, :create, :update, :destroy], controller: 'inboxes/phone_extensions'
             get :assignable_agents, on: :member
             get :campaigns, on: :member
             get :agent_bot, on: :member
@@ -304,6 +305,7 @@ Rails.application.routes.draw do
             post :sync_templates, on: :member
             put :whatsapp_business_management_token, on: :member
             get :health, on: :member
+            get :phone_credentials, on: :member
             post :register_webhook, on: :member
             post :reset_secret, on: :member
             if ChatwootApp.enterprise?
@@ -679,6 +681,7 @@ Rails.application.routes.draw do
   post 'webhooks/tiktok', to: 'webhooks/tiktok#events'
   post 'webhooks/shopify', to: 'webhooks/shopify#events'
   post 'webhooks/zalo_oa', to: 'webhooks/zalo_oa#process_payload'
+  post 'webhooks/pbx/calls', to: 'webhooks/pbx/calls#process_payload'
   get 'zalo_oa/callback', to: 'zalo_oa/callbacks#show'
 
   namespace :twitter do
