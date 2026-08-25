@@ -16,25 +16,14 @@ class Installation::OnboardingController < ApplicationController
     rescue StandardError => e
       redirect_to '/', flash: { error: e.message } and return
     end
-    finish_onboarding
+    ::Redis::Alfred.delete(::Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING)
     redirect_to '/'
   end
 
   private
 
   def onboarding_params
-    params.permit(:subscribe_to_updates, user: [:name, :company, :email])
-  end
-
-  def finish_onboarding
-    ::Redis::Alfred.delete(::Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING)
-    return if onboarding_params[:subscribe_to_updates].blank?
-
-    ChatwootHub.register_instance(
-      onboarding_params.dig(:user, :company),
-      onboarding_params.dig(:user, :name),
-      onboarding_params.dig(:user, :email)
-    )
+    params.permit(user: [:name, :company, :email])
   end
 
   def ensure_installation_onboarding

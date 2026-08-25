@@ -6,12 +6,7 @@ import { SESSION_STORAGE_KEYS } from 'dashboard/constants/sessionStorage';
 import { LocalStorage } from 'shared/helpers/localStorage';
 import SessionStorage from 'shared/helpers/sessionStorage';
 import { emitter } from 'shared/helpers/mitt';
-import {
-  ANALYTICS_IDENTITY,
-  ANALYTICS_RESET,
-  CHATWOOT_RESET,
-  CHATWOOT_SET_USER,
-} from '../../constants/appEvents';
+import { USER_SESSION_READY } from '../../constants/appEvents';
 
 Cookies.defaults = { sameSite: 'Lax' };
 
@@ -21,8 +16,7 @@ export const setLoadingStatus = (state, status) => {
 };
 
 export const setUser = user => {
-  emitter.emit(CHATWOOT_SET_USER, { user });
-  emitter.emit(ANALYTICS_IDENTITY, { user });
+  emitter.emit(USER_SESSION_READY, { user });
 };
 
 export const getHeaderExpiry = response =>
@@ -77,8 +71,6 @@ export const deleteIndexedDBOnLogout = async () => {
 };
 
 export const clearCookiesOnLogout = () => {
-  emitter.emit(CHATWOOT_RESET);
-  emitter.emit(ANALYTICS_RESET);
   clearBrowserSessionCookies();
   clearLocalStorageOnLogout();
   clearSessionStorageOnLogout();

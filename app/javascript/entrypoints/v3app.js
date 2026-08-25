@@ -3,10 +3,7 @@ import { createI18n } from 'vue-i18n';
 
 import i18nMessages from 'dashboard/i18n';
 import * as Sentry from '@sentry/vue';
-import {
-  initializeAnalyticsEvents,
-  initializeChatwootEvents,
-} from 'dashboard/helper/scriptHelpers';
+import { initializeUserSessionEvents } from 'dashboard/helper/scriptHelpers';
 import App from '../v3/App.vue';
 import router, { initalizeRouter } from '../v3/views/index';
 import store from '../v3/store';
@@ -57,8 +54,7 @@ if (window.errorLoggingConfig) {
   });
 }
 
-initializeChatwootEvents();
-initializeAnalyticsEvents();
+initializeUserSessionEvents();
 initalizeRouter();
 
 window.onload = () => {

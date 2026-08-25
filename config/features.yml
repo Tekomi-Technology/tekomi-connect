@@ -148,10 +148,6 @@
   display_name: Captain V1 Action Classifier
   enabled: false
   chatwoot_internal: true
-- name: contact_chatwoot_support_team
-  display_name: Contact Chatwoot Support Team
-  enabled: true
-  chatwoot_internal: true
 - name: shopify_integration
   display_name: Shopify Integration
   enabled: false

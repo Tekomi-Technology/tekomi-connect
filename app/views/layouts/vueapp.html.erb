@@ -61,13 +61,6 @@
       }
       window.errorLoggingConfig = '<%= ENV.fetch('SENTRY_FRONTEND_DSN', '') || ENV.fetch('SENTRY_DSN', '') %>'
     </script>
-    <% if @global_config['CLOUD_ANALYTICS_TOKEN'].present? %>
-    <script>
-      window.analyticsConfig = {
-        token: '<%= @global_config['CLOUD_ANALYTICS_TOKEN'] %>',
-      }
-    </script>
-    <% end %>
     <%= vite_client_tag %>
     <%= vite_javascript_tag @application_pack %>
   </head>

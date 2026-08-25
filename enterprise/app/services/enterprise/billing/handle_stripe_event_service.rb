@@ -33,7 +33,6 @@ class Enterprise::Billing::HandleStripeEventService
     update_account_attributes(subscription, plan)
     Enterprise::Billing::ReconcilePlanFeaturesService.new(account: account).perform
     sync_subscription_credits(plan, previous_usage)
-    track_marketing_plan_activation(previous_plan_name, plan['name']) if plan_changed?
   end
 
   def sync_subscription_credits(plan, previous_usage)
@@ -78,23 +77,6 @@ class Enterprise::Billing::HandleStripeEventService
     return account.billing_currency if plan['name'] == Enterprise::Billing::PlanConfiguration.default_plan&.dig('name')
 
     Enterprise::Billing::Currencies.to_supported(subscription['plan']['currency'])
-  end
-
-  def track_marketing_plan_activation(previous_plan_name, current_plan_name)
-    subscription_plan = subscription['plan']
-
-    Internal::Accounts::CloudPlanActivationConversionService.new(
-      account: account,
-      previous_plan_name: previous_plan_name,
-      current_plan_name: current_plan_name,
-      activated_at: Time.zone.at(@event.created),
-      conversion_value: subscription_conversion_value(subscription_plan),
-      currency_code: subscription_plan['currency'].upcase
-    ).perform
-  end
-
-  def subscription_conversion_value(subscription_plan)
-    ((subscription_plan['amount'] || subscription_plan['amount_decimal']).to_d * subscription['quantity'].to_i / 100).to_f
   end
 
   def process_subscription_deleted

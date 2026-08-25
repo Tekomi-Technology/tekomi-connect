@@ -1,26 +1,15 @@
 <script setup>
-import { ref, computed, onBeforeMount } from 'vue';
+import { computed } from 'vue';
 import { useStore } from 'vuex';
 import SignupForm from './components/Signup/Form.vue';
-import Testimonials from './components/Testimonials/Index.vue';
-import Spinner from 'shared/components/Spinner.vue';
 import signupBg from 'assets/images/auth/signup-bg.jpg';
 
 const store = useStore();
 
-const isLoading = ref(false);
 const globalConfig = computed(() => store.getters['globalConfig/get']);
 const isAChatwootInstance = computed(
   () => globalConfig.value.installationName === 'Chatwoot'
 );
-
-onBeforeMount(() => {
-  isLoading.value = isAChatwootInstance.value;
-});
-
-const resizeContainers = () => {
-  isLoading.value = false;
-};
 </script>
 
 <template>
@@ -32,7 +21,6 @@ const resizeContainers = () => {
       class="absolute inset-0 bg-n-gray-12/60 dark:bg-n-gray-1/80 backdrop-blur-sm"
     />
     <div
-      v-show="!isLoading"
       class="relative flex max-w-[960px] bg-white dark:bg-n-solid-2 rounded-lg outline outline-1 outline-n-container shadow-sm"
       :class="{ 'w-auto xl:w-full': isAChatwootInstance }"
     >
@@ -70,17 +58,6 @@ const resizeContainers = () => {
           <SignupForm />
         </div>
       </div>
-      <Testimonials
-        v-if="isAChatwootInstance"
-        class="flex-1 hidden xl:flex"
-        @resize-containers="resizeContainers"
-      />
-    </div>
-    <div
-      v-show="isLoading"
-      class="relative flex items-center justify-center w-full h-full"
-    >
-      <Spinner color-scheme="primary" size="" />
     </div>
   </div>
 </template>
