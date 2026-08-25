@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
+ActiveRecord::Schema[7.1].define(version: 2026_08_24_000001) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -646,6 +646,21 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
     t.index ["line_channel_id"], name: "index_channel_line_on_line_channel_id", unique: true
   end
 
+  create_table "channel_phone", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "wss_url", null: false
+    t.string "sip_domain", null: false
+    t.string "sip_username"
+    t.text "sip_password"
+    t.string "stun_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "ice_servers", default: [], null: false
+    t.text "turn_shared_secret"
+    t.integer "turn_credential_ttl", default: 3600, null: false
+    t.index ["account_id", "sip_domain", "sip_username"], name: "idx_channel_phone_on_account_and_sip_identity", unique: true
+  end
+
   create_table "channel_sms", force: :cascade do |t|
     t.integer "account_id", null: false
     t.string "phone_number", null: false
@@ -745,6 +760,21 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
     t.string "phone_number_health_error", limit: 500
     t.index ["phone_number_health_checked_at"], name: "index_channel_whatsapp_on_phone_number_health_checked_at"
     t.index ["phone_number"], name: "index_channel_whatsapp_on_phone_number", unique: true
+  end
+
+  create_table "channel_zalo_oa", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "oa_id", null: false
+    t.string "oa_name"
+    t.string "app_id", null: false
+    t.text "app_secret", null: false
+    t.text "oa_secret_key"
+    t.text "access_token"
+    t.text "refresh_token"
+    t.datetime "token_expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["oa_id"], name: "index_channel_zalo_oa_on_oa_id", unique: true
   end
 
   create_table "companies", force: :cascade do |t|
@@ -1322,6 +1352,20 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+  create_table "phone_extensions", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.integer "inbox_id", null: false
+    t.integer "user_id", null: false
+    t.string "sip_username", null: false
+    t.text "sip_password", null: false
+    t.boolean "enabled", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_phone_extensions_on_account_id"
+    t.index ["inbox_id", "sip_username"], name: "index_phone_extensions_on_inbox_id_and_sip_username", unique: true
+    t.index ["inbox_id", "user_id"], name: "index_phone_extensions_on_inbox_id_and_user_id", unique: true
+  end
+
   create_table "platform_app_permissibles", force: :cascade do |t|
     t.bigint "platform_app_id", null: false
     t.string "permissible_type", null: false
@@ -1597,6 +1641,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
   add_foreign_key "campaign_recipients", "contacts", on_delete: :cascade
   add_foreign_key "campaign_recipients", "inboxes", on_delete: :cascade
   add_foreign_key "inboxes", "portals"
+  add_foreign_key "phone_extensions", "accounts", on_delete: :cascade
+  add_foreign_key "phone_extensions", "inboxes", on_delete: :cascade
+  add_foreign_key "phone_extensions", "users", on_delete: :cascade
   add_foreign_key "user_sessions", "users"
   create_trigger("accounts_after_insert_row_tr", :generated => true, :compatibility => 1).
       on("accounts").
