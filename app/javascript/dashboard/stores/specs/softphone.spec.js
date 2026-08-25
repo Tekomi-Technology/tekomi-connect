@@ -78,6 +78,9 @@ describe('softphone store', () => {
     expect(JsSIP.WebSocketInterface).toHaveBeenCalledWith(
       'wss://pbx.example.com:7443'
     );
+    expect(JsSIP.WebSocketInterface.mock.results[0].value.via_transport).toBe(
+      'WS'
+    );
     expect(JsSIP.UA).toHaveBeenCalledWith(
       expect.objectContaining({
         uri: 'sip:1002@pbx.example.com',

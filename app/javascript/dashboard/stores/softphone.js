@@ -65,6 +65,11 @@ export const useSoftphoneStore = defineStore('softphone', {
             }
           : undefined;
         const socket = new JsSIP.WebSocketInterface(data.wss_url);
+        // Public WSS terminates at the PBX reverse proxy. FreeSWITCH receives
+        // the proxied connection on its private WS listener, so its Sofia
+        // transport must see WS in the SIP Via header to route responses on
+        // the existing connection.
+        socket.via_transport = 'WS';
         const configuration = {
           sockets: [socket],
           uri: `sip:${data.sip_username}@${data.sip_domain}`,
