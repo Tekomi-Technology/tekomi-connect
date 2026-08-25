@@ -99,6 +99,9 @@ describe('softphone store', () => {
       pcConfig: { iceServers, iceTransportPolicy: 'relay' },
     });
 
+    store.call('0342387314');
+    expect(mockUa.call).toHaveBeenCalledOnce();
+
     const { icecandidate } = mockUa.call.mock.calls[0][1].eventHandlers;
     const ready = vi.fn();
     icecandidate({

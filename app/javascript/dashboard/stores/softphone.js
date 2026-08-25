@@ -174,16 +174,31 @@ export const useSoftphoneStore = defineStore('softphone', {
 
     call(number) {
       const destination = String(number || '').trim();
-      if (!destination || !this.ua || !this.registered || this.session) return;
+      if (
+        !destination ||
+        !this.ua ||
+        !this.registered ||
+        this.session ||
+        this.status === 'calling'
+      )
+        return;
 
       this.error = '';
-      this.ua.call(`sip:${destination}@${this.sipDomain}`, {
-        eventHandlers: {
-          icecandidate: finishIceGatheringOnRelay,
-        },
-        mediaConstraints: MEDIA_CONSTRAINTS,
-        pcConfig: this.pcConfig,
-      });
+      // Lock immediately. newRTCSession is asynchronous, so relying only on
+      // this.session allows rapid click/Enter events to originate two calls.
+      this.status = 'calling';
+      try {
+        this.ua.call(`sip:${destination}@${this.sipDomain}`, {
+          eventHandlers: {
+            icecandidate: finishIceGatheringOnRelay,
+          },
+          mediaConstraints: MEDIA_CONSTRAINTS,
+          pcConfig: this.pcConfig,
+        });
+      } catch (error) {
+        this.error = error?.message || 'Unable to start call';
+        this.status = this.registered ? 'ready' : 'error';
+      }
     },
 
     answer() {
