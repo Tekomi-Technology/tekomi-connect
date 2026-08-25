@@ -37,8 +37,8 @@ describe('softphone store', () => {
     vi.stubGlobal(
       'MediaStream',
       class MediaStream {
-        constructor() {
-          this.tracks = [];
+        constructor(tracks = []) {
+          this.tracks = [...tracks];
         }
 
         addTrack(track) {
@@ -122,25 +122,27 @@ describe('softphone store', () => {
     });
   });
 
-  it('recovers an existing outbound peer connection remote track', () => {
+  it('recovers an outbound remote track only after SIP is accepted', () => {
     const store = useSoftphoneStore();
     const remoteTrack = { kind: 'audio' };
+    const sessionHandlers = {};
     const peerconnection = {
-      addEventListener: vi.fn(),
       getReceivers: vi.fn(() => [{ track: remoteTrack }]),
     };
     const session = {
       connection: peerconnection,
       remote_identity: { uri: { user: '0342387314' } },
-      on: vi.fn(),
+      on: vi.fn((event, callback) => {
+        sessionHandlers[event] = callback;
+      }),
     };
 
     store.handleNewSession('local', session);
 
-    expect(peerconnection.addEventListener).toHaveBeenCalledWith(
-      'track',
-      expect.any(Function)
-    );
+    expect(store.remoteStream).toBeNull();
+
+    sessionHandlers.accepted();
+
     expect(store.remoteStream.getTracks()).toEqual([remoteTrack]);
   });
 });

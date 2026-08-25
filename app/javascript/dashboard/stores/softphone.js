@@ -30,21 +30,6 @@ export const useSoftphoneStore = defineStore('softphone', {
   },
 
   actions: {
-    addRemoteTracks(tracks = []) {
-      const audioTracks = tracks.filter(track => track?.kind === 'audio');
-      if (!audioTracks.length) return;
-
-      if (!this.remoteStream) {
-        this.remoteStream = markRaw(new MediaStream());
-      }
-
-      audioTracks.forEach(track => {
-        if (!this.remoteStream.getTracks().includes(track)) {
-          this.remoteStream.addTrack(track);
-        }
-      });
-    },
-
     async initialize(inboxId) {
       if (!inboxId || this.inboxId === inboxId) return;
 
@@ -106,42 +91,38 @@ export const useSoftphoneStore = defineStore('softphone', {
       this.status = originator === 'remote' ? 'ringing' : 'calling';
       this.muted = false;
 
-      let attachedPeerConnection = null;
-      const attachPeerConnection = peerconnection => {
-        if (!peerconnection || peerconnection === attachedPeerConnection) {
-          return;
-        }
-
-        attachedPeerConnection = peerconnection;
-        peerconnection.addEventListener('track', event => {
-          const tracks = event.streams?.[0]?.getAudioTracks?.() || [
-            event.track,
-          ];
-          this.addRemoteTracks(tracks);
-        });
-
-        // For outbound calls JsSIP can create the RTCPeerConnection before the
-        // UA emits newRTCSession. In that case the peerconnection event has
-        // already fired, so recover any receiver tracks from the live session.
-        const receiverTracks =
-          peerconnection
-            .getReceivers?.()
-            .map(receiver => receiver.track)
-            .filter(Boolean) || [];
-        this.addRemoteTracks(receiverTracks);
-      };
-
       session.on('peerconnection', ({ peerconnection }) => {
-        attachPeerConnection(peerconnection);
+        peerconnection.addEventListener('track', event => {
+          this.remoteStream = markRaw(
+            event.streams?.[0] || new MediaStream([event.track])
+          );
+        });
       });
-      attachPeerConnection(session.connection);
+
+      // An outbound RTCSession can emit peerconnection before newRTCSession.
+      // Recover its remote receiver only after SIP has been accepted so this
+      // fallback never interferes with offer creation or inbound answer().
+      const recoverAcceptedRemoteStream = () => {
+        if (this.remoteStream) return;
+
+        const remoteTracks =
+          session.connection
+            ?.getReceivers?.()
+            .map(receiver => receiver.track)
+            .filter(track => track?.kind === 'audio') || [];
+        if (remoteTracks.length) {
+          this.remoteStream = markRaw(new MediaStream(remoteTracks));
+        }
+      };
       session.on('progress', () => {
         if (this.direction === 'outbound') this.status = 'ringing';
       });
       session.on('accepted', () => {
+        recoverAcceptedRemoteStream();
         this.status = 'active';
       });
       session.on('confirmed', () => {
+        recoverAcceptedRemoteStream();
         this.status = 'active';
       });
       session.on('ended', () => {
