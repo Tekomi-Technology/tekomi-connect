@@ -41,6 +41,7 @@ import LocationBubble from './bubbles/Location.vue';
 import CSATBubble from './bubbles/CSAT.vue';
 import FormBubble from './bubbles/Form.vue';
 import VoiceCallBubble from './bubbles/VoiceCall.vue';
+import PhoneCallBubble from './bubbles/PhoneCall.vue';
 import WhatsappFlowResponseBubble from './bubbles/WhatsappFlowResponse.vue';
 import WhatsappReferral from './bubbles/Text/WhatsappReferral.vue';
 
@@ -314,6 +315,10 @@ const componentToRender = computed(() => {
 
   if (props.contentType === CONTENT_TYPES.VOICE_CALL) {
     return VoiceCallBubble;
+  }
+
+  if (props.contentType === CONTENT_TYPES.PHONE_CALL) {
+    return PhoneCallBubble;
   }
 
   if (props.contentType === CONTENT_TYPES.INCOMING_EMAIL) {

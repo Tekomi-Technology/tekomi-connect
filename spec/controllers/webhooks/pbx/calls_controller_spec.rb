@@ -22,10 +22,12 @@ RSpec.describe 'Webhooks::Pbx::CallsController', type: :request do
       'X-PBX-Signature' => signature
     }
   end
+  let(:processor) { instance_double(Phone::PbxCallEventProcessor, perform: nil) }
 
   before do
     allow(ENV).to receive(:fetch).and_call_original
     allow(ENV).to receive(:fetch).with('PBX_CALL_WEBHOOK_SECRET', nil).and_return(secret)
+    allow(Phone::PbxCallEventProcessor).to receive(:new).and_return(processor)
   end
 
   it 'writes the verified event to the structured Rails log' do
@@ -35,6 +37,7 @@ RSpec.describe 'Webhooks::Pbx::CallsController', type: :request do
 
     expect(response).to have_http_status(:ok)
     expect(Rails.logger).to have_received(:info).with(include('pbx_call_webhook.received', 'call.completed', 'call-1'))
+    expect(processor).to have_received(:perform)
   end
 
   it 'rejects an invalid signature' do

@@ -115,6 +115,18 @@
       "TRANSCRIPT_SHOW_MORE": "Show more",
       "TRANSCRIPT_SHOW_LESS": "Show less"
     },
+    "PHONE_CALL": {
+      "INBOUND": "Cuộc gọi đến",
+      "OUTBOUND": "Cuộc gọi đi",
+      "IN_PROGRESS": "Đang gọi điện",
+      "COMPLETED": "Cuộc gọi đã kết thúc",
+      "MISSED": "Cuộc gọi nhỡ",
+      "BUSY": "Thuê bao bận",
+      "NO_ANSWER": "Không trả lời",
+      "REJECTED": "Cuộc gọi bị từ chối",
+      "CANCELLED": "Cuộc gọi đã hủy",
+      "FAILED": "Cuộc gọi thất bại"
+    },
     "HEADER": {
       "RESOLVE_ACTION": "Giải quyết",
       "REOPEN_ACTION": "Mở lại",

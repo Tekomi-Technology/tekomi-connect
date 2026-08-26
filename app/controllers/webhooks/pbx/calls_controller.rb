@@ -7,9 +7,12 @@ class Webhooks::Pbx::CallsController < ActionController::API
 
     payload = JSON.parse(request.raw_post)
     Rails.logger.info({ event: 'pbx_call_webhook.received', payload: payload }.to_json)
+    Phone::PbxCallEventProcessor.new(payload: payload).perform
     head :ok
   rescue JSON::ParserError
     head :bad_request
+  rescue Phone::PbxCallEventProcessor::InvalidPayload => e
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   private
