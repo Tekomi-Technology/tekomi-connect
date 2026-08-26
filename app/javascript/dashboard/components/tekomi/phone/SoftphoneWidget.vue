@@ -33,6 +33,7 @@ const {
   error,
   isActive,
   isIncoming,
+  micPermission,
   muted,
   registered,
   remoteNumber,
@@ -218,6 +219,29 @@ onBeforeUnmount(() => softphone.disconnect());
           </div>
 
           <template v-else>
+            <div
+              v-if="micPermission === 'prompt'"
+              class="flex items-center gap-2 rounded-xl bg-n-alpha-1 px-3 py-2"
+            >
+              <span class="i-lucide-mic size-4 shrink-0 text-n-slate-10" />
+              <p class="flex-1 text-xs text-n-slate-11">
+                {{ $t('INBOX_MGMT.ADD.SOFTPHONE.MIC_PROMPT') }}
+              </p>
+              <button
+                class="shrink-0 rounded-lg bg-n-brand px-2 py-1 text-xs font-medium text-white hover:brightness-110"
+                type="button"
+                @click="softphone.requestMicAccess"
+              >
+                {{ $t('INBOX_MGMT.ADD.SOFTPHONE.MIC_ENABLE') }}
+              </button>
+            </div>
+            <div
+              v-else-if="micPermission === 'denied'"
+              class="rounded-xl bg-n-alpha-1 px-3 py-2 text-xs text-n-ruby-11"
+            >
+              {{ $t('INBOX_MGMT.ADD.SOFTPHONE.MIC_DENIED') }}
+            </div>
+
             <div
               class="flex items-center rounded-xl border border-n-weak bg-n-alpha-1 px-3"
             >

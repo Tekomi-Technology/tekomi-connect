@@ -34,6 +34,7 @@ export const useSoftphoneStore = defineStore('softphone', {
     remoteNumber: '',
     error: '',
     muted: false,
+    micPermission: 'unknown',
   }),
 
   getters: {
@@ -44,6 +45,36 @@ export const useSoftphoneStore = defineStore('softphone', {
   },
 
   actions: {
+    // Surfacing the browser's microphone prompt before the first call avoids
+    // JsSIP failing the session with "User Denied Media Access" mid-dial.
+    async checkMicPermission() {
+      if (!navigator.mediaDevices?.getUserMedia) {
+        this.micPermission = 'unsupported';
+        return;
+      }
+      try {
+        const { state } = await navigator.permissions.query({
+          name: 'microphone',
+        });
+        this.micPermission = state;
+      } catch {
+        // Permissions API unavailable for microphones: assume not granted yet.
+        this.micPermission = 'prompt';
+      }
+    },
+
+    async requestMicAccess() {
+      try {
+        const stream =
+          await navigator.mediaDevices.getUserMedia(MEDIA_CONSTRAINTS);
+        stream.getTracks().forEach(track => track.stop());
+        this.micPermission = 'granted';
+      } catch {
+        // Blocked prompts never re-appear; the UI guides users to site settings.
+        this.micPermission = 'denied';
+      }
+    },
+
     async initialize(inboxId) {
       if (!inboxId || this.inboxId === inboxId) return;
 
@@ -51,6 +82,7 @@ export const useSoftphoneStore = defineStore('softphone', {
       this.inboxId = inboxId;
       this.status = 'connecting';
       this.error = '';
+      this.checkMicPermission();
 
       try {
         const { data } = await InboxesAPI.getPhoneCredentials(inboxId);

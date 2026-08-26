@@ -526,6 +526,9 @@
         "CALL": "Call",
         "OPEN": "Open softphone",
         "CLOSE": "Hide softphone",
+        "MIC_PROMPT": "Microphone access is required to make calls.",
+        "MIC_ENABLE": "Enable",
+        "MIC_DENIED": "Microphone is blocked. Allow it in your browser's site settings, then reload this page.",
         "STATUS": {
           "IDLE": "Not initialized",
           "CONNECTING": "Connecting to PBX…",
