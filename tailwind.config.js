@@ -193,6 +193,12 @@ const tailwindConfig = {
           },
         },
       },
+      borderRadius: {
+        md: '10px',
+        lg: '16px',
+        xl: '20px',
+        '2xl': '24px',
+      },
     },
     screens: {
       xs: '480px',
