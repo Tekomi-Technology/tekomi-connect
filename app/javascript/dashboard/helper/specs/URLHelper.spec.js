@@ -245,9 +245,16 @@ describe('#URL Helpers', () => {
       expect(timeStampAppendedURL(input)).toBe(expected);
     });
 
-    it('should throw an error for invalid URLs', () => {
-      const input = 'not a valid url';
-      expect(() => timeStampAppendedURL(input)).toThrow();
+    it('should resolve app-relative URLs against the current origin', () => {
+      const input = '/api/v1/accounts/2/phone_calls/23/recording';
+      const expected = `${window.location.origin}/api/v1/accounts/2/phone_calls/23/recording?t=${FIXED_TIMESTAMP}`;
+      expect(timeStampAppendedURL(input)).toBe(expected);
+    });
+
+    it('should append timestamp to an app-relative URL with query parameters', () => {
+      const input = '/api/v1/accounts/2/recording?foo=bar';
+      const expected = `${window.location.origin}/api/v1/accounts/2/recording?foo=bar&t=${FIXED_TIMESTAMP}`;
+      expect(timeStampAppendedURL(input)).toBe(expected);
     });
   });
 
