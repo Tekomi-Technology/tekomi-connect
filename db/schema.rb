@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_08_26_021728) do
+ActiveRecord::Schema[7.1].define(version: 2026_08_26_021728) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -1352,6 +1352,53 @@ ActiveRecord::Schema[7.2].define(version: 2026_08_26_021728) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+  create_table "pbx_call_events", force: :cascade do |t|
+    t.bigint "phone_call_id"
+    t.string "pbx_id", null: false
+    t.string "event_id", null: false
+    t.string "linked_id", null: false
+    t.string "event_type", null: false
+    t.jsonb "payload", default: {}, null: false
+    t.datetime "processed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pbx_id", "event_id"], name: "index_pbx_call_events_on_pbx_id_and_event_id", unique: true
+    t.index ["pbx_id", "linked_id"], name: "index_pbx_call_events_on_pbx_id_and_linked_id"
+    t.index ["phone_call_id"], name: "index_pbx_call_events_on_phone_call_id"
+  end
+
+  create_table "phone_calls", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.integer "inbox_id", null: false
+    t.integer "contact_id", null: false
+    t.integer "conversation_id", null: false
+    t.integer "message_id"
+    t.integer "user_id"
+    t.bigint "phone_extension_id"
+    t.string "pbx_id", null: false
+    t.string "linked_id", null: false
+    t.string "last_event_id"
+    t.string "direction", null: false
+    t.string "customer_number", null: false
+    t.string "extension"
+    t.string "from_number"
+    t.string "to_number"
+    t.string "status", default: "ringing", null: false
+    t.datetime "started_at"
+    t.datetime "answered_at"
+    t.datetime "ended_at"
+    t.integer "duration_seconds"
+    t.string "hangup_cause"
+    t.text "recording_url"
+    t.jsonb "metadata", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "contact_id"], name: "index_phone_calls_on_account_id_and_contact_id"
+    t.index ["account_id", "conversation_id"], name: "index_phone_calls_on_account_id_and_conversation_id"
+    t.index ["message_id"], name: "index_phone_calls_on_message_id", unique: true, where: "(message_id IS NOT NULL)"
+    t.index ["pbx_id", "linked_id"], name: "index_phone_calls_on_pbx_id_and_linked_id", unique: true
+  end
+
   create_table "phone_extensions", force: :cascade do |t|
     t.integer "account_id", null: false
     t.integer "inbox_id", null: false
@@ -1641,6 +1688,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_08_26_021728) do
   add_foreign_key "campaign_recipients", "contacts", on_delete: :cascade
   add_foreign_key "campaign_recipients", "inboxes", on_delete: :cascade
   add_foreign_key "inboxes", "portals"
+  add_foreign_key "pbx_call_events", "phone_calls", on_delete: :cascade
   add_foreign_key "phone_extensions", "accounts", on_delete: :cascade
   add_foreign_key "phone_extensions", "inboxes", on_delete: :cascade
   add_foreign_key "phone_extensions", "users", on_delete: :cascade

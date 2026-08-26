@@ -259,6 +259,9 @@ Rails.application.routes.draw do
               get :skip_logs
             end
           end
+          resources :phone_calls, only: [] do
+            get :recording, on: :member
+          end
           resources :csat_survey_responses, only: [:index] do
             collection do
               get :metrics

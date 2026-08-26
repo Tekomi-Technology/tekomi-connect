@@ -16,6 +16,10 @@ const hasTurnServer = iceServers =>
 const isRelayCandidate = candidate =>
   candidate?.type === 'relay' || candidate?.candidate?.includes(' typ relay ');
 
+const finishIceGatheringOnRelay = ({ candidate, ready }) => {
+  if (isRelayCandidate(candidate)) ready();
+};
+
 export const useSoftphoneStore = defineStore('softphone', {
   state: () => ({
     inboxId: null,
@@ -61,6 +65,11 @@ export const useSoftphoneStore = defineStore('softphone', {
             }
           : undefined;
         const socket = new JsSIP.WebSocketInterface(data.wss_url);
+        // Public WSS terminates at the PBX reverse proxy. FreeSWITCH receives
+        // the proxied connection on its private WS listener, so its Sofia
+        // transport must see WS in the SIP Via header to route responses on
+        // the existing connection.
+        socket.via_transport = 'WS';
         const configuration = {
           sockets: [socket],
           uri: `sip:${data.sip_username}@${data.sip_domain}`,
@@ -72,6 +81,11 @@ export const useSoftphoneStore = defineStore('softphone', {
 
         this.ua = markRaw(new JsSIP.UA(configuration));
         this.ua.on('registered', () => {
+          // JsSIP replaces the plain password with the HA1 calculated for the
+          // REGISTER challenge. FreeSWITCH can challenge an outbound INVITE
+          // with a different realm, so retain the password to let JsSIP build
+          // the matching Proxy-Authorization digest.
+          this.ua.set('password', data.sip_password);
           this.registered = true;
           this.status = this.session ? this.status : 'ready';
           this.error = '';
@@ -118,9 +132,9 @@ export const useSoftphoneStore = defineStore('softphone', {
       // JsSIP otherwise waits for every configured ICE transport to finish.
       // A TURN relay is sufficient for this non-trickle SIP call, so send the
       // offer/answer as soon as the first relay candidate is available.
-      session.on('icecandidate', ({ candidate, ready }) => {
-        if (isRelayCandidate(candidate)) ready();
-      });
+      if (originator === 'remote') {
+        session.on('icecandidate', finishIceGatheringOnRelay);
+      }
 
       // An outbound RTCSession can emit peerconnection before newRTCSession.
       // Recover its remote receiver only after SIP has been accepted so this
@@ -165,13 +179,31 @@ export const useSoftphoneStore = defineStore('softphone', {
 
     call(number) {
       const destination = String(number || '').trim();
-      if (!destination || !this.ua || !this.registered || this.session) return;
+      if (
+        !destination ||
+        !this.ua ||
+        !this.registered ||
+        this.session ||
+        this.status === 'calling'
+      )
+        return;
 
       this.error = '';
-      this.ua.call(`sip:${destination}@${this.sipDomain}`, {
-        mediaConstraints: MEDIA_CONSTRAINTS,
-        pcConfig: this.pcConfig,
-      });
+      // Lock immediately. newRTCSession is asynchronous, so relying only on
+      // this.session allows rapid click/Enter events to originate two calls.
+      this.status = 'calling';
+      try {
+        this.ua.call(`sip:${destination}@${this.sipDomain}`, {
+          eventHandlers: {
+            icecandidate: finishIceGatheringOnRelay,
+          },
+          mediaConstraints: MEDIA_CONSTRAINTS,
+          pcConfig: this.pcConfig,
+        });
+      } catch (error) {
+        this.error = error?.message || 'Unable to start call';
+        this.status = this.registered ? 'ready' : 'error';
+      }
     },
 
     answer() {

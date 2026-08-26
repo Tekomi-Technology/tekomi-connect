@@ -261,7 +261,7 @@ onBeforeUnmount(() => softphone.disconnect());
               class="mx-auto grid size-12 place-items-center rounded-full bg-n-teal-9 text-white hover:bg-n-teal-10 disabled:cursor-not-allowed disabled:opacity-50"
               type="button"
               :aria-label="$t('INBOX_MGMT.ADD.SOFTPHONE.CALL')"
-              :disabled="!registered || !destination"
+              :disabled="!registered || !destination || status === 'calling'"
               @click="startCall"
             >
               <span class="i-ri-phone-fill size-6" />

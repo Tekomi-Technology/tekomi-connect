@@ -125,6 +125,18 @@
       "TRANSCRIPT_SHOW_MORE": "Show more",
       "TRANSCRIPT_SHOW_LESS": "Show less"
     },
+    "PHONE_CALL": {
+      "INBOUND": "Incoming phone call",
+      "OUTBOUND": "Outgoing phone call",
+      "IN_PROGRESS": "Phone call in progress",
+      "COMPLETED": "Phone call ended",
+      "MISSED": "Missed phone call",
+      "BUSY": "Line busy",
+      "NO_ANSWER": "No answer",
+      "REJECTED": "Call rejected",
+      "CANCELLED": "Call cancelled",
+      "FAILED": "Call failed"
+    },
     "HEADER": {
       "RESOLVE_ACTION": "Resolve",
       "REOPEN_ACTION": "Reopen",

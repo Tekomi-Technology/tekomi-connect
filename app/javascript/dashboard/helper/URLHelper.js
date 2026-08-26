@@ -111,7 +111,9 @@ export const hasValidAvatarUrl = avatarUrl => {
 };
 
 export const timeStampAppendedURL = dataUrl => {
-  const url = new URL(dataUrl);
+  // Attachment URLs can be app-relative (e.g. proxied call recordings),
+  // so resolve them against the current origin before parsing.
+  const url = new URL(dataUrl, window.location.origin);
   if (!url.searchParams.has('t')) {
     url.searchParams.append('t', Date.now());
   }

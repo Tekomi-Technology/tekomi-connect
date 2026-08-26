@@ -11,6 +11,7 @@ const mockUa = {
   }),
   start: vi.fn(),
   stop: vi.fn(),
+  set: vi.fn(),
   call: vi.fn(),
 };
 
@@ -77,6 +78,9 @@ describe('softphone store', () => {
     expect(JsSIP.WebSocketInterface).toHaveBeenCalledWith(
       'wss://pbx.example.com:7443'
     );
+    expect(JsSIP.WebSocketInterface.mock.results[0].value.via_transport).toBe(
+      'WS'
+    );
     expect(JsSIP.UA).toHaveBeenCalledWith(
       expect.objectContaining({
         uri: 'sip:1002@pbx.example.com',
@@ -87,12 +91,33 @@ describe('softphone store', () => {
     expect(mockUa.start).toHaveBeenCalled();
 
     uaHandlers.registered();
+    expect(mockUa.set).toHaveBeenCalledWith('password', 'sip-secret');
     store.call('0342387314');
 
     expect(mockUa.call).toHaveBeenCalledWith('sip:0342387314@pbx.example.com', {
+      eventHandlers: {
+        icecandidate: expect.any(Function),
+      },
       mediaConstraints: { audio: true, video: false },
       pcConfig: { iceServers, iceTransportPolicy: 'relay' },
     });
+
+    store.call('0342387314');
+    expect(mockUa.call).toHaveBeenCalledOnce();
+
+    const { icecandidate } = mockUa.call.mock.calls[0][1].eventHandlers;
+    const ready = vi.fn();
+    icecandidate({
+      candidate: { type: 'host', candidate: 'candidate:1 typ host' },
+      ready,
+    });
+    expect(ready).not.toHaveBeenCalled();
+
+    icecandidate({
+      candidate: { type: 'relay', candidate: 'candidate:2 typ relay' },
+      ready,
+    });
+    expect(ready).toHaveBeenCalledOnce();
   });
 
   it('passes ICE servers when answering an inbound call', async () => {
