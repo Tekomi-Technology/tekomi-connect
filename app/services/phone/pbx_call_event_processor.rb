@@ -206,8 +206,11 @@ class Phone::PbxCallEventProcessor
       ended_at: parse_time(payload['ended_at']) || phone_call.ended_at,
       duration_seconds: [phone_call.duration_seconds.to_i, payload['duration'].to_i].max,
       hangup_cause: payload['hangup_cause'].presence || phone_call.hangup_cause,
-      recording_url: payload['recording_url'].presence || phone_call.recording_url,
-      metadata: phone_call.metadata.merge('last_leg_uuid' => payload['leg_uuid']).compact
+      recording_url: recording_proxy_url(phone_call),
+      metadata: phone_call.metadata.merge(
+        'last_leg_uuid' => payload['leg_uuid'],
+        'pbx_recording_url' => payload['recording_url'].presence || phone_call.metadata['pbx_recording_url']
+      ).compact
     )
     phone_call.status = incoming_status if status_can_advance?(phone_call.status, incoming_status)
   end
@@ -222,6 +225,12 @@ class Phone::PbxCallEventProcessor
     phone_call.phone_extension = phone_extension
     phone_call.user = phone_extension.user
     phone_call.extension = extension
+  end
+
+  def recording_proxy_url(phone_call)
+    return phone_call.recording_url unless payload['recording_url'].present?
+
+    "/api/v1/accounts/#{phone_call.account_id}/phone_calls/#{phone_call.id}/recording"
   end
 
   def event_status(direction)
