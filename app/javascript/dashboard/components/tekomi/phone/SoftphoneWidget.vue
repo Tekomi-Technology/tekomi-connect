@@ -104,7 +104,16 @@ const startCall = () => {
   softphone.call(destination.value);
 };
 
-onBeforeUnmount(() => softphone.disconnect());
+// Closing a browser tab does not guarantee that Vue can await a SIP
+// UNREGISTER. Stop the UA on pagehide as a best-effort cleanup; the short
+// registration lease remains the authoritative fallback for abrupt exits.
+const releaseSoftphone = () => softphone.disconnect();
+window.addEventListener('pagehide', releaseSoftphone);
+
+onBeforeUnmount(() => {
+  window.removeEventListener('pagehide', releaseSoftphone);
+  releaseSoftphone();
+});
 </script>
 
 <template>

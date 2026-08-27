@@ -51,6 +51,13 @@ describe('softphone store', () => {
         }
       }
     );
+    Object.defineProperty(navigator, 'mediaDevices', {
+      configurable: true,
+      value: {
+        getUserMedia: vi.fn(),
+        enumerateDevices: vi.fn().mockResolvedValue([]),
+      },
+    });
   });
 
   it('registers the current agent extension and passes ICE servers to outbound calls', async () => {
@@ -86,6 +93,7 @@ describe('softphone store', () => {
         uri: 'sip:1002@pbx.example.com',
         authorization_user: '1002',
         password: 'sip-secret',
+        register_expires: 120,
       })
     );
     expect(mockUa.start).toHaveBeenCalled();
@@ -120,7 +128,7 @@ describe('softphone store', () => {
     expect(ready).toHaveBeenCalledOnce();
   });
 
-  it('passes ICE servers when answering an inbound call', async () => {
+  it('passes the microphone stream and ICE servers when answering an inbound call', async () => {
     const iceServers = [{ urls: ['stun:stun.example.com:3478'] }];
     InboxesAPI.getPhoneCredentials.mockResolvedValue({
       data: {
@@ -136,15 +144,40 @@ describe('softphone store', () => {
       on: vi.fn(),
       answer: vi.fn(),
     };
+    const mediaStream = {
+      getTracks: vi.fn(() => []),
+    };
+    navigator.mediaDevices.getUserMedia.mockResolvedValue(mediaStream);
 
     await store.initialize(7);
     uaHandlers.newRTCSession({ originator: 'remote', session });
-    store.answer();
+    await store.answer();
 
     expect(session.answer).toHaveBeenCalledWith({
       mediaConstraints: { audio: true, video: false },
+      mediaStream,
       pcConfig: { iceServers },
     });
+  });
+
+  it('reports the precise microphone failure instead of allowing JsSIP to send an opaque 480', async () => {
+    const store = useSoftphoneStore();
+    const session = {
+      on: vi.fn(),
+      answer: vi.fn(),
+    };
+    navigator.mediaDevices.getUserMedia.mockRejectedValue(
+      new DOMException('Permission denied', 'NotAllowedError')
+    );
+    const diagnostic = vi.spyOn(store, 'logMediaFailure').mockResolvedValue({});
+
+    store.handleNewSession('remote', session);
+    await store.answer();
+
+    expect(session.answer).not.toHaveBeenCalled();
+    expect(store.micPermission).toBe('denied');
+    expect(store.error).toContain('Microphone permission was denied');
+    expect(diagnostic).toHaveBeenCalledOnce();
   });
 
   it('recovers an outbound remote track only after SIP is accepted', () => {

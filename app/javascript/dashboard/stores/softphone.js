@@ -5,6 +5,30 @@ import JsSIP from 'jssip';
 import InboxesAPI from 'dashboard/api/inboxes';
 
 const MEDIA_CONSTRAINTS = { audio: true, video: false };
+const REGISTER_EXPIRES_SECONDS = 120;
+
+const microphoneFailureMessage = error => {
+  switch (error?.name) {
+    case 'NotAllowedError':
+    case 'PermissionDeniedError':
+      return 'Microphone permission was denied. Allow microphone access for this site and try again.';
+    case 'NotFoundError':
+    case 'DevicesNotFoundError':
+      return 'No microphone was found. Connect a microphone and try again.';
+    case 'NotReadableError':
+    case 'TrackStartError':
+      return 'The microphone is unavailable or is being used by another application.';
+    case 'AbortError':
+      return 'Microphone access was interrupted. Try answering the call again.';
+    default:
+      return 'Unable to access the microphone. Check browser microphone settings and try again.';
+  }
+};
+
+const errorDetails = error => ({
+  name: error?.name || 'Error',
+  message: error?.message || String(error || ''),
+});
 
 const hasTurnServer = iceServers =>
   iceServers.some(server =>
@@ -75,6 +99,69 @@ export const useSoftphoneStore = defineStore('softphone', {
       }
     },
 
+    async logMediaFailure(error) {
+      const diagnostic = {
+        at: new Date().toISOString(),
+        error: errorDetails(error),
+        microphonePermission: this.micPermission,
+        audioInputs: [],
+      };
+
+      try {
+        const permission = await navigator.permissions?.query?.({
+          name: 'microphone',
+        });
+        if (permission) {
+          diagnostic.microphonePermission = permission.state;
+          this.micPermission = permission.state;
+        }
+      } catch {
+        // The Permissions API is not available in every supported browser.
+      }
+
+      try {
+        const devices = await navigator.mediaDevices?.enumerateDevices?.();
+        diagnostic.audioInputs = (devices || [])
+          .filter(device => device.kind === 'audioinput')
+          .map(device => ({
+            deviceId: device.deviceId,
+            label:
+              device.label || '(label unavailable until permission is granted)',
+          }));
+      } catch (deviceError) {
+        diagnostic.enumerateDevicesError = errorDetails(deviceError);
+      }
+
+      // This stays in the affected browser's console: no SIP password, call
+      // audio, or server-side telemetry is exposed. It gives support the exact
+      // device and WebRTC failure needed to investigate a rejected INVITE.
+      // eslint-disable-next-line no-console
+      console.error('[Softphone] Microphone/WebRTC diagnostic', diagnostic);
+      return diagnostic;
+    },
+
+    handleMediaFailure(error) {
+      if (
+        error?.name === 'NotAllowedError' ||
+        error?.name === 'PermissionDeniedError'
+      ) {
+        this.micPermission = 'denied';
+      }
+      this.error = microphoneFailureMessage(error);
+      this.logMediaFailure(error);
+    },
+
+    handleWebRTCFailure(eventName, error) {
+      const diagnostic = {
+        at: new Date().toISOString(),
+        event: eventName,
+        error: errorDetails(error),
+      };
+      // eslint-disable-next-line no-console
+      console.error('[Softphone] WebRTC diagnostic', diagnostic);
+      this.error = `WebRTC failed during ${eventName}. See the browser console for details.`;
+    },
+
     async initialize(inboxId) {
       if (!inboxId || this.inboxId === inboxId) return;
 
@@ -108,6 +195,7 @@ export const useSoftphoneStore = defineStore('softphone', {
           authorization_user: data.sip_username,
           password: data.sip_password,
           register: true,
+          register_expires: REGISTER_EXPIRES_SECONDS,
           session_timers: false,
         };
 
@@ -198,8 +286,21 @@ export const useSoftphoneStore = defineStore('softphone', {
         this.resetSession(this.getPostCallStatus());
       });
       session.on('failed', event => {
-        this.error = event?.cause || 'Call failed';
+        this.error = this.error || event?.cause || 'Call failed';
         this.resetSession(this.getPostCallStatus(true));
+      });
+      session.on('getusermediafailed', error => {
+        this.handleMediaFailure(error);
+      });
+      [
+        'peerconnection:createofferfailed',
+        'peerconnection:createanswerfailed',
+        'peerconnection:setlocaldescriptionfailed',
+        'peerconnection:setremotedescriptionfailed',
+      ].forEach(eventName => {
+        session.on(eventName, error => {
+          this.handleWebRTCFailure(eventName, error);
+        });
       });
     },
 
@@ -238,12 +339,28 @@ export const useSoftphoneStore = defineStore('softphone', {
       }
     },
 
-    answer() {
+    async answer() {
       if (!this.isIncoming) return;
-      this.session.answer({
-        mediaConstraints: MEDIA_CONSTRAINTS,
-        pcConfig: this.pcConfig,
-      });
+      const session = this.session;
+      try {
+        // Acquire the stream on the user gesture and pass that exact stream to
+        // JsSIP. This prevents JsSIP from replying 480 after an opaque second
+        // getUserMedia attempt and lets the UI report the browser's real error.
+        const mediaStream =
+          await navigator.mediaDevices.getUserMedia(MEDIA_CONSTRAINTS);
+        if (this.session !== session || !this.isIncoming) {
+          mediaStream.getTracks().forEach(track => track.stop());
+          return;
+        }
+        this.micPermission = 'granted';
+        session.answer({
+          mediaConstraints: MEDIA_CONSTRAINTS,
+          mediaStream,
+          pcConfig: this.pcConfig,
+        });
+      } catch (error) {
+        this.handleMediaFailure(error);
+      }
     },
 
     reject() {
