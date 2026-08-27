@@ -1,6 +1,10 @@
 class Crm::Perfex::Api::CustomerClient < Crm::Perfex::Api::BaseClient
   PER_PAGE = 20
 
+  def show(userid)
+    get("customers/#{userid}")
+  end
+
   def fetch_all_customers
     customers = []
     page = 1

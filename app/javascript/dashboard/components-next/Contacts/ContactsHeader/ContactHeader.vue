@@ -1,8 +1,4 @@
 <script setup>
-import { ref } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { useStore } from 'dashboard/composables/store';
-import { useAlert } from 'dashboard/composables';
 import Button from 'dashboard/components-next/button/Button.vue';
 import Input from 'dashboard/components-next/input/Input.vue';
 import Icon from 'dashboard/components-next/icon/Icon.vue';
@@ -31,24 +27,7 @@ const emit = defineEmits([
   'export',
   'createSegment',
   'deleteSegment',
-  'reload',
 ]);
-const { t } = useI18n();
-const store = useStore();
-
-const isSyncingCrm = ref(false);
-const syncCrm = async () => {
-  isSyncingCrm.value = true;
-  try {
-    const { imported } = await store.dispatch('contacts/syncCrm');
-    useAlert(t('CONTACTS_LAYOUT.HEADER.SYNC_CRM_SUCCESS', { count: imported }));
-    emit('reload');
-  } catch (error) {
-    useAlert(error.message);
-  } finally {
-    isSyncingCrm.value = false;
-  }
-};
 </script>
 
 <template>
@@ -133,15 +112,6 @@ const syncCrm = async () => {
             />
           </div>
           <div class="w-px h-4 bg-n-strong" />
-          <Button
-            faded
-            slate
-            size="sm"
-            :is-loading="isSyncingCrm"
-            :disabled="isSyncingCrm"
-            :label="t('CONTACTS_LAYOUT.HEADER.SYNC_CRM_BUTTON')"
-            @click="syncCrm"
-          />
           <ComposeConversation>
             <template #trigger>
               <Button :label="buttonLabel" size="sm" />

@@ -253,15 +253,6 @@ export const actions = {
     }
   },
 
-  syncCrm: async () => {
-    try {
-      const response = await ContactAPI.syncCrm();
-      return response.data;
-    } catch (error) {
-      throw new Error(error);
-    }
-  },
-
   fetchContactableInbox: async ({ commit }, id) => {
     commit(types.SET_CONTACT_UI_FLAG, { isFetchingInboxes: true });
     try {

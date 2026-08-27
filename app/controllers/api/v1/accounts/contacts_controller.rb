@@ -81,23 +81,14 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
       base_url: ENV.fetch('EXTERNAL_TICKET_SYSTEM_URL'),
       api_key: ENV.fetch('EXTERNAL_TICKET_SYSTEM_API_KEY')
     )
-    Crm::Perfex::ContactMatcherService.new(client).match_one(@contact)
-    render json: @contact.reload.additional_attributes
-  rescue Crm::Perfex::Api::BaseClient::ApiError => e
-    Rails.logger.error "Crm::Perfex contact match failed for contact #{@contact.id}: #{e.message}"
-    render json: { error: 'crm_unreachable' }, status: :bad_gateway
-  end
-
-  def sync_crm
-    client = Crm::Perfex::Api::ContactClient.new(
+    customer_client = Crm::Perfex::Api::CustomerClient.new(
       base_url: ENV.fetch('EXTERNAL_TICKET_SYSTEM_URL'),
       api_key: ENV.fetch('EXTERNAL_TICKET_SYSTEM_API_KEY')
     )
-    matched_count = Crm::Perfex::ContactMatcherService.new(client).match_all(Current.account.contacts)
-    imported_count = Crm::Perfex::ContactImporterService.new(client, Current.account).import_all
-    render json: { matched: matched_count, imported: imported_count }
+    Crm::Perfex::ContactMatcherService.new(contact_client: client, customer_client: customer_client).match_one(@contact)
+    render json: @contact.reload.additional_attributes
   rescue Crm::Perfex::Api::BaseClient::ApiError => e
-    Rails.logger.error "Crm::Perfex contact sync failed: #{e.message}"
+    Rails.logger.error "Crm::Perfex contact match failed for contact #{@contact.id}: #{e.message}"
     render json: { error: 'crm_unreachable' }, status: :bad_gateway
   end
 

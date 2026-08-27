@@ -1,5 +1,5 @@
 class Crm::Perfex::Api::ContactClient < Crm::Perfex::Api::BaseClient
-  PER_PAGE = 20
+  PER_PAGE = 100 # index endpoints cap per_page at 100
 
   def fetch_all_contacts
     contacts = []

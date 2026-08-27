@@ -1248,7 +1248,7 @@ RSpec.describe 'Conversations API', type: :request do
 
       context 'when the contact is matched with the CRM' do
         before do
-          contact.update!(additional_attributes: { 'external' => { 'perfex_id' => '1' } })
+          contact.update!(additional_attributes: { 'external' => { 'perfex_contact_id' => '1', 'perfex_customer_id' => '2' } })
         end
 
         it 'enqueues the ticket delivery job' do

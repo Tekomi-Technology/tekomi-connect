@@ -519,7 +519,6 @@ onMounted(async () => {
       @apply-filter="fetchSavedOrAppliedFilteredContact"
       @clear-filters="fetchContacts"
       @load-more="loadMoreSearchResults"
-      @reload="fetchContactsBasedOnContext(pageNumber)"
     >
       <div
         v-if="isFetchingList && !(isSearchView && hasContacts)"

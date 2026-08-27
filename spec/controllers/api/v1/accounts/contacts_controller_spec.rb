@@ -810,7 +810,7 @@ RSpec.describe 'Contacts API', type: :request do
 
       it 'matches the contact and returns the updated additional_attributes' do
         allow(matcher).to receive(:match_one) do |c|
-          c.update!(additional_attributes: { 'external' => { 'perfex_id' => '1' }, 'crm' => { 'company' => 'Acme' } })
+          c.update!(additional_attributes: { 'external' => { 'perfex_contact_id' => '1' }, 'crm' => { 'name' => 'Acme' } })
           c
         end
 
@@ -822,7 +822,7 @@ RSpec.describe 'Contacts API', type: :request do
         end
 
         expect(response).to have_http_status(:success)
-        expect(response.parsed_body.dig('external', 'perfex_id')).to eq('1')
+        expect(response.parsed_body.dig('external', 'perfex_contact_id')).to eq('1')
       end
     end
   end

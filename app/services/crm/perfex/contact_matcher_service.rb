@@ -1,37 +1,17 @@
 class Crm::Perfex::ContactMatcherService
-  def initialize(contact_client)
-    @contact_client = contact_client
+  def initialize(contact_client:, customer_client:)
+    @directory = Crm::Perfex::DirectoryCacheService.new(contact_client)
+    @company_resolver = Crm::Perfex::CompanyResolverService.new(customer_client)
   end
 
   def match_all(contacts)
-    perfex_contacts = @contact_client.fetch_all_contacts
+    perfex_contacts = @directory.fetch_all
     contacts.count { |contact| match_contact(contact, perfex_contacts) }
   end
 
   def match_one(contact)
-    perfex_contacts = @contact_client.fetch_all_contacts
+    perfex_contacts = @directory.fetch_all
     match_contact(contact, perfex_contacts)
-    contact
-  end
-
-  def search(query)
-    return [] if query.blank?
-
-    perfex_contacts = @contact_client.fetch_all_contacts
-    downcased_query = query.downcase
-
-    perfex_contacts.select do |c|
-      full_name = "#{c['firstname']} #{c['lastname']}"
-      [full_name, c['email'], c['phonenumber']].any? { |field| field.to_s.downcase.include?(downcased_query) }
-    end
-  end
-
-  def link_one(contact, perfex_contact_id)
-    perfex_contacts = @contact_client.fetch_all_contacts
-    perfex_contact = perfex_contacts.find { |c| c['id'] == perfex_contact_id.to_s }
-    return contact if perfex_contact.nil?
-
-    mark_matched(contact, perfex_contact)
     contact
   end
 
@@ -74,15 +54,16 @@ class Crm::Perfex::ContactMatcherService
     )
     crm.delete('match_failed_at')
 
-    contact.assign_attributes(additional_attributes: contact.additional_attributes.merge('external' => external, 'crm' => crm))
-    contact.name = name if name.present?
-    contact.phone_number = perfex_contact['phonenumber'] if perfex_contact['phonenumber'].present?
+    updates = { additional_attributes: contact.additional_attributes.merge('external' => external, 'crm' => crm) }
+    company_id = @company_resolver.resolve(contact.account, perfex_contact['userid'])
+    updates[:company_id] = company_id if company_id.present? && contact.company_id != company_id
+
+    # Locally managed fields (name, phone_number) are never overwritten with CRM values.
+    contact.assign_attributes(updates)
     contact.save!
   rescue ActiveRecord::RecordInvalid => e
-    Rails.logger.error "Crm::Perfex contact sync skipped for contact #{contact.id}: #{e.message}"
-    contact.phone_number = contact.phone_number_was
-    contact.name = contact.name_was
-    contact.save!
+    Rails.logger.error "Crm::Perfex contact match skipped for contact #{contact.id}: #{e.message}"
+    contact.reload
   end
 
   def mark_failed(contact)
