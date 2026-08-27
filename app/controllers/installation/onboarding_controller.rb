@@ -1,4 +1,5 @@
 class Installation::OnboardingController < ApplicationController
+  helper SuperAdmin::BrandingHelper
   before_action :ensure_installation_onboarding
 
   def index; end

@@ -7,7 +7,7 @@ export default {
     },
     bg: {
       type: String,
-      default: 'bg-white dark:bg-n-solid-2',
+      default: 'bg-n-solid-2',
     },
   },
 };

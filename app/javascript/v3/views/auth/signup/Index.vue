@@ -21,7 +21,7 @@ const isAChatwootInstance = computed(
       class="absolute inset-0 bg-n-gray-12/60 dark:bg-n-gray-1/80 backdrop-blur-sm"
     />
     <div
-      class="relative flex max-w-[960px] bg-white dark:bg-n-solid-2 rounded-lg outline outline-1 outline-n-container shadow-sm"
+      class="relative flex max-w-[960px] bg-n-solid-2 rounded-lg outline outline-1 outline-n-container shadow-sm"
       :class="{ 'w-auto xl:w-full': isAChatwootInstance }"
     >
       <div class="flex-1 flex items-center justify-center py-10 px-10">
