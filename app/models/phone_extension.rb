@@ -1,3 +1,29 @@
+# == Schema Information
+#
+# Table name: phone_extensions
+#
+#  id           :bigint           not null, primary key
+#  enabled      :boolean          default(TRUE), not null
+#  sip_password :text             not null
+#  sip_username :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  account_id   :integer          not null
+#  inbox_id     :integer          not null
+#  user_id      :integer          not null
+#
+# Indexes
+#
+#  index_phone_extensions_on_account_id                 (account_id)
+#  index_phone_extensions_on_inbox_id_and_sip_username  (inbox_id,sip_username) UNIQUE
+#  index_phone_extensions_on_inbox_id_and_user_id       (inbox_id,user_id) UNIQUE
+#
+# Foreign Keys
+#
+#  fk_rails_...  (account_id => accounts.id) ON DELETE => cascade
+#  fk_rails_...  (inbox_id => inboxes.id) ON DELETE => cascade
+#  fk_rails_...  (user_id => users.id) ON DELETE => cascade
+#
 class PhoneExtension < ApplicationRecord
   belongs_to :account
   belongs_to :inbox

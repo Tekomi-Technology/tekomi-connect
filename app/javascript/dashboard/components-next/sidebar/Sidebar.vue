@@ -953,7 +953,7 @@ const menuItems = computed(() => {
         ],
       },
     ]"
-    class="dark bg-n-background flex flex-col text-sm pb-px fixed top-0 ltr:left-0 rtl:right-0 h-full z-40 w-[200px] md:w-auto md:relative md:flex-shrink-0 md:ltr:translate-x-0 md:rtl:translate-x-0 ltr:shadow-[6px_0_24px_-12px_rgba(11,31,58,0.45)] rtl:shadow-[-6px_0_24px_-12px_rgba(11,31,58,0.45)]"
+    class="dark bg-n-solid-3 flex flex-col text-sm pb-px fixed top-0 ltr:left-0 rtl:right-0 h-full z-40 w-[200px] md:w-auto md:relative md:flex-shrink-0 md:ltr:translate-x-0 md:rtl:translate-x-0 ltr:shadow-[6px_0_24px_-12px_rgba(11,31,58,0.45)] rtl:shadow-[-6px_0_24px_-12px_rgba(11,31,58,0.45)]"
     :class="[
       {
         'shadow-lg': isMobileSidebarOpen,

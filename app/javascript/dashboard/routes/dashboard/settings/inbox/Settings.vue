@@ -47,7 +47,6 @@ import SelectInput from 'dashboard/components-next/select/Select.vue';
 import Widget from 'dashboard/modules/widget-preview/components/Widget.vue';
 import AccessToken from 'dashboard/routes/dashboard/settings/profile/AccessToken.vue';
 import { copyTextToClipboard } from 'shared/helpers/clipboard';
-import { META_RESTRICTION_STATUS_URL } from 'dashboard/constants/globals';
 
 export default {
   components: {
@@ -367,9 +366,6 @@ export default {
     },
     showInstagramRestrictionSettingsBanner() {
       return this.isMetaMessageSendingDisabled && this.isAnInstagramChannel;
-    },
-    metaRestrictionStatusUrl() {
-      return META_RESTRICTION_STATUS_URL;
     },
     tiktokUnauthorized() {
       return this.isATiktokChannel && this.inbox.reauthorization_required;
@@ -861,14 +857,6 @@ export default {
             />
             <span>
               {{ $t('INBOX_MGMT.ADD.INSTAGRAM.SETTINGS_RESTRICTED_WARNING') }}
-              <a
-                :href="metaRestrictionStatusUrl"
-                class="link underline"
-                rel="noopener noreferrer nofollow"
-                target="_blank"
-              >
-                {{ $t('INBOX_MGMT.ADD.INSTAGRAM.STATUS_LINK') }}
-              </a>
             </span>
           </div>
         </Banner>

@@ -34,9 +34,7 @@ import {
 // constants
 import { BUS_EVENTS } from 'shared/constants/busEvents';
 import { REPLY_POLICY } from 'shared/constants/links';
-import wootConstants, {
-  META_RESTRICTION_STATUS_URL,
-} from 'dashboard/constants/globals';
+import wootConstants from 'dashboard/constants/globals';
 import { LOCAL_STORAGE_KEYS } from 'dashboard/constants/localStorage';
 import { INBOX_TYPES } from 'dashboard/helper/inbox';
 
@@ -180,9 +178,6 @@ export default {
     },
     isInstagramRestrictionBannerVisible() {
       return this.isMetaMessageSendingDisabled && this.isAnInstagramChannel;
-    },
-    instagramRestrictionStatusUrl() {
-      return META_RESTRICTION_STATUS_URL;
     },
     replyWindowBannerMessage() {
       if (this.isAWhatsAppChannel) {
@@ -472,8 +467,6 @@ export default {
         color-scheme="warning"
         class="mx-2 mt-2 min-h-12 !h-auto rounded-lg"
         :banner-message="$t('CONVERSATION.INSTAGRAM_RESTRICTION_BANNER')"
-        :href-link="instagramRestrictionStatusUrl"
-        :href-link-text="$t('CONVERSATION.INSTAGRAM_RESTRICTION_STATUS_LINK')"
       />
       <Banner
         v-if="!currentChat.can_reply"

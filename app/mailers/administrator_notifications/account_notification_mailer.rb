@@ -1,6 +1,6 @@
 class AdministratorNotifications::AccountNotificationMailer < AdministratorNotifications::BaseMailer
   def account_deletion_user_initiated(account, reason)
-    subject = 'Your Chatwoot account deletion has been scheduled'
+    subject = 'Your Tekomi account deletion has been scheduled'
     action_url = settings_url('general')
     meta = {
       'account_name' => account.name,
