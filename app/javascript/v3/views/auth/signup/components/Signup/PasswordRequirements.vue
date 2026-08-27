@@ -47,7 +47,7 @@ const requirements = computed(() => {
 
 <template>
   <div
-    class="absolute top-0 z-50 w-64 text-xs rounded-lg px-4 py-3 bg-white dark:bg-n-solid-3 shadow-lg outline outline-1 outline-n-weak start-full ms-4"
+    class="absolute top-0 z-50 w-64 text-xs rounded-lg px-4 py-3 bg-n-solid-3 shadow-lg outline outline-1 outline-n-weak start-full ms-4"
   >
     <ul role="list" class="space-y-1.5">
       <li

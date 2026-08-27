@@ -88,7 +88,7 @@ onMounted(async () => {
       </h2>
     </section>
     <section
-      class="bg-white shadow sm:mx-auto mt-11 sm:w-full sm:max-w-lg dark:bg-n-solid-2 p-11 sm:shadow-lg sm:rounded-lg"
+      class="bg-n-solid-2 shadow sm:mx-auto mt-11 sm:w-full sm:max-w-lg p-11 sm:shadow-lg sm:rounded-lg"
       :class="{
         'animate-wiggle': loginApi.hasErrored,
       }"
