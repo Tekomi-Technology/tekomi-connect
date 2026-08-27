@@ -500,7 +500,6 @@
       "DESCRIPTION": "Create user-friendly self-service portals. Help your users to access the articles and get support 24/7. Upgrade your subscription to enable this feature.",
       "SELF_HOSTED_DESCRIPTION": "Create user-friendly self-service portals. Help your users to access the articles and get support 24/7. Please contact your administrator to enable this feature.",
       "BUTTON": {
-        "LEARN_MORE": "Learn more",
         "UPGRADE": "Upgrade"
       },
       "FEATURES": {
@@ -853,7 +852,7 @@
       "CONFIRM_BUTTON_LABEL": "Create",
       "NAME": {
         "LABEL": "Name",
-        "PLACEHOLDER": "User Guide | Chatwoot",
+        "PLACEHOLDER": "User Guide | Tekomi",
         "MESSAGE": "Choose an name for your portal.",
         "ERROR": "Name is required"
       },
@@ -976,7 +975,7 @@
         "HEADER": "Integrations",
         "DESCRIPTION": "Connect tools that extend what your help center can do.",
         "LIVE_CHAT": {
-          "TITLE": "Live chat with Chatwoot",
+          "TITLE": "Live chat with Tekomi",
           "DESCRIPTION": "Show a live chat widget on your help center so visitors can reach you while they read.",
           "PLACEHOLDER": "Select live chat widget",
           "NONE_OPTION": "No widget"

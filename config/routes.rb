@@ -561,7 +561,6 @@ Rails.application.routes.draw do
               get :outgoing_messages_count
             end
           end
-          resource :year_in_review, only: [:show]
           resources :live_reports, only: [] do
             collection do
               get :conversation_metrics

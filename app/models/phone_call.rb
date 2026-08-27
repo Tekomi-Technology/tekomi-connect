@@ -1,3 +1,41 @@
+# == Schema Information
+#
+# Table name: phone_calls
+#
+#  id                 :bigint           not null, primary key
+#  answered_at        :datetime
+#  customer_number    :string           not null
+#  direction          :string           not null
+#  duration_seconds   :integer
+#  ended_at           :datetime
+#  extension          :string
+#  from_number        :string
+#  hangup_cause       :string
+#  metadata           :jsonb            not null
+#  recording_url      :text
+#  started_at         :datetime
+#  status             :string           default("ringing"), not null
+#  to_number          :string
+#  created_at         :datetime         not null
+#  updated_at         :datetime         not null
+#  account_id         :integer          not null
+#  contact_id         :integer          not null
+#  conversation_id    :integer          not null
+#  inbox_id           :integer          not null
+#  last_event_id      :string
+#  linked_id          :string           not null
+#  message_id         :integer
+#  pbx_id             :string           not null
+#  phone_extension_id :bigint
+#  user_id            :integer
+#
+# Indexes
+#
+#  index_phone_calls_on_account_id_and_contact_id       (account_id,contact_id)
+#  index_phone_calls_on_account_id_and_conversation_id  (account_id,conversation_id)
+#  index_phone_calls_on_message_id                      (message_id) UNIQUE WHERE (message_id IS NOT NULL)
+#  index_phone_calls_on_pbx_id_and_linked_id            (pbx_id,linked_id) UNIQUE
+#
 class PhoneCall < ApplicationRecord
   DIRECTIONS = %w[inbound outbound].freeze
   TERMINAL_STATUSES = %w[completed missed busy no_answer rejected cancelled failed].freeze

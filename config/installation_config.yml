@@ -1,20 +1,5 @@
-# This file contains all the installation wide configuration which controls various settings in Chatwoot
-# This is internal config and should not be modified by the user directly in database
-# Chatwoot might override and modify these values during the upgrade process
-# Configs which can be modified by the user are available in the dashboard under appropriate UI
-#
-# name: the name of the config referenced in the code
-# value: the value of the config
-# display_title: the title of the config displayed in the dashboard UI
-# description: the description of the config displayed in the dashboard UI
-# locked: if you don't specify locked attribute in yaml, the default value will be true,
-#         which means the particular config will be locked and won't be available in `super_admin/installation_configs`
-# type: The type of the config. Default is text, select and boolean are also supported
-# options: For select types, its required to have options for the select in the following pattern: "option_value":"Human readable option"
-
-# ------- Branding Related Config ------- #
 - name: INSTALLATION_NAME
-  value: 'Chatwoot'
+  value: 'Tekomi'
   display_title: 'Installation Name'
   description: 'The installation wide name that would be used in the dashboard, title etc.'
 - name: LOGO_THUMBNAIL
@@ -30,33 +15,31 @@
   display_title: 'Logo Dark Mode'
   description: 'The logo that would be used on the dashboard, login page etc. for dark mode'
 - name: BRAND_URL
-  value: 'https://www.chatwoot.com'
+  value:
   display_title: 'Brand URL'
   description: 'The URL that would be used in emails under the section “Powered By”'
 - name: WIDGET_BRAND_URL
-  value: 'https://www.chatwoot.com'
+  value:
   display_title: 'Widget Brand URL'
   description: 'The URL that would be used in the widget under the section “Powered By”'
 - name: BRAND_NAME
-  value: 'Chatwoot'
+  value: 'Tekomi'
   display_title: 'Brand Name'
   description: 'The name that would be used in emails and the widget'
 - name: TERMS_URL
-  value: 'https://www.chatwoot.com/terms-of-service'
+  value:
   display_title: 'Terms URL'
   description: 'The terms of service URL displayed in Signup Page'
 - name: PRIVACY_URL
-  value: 'https://www.chatwoot.com/privacy-policy'
+  value:
   display_title: 'Privacy URL'
   description: 'The privacy policy URL displayed in the app'
 - name: DISPLAY_MANIFEST
   value: true
-  display_title: 'Chatwoot Metadata'
-  description: 'Display default Chatwoot metadata like favicons and upgrade warnings'
+  display_title: 'Tekomi Metadata'
+  description: 'Display default Tekomi metadata like favicons and upgrade warnings'
   type: boolean
-# ------- End of Branding Related Config ------- #
 
-# ------- Signup & Account Related Config ------- #
 - name: ENABLE_ACCOUNT_SIGNUP
   display_title: 'Enable Account Signup'
   value: false
@@ -81,7 +64,7 @@
 - name: WEBHOOK_TIMEOUT
   value: 5
   display_title: 'Webhook request timeout (seconds)'
-  description: 'Maximum time Chatwoot waits for a webhook response before failing the request'
+  description: 'Maximum time Tekomi waits for a webhook response before failing the request'
   locked: false
 - name: DIRECT_UPLOADS_ENABLED
   type: boolean
@@ -93,9 +76,7 @@
   display_title: 'Attachment size limit (MB)'
   description: 'Maximum attachment size in MB allowed for uploads'
   locked: false
-# ------- End of Account Related Config ------- #
 
-# ------- Email Related Config ------- #
 - name: MAILER_INBOUND_EMAIL_DOMAIN
   display_title: 'Inbound Email Domain'
   value:
@@ -116,9 +97,7 @@
   description: 'Per-plan daily email sending limits as JSON'
   value:
   type: code
-# ------- End of Email Related Config ------- #
 
-# ------- Facebook Channel Related Config ------- #
 - name: FB_APP_ID
   display_title: 'Facebook App ID'
   locked: false
@@ -147,9 +126,7 @@
   locked: false
   description: 'Enable human agent for messenger channel for longer message back period. Needs additional app approval: https://developers.facebook.com/docs/features-reference/human-agent/'
   type: boolean
-# ------- End of Facebook Channel Related Config ------- #
 
-# ------- WhatsApp Channel Related Config ------- #
 - name: WHATSAPP_APP_ID
   display_title: 'WhatsApp App ID'
   description: 'The Facebook App ID for WhatsApp Business API integration'
@@ -167,9 +144,7 @@
   description: 'Configure this if you want to use a different WhatsApp API version. Make sure its prefixed with `v`'
   value: 'v22.0'
   locked: false
-# ------- End of WhatsApp Channel Related Config ------- #
 
-# MARK: Microsoft Email Channel Config
 - name: AZURE_APP_ID
   display_title: 'Azure App ID'
   description: 'The App ID that will be used to authenticate with customer Microsoft accounts. Find more details on setting up Azure here: https://chwt.app/dev/ms'
@@ -178,9 +153,7 @@
   display_title: 'Azure App Secret'
   locked: false
   type: secret
-# End of Microsoft Email Channel Config
 
-# MARK: Captain Config
 - name: CAPTAIN_OPEN_AI_API_KEY
   display_title: 'OpenAI API Key'
   description: 'The API key used to authenticate requests to OpenAI services for Captain AI.'
@@ -226,16 +199,12 @@
   value: 1000
   locked: false
   type: number
-# End of Captain Config
 
-# ------- Context.dev Config ------- #
 - name: CONTEXT_DEV_API_KEY
   display_title: 'Context.dev API Key'
   description: 'API key for Context.dev branding service used during account onboarding'
   type: secret
-# ------- End of Context.dev Config ------- #
 
-# ------- Chatwoot Internal Config for Cloud ----#
 - name: DISABLE_META_INBOX_CREATION
   value: true
   display_title: 'Disable Meta Inbox Creation'
@@ -245,7 +214,7 @@
 - name: DISABLE_META_MESSAGE_SENDING
   value: true
   display_title: 'Disable Meta Message Sending'
-  description: 'Disable Instagram message sending on Chatwoot Cloud during Meta incidents'
+  description: 'Disable Instagram message sending on Tekomi Cloud during Meta incidents'
   locked: false
   type: boolean
 - name: CHATWOOT_CLOUD_PLANS
@@ -294,17 +263,13 @@
   display_title: 'Inactive WhatsApp Numbers'
   description: 'Comma-separated list of WhatsApp numbers that should be rejected with a 422 error'
   type: code
-# ------- End of Chatwoot Internal Config for Cloud ----#
 
-# ------- Compliance Related Config ----#
 - name: CHATWOOT_INSTANCE_ADMIN_EMAIL
   display_title: 'Instance Admin Email'
   value:
   description: 'The email of the instance administrator to receive compliance-related notifications'
   locked: false
-# ------- End of Compliance Related Config ----#
 
-## ------ Configs added for enterprise clients ------ ##
 - name: API_CHANNEL_NAME
   value:
   description: 'Custom name for the API channel'
@@ -319,9 +284,7 @@
   value: false
   locked: false
   description: 'Disable rendering profile update page for users'
-## ------ End of Configs added for enterprise clients ------ ##
 
-## ------ Configs added for FCM v1 notifications ------ ##
 - name: FIREBASE_PROJECT_ID
   display_title: 'Firebase Project ID'
   value:
@@ -333,9 +296,7 @@
   locked: false
   type: secret
   description: 'Contents on your firebase credentials json file'
-## ------ End of Configs added for FCM v1 notifications ------ ##
 
-## ------ Configs added for Linear ------ ##
 - name: LINEAR_CLIENT_ID
   display_title: 'Linear Client ID'
   value:
@@ -347,9 +308,7 @@
   locked: false
   description: 'Linear client secret'
   type: secret
-## ------ End of Configs added for Linear ------ ##
 
-## ------ Configs added for Notion ------ ##
 - name: NOTION_CLIENT_ID
   display_title: 'Notion Client ID'
   value:
@@ -366,9 +325,7 @@
   value: '2022-06-28'
   locked: false
   description: 'Notion version'
-## ------ End of Configs added for Notion ------ ##
 
-## ------ Configs added for Slack ------ ##
 - name: SLACK_CLIENT_ID
   display_title: 'Slack Client ID'
   value:
@@ -380,9 +337,7 @@
   locked: false
   description: 'Slack client secret'
   type: secret
-## ------ End of Configs added for Slack ------ ##
 
-# ------- Shopify Integration Config ------- #
 - name: SHOPIFY_CLIENT_ID
   display_title: 'Shopify Client ID'
   description: 'The Client ID (API Key) from your Shopify Partner account'
@@ -393,9 +348,7 @@
   description: 'The Client Secret (API Secret Key) from your Shopify Partner account'
   locked: false
   type: secret
-# ------- End of Shopify Related Config ------- #
 
-# ------- Instagram Channel Related Config ------- #
 - name: INSTAGRAM_APP_ID
   display_title: 'Instagram App ID'
   locked: false
@@ -420,9 +373,7 @@
   description: 'Configure this if you want to use a different Instagram API version. Make sure its prefixed with `v`'
   value: 'v22.0'
   locked: true
-# ------- End of Instagram Channel Related Config ------- #
 
-# ------- TikTok Channel Related Config ------- #
 - name: TIKTOK_API_VERSION
   display_title: 'TikTok API Version'
   description: 'Configure this if you want to use a different TikTok API version. Make sure its prefixed with `v`'
@@ -435,9 +386,7 @@
   display_title: 'TikTok App Secret'
   locked: false
   type: secret
-# ------- End of TikTok Channel Related Config ------- #
 
-# ------- OG Image Related Config ------- #
 - name: OG_IMAGE_CDN_URL
   display_title: 'OG Image CDN URL'
   description: 'The CDN URL for serving OG images'
@@ -449,9 +398,7 @@
   value: ''
   locked: false
   type: secret
-# ------- End of OG Image Related Config ------- #
 
-## ------ Configs added for Google OAuth ------ ##
 - name: GOOGLE_OAUTH_CLIENT_ID
   display_title: 'Google OAuth Client ID'
   value:
@@ -474,18 +421,14 @@
   locked: false
   description: 'Show Google OAuth as a login option when credentials are configured'
   type: boolean
-## ------ End of Configs added for Google OAuth ------ ##
 
-## ------ Configs added for SAML SSO ------ ##
 - name: ENABLE_SAML_SSO_LOGIN
   display_title: 'Enable SAML SSO login'
   value: true
   locked: false
   description: 'Show SAML SSO as a login option. Cannot be disabled if any users are using SAML authentication.'
   type: boolean
-## ------ End of Configs added for SAML SSO ------ ##
 
-## ------ Configs added for Cloudflare ------ ##
 - name: CLOUDFLARE_API_KEY
   display_title: 'Cloudflare API Key'
   value:
@@ -497,17 +440,13 @@
   value:
   locked: false
   description: 'Zone ID for the Cloudflare domain'
-## ------ End of Configs added for Cloudflare ------ ##
 
-## ------ Customizations for Customers ------ ##
 - name: WIDGET_TOKEN_EXPIRY
   display_title: 'Widget Token Expiry'
   value: 180
   locked: false
   description: 'Token expiry in days'
-## ------ End of Customizations for Customers ------ ##
 
-## ----- LLM Observability ---- ##
 - name: OTEL_PROVIDER
   display_title: 'OpenTelemetry Provider'
   description: 'LLM observability provider (langfuse, langsmith, etc.)'
@@ -530,4 +469,3 @@
   description: 'Langfuse endpoint (US: https://us.cloud.langfuse.com, EU: https://cloud.langfuse.com)'
   value: 'https://us.cloud.langfuse.com'
   locked: false
-## ---- End of LLM Observability ---- ##

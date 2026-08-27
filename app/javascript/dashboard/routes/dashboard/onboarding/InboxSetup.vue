@@ -20,7 +20,6 @@ import { useChannelConnect } from './inbox-setup/useChannelConnect';
 import { useDetectedChannels } from './inbox-setup/useDetectedChannels';
 import { DIALOG_CHANNELS } from './inbox-setup/constants';
 import Banner from 'dashboard/components-next/banner/Banner.vue';
-import { META_RESTRICTION_STATUS_URL } from 'dashboard/constants/globals';
 
 const { t } = useI18n();
 const store = useStore();
@@ -142,14 +141,6 @@ const connectChannel = channel => {
             />
             <span>
               {{ t('ONBOARDING_INBOX_SETUP.META_RESTRICTION.MESSAGE') }}
-              <a
-                :href="META_RESTRICTION_STATUS_URL"
-                class="link underline"
-                rel="noopener noreferrer nofollow"
-                target="_blank"
-              >
-                {{ t('ONBOARDING_INBOX_SETUP.META_RESTRICTION.STATUS_LINK') }}
-              </a>
             </span>
           </div>
         </Banner>
