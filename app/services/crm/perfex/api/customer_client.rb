@@ -1,5 +1,5 @@
 class Crm::Perfex::Api::CustomerClient < Crm::Perfex::Api::BaseClient
-  PER_PAGE = 20
+  PER_PAGE = 100 # index endpoints cap per_page at 100
 
   def show(userid)
     get("customers/#{userid}")

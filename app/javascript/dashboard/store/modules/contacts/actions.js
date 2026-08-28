@@ -262,6 +262,30 @@ export const actions = {
     }
   },
 
+  mapContact: async ({ commit }, { contactId, targetContactId }) => {
+    try {
+      const response = await ContactAPI.mapContact(contactId, targetContactId);
+      commit(types.SET_CONTACT_ITEM, {
+        id: Number(contactId),
+        additional_attributes: response.data,
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+
+  unmapContact: async ({ commit }, { contactId }) => {
+    try {
+      const response = await ContactAPI.unmapContact(contactId);
+      commit(types.SET_CONTACT_ITEM, {
+        id: Number(contactId),
+        additional_attributes: response.data,
+      });
+    } catch (error) {
+      throw new Error(error);
+    }
+  },
+
   fetchContactableInbox: async ({ commit }, id) => {
     commit(types.SET_CONTACT_UI_FLAG, { isFetchingInboxes: true });
     try {

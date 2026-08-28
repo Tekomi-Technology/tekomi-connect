@@ -1,6 +1,7 @@
 import { frontendURL } from '../../../helper/URLHelper';
 import ContactsIndex from './pages/ContactsIndex.vue';
 import ContactManageView from './pages/ContactManageView.vue';
+import CrmDirectory from '../../components-next/Contacts/CrmDirectory/Index.vue';
 import { FEATURE_FLAGS } from '../../../featureFlags';
 
 const commonMeta = {
@@ -39,6 +40,12 @@ export const routes = [
         meta: commonMeta,
       },
     ],
+  },
+  {
+    path: frontendURL('accounts/:accountId/contacts-directory'),
+    name: 'crm_directory_index',
+    component: CrmDirectory,
+    meta: commonMeta,
   },
   {
     path: frontendURL('accounts/:accountId/contacts/:contactId'),

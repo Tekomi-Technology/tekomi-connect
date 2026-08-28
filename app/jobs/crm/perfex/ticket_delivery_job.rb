@@ -12,7 +12,7 @@ class Crm::Perfex::TicketDeliveryJob < ApplicationJob
   end
 
   def perform(conversation, note)
-    contact = conversation.contact
+    contact = resolved_contact(conversation)
     contact_id = contact.additional_attributes.dig('external', 'perfex_contact_id')
     customer_id = contact.additional_attributes.dig('external', 'perfex_customer_id')
     return if contact_id.blank?
@@ -36,6 +36,16 @@ class Crm::Perfex::TicketDeliveryJob < ApplicationJob
   end
 
   private
+
+  # A channel contact (e.g. an anonymous Zalo identity) may be mapped to the
+  # real customer contact; CRM references live on the mapped record.
+  def resolved_contact(conversation)
+    contact = conversation.contact
+    mapped = contact.account.contacts.find_by(id: contact.additional_attributes['mapped_contact_id'])
+    return mapped if mapped&.additional_attributes&.dig('external', 'perfex_contact_id').present?
+
+    contact
+  end
 
   def subject_for(contact)
     company_name = contact.company&.name

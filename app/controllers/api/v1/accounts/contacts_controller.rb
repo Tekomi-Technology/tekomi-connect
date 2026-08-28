@@ -92,6 +92,26 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
     render json: { error: 'crm_unreachable' }, status: :bad_gateway
   end
 
+  def map_contact
+    target = Current.account.contacts.find(params[:target_contact_id])
+    return render json: { error: 'cannot map contact to itself' }, status: :unprocessable_entity if target.id == @contact.id
+
+    @contact.assign_attributes(additional_attributes: @contact.additional_attributes.merge(
+      'mapped_contact_id' => target.id,
+      'mapped_contact_name' => target.name
+    ))
+    @contact.save!
+    render json: @contact.reload.additional_attributes
+  end
+
+  def unmap_contact
+    @contact.assign_attributes(additional_attributes: @contact.additional_attributes.excluding(
+      'mapped_contact_id', 'mapped_contact_name'
+    ))
+    @contact.save!
+    render json: @contact.reload.additional_attributes
+  end
+
   def crm_force_sync
     running = Redis::Alfred.exists?(Crm::Perfex::SyncContactsJob::LOCK_KEY)
     Crm::Perfex::SyncContactsJob.perform_later unless running
@@ -153,6 +173,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
     return @resolved_contacts if @resolved_contacts
 
     @resolved_contacts = Current.account.contacts.resolved_contacts(use_crm_v2: Current.account.feature_enabled?('crm_v2'))
+    @resolved_contacts = @resolved_contacts.where(company_id: nil) if params[:company_id] == 'none'
 
     @resolved_contacts = @resolved_contacts.tagged_with(params[:labels], any: true) if params[:labels].present?
     @resolved_contacts

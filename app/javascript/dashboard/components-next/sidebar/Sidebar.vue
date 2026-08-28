@@ -601,6 +601,13 @@ const menuItems = computed(() => {
           activeOn: ['contacts_dashboard_active'],
         },
         {
+          name: 'CRM Directory',
+          label: t('SIDEBAR.CRM_DIRECTORY'),
+          icon: 'i-lucide-building-2',
+          to: accountScopedRoute('crm_directory_index'),
+          activeOn: ['crm_directory_index'],
+        },
+        {
           name: 'Segments',
           icon: 'i-lucide-group',
           label: t('SIDEBAR.CUSTOM_VIEWS_SEGMENTS'),

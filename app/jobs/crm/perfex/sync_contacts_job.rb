@@ -18,6 +18,10 @@ class Crm::Perfex::SyncContactsJob < ApplicationJob
       api_key: ENV.fetch('EXTERNAL_TICKET_SYSTEM_API_KEY')
     )
     Crm::Perfex::DirectoryCacheService.new(contact_client).refresh!
+    customers_cache = Crm::Perfex::CustomerDirectoryCacheService.new(customer_client)
+    customers_cache.refresh!
+
+    sync_companies(customers_cache)
 
     contacts = Contact.where("additional_attributes -> 'external' ->> 'perfex_contact_id' IS NULL")
     return if contacts.none?
@@ -27,5 +31,15 @@ class Crm::Perfex::SyncContactsJob < ApplicationJob
     Rails.logger.error "Crm::Perfex::SyncContactsJob failed: #{e.message}"
   ensure
     Redis::Alfred.delete(LOCK_KEY) if @lock_acquired
+  end
+
+  private
+
+  def sync_companies(customers_cache)
+    Account.where(
+      id: Contact.where("additional_attributes -> 'external' ->> 'perfex_contact_id' IS NOT NULL").distinct.select(:account_id)
+    ).find_each do |account|
+      Crm::Perfex::CompanySyncService.new(account).sync(customers_cache.fetch_all)
+    end
   end
 end

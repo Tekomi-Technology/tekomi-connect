@@ -11,6 +11,7 @@ import SLACardLabel from './components/SLACardLabel.vue';
 import ConversationCallButton from './ConversationCallButton.vue';
 import wootConstants from 'dashboard/constants/globals';
 import { conversationListPageURL } from 'dashboard/helper/URLHelper';
+import { getSenderDisplayName } from 'dashboard/helper/crmDisplayHelper';
 import { snoozedReopenTime } from 'dashboard/helper/snoozeHelpers';
 import { useInbox } from 'dashboard/composables/useInbox';
 import { useAlert } from 'dashboard/composables';
@@ -70,6 +71,9 @@ const isHMACVerified = computed(() => {
 
 const currentContact = computed(() =>
   store.getters['contacts/getContact'](props.chat.meta.sender.id)
+);
+const currentContactDisplayName = computed(() =>
+  getSenderDisplayName(currentContact.value)
 );
 
 const isSnoozed = computed(
@@ -132,7 +136,7 @@ const copyConversationId = async () => {
           <span
             class="text-sm font-medium truncate leading-tight text-n-slate-12"
           >
-            {{ currentContact.name }}
+            {{ currentContactDisplayName }}
           </span>
           <fluent-icon
             v-if="!isHMACVerified"

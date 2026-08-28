@@ -357,6 +357,7 @@
     "CUSTOM_VIEWS_FOLDER": "Folders",
     "CUSTOM_VIEWS_SEGMENTS": "Segments",
     "ALL_CONTACTS": "All Contacts",
+    "CRM_DIRECTORY": "CRM Directory",
     "TAGGED_WITH": "Tagged with",
     "NEW_LABEL": "New label",
     "NEW_TEAM": "New team",
@@ -1080,5 +1081,15 @@
       "CONFIRM_BUTTON_LABEL": "Delete",
       "CANCEL_BUTTON_LABEL": "Cancel"
     }
+  },
+  "CRM_DIRECTORY": {
+    "TITLE": "CRM Directory",
+    "SUBTITLE": "{count} contacts across all companies",
+    "SYNC_BUTTON": "Sync CRM",
+    "SYNC_STARTED": "CRM sync started (cache was {age} minutes old). Refresh this page in a minute to see new matches.",
+    "SYNC_STARTED_FIRST_TIME": "CRM sync started for the first time. Refresh this page in a minute to see matches.",
+    "LOADING": "Loading directory...",
+    "NO_CONTACTS": "No contacts in this company yet",
+    "UNGROUPED": "Ungrouped contacts"
   }
 }

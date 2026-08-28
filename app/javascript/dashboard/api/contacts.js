@@ -20,6 +20,10 @@ class ContactAPI extends ApiClient {
     });
   }
 
+  getWithParams(params = {}) {
+    return axios.get(this.url, { params });
+  }
+
   show(id) {
     return axios.get(`${this.url}/${id}?include_contact_inboxes=false`);
   }
@@ -49,6 +53,16 @@ class ContactAPI extends ApiClient {
 
   crmForceSync() {
     return axios.post(`${this.url}/crm_force_sync`);
+  }
+
+  mapContact(contactId, targetContactId) {
+    return axios.post(`${this.url}/${contactId}/map_contact`, {
+      target_contact_id: targetContactId,
+    });
+  }
+
+  unmapContact(contactId) {
+    return axios.delete(`${this.url}/${contactId}/map_contact`);
   }
 
   getContactLabels(contactId) {
