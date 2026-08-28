@@ -11,7 +11,9 @@ const props = defineProps({
 
 const { t } = useI18n();
 
-const channels = computed(() => props.selectedContact?.contact_inboxes || []);
+// The contacts getter camelcases record attributes (contact_inboxes becomes
+// contactInboxes), so read the camelCase shape here.
+const channels = computed(() => props.selectedContact?.contactInboxes || []);
 
 const prettyChannelType = type =>
   (type || '').replace('Channel::', '').replace(/_/g, ' ');
@@ -38,11 +40,11 @@ const prettyChannelType = type =>
           {{ contactInbox.inbox?.name }}
         </span>
         <span class="text-xs text-n-slate-11 flex-shrink-0">
-          {{ prettyChannelType(contactInbox.inbox?.channel_type) }}
+          {{ prettyChannelType(contactInbox.inbox?.channelType) }}
         </span>
       </div>
       <span class="text-xs text-n-slate-11 truncate">
-        {{ contactInbox.source_id }}
+        {{ contactInbox.sourceId }}
       </span>
     </div>
   </div>
