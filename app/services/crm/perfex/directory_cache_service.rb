@@ -3,8 +3,13 @@ class Crm::Perfex::DirectoryCacheService
   TTL = 24.hours
   CACHED_FIELDS = %w[id userid firstname lastname email phonenumber].freeze
 
-  def initialize(client)
+  def initialize(client = nil)
     @client = client
+  end
+
+  # Read-only cache access; never crawls the CRM. Returns nil when cold.
+  def peek
+    read_cache
   end
 
   def fetch_all

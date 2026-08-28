@@ -490,6 +490,7 @@
     },
     "CRM_INFO": {
       "USERID_LABEL": "CRM ID",
+      "UNIDENTIFIED": "Unidentified customer",
       "FORCE_SYNC": "Sync CRM",
       "FORCE_SYNC_STARTED": "CRM sync started in the background. This panel will update automatically.",
       "FORCE_SYNC_TIMEOUT": "CRM sync is taking longer than expected. Try Sync CRM again in a moment.",

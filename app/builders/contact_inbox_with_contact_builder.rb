@@ -110,6 +110,6 @@ class ContactInboxWithContactBuilder
   def find_contact_by_phone_number(phone_number)
     return if phone_number.blank?
 
-    account.contacts.find_by(phone_number: phone_number)
+    Contacts::InboundPhoneResolver.new(account, phone_number).find_contact
   end
 end

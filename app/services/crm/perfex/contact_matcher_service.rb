@@ -9,8 +9,8 @@ class Crm::Perfex::ContactMatcherService
     contacts.count { |contact| match_contact(contact, perfex_contacts) }
   end
 
-  def match_one(contact)
-    perfex_contacts = @directory.fetch_all
+  def match_one(contact, perfex_contacts = nil)
+    perfex_contacts ||= @directory.fetch_all
     match_contact(contact, perfex_contacts)
     contact
   end
@@ -37,9 +37,7 @@ class Crm::Perfex::ContactMatcherService
   end
 
   def normalize(phone_number)
-    digits = phone_number.to_s.gsub(/\D/, '')
-    digits = digits.delete_prefix('84') if digits.start_with?('84')
-    digits.delete_prefix('0')
+    PhoneNumberNormalizer.normalize(phone_number)
   end
 
   def mark_matched(contact, perfex_contact)

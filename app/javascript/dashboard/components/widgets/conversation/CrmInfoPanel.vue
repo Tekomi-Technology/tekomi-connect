@@ -154,6 +154,9 @@ onBeforeUnmount(() => {
       </p>
     </div>
     <div v-else>
+      <p class="mb-2 text-xs font-medium text-n-amber-11">
+        {{ $t('CONVERSATION_SIDEBAR.CRM_INFO.UNIDENTIFIED') }}
+      </p>
       <p v-if="hasFailed" class="mb-2 text-sm text-n-ruby-11">
         {{ $t('CONVERSATION_SIDEBAR.CRM_INFO.NOT_FOUND') }}
       </p>

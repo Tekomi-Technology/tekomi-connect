@@ -47,6 +47,8 @@ class Contact < ApplicationRecord
   include Labelable
   include LlmFormattable
 
+  after_commit :enqueue_crm_cache_match, on: :create, if: :phone_number
+
   validates :account_id, presence: true
   validates :email, allow_blank: true, uniqueness: { scope: [:account_id], case_sensitive: false },
                     format: { with: Devise.email_regexp, message: I18n.t('errors.contacts.email.invalid') }
@@ -196,6 +198,14 @@ class Contact < ApplicationRecord
   end
 
   private
+
+  # Newly created phone identities are matched against the cached CRM
+  # directory so inbound channels resolve to a known customer instantly.
+  def enqueue_crm_cache_match
+    Crm::Perfex::MatchFromCacheJob.perform_later(id)
+  rescue StandardError => e
+    Rails.logger.error "Failed to enqueue CRM cache match for contact #{id}: #{e.message}"
+  end
 
   def ip_lookup
     return unless account.feature_enabled?('ip_lookup')

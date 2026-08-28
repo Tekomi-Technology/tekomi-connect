@@ -167,7 +167,7 @@ class Phone::PbxCallEventProcessor
 
   def resolve_contact_inbox(inbox, customer_number)
     raw_number = payload['customer_number'].presence || payload['from_number'].presence || payload['to_number']
-    contact = inbox.account.contacts.find_by(phone_number: [customer_number, raw_number].compact)
+    contact = Contacts::InboundPhoneResolver.new(inbox.account, customer_number, raw_number).find_contact
     ContactInboxWithContactBuilder.new(
       inbox: inbox,
       contact_attributes: {
