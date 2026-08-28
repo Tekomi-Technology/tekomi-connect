@@ -29,9 +29,7 @@ const totalContacts = computed(() =>
 
 const crmBadge = contact => {
   const attrs = contact.additional_attributes || {};
-  if (attrs.external?.perfex_contact_id) return 'CRM';
-  if (attrs.mapped_contact_name) return attrs.mapped_contact_name;
-  return '';
+  return attrs.external?.perfex_contact_id ? 'CRM' : '';
 };
 
 const fetchCompanies = async () => {

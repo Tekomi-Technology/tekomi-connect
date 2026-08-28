@@ -7,6 +7,7 @@ class ContactMergeAction
     # while the contact also update his email via email collect box
     return @base_contact if base_contact.id == mergee_contact.id
 
+    mergee_company_id = @mergee_contact.company_id
     ActiveRecord::Base.transaction do
       validate_contacts
       merge_conversations
@@ -14,6 +15,7 @@ class ContactMergeAction
       merge_contact_inboxes
       merge_contact_notes
       merge_and_remove_mergee_contact
+      preserve_company(mergee_company_id)
     end
     @base_contact
   end
@@ -53,10 +55,22 @@ class ContactMergeAction
 
     # attributes in base contact are given preference
     merged_attributes = mergee_contact_attributes.deep_merge(base_contact_attributes)
+    # legacy channel-mapping pointers are obsolete once identities are merged
+    merged_attributes['additional_attributes'] =
+      (merged_attributes['additional_attributes'] || {}).except('mapped_contact_id', 'mapped_contact_name')
 
     @mergee_contact.reload.destroy!
     Rails.configuration.dispatcher.dispatch(CONTACT_MERGED, Time.zone.now, contact: @base_contact,
                                                                            tokens: [@base_contact.contact_inboxes.filter_map(&:pubsub_token)])
     @base_contact.update!(merged_attributes)
+  end
+
+  # company_id is not part of the mergeable attribute set; keep the base
+  # company when present, otherwise inherit the mergee's so a company link
+  # never disappears through a merge.
+  def preserve_company(mergee_company_id)
+    return if @base_contact.company_id.present? || mergee_company_id.blank?
+
+    @base_contact.update!(company_id: mergee_company_id)
   end
 end

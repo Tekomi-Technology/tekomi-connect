@@ -13,7 +13,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
 
   before_action :check_authorization
   before_action :set_current_page, only: [:index, :active, :search, :filter]
-  before_action :fetch_contact, only: [:show, :update, :destroy, :avatar, :contactable_inboxes, :destroy_custom_attributes, :match_crm, :map_contact, :unmap_contact]
+  before_action :fetch_contact, only: [:show, :update, :destroy, :avatar, :contactable_inboxes, :destroy_custom_attributes, :match_crm]
   before_action :set_include_contact_inboxes, only: [:index, :active, :search, :filter, :show, :update]
 
   def index
@@ -90,26 +90,6 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   rescue Crm::Perfex::Api::BaseClient::ApiError => e
     Rails.logger.error "Crm::Perfex contact match failed for contact #{@contact.id}: #{e.message}"
     render json: { error: 'crm_unreachable' }, status: :bad_gateway
-  end
-
-  def map_contact
-    target = Current.account.contacts.find(params[:target_contact_id])
-    return render json: { error: 'cannot map contact to itself' }, status: :unprocessable_entity if target.id == @contact.id
-
-    @contact.assign_attributes(additional_attributes: @contact.additional_attributes.merge(
-      'mapped_contact_id' => target.id,
-      'mapped_contact_name' => target.name
-    ))
-    @contact.save!
-    render json: @contact.reload.additional_attributes
-  end
-
-  def unmap_contact
-    @contact.assign_attributes(additional_attributes: @contact.additional_attributes.excluding(
-      'mapped_contact_id', 'mapped_contact_name'
-    ))
-    @contact.save!
-    render json: @contact.reload.additional_attributes
   end
 
   def crm_force_sync

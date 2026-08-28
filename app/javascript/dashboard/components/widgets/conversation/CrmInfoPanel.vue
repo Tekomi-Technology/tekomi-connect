@@ -20,6 +20,7 @@ const SEARCH_DEBOUNCE_MS = 300;
 
 const { t } = useI18n();
 const store = useStore();
+const currentChat = useMapGetter('getCurrentChat');
 const contactGetter = useMapGetter('contacts/getContact');
 const contact = computed(() => contactGetter.value(props.contactId));
 const additionalAttributes = computed(
@@ -30,14 +31,12 @@ const perfexId = computed(
   () => additionalAttributes.value.external?.perfex_contact_id
 );
 const crmInfo = computed(() => additionalAttributes.value.crm || {});
-const mappedContactName = computed(
-  () => additionalAttributes.value.mapped_contact_name || ''
-);
 const hasFailed = computed(
   () => !!crmInfo.value.match_failed_at && !perfexId.value
 );
 
 const isForceSyncing = ref(false);
+const isMerging = ref(false);
 const showAssignPanel = ref(false);
 const searchQuery = ref('');
 const searchResults = ref([]);
@@ -95,7 +94,9 @@ const searchContacts = async query => {
     const {
       data: { payload },
     } = await ContactAPI.search(query);
-    searchResults.value = payload.filter(item => item.id !== Number(props.contactId));
+    searchResults.value = payload.filter(
+      item => item.id !== Number(props.contactId)
+    );
   } catch (error) {
     searchResults.value = [];
   } finally {
@@ -115,25 +116,30 @@ const onSearchInput = () => {
   );
 };
 
+// Attaches this channel identity (zalo / phone / messenger...) to the chosen
+// customer contact by merging it in, so no duplicate contact remains.
 const assignTo = async targetContact => {
+  isMerging.value = true;
   try {
-    await store.dispatch('contacts/mapContact', {
-      contactId: props.contactId,
-      targetContactId: targetContact.id,
+    await store.dispatch('contacts/merge', {
+      childId: props.contactId,
+      parentId: targetContact.id,
     });
     showAssignPanel.value = false;
     searchQuery.value = '';
     searchResults.value = [];
+    useAlert(
+      t('CONVERSATION_SIDEBAR.CRM_INFO.CHANNEL_MERGED', {
+        name: targetContact.name,
+      })
+    );
+    if (currentChat.value?.id) {
+      await store.dispatch('getConversation', currentChat.value.id);
+    }
   } catch (error) {
     useAlert(error.message);
-  }
-};
-
-const unassign = async () => {
-  try {
-    await store.dispatch('contacts/unmapContact', { contactId: props.contactId });
-  } catch (error) {
-    useAlert(error.message);
+  } finally {
+    isMerging.value = false;
   }
 };
 
@@ -160,22 +166,6 @@ onBeforeUnmount(() => {
       <p v-if="hasFailed" class="mb-2 text-sm text-n-ruby-11">
         {{ $t('CONVERSATION_SIDEBAR.CRM_INFO.NOT_FOUND') }}
       </p>
-      <div
-        v-if="mappedContactName"
-        class="flex items-center justify-between gap-2 mb-2"
-      >
-        <p class="text-sm truncate">
-          {{ $t('CONVERSATION_SIDEBAR.CRM_INFO.ASSIGNED_TO') }}:
-          <span class="font-medium">{{ mappedContactName }}</span>
-        </p>
-        <NextButton
-          faded
-          ruby
-          size="sm"
-          :label="$t('CONVERSATION_SIDEBAR.CRM_INFO.UNASSIGN')"
-          @click="unassign"
-        />
-      </div>
       <div class="flex items-center gap-2">
         <NextButton
           faded
@@ -186,10 +176,10 @@ onBeforeUnmount(() => {
           @click="forceSync"
         />
         <NextButton
-          v-if="!mappedContactName"
           faded
           slate
           size="sm"
+          :is-loading="isMerging"
           :label="$t('CONVERSATION_SIDEBAR.CRM_INFO.ASSIGN_TO_CUSTOMER')"
           @click="showAssignPanel = !showAssignPanel"
         />

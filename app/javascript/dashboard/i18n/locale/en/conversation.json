@@ -494,10 +494,9 @@
       "FORCE_SYNC": "Sync CRM",
       "FORCE_SYNC_STARTED": "CRM sync started in the background. This panel will update automatically.",
       "FORCE_SYNC_TIMEOUT": "CRM sync is taking longer than expected. Try Sync CRM again in a moment.",
-      "ASSIGN_TO_CUSTOMER": "Assign to customer",
+      "ASSIGN_TO_CUSTOMER": "Attach to customer",
       "ASSIGN_SEARCH_PLACEHOLDER": "Search contacts by name, email or phone...",
-      "ASSIGNED_TO": "Assigned to",
-      "UNASSIGN": "Unassign",
+      "CHANNEL_MERGED": "Channel attached to {name}",
       "NOT_FOUND": "Could not find this customer in the CRM"
     },
     "SHARED_FILES": {

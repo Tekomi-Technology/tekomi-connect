@@ -509,10 +509,15 @@
     "SIDEBAR": {
       "TABS": {
         "ATTRIBUTES": "Attributes",
+        "CHANNELS": "Channels",
         "HISTORY": "History",
         "NOTES": "Notes",
         "MEDIA": "Media",
         "MERGE": "Merge"
+      },
+      "CHANNELS": {
+        "TITLE": "Channels",
+        "EMPTY": "No channels attached to this contact yet"
       },
       "HISTORY": {
         "EMPTY_STATE": "There are no previous conversations associated to this contact"

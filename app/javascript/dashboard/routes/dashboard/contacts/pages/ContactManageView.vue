@@ -12,6 +12,7 @@ import TabBar from 'dashboard/components-next/tabbar/TabBar.vue';
 import ContactNotes from 'dashboard/components-next/Contacts/ContactsSidebar/ContactNotes.vue';
 import ContactHistory from 'dashboard/components-next/Contacts/ContactsSidebar/ContactHistory.vue';
 import ContactMedia from 'dashboard/components-next/Contacts/ContactsSidebar/ContactMedia.vue';
+import ContactChannels from 'dashboard/components-next/Contacts/ContactsSidebar/ContactChannels.vue';
 import ContactMerge from 'dashboard/components-next/Contacts/ContactsSidebar/ContactMerge.vue';
 import ContactCustomAttributes from 'dashboard/components-next/Contacts/ContactsSidebar/ContactCustomAttributes.vue';
 
@@ -39,6 +40,7 @@ const { t } = useI18n();
 
 const CONTACT_TABS_OPTIONS = [
   { key: 'ATTRIBUTES', value: 'attributes' },
+  { key: 'CHANNELS', value: 'channels' },
   { key: 'HISTORY', value: 'history' },
   { key: 'NOTES', value: 'notes' },
   { key: 'MEDIA', value: 'media' },
@@ -171,6 +173,10 @@ onMounted(() => {
         <template v-else>
           <ContactCustomAttributes
             v-if="activeTab === 'attributes'"
+            :selected-contact="selectedContact"
+          />
+          <ContactChannels
+            v-if="activeTab === 'channels'"
             :selected-contact="selectedContact"
           />
           <ContactNotes v-if="activeTab === 'notes'" />

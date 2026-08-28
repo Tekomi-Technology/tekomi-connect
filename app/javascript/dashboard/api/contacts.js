@@ -55,16 +55,6 @@ class ContactAPI extends ApiClient {
     return axios.post(`${this.url}/crm_force_sync`);
   }
 
-  mapContact(contactId, targetContactId) {
-    return axios.post(`${this.url}/${contactId}/map_contact`, {
-      target_contact_id: targetContactId,
-    });
-  }
-
-  unmapContact(contactId) {
-    return axios.delete(`${this.url}/${contactId}/map_contact`);
-  }
-
   getContactLabels(contactId) {
     return axios.get(`${this.url}/${contactId}/labels`);
   }
