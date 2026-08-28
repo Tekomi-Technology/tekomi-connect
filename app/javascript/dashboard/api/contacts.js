@@ -47,6 +47,10 @@ class ContactAPI extends ApiClient {
     return axios.post(`${this.url}/${contactId}/match_crm`);
   }
 
+  crmForceSync() {
+    return axios.post(`${this.url}/crm_force_sync`);
+  }
+
   getContactLabels(contactId) {
     return axios.get(`${this.url}/${contactId}/labels`);
   }

@@ -1,5 +1,6 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, onBeforeUnmount } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { useStore, useMapGetter } from 'dashboard/composables/store';
 import { useAlert } from 'dashboard/composables';
 import NextButton from 'dashboard/components-next/button/Button.vue';
@@ -11,6 +12,10 @@ const props = defineProps({
   },
 });
 
+const POLL_INTERVAL_MS = 5000;
+const POLL_TIMEOUT_MS = 180000;
+
+const { t } = useI18n();
 const store = useStore();
 const contactGetter = useMapGetter('contacts/getContact');
 const contact = computed(() => contactGetter.value(props.contactId));
@@ -27,6 +32,43 @@ const hasFailed = computed(
 );
 
 const isLoading = ref(false);
+const isForceSyncing = ref(false);
+let pollTimer = null;
+
+const isMatched = () =>
+  !!contact.value?.additional_attributes?.external?.perfex_contact_id;
+
+const stopPolling = () => {
+  if (pollTimer) {
+    clearInterval(pollTimer);
+    pollTimer = null;
+  }
+};
+
+const pollUntilMatched = () => {
+  const startedAt = Date.now();
+  pollTimer = setInterval(async () => {
+    if (Date.now() - startedAt > POLL_TIMEOUT_MS) {
+      stopPolling();
+      isForceSyncing.value = false;
+      useAlert(
+        t(
+          'CONVERSATION_SIDEBAR.CRM_INFO.FORCE_SYNC_TIMEOUT'
+        )
+      );
+      return;
+    }
+    try {
+      await store.dispatch('contacts/matchCrm', props.contactId);
+      if (isMatched()) {
+        stopPolling();
+        isForceSyncing.value = false;
+      }
+    } catch (error) {
+      // keep polling; the background sync may not be finished yet
+    }
+  }, POLL_INTERVAL_MS);
+};
 
 const reload = async () => {
   isLoading.value = true;
@@ -38,6 +80,23 @@ const reload = async () => {
     isLoading.value = false;
   }
 };
+
+const forceSync = async () => {
+  isForceSyncing.value = true;
+  try {
+    await store.dispatch('contacts/crmForceSync');
+    useAlert(
+      t('CONVERSATION_SIDEBAR.CRM_INFO.FORCE_SYNC_STARTED')
+    );
+    stopPolling();
+    pollUntilMatched();
+  } catch (error) {
+    useAlert(error.message);
+    isForceSyncing.value = false;
+  }
+};
+
+onBeforeUnmount(stopPolling);
 </script>
 
 <template>
@@ -54,14 +113,24 @@ const reload = async () => {
       <p v-if="hasFailed" class="mb-2 text-sm text-n-ruby-11">
         {{ $t('CONVERSATION_SIDEBAR.CRM_INFO.NOT_FOUND') }}
       </p>
-      <NextButton
-        faded
-        slate
-        size="sm"
-        :is-loading="isLoading"
-        :label="$t('CONVERSATION_SIDEBAR.CRM_INFO.RELOAD')"
-        @click="reload"
-      />
+      <div class="flex items-center gap-2">
+        <NextButton
+          faded
+          slate
+          size="sm"
+          :is-loading="isLoading"
+          :label="$t('CONVERSATION_SIDEBAR.CRM_INFO.RELOAD')"
+          @click="reload"
+        />
+        <NextButton
+          faded
+          slate
+          size="sm"
+          :is-loading="isForceSyncing"
+          :label="$t('CONVERSATION_SIDEBAR.CRM_INFO.FORCE_SYNC')"
+          @click="forceSync"
+        />
+      </div>
     </div>
   </div>
 </template>

@@ -230,6 +230,7 @@ Rails.application.routes.draw do
               post :filter
               post :import
               post :export
+              post :crm_force_sync
             end
             member do
               get :contactable_inboxes

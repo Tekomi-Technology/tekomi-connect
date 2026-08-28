@@ -51,6 +51,10 @@ class ContactPolicy < ApplicationPolicy
     true
   end
 
+  def crm_force_sync?
+    true
+  end
+
   def destroy?
     @account_user.administrator?
   end

@@ -92,6 +92,15 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
     render json: { error: 'crm_unreachable' }, status: :bad_gateway
   end
 
+  def crm_force_sync
+    running = Redis::Alfred.exists?(Crm::Perfex::SyncContactsJob::LOCK_KEY)
+    Crm::Perfex::SyncContactsJob.perform_later unless running
+    render json: { running: running, cache_age_minutes: cache_age_minutes }, status: :accepted
+  rescue Redis::BaseConnectionError => e
+    Rails.logger.error "Crm::Perfex force sync check failed: #{e.message}"
+    render json: { error: 'crm_sync_unavailable' }, status: :service_unavailable
+  end
+
   # TODO : refactor this method into dedicated contacts/custom_attributes controller class and routes
   def destroy_custom_attributes
     @contact.custom_attributes = @contact.custom_attributes.excluding(params[:custom_attributes])
@@ -131,6 +140,13 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   end
 
   private
+
+  def cache_age_minutes
+    ttl = Redis::Alfred.ttl(Crm::Perfex::DirectoryCacheService::CACHE_KEY)
+    return if ttl.negative?
+
+    ((Crm::Perfex::DirectoryCacheService::TTL.to_i - ttl) / 60).to_i
+  end
 
   # TODO: Move this to a finder class
   def resolved_contacts

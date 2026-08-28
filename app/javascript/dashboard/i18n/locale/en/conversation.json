@@ -491,6 +491,9 @@
     "CRM_INFO": {
       "USERID_LABEL": "CRM ID",
       "RELOAD": "Reload",
+      "FORCE_SYNC": "Force sync",
+      "FORCE_SYNC_STARTED": "CRM sync started in the background. This panel will update automatically.",
+      "FORCE_SYNC_TIMEOUT": "CRM sync is taking longer than expected. Try Reload in a moment.",
       "NOT_FOUND": "Could not find this customer in the CRM"
     },
     "SHARED_FILES": {
