@@ -1,6 +1,7 @@
 <script setup>
-import { computed } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import ContactAPI from 'dashboard/api/contacts';
 
 const props = defineProps({
   selectedContact: {
@@ -11,12 +12,28 @@ const props = defineProps({
 
 const { t } = useI18n();
 
-// The contacts getter camelcases record attributes (contact_inboxes becomes
-// contactInboxes), so read the camelCase shape here.
-const channels = computed(() => props.selectedContact?.contactInboxes || []);
+// Fetched directly instead of reading the shared contact store: websocket
+// events merge sender payloads (which carry no contact_inboxes) into that
+// store, resurrecting stale channel entries on top of fresh ones.
+const channels = ref([]);
+const isLoading = ref(true);
 
 const prettyChannelType = type =>
   (type || '').replace('Channel::', '').replace(/_/g, ' ');
+
+const fetchChannels = async () => {
+  isLoading.value = true;
+  try {
+    const { data } = await ContactAPI.show(props.selectedContact.id);
+    channels.value = data.payload?.contact_inboxes || [];
+  } catch (error) {
+    channels.value = [];
+  } finally {
+    isLoading.value = false;
+  }
+};
+
+onMounted(fetchChannels);
 </script>
 
 <template>
@@ -24,10 +41,10 @@ const prettyChannelType = type =>
     <p class="text-sm font-medium text-n-slate-12">
       {{ $t('CONTACTS_LAYOUT.SIDEBAR.CHANNELS.TITLE') }}
     </p>
-    <p
-      v-if="!channels.length"
-      class="text-xs text-n-slate-11"
-    >
+    <p v-if="isLoading" class="text-xs text-n-slate-11">
+      {{ $t('CONTACTS_LAYOUT.SIDEBAR.CHANNELS.LOADING') }}
+    </p>
+    <p v-else-if="!channels.length" class="text-xs text-n-slate-11">
       {{ $t('CONTACTS_LAYOUT.SIDEBAR.CHANNELS.EMPTY') }}
     </p>
     <div
@@ -40,11 +57,11 @@ const prettyChannelType = type =>
           {{ contactInbox.inbox?.name }}
         </span>
         <span class="text-xs text-n-slate-11 flex-shrink-0">
-          {{ prettyChannelType(contactInbox.inbox?.channelType) }}
+          {{ prettyChannelType(contactInbox.inbox?.channel_type) }}
         </span>
       </div>
       <span class="text-xs text-n-slate-11 truncate">
-        {{ contactInbox.sourceId }}
+        {{ contactInbox.source_id }}
       </span>
     </div>
   </div>

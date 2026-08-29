@@ -517,7 +517,8 @@
       },
       "CHANNELS": {
         "TITLE": "Channels",
-        "EMPTY": "No channels attached to this contact yet"
+        "EMPTY": "No channels attached to this contact yet",
+        "LOADING": "Loading channels..."
       },
       "HISTORY": {
         "EMPTY_STATE": "There are no previous conversations associated to this contact"
