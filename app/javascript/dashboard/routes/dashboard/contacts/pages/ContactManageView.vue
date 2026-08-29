@@ -78,6 +78,11 @@ const fetchActiveContact = async () => {
 
 const handleTabChange = tab => {
   activeTab.value = tab.value;
+  // Channels must reflect live inbox bindings, which can change outside this
+  // session (merges, new inbound messages), so refetch on every visit.
+  if (tab.value === 'channels') {
+    fetchActiveContact();
+  }
 };
 
 const fetchContactNotes = () => {
