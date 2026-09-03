@@ -41,7 +41,7 @@ const sortedCurrentUserAccounts = computed(() => {
 });
 
 const onChangeAccount = newId => {
-  const accountUrl = `/app/accounts/${newId}/dashboard`;
+  const accountUrl = `/app/accounts/${newId}/home`;
   window.location.href = accountUrl;
 };
 
@@ -61,7 +61,7 @@ const emitNewAccount = () => {
         :title="currentAccount.name"
         @click="toggle"
       >
-        <Logo class="size-9" />
+        <Logo dark class="size-9" />
       </button>
       <!-- Expanded view: Account name trigger -->
       <button

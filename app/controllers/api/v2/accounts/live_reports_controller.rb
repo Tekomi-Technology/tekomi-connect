@@ -5,12 +5,7 @@ class Api::V2::Accounts::LiveReportsController < Api::V1::Accounts::BaseControll
   before_action :check_authorization
 
   def conversation_metrics
-    render json: {
-      open: @conversations.open.count,
-      unattended: @conversations.open.unattended.count,
-      unassigned: @conversations.open.unassigned.count,
-      pending: @conversations.pending.count
-    }
+    render json: cached_conversation_metrics
   end
 
   def grouped_conversation_metrics
@@ -56,6 +51,24 @@ class Api::V2::Accounts::LiveReportsController < Api::V1::Accounts::BaseControll
     scope = Current.account.conversations
     scope = scope.where(team_id: team.id) if team.present?
     @conversations = scope
+  end
+
+  def cached_conversation_metrics
+    cached = Redis::Alfred.get(conversation_metrics_cache_key)
+    return JSON.parse(cached) if cached.present?
+
+    metrics = {
+      open: @conversations.open.count,
+      unattended: @conversations.open.unattended.count,
+      unassigned: @conversations.open.unassigned.count,
+      pending: @conversations.pending.count
+    }
+    Redis::Alfred.setex(conversation_metrics_cache_key, metrics.to_json, 1.minute)
+    metrics
+  end
+
+  def conversation_metrics_cache_key
+    "live_reports:conversation_metrics:#{Current.account.id}:#{permitted_params[:team_id] || 'all'}"
   end
 
   def permitted_params

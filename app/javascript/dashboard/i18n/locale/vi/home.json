@@ -1,0 +1,34 @@
+{
+  "HOME": {
+    "TITLE": "Tổng quan",
+    "GREETING": "Chào {name}",
+    "RETRY": "Thử lại",
+    "STATS": {
+      "OPEN": "Hội thoại mới",
+      "PENDING": "Đang chờ xử lý",
+      "SLA": "Quá hạn SLA",
+      "ONLINE": "Đang online"
+    },
+    "ATTENTION": {
+      "TITLE": "Cần chú ý",
+      "VIEW_ALL": "Xem tất cả",
+      "EMPTY": "Bạn đã hoàn thành tất cả công việc!",
+      "WAITED": "Chờ {minutes} phút",
+      "UNKNOWN_CONTACT": "Khách hàng chưa xác định"
+    },
+    "WEEK": {
+      "TITLE": "Tuần của tôi",
+      "FRT": "Phản hồi H1",
+      "RESOLVED": "Đã giải quyết",
+      "CSAT": "CSAT"
+    },
+    "ACCOUNT": {
+      "TITLE": "Tổng quan tài khoản",
+      "ADMIN": "Admin",
+      "OPEN": "Đang mở: {count}",
+      "PENDING": "Đang chờ: {count}",
+      "UNATTENDED": "Trong đó chưa phục vụ: {count}",
+      "UNASSIGNED": "Trong đó chưa gán: {count}"
+    }
+  }
+}

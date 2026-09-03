@@ -356,6 +356,13 @@ const reportRoutes = computed(() => newReportRoutes());
 const menuItems = computed(() => {
   return [
     {
+      name: 'Home',
+      label: t('SIDEBAR.HOME'),
+      icon: 'i-lucide-house',
+      to: accountScopedRoute('account_home'),
+      activeOn: ['account_home'],
+    },
+    {
       name: 'Inbox',
       label: t('SIDEBAR.INBOX'),
       icon: 'i-lucide-inbox',

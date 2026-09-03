@@ -1,0 +1,34 @@
+{
+  "HOME": {
+    "TITLE": "Overview",
+    "GREETING": "Hello, {name}",
+    "RETRY": "Retry",
+    "STATS": {
+      "OPEN": "New conversations",
+      "PENDING": "Pending",
+      "SLA": "SLA breached",
+      "ONLINE": "Agents online"
+    },
+    "ATTENTION": {
+      "TITLE": "Needs your attention",
+      "VIEW_ALL": "View all",
+      "EMPTY": "You're all caught up!",
+      "WAITED": "Waiting {minutes}m",
+      "UNKNOWN_CONTACT": "Unknown contact"
+    },
+    "WEEK": {
+      "TITLE": "My week",
+      "FRT": "First response",
+      "RESOLVED": "Resolved",
+      "CSAT": "CSAT"
+    },
+    "ACCOUNT": {
+      "TITLE": "Account overview",
+      "ADMIN": "Admin",
+      "OPEN": "Open: {count}",
+      "PENDING": "Pending: {count}",
+      "UNATTENDED": "of which unattended: {count}",
+      "UNASSIGNED": "of which unassigned: {count}"
+    }
+  }
+}
