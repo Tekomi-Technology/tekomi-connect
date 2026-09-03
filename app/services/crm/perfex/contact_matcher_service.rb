@@ -6,34 +6,47 @@ class Crm::Perfex::ContactMatcherService
 
   def match_all(contacts)
     perfex_contacts = @directory.fetch_all
-    contacts.count { |contact| match_contact(contact, perfex_contacts) }
+    email_map, phone_map = build_maps(perfex_contacts)
+    contacts.count { |contact| match_contact(contact, perfex_contacts, email_map, phone_map) }
   end
 
   def match_one(contact, perfex_contacts = nil)
     perfex_contacts ||= @directory.fetch_all
-    match_contact(contact, perfex_contacts)
+    email_map, phone_map = build_maps(perfex_contacts)
+    match_contact(contact, perfex_contacts, email_map, phone_map)
     contact
   end
 
   private
 
-  def match_contact(contact, perfex_contacts)
-    matched = find_by_email(contact, perfex_contacts) || find_by_phone(contact, perfex_contacts)
+  def build_maps(perfex_contacts)
+    email_map = {}
+    phone_map = {}
+    perfex_contacts.each do |c|
+      email_map[c['email'].downcase] = c if c['email'].present?
+      normalized = normalize(c['phonenumber']) if c['phonenumber'].present?
+      phone_map[normalized] = c if normalized.present?
+    end
+    [email_map, phone_map]
+  end
+
+  def match_contact(contact, perfex_contacts, email_map, phone_map)
+    matched = find_by_email(contact, email_map) || find_by_phone(contact, phone_map)
 
     matched ? mark_matched(contact, matched) : mark_failed(contact)
     matched.present?
   end
 
-  def find_by_email(contact, perfex_contacts)
+  def find_by_email(contact, email_map)
     return nil if contact.email.blank?
 
-    perfex_contacts.find { |c| c['email'].present? && c['email'].casecmp?(contact.email) }
+    email_map[contact.email.downcase]
   end
 
-  def find_by_phone(contact, perfex_contacts)
+  def find_by_phone(contact, phone_map)
     return nil if contact.phone_number.blank?
 
-    perfex_contacts.find { |c| c['phonenumber'].present? && normalize(c['phonenumber']) == normalize(contact.phone_number) }
+    phone_map[normalize(contact.phone_number)]
   end
 
   def normalize(phone_number)
