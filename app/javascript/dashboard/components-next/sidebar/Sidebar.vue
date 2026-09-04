@@ -40,7 +40,7 @@ const emit = defineEmits([
   'closeMobileSidebar',
 ]);
 
-const { accountScopedRoute, isOnChatwootCloud, currentAccount } = useAccount();
+const { accountScopedRoute, isOnChatwootCloud } = useAccount();
 const { isEnterprise } = useConfig();
 const store = useStore();
 
@@ -983,19 +983,22 @@ const menuItems = computed(() => {
       :class="isEffectivelyCollapsed ? 'mt-3 mb-6 gap-4' : 'mt-1 mb-4 gap-2'"
     >
       <div
-        class="flex items-center gap-2.5 min-w-0"
+        class="flex items-center gap-3.5 min-w-0 py-2"
         :class="isEffectivelyCollapsed ? 'justify-center px-1' : 'px-2'"
       >
-        <span
-          class="flex items-center justify-center rounded-xl shrink-0 size-9 bg-gradient-to-br from-[#4F46E5] to-[#3B82F6] shadow-sm ring-1 ring-white/20 overflow-hidden"
-        >
-          <Logo dark class="size-6" />
-        </span>
+        <Logo dark class="shrink-0 size-11" />
         <span
           v-if="!isEffectivelyCollapsed"
-          class="text-sm font-semibold tracking-tight text-n-slate-12 truncate max-w-36"
+          class="flex flex-col items-start min-w-0 leading-tight"
         >
-          {{ currentAccount.name }}
+          <span
+            class="text-[15px] font-bold tracking-[0.18em] text-n-slate-12 truncate"
+          >
+            {{ t('SIDEBAR_ITEMS.BRAND_NAME') }}
+          </span>
+          <span class="text-xs text-n-slate-11 truncate">
+            {{ t('SIDEBAR_ITEMS.BRAND_TAGLINE') }}
+          </span>
         </span>
       </div>
       <div

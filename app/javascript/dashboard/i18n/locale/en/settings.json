@@ -241,6 +241,8 @@
     }
   },
   "SIDEBAR_ITEMS": {
+    "BRAND_NAME": "TEKOMI",
+    "BRAND_TAGLINE": "Small Tech, Big Impact",
     "CHANGE_AVAILABILITY_STATUS": "Change",
     "CHANGE_ACCOUNTS": "Switch account",
     "SWITCH_ACCOUNT": "Switch account",
