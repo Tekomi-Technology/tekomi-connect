@@ -17,7 +17,7 @@ class Installation::OnboardingController < ApplicationController
     rescue StandardError => e
       redirect_to '/', flash: { error: e.message } and return
     end
-    ::Redis::Alfred.delete(::Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING)
+    ::Redis::Alfred.delete(::Redis::Alfred::TEKOMI_INSTALLATION_ONBOARDING)
     redirect_to '/'
   end
 
@@ -28,6 +28,6 @@ class Installation::OnboardingController < ApplicationController
   end
 
   def ensure_installation_onboarding
-    redirect_to '/' unless ::Redis::Alfred.get(::Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING)
+    redirect_to '/' unless ::Redis::Alfred.get(::Redis::Alfred::TEKOMI_INSTALLATION_ONBOARDING)
   end
 end

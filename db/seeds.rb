@@ -5,7 +5,7 @@ ConfigLoader.new.process
 ## Seeds productions
 if Rails.env.production?
   # Setup Onboarding flow
-  Redis::Alfred.set(Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING, true)
+  Redis::Alfred.set(Redis::Alfred::TEKOMI_INSTALLATION_ONBOARDING, true)
 end
 
 ## Seeds for Local Development
@@ -18,14 +18,14 @@ unless Rails.env.production?
   GlobalConfig.clear_cache
 
   account = Account.create!(
-    name: 'Acme Inc'
+    name: 'Tekomi Connect'
   )
 
   secondary_account = Account.create!(
-    name: 'Acme Org'
+    name: 'Tekomi Connect'
   )
 
-  user = User.new(name: 'John', email: 'john@acme.inc', password: 'Password1!', type: 'SuperAdmin')
+  user = User.new(name: 'tekomi', email: 'admin@tekomi.com', password: '123@123aA', type: 'SuperAdmin')
   user.skip_confirmation!
   user.save!
 
@@ -93,5 +93,5 @@ unless Rails.env.production?
   # csat
   Seeders::MessageSeeder.create_sample_csat_collect_message conversation
 
-  CannedResponse.create!(account: account, short_code: 'start', content: 'Hello welcome to chatwoot.')
+  CannedResponse.create!(account: account, short_code: 'start', content: 'Hello welcome to tekomi.')
 end
