@@ -32,24 +32,28 @@ const isCaptainMessage = computed(
     (sender.value?.type ?? senderType.value) === SENDER_TYPES.CAPTAIN_ASSISTANT
 );
 
-const metaColorClass = computed(() =>
-  variant.value === MESSAGE_VARIANTS.PRIVATE
-    ? 'text-n-amber-12/50'
-    : 'text-n-slate-11'
-);
+const metaColorClass = computed(() => {
+  if (variant.value === MESSAGE_VARIANTS.PRIVATE) return 'text-n-amber-12/50';
+  if (variant.value === MESSAGE_VARIANTS.AGENT) return 'text-white/70';
+  return 'text-n-slate-11';
+});
 
 const emailMetaClass = computed(() =>
   variant.value === MESSAGE_VARIANTS.EMAIL ? 'px-3 pb-3' : ''
 );
 
 const varaintBaseMap = {
-  [MESSAGE_VARIANTS.AGENT]: 'bg-n-solid-blue text-n-slate-12',
+  [MESSAGE_VARIANTS.AGENT]:
+    'bg-[#3B82F6] text-white shadow-[0_1px_2px_rgba(59,130,246,0.3)] [&_.prose]:text-white [&_.prose_*]:!text-white [&_a]:underline',
   [MESSAGE_VARIANTS.PRIVATE]:
-    'bg-n-solid-amber text-n-amber-12 [&_.prosemirror-mention-node]:font-semibold',
-  [MESSAGE_VARIANTS.USER]: 'bg-n-slate-4 text-n-slate-12',
+    'bg-n-solid-amber border border-n-amber-6 text-n-amber-12 shadow-sm [&_.prosemirror-mention-node]:font-semibold',
+  [MESSAGE_VARIANTS.USER]:
+    'bg-white border border-n-weak text-n-slate-12 shadow-[0_1px_2px_rgba(16,24,40,0.06)] dark:bg-n-slate-4 dark:border-transparent',
   [MESSAGE_VARIANTS.ACTIVITY]: 'bg-n-alpha-1 text-n-slate-11 text-sm',
-  [MESSAGE_VARIANTS.BOT]: 'bg-n-solid-iris text-n-slate-12',
-  [MESSAGE_VARIANTS.TEMPLATE]: 'bg-n-solid-iris text-n-slate-12',
+  [MESSAGE_VARIANTS.BOT]:
+    'bg-white border border-n-weak text-n-slate-12 shadow-[0_1px_2px_rgba(16,24,40,0.06)]',
+  [MESSAGE_VARIANTS.TEMPLATE]:
+    'bg-white border border-n-weak text-n-slate-12 shadow-[0_1px_2px_rgba(16,24,40,0.06)]',
   [MESSAGE_VARIANTS.ERROR]: 'bg-n-ruby-4 text-n-ruby-12',
   [MESSAGE_VARIANTS.EMAIL]: 'w-full',
   [MESSAGE_VARIANTS.UNSUPPORTED]:
@@ -58,10 +62,10 @@ const varaintBaseMap = {
 
 const orientationMap = {
   [ORIENTATION.LEFT]:
-    'left-bubble rounded-xl ltr:rounded-bl-sm rtl:rounded-br-sm',
+    'left-bubble rounded-2xl ltr:rounded-bl-md rtl:rounded-br-md',
   [ORIENTATION.RIGHT]:
-    'right-bubble rounded-xl ltr:rounded-br-sm rtl:rounded-bl-sm',
-  [ORIENTATION.CENTER]: 'rounded-md',
+    'right-bubble rounded-2xl ltr:rounded-br-md rtl:rounded-bl-md',
+  [ORIENTATION.CENTER]: 'rounded-lg',
 };
 
 const flexOrientationClass = computed(() => {

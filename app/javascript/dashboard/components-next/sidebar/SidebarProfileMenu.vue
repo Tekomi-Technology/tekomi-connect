@@ -5,6 +5,7 @@ import { useMapGetter } from 'dashboard/composables/store';
 import { useI18n } from 'vue-i18n';
 import Avatar from 'next/avatar/Avatar.vue';
 import SidebarProfileMenuStatus from './SidebarProfileMenuStatus.vue';
+import SidebarProfileMenuAccountSwitch from './SidebarProfileMenuAccountSwitch.vue';
 
 import {
   DropdownContainer,
@@ -18,7 +19,11 @@ defineProps({
   isCollapsed: { type: Boolean, default: false },
 });
 
-const emit = defineEmits(['close', 'openKeyShortcutModal']);
+const emit = defineEmits([
+  'close',
+  'openKeyShortcutModal',
+  'showCreateAccountModal',
+]);
 
 defineOptions({
   inheritAttrs: false,
@@ -115,6 +120,9 @@ const allowedMenuItems = computed(() => {
     </template>
     <DropdownBody class="bottom-12 z-50 mb-2 w-80 ltr:left-0 rtl:right-0">
       <SidebarProfileMenuStatus />
+      <SidebarProfileMenuAccountSwitch
+        @show-create-account-modal="emit('showCreateAccountModal')"
+      />
       <DropdownSeparator />
       <template v-for="item in allowedMenuItems" :key="item.label">
         <CustomBrandPolicyWrapper

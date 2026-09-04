@@ -1569,10 +1569,14 @@ export default {
 }
 
 .reply-box {
-  @apply relative mb-2 mx-2 border border-n-weak rounded-xl bg-n-solid-1;
+  @apply relative mb-3 mx-3 border border-n-weak rounded-2xl bg-white shadow-[0_4px_6px_-1px_rgba(16,24,40,0.06),0_2px_4px_-2px_rgba(16,24,40,0.04)] dark:bg-n-solid-1;
 
   &.is-private {
-    @apply bg-n-solid-amber dark:border-n-amber-3/10 border-n-amber-12/5;
+    @apply bg-n-solid-amber border-n-amber-6 dark:border-n-amber-3/10;
+  }
+
+  &.is-focused {
+    @apply border-[#4F46E5] ring-1 ring-[#4F46E5]/20;
   }
 }
 

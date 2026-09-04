@@ -17,7 +17,7 @@ import SidebarGroup from './SidebarGroup.vue';
 import SidebarProfileMenu from './SidebarProfileMenu.vue';
 import ChannelLeaf from './ChannelLeaf.vue';
 import ChannelIcon from 'next/icon/ChannelIcon.vue';
-import SidebarAccountSwitcher from './SidebarAccountSwitcher.vue';
+import Logo from 'next/icon/Logo.vue';
 import ComposeConversation from 'dashboard/components-next/NewConversation/ComposeConversation.vue';
 import {
   SIDEBAR_SORT_SECTIONS,
@@ -40,7 +40,7 @@ const emit = defineEmits([
   'closeMobileSidebar',
 ]);
 
-const { accountScopedRoute, isOnChatwootCloud } = useAccount();
+const { accountScopedRoute, isOnChatwootCloud, currentAccount } = useAccount();
 const { isEnterprise } = useConfig();
 const store = useStore();
 
@@ -983,29 +983,20 @@ const menuItems = computed(() => {
       :class="isEffectivelyCollapsed ? 'mt-3 mb-6 gap-4' : 'mt-1 mb-4 gap-2'"
     >
       <div
-        class="flex gap-2 items-center min-w-0"
-        :class="{
-          'justify-center px-1': isEffectivelyCollapsed,
-          'px-2': !isEffectivelyCollapsed,
-        }"
+        class="flex items-center gap-2.5 min-w-0"
+        :class="isEffectivelyCollapsed ? 'justify-center px-1' : 'px-2'"
       >
-        <template v-if="isEffectivelyCollapsed">
-          <SidebarAccountSwitcher
-            is-collapsed
-            @show-create-account-modal="emit('showCreateAccountModal')"
-          />
-        </template>
-        <template v-else>
-          <SidebarAccountSwitcher
-            is-collapsed
-            @show-create-account-modal="emit('showCreateAccountModal')"
-          />
-          <div class="flex-shrink-0 w-px h-5 bg-n-strong" />
-          <SidebarAccountSwitcher
-            class="flex-grow -mx-1 min-w-0"
-            @show-create-account-modal="emit('showCreateAccountModal')"
-          />
-        </template>
+        <span
+          class="flex items-center justify-center rounded-xl shrink-0 size-9 bg-gradient-to-br from-[#4F46E5] to-[#3B82F6] shadow-sm ring-1 ring-white/20 overflow-hidden"
+        >
+          <Logo dark class="size-6" />
+        </span>
+        <span
+          v-if="!isEffectivelyCollapsed"
+          class="text-sm font-semibold tracking-tight text-n-slate-12 truncate max-w-36"
+        >
+          {{ currentAccount.name }}
+        </span>
       </div>
       <div
         class="flex gap-2"
@@ -1080,6 +1071,7 @@ const menuItems = computed(() => {
         <SidebarProfileMenu
           :is-collapsed="isEffectivelyCollapsed"
           @open-key-shortcut-modal="emit('openKeyShortcutModal')"
+          @show-create-account-modal="emit('showCreateAccountModal')"
         />
       </div>
     </section>

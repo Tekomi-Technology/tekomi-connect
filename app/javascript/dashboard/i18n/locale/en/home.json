@@ -4,27 +4,45 @@
     "GREETING": "Hello, {name}",
     "RETRY": "Retry",
     "STATS": {
-      "OPEN": "New conversations",
-      "PENDING": "Pending",
-      "SLA": "SLA breached",
-      "ONLINE": "Agents online"
+      "OPEN": "Open conversations",
+      "RESOLVED": "Resolved today",
+      "RESPONSE": "Avg response time",
+      "CSAT": "CSAT score",
+      "LIVE": "Live now",
+      "VOLUME": "7-day volume",
+      "VS_YESTERDAY": "vs. yesterday",
+      "UNATTENDED": "{count} unattended",
+      "ATTENDED": "All attended",
+      "RATINGS": "{count} ratings logged"
     },
     "ATTENTION": {
-      "TITLE": "Needs your attention",
-      "VIEW_ALL": "View all",
+      "TITLE": "Needs attention",
+      "SUBTITLE": "Real-time triage stream across connected channels",
+      "VIEW_ALL": "View complete queue ({count})",
       "EMPTY": "You're all caught up!",
       "WAITED": "Waiting {minutes}m",
-      "UNKNOWN_CONTACT": "Unknown contact"
+      "UNKNOWN_CONTACT": "Unknown contact",
+      "UNASSIGNED": "Unassigned",
+      "TAB_ALL": "All ({count})",
+      "TAB_SLA": "SLA breaching soon ({count})",
+      "TAB_VIP": "VIP accounts ({count})",
+      "SHOWING": "Showing {shown} of {total}",
+      "REPLY": "Reply"
     },
     "WEEK": {
       "TITLE": "My week",
+      "SUBTITLE": "Target performance metrics",
       "FRT": "First response",
       "RESOLVED": "Resolved",
-      "CSAT": "CSAT"
+      "CSAT": "CSAT",
+      "RATE": "Resolution rate",
+      "WEEK_BADGE": "W{week}"
     },
     "ACCOUNT": {
-      "TITLE": "Account overview",
+      "TITLE": "Account snapshot",
+      "SUBTITLE": "Volume & channel distribution",
       "ADMIN": "Admin",
+      "VOLUME": "Daily ticket distribution",
       "OPEN": "Open: {count}",
       "PENDING": "Pending: {count}",
       "UNATTENDED": "of which unattended: {count}",

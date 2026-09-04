@@ -1,29 +1,35 @@
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import ConversationApi from 'dashboard/api/inbox/conversation';
-import CardLayout from 'dashboard/components-next/CardLayout.vue';
 import Avatar from 'dashboard/components-next/avatar/Avatar.vue';
+import { dynamicTime, shortTimestamp } from 'shared/helpers/timeHelper';
 import { useAsyncBlock } from '../composables/useAsyncBlock';
 
 const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
 
+const activeTab = ref('all');
+
+// Team-wide open queue (no assignee filter): longest-waiting first,
+// non-waiting conversations last (see app/finders/conversation_finder.rb:12
+// and app/models/concerns/sort_handler.rb:21: `ORDER BY (waiting_since IS
+// NULL), waiting_since ASC, created_at ASC`). This card is about urgency, so
+// it must be ordered by the same quantity its pill shows.
 const { data, isLoading, hasError, load } = useAsyncBlock(async () => {
   const response = await ConversationApi.get({
     status: 'open',
-    assigneeType: 'me',
     page: 1,
-    // Longest-waiting first, non-waiting conversations last (see
-    // app/finders/conversation_finder.rb:12 and
-    // app/models/concerns/sort_handler.rb:21: `ORDER BY (waiting_since IS
-    // NULL), waiting_since ASC, created_at ASC`). This card is about
-    // urgency, so it must be ordered by the same quantity its pill shows.
     sortBy: 'waiting_since_asc',
   });
-  return response.data.data.payload.slice(0, 6);
+  return {
+    rows: response.data.data.payload.slice(0, 10),
+    // `meta.all_count` is the account-wide open total; fall back to the
+    // fetched slice when the shape is unexpected.
+    total: response.data.meta?.all_count ?? response.data.data.payload.length,
+  };
 });
 
 // `waiting_since` (jbuilder: `conversation.waiting_since.to_i.to_i`) is 0,
@@ -43,14 +49,59 @@ const pillClass = minutes => {
   return 'bg-n-alpha-2 text-n-slate-11';
 };
 
+const priorityBadgeClass = priority => {
+  if (priority === 'urgent' || priority === 'high') {
+    return 'bg-n-ruby-3 text-n-ruby-11';
+  }
+  if (priority === 'medium') return 'bg-n-alpha-2 text-n-brand';
+  return 'bg-n-alpha-2 text-n-slate-11';
+};
+
 // `meta.sender` isn't guaranteed on every row (mirrors the existing
-// `row.messages?.[0]?.content` guard on the line below it in the template) —
-// fall back to a translated placeholder rather than letting the render
-// function throw on a missing contact.
+// `row.messages?.[0]?.content` guard in the template) — fall back to a
+// translated placeholder rather than letting the render function throw on a
+// missing contact.
 const senderName = row =>
   row.meta?.sender?.name || t('HOME.ATTENTION.UNKNOWN_CONTACT');
 
-const rows = computed(() => data.value ?? []);
+const isVip = row =>
+  (row.labels ?? []).some(label => String(label).toLowerCase() === 'vip');
+
+const rows = computed(() => data.value?.rows ?? []);
+const total = computed(() => data.value?.total ?? 0);
+
+const counts = computed(() => ({
+  all: rows.value.length,
+  sla: rows.value.filter(row => {
+    const minutes = waitedMinutes(row);
+    return minutes !== null && minutes >= 60;
+  }).length,
+  vip: rows.value.filter(isVip).length,
+}));
+
+const filtered = computed(() => {
+  if (activeTab.value === 'sla') {
+    return rows.value.filter(row => {
+      const minutes = waitedMinutes(row);
+      return minutes !== null && minutes >= 60;
+    });
+  }
+  if (activeTab.value === 'vip') return rows.value.filter(isVip);
+  return rows.value;
+});
+
+const tabButtonClass = tab =>
+  activeTab.value === tab
+    ? 'bg-white text-n-slate-12 shadow-sm dark:bg-n-solid-2'
+    : 'text-n-slate-11 hover:text-n-slate-12';
+
+const timeAgo = row => {
+  const createdAt = row.messages?.[0]?.created_at;
+  if (!createdAt) return '';
+  return shortTimestamp(dynamicTime(createdAt));
+};
+
+const assigneeName = row => row.meta?.assignee?.name ?? '';
 
 // The conversations index endpoint serializes each conversation's `id` field
 // as `conversation.display_id` (see
@@ -68,71 +119,161 @@ onMounted(load);
 </script>
 
 <template>
-  <CardLayout>
-    <div class="flex items-center justify-between w-full">
-      <h2 class="text-sm font-medium text-n-slate-12">
-        {{ t('HOME.ATTENTION.TITLE') }}
-      </h2>
-      <router-link
-        :to="{ name: 'home' }"
-        class="text-xs text-n-brand hover:underline"
+  <div
+    class="rounded-2xl bg-white border border-n-weak shadow-sm dark:bg-n-solid-2 flex flex-col overflow-hidden"
+  >
+    <div
+      class="p-5 border-b border-n-weak flex flex-wrap items-center justify-between gap-3"
+    >
+      <div>
+        <h2 class="text-base font-semibold tracking-tight text-n-slate-12">
+          {{ t('HOME.ATTENTION.TITLE') }}
+        </h2>
+        <p class="text-[13px] text-n-slate-11">
+          {{ t('HOME.ATTENTION.SUBTITLE') }}
+        </p>
+      </div>
+      <div
+        class="flex items-center gap-1 p-1 rounded-xl bg-n-alpha-1 border border-n-weak"
       >
-        {{ t('HOME.ATTENTION.VIEW_ALL') }}
-      </router-link>
+        <button
+          type="button"
+          class="px-3 py-1 rounded-lg text-[13px] font-medium"
+          :class="tabButtonClass('all')"
+          @click="activeTab = 'all'"
+        >
+          {{ t('HOME.ATTENTION.TAB_ALL', { count: counts.all }) }}
+        </button>
+        <button
+          type="button"
+          class="px-3 py-1 rounded-lg text-[13px] font-medium"
+          :class="tabButtonClass('sla')"
+          @click="activeTab = 'sla'"
+        >
+          {{ t('HOME.ATTENTION.TAB_SLA', { count: counts.sla }) }}
+        </button>
+        <button
+          type="button"
+          class="px-3 py-1 rounded-lg text-[13px] font-medium"
+          :class="tabButtonClass('vip')"
+          @click="activeTab = 'vip'"
+        >
+          {{ t('HOME.ATTENTION.TAB_VIP', { count: counts.vip }) }}
+        </button>
+      </div>
     </div>
 
-    <div v-if="isLoading" class="flex flex-col w-full gap-3">
+    <div v-if="isLoading" class="flex flex-col gap-1 p-3">
       <div
         v-for="n in 4"
         :key="n"
-        class="w-full h-10 rounded bg-n-alpha-2 animate-pulse"
+        class="w-full h-16 rounded-xl bg-n-alpha-2 animate-pulse"
       />
     </div>
 
     <button
       v-else-if="hasError"
-      class="self-start text-xs text-n-brand hover:underline"
+      class="self-start m-5 text-[13px] text-n-brand hover:underline"
       @click="load"
     >
       {{ t('HOME.RETRY') }}
     </button>
 
     <p
-      v-else-if="!rows.length"
-      class="w-full py-6 text-sm text-center text-n-slate-11"
+      v-else-if="!filtered.length"
+      class="w-full py-8 text-sm text-center text-n-slate-11"
     >
       {{ t('HOME.ATTENTION.EMPTY') }}
     </p>
 
-    <ul v-else class="flex flex-col w-full divide-y divide-n-weak">
+    <ul v-else class="divide-y divide-n-weak">
       <li
-        v-for="row in rows"
+        v-for="row in filtered"
         :key="row.id"
-        class="flex items-center gap-3 py-2 cursor-pointer"
+        class="group p-5 flex flex-col gap-3 cursor-pointer hover:bg-n-alpha-1 md:flex-row md:items-center md:justify-between"
         @click="openConversation(row.id)"
       >
-        <Avatar
-          :name="senderName(row)"
-          :src="row.meta?.sender?.thumbnail"
-          :size="28"
-          :inbox="{ channel_type: row.meta?.channel }"
-        />
-        <div class="flex-grow min-w-0">
-          <p class="text-sm truncate text-n-slate-12">
-            {{ senderName(row) }}
-          </p>
-          <p class="text-xs truncate text-n-slate-11">
-            {{ row.messages?.[0]?.content }}
-          </p>
+        <div class="flex items-start gap-3 min-w-0">
+          <Avatar
+            :name="senderName(row)"
+            :src="row.meta?.sender?.thumbnail"
+            :size="44"
+            :inbox="{ channel_type: row.meta?.channel }"
+          />
+          <div class="min-w-0">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span
+                class="text-[15px] font-semibold tracking-tight text-n-slate-12"
+              >
+                {{ senderName(row) }}
+              </span>
+              <span
+                v-if="row.priority"
+                class="px-2 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wide"
+                :class="priorityBadgeClass(row.priority)"
+              >
+                {{ row.priority }}
+              </span>
+              <span
+                v-if="waitedMinutes(row) !== null"
+                class="px-2 py-0.5 rounded-full text-[11px] font-medium font-mono"
+                :class="pillClass(waitedMinutes(row))"
+              >
+                {{
+                  t('HOME.ATTENTION.WAITED', { minutes: waitedMinutes(row) })
+                }}
+              </span>
+            </div>
+            <p class="text-sm truncate text-n-slate-12 mt-1">
+              {{ row.messages?.[0]?.content }}
+            </p>
+            <p class="flex items-center gap-2 text-xs text-n-slate-11 mt-1.5">
+              <span v-if="timeAgo(row)">{{ timeAgo(row) }}</span>
+              <span
+                v-if="assigneeName(row)"
+                class="flex items-center gap-1 font-medium text-n-slate-12"
+              >
+                <span class="i-lucide-user size-3" />
+                {{ assigneeName(row) }}
+              </span>
+              <span v-else class="flex items-center gap-1 text-n-slate-11">
+                <span class="i-lucide-user-x size-3" />
+                {{ t('HOME.ATTENTION.UNASSIGNED') }}
+              </span>
+            </p>
+          </div>
         </div>
-        <span
-          v-if="waitedMinutes(row) !== null"
-          class="flex-shrink-0 px-2 py-1 text-xs rounded-md"
-          :class="pillClass(waitedMinutes(row))"
+        <div
+          class="flex items-center gap-2 shrink-0 md:opacity-0 md:group-hover:opacity-100"
         >
-          {{ t('HOME.ATTENTION.WAITED', { minutes: waitedMinutes(row) }) }}
-        </span>
+          <button
+            type="button"
+            class="px-3 py-1.5 rounded-lg bg-white border border-n-weak text-[13px] font-medium text-n-slate-12 shadow-sm hover:bg-n-alpha-1 dark:bg-n-solid-2"
+            @click.stop="openConversation(row.id)"
+          >
+            {{ t('HOME.ATTENTION.REPLY') }}
+          </button>
+        </div>
       </li>
     </ul>
-  </CardLayout>
+
+    <div
+      class="px-5 py-3.5 border-t border-n-weak bg-n-alpha-1 flex items-center justify-between text-[13px]"
+    >
+      <span class="text-n-slate-11">
+        {{
+          t('HOME.ATTENTION.SHOWING', {
+            shown: filtered.length,
+            total: rows.length,
+          })
+        }}
+      </span>
+      <router-link
+        :to="{ name: 'home', params: { accountId: route.params.accountId } }"
+        class="font-medium text-[#4F46E5] hover:underline"
+      >
+        {{ t('HOME.ATTENTION.VIEW_ALL', { count: total }) }}
+      </router-link>
+    </div>
+  </div>
 </template>

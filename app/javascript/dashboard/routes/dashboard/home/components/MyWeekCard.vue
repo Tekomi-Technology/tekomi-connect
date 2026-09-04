@@ -5,7 +5,6 @@ import { useMapGetter } from 'dashboard/composables/store';
 import ReportsAPI from 'dashboard/api/reports';
 import CSATReportsAPI from 'dashboard/api/csatReports';
 import { formatTime } from '@chatwoot/utils';
-import CardLayout from 'dashboard/components-next/CardLayout.vue';
 import { useAsyncBlock } from '../composables/useAsyncBlock';
 
 const { t } = useI18n();
@@ -68,6 +67,10 @@ const { data, isLoading, hasError, load } = useAsyncBlock(async () => {
       summaryResult.status === 'fulfilled'
         ? summaryResult.value.data.resolutions_count
         : null,
+    touched:
+      summaryResult.status === 'fulfilled'
+        ? summaryResult.value.data.conversations_count
+        : null,
     csat:
       csatResult.status === 'fulfilled'
         ? computeCsatScore(
@@ -80,6 +83,22 @@ const { data, isLoading, hasError, load } = useAsyncBlock(async () => {
         ? seriesResult.value.data.map(point => point.value)
         : [],
   };
+});
+
+// Resolution rate is derived from two real summary figures: resolved over
+// every conversation touched in the window. Null when either side is missing
+// or nothing was touched (avoid a 0/0 divide).
+const resolutionRate = computed(() => {
+  const { resolved, touched } = data.value ?? {};
+  if (resolved == null || !touched) return null;
+  return Math.round((resolved * 100) / touched);
+});
+
+const weekNumber = computed(() => {
+  const now = new Date();
+  const start = new Date(now.getFullYear(), 0, 1);
+  const days = Math.floor((now - start) / 86400000);
+  return Math.ceil((days + start.getDay() + 1) / 7);
 });
 
 const points = computed(() => {
@@ -115,55 +134,139 @@ watch(
 </script>
 
 <template>
-  <CardLayout>
-    <h2 class="text-sm font-medium text-n-slate-12">
-      {{ t('HOME.WEEK.TITLE') }}
-    </h2>
+  <div
+    class="p-5 rounded-2xl bg-white border border-n-weak shadow-sm dark:bg-n-solid-2"
+  >
+    <div class="flex items-center justify-between w-full">
+      <div>
+        <h2 class="text-base font-semibold tracking-tight text-n-slate-12">
+          {{ t('HOME.WEEK.TITLE') }}
+        </h2>
+        <p class="text-xs text-n-slate-11">{{ t('HOME.WEEK.SUBTITLE') }}</p>
+      </div>
+      <span
+        class="px-2 py-1 rounded-lg bg-n-alpha-2 text-n-slate-11 text-[11px] font-semibold font-mono"
+      >
+        {{ t('HOME.WEEK.WEEK_BADGE', { week: weekNumber }) }}
+      </span>
+    </div>
 
-    <div v-if="isLoading" class="h-24 rounded bg-n-alpha-2 animate-pulse" />
+    <div
+      v-if="isLoading"
+      class="h-28 mt-4 rounded-xl bg-n-alpha-2 animate-pulse"
+    />
 
     <button
       v-else-if="hasError"
-      class="self-start text-xs text-n-brand hover:underline"
+      class="self-start mt-4 text-[13px] text-n-brand hover:underline"
       @click="load"
     >
       {{ t('HOME.RETRY') }}
     </button>
 
     <!-- Waiting for the agent id to hydrate before the first load fires. -->
-    <div v-else-if="!data" class="h-24 rounded bg-n-alpha-2 animate-pulse" />
+    <div
+      v-else-if="!data"
+      class="h-28 mt-4 rounded-xl bg-n-alpha-2 animate-pulse"
+    />
 
     <template v-else>
-      <div class="grid grid-cols-3 gap-2">
-        <div>
-          <p class="text-xs text-n-slate-11">{{ t('HOME.WEEK.FRT') }}</p>
-          <p class="text-lg font-medium text-n-slate-12">
+      <div class="grid grid-cols-3 gap-2 mt-4 text-center">
+        <div class="flex flex-col items-center">
+          <div class="relative size-16">
+            <svg viewBox="0 0 42 42" class="-rotate-90 size-16">
+              <circle
+                cx="21"
+                cy="21"
+                r="15.9"
+                fill="none"
+                stroke-width="3.5"
+                class="stroke-n-alpha-2"
+              />
+              <circle
+                cx="21"
+                cy="21"
+                r="15.9"
+                fill="none"
+                stroke-width="3.5"
+                stroke="#4F46E5"
+                stroke-linecap="round"
+                :stroke-dasharray="`${resolutionRate ?? 0} 100`"
+              />
+            </svg>
+            <span
+              class="absolute inset-0 flex items-center justify-center text-[13px] font-bold text-n-slate-12"
+            >
+              {{ resolutionRate !== null ? `${resolutionRate}%` : '—' }}
+            </span>
+          </div>
+          <span class="mt-2 text-xs font-medium text-n-slate-12">
+            {{ t('HOME.WEEK.RATE') }}
+          </span>
+          <span class="flex items-center gap-1 text-[11px] text-n-slate-11">
+            <span>{{ data.resolved ?? '—' }}</span>
+            <span>/</span>
+            <span>{{ data.touched ?? '—' }}</span>
+          </span>
+        </div>
+        <div class="flex flex-col items-center">
+          <div class="relative size-16">
+            <svg viewBox="0 0 42 42" class="-rotate-90 size-16">
+              <circle
+                cx="21"
+                cy="21"
+                r="15.9"
+                fill="none"
+                stroke-width="3.5"
+                class="stroke-n-alpha-2"
+              />
+              <circle
+                cx="21"
+                cy="21"
+                r="15.9"
+                fill="none"
+                stroke-width="3.5"
+                stroke="#10B981"
+                stroke-linecap="round"
+                :stroke-dasharray="`${data.csat ?? 0} 100`"
+              />
+            </svg>
+            <span
+              class="absolute inset-0 flex items-center justify-center text-[13px] font-bold text-n-slate-12"
+            >
+              {{ data.csat !== null ? `${data.csat}%` : '—' }}
+            </span>
+          </div>
+          <span class="mt-2 text-xs font-medium text-n-slate-12">
+            {{ t('HOME.WEEK.CSAT') }}
+          </span>
+        </div>
+        <div class="flex flex-col items-center justify-start">
+          <p
+            class="h-16 flex items-center text-xl font-semibold tracking-tight text-n-slate-12"
+          >
             {{ data.firstResponseTime ?? '—' }}
           </p>
-        </div>
-        <div>
-          <p class="text-xs text-n-slate-11">{{ t('HOME.WEEK.RESOLVED') }}</p>
-          <p class="text-lg font-medium text-n-slate-12">
-            {{ data.resolved ?? '—' }}
-          </p>
-        </div>
-        <div>
-          <p class="text-xs text-n-slate-11">{{ t('HOME.WEEK.CSAT') }}</p>
-          <p class="text-lg font-medium text-n-slate-12">
-            {{ data.csat !== null ? `${data.csat}%` : '—' }}
-          </p>
+          <span class="mt-2 text-xs font-medium text-n-slate-12">
+            {{ t('HOME.WEEK.FRT') }}
+          </span>
         </div>
       </div>
 
-      <svg viewBox="0 0 100 40" preserveAspectRatio="none" class="w-full h-16">
+      <svg
+        viewBox="0 0 100 40"
+        preserveAspectRatio="none"
+        class="w-full h-14 mt-3"
+      >
         <polyline
           :points="points"
           fill="none"
-          stroke="currentColor"
-          stroke-width="1.5"
-          class="text-n-brand"
+          stroke="#4F46E5"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
         />
       </svg>
     </template>
-  </CardLayout>
+  </div>
 </template>
