@@ -20,6 +20,7 @@ const channelTypeIconMap = {
   'Channel::Instagram': 'i-woot-instagram',
   'Channel::Tiktok': 'i-woot-tiktok',
   'Channel::ZaloOa': 'i-woot-zalo',
+  'Channel::ZaloPersonal': 'i-woot-zalo',
 };
 
 const providerIconMap = {

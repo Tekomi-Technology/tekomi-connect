@@ -78,6 +78,12 @@ const channelList = computed(() => {
       icon: 'i-woot-zalo',
     },
     {
+      key: 'zalo_personal',
+      title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.ZALO_PERSONAL.TITLE'),
+      description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.ZALO_PERSONAL.DESCRIPTION'),
+      icon: 'i-woot-zalo',
+    },
+    {
       key: 'phone',
       title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.PHONE.TITLE'),
       description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.PHONE.DESCRIPTION'),

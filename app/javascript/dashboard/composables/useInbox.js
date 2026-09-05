@@ -79,6 +79,10 @@ export const useInbox = (inboxId = null) => {
     return channelType.value === INBOX_TYPES.ZALO_OA;
   });
 
+  const isAZaloPersonalChannel = computed(() => {
+    return channelType.value === INBOX_TYPES.ZALO_PERSONAL;
+  });
+
   const isAnEmailChannel = computed(() => {
     return channelType.value === INBOX_TYPES.EMAIL;
   });
@@ -151,6 +155,7 @@ export const useInbox = (inboxId = null) => {
     isAFacebookInbox,
     isALineChannel,
     isAZaloOaChannel,
+    isAZaloPersonalChannel,
     isAPIInbox,
     isASmsInbox,
     isATelegramChannel,

@@ -397,6 +397,11 @@ Rails.application.routes.draw do
             resource :authorization, only: [:create]
           end
 
+          namespace :zalo_personal do
+            # create starts a QR login; show is polled by the dashboard until the scan completes.
+            resources :authorizations, only: [:create, :show], param: :qr_session_id
+          end
+
           resources :webhooks, only: [:index, :create, :update, :destroy]
           namespace :integrations do
             resources :apps, only: [:index, :show]
@@ -684,8 +689,16 @@ Rails.application.routes.draw do
   post 'webhooks/tiktok', to: 'webhooks/tiktok#events'
   post 'webhooks/shopify', to: 'webhooks/shopify#events'
   post 'webhooks/zalo_oa', to: 'webhooks/zalo_oa#process_payload'
+  post 'webhooks/zalo_personal', to: 'webhooks/zalo_personal#process_payload'
   post 'webhooks/pbx/calls', to: 'webhooks/pbx/calls#process_payload'
   get 'zalo_oa/callback', to: 'zalo_oa/callbacks#show'
+
+  # Consumed by the Zalo worker on boot to restore its sessions; loopback + shared secret only.
+  namespace :internal do
+    namespace :zalo_personal do
+      resources :sessions, only: [:index]
+    end
+  end
 
   namespace :twitter do
     resource :callback, only: [:show]

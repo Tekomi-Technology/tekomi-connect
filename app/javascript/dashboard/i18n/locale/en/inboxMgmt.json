@@ -488,6 +488,23 @@
           "SUBTITLE": "You have to configure the webhook URL in Zalo Official Account settings with the URL mentioned here."
         }
       },
+      "ZALO_PERSONAL_CHANNEL": {
+        "TITLE": "Zalo Personal Channel",
+        "DESC": "Connect a personal Zalo account to handle direct and group chats from your inbox.",
+        "SUBMIT_BUTTON": "Connect Zalo",
+        "QR": {
+          "INTRO": "You will sign in by scanning a QR code with the Zalo app, the same way you sign in to Zalo on a computer. Use a secondary account: personal Zalo accounts connect through an unofficial API and can be restricted by Zalo.",
+          "INSTRUCTIONS": "Open Zalo on your phone, tap the scan icon, and scan this code. The code is valid for a couple of minutes.",
+          "ALT": "Zalo login QR code",
+          "EXPIRED": "This QR code expired before it was scanned. Generate a new one to continue.",
+          "REGENERATE": "Generate a new code"
+        },
+        "ERROR": {
+          "ACCOUNT_MISMATCH": "That QR code signed in a different Zalo account than this inbox belongs to. Scan again with the original account.",
+          "DECLINED": "The sign-in was declined on the phone. Generate a new code and approve it in the Zalo app.",
+          "GENERIC": "We were not able to connect the Zalo account. Check that the Zalo worker is running, then try again."
+        }
+      },
       "PHONE_CHANNEL": {
         "TITLE": "Phone Channel",
         "DESC": "Connect Tekomi to the PBX, then assign a SIP extension to each agent.",
@@ -604,6 +621,10 @@
           "ZALO_OA": {
             "TITLE": "Zalo OA",
             "DESCRIPTION": "Connect your Zalo Official Account"
+          },
+          "ZALO_PERSONAL": {
+            "TITLE": "Zalo Personal",
+            "DESCRIPTION": "Connect a personal Zalo account for direct and group chats"
           },
           "PHONE": {
             "TITLE": "Phone",
@@ -749,6 +770,16 @@
         "ERROR_MESSAGE": "Could not delete inbox. Please try again later.",
         "AVATAR_SUCCESS_MESSAGE": "Inbox avatar deleted successfully",
         "AVATAR_ERROR_MESSAGE": "Could not delete the inbox avatar. Please try again later."
+      }
+    },
+    "ZALO_PERSONAL_SESSION": {
+      "LABEL": "Zalo session",
+      "SINCE": "since {time}",
+      "RESCAN": "Scan QR again",
+      "STATUS": {
+        "CONNECTED": "Connected",
+        "RECONNECTING": "Reconnecting…",
+        "EXPIRED": "Session expired — scan the QR code again"
       }
     },
     "TABS": {

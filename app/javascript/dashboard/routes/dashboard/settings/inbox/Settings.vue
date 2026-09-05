@@ -9,6 +9,7 @@ import Icon from 'dashboard/components-next/icon/Icon.vue';
 import SettingIntroBanner from 'dashboard/components/widgets/SettingIntroBanner.vue';
 import SettingsToggleSection from 'dashboard/components-next/Settings/SettingsToggleSection.vue';
 import SettingsFieldSection from 'dashboard/components-next/Settings/SettingsFieldSection.vue';
+import ZaloSessionStatus from 'dashboard/components-next/Settings/ZaloSessionStatus.vue';
 import SettingsAccordion from 'dashboard/components-next/Settings/SettingsAccordion.vue';
 import inboxMixin from 'shared/mixins/inboxMixin';
 import FacebookReauthorize from './facebook/Reauthorize.vue';
@@ -64,6 +65,7 @@ export default {
     SettingIntroBanner,
     SettingsToggleSection,
     SettingsFieldSection,
+    ZaloSessionStatus,
     SettingsAccordion,
     WeeklyAvailability,
     SenderNameExamplePreview,
@@ -906,6 +908,12 @@ export default {
                 "
                 @blur="v$.selectedInboxName.$touch"
               />
+            </SettingsFieldSection>
+            <SettingsFieldSection
+              v-if="isAZaloPersonalChannel"
+              :label="$t('INBOX_MGMT.ZALO_PERSONAL_SESSION.LABEL')"
+            >
+              <ZaloSessionStatus :inbox="inbox" />
             </SettingsFieldSection>
             <SettingsFieldSection
               v-if="isAPIInbox"

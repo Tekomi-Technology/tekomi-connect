@@ -88,6 +88,13 @@ module Redis::RedisKeys
   WHATSAPP_MESSAGE_MUTEX = 'WHATSAPP_MESSAGE_CREATE_LOCK::%<inbox_id>s::%<sender_id>s'.freeze
   ZALO_OA_MESSAGE_MUTEX = 'ZALO_OA_MESSAGE_CREATE_LOCK::%<inbox_id>s::%<user_id>s'.freeze
   ZALO_OA_SENT_MESSAGE = 'ZALO_OA_SENT_MESSAGE::%<inbox_id>s::%<zalo_message_id>s'.freeze
+  # Personal Zalo threads are serialized per (inbox, thread) so the first event creates the
+  # conversation and the rest append; a thread is a user id or a group id.
+  ZALO_PERSONAL_MESSAGE_MUTEX = 'ZALO_PERSONAL_MESSAGE_CREATE_LOCK::%<inbox_id>s::%<thread_id>s'.freeze
+  ZALO_PERSONAL_SENT_MESSAGE = 'ZALO_PERSONAL_SENT_MESSAGE::%<inbox_id>s::%<zalo_message_id>s'.freeze
+  # Holds a QR login in progress: what the dashboard polls, and what the worker's completion
+  # callback resolves against. Short-lived because a Zalo QR code expires within minutes.
+  ZALO_PERSONAL_QR_SESSION = 'ZALO_PERSONAL_QR_SESSION::%<qr_session_id>s'.freeze
   CRM_PROCESS_MUTEX = 'CRM_PROCESS_MUTEX::%<hook_id>s'.freeze
   CAPTAIN_DOCUMENT_SYNC_MUTEX = 'CAPTAIN_DOCUMENT_SYNC_LOCK::%<document_id>s'.freeze
   CAPTAIN_CONVERSATION_FAQ_MUTEX = 'CAPTAIN_CONVERSATION_FAQ_LOCK::%<assistant_id>s::%<language>s'.freeze

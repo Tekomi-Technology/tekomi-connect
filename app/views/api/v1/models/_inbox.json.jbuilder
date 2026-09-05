@@ -172,3 +172,10 @@ if resource.channel_type == 'Channel::Whatsapp' && resource.channel.respond_to?(
   json.voice_enabled resource.channel.voice_enabled?
   json.inbound_calls_enabled resource.channel.inbound_calls_enabled?
 end
+
+## Zalo personal sessions expire without notice, so the inbox surfaces its live state.
+if resource.channel_type == 'Channel::ZaloPersonal'
+  json.zalo_session_status resource.channel.status
+  json.zalo_display_name resource.channel.display_name
+  json.zalo_status_updated_at resource.channel.status_updated_at&.to_i
+end

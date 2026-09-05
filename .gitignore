@@ -64,6 +64,9 @@ coverage
 # ignore packages
 node_modules
 package-lock.json
+# The Zalo worker is a standalone npm package (the app itself uses pnpm). zca-js is an
+# unofficial library, so its lockfile is committed to keep production builds reproducible.
+!zalo_worker/package-lock.json
 
 *.dump
 

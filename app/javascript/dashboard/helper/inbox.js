@@ -12,6 +12,7 @@ export const INBOX_TYPES = {
   INSTAGRAM: 'Channel::Instagram',
   TIKTOK: 'Channel::Tiktok',
   ZALO_OA: 'Channel::ZaloOa',
+  ZALO_PERSONAL: 'Channel::ZaloPersonal',
   PHONE: 'Channel::Phone',
 };
 
@@ -32,6 +33,7 @@ export const CHANNEL_TYPES = {
   VOICE: 'voice',
   EMAIL: 'email',
   ZALO_OA: 'zalo_oa',
+  ZALO_PERSONAL: 'zalo_personal',
   PHONE: 'phone',
 };
 
@@ -111,6 +113,7 @@ const INBOX_ICON_MAP_LINE = {
   [INBOX_TYPES.INSTAGRAM]: 'i-woot-instagram',
   [INBOX_TYPES.TIKTOK]: 'i-woot-tiktok',
   [INBOX_TYPES.ZALO_OA]: 'i-woot-zalo',
+  [INBOX_TYPES.ZALO_PERSONAL]: 'i-woot-zalo',
   [INBOX_TYPES.PHONE]: 'i-ri-phone-fill',
 };
 

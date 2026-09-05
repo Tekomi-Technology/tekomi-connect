@@ -86,6 +86,15 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
   && rm -rf spec node_modules tmp/cache; \
   fi
 
+# Build the Zalo worker, a standalone npm package (the app itself uses pnpm). TypeScript is a
+# dev dependency, so the tree is pruned to production deps only after compiling.
+RUN if [ "$RAILS_ENV" = "production" ]; then \
+  cd zalo_worker \
+  && npm ci --no-audit --no-fund \
+  && npm run build \
+  && npm prune --omit=dev; \
+  fi
+
 # Generate .git_sha file with current commit hash
 RUN git rev-parse HEAD > /app/.git_sha
 
