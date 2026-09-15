@@ -28,6 +28,7 @@ const initialState = {
     memories: false,
     citations: false,
     contactAttributes: false,
+    generalKnowledge: false,
   },
 };
 
@@ -61,6 +62,7 @@ const updateStateFromAssistant = assistant => {
     memories: config.feature_memory || false,
     citations: config.feature_citation || false,
     contactAttributes: config.feature_contact_attributes || false,
+    generalKnowledge: config.feature_general_knowledge || false,
   };
 };
 
@@ -82,6 +84,7 @@ const handleBasicInfoUpdate = async () => {
       feature_memory: state.features.memories,
       feature_citation: state.features.citations,
       feature_contact_attributes: state.features.contactAttributes,
+      feature_general_knowledge: state.features.generalKnowledge,
     },
   };
 
@@ -145,6 +148,10 @@ watch(
         <label class="flex items-center gap-2">
           <input v-model="state.features.contactAttributes" type="checkbox" />
           {{ t('TEKOMI.ASSISTANTS.FORM.FEATURES.ALLOW_CONTACT_ATTRIBUTES') }}
+        </label>
+        <label class="flex items-center gap-2">
+          <input v-model="state.features.generalKnowledge" type="checkbox" />
+          {{ t('TEKOMI.ASSISTANTS.FORM.FEATURES.ALLOW_GENERAL_KNOWLEDGE') }}
         </label>
       </div>
     </div>

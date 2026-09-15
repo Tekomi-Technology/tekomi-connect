@@ -172,6 +172,10 @@ class Tekomi::Assistant < ApplicationRecord
     config['feature_citation']
   end
 
+  def general_knowledge_enabled?
+    config['feature_general_knowledge']
+  end
+
   def trusted_citation_urls(run_result)
     return {} unless citations_enabled?
 
@@ -220,6 +224,7 @@ class Tekomi::Assistant < ApplicationRecord
       description: description,
       product_name: config['product_name'] || 'this product',
       citation_enabled: citations_enabled?,
+      general_knowledge_enabled: general_knowledge_enabled?,
       scenarios: scenarios.enabled.map do |scenario|
         {
           title: scenario.title,

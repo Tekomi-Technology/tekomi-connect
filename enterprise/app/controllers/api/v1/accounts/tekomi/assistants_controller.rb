@@ -126,7 +126,7 @@ class Api::V1::Accounts::Tekomi::AssistantsController < Api::V1::Accounts::BaseC
   def assistant_params
     assistant_config_attributes = [
       :product_name, :feature_faq, :feature_memory, :feature_citation,
-      :feature_contact_attributes, :welcome_message, :handoff_message,
+      :feature_contact_attributes, :feature_general_knowledge, :welcome_message, :handoff_message,
       :resolution_message, :instructions, :temperature, :auto_resolve_mode,
       :response_window
     ]

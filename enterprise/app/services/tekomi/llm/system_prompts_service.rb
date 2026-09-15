@@ -260,9 +260,11 @@ class Tekomi::Llm::SystemPromptsService
                                         ''
                                       end
 
+      general_knowledge = config['feature_general_knowledge']
+
       <<~SYSTEM_PROMPT_MESSAGE
         [Identity]
-        Your name is #{assistant_name || 'Tekomi'}, a helpful, friendly, and knowledgeable assistant for the product #{product_name}. You will not answer anything about other products or events outside of the product #{product_name}.
+        Your name is #{assistant_name || 'Tekomi'}, a helpful, friendly, and knowledgeable assistant for the product #{product_name}.#{" You will not answer anything about other products or events outside of the product #{product_name}." unless general_knowledge}
 
         [Current Time]
         Current time: #{format_current_time(config['timezone'])}.
@@ -279,7 +281,7 @@ class Tekomi::Llm::SystemPromptsService
         - Use discourse markers to ease comprehension. Never use the list format.
         - Do not generate a response more than three sentences.
         - Keep the conversation flowing.
-        - Do not use use your own understanding and training data to provide an answer.
+        #{general_knowledge ? general_knowledge_rules : '- Do not use use your own understanding and training data to provide an answer.'}
         - Do not promise work that will happen after this reply. Do not say you will check, investigate, monitor, follow up, notify, email, call, refund, cancel, book, escalate, transfer, or submit anything unless you complete that action now using an available tool or, for human transfer, return `conversation_handoff` as the response. If you lack enough information, ask the user for the missing detail without promising future work.
         - Clarify: when there is ambiguity, ask clarifying questions, rather than make assumptions.
         - Don't implicitly or explicitly try to end the chat (i.e. do not end a response with "Talk soon!" or "Enjoy!").
@@ -295,7 +297,7 @@ class Tekomi::Llm::SystemPromptsService
 
         - Provide the user with the steps required to complete the action one by one.
         - Do not return list numbers in the steps, just the plain text is enough.
-        - Do not share anything outside of the context provided.
+        #{'- Do not share anything outside of the context provided.' unless general_knowledge}
         - Add the reasoning why you arrived at the answer
         - Your answers will always be formatted in a valid JSON hash, as shown below. Never respond in non-JSON format.
 
@@ -307,7 +309,7 @@ class Tekomi::Llm::SystemPromptsService
           response: '',
         }
         ```
-        - If the answer is not provided in context sections, Respond to the customer and ask whether they want to talk to another support agent . If they ask to Chat with another agent, return `conversation_handoff' as the response in JSON response
+        - If the answer is not provided in context sections#{' and the question is business-specific information' if general_knowledge}, Respond to the customer and ask whether they want to talk to another support agent . If they ask to Chat with another agent, return `conversation_handoff' as the response in JSON response
         #{'- You MUST provide numbered citations at the appropriate places in the text.' if config['feature_citation']}
 
         #{build_tools_section(custom_tools)}
@@ -439,11 +441,20 @@ class Tekomi::Llm::SystemPromptsService
 
       <<~CUSTOM_INSTRUCTIONS
         [Account Custom Instructions]
-        These instructions were configured by the account administrator. Follow them when they do not conflict with the JSON response format or the requirement to answer only from provided context.
+        These instructions were configured by the account administrator. Follow them when they do not conflict with the JSON response format or the answer-sourcing rules above.
         <account_custom_instructions>
         #{instructions}
         </account_custom_instructions>
       CUSTOM_INSTRUCTIONS
+    end
+
+    def general_knowledge_rules
+      <<~RULES.strip
+        - Business-specific information about this company and its products — prices, costs, promotions, plans, product availability and features, policies, response or delivery times, contact details, orders, and anything else specific to this company — must come only from the context sections. Never guess or fill it in from your own knowledge. Any question about price or cost belongs here, even if asked in general terms.
+        - Any other question that does not depend on company-specific information is general knowledge, and it is not limited to any particular topic. You may answer it from your own knowledge, briefly and accurately, even when it is not in the context sections. Do not attach company-specific figures, promises, or claims about competitors to these answers.
+        - You have no access to real-time information. For questions that depend on current or live data, such as today's weather, latest news, gold prices, exchange rates, or live scores, say that you do not have up-to-date information on it.
+        - Politely decline to discuss political or religious topics, and do not give specific medical, legal, or investment advice.
+      RULES
     end
 
     def contact_basic_lines(contact)
