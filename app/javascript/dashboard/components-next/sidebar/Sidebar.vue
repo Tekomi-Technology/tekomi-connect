@@ -970,15 +970,10 @@ const menuItems = computed(() => {
 
   const DEMO_HIDDEN_TOP_LEVEL = ['Calls', 'Companies', 'Reports', 'Portals'];
   const DEMO_HIDDEN_SETTINGS_CHILDREN = [
-    'Settings Account Settings',
-    'Settings Agents',
-    'Settings Teams',
     'Settings Templates',
-    'Settings Custom Attributes',
     'Settings Data',
     'Settings Audit Logs',
     'Settings Custom Roles',
-    'Conversation Workflow',
     'Settings Security',
     'Settings Billing',
   ];
