@@ -63,7 +63,7 @@ class SuperAdmin::UsersController < SuperAdmin::ApplicationController
   end
 
   def scoped_resource
-    resource_class.with_attached_avatar
+    resource_class.with_attached_avatar.includes(:accounts)
   end
 
   def resource_params
