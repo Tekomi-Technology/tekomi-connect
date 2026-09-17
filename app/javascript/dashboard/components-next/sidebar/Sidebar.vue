@@ -461,7 +461,11 @@ const menuItems = computed(() => {
             name: `${inbox.name}-${inbox.id}`,
             label: inbox.name,
             badgeCount: getInboxUnreadCount.value(inbox.id),
-            icon: h(ChannelIcon, { inbox, class: 'size-[16px]' }),
+            icon: h(ChannelIcon, {
+              inbox,
+              useBrandIcon: true,
+              class: 'size-[16px]',
+            }),
             to: accountScopedRoute('inbox_dashboard', { inbox_id: inbox.id }),
             component: leafProps =>
               h(ChannelLeaf, {

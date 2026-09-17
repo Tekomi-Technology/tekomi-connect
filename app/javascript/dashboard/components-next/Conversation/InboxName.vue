@@ -11,7 +11,11 @@ defineProps({
 
 <template>
   <div :title="inbox.name" class="flex items-center gap-0.5 min-w-0">
-    <ChannelIcon :inbox="inbox" class="size-4 flex-shrink-0 text-n-slate-11" />
+    <ChannelIcon
+      :inbox="inbox"
+      use-brand-icon
+      class="size-4 flex-shrink-0 text-n-slate-11"
+    />
     <span class="truncate text-body-main text-n-slate-11">
       {{ inbox.name }}
     </span>

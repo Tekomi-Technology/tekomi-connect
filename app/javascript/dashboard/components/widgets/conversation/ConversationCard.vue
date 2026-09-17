@@ -2,9 +2,8 @@
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { getLastMessage } from 'dashboard/helper/conversationHelper';
-import { getInboxIconByType } from 'dashboard/helper/inbox';
 import Avatar from 'next/avatar/Avatar.vue';
-import Icon from 'dashboard/components-next/icon/Icon.vue';
+import ChannelIcon from 'dashboard/components-next/icon/ChannelIcon.vue';
 import MessagePreview from './MessagePreview.vue';
 import TimeAgo from 'dashboard/components/ui/TimeAgo.vue';
 import SLACardLabel from './components/SLACardLabel.vue';
@@ -47,57 +46,6 @@ const voiceCallData = computed(() => {
     status: last.call.status,
     direction: last.call.direction === 'outgoing' ? 'outbound' : 'inbound',
   };
-});
-
-const inboxIcon = computed(() => {
-  const { channel_type: channelType, medium, voiceEnabled } = props.inbox;
-  return getInboxIconByType(channelType, medium, 'fill', voiceEnabled);
-});
-
-// Each channel gets its own tile color so rows are distinguishable at a
-// glance. Full class strings (no interpolation) so Tailwind can detect them.
-const channelStyle = computed(() => {
-  const { channel_type: type, medium } = props.inbox;
-  if (type === 'Channel::FacebookPage') {
-    return { tile: 'bg-[#E8F0FE]', icon: 'text-[#3B6FB4]' };
-  }
-  if (
-    type === 'Channel::Whatsapp' ||
-    (type === 'Channel::TwilioSms' && medium === 'whatsapp')
-  ) {
-    return { tile: 'bg-[#E6F7ED]', icon: 'text-[#1F9D55]' };
-  }
-  if (type === 'Channel::Telegram') {
-    return { tile: 'bg-[#E3F2FB]', icon: 'text-[#2A8FBF]' };
-  }
-  if (type === 'Channel::Instagram') {
-    return { tile: 'bg-[#FCE8F0]', icon: 'text-[#C13572]' };
-  }
-  if (type === 'Channel::Line') {
-    return { tile: 'bg-[#E6F7ED]', icon: 'text-[#0CA678]' };
-  }
-  if (type === 'Channel::ZaloOa') {
-    return { tile: 'bg-[#E3EDFF]', icon: 'text-[#3D7DD8]' };
-  }
-  if (type === 'Channel::TwitterProfile') {
-    return { tile: 'bg-[#E5F2FD]', icon: 'text-[#3D9BE9]' };
-  }
-  if (type === 'Channel::Email') {
-    return { tile: 'bg-n-alpha-2', icon: 'text-n-slate-11' };
-  }
-  if (type === 'Channel::TwilioSms' || type === 'Channel::Sms') {
-    return { tile: 'bg-[#FEF3E2]', icon: 'text-[#B7791F]' };
-  }
-  if (type === 'Channel::Api') {
-    return { tile: 'bg-[#EFE9FD]', icon: 'text-[#7C63C7]' };
-  }
-  if (type === 'Channel::Tiktok') {
-    return { tile: 'bg-n-alpha-2', icon: 'text-n-slate-12' };
-  }
-  if (type === 'Channel::Phone') {
-    return { tile: 'bg-[#E6F7EE]', icon: 'text-[#189A6C]' };
-  }
-  return { tile: 'bg-[#ECEBFE]', icon: 'text-[#5B54D6]' };
 });
 
 const hasSlaPolicyId = computed(
@@ -238,13 +186,12 @@ watch(
               :conversation-id="chat.id"
             />
           </span>
-          <span
-            v-if="inboxIcon"
-            class="flex items-center justify-center rounded-md size-5"
-            :class="channelStyle.tile"
-          >
-            <Icon :icon="inboxIcon" class="size-3" :class="channelStyle.icon" />
-          </span>
+          <ChannelIcon
+            v-if="inbox.channel_type"
+            :inbox="inbox"
+            use-brand-icon
+            class="size-4 shrink-0"
+          />
         </div>
       </div>
       <VoiceCallStatus

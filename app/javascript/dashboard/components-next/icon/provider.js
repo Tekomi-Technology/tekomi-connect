@@ -29,16 +29,24 @@ const providerIconMap = {
 };
 
 // Full-color brand icons. Most come from the `logos` Iconify set; Instagram,
-// Outlook and Line use custom `woot` glyphs since the `logos` versions are
-// monochrome or missing. Channels not listed here have no brand variant and
-// callers should fall back to the monochrome glyph via useChannelIcon.
+// Outlook, Line and Zalo use custom `woot` glyphs since the `logos` versions are
+// monochrome or missing. Channels without a brand logo use a colored `woot` tile.
 const channelTypeBrandIconMap = {
+  'Channel::Api': 'i-woot-api-color',
+  'Channel::Email': 'i-woot-mail-color',
   'Channel::FacebookPage': 'i-logos-messenger',
   'Channel::Line': 'i-woot-line-color',
+  'Channel::Sms': 'i-woot-sms-color',
   'Channel::Telegram': 'i-logos-telegram',
+  'Channel::TwilioSms': 'i-woot-sms-color',
+  'Channel::TwitterProfile': 'i-woot-x-color',
+  'Channel::WebWidget': 'i-woot-website-color',
   'Channel::Whatsapp': 'i-logos-whatsapp-icon',
   'Channel::Instagram': 'i-woot-instagram-color',
   'Channel::Tiktok': 'i-logos-tiktok-icon',
+  'Channel::ZaloOa': 'i-woot-zalo-color',
+  'Channel::ZaloPersonal': 'i-woot-zalo-color',
+  'Channel::Phone': 'i-woot-phone-color',
 };
 
 const providerBrandIconMap = {
