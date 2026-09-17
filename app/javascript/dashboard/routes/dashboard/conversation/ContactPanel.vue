@@ -25,6 +25,7 @@ import ShopifyOrdersList from 'dashboard/components/widgets/conversation/Shopify
 import SidebarActionsHeader from 'dashboard/components-next/SidebarActionsHeader.vue';
 import LinearIssuesList from 'dashboard/components/widgets/conversation/linear/IssuesList.vue';
 import LinearSetupCTA from 'dashboard/components/widgets/conversation/linear/LinearSetupCTA.vue';
+import ConversationDeals from 'dashboard/components-next/Deals/ConversationDeals.vue';
 
 const props = defineProps({
   conversationId: {
@@ -57,6 +58,14 @@ const isShopifyFeatureEnabled = computed(
 );
 
 const { isCloudFeatureEnabled } = useAccount();
+
+const accountId = useMapGetter('getCurrentAccountId');
+const isFeatureEnabledonAccount = useMapGetter(
+  'accounts/isFeatureEnabledonAccount'
+);
+const isCrmDealsEnabled = computed(() =>
+  isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_DEALS)
+);
 
 const isLinearFeatureEnabled = computed(() =>
   isCloudFeatureEnabled(FEATURE_FLAGS.LINEAR)
@@ -295,6 +304,19 @@ onMounted(() => {
               "
             >
               <ShopifyOrdersList :contact-id="contactId" />
+            </AccordionItem>
+          </div>
+          <div v-else-if="element.name === 'deals' && isCrmDealsEnabled">
+            <AccordionItem
+              :title="$t('DEALS.CONVERSATION.TITLE')"
+              :is-open="isContactSidebarItemOpen('is_deals_open')"
+              compact
+              @toggle="value => toggleSidebarUIState('is_deals_open', value)"
+            >
+              <ConversationDeals
+                :conversation-id="conversationId"
+                :contact="contact.id ? contact : null"
+              />
             </AccordionItem>
           </div>
           <div v-else-if="element.name === 'contact_notes'">

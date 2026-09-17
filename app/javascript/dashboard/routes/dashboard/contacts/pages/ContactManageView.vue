@@ -15,6 +15,8 @@ import ContactMedia from 'dashboard/components-next/Contacts/ContactsSidebar/Con
 import ContactChannels from 'dashboard/components-next/Contacts/ContactsSidebar/ContactChannels.vue';
 import ContactMerge from 'dashboard/components-next/Contacts/ContactsSidebar/ContactMerge.vue';
 import ContactCustomAttributes from 'dashboard/components-next/Contacts/ContactsSidebar/ContactCustomAttributes.vue';
+import ContactDeals from 'dashboard/components-next/Deals/ContactDeals.vue';
+import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
 const store = useStore();
 const route = useRoute();
@@ -38,24 +40,32 @@ const showSpinner = computed(
 
 const { t } = useI18n();
 
-const CONTACT_TABS_OPTIONS = [
+const accountId = useMapGetter('getCurrentAccountId');
+const isFeatureEnabledonAccount = useMapGetter(
+  'accounts/isFeatureEnabledonAccount'
+);
+
+const CONTACT_TABS_OPTIONS = computed(() => [
   { key: 'ATTRIBUTES', value: 'attributes' },
   { key: 'CHANNELS', value: 'channels' },
   { key: 'HISTORY', value: 'history' },
   { key: 'NOTES', value: 'notes' },
+  ...(isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_DEALS)
+    ? [{ key: 'DEALS', value: 'deals' }]
+    : []),
   { key: 'MEDIA', value: 'media' },
   { key: 'MERGE', value: 'merge' },
-];
+]);
 
 const tabs = computed(() => {
-  return CONTACT_TABS_OPTIONS.map(tab => ({
+  return CONTACT_TABS_OPTIONS.value.map(tab => ({
     label: t(`CONTACTS_LAYOUT.SIDEBAR.TABS.${tab.key}`),
     value: tab.value,
   }));
 });
 
 const activeTabIndex = computed(() => {
-  return CONTACT_TABS_OPTIONS.findIndex(v => v.value === activeTab.value);
+  return CONTACT_TABS_OPTIONS.value.findIndex(v => v.value === activeTab.value);
 });
 
 const goToContactsList = () => {
@@ -185,6 +195,10 @@ onMounted(() => {
             :selected-contact="selectedContact"
           />
           <ContactNotes v-if="activeTab === 'notes'" />
+          <ContactDeals
+            v-if="activeTab === 'deals'"
+            :contact-id="route.params.contactId"
+          />
           <ContactHistory v-if="activeTab === 'history'" />
           <ContactMedia v-if="activeTab === 'media'" />
           <ContactMerge

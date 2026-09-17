@@ -1,0 +1,14 @@
+json.id resource.id
+json.pipeline_id resource.pipeline_id
+json.object_type resource.object_type
+json.name resource.name
+json.icon resource.icon
+json.position resource.position
+json.view_type resource.view_type
+json.filters resource.filters
+json.sorts resource.sorts
+json.fields resource.fields
+json.group_by resource.group_by
+json.settings resource.settings
+json.created_at resource.created_at.to_i
+json.updated_at resource.updated_at.to_i

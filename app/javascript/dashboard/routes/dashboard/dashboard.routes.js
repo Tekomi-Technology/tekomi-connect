@@ -4,6 +4,7 @@ import { routes as searchRoutes } from '../../modules/search/search.routes';
 import { routes as callRoutes } from './calls/routes';
 import { routes as contactRoutes } from './contacts/routes';
 import { routes as companyRoutes } from './companies/routes';
+import { routes as dealRoutes } from './deals/routes';
 import { routes as homeRoutes } from './home/routes';
 import { routes as inboxRoutes } from './inbox/routes';
 import { frontendURL } from '../../helper/URLHelper';
@@ -30,6 +31,7 @@ export default {
         ...callRoutes,
         ...contactRoutes,
         ...companyRoutes,
+        ...dealRoutes,
         ...searchRoutes,
         ...helpcenterRoutes.routes,
         ...campaignsRoutes.routes,

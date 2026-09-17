@@ -250,3 +250,7 @@
   display_name: Delayed Automations
   enabled: false
   column: feature_flags_ext_1
+- name: crm_deals
+  display_name: CRM Deals
+  enabled: false
+  column: feature_flags_ext_1

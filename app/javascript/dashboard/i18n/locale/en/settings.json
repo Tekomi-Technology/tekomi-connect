@@ -327,6 +327,7 @@
     "COMPANIES": "Companies",
     "ALL_COMPANIES": "All Companies",
     "TEKOMI": "Tekomi AI",
+    "DEALS": "Deals",
     "CALLS": "Calls",
     "TEKOMI_ASSISTANTS": "Assistants",
     "TEKOMI_OVERVIEW": "Overview",
@@ -417,7 +418,8 @@
     "DOCS": "Read docs",
     "SECURITY": "Security",
     "TEKOMI_AI": "Tekomi AI",
-    "CONVERSATION_WORKFLOW": "Conversation Workflow"
+    "CONVERSATION_WORKFLOW": "Conversation Workflow",
+    "PIPELINES": "Pipelines"
   },
   "DATA_IMPORTS": {
     "HEADER": "Data",

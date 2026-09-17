@@ -177,6 +177,7 @@ Rails.application.routes.draw do
               resource :participants, only: [:show, :create, :update, :destroy]
               resource :direct_uploads, only: [:create]
               resource :draft_messages, only: [:show, :update, :destroy]
+              resources :deals, only: [:index]
             end
             member do
               post :mute
@@ -244,9 +245,29 @@ Rails.application.routes.draw do
               resources :contact_inboxes, only: [:create]
               resources :labels, only: [:create, :index]
               resources :notes
+              resources :deals, only: [:index]
               get :attachments, to: 'attachments#index'
               post :call, on: :member, to: 'calls#create' if ChatwootApp.enterprise?
             end
+          end
+          resources :pipelines, only: [:index, :show, :create, :update, :destroy] do
+            patch :reorder, on: :collection
+            scope module: :pipelines do
+              resources :stages, only: [:create, :update, :destroy] do
+                patch :reorder, on: :collection
+              end
+            end
+          end
+          resources :deals, only: [:show, :create, :update, :destroy] do
+            post :filter, on: :collection
+            patch :move, on: :member
+            scope module: :deals do
+              resources :conversations, only: [:index, :create, :destroy]
+              resources :activities, only: [:index]
+            end
+          end
+          resources :saved_views, only: [:index, :show, :create, :update, :destroy] do
+            patch :reorder, on: :collection
           end
           resources :data_imports, only: [:index, :show, :create] do
             collection do

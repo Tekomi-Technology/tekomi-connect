@@ -8,6 +8,7 @@ import { useMapGetter } from 'dashboard/composables/store';
 import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n';
 import { useSidebarKeyboardShortcuts } from './useSidebarKeyboardShortcuts';
+import { usePipelinesStore } from 'dashboard/stores/pipelines';
 import { vOnClickOutside } from '@vueuse/components';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import { useWindowSize, useEventListener } from '@vueuse/core';
@@ -43,6 +44,7 @@ const emit = defineEmits([
 const { accountScopedRoute, isOnChatwootCloud } = useAccount();
 const { isEnterprise } = useConfig();
 const store = useStore();
+const pipelinesStore = usePipelinesStore();
 
 // Calls run on the enterprise-only API (cloud runs enterprise); hide the entry
 // on community so it doesn't lead to a dashboard/CTA the backend can't serve.
@@ -86,6 +88,13 @@ const hasFilteredUnreadCounts = computed(() => {
       accountId.value,
       FEATURE_FLAGS.UNREAD_COUNT_FOR_FILTERS
     )
+  );
+});
+
+const hasCrmDeals = computed(() => {
+  return isFeatureEnabledonAccount.value(
+    accountId.value,
+    FEATURE_FLAGS.CRM_DEALS
   );
 });
 
@@ -258,6 +267,14 @@ watch([accountId, hasConversationUnreadCounts], fetchConversationUnreadCounts, {
 watch([accountId, currentUserId], fetchSidebarSortPreferences, {
   immediate: true,
 });
+
+watch(
+  [accountId, hasCrmDeals],
+  ([currentAccountId, isEnabled]) => {
+    if (currentAccountId && isEnabled) pipelinesStore.fetch();
+  },
+  { immediate: true }
+);
 
 const hasUnreadCountsForSection = section => {
   if (section === SIDEBAR_SORT_SECTIONS.FOLDERS) {
@@ -582,6 +599,24 @@ const menuItems = computed(() => {
                 }),
               },
             ],
+          },
+        ]
+      : []),
+    ...(hasCrmDeals.value
+      ? [
+          {
+            name: 'Deals',
+            label: t('SIDEBAR.DEALS'),
+            icon: 'i-lucide-square-kanban',
+            activeOn: ['deals_dashboard_index', 'deals_show'],
+            children: pipelinesStore.records.map(pipeline => ({
+              name: `pipeline-${pipeline.id}`,
+              label: pipeline.name,
+              to: accountScopedRoute('deals_pipeline_index', {
+                pipelineId: pipeline.id,
+              }),
+              activeOn: ['deals_pipeline_index'],
+            })),
           },
         ]
       : []),
@@ -942,6 +977,12 @@ const menuItems = computed(() => {
           label: t('SIDEBAR.CONVERSATION_WORKFLOW'),
           icon: 'i-lucide-workflow',
           to: accountScopedRoute('conversation_workflow_index'),
+        },
+        {
+          name: 'Settings Pipelines',
+          label: t('SIDEBAR.PIPELINES'),
+          icon: 'i-lucide-square-kanban',
+          to: accountScopedRoute('settings_pipelines_index'),
         },
         {
           name: 'Settings Security',

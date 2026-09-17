@@ -236,3 +236,71 @@ messages:
       - "does_not_contain"
 
 ### ----- End of Message Filters ----- ###
+
+### ----- Deal Filters ----- ###
+deals:
+  name:
+    attribute_type: "standard"
+    data_type: "text_case_insensitive"
+    filter_operators:
+      - "equal_to"
+      - "not_equal_to"
+      - "contains"
+      - "does_not_contain"
+  value:
+    attribute_type: "standard"
+    data_type: "numeric"
+    filter_operators:
+      - "equal_to"
+      - "not_equal_to"
+      - "is_greater_than"
+      - "is_less_than"
+      - "is_present"
+      - "is_not_present"
+  stage_id:
+    attribute_type: "standard"
+    data_type: "numeric"
+    filter_operators:
+      - "equal_to"
+      - "not_equal_to"
+  assignee_id:
+    attribute_type: "standard"
+    data_type: "numeric"
+    filter_operators:
+      - "equal_to"
+      - "not_equal_to"
+      - "is_present"
+      - "is_not_present"
+  contact_id:
+    attribute_type: "standard"
+    data_type: "numeric"
+    filter_operators:
+      - "equal_to"
+      - "not_equal_to"
+      - "is_present"
+      - "is_not_present"
+  expected_close_date:
+    attribute_type: "standard"
+    data_type: "date"
+    filter_operators:
+      - "is_greater_than"
+      - "is_less_than"
+      - "is_present"
+      - "is_not_present"
+  closed_at:
+    attribute_type: "standard"
+    data_type: "date"
+    filter_operators:
+      - "is_greater_than"
+      - "is_less_than"
+      - "days_before"
+      - "is_present"
+      - "is_not_present"
+  created_at:
+    attribute_type: "standard"
+    data_type: "date"
+    filter_operators:
+      - "is_greater_than"
+      - "is_less_than"
+      - "days_before"
+### ----- End of Deal Filters ----- ###

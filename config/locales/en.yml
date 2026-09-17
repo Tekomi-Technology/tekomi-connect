@@ -596,6 +596,19 @@ en:
 
       Transcript:
       %{format_messages}
+  crm_deals:
+    default_pipeline:
+      name: 'Sales'
+      stages:
+        new: 'New'
+        screening: 'Screening'
+        meeting: 'Meeting'
+        proposal: 'Proposal'
+        customer: 'Customer'
+    default_view:
+      name: 'All deals'
+    stage_has_deals: 'This stage still has deals. Choose another stage to move them to before deleting it.'
+    invalid_sort: 'Invalid sort field'
   agent_capacity_policy:
     inbox_already_assigned: 'Inbox has already been assigned to this policy'
   portals:

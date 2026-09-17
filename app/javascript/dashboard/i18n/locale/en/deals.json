@@ -1,0 +1,205 @@
+{
+  "DEALS": {
+    "HEADER": "Deals",
+    "COUNT": "{n} deal | {n} deals",
+    "EMPTY_PIPELINES": "No pipelines yet",
+    "EMPTY_STATE": "No deals match this view",
+    "LOAD_MORE": "Load more",
+    "NO_VALUE": "No value",
+    "UNASSIGNED": "Unassigned",
+    "FIELDS": {
+      "NAME": "Name",
+      "VALUE": "Value",
+      "STAGE": "Stage",
+      "ASSIGNEE": "Assignee",
+      "CONTACT": "Contact",
+      "EXPECTED_CLOSE_DATE": "Expected close date",
+      "CLOSED_AT": "Closed at",
+      "CREATED_AT": "Created at",
+      "UPDATED_AT": "Updated at"
+    },
+    "VIEW_TYPES": {
+      "TABLE": "Table",
+      "KANBAN": "Kanban",
+      "CALENDAR": "Calendar",
+      "LIST": "List"
+    },
+    "VIEWS": {
+      "CREATE": "Create view",
+      "RENAME": "Rename view",
+      "DUPLICATE": "Duplicate view",
+      "DELETE": "Delete view",
+      "DUPLICATE_SUFFIX": "{name} (copy)",
+      "DIALOG": {
+        "CREATE_TITLE": "Create view",
+        "RENAME_TITLE": "Rename view",
+        "NAME_PLACEHOLDER": "View name",
+        "TYPE_LABEL": "View type",
+        "SAVE": "Save"
+      },
+      "DELETE_DIALOG": {
+        "TITLE": "Delete view",
+        "DESCRIPTION": "\"{name}\" will be removed for everyone in this account.",
+        "CONFIRM": "Delete"
+      },
+      "MESSAGES": {
+        "SAVE_ERROR": "Could not save the view",
+        "DELETE_SUCCESS": "View deleted",
+        "DELETE_ERROR": "Could not delete the view"
+      },
+      "EMPTY": "No views in this pipeline yet. Create one to see its deals."
+    },
+    "TOOLBAR": {
+      "FILTER": "Filter",
+      "SORT": "Sort",
+      "OPTIONS": "Options",
+      "NEW_DEAL": "New deal"
+    },
+    "FILTER": {
+      "TITLE": "Filter deals",
+      "ADD_FILTER": "Add filter",
+      "CLEAR_FILTERS": "Clear filters",
+      "APPLY_FILTERS": "Apply filters"
+    },
+    "SORT": {
+      "FIELD": "Sort by",
+      "DIRECTION": "Direction",
+      "ASC": "Ascending",
+      "DESC": "Descending",
+      "MANUAL": "Manual order"
+    },
+    "OPTIONS": {
+      "VISIBLE_FIELDS": "Visible fields",
+      "AGGREGATE": "Column total",
+      "AGGREGATES": {
+        "COUNT": "Count only",
+        "SUM": "Sum of value",
+        "AVG": "Average value",
+        "MIN": "Minimum value",
+        "MAX": "Maximum value"
+      },
+      "HIDE_EMPTY_COLUMNS": "Hide empty columns",
+      "GROUP_BY": "Group by",
+      "NO_GROUPING": "No grouping",
+      "CALENDAR_FIELD": "Date field",
+      "OPEN_IN": "Open deals in",
+      "OPEN_IN_PANEL": "Side panel",
+      "OPEN_IN_PAGE": "Full page"
+    },
+    "FORM": {
+      "CREATE_TITLE": "New deal",
+      "NAME_PLACEHOLDER": "Deal name",
+      "VALUE_PLACEHOLDER": "Value (VND)",
+      "STAGE_PLACEHOLDER": "Select stage",
+      "CONTACT_PLACEHOLDER": "Select contact",
+      "CONTACT_SEARCH_PLACEHOLDER": "Search contacts...",
+      "ASSIGNEE_PLACEHOLDER": "Select assignee",
+      "EXPECTED_CLOSE_DATE": "Expected close date",
+      "SAVE": "Create deal",
+      "MESSAGES": {
+        "SUCCESS": "Deal created",
+        "ERROR": "Could not create the deal"
+      }
+    },
+    "KANBAN": {
+      "ADD": "Add deal"
+    },
+    "TABLE": {
+      "SELECTED": "{count} selected",
+      "MOVE_TO_STAGE": "Move to stage",
+      "DELETE_SELECTED": "Delete"
+    },
+    "CALENDAR": {
+      "TODAY": "Today",
+      "MODES": {
+        "MONTH": "Month",
+        "WEEK": "Week",
+        "DAY": "Day"
+      },
+      "MORE": "+{count} more",
+      "UNDATED": "No date ({count})"
+    },
+    "DELETE_DIALOG": {
+      "TITLE": "Delete deals",
+      "DESCRIPTION": "{count} deal will be permanently deleted. | {count} deals will be permanently deleted.",
+      "CONFIRM": "Delete"
+    },
+    "MESSAGES": {
+      "UPDATE_ERROR": "Could not update the deal",
+      "DELETE_SUCCESS": "Deals deleted",
+      "DELETE_ERROR": "Could not delete the deal"
+    },
+    "DETAIL": {
+      "BACK": "Back to pipeline",
+      "COMPANY": "Company",
+      "TABS": {
+        "CONVERSATIONS": "Conversations",
+        "ACTIVITY": "Activity"
+      },
+      "CONVERSATIONS": {
+        "LINK_PLACEHOLDER": "Link a conversation of this contact",
+        "NO_CONTACT_CONVERSATIONS": "This contact has no other conversations",
+        "NO_CONTACT": "Set a contact to link their conversations",
+        "EMPTY": "No linked conversations",
+        "LOAD_ERROR": "Could not load conversations",
+        "LINK_ERROR": "Could not link the conversation",
+        "UNLINK_ERROR": "Could not unlink the conversation"
+      },
+      "ACTIVITY": {
+        "SYSTEM": "System",
+        "CREATED": "{actor} created this deal",
+        "STAGE_CHANGED": "{actor} moved the deal from {from} to {to}",
+        "VALUE_CHANGED": "{actor} changed the value from {from} to {to}",
+        "ASSIGNEE_CHANGED": "{actor} changed the assignee from {from} to {to}",
+        "LOAD_ERROR": "Could not load activity"
+      },
+      "CUSTOM_ATTRIBUTES": "Custom attributes"
+    },
+    "CONVERSATION": {
+      "TITLE": "Deals",
+      "LINKED": "Linked to this conversation",
+      "CONTACT": "Other deals of this contact",
+      "EMPTY": "No deals yet",
+      "CREATE": "Create deal",
+      "LOAD_ERROR": "Could not load deals"
+    }
+  },
+  "PIPELINES_SETTINGS": {
+    "HEADER": {
+      "TITLE": "Pipelines",
+      "DESCRIPTION": "Organise deals into pipelines and define the stages each deal moves through."
+    },
+    "LOADING": "Loading pipelines...",
+    "EMPTY": "No pipelines yet",
+    "NAME_LABEL": "Pipeline name",
+    "CREATE": {
+      "BUTTON": "Add pipeline",
+      "TITLE": "Add pipeline",
+      "CONFIRM": "Create",
+      "HINT": "New pipelines start with default stages and a Kanban view."
+    },
+    "DELETE": {
+      "BUTTON": "Delete",
+      "TITLE": "Delete \"{name}\"",
+      "DESCRIPTION": "All deals and views in this pipeline will be permanently deleted.",
+      "CONFIRM": "Delete pipeline",
+      "SUCCESS": "Pipeline deleted"
+    },
+    "STAGE_TYPES": {
+      "OPEN": "Open",
+      "WON": "Won",
+      "LOST": "Lost"
+    },
+    "STAGES": {
+      "TITLE": "Stages",
+      "ADD": "Add stage",
+      "NEW_STAGE_NAME": "New stage",
+      "DELETE": {
+        "TITLE": "Delete \"{name}\"",
+        "DESCRIPTION": "If this stage still has deals, choose a stage to move them to.",
+        "MOVE_TO": "Move deals to...",
+        "CONFIRM": "Delete stage"
+      }
+    }
+  }
+}

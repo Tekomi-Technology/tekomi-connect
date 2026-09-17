@@ -80,6 +80,7 @@ class Account < ApplicationRecord
   has_many :custom_filters, dependent: :destroy_async
   has_many :dashboard_apps, dependent: :destroy_async
   has_many :data_imports, dependent: :destroy_async
+  has_many :deals, dependent: :destroy_async
   has_many :email_channels, dependent: :destroy_async, class_name: '::Channel::Email'
   has_many :facebook_pages, dependent: :destroy_async, class_name: '::Channel::FacebookPage'
   has_many :instagram_channels, dependent: :destroy_async, class_name: '::Channel::Instagram'
@@ -87,6 +88,7 @@ class Account < ApplicationRecord
   has_many :hooks, dependent: :destroy_async, class_name: 'Integrations::Hook'
   has_many :inboxes, dependent: :destroy_async
   has_many :phone_extensions, dependent: :destroy_async
+  has_many :pipelines, dependent: :destroy_async
   has_many :labels, dependent: :destroy_async
   has_many :line_channels, dependent: :destroy_async, class_name: '::Channel::Line'
   has_many :mentions, dependent: :destroy_async
@@ -95,6 +97,7 @@ class Account < ApplicationRecord
   has_many :notification_settings, dependent: :destroy_async
   has_many :notifications, dependent: :destroy_async
   has_many :portals, dependent: :destroy_async, class_name: '::Portal'
+  has_many :saved_views, dependent: :destroy_async
   has_many :phone_channels, dependent: :destroy_async, class_name: '::Channel::Phone'
   has_many :sms_channels, dependent: :destroy_async, class_name: '::Channel::Sms'
   has_many :teams, dependent: :destroy_async
@@ -120,6 +123,7 @@ class Account < ApplicationRecord
   after_create_commit :notify_creation
   after_update_commit :clear_unread_conversation_counts_cache, if: :saved_change_to_feature_conversation_unread_counts?
   after_update :resume_delayed_automations, if: -> { saved_change_to_feature_delayed_automations? && feature_delayed_automations? }
+  after_update :create_default_pipeline, if: -> { saved_change_to_feature_crm_deals? && feature_crm_deals? && pipelines.none? }
   after_destroy :remove_account_sequences
 
   def agents
@@ -204,6 +208,10 @@ class Account < ApplicationRecord
 
   def resume_delayed_automations
     AutomationRulePendingExecution.reschedule_paused(self)
+  end
+
+  def create_default_pipeline
+    pipelines.create!(name: I18n.t('crm_deals.default_pipeline.name'))
   end
 
   trigger.after(:insert).for_each(:row) do
