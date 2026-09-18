@@ -27,73 +27,73 @@ const channelList = computed(() => {
       key: 'website',
       title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.WEBSITE.TITLE'),
       description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.WEBSITE.DESCRIPTION'),
-      icon: 'i-woot-website',
+      icon: 'i-woot-website-color',
     },
     {
       key: 'facebook',
       title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.FACEBOOK.TITLE'),
       description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.FACEBOOK.DESCRIPTION'),
-      icon: 'i-woot-messenger',
+      icon: 'i-logos-messenger',
     },
     {
       key: 'whatsapp',
       title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.WHATSAPP.TITLE'),
       description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.WHATSAPP.DESCRIPTION'),
-      icon: 'i-woot-whatsapp',
+      icon: 'i-logos-whatsapp-icon',
     },
     {
       key: 'sms',
       title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.SMS.TITLE'),
       description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.SMS.DESCRIPTION'),
-      icon: 'i-woot-sms',
+      icon: 'i-woot-sms-color',
     },
     {
       key: 'email',
       title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.EMAIL.TITLE'),
       description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.EMAIL.DESCRIPTION'),
-      icon: 'i-woot-mail',
+      icon: 'i-woot-mail-color',
     },
     {
       key: 'api',
       title: apiChannelName || t('INBOX_MGMT.ADD.AUTH.CHANNEL.API.TITLE'),
       description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.API.DESCRIPTION'),
-      icon: 'i-woot-api',
+      icon: 'i-woot-api-color',
     },
     {
       key: 'telegram',
       title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.TELEGRAM.TITLE'),
       description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.TELEGRAM.DESCRIPTION'),
-      icon: 'i-woot-telegram',
+      icon: 'i-logos-telegram',
     },
     {
       key: 'line',
       title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.LINE.TITLE'),
       description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.LINE.DESCRIPTION'),
-      icon: 'i-woot-line',
+      icon: 'i-woot-line-color',
     },
     {
       key: 'zalo_oa',
       title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.ZALO_OA.TITLE'),
       description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.ZALO_OA.DESCRIPTION'),
-      icon: 'i-woot-zalo',
+      icon: 'i-woot-zalo-color',
     },
     {
       key: 'zalo_personal',
       title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.ZALO_PERSONAL.TITLE'),
       description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.ZALO_PERSONAL.DESCRIPTION'),
-      icon: 'i-woot-zalo',
+      icon: 'i-woot-zalo-color',
     },
     {
       key: 'phone',
       title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.PHONE.TITLE'),
       description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.PHONE.DESCRIPTION'),
-      icon: 'i-ri-phone-fill',
+      icon: 'i-woot-phone-color',
     },
     {
       key: 'instagram',
       title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.INSTAGRAM.TITLE'),
       description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.INSTAGRAM.DESCRIPTION'),
-      icon: 'i-woot-instagram',
+      icon: 'i-woot-instagram-color',
     },
   ];
 
@@ -102,7 +102,7 @@ const channelList = computed(() => {
       key: 'tiktok',
       title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.TIKTOK.TITLE'),
       description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.TIKTOK.DESCRIPTION'),
-      icon: 'i-woot-tiktok',
+      icon: 'i-logos-tiktok-icon',
     });
   }
 
@@ -110,7 +110,7 @@ const channelList = computed(() => {
     key: 'whatsapp_call',
     title: t('INBOX_MGMT.ADD.AUTH.CHANNEL.WHATSAPP_CALL.TITLE'),
     description: t('INBOX_MGMT.ADD.AUTH.CHANNEL.WHATSAPP_CALL.DESCRIPTION'),
-    icon: 'i-woot-whatsapp',
+    icon: 'i-logos-whatsapp-icon',
   });
 
   return channels;

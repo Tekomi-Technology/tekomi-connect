@@ -356,48 +356,48 @@ vi:
     #Note: webhooks and dashboard_apps don't need short_description as they use different modal components
     dashboard_apps:
       name: 'Ứng dụng bảng điều khiển'
-      description: 'Dashboard Apps allow you to create and embed applications that display user information, orders, or payment history, providing more context to your customer support agents.'
+      description: 'Ứng dụng bảng điều khiển cho phép bạn tạo và nhúng các ứng dụng hiển thị thông tin người dùng, đơn hàng hoặc lịch sử thanh toán, giúp nhân viên hỗ trợ có thêm ngữ cảnh về khách hàng.'
     dyte:
       name: 'Dyte'
-      short_description: 'Start video/voice calls with customers directly from Chatwoot.'
-      description: 'Dyte is a product that integrates audio and video functionalities into your application. With this integration, your agents can start video/voice calls with your customers directly from Chatwoot.'
+      short_description: 'Gọi video hoặc gọi thoại với khách hàng ngay trong Chatwoot.'
+      description: 'Dyte là sản phẩm tích hợp tính năng âm thanh và video vào ứng dụng của bạn. Khi bật tích hợp này, nhân viên có thể gọi video hoặc gọi thoại với khách hàng ngay trong Chatwoot.'
       meeting_name: '%{agent_name} đã bắt đầu một cuộc họp'
     slack:
       name: 'Slack'
-      short_description: 'Receive notifications and respond to conversations directly in Slack.'
-      description: "Integrate Chatwoot with Slack to keep your team in sync. This integration allows you to receive notifications for new conversations and respond to them directly within Slack's interface."
+      short_description: 'Nhận thông báo và trả lời hội thoại ngay trong Slack.'
+      description: 'Kết nối Chatwoot với Slack để cả nhóm luôn nắm được tình hình. Tích hợp này cho phép bạn nhận thông báo khi có hội thoại mới và trả lời ngay trong Slack.'
     webhooks:
       name: 'Webhooks'
-      description: 'Webhook events provide real-time updates about activities in your Chatwoot account. You can subscribe to your preferred events, and Chatwoot will send you HTTP callbacks with the updates.'
+      description: 'Webhook gửi thông tin theo thời gian thực về các hoạt động trong tài khoản Chatwoot của bạn. Bạn chọn những sự kiện muốn theo dõi, và Chatwoot sẽ gọi HTTP callback tới địa chỉ của bạn kèm nội dung cập nhật.'
     dialogflow:
       name: 'Dialogflow'
-      short_description: 'Build chatbots to handle initial queries before transferring to agents.'
-      description: 'Build chatbots with Dialogflow and easily integrate them into your inbox. These bots can handle initial queries before transferring them to a customer service agent.'
+      short_description: 'Tạo chatbot xử lý các câu hỏi ban đầu trước khi chuyển cho nhân viên.'
+      description: 'Tạo chatbot bằng Dialogflow và gắn vào hộp thư của bạn. Các bot này xử lý những câu hỏi ban đầu, sau đó chuyển hội thoại cho nhân viên chăm sóc khách hàng.'
     google_translate:
       name: 'Google Translate'
-      short_description: 'Automatically translate customer messages for agents.'
-      description: "Integrate Google Translate to help agents easily translate customer messages. This integration automatically detects the language and converts it to the agent's or admin's preferred language."
+      short_description: 'Tự động dịch tin nhắn của khách hàng cho nhân viên.'
+      description: 'Tích hợp Google Translate để nhân viên dịch tin nhắn của khách hàng dễ dàng hơn. Tích hợp này tự nhận diện ngôn ngữ và dịch sang ngôn ngữ mà nhân viên hoặc quản trị viên đang dùng.'
     openai:
       name: 'OpenAI'
-      short_description: 'AI-powered reply suggestions, summarization, and message enhancement.'
-      description: 'Leverage the power of large language models from OpenAI with the features such as reply suggestions, summarization, message rephrasing, spell-checking, and label classification.'
+      short_description: 'Gợi ý câu trả lời, tóm tắt và cải thiện tin nhắn bằng AI.'
+      description: 'Khai thác sức mạnh của các mô hình ngôn ngữ lớn từ OpenAI với những tính năng như gợi ý câu trả lời, tóm tắt hội thoại, viết lại tin nhắn, kiểm tra chính tả và phân loại nhãn.'
     linear:
       name: 'Linear'
-      short_description: 'Create and link Linear issues directly from conversations.'
-      description: 'Create issues in Linear directly from your conversation window. Alternatively, link existing Linear issues for a more streamlined and efficient issue tracking process.'
-      attachment_link_title: 'Conversation (#%{conversation_id}) with %{name}'
+      short_description: 'Tạo và liên kết issue Linear ngay từ hội thoại.'
+      description: 'Tạo issue trong Linear ngay tại khung hội thoại. Hoặc liên kết issue Linear có sẵn để việc theo dõi công việc gọn gàng và hiệu quả hơn.'
+      attachment_link_title: 'Hội thoại (#%{conversation_id}) với %{name}'
     notion:
       name: 'Notion'
-      short_description: 'Integrate databases, documents and pages directly with Tekomi AI.'
-      description: 'Connect your Notion workspace to enable Tekomi AI to access and generate intelligent responses using content from your databases, documents, and pages to provide more contextual customer support.'
+      short_description: 'Kết nối cơ sở dữ liệu, tài liệu và trang Notion với Tekomi AI.'
+      description: 'Kết nối workspace Notion để Tekomi AI đọc được nội dung trong cơ sở dữ liệu, tài liệu và trang của bạn, từ đó tạo ra câu trả lời thông minh và sát ngữ cảnh hơn khi hỗ trợ khách hàng.'
     shopify:
       name: 'Shopify'
-      short_description: 'Access order details and customer data from your Shopify store.'
-      description: 'Connect your Shopify store to access order details, customer information, and product data directly within your conversations and helps your support team provide faster, more contextual assistance to your customers.'
+      short_description: 'Xem thông tin đơn hàng và dữ liệu khách hàng từ cửa hàng Shopify.'
+      description: 'Kết nối cửa hàng Shopify để xem thông tin đơn hàng, thông tin khách hàng và dữ liệu sản phẩm ngay trong hội thoại, giúp đội hỗ trợ trả lời nhanh hơn và sát ngữ cảnh hơn.'
     leadsquared:
       name: 'LeadSquared'
-      short_description: 'Sync your contacts and conversations with LeadSquared CRM.'
-      description: 'Sync your contacts and conversations with LeadSquared CRM. This integration automatically creates leads in LeadSquared when new contacts are added, and logs conversation activity to provide your sales team with complete context.'
+      short_description: 'Đồng bộ liên hệ và hội thoại với LeadSquared CRM.'
+      description: 'Đồng bộ liên hệ và hội thoại với LeadSquared CRM. Tích hợp này tự tạo lead trong LeadSquared khi có liên hệ mới, và ghi lại hoạt động hội thoại để đội bán hàng nắm được đầy đủ bối cảnh.'
   tekomi:
     copilot_message_required: Thông điệp bắt buộc có
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'

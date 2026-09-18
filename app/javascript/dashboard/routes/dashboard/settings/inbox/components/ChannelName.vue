@@ -36,6 +36,7 @@ const i18nMap = {
   'Channel::Tiktok': 'TIKTOK',
   'Channel::ZaloOa': 'ZALO_OA',
   'Channel::ZaloPersonal': 'ZALO_PERSONAL',
+  'Channel::Phone': 'PHONE',
 };
 
 const twilioChannelName = () => {
