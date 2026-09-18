@@ -1,6 +1,4 @@
 class Deal < ApplicationRecord
-  include Events::Types
-
   TRACKED_ATTRIBUTES = %w[stage_id value assignee_id].freeze
 
   belongs_to :account

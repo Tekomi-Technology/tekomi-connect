@@ -3,7 +3,7 @@ class SavedView < ApplicationRecord
   belongs_to :pipeline, optional: true
 
   enum :object_type, { deal: 0 }, validate: true
-  enum :view_type, { table: 0, kanban: 1, calendar: 2, list: 3 }, validate: true
+  enum :view_type, { table: 0, kanban: 1, calendar: 2, list: 3 }, validate: true, prefix: true
 
   validates :name, presence: true
   validate :pipeline_belongs_to_account
