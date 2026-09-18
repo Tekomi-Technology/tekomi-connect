@@ -23,7 +23,11 @@ class BackfillCallyticsRecordings < ActiveRecord::Migration[7.1]
     execute <<~SQL.squish
       UPDATE messages AS message
       SET content_attributes = jsonb_set(
-            COALESCE(message.content_attributes::jsonb, '{}'::jsonb),
+            CASE
+              WHEN jsonb_typeof(COALESCE(message.content_attributes::jsonb, '{}'::jsonb)) = 'object'
+              THEN COALESCE(message.content_attributes::jsonb, '{}'::jsonb)
+              ELSE '{}'::jsonb
+            END,
             '{data,recording_url}',
             to_jsonb(phone_call.recording_url),
             true
