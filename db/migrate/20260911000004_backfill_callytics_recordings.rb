@@ -23,11 +23,11 @@ class BackfillCallyticsRecordings < ActiveRecord::Migration[7.1]
     execute <<~SQL.squish
       UPDATE messages AS message
       SET content_attributes = jsonb_set(
-            COALESCE(message.content_attributes, '{}'::jsonb),
+            COALESCE(message.content_attributes::jsonb, '{}'::jsonb),
             '{data,recording_url}',
             to_jsonb(phone_call.recording_url),
             true
-          )
+          )::json
       FROM phone_calls AS phone_call
       WHERE message.id = phone_call.message_id
         AND phone_call.pbx_id LIKE 'callytics:%'
