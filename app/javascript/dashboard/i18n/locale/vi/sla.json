@@ -92,6 +92,14 @@
         "ERROR_MESSAGE": "Đã có lỗi, vui lòng thử lại"
       }
     },
+    "EDIT": {
+      "TITLE": "Chỉnh sửa SLA",
+      "DESC": "Cập nhật cam kết thời gian phản hồi và giải quyết của SLA này.",
+      "API": {
+        "SUCCESS_MESSAGE": "Đã cập nhật SLA thành công",
+        "ERROR_MESSAGE": "Đã có lỗi, vui lòng thử lại"
+      }
+    },
     "DELETE": {
       "TITLE": "Xoá SLA",
       "API": {

@@ -92,6 +92,14 @@
         "ERROR_MESSAGE": "There was an error, please try again"
       }
     },
+    "EDIT": {
+      "TITLE": "Edit SLA",
+      "DESC": "Update the response and resolution promises of this SLA.",
+      "API": {
+        "SUCCESS_MESSAGE": "SLA updated successfully",
+        "ERROR_MESSAGE": "There was an error, please try again"
+      }
+    },
     "DELETE": {
       "TITLE": "Delete SLA",
       "API": {
