@@ -13,6 +13,16 @@ features:
     group: editor
   copilot:
     group: copilot
+  deal_assistant:
+    group: deals
+  deal_suggestion:
+    group: deals
+  deal_summary:
+    group: deals
+  deal_next_step:
+    group: deals
+  deal_field_extraction:
+    group: deals
   assistant:
     group: assistant
   false_promise_detection:

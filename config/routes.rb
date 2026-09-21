@@ -94,6 +94,11 @@ Rails.application.routes.draw do
             end
             resources :message_reports, only: [:create]
             resources :bulk_actions, only: [:create]
+            resources :deal_assistant_messages, only: [:create]
+            resources :deal_suggestions, only: [:create]
+            resources :deal_summaries, only: [:create]
+            resources :deal_next_steps, only: [:create]
+            resources :deal_field_extractions, only: [:create]
             resources :copilot_threads, only: [:index, :create] do
               resources :copilot_messages, only: [:index, :create]
             end

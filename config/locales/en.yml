@@ -597,6 +597,8 @@ en:
       Transcript:
       %{format_messages}
   crm_deals:
+    ai:
+      assistant_missing: 'Connect a Tekomi AI assistant to this account before using Tekomi AI on deals.'
     default_pipeline:
       name: 'Sales'
       stages:

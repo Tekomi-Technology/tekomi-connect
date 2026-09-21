@@ -1511,7 +1511,8 @@
       "TIKTOK": "TikTok",
       "VOICE": "Thoại",
       "ZALO_OA": "Zalo OA",
-      "ZALO_PERSONAL": "Zalo cá nhân"
+      "ZALO_PERSONAL": "Zalo cá nhân",
+      "PHONE": "Điện thoại"
     },
     "ZALO_PERSONAL_SESSION": {
       "LABEL": "Phiên Zalo",

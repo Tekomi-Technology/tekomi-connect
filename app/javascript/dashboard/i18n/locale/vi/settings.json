@@ -415,7 +415,9 @@
     "SECURITY": "Bảo mật",
     "TEKOMI_AI": "Tekomi AI",
     "CONVERSATION_WORKFLOW": "Quy trình hội thoại",
-    "CRM_DIRECTORY": "Danh bạ CRM"
+    "CRM_DIRECTORY": "Danh bạ CRM",
+    "DEALS": "Cơ hội",
+    "PIPELINES": "Pipeline"
   },
   "DATA_IMPORTS": {
     "HEADER": "Dữ liệu",

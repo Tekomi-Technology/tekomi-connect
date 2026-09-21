@@ -6,6 +6,9 @@ import ContactAPI from 'dashboard/api/contacts';
 import Dialog from 'dashboard/components-next/dialog/Dialog.vue';
 import Input from 'dashboard/components-next/input/Input.vue';
 import ComboBox from 'dashboard/components-next/combobox/ComboBox.vue';
+import Select from 'dashboard/components-next/select/Select.vue';
+import Checkbox from 'dashboard/components-next/checkbox/Checkbox.vue';
+import { useDealFields } from './useDealFields';
 
 const props = defineProps({
   stages: { type: Array, required: true },
@@ -16,9 +19,18 @@ const props = defineProps({
 const emit = defineEmits(['create']);
 
 const { t } = useI18n();
+const { dealAttributes } = useDealFields();
 const dialogRef = ref(null);
 const contactOptions = ref([]);
 const contactLabel = ref('');
+
+const TEXT_INPUT_TYPES = {
+  number: 'number',
+  currency: 'number',
+  percent: 'number',
+  date: 'date',
+  link: 'url',
+};
 
 const createInitialForm = () => ({
   name: '',
@@ -30,6 +42,20 @@ const createInitialForm = () => ({
 });
 
 const form = reactive(createInitialForm());
+const customAttributes = reactive({});
+
+const inputTypeFor = attribute =>
+  TEXT_INPUT_TYPES[attribute.attributeDisplayType] || 'text';
+
+const listOptionsFor = attribute =>
+  (attribute.attributeValues || []).map(value => ({ value, label: value }));
+
+const filledCustomAttributes = () =>
+  Object.fromEntries(
+    Object.entries(customAttributes).filter(
+      ([, value]) => value !== '' && value !== null && value !== undefined
+    )
+  );
 
 const stageOptions = computed(() =>
   props.stages.map(stage => ({ value: stage.id, label: stage.name }))
@@ -58,6 +84,11 @@ const selectContact = contactId => {
 
 const open = ({ contactName = '', ...defaults } = {}) => {
   Object.assign(form, createInitialForm(), defaults);
+  Object.keys(customAttributes).forEach(key => delete customAttributes[key]);
+  dealAttributes.value.forEach(attribute => {
+    customAttributes[attribute.attributeKey] =
+      attribute.attributeDisplayType === 'checkbox' ? false : '';
+  });
   contactOptions.value = [];
   contactLabel.value = contactName;
   dialogRef.value?.open();
@@ -74,6 +105,7 @@ const handleConfirm = () => {
     contact_id: form.contactId || null,
     assignee_id: form.assigneeId || null,
     expected_close_date: form.expectedCloseDate || null,
+    custom_attributes: filledCustomAttributes(),
   });
 };
 
@@ -129,6 +161,41 @@ defineExpose({ open, close });
           type="date"
           :label="t('DEALS.FORM.EXPECTED_CLOSE_DATE')"
         />
+      </div>
+
+      <div v-if="dealAttributes.length" class="flex flex-col gap-3">
+        <span class="text-xs font-medium uppercase text-n-slate-11">
+          {{ t('DEALS.FORM.CUSTOM_ATTRIBUTES') }}
+        </span>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <template
+            v-for="attribute in dealAttributes"
+            :key="attribute.attributeKey"
+          >
+            <label
+              v-if="attribute.attributeDisplayType === 'checkbox'"
+              class="flex items-center gap-2 text-sm cursor-pointer text-n-slate-12"
+            >
+              <Checkbox
+                v-model="customAttributes[attribute.attributeKey]"
+              />
+              {{ attribute.attributeDisplayName }}
+            </label>
+            <Select
+              v-else-if="attribute.attributeDisplayType === 'list'"
+              v-model="customAttributes[attribute.attributeKey]"
+              :options="listOptionsFor(attribute)"
+              :placeholder="attribute.attributeDisplayName"
+              class="w-full"
+            />
+            <Input
+              v-else
+              v-model="customAttributes[attribute.attributeKey]"
+              :type="inputTypeFor(attribute)"
+              :placeholder="attribute.attributeDisplayName"
+            />
+          </template>
+        </div>
       </div>
     </div>
   </Dialog>

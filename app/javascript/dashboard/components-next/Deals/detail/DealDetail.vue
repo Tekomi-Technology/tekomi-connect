@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { debounce } from '@chatwoot/utils';
 import { useAlert } from 'dashboard/composables';
 import { useMapGetter } from 'dashboard/composables/store';
+import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import { useAccount } from 'dashboard/composables/useAccount';
 import ContactAPI from 'dashboard/api/contacts';
 import { useDealsStore } from 'dashboard/stores/deals';
@@ -15,6 +16,11 @@ import TabBar from 'dashboard/components-next/tabbar/TabBar.vue';
 import DealConversations from './DealConversations.vue';
 import DealActivities from './DealActivities.vue';
 import DealCustomAttributes from './DealCustomAttributes.vue';
+import DealsAiPanel from '../ai/DealsAiPanel.vue';
+import DealSummaryCard from '../ai/DealSummaryCard.vue';
+import DealNextStepCard from '../ai/DealNextStepCard.vue';
+import DealFieldSuggestionsCard from '../ai/DealFieldSuggestionsCard.vue';
+import { useDealFields } from '../useDealFields';
 import { formatDealDate } from '../constants';
 
 const props = defineProps({
@@ -30,8 +36,14 @@ const { accountScopedRoute } = useAccount();
 const dealsStore = useDealsStore();
 const pipelinesStore = usePipelinesStore();
 const agents = useMapGetter('agents/getAgents');
+const { dealAttributes } = useDealFields();
+const accountId = useMapGetter('getCurrentAccountId');
+const isFeatureEnabledonAccount = useMapGetter(
+  'accounts/isFeatureEnabledonAccount'
+);
 
 const activeTab = ref('conversations');
+const showAiPanel = ref(false);
 const name = ref(props.deal.name);
 const value = ref(props.deal.value ?? '');
 const contactOptions = ref([]);
@@ -49,6 +61,9 @@ const stageOptions = computed(() =>
 );
 const agentOptions = computed(() =>
   agents.value.map(agent => ({ value: agent.id, label: agent.name }))
+);
+const hasDealsAi = computed(() =>
+  isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_DEALS_AI)
 );
 const tabs = computed(() =>
   TABS.map(tab => ({
@@ -120,6 +135,24 @@ watch(
         @blur="commitName"
         @enter="commitName"
       />
+      <div v-if="hasDealsAi" class="relative">
+        <Button
+          id="toggleDealDetailAiButton"
+          icon="i-woot-tekomi"
+          color="slate"
+          variant="ghost"
+          size="sm"
+          :class="{ 'bg-n-alpha-2': showAiPanel }"
+          @click="showAiPanel = !showAiPanel"
+        />
+        <div class="absolute z-40 mt-1 top-full ltr:right-0 rtl:left-0">
+          <DealsAiPanel
+            v-if="showAiPanel"
+            :deal-id="deal.id"
+            @close="showAiPanel = false"
+          />
+        </div>
+      </div>
       <Button
         icon="i-lucide-trash"
         color="ruby"
@@ -224,6 +257,16 @@ watch(
     </dl>
 
     <DealCustomAttributes :deal="deal" @updated="emit('updated', $event)" />
+
+    <template v-if="hasDealsAi">
+      <DealSummaryCard :deal-id="deal.id" />
+      <DealNextStepCard :deal="deal" @updated="emit('updated', $event)" />
+      <DealFieldSuggestionsCard
+        v-if="dealAttributes.length"
+        :deal="deal"
+        @updated="emit('updated', $event)"
+      />
+    </template>
 
     <div class="flex flex-col gap-4">
       <TabBar

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
@@ -16,20 +16,20 @@ const store = useStore();
 const { t } = useI18n();
 const dealsStore = useDealsStore();
 
-const deal = ref(null);
 const deleteDialogRef = ref(null);
+const deal = computed(() => dealsStore.watchedDeal);
 
-const goToPipeline = () => {
+const goToPipeline = pipelineId => {
   router.push({
     name: 'deals_pipeline_index',
-    params: { pipelineId: deal.value.pipelineId },
+    params: { pipelineId: pipelineId || deal.value.pipelineId },
   });
 };
 
 const loadDeal = async () => {
-  deal.value = null;
+  dealsStore.unwatchDeal();
   try {
-    deal.value = await dealsStore.show(route.params.dealId);
+    dealsStore.watchDeal(await dealsStore.show(route.params.dealId));
   } catch (error) {
     useAlert(error.message);
   }
@@ -37,10 +37,11 @@ const loadDeal = async () => {
 
 const deleteDeal = async () => {
   deleteDialogRef.value?.close();
+  const { pipelineId } = deal.value;
   try {
     await dealsStore.delete(deal.value);
     useAlert(t('DEALS.MESSAGES.DELETE_SUCCESS'));
-    goToPipeline();
+    goToPipeline(pipelineId);
   } catch {
     useAlert(t('DEALS.MESSAGES.DELETE_ERROR'));
   }
@@ -50,6 +51,10 @@ watch(() => route.params.dealId, loadDeal, { immediate: true });
 
 onMounted(() => {
   store.dispatch('agents/get');
+});
+
+onUnmounted(() => {
+  dealsStore.unwatchDeal();
 });
 </script>
 
@@ -66,11 +71,11 @@ onMounted(() => {
         variant="link"
         size="sm"
         class="mb-4"
-        @click="goToPipeline"
+        @click="goToPipeline()"
       />
       <DealDetail
         :deal="deal"
-        @updated="deal = $event"
+        @updated="dealsStore.watchDeal($event)"
         @delete="deleteDialogRef?.open()"
       />
     </div>

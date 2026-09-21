@@ -1,7 +1,12 @@
 <script setup>
 import { ref, computed, toRef, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useEventListener, useIntersectionObserver } from '@vueuse/core';
+import {
+  useElementSize,
+  useEventListener,
+  useIntersectionObserver,
+  useScroll,
+} from '@vueuse/core';
 import Button from 'dashboard/components-next/button/Button.vue';
 import Checkbox from 'dashboard/components-next/checkbox/Checkbox.vue';
 import Select from 'dashboard/components-next/select/Select.vue';
@@ -41,10 +46,13 @@ const EDITABLE_FIELDS = [
 ];
 const NAME_COLUMN_WIDTH = 260;
 const MIN_COLUMN_WIDTH = 96;
+const ROW_HEIGHT = 40;
+const OVERSCAN_ROWS = 8;
 
 const { t } = useI18n();
 const { fieldLabel } = useDealFields();
 const sentinelRef = ref(null);
+const scrollRef = ref(null);
 const editingCell = ref(null);
 const draftValue = ref('');
 const selectedIds = ref([]);
@@ -197,6 +205,41 @@ watch(
   }
 );
 
+const { y: scrollTop } = useScroll(scrollRef);
+const { height: viewportHeight } = useElementSize(scrollRef);
+
+// Groups and their rows are flattened so the whole table can be windowed as one list.
+const rows = computed(() =>
+  groups.value.flatMap(group => [
+    ...(props.groupBy ? [{ type: 'group', key: group.key, group }] : []),
+    ...(collapsedGroups.value.includes(group.key)
+      ? []
+      : group.deals.map(deal => ({ type: 'deal', key: `deal-${deal.id}`, deal }))),
+  ])
+);
+
+const startIndex = computed(() =>
+  Math.max(0, Math.floor(scrollTop.value / ROW_HEIGHT) - OVERSCAN_ROWS)
+);
+
+const endIndex = computed(() =>
+  Math.min(
+    rows.value.length,
+    Math.ceil((scrollTop.value + viewportHeight.value) / ROW_HEIGHT) +
+      OVERSCAN_ROWS
+  )
+);
+
+const visibleRows = computed(() =>
+  rows.value.slice(startIndex.value, endIndex.value)
+);
+
+const topSpacerHeight = computed(() => startIndex.value * ROW_HEIGHT);
+
+const bottomSpacerHeight = computed(
+  () => (rows.value.length - endIndex.value) * ROW_HEIGHT
+);
+
 useIntersectionObserver(sentinelRef, ([entry]) => {
   if (entry?.isIntersecting && props.hasMore && !props.isFetchingMore) {
     emit('loadMore');
@@ -231,7 +274,11 @@ useIntersectionObserver(sentinelRef, ([entry]) => {
     <div v-if="isFetching" class="flex justify-center py-10">
       <Spinner />
     </div>
-    <div v-else class="flex-1 min-h-0 overflow-auto border rounded-lg border-n-weak">
+    <div
+      v-else
+      ref="scrollRef"
+      class="flex-1 min-h-0 overflow-auto border rounded-lg border-n-weak"
+    >
       <table class="text-sm border-collapse table-fixed w-max min-w-full">
         <thead class="sticky top-0 z-10 bg-n-solid-2">
           <tr class="border-b border-n-weak">
@@ -265,68 +312,71 @@ useIntersectionObserver(sentinelRef, ([entry]) => {
           </tr>
         </thead>
         <tbody>
-          <template v-for="group in groups" :key="group.key">
+          <tr v-if="topSpacerHeight" :style="{ height: `${topSpacerHeight}px` }">
+            <td :colspan="columns.length + 2" />
+          </tr>
+          <template v-for="row in visibleRows" :key="row.key">
             <tr
-              v-if="groupBy"
+              v-if="row.type === 'group'"
               class="cursor-pointer bg-n-alpha-1"
-              @click="toggleGroup(group.key)"
+              :style="{ height: `${ROW_HEIGHT}px` }"
+              @click="toggleGroup(row.group.key)"
             >
               <td :colspan="columns.length + 2" class="px-3 py-2">
                 <span class="flex items-center gap-2 font-medium text-n-slate-12">
                   <Icon
                     :icon="
-                      collapsedGroups.includes(group.key)
+                      collapsedGroups.includes(row.group.key)
                         ? 'i-lucide-chevron-right'
                         : 'i-lucide-chevron-down'
                     "
                     class="size-4"
                   />
                   <span
-                    v-if="group.color"
+                    v-if="row.group.color"
                     class="rounded-sm size-2"
-                    :style="{ backgroundColor: group.color }"
+                    :style="{ backgroundColor: row.group.color }"
                   />
-                  {{ group.label }}
+                  {{ row.group.label }}
                   <span class="font-normal text-n-slate-11">
-                    {{ group.deals.length }} · {{ groupTotal(group) }}
+                    {{ row.group.deals.length }} · {{ groupTotal(row.group) }}
                   </span>
                 </span>
               </td>
             </tr>
-            <template v-if="!collapsedGroups.includes(group.key)">
               <tr
-                v-for="deal in group.deals"
-                :key="deal.id"
+                v-else
                 class="border-b border-n-weak hover:bg-n-alpha-1"
+                :style="{ height: `${ROW_HEIGHT}px` }"
               >
                 <td class="px-3 py-2">
                   <Checkbox
-                    :model-value="selectedIds.includes(deal.id)"
-                    @update:model-value="toggleDeal(deal, $event)"
+                    :model-value="selectedIds.includes(row.deal.id)"
+                    @update:model-value="toggleDeal(row.deal, $event)"
                   />
                 </td>
                 <td
                   class="px-3 py-2 truncate cursor-text text-n-slate-12"
-                  @click="startEdit(deal, 'name')"
+                  @click="startEdit(row.deal, 'name')"
                 >
                   <input
-                    v-if="isEditing(deal, 'name')"
+                    v-if="isEditing(row.deal, 'name')"
                     v-model="draftValue"
                     class="w-full px-1 py-0.5 mb-0 text-sm rounded reset-base bg-n-alpha-2"
                     v-focus
-                    @blur="commitEdit(deal)"
-                    @keydown.enter="commitEdit(deal)"
+                    @blur="commitEdit(row.deal)"
+                    @keydown.enter="commitEdit(row.deal)"
                     @keydown.esc="cancelEdit"
                   />
                   <span v-else class="flex items-center gap-1 group/name">
-                    <span class="font-medium truncate">{{ deal.name }}</span>
+                    <span class="font-medium truncate">{{ row.deal.name }}</span>
                     <Button
                       icon="i-lucide-panel-right-open"
                       color="slate"
                       variant="ghost"
                       size="xs"
                       class="invisible flex-shrink-0 ltr:ml-auto rtl:mr-auto group-hover/name:visible"
-                      @click.stop="emit('open', deal)"
+                      @click.stop="emit('open', row.deal)"
                     />
                   </span>
                 </td>
@@ -334,11 +384,11 @@ useIntersectionObserver(sentinelRef, ([entry]) => {
                   v-for="column in columns"
                   :key="column.key"
                   class="px-3 py-2 text-n-slate-11"
-                  @click="startEdit(deal, column.key)"
+                  @click="startEdit(row.deal, column.key)"
                 >
                   <input
                     v-if="
-                      isEditing(deal, column.key) &&
+                      isEditing(row.deal, column.key) &&
                       ['value', 'expected_close_date'].includes(column.key)
                     "
                     v-model="draftValue"
@@ -346,19 +396,19 @@ useIntersectionObserver(sentinelRef, ([entry]) => {
                     min="0"
                     class="w-full px-1 py-0.5 mb-0 text-sm rounded reset-base bg-n-alpha-2"
                     v-focus
-                    @blur="commitEdit(deal)"
-                    @keydown.enter="commitEdit(deal)"
+                    @blur="commitEdit(row.deal)"
+                    @keydown.enter="commitEdit(row.deal)"
                     @keydown.esc="cancelEdit"
                   />
                   <select
                     v-else-if="
-                      isEditing(deal, column.key) &&
+                      isEditing(row.deal, column.key) &&
                       ['stage', 'assignee'].includes(column.key)
                     "
                     v-model="draftValue"
                     class="w-full px-1 py-0.5 mb-0 text-sm rounded reset-base bg-n-alpha-2"
                     v-focus
-                    @change="commitEdit(deal)"
+                    @change="commitEdit(row.deal)"
                     @blur="cancelEdit"
                     @keydown.esc="cancelEdit"
                   >
@@ -374,14 +424,19 @@ useIntersectionObserver(sentinelRef, ([entry]) => {
                   </select>
                   <DealFieldValue
                     v-else
-                    :deal="deal"
+                    :deal="row.deal"
                     :field="column.key"
-                    :stage="stagesById[deal.stageId]"
+                    :stage="stagesById[row.deal.stageId]"
                   />
                 </td>
               </tr>
-            </template>
           </template>
+          <tr
+            v-if="bottomSpacerHeight"
+            :style="{ height: `${bottomSpacerHeight}px` }"
+          >
+            <td :colspan="columns.length + 2" />
+          </tr>
         </tbody>
       </table>
       <p

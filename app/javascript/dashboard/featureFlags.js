@@ -13,6 +13,7 @@ export const FEATURE_FLAGS = {
   CANNED_RESPONSES: 'canned_responses',
   CRM: 'crm',
   CRM_DEALS: 'crm_deals',
+  CRM_DEALS_AI: 'crm_deals_ai',
   CUSTOM_ATTRIBUTES: 'custom_attributes',
   DATA_IMPORT: 'data_import',
   DELAYED_AUTOMATIONS: 'delayed_automations',

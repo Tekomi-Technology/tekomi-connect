@@ -1,4 +1,6 @@
 class Deal < ApplicationRecord
+  include LlmFormattable
+
   TRACKED_ATTRIBUTES = %w[stage_id value assignee_id].freeze
 
   belongs_to :account

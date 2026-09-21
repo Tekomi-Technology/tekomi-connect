@@ -5,6 +5,7 @@ import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
 import { useAlert } from 'dashboard/composables';
 import { useMapGetter } from 'dashboard/composables/store';
+import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import { useSnakeCase } from 'dashboard/composables/useTransformKeys';
 import { usePipelinesStore } from 'dashboard/stores/pipelines';
 import { useSavedViewsStore } from 'dashboard/stores/savedViews';
@@ -20,6 +21,8 @@ import DealsSortMenu from 'dashboard/components-next/Deals/DealsSortMenu.vue';
 import DealsViewOptions from 'dashboard/components-next/Deals/DealsViewOptions.vue';
 import DealFormDialog from 'dashboard/components-next/Deals/DealFormDialog.vue';
 import SidePanel from 'dashboard/components-next/side-panel/SidePanel.vue';
+import DealsAiPanel from 'dashboard/components-next/Deals/ai/DealsAiPanel.vue';
+import DealSuggestionsDialog from 'dashboard/components-next/Deals/ai/DealSuggestionsDialog.vue';
 import DealDetail from 'dashboard/components-next/Deals/detail/DealDetail.vue';
 import DealsListView from 'dashboard/components-next/Deals/views/DealsListView.vue';
 import DealsKanbanView from 'dashboard/components-next/Deals/views/DealsKanbanView.vue';
@@ -43,6 +46,10 @@ const savedViewsStore = useSavedViewsStore();
 const dealsStore = useDealsStore();
 const agents = useMapGetter('agents/getAgents');
 const { dealAttributes } = useDealFields();
+const isFeatureEnabledonAccount = useMapGetter(
+  'accounts/isFeatureEnabledonAccount'
+);
+const accountId = useMapGetter('getCurrentAccountId');
 
 const savedViewDialogRef = ref(null);
 const deleteViewDialogRef = ref(null);
@@ -52,9 +59,10 @@ const pendingDeleteDeals = ref([]);
 const calendarRange = ref(null);
 const dealPanelRef = ref(null);
 const panelDealId = ref(null);
-const panelDealSnapshot = ref(null);
 const editingView = ref(null);
 const showFilters = ref(false);
+const showAiPanel = ref(false);
+const dealSuggestionsDialogRef = ref(null);
 const draftFilters = ref([]);
 
 const pipelineId = computed(() => Number(route.params.pipelineId) || null);
@@ -78,10 +86,13 @@ const panelDeal = computed(
   () =>
     dealsStore.records.find(deal => deal.id === panelDealId.value) ||
     dealsStore.undatedRecords.find(deal => deal.id === panelDealId.value) ||
-    panelDealSnapshot.value
+    dealsStore.watchedDeal
 );
 const filterTypes = useDealFilterTypes(stages);
 const hasActiveFilters = computed(() => !!activeView.value?.filters?.length);
+const hasDealsAi = computed(() =>
+  isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_DEALS_AI)
+);
 
 const openPipelineFallback = () => {
   const [firstPipeline] = pipelinesStore.records;
@@ -227,13 +238,18 @@ const requestDeleteDeals = deals => {
   deleteDealsDialogRef.value?.open();
 };
 
+const closeDealPanel = () => {
+  panelDealId.value = null;
+  dealsStore.unwatchDeal();
+};
+
 const openDeal = deal => {
   if (activeView.value?.settings?.open_in === 'page') {
     router.push({ name: 'deals_show', params: { dealId: deal.id } });
     return;
   }
   panelDealId.value = deal.id;
-  panelDealSnapshot.value = deal;
+  dealsStore.watchDeal(deal);
   dealPanelRef.value?.open();
 };
 
@@ -381,6 +397,34 @@ onMounted(() => {
               :sorts="activeView.sorts"
               @update:sorts="updateActiveView({ sorts: $event })"
             />
+            <div v-if="hasDealsAi" class="relative">
+              <Button
+                id="toggleDealsAiButton"
+                :label="t('DEALS.AI.BUTTON')"
+                icon="i-woot-tekomi"
+                color="slate"
+                size="sm"
+                variant="ghost"
+                :class="{ 'bg-n-alpha-2': showAiPanel }"
+                @click="showAiPanel = !showAiPanel"
+              />
+              <div class="absolute z-40 mt-1 top-full ltr:right-0 rtl:left-0">
+                <DealsAiPanel
+                  v-if="showAiPanel"
+                  :pipeline-id="pipelineId"
+                  @close="showAiPanel = false"
+                />
+              </div>
+            </div>
+            <Button
+              v-if="hasDealsAi"
+              :label="t('DEALS.SUGGESTIONS.BUTTON')"
+              icon="i-lucide-sparkles"
+              color="slate"
+              size="sm"
+              variant="ghost"
+              @click="dealSuggestionsDialogRef?.open()"
+            />
             <DealsViewOptions :view="activeView" @update="updateActiveView" />
           </div>
         </div>
@@ -490,7 +534,7 @@ onMounted(() => {
       ref="dealPanelRef"
       :title="panelDeal?.name"
       width="2xl"
-      @close="panelDealId = null"
+      @close="closeDealPanel"
     >
       <template #header-actions>
         <router-link
@@ -508,10 +552,15 @@ onMounted(() => {
       <DealDetail
         v-if="panelDeal"
         :deal="panelDeal"
-        @updated="panelDealSnapshot = $event"
+        @updated="dealsStore.watchDeal($event)"
         @delete="requestDeleteDeals([$event])"
       />
     </SidePanel>
+    <DealSuggestionsDialog
+      v-if="hasDealsAi"
+      ref="dealSuggestionsDialogRef"
+      :stages="stages"
+    />
     <DealFormDialog
       ref="dealFormDialogRef"
       :stages="stages"

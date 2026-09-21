@@ -11,7 +11,8 @@
     "ATTRIBUTE_MODELS": {
       "CONVERSATION": "Cuộc hội thoại",
       "CONTACT": "Liên hệ",
-      "COMPANY": "Công ty"
+      "COMPANY": "Công ty",
+      "DEAL": "Cơ hội"
     },
     "ATTRIBUTE_TYPES": {
       "TEXT": "Văn bản",
@@ -110,7 +111,8 @@
       "HEADER": "Thuộc tính tùy chỉnh",
       "CONVERSATION": "Cuộc hội thoại",
       "CONTACT": "Liên lạc",
-      "COMPANY": "Công ty"
+      "COMPANY": "Công ty",
+      "DEAL": "Cơ hội"
     },
     "LIST": {
       "TABLE_HEADER": {

@@ -46,6 +46,7 @@ export const useDealsStore = defineStore('deals', {
     stageMeta: {},
     baseParams: null,
     calendarField: null,
+    watchedDeal: null,
     pipelineId: null,
     requestToken: 0,
     uiFlags: {
@@ -239,6 +240,14 @@ export const useDealsStore = defineStore('deals', {
       }
     },
 
+    watchDeal(deal) {
+      this.watchedDeal = deal;
+    },
+
+    unwatchDeal() {
+      this.watchedDeal = null;
+    },
+
     async create(deal) {
       this.uiFlags.isCreating = true;
       try {
@@ -292,12 +301,14 @@ export const useDealsStore = defineStore('deals', {
     },
 
     remove(id) {
+      if (this.watchedDeal?.id === id) this.watchedDeal = null;
       this.records = this.records.filter(deal => deal.id !== id);
       this.undatedRecords = this.undatedRecords.filter(deal => deal.id !== id);
       this.scheduleMetaRefresh();
     },
 
     upsert(record) {
+      if (this.watchedDeal?.id === record.id) this.watchedDeal = record;
       if (record.pipelineId !== this.pipelineId) {
         this.remove(record.id);
         return;

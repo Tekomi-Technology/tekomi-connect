@@ -554,6 +554,21 @@ vi:
 
       Transcript:
       %{format_messages}
+  crm_deals:
+    ai:
+      assistant_missing: 'Hãy kết nối một trợ lý Tekomi AI cho tài khoản này trước khi dùng Tekomi AI cho cơ hội.'
+    default_pipeline:
+      name: 'Bán hàng'
+      stages:
+        new: 'Mới'
+        screening: 'Sàng lọc'
+        meeting: 'Gặp gỡ'
+        proposal: 'Báo giá'
+        customer: 'Khách hàng'
+    default_view:
+      name: 'Tất cả cơ hội'
+    stage_has_deals: 'Giai đoạn này vẫn còn cơ hội. Hãy chọn một giai đoạn khác để chuyển chúng sang trước khi xoá.'
+    invalid_sort: 'Trường sắp xếp không hợp lệ'
   agent_capacity_policy:
     inbox_already_assigned: 'Inbox has already been assigned to this policy'
   portals:

@@ -1,0 +1,258 @@
+{
+  "DEALS": {
+    "HEADER": "Cơ hội",
+    "COUNT": "{n} cơ hội",
+    "EMPTY_PIPELINES": "Chưa có pipeline nào",
+    "EMPTY_STATE": "Không có cơ hội nào khớp với chế độ xem này",
+    "LOAD_MORE": "Tải thêm",
+    "NO_VALUE": "Chưa có giá trị",
+    "UNASSIGNED": "Chưa phân công",
+    "FIELDS": {
+      "NAME": "Tên",
+      "VALUE": "Giá trị",
+      "STAGE": "Giai đoạn",
+      "ASSIGNEE": "Người phụ trách",
+      "CONTACT": "Liên hệ",
+      "EXPECTED_CLOSE_DATE": "Ngày dự kiến chốt",
+      "CLOSED_AT": "Ngày chốt",
+      "CREATED_AT": "Ngày tạo",
+      "UPDATED_AT": "Ngày cập nhật"
+    },
+    "VIEW_TYPES": {
+      "TABLE": "Bảng",
+      "KANBAN": "Kanban",
+      "CALENDAR": "Lịch",
+      "LIST": "Danh sách"
+    },
+    "VIEWS": {
+      "CREATE": "Tạo chế độ xem",
+      "RENAME": "Đổi tên chế độ xem",
+      "DUPLICATE": "Nhân bản chế độ xem",
+      "DELETE": "Xoá chế độ xem",
+      "DUPLICATE_SUFFIX": "{name} (bản sao)",
+      "EMPTY": "Pipeline này chưa có chế độ xem nào. Tạo một cái để xem các cơ hội.",
+      "DIALOG": {
+        "CREATE_TITLE": "Tạo chế độ xem",
+        "RENAME_TITLE": "Đổi tên chế độ xem",
+        "NAME_PLACEHOLDER": "Tên chế độ xem",
+        "TYPE_LABEL": "Kiểu hiển thị",
+        "SAVE": "Lưu"
+      },
+      "DELETE_DIALOG": {
+        "TITLE": "Xoá chế độ xem",
+        "DESCRIPTION": "\"{name}\" sẽ bị xoá với tất cả mọi người trong tài khoản này.",
+        "CONFIRM": "Xoá"
+      },
+      "MESSAGES": {
+        "SAVE_ERROR": "Không lưu được chế độ xem",
+        "DELETE_SUCCESS": "Đã xoá chế độ xem",
+        "DELETE_ERROR": "Không xoá được chế độ xem"
+      }
+    },
+    "TOOLBAR": {
+      "FILTER": "Lọc",
+      "SORT": "Sắp xếp",
+      "OPTIONS": "Tuỳ chọn",
+      "NEW_DEAL": "Cơ hội mới"
+    },
+    "FILTER": {
+      "TITLE": "Lọc cơ hội",
+      "ADD_FILTER": "Thêm điều kiện",
+      "CLEAR_FILTERS": "Xoá bộ lọc",
+      "APPLY_FILTERS": "Áp dụng"
+    },
+    "SORT": {
+      "FIELD": "Sắp xếp theo",
+      "DIRECTION": "Thứ tự",
+      "ASC": "Tăng dần",
+      "DESC": "Giảm dần",
+      "MANUAL": "Thứ tự thủ công"
+    },
+    "OPTIONS": {
+      "VISIBLE_FIELDS": "Trường hiển thị",
+      "AGGREGATE": "Tổng theo cột",
+      "AGGREGATES": {
+        "COUNT": "Chỉ đếm",
+        "SUM": "Tổng giá trị",
+        "AVG": "Giá trị trung bình",
+        "MIN": "Giá trị nhỏ nhất",
+        "MAX": "Giá trị lớn nhất"
+      },
+      "HIDE_EMPTY_COLUMNS": "Ẩn cột trống",
+      "GROUP_BY": "Nhóm theo",
+      "NO_GROUPING": "Không nhóm",
+      "CALENDAR_FIELD": "Trường ngày",
+      "OPEN_IN": "Mở cơ hội ở",
+      "OPEN_IN_PANEL": "Panel bên cạnh",
+      "OPEN_IN_PAGE": "Trang riêng"
+    },
+    "FORM": {
+      "CREATE_TITLE": "Cơ hội mới",
+      "NAME_PLACEHOLDER": "Tên cơ hội",
+      "VALUE_PLACEHOLDER": "Giá trị (VND)",
+      "STAGE_PLACEHOLDER": "Chọn giai đoạn",
+      "CONTACT_PLACEHOLDER": "Chọn liên hệ",
+      "CONTACT_SEARCH_PLACEHOLDER": "Tìm liên hệ...",
+      "ASSIGNEE_PLACEHOLDER": "Chọn người phụ trách",
+      "EXPECTED_CLOSE_DATE": "Ngày dự kiến chốt",
+      "CUSTOM_ATTRIBUTES": "Trường tuỳ chỉnh",
+      "SAVE": "Tạo cơ hội",
+      "MESSAGES": {
+        "SUCCESS": "Đã tạo cơ hội",
+        "ERROR": "Không tạo được cơ hội"
+      }
+    },
+    "KANBAN": {
+      "ADD": "Thêm cơ hội"
+    },
+    "TABLE": {
+      "SELECTED": "Đã chọn {count}",
+      "MOVE_TO_STAGE": "Chuyển sang giai đoạn",
+      "DELETE_SELECTED": "Xoá"
+    },
+    "CALENDAR": {
+      "TODAY": "Hôm nay",
+      "MODES": {
+        "MONTH": "Tháng",
+        "WEEK": "Tuần",
+        "DAY": "Ngày"
+      },
+      "MORE": "+{count} nữa",
+      "UNDATED": "Chưa có ngày ({count})"
+    },
+    "DELETE_DIALOG": {
+      "TITLE": "Xoá cơ hội",
+      "DESCRIPTION": "{count} cơ hội sẽ bị xoá vĩnh viễn.",
+      "CONFIRM": "Xoá"
+    },
+    "MESSAGES": {
+      "UPDATE_ERROR": "Không cập nhật được cơ hội",
+      "DELETE_SUCCESS": "Đã xoá cơ hội",
+      "DELETE_ERROR": "Không xoá được cơ hội"
+    },
+    "DETAIL": {
+      "BACK": "Về pipeline",
+      "COMPANY": "Công ty",
+      "CUSTOM_ATTRIBUTES": "Trường tuỳ chỉnh",
+      "TABS": {
+        "CONVERSATIONS": "Hội thoại",
+        "ACTIVITY": "Lịch sử"
+      },
+      "CONVERSATIONS": {
+        "LINK_PLACEHOLDER": "Gắn một hội thoại của liên hệ này",
+        "NO_CONTACT_CONVERSATIONS": "Liên hệ này không còn hội thoại nào khác",
+        "NO_CONTACT": "Chọn liên hệ để gắn hội thoại của họ",
+        "EMPTY": "Chưa gắn hội thoại nào",
+        "LOAD_ERROR": "Không tải được danh sách hội thoại",
+        "LINK_ERROR": "Không gắn được hội thoại",
+        "UNLINK_ERROR": "Không bỏ gắn được hội thoại"
+      },
+      "ACTIVITY": {
+        "SYSTEM": "Hệ thống",
+        "CREATED": "{actor} đã tạo cơ hội này",
+        "STAGE_CHANGED": "{actor} chuyển cơ hội từ {from} sang {to}",
+        "VALUE_CHANGED": "{actor} đổi giá trị từ {from} thành {to}",
+        "ASSIGNEE_CHANGED": "{actor} đổi người phụ trách từ {from} sang {to}",
+        "LOAD_ERROR": "Không tải được lịch sử"
+      }
+    },
+    "CONVERSATION": {
+      "TITLE": "Cơ hội",
+      "LINKED": "Đã gắn với hội thoại này",
+      "CONTACT": "Cơ hội khác của liên hệ này",
+      "EMPTY": "Chưa có cơ hội nào",
+      "CREATE": "Tạo cơ hội",
+      "LOAD_ERROR": "Không tải được danh sách cơ hội"
+    },
+    "AI": {
+      "BUTTON": "Tekomi AI",
+      "TITLE": "Hỏi Tekomi AI",
+      "YOU": "Bạn",
+      "ASSISTANT": "Tekomi AI",
+      "PLACEHOLDER_HINT": "Hỏi về các cơ hội trong tài khoản. Ví dụ: cơ hội nào sắp chốt trong tháng này, hoặc tổng giá trị theo từng giai đoạn.",
+      "INPUT_PLACEHOLDER": "Hỏi về cơ hội của bạn...",
+      "ERROR": "Tekomi AI chưa trả lời được. Bạn thử lại nhé."
+    },
+    "SUGGESTIONS": {
+      "BUTTON": "Quét hội thoại",
+      "TITLE": "Cơ hội do Tekomi AI gợi ý",
+      "DESCRIPTION": "Tekomi AI đọc các hội thoại gần đây chưa gắn cơ hội nào, rồi gợi ý những hội thoại đáng theo đuổi thành cơ hội bán hàng.",
+      "SCANNING": "Đang đọc các hội thoại gần đây...",
+      "EMPTY": "Không có hội thoại gần đây nào giống một cơ hội bán hàng.",
+      "CREATE": "Tạo cơ hội",
+      "DISMISS": "Bỏ qua",
+      "CLOSE": "Đóng",
+      "CREATED": "Đã tạo cơ hội và gắn vào hội thoại",
+      "ERROR": "Tekomi AI chưa quét được hội thoại. Bạn thử lại nhé.",
+      "CONFIDENCE": {
+        "HIGH": "Ý định rõ",
+        "MEDIUM": "Có khả năng",
+        "LOW": "Chưa chắc"
+      }
+    },
+    "SUMMARY": {
+      "TITLE": "Tóm tắt cơ hội",
+      "GENERATE": "Tóm tắt",
+      "REFRESH": "Làm mới",
+      "HINT": "Để Tekomi AI đọc các hội thoại đã gắn và lịch sử thay đổi, rồi tóm tắt tình trạng của cơ hội này.",
+      "ERROR": "Tekomi AI chưa tóm tắt được cơ hội này. Bạn thử lại nhé."
+    },
+    "NEXT_STEP": {
+      "TITLE": "Bước tiếp theo",
+      "GENERATE": "Gợi ý",
+      "REFRESH": "Làm mới",
+      "HINT": "Hỏi Tekomi AI nên làm gì tiếp với cơ hội này, và có nên chuyển sang giai đoạn khác không.",
+      "MOVE_TO": "Chuyển sang {stage}",
+      "MOVED": "Đã chuyển cơ hội sang giai đoạn được gợi ý",
+      "ERROR": "Tekomi AI chưa gợi ý được bước tiếp theo. Bạn thử lại nhé."
+    },
+    "FIELD_SUGGESTIONS": {
+      "TITLE": "Trường tuỳ chỉnh lấy từ hội thoại",
+      "GENERATE": "Điền bằng Tekomi AI",
+      "HINT": "Để Tekomi AI đọc các hội thoại đã gắn và đề xuất giá trị cho các trường tuỳ chỉnh của cơ hội này.",
+      "EMPTY": "Các hội thoại chưa nhắc gì đến những trường này.",
+      "APPLY": "Áp dụng",
+      "SKIP": "Bỏ qua",
+      "APPLIED": "Đã cập nhật trường",
+      "ERROR": "Tekomi AI chưa đọc được các trường. Bạn thử lại nhé."
+    }
+  },
+  "PIPELINES_SETTINGS": {
+    "HEADER": {
+      "TITLE": "Pipeline",
+      "DESCRIPTION": "Sắp xếp cơ hội vào các pipeline và định nghĩa những giai đoạn mà mỗi cơ hội sẽ đi qua."
+    },
+    "LOADING": "Đang tải pipeline...",
+    "EMPTY": "Chưa có pipeline nào",
+    "NAME_LABEL": "Tên pipeline",
+    "CREATE": {
+      "BUTTON": "Thêm pipeline",
+      "TITLE": "Thêm pipeline",
+      "CONFIRM": "Tạo",
+      "HINT": "Pipeline mới sẽ có sẵn các giai đoạn mặc định và một chế độ xem Kanban."
+    },
+    "DELETE": {
+      "BUTTON": "Xoá",
+      "TITLE": "Xoá \"{name}\"",
+      "DESCRIPTION": "Toàn bộ cơ hội và chế độ xem trong pipeline này sẽ bị xoá vĩnh viễn.",
+      "CONFIRM": "Xoá pipeline",
+      "SUCCESS": "Đã xoá pipeline"
+    },
+    "STAGE_TYPES": {
+      "OPEN": "Đang mở",
+      "WON": "Thắng",
+      "LOST": "Thua"
+    },
+    "STAGES": {
+      "TITLE": "Giai đoạn",
+      "ADD": "Thêm giai đoạn",
+      "NEW_STAGE_NAME": "Giai đoạn mới",
+      "DELETE": {
+        "TITLE": "Xoá \"{name}\"",
+        "DESCRIPTION": "Nếu giai đoạn này còn cơ hội, hãy chọn một giai đoạn khác để chuyển chúng sang.",
+        "MOVE_TO": "Chuyển cơ hội sang...",
+        "CONFIRM": "Xoá giai đoạn"
+      }
+    }
+  }
+}
