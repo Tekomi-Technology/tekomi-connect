@@ -67,6 +67,7 @@ class Tekomi::Scenario < ApplicationRecord
       instructions: resolved_instructions,
       tools: resolved_tools,
       assistant_name: assistant.name.downcase.gsub(/\s+/, '_'),
+      assistant_display_name: assistant.name,
       citation_enabled: assistant.citations_enabled?,
       general_knowledge_enabled: assistant.general_knowledge_enabled?,
       response_guidelines: response_guidelines || [],

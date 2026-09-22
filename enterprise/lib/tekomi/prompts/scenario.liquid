@@ -12,7 +12,7 @@ If you believe the user's request is not within the scope of your role, you can 
 
 {% render 'current_time', current_time: current_time %}
 
-{% render 'core_rules', general_knowledge_enabled: general_knowledge_enabled %}
+{% render 'core_rules', general_knowledge_enabled: general_knowledge_enabled, assistant_name: assistant_display_name %}
 
 {% if conversation || contact || campaign.id %}
 # Current Context
