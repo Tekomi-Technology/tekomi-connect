@@ -27,7 +27,8 @@ class CustomAttributeDefinition < ApplicationRecord
                         last_activity_at],
     :contact => %w[name email phone_number identifier country_code city company_name created_at last_activity_at referer blocked],
     :company => %w[name domain description contacts_count created_at updated_at last_activity_at],
-    :deal => %w[name value stage_id assignee_id contact_id expected_close_date closed_at created_at]
+    :deal => %w[name value stage_id assignee_id contact_id expected_close_date closed_at created_at],
+    :ticket => %w[title description stage_id assignee_id contact_id sla_status created_by created_at]
   }.freeze
 
   scope :with_attribute_model, ->(attribute_model) { attribute_model.presence && where(attribute_model: attribute_model) }
@@ -43,7 +44,7 @@ class CustomAttributeDefinition < ApplicationRecord
   validates :attribute_model, presence: true
   validate :attribute_must_not_conflict, on: :create
 
-  enum attribute_model: { conversation_attribute: 0, contact_attribute: 1, company_attribute: 2, deal_attribute: 3 }
+  enum attribute_model: { conversation_attribute: 0, contact_attribute: 1, company_attribute: 2, deal_attribute: 3, ticket_attribute: 4 }
   enum attribute_display_type: { text: 0, number: 1, currency: 2, percent: 3, link: 4, date: 5, list: 6, checkbox: 7 }
 
   belongs_to :account

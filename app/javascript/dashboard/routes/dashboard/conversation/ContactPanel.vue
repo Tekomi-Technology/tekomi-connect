@@ -26,6 +26,7 @@ import SidebarActionsHeader from 'dashboard/components-next/SidebarActionsHeader
 import LinearIssuesList from 'dashboard/components/widgets/conversation/linear/IssuesList.vue';
 import LinearSetupCTA from 'dashboard/components/widgets/conversation/linear/LinearSetupCTA.vue';
 import ConversationDeals from 'dashboard/components-next/Deals/ConversationDeals.vue';
+import ConversationTickets from 'dashboard/components-next/Tickets/ConversationTickets.vue';
 
 const props = defineProps({
   conversationId: {
@@ -65,6 +66,9 @@ const isFeatureEnabledonAccount = useMapGetter(
 );
 const isCrmDealsEnabled = computed(() =>
   isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_DEALS)
+);
+const isCrmTicketsEnabled = computed(() =>
+  isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_TICKETS)
 );
 
 const isLinearFeatureEnabled = computed(() =>
@@ -314,6 +318,19 @@ onMounted(() => {
               @toggle="value => toggleSidebarUIState('is_deals_open', value)"
             >
               <ConversationDeals
+                :conversation-id="conversationId"
+                :contact="contact.id ? contact : null"
+              />
+            </AccordionItem>
+          </div>
+          <div v-else-if="element.name === 'tickets' && isCrmTicketsEnabled">
+            <AccordionItem
+              :title="$t('TICKETS.CONVERSATION.TITLE')"
+              :is-open="isContactSidebarItemOpen('is_tickets_open')"
+              compact
+              @toggle="value => toggleSidebarUIState('is_tickets_open', value)"
+            >
+              <ConversationTickets
                 :conversation-id="conversationId"
                 :contact="contact.id ? contact : null"
               />

@@ -193,6 +193,24 @@ class ActionCableListener < BaseListener
     broadcast(account, [account_token(account)], DEAL_DELETED, deal_data)
   end
 
+  def ticket_created(event)
+    ticket = event.data[:ticket]
+    broadcast(ticket.account, [account_token(ticket.account)], TICKET_CREATED, ticket.push_event_data)
+  end
+
+  def ticket_updated(event)
+    ticket = event.data[:ticket]
+    broadcast(ticket.account, [account_token(ticket.account)], TICKET_UPDATED, ticket.push_event_data)
+  end
+
+  def ticket_deleted(event)
+    ticket_data = event.data[:ticket_data]
+    account = Account.find_by(id: ticket_data[:account_id])
+    return if account.blank?
+
+    broadcast(account, [account_token(account)], TICKET_DELETED, ticket_data)
+  end
+
   def conversation_mentioned(event)
     conversation, account = extract_conversation_and_account(event)
     user = event.data[:user]

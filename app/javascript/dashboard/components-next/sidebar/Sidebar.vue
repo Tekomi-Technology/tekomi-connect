@@ -9,6 +9,7 @@ import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n';
 import { useSidebarKeyboardShortcuts } from './useSidebarKeyboardShortcuts';
 import { usePipelinesStore } from 'dashboard/stores/pipelines';
+import { useTicketPipelinesStore } from 'dashboard/stores/ticketPipelines';
 import { vOnClickOutside } from '@vueuse/components';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import { useWindowSize, useEventListener } from '@vueuse/core';
@@ -45,6 +46,7 @@ const { accountScopedRoute, isOnChatwootCloud } = useAccount();
 const { isEnterprise } = useConfig();
 const store = useStore();
 const pipelinesStore = usePipelinesStore();
+const ticketPipelinesStore = useTicketPipelinesStore();
 
 // Calls run on the enterprise-only API (cloud runs enterprise); hide the entry
 // on community so it doesn't lead to a dashboard/CTA the backend can't serve.
@@ -95,6 +97,13 @@ const hasCrmDeals = computed(() => {
   return isFeatureEnabledonAccount.value(
     accountId.value,
     FEATURE_FLAGS.CRM_DEALS
+  );
+});
+
+const hasCrmTickets = computed(() => {
+  return isFeatureEnabledonAccount.value(
+    accountId.value,
+    FEATURE_FLAGS.CRM_TICKETS
   );
 });
 
@@ -272,6 +281,14 @@ watch(
   [accountId, hasCrmDeals],
   ([currentAccountId, isEnabled]) => {
     if (currentAccountId && isEnabled) pipelinesStore.fetch();
+  },
+  { immediate: true }
+);
+
+watch(
+  [accountId, hasCrmTickets],
+  ([currentAccountId, isEnabled]) => {
+    if (currentAccountId && isEnabled) ticketPipelinesStore.fetch();
   },
   { immediate: true }
 );
@@ -620,6 +637,24 @@ const menuItems = computed(() => {
           },
         ]
       : []),
+    ...(hasCrmTickets.value
+      ? [
+          {
+            name: 'Tickets',
+            label: t('SIDEBAR.TICKETS'),
+            icon: 'i-lucide-wrench',
+            activeOn: ['tickets_dashboard_index', 'tickets_show'],
+            children: ticketPipelinesStore.records.map(pipeline => ({
+              name: `ticket-pipeline-${pipeline.id}`,
+              label: pipeline.name,
+              to: accountScopedRoute('tickets_pipeline_index', {
+                pipelineId: pipeline.id,
+              }),
+              activeOn: ['tickets_pipeline_index'],
+            })),
+          },
+        ]
+      : []),
     ...(isCallsAvailable.value
       ? [
           {
@@ -748,6 +783,15 @@ const menuItems = computed(() => {
           label: t('SIDEBAR.REPORTS_SLA'),
           to: accountScopedRoute('sla_reports'),
         },
+        ...(hasCrmTickets.value
+          ? [
+              {
+                name: 'Reports Tickets',
+                label: t('SIDEBAR.REPORTS_TICKETS'),
+                to: accountScopedRoute('ticket_reports'),
+              },
+            ]
+          : []),
         {
           name: 'Reports Bot',
           label: t('SIDEBAR.REPORTS_BOT'),
@@ -972,6 +1016,22 @@ const menuItems = computed(() => {
           icon: 'i-lucide-clock-alert',
           to: accountScopedRoute('sla_list'),
         },
+        ...(hasCrmTickets.value
+          ? [
+              {
+                name: 'Settings Ticket Sla',
+                label: t('SIDEBAR.TICKET_SLA'),
+                icon: 'i-lucide-timer',
+                to: accountScopedRoute('ticket_sla_index'),
+              },
+              {
+                name: 'Settings Webhook',
+                label: t('SIDEBAR.WEBHOOK'),
+                icon: 'i-lucide-webhook',
+                to: accountScopedRoute('webhook_index'),
+              },
+            ]
+          : []),
         {
           name: 'Conversation Workflow',
           label: t('SIDEBAR.CONVERSATION_WORKFLOW'),

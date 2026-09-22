@@ -16,6 +16,7 @@ import ContactChannels from 'dashboard/components-next/Contacts/ContactsSidebar/
 import ContactMerge from 'dashboard/components-next/Contacts/ContactsSidebar/ContactMerge.vue';
 import ContactCustomAttributes from 'dashboard/components-next/Contacts/ContactsSidebar/ContactCustomAttributes.vue';
 import ContactDeals from 'dashboard/components-next/Deals/ContactDeals.vue';
+import ContactTickets from 'dashboard/components-next/Tickets/ContactTickets.vue';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
 const store = useStore();
@@ -52,6 +53,12 @@ const CONTACT_TABS_OPTIONS = computed(() => [
   { key: 'NOTES', value: 'notes' },
   ...(isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_DEALS)
     ? [{ key: 'DEALS', value: 'deals' }]
+    : []),
+  ...(isFeatureEnabledonAccount.value(
+    accountId.value,
+    FEATURE_FLAGS.CRM_TICKETS
+  )
+    ? [{ key: 'TICKETS', value: 'tickets' }]
     : []),
   { key: 'MEDIA', value: 'media' },
   { key: 'MERGE', value: 'merge' },
@@ -197,6 +204,10 @@ onMounted(() => {
           <ContactNotes v-if="activeTab === 'notes'" />
           <ContactDeals
             v-if="activeTab === 'deals'"
+            :contact-id="route.params.contactId"
+          />
+          <ContactTickets
+            v-if="activeTab === 'tickets'"
             :contact-id="route.params.contactId"
           />
           <ContactHistory v-if="activeTab === 'history'" />

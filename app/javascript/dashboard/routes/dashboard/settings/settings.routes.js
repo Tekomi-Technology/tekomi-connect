@@ -21,6 +21,8 @@ import macros from './macros/macros.routes';
 import reports from './reports/reports.routes';
 import store from '../../../store';
 import sla from './sla/sla.routes';
+import ticketSla from './ticketSla/ticketSla.routes';
+import ticketWebhooks from './webhooks/webhooks.routes';
 import teams from './teams/teams.routes';
 import customRoles from './customRoles/customRole.routes';
 import profile from './profile/profile.routes';
@@ -66,6 +68,8 @@ export default {
     ...macros.routes,
     ...reports.routes,
     ...sla.routes,
+    ...ticketSla.routes,
+    ...ticketWebhooks.routes,
     ...teams.routes,
     ...customRoles.routes,
     ...profile.routes,

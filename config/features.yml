@@ -258,3 +258,7 @@
   display_name: CRM Deals AI
   enabled: false
   column: feature_flags_ext_1
+- name: crm_tickets
+  display_name: CRM Tickets
+  enabled: false
+  column: feature_flags_ext_1

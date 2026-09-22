@@ -172,7 +172,9 @@
           "PARTICIPATING_CONVERSATION_NEW_MESSAGE": "Có tin nhắn mới trong hội thoại bạn đang tham gia",
           "SLA_MISSED_FIRST_RESPONSE": "Một hội thoại lỡ mốc SLA phản hồi đầu tiên",
           "SLA_MISSED_NEXT_RESPONSE": "Một hội thoại lỡ mốc SLA phản hồi tiếp theo",
-          "SLA_MISSED_RESOLUTION": "Một hội thoại lỡ mốc SLA xử lý xong"
+          "SLA_MISSED_RESOLUTION": "Một hội thoại lỡ mốc SLA xử lý xong",
+          "TICKET_SLA_WARNING": "Một ticket sắp tới hạn SLA của khâu",
+          "TICKET_SLA_MISSED": "Một ticket đã trễ hạn SLA của khâu"
         },
         "BROWSER_PERMISSION": "Bật thông báo đẩy cho trình duyệt để có thể nhận được thông báo"
       },
@@ -370,6 +372,7 @@
     "ONGOING": "Đang diễn ra",
     "ONE_OFF": "Một lần",
     "REPORTS_SLA": "SLA",
+    "REPORTS_TICKETS": "Ticket",
     "REPORTS_BOT": "Bot",
     "REPORTS_AGENT": "Nhà cung cấp",
     "REPORTS_LABEL": "Nhãn",
@@ -379,6 +382,8 @@
     "SET_AVAILABILITY_TITLE": "Đặt chính mình như",
     "SET_YOUR_AVAILABILITY": "Đặt tính khả dụng của bạn",
     "SLA": "SLA",
+    "TICKET_SLA": "SLA Ticket",
+    "WEBHOOK": "Webhook",
     "CUSTOM_ROLES": "Vai trò tuỳ chỉnh",
     "BETA": "Beta",
     "REPORTS_OVERVIEW": "Tổng quan",
@@ -417,6 +422,7 @@
     "CONVERSATION_WORKFLOW": "Quy trình hội thoại",
     "CRM_DIRECTORY": "Danh bạ CRM",
     "DEALS": "Bán hàng",
+    "TICKETS": "Ticket",
     "PIPELINES": "Pipeline"
   },
   "DATA_IMPORTS": {

@@ -183,6 +183,7 @@ Rails.application.routes.draw do
               resource :direct_uploads, only: [:create]
               resource :draft_messages, only: [:show, :update, :destroy]
               resources :deals, only: [:index]
+              resources :tickets, only: [:index]
             end
             member do
               post :mute
@@ -251,6 +252,7 @@ Rails.application.routes.draw do
               resources :labels, only: [:create, :index]
               resources :notes
               resources :deals, only: [:index]
+              resources :tickets, only: [:index]
               get :attachments, to: 'attachments#index'
               post :call, on: :member, to: 'calls#create' if ChatwootApp.enterprise?
             end
@@ -271,6 +273,15 @@ Rails.application.routes.draw do
               resources :activities, only: [:index]
             end
           end
+          resources :tickets, only: [:show, :create, :update, :destroy] do
+            post :filter, on: :collection
+            patch :move, on: :member
+            scope module: :tickets do
+              resources :conversations, only: [:index, :create, :destroy]
+              resources :activities, only: [:index, :create]
+            end
+          end
+          resources :ticket_webhooks, only: [:index, :create, :destroy]
           resources :saved_views, only: [:index, :show, :create, :update, :destroy] do
             patch :reorder, on: :collection
           end
@@ -600,6 +611,7 @@ Rails.application.routes.draw do
               get :grouped_conversation_metrics
             end
           end
+          resources :ticket_reports, only: [:index]
         end
       end
     end
@@ -719,6 +731,7 @@ Rails.application.routes.draw do
   post 'webhooks/zalo_personal', to: 'webhooks/zalo_personal#process_payload'
   post 'webhooks/pbx/calls', to: 'webhooks/pbx/calls#process_payload'
   post 'webhooks/callytics/:token', to: 'webhooks/callytics/calls#process_payload'
+  post 'webhooks/tickets/:token', to: 'webhooks/tickets#create'
   get 'zalo_oa/callback', to: 'zalo_oa/callbacks#show'
 
   # Consumed by the Zalo worker on boot to restore its sessions; loopback + shared secret only.

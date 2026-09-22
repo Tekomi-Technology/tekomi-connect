@@ -294,6 +294,8 @@ en:
       sla_missed_first_response: 'SLA target first response missed for conversation (#%{display_id})'
       sla_missed_next_response: 'SLA target next response missed for conversation (#%{display_id})'
       sla_missed_resolution: 'SLA target resolution missed for conversation (#%{display_id})'
+      ticket_sla_warning: 'Ticket "%{title}" is close to its SLA deadline at stage %{stage_name}'
+      ticket_sla_missed: 'Ticket "%{title}" missed its SLA deadline at stage %{stage_name}'
     attachment: 'Attachment'
     no_content: 'No content'
   conversations:
@@ -610,6 +612,25 @@ en:
     default_view:
       name: 'All deals'
     stage_has_deals: 'This stage still has deals. Choose another stage to move them to before deleting it.'
+    invalid_sort: 'Invalid sort field'
+  crm_tickets:
+    default_pipeline:
+      name: 'Tickets'
+      stages:
+        intake: 'Intake'
+        dispatch: 'Dispatch'
+        field_work: 'Field work'
+        done: 'Done'
+    default_views:
+      all:
+        name: 'All tickets'
+      breached:
+        name: 'Overdue'
+      at_risk:
+        name: 'Due soon'
+      mine:
+        name: 'Mine'
+    stage_has_tickets: 'This stage still has tickets. Choose another stage to move them to before deleting it.'
     invalid_sort: 'Invalid sort field'
   agent_capacity_policy:
     inbox_already_assigned: 'Inbox has already been assigned to this policy'

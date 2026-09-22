@@ -290,7 +290,6 @@
       "ID": "(ID: {identifier})"
     }
   },
-
   "CONTACTS_LAYOUT": {
     "HEADER": {
       "TITLE": "Contacts",
@@ -513,6 +512,7 @@
         "HISTORY": "History",
         "NOTES": "Notes",
         "DEALS": "Deals",
+        "TICKETS": "Tickets",
         "MEDIA": "Media",
         "MERGE": "Merge"
       },
@@ -616,7 +616,6 @@
       "CONFIRM_SINGLE": "Delete contact"
     }
   },
-
   "COMPOSE_NEW_CONVERSATION": {
     "CONTACT_SEARCH": {
       "ERROR_MESSAGE": "We couldn’t complete the search. Please try again."

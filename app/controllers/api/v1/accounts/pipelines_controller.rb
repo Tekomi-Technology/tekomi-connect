@@ -1,17 +1,18 @@
 class Api::V1::Accounts::PipelinesController < Api::V1::Accounts::BaseController
-  include CrmDealsFeatureConcern
+  include CrmFeatureConcern
 
   before_action :check_authorization
   before_action :fetch_pipeline, only: [:show, :update, :destroy]
 
   def index
-    @pipelines = Current.account.pipelines.order(:position, :id).includes(:stages)
+    @pipelines = Current.account.pipelines.order(:position, :id).includes(stages: :ticket_stage_sla)
+    @pipelines = @pipelines.where(pipeline_type: params[:pipeline_type]) if params[:pipeline_type].present?
   end
 
   def show; end
 
   def create
-    @pipeline = Current.account.pipelines.create!(pipeline_params)
+    @pipeline = Current.account.pipelines.create!(pipeline_params.merge(params.require(:pipeline).permit(:pipeline_type)))
   end
 
   def update

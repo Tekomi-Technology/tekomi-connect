@@ -14,6 +14,7 @@ export const FEATURE_FLAGS = {
   CRM: 'crm',
   CRM_DEALS: 'crm_deals',
   CRM_DEALS_AI: 'crm_deals_ai',
+  CRM_TICKETS: 'crm_tickets',
   CUSTOM_ATTRIBUTES: 'custom_attributes',
   DATA_IMPORT: 'data_import',
   DELAYED_AUTOMATIONS: 'delayed_automations',

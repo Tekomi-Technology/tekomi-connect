@@ -569,6 +569,25 @@ vi:
       name: 'Tất cả cơ hội'
     stage_has_deals: 'Giai đoạn này vẫn còn cơ hội. Hãy chọn một giai đoạn khác để chuyển chúng sang trước khi xoá.'
     invalid_sort: 'Trường sắp xếp không hợp lệ'
+  crm_tickets:
+    default_pipeline:
+      name: 'Ticket'
+      stages:
+        intake: 'Tiếp nhận'
+        dispatch: 'Điều phối'
+        field_work: 'Xử lý hiện trường'
+        done: 'Hoàn tất'
+    default_views:
+      all:
+        name: 'Tất cả ticket'
+      breached:
+        name: 'Đang trễ'
+      at_risk:
+        name: 'Sắp đến hạn'
+      mine:
+        name: 'Của tôi'
+    stage_has_tickets: 'Khâu này vẫn còn ticket. Hãy chọn một khâu khác để chuyển chúng sang trước khi xoá.'
+    invalid_sort: 'Trường sắp xếp không hợp lệ'
   agent_capacity_policy:
     inbox_already_assigned: 'Inbox has already been assigned to this policy'
   portals:
