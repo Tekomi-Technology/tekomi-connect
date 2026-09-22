@@ -24,12 +24,13 @@ Lưu lại — toàn bộ sidebar sẽ trở về đầy đủ như cũ ngay l�
 
 ## Danh sách đã ẩn
 
-**Menu cấp cao (5 mục):**
+**Menu cấp cao:**
 - Tekomi AI (tên nội bộ trong code vẫn là `Captain`, không đổi — chỉ tên hiển thị đã đổi từ 1 commit trước)
 - Calls
 - Companies
-- Reports
 - Portals (Help Center)
+
+**Đã bỏ ẩn (2026-09-22):** Reports — khách cần xem báo cáo, nên đã gỡ khỏi danh sách ẩn (`DEMO_HIDDEN_TOP_LEVEL`) trong khi các mục khác vẫn giữ nguyên trạng thái ẩn.
 
 **Menu con trong Settings (11 mục):**
 - Account Settings

@@ -7,6 +7,8 @@
     "LOAD_MORE": "Load more",
     "NO_VALUE": "No value",
     "UNASSIGNED": "Unassigned",
+    "NO_CONTACT": "No contact",
+    "NO_DATE": "No date",
     "FIELDS": {
       "NAME": "Name",
       "VALUE": "Value",

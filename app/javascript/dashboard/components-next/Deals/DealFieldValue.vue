@@ -55,21 +55,36 @@ const customValue = computed(() => {
         {{ $t('DEALS.UNASSIGNED') }}
       </span>
     </template>
-    <template v-else-if="field === 'contact' && deal.contact">
-      <Avatar
-        :name="deal.contact.name"
-        :src="deal.contact.thumbnail"
-        :size="16"
-        rounded-full
-      />
-      <span class="truncate">{{ deal.contact.name }}</span>
+    <template v-else-if="field === 'contact'">
+      <template v-if="deal.contact">
+        <Avatar
+          :name="deal.contact.name"
+          :src="deal.contact.thumbnail"
+          :size="16"
+          rounded-full
+        />
+        <span class="truncate">{{ deal.contact.name }}</span>
+      </template>
+      <span v-else class="truncate text-n-slate-10">
+        {{ $t('DEALS.NO_CONTACT') }}
+      </span>
     </template>
-    <span v-else-if="field === 'expected_close_date'" class="truncate">
-      {{ formatDealDate(deal.expectedCloseDate) }}
-    </span>
+    <template v-else-if="field === 'expected_close_date'">
+      <span v-if="deal.expectedCloseDate" class="truncate">
+        {{ formatDealDate(deal.expectedCloseDate) }}
+      </span>
+      <span v-else class="truncate text-n-slate-10">
+        {{ $t('DEALS.NO_DATE') }}
+      </span>
+    </template>
     <span v-else-if="field === 'created_at'" class="truncate">
       {{ formatDealDate(deal.createdAt) }}
     </span>
-    <span v-else-if="customValue" class="truncate">{{ customValue }}</span>
+    <template v-else-if="customValue !== null">
+      <span v-if="customValue" class="truncate">{{ customValue }}</span>
+      <span v-else class="truncate text-n-slate-10">
+        {{ $t('DEALS.NO_VALUE') }}
+      </span>
+    </template>
   </span>
 </template>

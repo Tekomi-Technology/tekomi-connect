@@ -1,12 +1,15 @@
 <script setup>
 import Icon from 'dashboard/components-next/icon/Icon.vue';
 import DealFieldValue from './DealFieldValue.vue';
+import { useDealFields } from './useDealFields';
 
 defineProps({
   deal: { type: Object, required: true },
   fields: { type: Array, required: true },
   stagesById: { type: Object, required: true },
 });
+
+const { fieldLabel } = useDealFields();
 
 const FIELD_ICONS = {
   value: 'i-lucide-banknote',
@@ -26,6 +29,7 @@ const FIELD_ICONS = {
     <div
       v-for="field in fields"
       :key="field"
+      v-tooltip.left="fieldLabel(field)"
       class="flex items-center min-w-0 gap-2 text-n-slate-11"
     >
       <Icon

@@ -7,6 +7,8 @@
     "LOAD_MORE": "Tải thêm",
     "NO_VALUE": "Chưa có giá trị",
     "UNASSIGNED": "Chưa phân công",
+    "NO_CONTACT": "Chưa có liên hệ",
+    "NO_DATE": "Chưa đặt ngày",
     "FIELDS": {
       "NAME": "Tên",
       "VALUE": "Giá trị",
