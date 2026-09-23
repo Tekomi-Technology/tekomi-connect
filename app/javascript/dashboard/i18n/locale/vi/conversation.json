@@ -479,6 +479,14 @@
       "EXTERNAL_SYSTEM_DISABLED_HINT": "Hãy gắn liên hệ này với CRM ở khung bên cạnh trước khi gửi",
       "NOTE": {
         "PLACEHOLDER": "Thêm ghi chú (không bắt buộc)"
+      },
+      "INTERNAL_TICKET": {
+        "LABEL": "Tạo ticket nội bộ",
+        "TITLE_PLACEHOLDER": "Tiêu đề ticket",
+        "DESCRIPTION_PLACEHOLDER": "Mô tả vấn đề (không bắt buộc)",
+        "UNASSIGNED": "Chưa phân công",
+        "SUCCESS": "Đã tạo ticket và gắn vào hội thoại này",
+        "ERROR": "Không tạo được ticket, vui lòng thử lại"
       }
     },
     "SEND_EXTERNAL_SYSTEM_SUCCESS": "Đã gửi hội thoại sang hệ thống bên ngoài thành công",

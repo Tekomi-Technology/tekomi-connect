@@ -1,5 +1,5 @@
 - name: INSTALLATION_NAME
-  value: 'Tekomi'
+  value: 'GMO Connect'
   display_title: 'Installation Name'
   description: 'The installation wide name that would be used in the dashboard, title etc.'
 - name: LOGO_THUMBNAIL
@@ -23,7 +23,7 @@
   display_title: 'Widget Brand URL'
   description: 'The URL that would be used in the widget under the section “Powered By”'
 - name: BRAND_NAME
-  value: 'Tekomi'
+  value: 'GMO Connect'
   display_title: 'Brand Name'
   description: 'The name that would be used in emails and the widget'
 - name: TERMS_URL
@@ -451,4 +451,22 @@
   display_title: 'Langfuse Base URL'
   description: 'Langfuse endpoint (US: https://us.cloud.langfuse.com, EU: https://cloud.langfuse.com)'
   value: 'https://us.cloud.langfuse.com'
+  locked: false
+
+# ------- External Ticket System (Perfex CRM) ------- #
+- name: EXTERNAL_TICKET_SYSTEM_URL
+  display_title: 'External Ticket System URL'
+  description: 'Base REST API URL of the external CRM tickets are sent to, e.g. https://crm.example.com/rest_api/v1/'
+  value: ''
+  locked: false
+- name: EXTERNAL_TICKET_SYSTEM_API_KEY
+  display_title: 'External Ticket System API Key'
+  description: 'API key used to authenticate against the external CRM'
+  value: ''
+  locked: false
+  type: secret
+- name: EXTERNAL_TICKET_DEPARTMENT_ID
+  display_title: 'External Ticket Department ID'
+  description: 'Department every ticket is filed under in the external CRM'
+  value: ''
   locked: false

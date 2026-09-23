@@ -151,3 +151,9 @@ shopify:
   enabled: true
   icon: 'icon-shopify'
   config_key: 'shopify'
+perfex:
+  name: 'External Ticket System'
+  description: 'Configuration for sending conversations as tickets to an external CRM'
+  enabled: true
+  icon: 'icon-ticket'
+  config_key: 'perfex'

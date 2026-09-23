@@ -1,7 +1,14 @@
 <script>
 import { useVuelidate } from '@vuelidate/core';
 import { required, minLength, email } from '@vuelidate/validators';
+import { mapGetters } from 'vuex';
 import { useAlert } from 'dashboard/composables';
+import { emitter } from 'shared/helpers/mitt';
+import { BUS_EVENTS } from 'shared/constants/busEvents';
+import { FEATURE_FLAGS } from 'dashboard/featureFlags';
+import TicketsAPI from 'dashboard/api/tickets';
+import { useTicketsStore } from 'dashboard/stores/tickets';
+import { useTicketPipelinesStore } from 'dashboard/stores/ticketPipelines';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 
 export default {
@@ -20,7 +27,11 @@ export default {
   },
   emits: ['cancel', 'update:show'],
   setup() {
-    return { v$: useVuelidate() };
+    return {
+      v$: useVuelidate(),
+      ticketsStore: useTicketsStore(),
+      ticketPipelinesStore: useTicketPipelinesStore(),
+    };
   },
   data() {
     return {
@@ -28,6 +39,10 @@ export default {
       note: '',
       selectedType: '',
       isSubmitting: false,
+      ticketTitle: '',
+      ticketDescription: '',
+      ticketStageId: '',
+      ticketAssigneeId: '',
     };
   },
   validations: {
@@ -38,6 +53,11 @@ export default {
     },
   },
   computed: {
+    ...mapGetters({
+      accountId: 'getCurrentAccountId',
+      isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
+      agents: 'agents/getAgents',
+    }),
     localShow: {
       get() {
         return this.show;
@@ -52,6 +72,26 @@ export default {
     sentToExternalSystem() {
       return this.selectedType === 'other_system';
     },
+    sentAsInternalTicket() {
+      return this.selectedType === 'internal_ticket';
+    },
+    hasCrmTickets() {
+      return this.isFeatureEnabledonAccount(
+        this.accountId,
+        FEATURE_FLAGS.CRM_TICKETS
+      );
+    },
+    ticketStages() {
+      return this.ticketPipelinesStore.records.flatMap(pipeline =>
+        pipeline.stages.map(stage => ({
+          ...stage,
+          name:
+            this.ticketPipelinesStore.records.length > 1
+              ? `${pipeline.name} · ${stage.name}`
+              : stage.name,
+        }))
+      );
+    },
     isCrmMatched() {
       const senderId = this.currentChat.meta?.sender?.id;
       if (!senderId) return false;
@@ -59,6 +99,9 @@ export default {
       return !!contact?.additional_attributes?.external?.perfex_contact_id;
     },
     isFormValid() {
+      if (this.sentAsInternalTicket) {
+        return !!this.ticketTitle.trim() && !!this.ticketStageId;
+      }
       if (this.selectedType) {
         if (this.sentToOtherEmailAddress) {
           return !!this.email && !this.v$.email.$error;
@@ -81,14 +124,42 @@ export default {
       }
     },
   },
+  watch: {
+    selectedType(value) {
+      // Default to the first stage as soon as the internal ticket option is picked,
+      // so the submit button is enabled without an extra click.
+      if (value === 'internal_ticket' && !this.ticketStageId) {
+        this.ticketStageId = this.ticketStages[0]?.id || '';
+      }
+    },
+  },
+  mounted() {
+    if (this.hasCrmTickets && !this.ticketPipelinesStore.records.length) {
+      this.ticketPipelinesStore.fetch();
+    }
+  },
   methods: {
     onCancel() {
       this.$emit('cancel');
     },
+    async createInternalTicket() {
+      const ticket = await this.ticketsStore.create({
+        title: this.ticketTitle.trim(),
+        description: this.ticketDescription.trim() || null,
+        stage_id: this.ticketStageId,
+        assignee_id: this.ticketAssigneeId || null,
+        contact_id: this.currentChat.meta?.sender?.id || null,
+      });
+      await TicketsAPI.linkConversation(ticket.id, this.currentChat.id);
+      emitter.emit(BUS_EVENTS.TICKET_LINKED_TO_CONVERSATION, this.currentChat.id);
+      useAlert(this.$t('EMAIL_TRANSCRIPT.FORM.INTERNAL_TICKET.SUCCESS'));
+    },
     async onSubmit() {
       this.isSubmitting = false;
       try {
-        if (this.sentToExternalSystem) {
+        if (this.sentAsInternalTicket) {
+          await this.createInternalTicket();
+        } else if (this.sentToExternalSystem) {
           await this.$store.dispatch('sendConversationToExternalSystem', {
             conversationId: this.currentChat.id,
             note: this.note,
@@ -106,6 +177,8 @@ export default {
         const status = error?.response?.status;
         if (status === 402) {
           useAlert(this.$t('EMAIL_TRANSCRIPT.SEND_EMAIL_PAYMENT_REQUIRED'));
+        } else if (this.sentAsInternalTicket) {
+          useAlert(this.$t('EMAIL_TRANSCRIPT.FORM.INTERNAL_TICKET.ERROR'));
         } else if (this.sentToExternalSystem) {
           useAlert(this.$t('EMAIL_TRANSCRIPT.SEND_EXTERNAL_SYSTEM_ERROR'));
         } else {
@@ -189,6 +262,18 @@ export default {
               {{ $t('EMAIL_TRANSCRIPT.FORM.EXTERNAL_SYSTEM_DISABLED_HINT') }}
             </span>
           </div>
+          <div v-if="hasCrmTickets" class="flex items-center gap-2">
+            <input
+              id="internal_ticket"
+              v-model="selectedType"
+              type="radio"
+              name="selectedType"
+              value="internal_ticket"
+            />
+            <label for="internal_ticket">{{
+              $t('EMAIL_TRANSCRIPT.FORM.INTERNAL_TICKET.LABEL')
+            }}</label>
+          </div>
           <div v-if="sentToExternalSystem" class="w-full mt-1">
             <textarea
               v-model="note"
@@ -209,6 +294,34 @@ export default {
                 {{ $t('EMAIL_TRANSCRIPT.FORM.EMAIL.ERROR') }}
               </span>
             </label>
+          </div>
+          <div v-if="sentAsInternalTicket" class="flex flex-col w-full gap-2 mt-1">
+            <input
+              v-model="ticketTitle"
+              type="text"
+              :placeholder="$t('EMAIL_TRANSCRIPT.FORM.INTERNAL_TICKET.TITLE_PLACEHOLDER')"
+            />
+            <textarea
+              v-model="ticketDescription"
+              rows="2"
+              class="w-full"
+              :placeholder="$t('EMAIL_TRANSCRIPT.FORM.INTERNAL_TICKET.DESCRIPTION_PLACEHOLDER')"
+            />
+            <div class="flex gap-2">
+              <select v-model="ticketStageId" class="w-1/2">
+                <option v-for="stage in ticketStages" :key="stage.id" :value="stage.id">
+                  {{ stage.name }}
+                </option>
+              </select>
+              <select v-model="ticketAssigneeId" class="w-1/2">
+                <option value="">
+                  {{ $t('EMAIL_TRANSCRIPT.FORM.INTERNAL_TICKET.UNASSIGNED') }}
+                </option>
+                <option v-for="agent in agents" :key="agent.id" :value="agent.id">
+                  {{ agent.name }}
+                </option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="flex flex-row justify-end w-full gap-2 px-0 py-2">

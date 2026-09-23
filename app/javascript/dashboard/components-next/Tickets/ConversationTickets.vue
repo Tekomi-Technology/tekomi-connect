@@ -1,17 +1,19 @@
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { useAlert } from 'dashboard/composables';
-import { useMapGetter } from 'dashboard/composables/store';
+import { emitter } from 'shared/helpers/mitt';
+import { BUS_EVENTS } from 'shared/constants/busEvents';
 import TicketsAPI from 'dashboard/api/tickets';
-import { camelizeTicket, useTicketsStore } from 'dashboard/stores/tickets';
+import { camelizeTicket } from 'dashboard/stores/tickets';
 import { useTicketPipelinesStore } from 'dashboard/stores/ticketPipelines';
 import Button from 'dashboard/components-next/button/Button.vue';
 import Spinner from 'dashboard/components-next/spinner/Spinner.vue';
-import TicketFormDialog from './TicketFormDialog.vue';
 import TicketSummaryRow from './TicketSummaryRow.vue';
 
+// Creating a ticket happens from the "Send conversation transcript" dialog instead of here,
+// so this panel is read-only: it only shows and links/unlinks tickets that already exist.
 const props = defineProps({
   conversationId: { type: [Number, String], required: true },
   contact: { type: Object, default: null },
@@ -19,28 +21,18 @@ const props = defineProps({
 
 const { t } = useI18n();
 const router = useRouter();
-const ticketsStore = useTicketsStore();
 const pipelinesStore = useTicketPipelinesStore();
-const agents = useMapGetter('agents/getAgents');
 
 const linkedTickets = ref([]);
 const contactTickets = ref([]);
 const isLoading = ref(false);
-const ticketFormDialogRef = ref(null);
 
-const stages = computed(() =>
-  pipelinesStore.records.flatMap(pipeline =>
-    pipeline.stages.map(stage => ({
-      ...stage,
-      name:
-        pipelinesStore.records.length > 1
-          ? `${pipeline.name} · ${stage.name}`
-          : stage.name,
-    }))
-  )
-);
 const stagesById = computed(() =>
-  Object.fromEntries(stages.value.map(stage => [stage.id, stage]))
+  Object.fromEntries(
+    pipelinesStore.records.flatMap(pipeline =>
+      pipeline.stages.map(stage => [stage.id, stage])
+    )
+  )
 );
 
 // Tickets the contact already has that are not tied to this conversation yet.
@@ -88,30 +80,22 @@ const openTicket = ticket => {
   router.push({ name: 'tickets_show', params: { ticketId: ticket.id } });
 };
 
-const openCreateTicket = () => {
-  ticketFormDialogRef.value?.open({
-    contactId: props.contact?.id || '',
-    contactName: props.contact?.name || '',
-  });
-};
-
-const createTicket = async payload => {
-  try {
-    const ticket = await ticketsStore.create(payload);
-    await TicketsAPI.linkConversation(ticket.id, props.conversationId);
-    ticketFormDialogRef.value?.close();
-    useAlert(t('TICKETS.FORM.MESSAGES.SUCCESS'));
-    await loadTickets();
-  } catch {
-    useAlert(t('TICKETS.FORM.MESSAGES.ERROR'));
-  }
-};
-
 watch(() => [props.conversationId, props.contact?.id], loadTickets);
+
+// The "Send conversation transcript" dialog creates and links tickets on its own;
+// it broadcasts this event so any open panel for the same conversation refreshes.
+const onTicketLinked = conversationId => {
+  if (conversationId === props.conversationId) loadTickets();
+};
 
 onMounted(() => {
   loadTickets();
   if (!pipelinesStore.records.length) pipelinesStore.fetch();
+  emitter.on(BUS_EVENTS.TICKET_LINKED_TO_CONVERSATION, onTicketLinked);
+});
+
+onUnmounted(() => {
+  emitter.off(BUS_EVENTS.TICKET_LINKED_TO_CONVERSATION, onTicketLinked);
 });
 </script>
 
@@ -156,20 +140,5 @@ onMounted(() => {
         </div>
       </template>
     </template>
-    <Button
-      :label="t('TICKETS.CONVERSATION.CREATE')"
-      icon="i-lucide-plus"
-      color="slate"
-      variant="faded"
-      size="sm"
-      @click="openCreateTicket"
-    />
-    <TicketFormDialog
-      ref="ticketFormDialogRef"
-      :stages="stages"
-      :agents="agents"
-      :is-loading="ticketsStore.uiFlags.isCreating"
-      @create="createTicket"
-    />
   </div>
 </template>

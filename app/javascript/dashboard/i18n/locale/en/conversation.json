@@ -480,6 +480,14 @@
       },
       "NOTE": {
         "PLACEHOLDER": "Add a note (optional)"
+      },
+      "INTERNAL_TICKET": {
+        "LABEL": "Create an internal ticket",
+        "TITLE_PLACEHOLDER": "Ticket title",
+        "DESCRIPTION_PLACEHOLDER": "Describe the issue (optional)",
+        "UNASSIGNED": "Unassigned",
+        "SUCCESS": "Ticket created and linked to this conversation",
+        "ERROR": "Could not create the ticket, please try again"
       }
     }
   },

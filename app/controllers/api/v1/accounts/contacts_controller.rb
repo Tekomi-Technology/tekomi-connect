@@ -78,12 +78,12 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
 
   def match_crm
     client = Crm::Perfex::Api::ContactClient.new(
-      base_url: ENV.fetch('EXTERNAL_TICKET_SYSTEM_URL'),
-      api_key: ENV.fetch('EXTERNAL_TICKET_SYSTEM_API_KEY')
+      base_url: Crm::Perfex::Config.system_url,
+      api_key: Crm::Perfex::Config.api_key
     )
     customer_client = Crm::Perfex::Api::CustomerClient.new(
-      base_url: ENV.fetch('EXTERNAL_TICKET_SYSTEM_URL'),
-      api_key: ENV.fetch('EXTERNAL_TICKET_SYSTEM_API_KEY')
+      base_url: Crm::Perfex::Config.system_url,
+      api_key: Crm::Perfex::Config.api_key
     )
     Crm::Perfex::ContactMatcherService.new(contact_client: client, customer_client: customer_client).match_one(@contact)
     render json: @contact.reload.additional_attributes
