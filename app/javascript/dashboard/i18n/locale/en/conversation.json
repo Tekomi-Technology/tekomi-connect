@@ -135,6 +135,15 @@
       "REJECTED": "Call rejected",
       "CANCELLED": "Call cancelled",
       "FAILED": "Call failed",
+      "EMOTION_ANALYSIS": {
+        "ANALYZE": "Analyze call emotion",
+        "ANALYZING": "Analyzing call…",
+        "RESULT": "Prominent emotion: {emotion}",
+        "REVIEW": "Agent note: Please review this call for a negative customer experience.",
+        "NOTE": "Call emotion review: {emotion}. Please review this recording. {reason}",
+        "NOTE_SAVED": "A private review note was added to the conversation.",
+        "NOTE_ERROR": "The emotion result is ready, but the private note could not be saved."
+      },
       "DETAILS": {
         "TITLE": "Callbot call details",
         "CLOSE": "Close",

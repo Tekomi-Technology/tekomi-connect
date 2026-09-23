@@ -1,9 +1,11 @@
 <script setup>
 import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useStore } from 'vuex';
 import { formatDuration } from 'shared/helpers/timeHelper';
 import { useMessageContext } from '../provider.js';
 import phoneCallsAPI from 'dashboard/api/phoneCalls';
+import analyzeCallRecording from 'dashboard/api/callEmotionAnalysis';
 
 import Icon from 'dashboard/components-next/icon/Icon.vue';
 import BaseBubble from 'next/message/bubbles/Base.vue';
@@ -11,7 +13,8 @@ import AudioChip from 'next/message/chips/Audio.vue';
 import PhoneCallDetailsDialog from './PhoneCallDetailsDialog.vue';
 
 const { t } = useI18n();
-const { contentAttributes } = useMessageContext();
+const store = useStore();
+const { contentAttributes, conversationId } = useMessageContext();
 
 const call = computed(() => contentAttributes.value?.data || {});
 const direction = computed(() => call.value.direction);
@@ -100,6 +103,64 @@ const detailsDialogRef = ref(null);
 const callDetails = ref(null);
 const isLoadingDetails = ref(false);
 const hasDetailsError = ref(false);
+const isAnalyzingEmotion = ref(false);
+const emotionResult = ref(null);
+const emotionAnalysisError = ref('');
+const isEmotionNoteSaved = ref(false);
+const emotionNoteError = ref(false);
+const analyzeEmotionLabel = t(
+  'CONVERSATION.PHONE_CALL.EMOTION_ANALYSIS.ANALYZE'
+);
+const analyzingEmotionLabel = t(
+  'CONVERSATION.PHONE_CALL.EMOTION_ANALYSIS.ANALYZING'
+);
+const emotionAnalysisButtonLabel = computed(() =>
+  isAnalyzingEmotion.value ? analyzingEmotionLabel : analyzeEmotionLabel
+);
+
+const negativeEmotions = ['buồn', 'khó chịu', 'gay gắt'];
+const hasNegativeEmotion = computed(() =>
+  negativeEmotions.includes(emotionResult.value?.emotion)
+);
+
+const addEmotionReviewNote = async result => {
+  const emotion = result.emotion || result.semantic_emotion?.label;
+  if (!negativeEmotions.includes(emotion) || isEmotionNoteSaved.value) return;
+
+  const reason = result.semantic_emotion?.reason || result.reason || '';
+  const message = t('CONVERSATION.PHONE_CALL.EMOTION_ANALYSIS.NOTE', {
+    emotion,
+    reason,
+  });
+  try {
+    await store.dispatch('createPendingMessageAndSend', {
+      conversationId: conversationId.value,
+      message,
+      private: true,
+    });
+    isEmotionNoteSaved.value = true;
+  } catch {
+    emotionNoteError.value = true;
+  }
+};
+
+const analyzeEmotion = async () => {
+  if (!recordingAttachment.value || isAnalyzingEmotion.value) return;
+
+  isAnalyzingEmotion.value = true;
+  emotionAnalysisError.value = '';
+  emotionNoteError.value = false;
+  try {
+    emotionResult.value = await analyzeCallRecording(
+      recordingAttachment.value.dataUrl
+    );
+    await addEmotionReviewNote(emotionResult.value);
+  } catch (error) {
+    emotionAnalysisError.value = error.message;
+  } finally {
+    isAnalyzingEmotion.value = false;
+  }
+};
 
 const loadCallDetails = async () => {
   if (callDetails.value || isLoadingDetails.value) return;
@@ -170,6 +231,63 @@ const openCallDetails = () => {
           :attachment="recordingAttachment"
           :show-transcribed-text="false"
         />
+        <button
+          type="button"
+          class="mt-2 inline-flex items-center gap-2 rounded-lg border border-n-strong px-3 py-2 text-sm font-medium hover:bg-n-alpha-2 disabled:cursor-wait disabled:opacity-60"
+          :disabled="isAnalyzingEmotion"
+          @click.stop="analyzeEmotion"
+        >
+          <Icon
+            :icon="
+              isAnalyzingEmotion
+                ? 'i-lucide-loader-circle'
+                : 'i-lucide-scan-face'
+            "
+            :class="{ 'animate-spin': isAnalyzingEmotion }"
+            class="size-4"
+          />
+          {{ emotionAnalysisButtonLabel }}
+        </button>
+        <div
+          v-if="emotionResult"
+          class="mt-2 rounded-lg p-3 text-sm"
+          :class="
+            hasNegativeEmotion
+              ? 'bg-n-amber-3 text-n-amber-11'
+              : 'bg-n-alpha-2 text-n-slate-12'
+          "
+          aria-live="polite"
+        >
+          <p class="font-medium">
+            {{
+              $t('CONVERSATION.PHONE_CALL.EMOTION_ANALYSIS.RESULT', {
+                emotion: emotionResult.emotion,
+              })
+            }}
+          </p>
+          <p v-if="hasNegativeEmotion" class="mt-1">
+            {{ $t('CONVERSATION.PHONE_CALL.EMOTION_ANALYSIS.REVIEW') }}
+          </p>
+          <p
+            v-if="emotionResult.semantic_emotion?.reason"
+            class="mt-1 opacity-80"
+          >
+            {{ emotionResult.semantic_emotion.reason }}
+          </p>
+          <p v-if="emotionNoteError" class="mt-1">
+            {{ $t('CONVERSATION.PHONE_CALL.EMOTION_ANALYSIS.NOTE_ERROR') }}
+          </p>
+          <p v-else-if="isEmotionNoteSaved" class="mt-1">
+            {{ $t('CONVERSATION.PHONE_CALL.EMOTION_ANALYSIS.NOTE_SAVED') }}
+          </p>
+        </div>
+        <p
+          v-if="emotionAnalysisError"
+          class="mt-2 text-sm text-n-ruby-11"
+          role="alert"
+        >
+          {{ emotionAnalysisError }}
+        </p>
       </div>
     </div>
 
