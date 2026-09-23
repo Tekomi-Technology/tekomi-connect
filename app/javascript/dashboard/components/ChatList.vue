@@ -71,7 +71,8 @@ const { t } = useI18n();
 const router = useRouter();
 const route = useRoute();
 const store = useStore();
-const { buildConversationListPath } = useConversationRoutePath();
+const { buildConversationPath, buildConversationListPath } =
+  useConversationRoutePath();
 
 const resolveAttributesModalRef = ref(null);
 
@@ -674,6 +675,18 @@ function resetAndFetchData() {
   fetchConversations();
 }
 
+// Leaving a contact's history lands on its latest conversation; the expanded list has no open thread.
+function resetFilters() {
+  const latestConversation =
+    appliedContactFilter.value &&
+    !props.isOnExpandedLayout &&
+    chatLists.value[0];
+  if (latestConversation) {
+    router.push(buildConversationPath(latestConversation.id));
+  }
+  resetAndFetchData();
+}
+
 function loadMoreConversations() {
   if (hasCurrentPageEndReached.value || chatListLoading.value) {
     return;
@@ -986,7 +999,7 @@ watch(appliedFilters, () => resetBulkActions());
       @add-folders="onClickOpenAddFoldersModal"
       @delete-folders="onClickOpenDeleteFoldersModal"
       @filters-modal="onToggleAdvanceFiltersModal"
-      @reset-filters="resetAndFetchData"
+      @reset-filters="resetFilters"
       @basic-filter-change="onBasicFilterChange"
     />
 
