@@ -1,4 +1,4 @@
-const CALL_EMOTION_API_URL = 'https://192.168.1.97:8443/api/analyze';
+const CALL_EMOTION_API_URL = 'https://localhost:8443/api/analyze';
 
 const toMonoWav = audioBuffer => {
   const channelCount = audioBuffer.numberOfChannels;
