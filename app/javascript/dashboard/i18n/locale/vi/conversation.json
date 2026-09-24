@@ -76,7 +76,7 @@
     "REPLY_MESSAGE_NOT_FOUND": "Không tìm thấy tin nhắn",
     "TEKOMI_GENERATION": {
       "TITLE": "Câu trả lời này được tạo ra như thế nào?",
-      "GENERATED_BY": "Được tạo bởi Tekomi AI",
+      "GENERATED_BY": "Được tạo bởi GMO AI",
       "LOADING": "Đang tải chi tiết…",
       "EMPTY": "Không có thông tin về cách tạo tin nhắn này.",
       "TIMELINE": "Các bước tạo câu trả lời",
@@ -281,7 +281,7 @@
       "MESSAGING_RESTRICTED_WHATSAPP": "Bạn chỉ có thể trả lời bằng tin nhắn mẫu do giới hạn cửa sổ 24 giờ",
       "MESSAGING_RESTRICTED_API": "Bạn chỉ có thể trả lời bằng tin nhắn mẫu do giới hạn cửa sổ nhắn tin",
       "MESSAGE_SIGNATURE_NOT_CONFIGURED": "Chứ ký cuối tin nhắn chưa được cài đặt, xin hãy cài đặt một chữ ký trong phần cài đặt hồ sơ.",
-      "COPILOT_MSG_INPUT": "Cho Tekomi thêm lời nhắc hoặc hỏi thêm bất cứ điều gì... Nhấn enter để gửi tiếp",
+      "COPILOT_MSG_INPUT": "Cho GMO thêm lời nhắc hoặc hỏi thêm bất cứ điều gì... Nhấn enter để gửi tiếp",
       "CLICK_HERE": "Bấm vào đây để cập nhật",
       "WHATSAPP_TEMPLATES": "Mẫu Whatsapp"
     },
@@ -303,7 +303,7 @@
       "IMAGE_UPLOAD_SUCCESS": "Ảnh tải lên thành công",
       "START_AUDIO_RECORDING": "Bắt đầu ghi âm",
       "STOP_AUDIO_RECORDING": "Dừng ghi âm",
-      "COPILOT_THINKING": "Tekomi đang suy nghĩ",
+      "COPILOT_THINKING": "GMO đang suy nghĩ",
       "EMAIL_HEAD": {
         "TO": "ĐẾN",
         "ADD_BCC": "Thêm bcc",
@@ -374,8 +374,8 @@
       },
       "REPORT_MESSAGE": {
         "LABEL": "Báo lỗi tin nhắn",
-        "TITLE": "Báo lỗi tin nhắn của Tekomi AI",
-        "DESCRIPTION": "Phát hiện vấn đề với câu trả lời này? Hãy cho chúng tôi biết điều gì chưa đúng, đội ngũ sẽ xem xét để cải thiện độ chính xác của Tekomi AI.",
+        "TITLE": "Báo lỗi tin nhắn của GMO AI",
+        "DESCRIPTION": "Phát hiện vấn đề với câu trả lời này? Hãy cho chúng tôi biết điều gì chưa đúng, đội ngũ sẽ xem xét để cải thiện độ chính xác của GMO AI.",
         "PROBLEM_TYPE": "Loại vấn đề",
         "PROBLEM_TYPE_PLACEHOLDER": "Chọn loại vấn đề",
         "DESCRIPTION_LABEL": "Mô tả",
@@ -394,7 +394,7 @@
     },
     "SIDEBAR": {
       "CONTACT": "Liên hệ",
-      "COPILOT": "Tekomi"
+      "COPILOT": "GMO"
     },
     "VOICE_WIDGET": {
       "INCOMING_CALL": "Cuộc gọi đến",

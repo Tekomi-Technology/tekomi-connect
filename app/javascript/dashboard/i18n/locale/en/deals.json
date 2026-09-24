@@ -167,25 +167,25 @@
       "LOAD_ERROR": "Could not load deals"
     },
     "AI": {
-      "BUTTON": "Tekomi AI",
-      "TITLE": "Ask Tekomi AI",
+      "BUTTON": "GMO AI",
+      "TITLE": "Ask GMO AI",
       "YOU": "You",
-      "ASSISTANT": "Tekomi AI",
+      "ASSISTANT": "GMO AI",
       "PLACEHOLDER_HINT": "Ask about deals in this account. For example: which deals are closing this month, or the total value per stage.",
       "INPUT_PLACEHOLDER": "Ask about your deals...",
-      "ERROR": "Tekomi AI could not answer. Please try again."
+      "ERROR": "GMO AI could not answer. Please try again."
     },
     "SUGGESTIONS": {
       "BUTTON": "Scan conversations",
-      "TITLE": "Deals suggested by Tekomi AI",
-      "DESCRIPTION": "Tekomi AI reads recent conversations that are not linked to a deal yet and suggests the ones worth following up as a sales opportunity.",
+      "TITLE": "Deals suggested by GMO AI",
+      "DESCRIPTION": "GMO AI reads recent conversations that are not linked to a deal yet and suggests the ones worth following up as a sales opportunity.",
       "SCANNING": "Reading recent conversations...",
       "EMPTY": "No recent conversation looks like a sales opportunity.",
       "CREATE": "Create deal",
       "DISMISS": "Dismiss",
       "CLOSE": "Close",
       "CREATED": "Deal created and linked to the conversation",
-      "ERROR": "Tekomi AI could not scan the conversations. Please try again.",
+      "ERROR": "GMO AI could not scan the conversations. Please try again.",
       "CONFIDENCE": {
         "HIGH": "Clear intent",
         "MEDIUM": "Likely",
@@ -196,27 +196,27 @@
       "TITLE": "Deal summary",
       "GENERATE": "Summarise",
       "REFRESH": "Refresh",
-      "HINT": "Let Tekomi AI read the linked conversations and the change history, then summarise where this deal stands.",
-      "ERROR": "Tekomi AI could not summarise this deal. Please try again."
+      "HINT": "Let GMO AI read the linked conversations and the change history, then summarise where this deal stands.",
+      "ERROR": "GMO AI could not summarise this deal. Please try again."
     },
     "NEXT_STEP": {
       "TITLE": "Next step",
       "GENERATE": "Suggest",
       "REFRESH": "Refresh",
-      "HINT": "Ask Tekomi AI what to do next with this deal, and whether it should move to another stage.",
+      "HINT": "Ask GMO AI what to do next with this deal, and whether it should move to another stage.",
       "MOVE_TO": "Move to {stage}",
       "MOVED": "Deal moved to the suggested stage",
-      "ERROR": "Tekomi AI could not suggest a next step. Please try again."
+      "ERROR": "GMO AI could not suggest a next step. Please try again."
     },
     "FIELD_SUGGESTIONS": {
       "TITLE": "Custom fields from conversations",
-      "GENERATE": "Fill with Tekomi AI",
-      "HINT": "Let Tekomi AI read the linked conversations and propose values for the custom fields of this deal.",
+      "GENERATE": "Fill with GMO AI",
+      "HINT": "Let GMO AI read the linked conversations and propose values for the custom fields of this deal.",
       "EMPTY": "The conversations do not say anything about these fields yet.",
       "APPLY": "Apply",
       "SKIP": "Skip",
       "APPLIED": "Field updated",
-      "ERROR": "Tekomi AI could not read the fields. Please try again."
+      "ERROR": "GMO AI could not read the fields. Please try again."
     }
   },
   "PIPELINES_SETTINGS": {

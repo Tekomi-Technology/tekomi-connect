@@ -388,8 +388,8 @@ vi:
       attachment_link_title: 'Hội thoại (#%{conversation_id}) với %{name}'
     notion:
       name: 'Notion'
-      short_description: 'Kết nối cơ sở dữ liệu, tài liệu và trang Notion với Tekomi AI.'
-      description: 'Kết nối workspace Notion để Tekomi AI đọc được nội dung trong cơ sở dữ liệu, tài liệu và trang của bạn, từ đó tạo ra câu trả lời thông minh và sát ngữ cảnh hơn khi hỗ trợ khách hàng.'
+      short_description: 'Kết nối cơ sở dữ liệu, tài liệu và trang Notion với GMO AI.'
+      description: 'Kết nối workspace Notion để GMO AI đọc được nội dung trong cơ sở dữ liệu, tài liệu và trang của bạn, từ đó tạo ra câu trả lời thông minh và sát ngữ cảnh hơn khi hỗ trợ khách hàng.'
     shopify:
       name: 'Shopify'
       short_description: 'Xem thông tin đơn hàng và dữ liệu khách hàng từ cửa hàng Shopify.'
@@ -402,9 +402,9 @@ vi:
     copilot_message_required: Thông điệp bắt buộc có
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'You are out of Copilot credits. You can buy more credits from the billing section.'
-    upgrade: 'Nâng cấp gói của bạn để bật Tekomi AI'
-    disabled: 'Tekomi AI bị vô hiệu hóa cho tài khoản này.'
-    api_key_missing: 'Chưa cấu hình khóa API Tekomi AI.'
+    upgrade: 'Nâng cấp gói của bạn để bật GMO AI'
+    disabled: 'GMO AI bị vô hiệu hóa cho tài khoản này.'
+    api_key_missing: 'Chưa cấu hình khóa API GMO AI.'
     copilot:
       using_tool: 'Đang sử dụng công cụ %{function_name}'
       completed_tool_call: 'Đã hoàn thành cuộc gọi công cụ %{function_name}'
@@ -556,7 +556,7 @@ vi:
       %{format_messages}
   crm_deals:
     ai:
-      assistant_missing: 'Hãy kết nối một trợ lý Tekomi AI cho tài khoản này trước khi dùng Tekomi AI cho cơ hội.'
+      assistant_missing: 'Hãy kết nối một trợ lý GMO AI cho tài khoản này trước khi dùng GMO AI cho cơ hội.'
     default_pipeline:
       name: 'Bán hàng'
       stages:
@@ -594,7 +594,7 @@ vi:
     analytics:
       invalid_configuration: 'Invalid analytics configuration'
     articles:
-      captain_not_available: 'Translation requires Tekomi AI to be enabled for this account'
+      captain_not_available: 'Translation requires GMO AI to be enabled for this account'
       locale_not_available: 'Locale not available in this portal'
       category_not_found: 'Category not found in this portal'
       no_articles_found: 'No articles found to process'
