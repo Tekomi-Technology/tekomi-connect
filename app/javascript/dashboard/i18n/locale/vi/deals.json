@@ -167,25 +167,25 @@
       "LOAD_ERROR": "Không tải được danh sách cơ hội"
     },
     "AI": {
-      "BUTTON": "Tekomi AI",
-      "TITLE": "Hỏi Tekomi AI",
+      "BUTTON": "GMO AI",
+      "TITLE": "Hỏi GMO AI",
       "YOU": "Bạn",
-      "ASSISTANT": "Tekomi AI",
+      "ASSISTANT": "GMO AI",
       "PLACEHOLDER_HINT": "Hỏi về các cơ hội trong tài khoản. Ví dụ: cơ hội nào sắp chốt trong tháng này, hoặc tổng giá trị theo từng giai đoạn.",
       "INPUT_PLACEHOLDER": "Hỏi về cơ hội của bạn...",
-      "ERROR": "Tekomi AI chưa trả lời được. Bạn thử lại nhé."
+      "ERROR": "GMO AI chưa trả lời được. Bạn thử lại nhé."
     },
     "SUGGESTIONS": {
       "BUTTON": "Quét hội thoại",
-      "TITLE": "Cơ hội do Tekomi AI gợi ý",
-      "DESCRIPTION": "Tekomi AI đọc các hội thoại gần đây chưa gắn cơ hội nào, rồi gợi ý những hội thoại đáng theo đuổi thành cơ hội bán hàng.",
+      "TITLE": "Cơ hội do GMO AI gợi ý",
+      "DESCRIPTION": "GMO AI đọc các hội thoại gần đây chưa gắn cơ hội nào, rồi gợi ý những hội thoại đáng theo đuổi thành cơ hội bán hàng.",
       "SCANNING": "Đang đọc các hội thoại gần đây...",
       "EMPTY": "Không có hội thoại gần đây nào giống một cơ hội bán hàng.",
       "CREATE": "Tạo cơ hội",
       "DISMISS": "Bỏ qua",
       "CLOSE": "Đóng",
       "CREATED": "Đã tạo cơ hội và gắn vào hội thoại",
-      "ERROR": "Tekomi AI chưa quét được hội thoại. Bạn thử lại nhé.",
+      "ERROR": "GMO AI chưa quét được hội thoại. Bạn thử lại nhé.",
       "CONFIDENCE": {
         "HIGH": "Ý định rõ",
         "MEDIUM": "Có khả năng",
@@ -196,27 +196,27 @@
       "TITLE": "Tóm tắt cơ hội",
       "GENERATE": "Tóm tắt",
       "REFRESH": "Làm mới",
-      "HINT": "Để Tekomi AI đọc các hội thoại đã gắn và lịch sử thay đổi, rồi tóm tắt tình trạng của cơ hội này.",
-      "ERROR": "Tekomi AI chưa tóm tắt được cơ hội này. Bạn thử lại nhé."
+      "HINT": "Để GMO AI đọc các hội thoại đã gắn và lịch sử thay đổi, rồi tóm tắt tình trạng của cơ hội này.",
+      "ERROR": "GMO AI chưa tóm tắt được cơ hội này. Bạn thử lại nhé."
     },
     "NEXT_STEP": {
       "TITLE": "Bước tiếp theo",
       "GENERATE": "Gợi ý",
       "REFRESH": "Làm mới",
-      "HINT": "Hỏi Tekomi AI nên làm gì tiếp với cơ hội này, và có nên chuyển sang giai đoạn khác không.",
+      "HINT": "Hỏi GMO AI nên làm gì tiếp với cơ hội này, và có nên chuyển sang giai đoạn khác không.",
       "MOVE_TO": "Chuyển sang {stage}",
       "MOVED": "Đã chuyển cơ hội sang giai đoạn được gợi ý",
-      "ERROR": "Tekomi AI chưa gợi ý được bước tiếp theo. Bạn thử lại nhé."
+      "ERROR": "GMO AI chưa gợi ý được bước tiếp theo. Bạn thử lại nhé."
     },
     "FIELD_SUGGESTIONS": {
       "TITLE": "Trường tuỳ chỉnh lấy từ hội thoại",
-      "GENERATE": "Điền bằng Tekomi AI",
-      "HINT": "Để Tekomi AI đọc các hội thoại đã gắn và đề xuất giá trị cho các trường tuỳ chỉnh của cơ hội này.",
+      "GENERATE": "Điền bằng GMO AI",
+      "HINT": "Để GMO AI đọc các hội thoại đã gắn và đề xuất giá trị cho các trường tuỳ chỉnh của cơ hội này.",
       "EMPTY": "Các hội thoại chưa nhắc gì đến những trường này.",
       "APPLY": "Áp dụng",
       "SKIP": "Bỏ qua",
       "APPLIED": "Đã cập nhật trường",
-      "ERROR": "Tekomi AI chưa đọc được các trường. Bạn thử lại nhé."
+      "ERROR": "GMO AI chưa đọc được các trường. Bạn thử lại nhé."
     }
   },
   "PIPELINES_SETTINGS": {

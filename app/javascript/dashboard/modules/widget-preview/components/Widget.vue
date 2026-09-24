@@ -243,7 +243,7 @@ const handleToggleWidget = () => {
           :script="widgetScript"
           lang="html"
           class="!text-start"
-          :codepen-title="`${websiteName} - Tekomi Widget Test`"
+          :codepen-title="`${websiteName} - GMO Widget Test`"
           enable-code-pen
         />
       </div>

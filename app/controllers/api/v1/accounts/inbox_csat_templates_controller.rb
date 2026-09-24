@@ -67,7 +67,7 @@ class Api::V1::Accounts::InboxCsatTemplatesController < Api::V1::Accounts::BaseC
   def validate_tekomi_enabled
     return if Current.account.feature_enabled?('tekomi_integration')
 
-    render json: { error: 'Tekomi AI is required for template analysis' }, status: :forbidden
+    render json: { error: 'GMO AI is required for template analysis' }, status: :forbidden
   end
 
   def render_template_creation_result(result)

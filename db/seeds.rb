@@ -18,11 +18,11 @@ unless Rails.env.production?
   GlobalConfig.clear_cache
 
   account = Account.create!(
-    name: 'Tekomi Connect'
+    name: 'GMO Connect'
   )
 
   secondary_account = Account.create!(
-    name: 'Tekomi Connect'
+    name: 'GMO Connect'
   )
 
   user = User.new(name: 'tekomi', email: 'admin@tekomi.com', password: '123@123aA', type: 'SuperAdmin')

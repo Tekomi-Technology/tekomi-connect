@@ -62,9 +62,9 @@ properties:
     type:
       - string
       - 'null'
-    description: Description when the sender is a Tekomi AI assistant
+    description: Description when the sender is a GMO AI assistant
   created_at:
     type:
       - string
       - 'null'
-    description: Created timestamp in ISO 8601 format when the sender is a Tekomi AI assistant
+    description: Created timestamp in ISO 8601 format when the sender is a GMO AI assistant
