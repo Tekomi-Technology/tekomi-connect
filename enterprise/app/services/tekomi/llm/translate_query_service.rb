@@ -42,10 +42,6 @@ class Tekomi::Llm::TranslateQueryService < Tekomi::BaseTaskService
   end
 
   def system_prompt(target_language)
-    <<~SYSTEM_PROMPT_MESSAGE
-      You are a helpful assistant that translates queries from one language to another.
-      Translate the query to #{target_language}.
-      Return just the translated query, no other text.
-    SYSTEM_PROMPT_MESSAGE
+    Tekomi::PromptRenderer.render('help_center_query_translation', target_language: target_language)
   end
 end

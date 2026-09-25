@@ -672,6 +672,7 @@ en:
       tabs:
         features: 'AI features'
         providers: 'Providers'
+        prompts: 'Prompts'
         firecrawl: 'FireCrawl'
     llm_providers:
       new: 'Add provider'
@@ -702,6 +703,67 @@ en:
         mistral: 'Mistral'
         xai: 'xAI'
         ollama: 'Ollama'
+    llm_prompt_templates:
+      description: 'System prompts used by the AI features. Changes apply to every account immediately. Per-account settings such as assistant guidelines and guardrails are still added on top.'
+      edit: 'Edit'
+      save: 'Save prompt'
+      saved: 'Prompt saved.'
+      restored: 'Default prompt restored.'
+      restore_default: 'Restore default'
+      restore_confirm: 'Discard your changes and use the default prompt?'
+      customized: 'Customized'
+      default: 'Default'
+      show_default: 'Show default prompt'
+      edit_warning: 'Keep the {{ variables }}, {% tags %}, tool names and output format from the default prompt. Removing them can silently break the feature.'
+      prompts:
+        assistant:
+          name: 'Assistant'
+          description: 'Main instructions for the assistant that replies to customers.'
+        core_rules:
+          name: 'Core rules'
+          description: 'Shared rules for tone, language, forms of address, length and handoff. Used by the assistant, scenarios and reply drafts.'
+        information_sources:
+          name: 'Information sources'
+          description: 'How the assistant uses the knowledge base, general knowledge and sensitive information.'
+        scenario:
+          name: 'Scenario agent'
+          description: 'Instructions for scenario agents the assistant hands conversations to.'
+        copilot:
+          name: 'Copilot'
+          description: 'Answers agent questions in the Copilot panel.'
+        copilot_reply_suggestion:
+          name: 'Assistant reply draft'
+          description: 'Drafts a reply for the agent using the assistant knowledge and tools.'
+        reply:
+          name: 'Reply suggestion'
+          description: 'Drafts a reply for the agent in the message editor.'
+        improve:
+          name: 'Improve writing'
+          description: 'Improves the text in the message editor.'
+        fix_spelling_grammar:
+          name: 'Fix spelling and grammar'
+          description: 'Fixes spelling and grammar in the message editor.'
+        tone_rewrite:
+          name: 'Change tone'
+          description: 'Rewrites the text in the message editor with a different tone.'
+        summary:
+          name: 'Conversation summary'
+          description: 'Summarizes the open conversation.'
+        deal_assistant:
+          name: 'Deal assistant'
+          description: 'Answers sales staff questions about deals, pipelines and stages.'
+        deal_summary:
+          name: 'Deal summary'
+          description: 'Summarizes a deal for the salesperson.'
+        deal_suggestion:
+          name: 'Deal suggestion'
+          description: 'Decides which conversations should become deals.'
+        deal_next_step:
+          name: 'Deal next step'
+          description: 'Suggests the next step for a deal.'
+        deal_field_extraction:
+          name: 'Deal field extraction'
+          description: 'Fills deal custom fields from the conversations.'
     llm_feature_models:
       save: 'Save'
       saved: 'AI feature models saved.'
@@ -714,6 +776,7 @@ en:
       groups:
         editor: 'Editor'
         copilot: 'Copilot'
+        deals: 'Deals'
         assistant: 'Assistant'
         conversation: 'Conversations'
         faq: 'FAQ'

@@ -1,0 +1,28 @@
+<% content_for(:title) { t('super_admin.llm_config.title') } %>
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title" id="page-title"><%= content_for(:title) %></h1>
+</header>
+<%= render 'super_admin/llm_providers/tabs' %>
+<section class="main-content__body">
+  <p class="mb-4 text-sm text-slate-500"><%= t('super_admin.llm_prompt_templates.description') %></p>
+  <% Llm::Prompts.grouped.each do |group, prompt_keys| %>
+    <h2 class="mt-8 mb-2 text-base font-medium text-n-slate-12"><%= t("super_admin.llm_feature_models.groups.#{group}") %></h2>
+    <table>
+      <tbody>
+        <% prompt_keys.each do |prompt_key| %>
+          <% customized = @customized_keys.include?(prompt_key) %>
+          <tr>
+            <td class="w-3/5">
+              <div class="text-sm font-medium text-n-slate-12"><%= t("super_admin.llm_prompt_templates.prompts.#{prompt_key}.name") %></div>
+              <div class="text-xs text-slate-500"><%= t("super_admin.llm_prompt_templates.prompts.#{prompt_key}.description") %></div>
+            </td>
+            <td class="text-xs <%= customized ? 'text-amber-700' : 'text-slate-500' %>">
+              <%= customized ? t('super_admin.llm_prompt_templates.customized') : t('super_admin.llm_prompt_templates.default') %>
+            </td>
+            <td><%= link_to t('super_admin.llm_prompt_templates.edit'), edit_super_admin_llm_prompt_template_path(prompt_key) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</section>

@@ -154,6 +154,8 @@ class Tekomi::BaseTaskService
   end
 
   def prompt_from_file(file_name)
+    return Llm::Prompts.body(file_name) if Llm::Prompts.key?(file_name)
+
     Rails.root.join('lib/integrations/openai/openai_prompts', "#{file_name}.liquid").read
   end
 

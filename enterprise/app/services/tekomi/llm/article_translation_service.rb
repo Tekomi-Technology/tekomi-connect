@@ -30,25 +30,10 @@ class Tekomi::Llm::ArticleTranslationService < Tekomi::BaseTaskService
   end
 
   def title_system_prompt
-    <<~SYSTEM_PROMPT_MESSAGE
-      You are a professional translator.
-      Translate the following text to #{target_language}.
-      Return only the translated text, no explanations or extra formatting.
-    SYSTEM_PROMPT_MESSAGE
+    Tekomi::PromptRenderer.render('article_title_translation', target_language: target_language)
   end
 
   def content_system_prompt
-    <<~SYSTEM_PROMPT_MESSAGE
-      You are a professional translator. Translate the following content to #{target_language}.
-      The content is markdown that may contain embedded HTML blocks.
-      Rules:
-      - Translate ONLY the visible text content (headings, paragraphs, list items, table cells, etc.).
-      - Preserve ALL markdown formatting exactly: headings (#), bold (**), italic (*), links, lists, code blocks, blockquotes, tables, horizontal rules.
-      - Preserve ALL HTML tags, attributes, and structure exactly as they are.
-      - Do NOT translate or modify: URLs, image src/alt attributes, link href values, class names, IDs, data attributes, code blocks, or any HTML attribute values.
-      - Keep all image tags (both markdown ![](url) and HTML <img>), iframes, and embedded media completely unchanged.
-      - Preserve all line breaks, blank lines, and whitespace patterns.
-      - Return ONLY the translated content, no wrapping or explanations.
-    SYSTEM_PROMPT_MESSAGE
+    Tekomi::PromptRenderer.render('article_content_translation', target_language: target_language)
   end
 end

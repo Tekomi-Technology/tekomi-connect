@@ -20,13 +20,7 @@ class Tekomi::Llm::DealFieldExtractionService < Tekomi::BaseTaskService
   end
 
   def system_prompt
-    <<~PROMPT
-      You fill in the custom fields of a deal (a sales opportunity) using what the customer said in the conversations.
-
-      Only propose a value when the conversations state it or clearly imply it. Never guess.
-      Skip a field entirely when the conversations say nothing about it.
-      Money amounts are in Vietnamese Dong: return digits only, without separators or currency symbols.
-    PROMPT
+    Tekomi::PromptRenderer.render('deal_field_extraction')
   end
 
   def user_prompt

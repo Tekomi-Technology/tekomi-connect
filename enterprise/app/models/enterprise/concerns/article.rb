@@ -51,15 +51,7 @@ module Enterprise::Concerns::Article
   end
 
   def article_to_search_terms_prompt
-    <<~SYSTEM_PROMPT_MESSAGE
-      For the provided article content, generate potential search query keywords and snippets that can be used to generate the embeddings.
-      Ensure the search terms are as diverse as possible but capture the essence of the article and are super related to the articles.
-      Don't return any terms if there aren't any terms of relevance.
-      Always return results in valid JSON of the following format
-      {
-        "search_terms": []
-      }
-    SYSTEM_PROMPT_MESSAGE
+    Tekomi::PromptRenderer.render('article_search_terms')
   end
 
   def generate_article_search_terms

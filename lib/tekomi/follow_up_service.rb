@@ -42,14 +42,7 @@ class Tekomi::FollowUpService < Tekomi::BaseTaskService
   private
 
   def build_follow_up_system_prompt(session_data)
-    action_context = describe_previous_action(session_data['event_name'])
-
-    <<~PROMPT
-      You just performed a #{action_context} action for a customer support agent.
-      Your job now is to help them refine the result based on their feedback.
-      Be concise and focused on their specific request.
-      Output only the reply, no preamble, tags, or explanation.
-    PROMPT
+    Liquid::Template.parse(prompt_from_file('follow_up')).render('action_context' => describe_previous_action(session_data['event_name']))
   end
 
   def describe_previous_action(event_name)

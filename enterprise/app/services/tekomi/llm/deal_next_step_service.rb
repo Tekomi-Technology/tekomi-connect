@@ -18,14 +18,7 @@ class Tekomi::Llm::DealNextStepService < Tekomi::BaseTaskService
   end
 
   def system_prompt
-    <<~PROMPT
-      You advise a salesperson on what to do next with one deal (a sales opportunity).
-
-      Base your advice only on the deal data, the conversations with the customer and the change history given to you.
-      Suggest moving the deal to another stage only when the conversation clearly shows it, for example the customer
-      accepted a quote, asked to sign, or said they are not buying. Otherwise keep the deal where it is.
-      Money amounts are in Vietnamese Dong. Write in the language used in the conversations with the customer.
-    PROMPT
+    Tekomi::PromptRenderer.render('deal_next_step')
   end
 
   def user_prompt

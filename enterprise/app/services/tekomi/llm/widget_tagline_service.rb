@@ -25,10 +25,7 @@ class Tekomi::Llm::WidgetTaglineService < Tekomi::BaseTaskService
   end
 
   def system_prompt
-    <<~PROMPT
-      You write a short marketing tagline for a company's customer-support chat widget.
-      Use the provided company context to make the tagline specific and on-brand.
-    PROMPT
+    Tekomi::PromptRenderer.render('widget_tagline')
   end
 
   def user_prompt

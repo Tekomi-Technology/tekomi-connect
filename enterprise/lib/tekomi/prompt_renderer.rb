@@ -1,6 +1,14 @@
 require 'liquid'
 
 class Tekomi::PromptRenderer
+  class SnippetFileSystem < Liquid::LocalFileSystem
+    def read_template_file(template_name)
+      return Llm::Prompts.body(template_name) if Llm::Prompts.key?(template_name)
+
+      super
+    end
+  end
+
   class << self
     def render(template_name, context = {})
       template = load_template(template_name)
@@ -11,6 +19,8 @@ class Tekomi::PromptRenderer
     private
 
     def load_template(template_name)
+      return Llm::Prompts.body(template_name) if Llm::Prompts.key?(template_name)
+
       template_path = Rails.root.join('enterprise', 'lib', 'tekomi', 'prompts', "#{template_name}.liquid")
 
       raise "Template not found: #{template_name}" unless File.exist?(template_path)
@@ -19,7 +29,7 @@ class Tekomi::PromptRenderer
     end
 
     def snippet_file_system
-      @snippet_file_system ||= Liquid::LocalFileSystem.new(
+      @snippet_file_system ||= SnippetFileSystem.new(
         Rails.root.join('enterprise/lib/tekomi/prompts/snippets'),
         '%s.liquid'
       )

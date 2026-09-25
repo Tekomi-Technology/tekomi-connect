@@ -55,3 +55,53 @@ features:
     group: embedding
   audio_transcription:
     group: audio
+
+prompts:
+  assistant:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/assistant.liquid
+  core_rules:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/snippets/core_rules.liquid
+  information_sources:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/snippets/information_sources.liquid
+  scenario:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/scenario.liquid
+  copilot:
+    group: copilot
+    path: enterprise/lib/tekomi/prompts/copilot.liquid
+  copilot_reply_suggestion:
+    group: copilot
+    path: enterprise/lib/tekomi/prompts/copilot_reply_suggestion.liquid
+  reply:
+    group: editor
+    path: lib/integrations/openai/openai_prompts/reply.liquid
+  improve:
+    group: editor
+    path: lib/integrations/openai/openai_prompts/improve.liquid
+  fix_spelling_grammar:
+    group: editor
+    path: lib/integrations/openai/openai_prompts/fix_spelling_grammar.liquid
+  tone_rewrite:
+    group: editor
+    path: lib/integrations/openai/openai_prompts/tone_rewrite.liquid
+  summary:
+    group: editor
+    path: lib/integrations/openai/openai_prompts/summary.liquid
+  deal_assistant:
+    group: deals
+    path: enterprise/lib/tekomi/prompts/deal_assistant.liquid
+  deal_summary:
+    group: deals
+    path: enterprise/lib/tekomi/prompts/deal_summary.liquid
+  deal_suggestion:
+    group: deals
+    path: enterprise/lib/tekomi/prompts/deal_suggestion.liquid
+  deal_next_step:
+    group: deals
+    path: enterprise/lib/tekomi/prompts/deal_next_step.liquid
+  deal_field_extraction:
+    group: deals
+    path: enterprise/lib/tekomi/prompts/deal_field_extraction.liquid

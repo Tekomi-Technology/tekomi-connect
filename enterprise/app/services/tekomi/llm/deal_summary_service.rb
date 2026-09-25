@@ -19,13 +19,7 @@ class Tekomi::Llm::DealSummaryService < Tekomi::BaseTaskService
   end
 
   def system_prompt
-    <<~PROMPT
-      You summarise a deal (a sales opportunity) for the salesperson who owns it.
-
-      Base the summary only on the deal data, the conversations with the customer and the change history given to you.
-      Never invent amounts, dates or commitments. When something is unknown, leave it out instead of guessing.
-      Money amounts are in Vietnamese Dong. Write in the language used in the conversations with the customer.
-    PROMPT
+    Tekomi::PromptRenderer.render('deal_summary')
   end
 
   def user_prompt

@@ -1,0 +1,26 @@
+<% content_for(:title) { t('super_admin.llm_config.title') } %>
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title" id="page-title"><%= t("super_admin.llm_prompt_templates.prompts.#{@prompt_template.key}.name") %></h1>
+  <% if @prompt_template.persisted? %>
+    <%= button_to t('super_admin.llm_prompt_templates.restore_default'),
+                  super_admin_llm_prompt_template_path(@prompt_template.key),
+                  method: :delete,
+                  data: { confirm: t('super_admin.llm_prompt_templates.restore_confirm') } %>
+  <% end %>
+</header>
+<%= render 'super_admin/llm_providers/tabs' %>
+<section class="main-content__body">
+  <p class="mb-2 text-sm text-slate-500"><%= t("super_admin.llm_prompt_templates.prompts.#{@prompt_template.key}.description") %></p>
+  <p class="mb-6 text-xs text-amber-700"><%= t('super_admin.llm_prompt_templates.edit_warning') %></p>
+  <%= form_with model: @prompt_template, scope: :llm_prompt_template, url: super_admin_llm_prompt_template_path(@prompt_template.key), method: :patch do |form| %>
+    <% if @prompt_template.errors.any? %>
+      <p class="mb-6 text-sm text-red-600"><%= @prompt_template.errors.full_messages.join(', ') %></p>
+    <% end %>
+    <%= form.text_area :body, rows: 30, spellcheck: false, class: 'w-full p-3 font-mono text-xs border border-slate-100 rounded-md' %>
+    <div class="form-actions"><%= form.submit t('super_admin.llm_prompt_templates.save') %></div>
+  <% end %>
+  <details class="mt-8">
+    <summary class="text-sm cursor-pointer text-slate-700"><%= t('super_admin.llm_prompt_templates.show_default') %></summary>
+    <pre class="p-3 mt-2 overflow-x-auto text-xs whitespace-pre-wrap rounded-md bg-slate-50"><%= Llm::Prompts.default_body(@prompt_template.key) %></pre>
+  </details>
+</section>

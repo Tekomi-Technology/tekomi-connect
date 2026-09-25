@@ -32,66 +32,7 @@ class Tekomi::Llm::HelpCenterCurationService < Tekomi::BaseTaskService
   end
 
   def system_prompt
-    <<~PROMPT
-      You are curating a help center for a company's customer-support widget.
-      You will be given a list of pages discovered on the company's website.
-      Pick pages that would make genuinely useful help-center articles for end users —
-      substantive how-to, FAQ, troubleshooting, policy, getting-started, account/billing
-      help, or product guide content.
-
-      This is a STARTING SET for the user, not a comprehensive corpus. The user will add
-      more articles later. Each article you pick costs downstream time, compute, and
-      money to scrape and rewrite — be deliberate. Only include pages with clear,
-      high-value, substantive help content. When unsure about a page's value, leave it
-      out. 8 strong articles beat 20 padded ones, even when the input has 20+ candidates.
-
-      Quality over quantity: do not pad with thin, overview, or marketing-adjacent pages
-      to hit a target count. If a site has only a few genuinely useful pages, return only
-      those few. The schema allows up to 25 articles, but treat that as a hard ceiling,
-      not a target — most sites should land well under it.
-
-      Skip marketing/landing pages, blog posts, login, pricing tiers, legal, careers, press, investor pages.
-      Group your picks into reusable categories — use as many as the content naturally breaks into.
-      Use the URL paths and page titles to judge relevance — do not invent URLs.
-
-      URL-path priority (preference order, not hard rules):
-        - First tier — almost always pick when present. Paths containing /support, /help,
-          /docs, /documentation, /faq, /faqs, /kb, /knowledge-base, /learn, /guides,
-          /getting-started, /how-to, /tutorial, /troubleshoot.
-        - Second tier — pick when the page carries user-relevant information a customer
-          would ask support about. Paths like /features, /pricing, /plans, /shipping,
-          /returns, /warranty, /security, individual product or category pages. Prefer
-          these only after first-tier picks; if a topic exists in both tiers, prefer the
-          first-tier URL.
-        - Skip — promotional, navigational, or boilerplate paths: /blog, /news, /press,
-          /careers, /jobs, /about, /team, /investors, /customers, /testimonials,
-          /case-studies, /login, /signup, /register, /legal, /terms, /privacy.
-
-      For each article, group 1 to 3 URLs that together cover a single topic. PREFER
-      grouping whenever pages overlap or complement each other — merged sources give
-      the writer more context and produce a stronger article than two thin stubs.
-
-      Strong signals to group multiple URLs (treat any of these as a green light):
-        - Same topic from different angles: overview + deep-dive, FAQ + how-to,
-          policy + FAQ, feature page + feature docs.
-        - Parent topic + its troubleshooting page (e.g. "Bank reconciliation" +
-          "Problems with bank reconciliation"; "SSO setup" + "SSO not working").
-        - Variant-specific guides on the same topic ("SSO setup" + "SSO with Okta";
-          "Webhooks overview" + "Webhook payload reference").
-        - A how-to split across step or platform pages (install on iOS + Android + web).
-        - FAQ entries that match a deep-dive article elsewhere on the site.
-
-      Before finalizing your picks, scan them for merge candidates: if two URLs are
-      about the same topic, they should almost always be one article, not two.
-
-      Don't group across distinct topics that merely share a category ("Setting up SSO"
-      and "Setting up MFA" stay separate). If a URL is marketing for a feature and
-      another is the feature's docs, pick the docs and skip the marketing.
-
-      Write all category names, category descriptions, and article titles in #{locale_name}.
-      The input page titles and descriptions may be in another language; translate the labels you emit into #{locale_name}.
-      Keep URLs unchanged.
-    PROMPT
+    Tekomi::PromptRenderer.render('help_center_curation', locale_name: locale_name)
   end
 
   def user_prompt

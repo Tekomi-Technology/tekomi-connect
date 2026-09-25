@@ -817,6 +817,7 @@ Rails.application.routes.draw do
       if ChatwootApp.enterprise?
         resources :llm_providers, only: [:index, :new, :create, :edit, :update, :destroy]
         resource :llm_feature_models, only: [:show, :update]
+        resources :llm_prompt_templates, only: [:index, :edit, :update, :destroy], param: :key
       end
 
       # resources that doesn't appear in primary navigation in super admin
