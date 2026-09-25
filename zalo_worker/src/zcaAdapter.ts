@@ -16,13 +16,14 @@ import {
   toZcaThreadType,
 } from './types.js';
 import { resolveStickerImage } from './stickerResolver.js';
+import { buildProxyOptions } from './proxyOptions.js';
 
 export class ZcaAdapter implements ZaloApi {
   private constructor(private api: any) {}
 
   /** Login from saved credentials and start listening. */
   static async fromCredentials(creds: ZaloCredentials): Promise<ZcaAdapter> {
-    const zalo = new Zalo({ selfListen: true });
+    const zalo = new Zalo({ selfListen: true, ...buildProxyOptions(creds.proxy) });
     const api = await zalo.login({
       imei: creds.imei,
       cookie: creds.cookie as any,

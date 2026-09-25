@@ -82,6 +82,18 @@ export interface ZaloCredentials {
   cookie: unknown;
   userAgent: string;
   language?: string;
+  /** The egress identity assigned to this Zalo account. Stored inside Rails' encrypted blob. */
+  proxy?: ProxyConnection;
+}
+
+export type ProxyProtocol = 'http' | 'https' | 'socks5';
+
+export interface ProxyConnection {
+  protocol: ProxyProtocol;
+  host: string;
+  port: number;
+  username: string | null;
+  password: string | null;
 }
 
 /** Narrow interface the routes depend on. ZcaAdapter implements it. */

@@ -17,7 +17,7 @@ class Api::V1::Accounts::ZaloPersonal::AuthorizationsController < Api::V1::Accou
 
   # Starts a QR login. Pass channel_id to re-authenticate an existing inbox whose session expired.
   def create
-    started = ::Zalo::WorkerClient.start_qr_login
+    started = ::Zalo::WorkerClient.start_qr_login(reauth_channel&.id)
     qr_session_id = started['qr_session_id']
 
     ::Redis::Alfred.setex(cache_key(qr_session_id), pending_payload.to_json, QR_SESSION_TTL)

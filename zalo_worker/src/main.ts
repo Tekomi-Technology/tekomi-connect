@@ -8,6 +8,7 @@ import { registerRoutes } from './routes.js';
 import { isReactionRemoval, reactionEmoji } from './reactionIcons.js';
 import type { QrLoginResult } from './qrLogin.js';
 import type { IncomingMessage, ReactionEvent, UndoEvent, ZaloCredentials } from './types.js';
+import { ProxyPool } from './proxyPool.js';
 
 const PORT = Number(process.env.ZALO_WORKER_PORT ?? 3100);
 // Loopback by default so a single-host install cannot expose the worker. Compose deployments
@@ -25,6 +26,13 @@ if (!SECRET) throw new Error('ZALO_WORKER_SECRET is required');
 const app = Fastify({ logger: true });
 const rails = new RailsClient(RAILS_BASE_URL, SECRET);
 const sessions = new SessionManager();
+const proxyPool = await ProxyPool.fromEnvironment();
+app.log.info({ proxy_count: proxyPool.size }, 'zalo proxy pool loaded');
+
+function credentialsWithProxy(channelId: number, creds: ZaloCredentials): ZaloCredentials {
+  if (creds.proxy || proxyPool.size === 0) return creds;
+  return { ...creds, proxy: proxyPool.assign(channelId) };
+}
 
 // Credentials live here only while the process runs; Rails is the system of record.
 const credentials = new Map<number, ZaloCredentials>();
@@ -32,7 +40,13 @@ const credentials = new Map<number, ZaloCredentials>();
 const log = (obj: Record<string, unknown>, msg: string) => app.log.info(obj, msg);
 
 const supervisor = new ReconnectSupervisor({
-  loadCredentials: async (channelId) => credentials.get(channelId) ?? null,
+  loadCredentials: async (channelId) => {
+    const creds = credentials.get(channelId);
+    if (!creds) return null;
+    const assigned = credentialsWithProxy(channelId, creds);
+    if (assigned !== creds) credentials.set(channelId, assigned);
+    return assigned;
+  },
   saveCredentials: async (channelId, creds) => {
     credentials.set(channelId, creds);
     await rails.postEvent({ event: 'credentials_refreshed', channel_id: channelId, credentials: creds });
@@ -113,7 +127,16 @@ const reportQrFailure = async (qrSessionId: string, reason: string) => {
 };
 
 await app.register(multipart, { limits: { fileSize: 100 * 1024 * 1024 } });
-registerRoutes(app, { sessions, supervisor, credentials, reportQrLogin, reportQrFailure, secret: SECRET, log });
+registerRoutes(app, {
+  sessions,
+  supervisor,
+  credentials,
+  reportQrLogin,
+  reportQrFailure,
+  secret: SECRET,
+  log,
+  proxyForQr: (channelId) => proxyPool.assign(channelId, channelId == null ? undefined : credentials.get(channelId)?.proxy),
+});
 
 // Rails does not know when the worker restarts, so the worker asks for the channels to restore.
 // Both start together under compose, so Rails is routinely not listening yet on the first try;

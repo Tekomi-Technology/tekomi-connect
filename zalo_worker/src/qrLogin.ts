@@ -1,7 +1,8 @@
 import { Zalo, LoginQRCallbackEventType } from 'zca-js';
 import type { LoginQRCallbackEvent } from 'zca-js';
 import { randomUUID } from 'node:crypto';
-import type { ZaloCredentials } from './types.js';
+import type { ProxyConnection, ZaloCredentials } from './types.js';
+import { buildProxyOptions } from './proxyOptions.js';
 
 export interface QrLoginResult {
   qrSessionId: string;
@@ -34,9 +35,9 @@ function toDataUrl(image: string | undefined): string {
  * actually serves the inbox is created from the stored credentials, so there is exactly one
  * code path that opens a live session.
  */
-export function startQrLogin(report: Report, reportFailure: ReportFailure, log: Log): Promise<QrStarted> {
+export function startQrLogin(report: Report, reportFailure: ReportFailure, log: Log, proxy?: ProxyConnection): Promise<QrStarted> {
   const qrSessionId = randomUUID();
-  const zalo = new Zalo({ selfListen: true });
+  const zalo = new Zalo({ selfListen: true, ...buildProxyOptions(proxy) });
 
   return new Promise<QrStarted>((resolve, reject) => {
     let settled = false;
@@ -61,7 +62,7 @@ export function startQrLogin(report: Report, reportFailure: ReportFailure, log: 
       }
       if (event.type === LoginQRCallbackEventType.GotLoginInfo) {
         const data = event.data as any;
-        credentials = { imei: data.imei, cookie: data.cookie, userAgent: data.userAgent, language: 'vi' };
+        credentials = { imei: data.imei, cookie: data.cookie, userAgent: data.userAgent, language: 'vi', proxy };
       }
     });
 

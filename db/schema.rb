@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_09_09_000004) do
+ActiveRecord::Schema[7.2].define(version: 2026_09_25_000002) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -619,6 +619,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_09_09_000004) do
 
   create_table "channel_zalo_oa", force: :cascade do |t|
     t.integer "account_id", null: false
+    t.bigint "backfill_watermark_ms", default: 0, null: false
     t.string "oa_id", null: false
     t.string "oa_name"
     t.string "app_id", null: false
