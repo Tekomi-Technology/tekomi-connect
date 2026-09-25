@@ -21,13 +21,13 @@ class Crm::Perfex::TicketDeliveryJob < ApplicationJob
     message = "#{transcript}<br><br>---<br>Ghi chú: #{ERB::Util.html_escape(note)}"
 
     client = Crm::Perfex::Api::TicketClient.new(
-      base_url: ENV.fetch('EXTERNAL_TICKET_SYSTEM_URL'),
-      api_key: ENV.fetch('EXTERNAL_TICKET_SYSTEM_API_KEY')
+      base_url: Crm::Perfex::Config.system_url,
+      api_key: Crm::Perfex::Config.api_key
     )
     response = client.create_ticket(
       subject: subject_for(contact),
       message: message,
-      department: ENV.fetch('EXTERNAL_TICKET_DEPARTMENT_ID'),
+      department: Crm::Perfex::Config.department_id,
       userid: customer_id,
       contactid: contact_id
     )
@@ -38,10 +38,11 @@ class Crm::Perfex::TicketDeliveryJob < ApplicationJob
   private
 
   def subject_for(contact)
+    prefix = "[#{GlobalConfigService.load('BRAND_NAME', 'GMO')} Chatbot]"
     company_name = contact.company&.name
-    return "[Tekomi Chatbot] #{contact.name}" if company_name.blank?
+    return "#{prefix} #{contact.name}" if company_name.blank?
 
-    "[Tekomi Chatbot] #{company_name} - #{contact.name}"
+    "#{prefix} #{company_name} - #{contact.name}"
   end
 
   def record_delivery(conversation, response)

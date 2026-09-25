@@ -2,6 +2,7 @@ export const ATTRIBUTE_MODELS = [
   { id: 0, key: 'CONVERSATION' },
   { id: 1, key: 'CONTACT' },
   { id: 3, key: 'DEAL', featureFlag: 'crm_deals' },
+  { id: 4, key: 'TICKET', featureFlag: 'crm_tickets' },
 ];
 
 export const ATTRIBUTE_TYPES = [

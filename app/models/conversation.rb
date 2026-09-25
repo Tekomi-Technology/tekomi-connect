@@ -136,6 +136,8 @@ class Conversation < ApplicationRecord
   has_many :automation_rule_pending_executions, dependent: :delete_all
   has_many :deal_conversations, dependent: :delete_all
   has_many :deals, through: :deal_conversations
+  has_many :ticket_conversations, dependent: :delete_all
+  has_many :tickets, through: :ticket_conversations
 
   before_save :ensure_snooze_until_reset
   before_save :set_status_changed_at

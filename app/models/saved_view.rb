@@ -1,8 +1,15 @@
 class SavedView < ApplicationRecord
+  TICKET_DEFAULT_FILTERS = {
+    all: [],
+    breached: [{ attribute_key: 'sla_status', filter_operator: 'equal_to', values: ['breached'], query_operator: nil }],
+    at_risk: [{ attribute_key: 'sla_status', filter_operator: 'equal_to', values: ['at_risk'], query_operator: nil }],
+    mine: [{ attribute_key: 'assignee_id', filter_operator: 'equal_to', values: ['me'], query_operator: nil }]
+  }.freeze
+
   belongs_to :account
   belongs_to :pipeline, optional: true
 
-  enum :object_type, { deal: 0 }, validate: true
+  enum :object_type, { deal: 0, ticket: 1 }, validate: true
   enum :view_type, { table: 0, kanban: 1, calendar: 2, list: 3 }, validate: true, prefix: true
 
   validates :name, presence: true

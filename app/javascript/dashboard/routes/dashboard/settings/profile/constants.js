@@ -34,6 +34,25 @@ export const NOTIFICATION_TYPES = [
     label: 'PROFILE_SETTINGS.FORM.NOTIFICATIONS.TYPES.SLA_MISSED_RESOLUTION',
     value: 'sla_missed_resolution',
   },
+  {
+    label: 'PROFILE_SETTINGS.FORM.NOTIFICATIONS.TYPES.TICKET_SLA_WARNING',
+    value: 'ticket_sla_warning',
+  },
+  {
+    label: 'PROFILE_SETTINGS.FORM.NOTIFICATIONS.TYPES.TICKET_SLA_MISSED',
+    value: 'ticket_sla_missed',
+  },
+];
+
+export const SLA_NOTIFICATION_TYPES = [
+  'sla_missed_first_response',
+  'sla_missed_next_response',
+  'sla_missed_resolution',
+];
+
+export const TICKET_NOTIFICATION_TYPES = [
+  'ticket_sla_warning',
+  'ticket_sla_missed',
 ];
 
 export const EVENT_TYPES = {

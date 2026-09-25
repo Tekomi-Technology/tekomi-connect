@@ -12,7 +12,8 @@
       "CONVERSATION": "Cuộc hội thoại",
       "CONTACT": "Liên hệ",
       "COMPANY": "Công ty",
-      "DEAL": "Cơ hội"
+      "DEAL": "Cơ hội",
+      "TICKET": "Ticket"
     },
     "ATTRIBUTE_TYPES": {
       "TEXT": "Văn bản",

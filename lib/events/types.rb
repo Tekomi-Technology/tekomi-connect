@@ -53,6 +53,11 @@ module Events::Types
   DEAL_UPDATED = 'deal.updated'
   DEAL_DELETED = 'deal.deleted'
 
+  # ticket events
+  TICKET_CREATED = 'ticket.created'
+  TICKET_UPDATED = 'ticket.updated'
+  TICKET_DELETED = 'ticket.deleted'
+
   # contact events
   INBOX_CREATED = 'inbox.created'
   INBOX_UPDATED = 'inbox.updated'

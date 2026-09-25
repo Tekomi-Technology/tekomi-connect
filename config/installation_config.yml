@@ -1,5 +1,5 @@
 - name: INSTALLATION_NAME
-  value: 'Tekomi'
+  value: 'GMO Connect'
   display_title: 'Installation Name'
   description: 'The installation wide name that would be used in the dashboard, title etc.'
 - name: LOGO_THUMBNAIL
@@ -23,7 +23,7 @@
   display_title: 'Widget Brand URL'
   description: 'The URL that would be used in the widget under the section “Powered By”'
 - name: BRAND_NAME
-  value: 'Tekomi'
+  value: 'GMO Connect'
   display_title: 'Brand Name'
   description: 'The name that would be used in emails and the widget'
 - name: TERMS_URL
@@ -36,8 +36,8 @@
   description: 'The privacy policy URL displayed in the app'
 - name: DISPLAY_MANIFEST
   value: true
-  display_title: 'Tekomi Metadata'
-  description: 'Display default Tekomi metadata like favicons and upgrade warnings'
+  display_title: 'GMO Metadata'
+  description: 'Display default GMO metadata like favicons and upgrade warnings'
   type: boolean
 
 - name: ENABLE_ACCOUNT_SIGNUP
@@ -64,7 +64,7 @@
 - name: WEBHOOK_TIMEOUT
   value: 5
   display_title: 'Webhook request timeout (seconds)'
-  description: 'Maximum time Tekomi waits for a webhook response before failing the request'
+  description: 'Maximum time GMO waits for a webhook response before failing the request'
   locked: false
 - name: DIRECT_UPLOADS_ENABLED
   type: boolean
@@ -156,29 +156,29 @@
 
 - name: TEKOMI_FIRECRAWL_API_KEY
   display_title: 'FireCrawl API Key (optional)'
-  description: 'The FireCrawl API key for the Tekomi AI service'
+  description: 'The FireCrawl API key for the GMO AI service'
   locked: false
   type: secret
 - name: TEKOMI_CLOUD_PLAN_LIMITS
-  display_title: 'Tekomi AI Cloud Plan Limits'
-  description: 'The limits for the Tekomi AI service for different plans'
+  display_title: 'GMO AI Cloud Plan Limits'
+  description: 'The limits for the GMO AI service for different plans'
   value:
   type: code
 - name: TEKOMI_DOCUMENT_AUTO_SYNC_INTERVALS
-  display_title: 'Tekomi AI Document Auto Sync Intervals'
-  description: 'JSON map of plan-wise Tekomi AI document auto-sync intervals in hours. Use null to disable auto-sync for a plan.'
+  display_title: 'GMO AI Document Auto Sync Intervals'
+  description: 'JSON map of plan-wise GMO AI document auto-sync intervals in hours. Use null to disable auto-sync for a plan.'
   value:
   locked: false
   type: code
 - name: TEKOMI_DOCUMENT_AUTO_SYNC_PER_ACCOUNT_BATCH_LIMIT
-  display_title: 'Tekomi AI Document Auto Sync Per Account Batch Limit'
-  description: 'Maximum syncable Tekomi AI documents to enqueue per account in one scheduler run. Defaults to 50.'
+  display_title: 'GMO AI Document Auto Sync Per Account Batch Limit'
+  description: 'Maximum syncable GMO AI documents to enqueue per account in one scheduler run. Defaults to 50.'
   value: 50
   locked: false
   type: number
 - name: TEKOMI_DOCUMENT_AUTO_SYNC_GLOBAL_BATCH_LIMIT
-  display_title: 'Tekomi AI Document Auto Sync Global Batch Limit'
-  description: 'Maximum syncable Tekomi AI documents to enqueue globally in one scheduler run. Defaults to 1000.'
+  display_title: 'GMO AI Document Auto Sync Global Batch Limit'
+  description: 'Maximum syncable GMO AI documents to enqueue globally in one scheduler run. Defaults to 1000.'
   value: 1000
   locked: false
   type: number
@@ -197,7 +197,7 @@
 - name: DISABLE_META_MESSAGE_SENDING
   value: true
   display_title: 'Disable Meta Message Sending'
-  description: 'Disable Instagram message sending on Tekomi Cloud during Meta incidents'
+  description: 'Disable Instagram message sending on GMO Cloud during Meta incidents'
   locked: false
   type: boolean
 - name: CHATWOOT_CLOUD_PLANS
@@ -205,7 +205,7 @@
   value:
   description: 'Config to store stripe plans for cloud'
 - name: TEKOMI_TOPUP_OPTIONS
-  display_title: 'Tekomi AI Topup Options'
+  display_title: 'GMO AI Topup Options'
   value: {}
   description: 'Currency-keyed AI credit top-up packages, e.g. {"usd":[{"credits":1000,"amount":20.0}],"brl":[{"credits":1000,"amount":100.0}]}'
   type: code
@@ -451,4 +451,22 @@
   display_title: 'Langfuse Base URL'
   description: 'Langfuse endpoint (US: https://us.cloud.langfuse.com, EU: https://cloud.langfuse.com)'
   value: 'https://us.cloud.langfuse.com'
+  locked: false
+
+# ------- External Ticket System (Perfex CRM) ------- #
+- name: EXTERNAL_TICKET_SYSTEM_URL
+  display_title: 'External Ticket System URL'
+  description: 'Base REST API URL of the external CRM tickets are sent to, e.g. https://crm.example.com/rest_api/v1/'
+  value: ''
+  locked: false
+- name: EXTERNAL_TICKET_SYSTEM_API_KEY
+  display_title: 'External Ticket System API Key'
+  description: 'API key used to authenticate against the external CRM'
+  value: ''
+  locked: false
+  type: secret
+- name: EXTERNAL_TICKET_DEPARTMENT_ID
+  display_title: 'External Ticket Department ID'
+  description: 'Department every ticket is filed under in the external CRM'
+  value: ''
   locked: false

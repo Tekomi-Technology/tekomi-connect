@@ -513,7 +513,8 @@
         "MEDIA": "Ảnh và video",
         "MERGE": "Gộp",
         "CHANNELS": "Kênh",
-        "DEALS": "Cơ hội"
+        "DEALS": "Cơ hội",
+        "TICKETS": "Ticket"
       },
       "HISTORY": {
         "EMPTY_STATE": "Không có hội thoại trước đó được liên kết với liên hệ này"

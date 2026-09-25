@@ -10,7 +10,11 @@ import {
 } from 'dashboard/helper/pushHelper.js';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import ToggleSwitch from 'dashboard/components-next/switch/Switch.vue';
-import { NOTIFICATION_TYPES } from './constants';
+import {
+  NOTIFICATION_TYPES,
+  SLA_NOTIFICATION_TYPES,
+  TICKET_NOTIFICATION_TYPES,
+} from './constants';
 
 export default {
   components: {
@@ -40,16 +44,22 @@ export default {
     isSLAEnabled() {
       return this.isFeatureEnabledonAccount(this.accountId, FEATURE_FLAGS.SLA);
     },
-    filteredNotificationTypes() {
-      return this.notificationTypes.filter(notification =>
-        this.isSLAEnabled
-          ? true
-          : ![
-              'sla_missed_first_response',
-              'sla_missed_next_response',
-              'sla_missed_resolution',
-            ].includes(notification.value)
+    isTicketsEnabled() {
+      return this.isFeatureEnabledonAccount(
+        this.accountId,
+        FEATURE_FLAGS.CRM_TICKETS
       );
+    },
+    filteredNotificationTypes() {
+      return this.notificationTypes.filter(notification => {
+        if (SLA_NOTIFICATION_TYPES.includes(notification.value)) {
+          return this.isSLAEnabled;
+        }
+        if (TICKET_NOTIFICATION_TYPES.includes(notification.value)) {
+          return this.isTicketsEnabled;
+        }
+        return true;
+      });
     },
   },
   watch: {

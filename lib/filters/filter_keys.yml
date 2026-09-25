@@ -304,3 +304,63 @@ deals:
       - "is_less_than"
       - "days_before"
 ### ----- End of Deal Filters ----- ###
+
+tickets:
+  title:
+    attribute_type: "standard"
+    data_type: "text_case_insensitive"
+    filter_operators:
+      - "equal_to"
+      - "not_equal_to"
+      - "contains"
+      - "does_not_contain"
+  description:
+    attribute_type: "standard"
+    data_type: "text_case_insensitive"
+    filter_operators:
+      - "contains"
+      - "does_not_contain"
+      - "is_present"
+      - "is_not_present"
+  stage_id:
+    attribute_type: "standard"
+    data_type: "numeric"
+    filter_operators:
+      - "equal_to"
+      - "not_equal_to"
+  assignee_id:
+    attribute_type: "standard"
+    data_type: "numeric"
+    filter_operators:
+      - "equal_to"
+      - "not_equal_to"
+      - "is_present"
+      - "is_not_present"
+  contact_id:
+    attribute_type: "standard"
+    data_type: "numeric"
+    filter_operators:
+      - "equal_to"
+      - "not_equal_to"
+      - "is_present"
+      - "is_not_present"
+  sla_status:
+    attribute_type: "standard"
+    data_type: "numeric"
+    filter_operators:
+      - "equal_to"
+      - "not_equal_to"
+  created_by:
+    attribute_type: "standard"
+    data_type: "numeric"
+    filter_operators:
+      - "equal_to"
+      - "not_equal_to"
+  created_at:
+    attribute_type: "standard"
+    data_type: "date"
+    filter_operators:
+      - "is_greater_than"
+      - "is_less_than"
+      - "days_before"
+### ----- End of Ticket Filters ----- ###

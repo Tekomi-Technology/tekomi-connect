@@ -89,6 +89,8 @@ class Account < ApplicationRecord
   has_many :inboxes, dependent: :destroy_async
   has_many :phone_extensions, dependent: :destroy_async
   has_many :pipelines, dependent: :destroy_async
+  has_many :tickets, dependent: :destroy_async
+  has_many :ticket_webhooks, dependent: :destroy_async
   has_many :labels, dependent: :destroy_async
   has_many :line_channels, dependent: :destroy_async, class_name: '::Channel::Line'
   has_many :mentions, dependent: :destroy_async
@@ -123,7 +125,10 @@ class Account < ApplicationRecord
   after_create_commit :notify_creation
   after_update_commit :clear_unread_conversation_counts_cache, if: :saved_change_to_feature_conversation_unread_counts?
   after_update :resume_delayed_automations, if: -> { saved_change_to_feature_delayed_automations? && feature_delayed_automations? }
-  after_update :create_default_pipeline, if: -> { saved_change_to_feature_crm_deals? && feature_crm_deals? && pipelines.none? }
+  after_update :create_default_pipeline, if: -> { saved_change_to_feature_crm_deals? && feature_crm_deals? && pipelines.pipeline_type_sales.none? }
+  after_update :create_default_ticket_pipeline, if: lambda {
+    saved_change_to_feature_crm_tickets? && feature_crm_tickets? && pipelines.pipeline_type_ticket.none?
+  }
   after_destroy :remove_account_sequences
 
   def agents
@@ -210,8 +215,18 @@ class Account < ApplicationRecord
     AutomationRulePendingExecution.reschedule_paused(self)
   end
 
+  # The pipeline, its stages and its views are seeded as data, so they are named in the
+  # account's own language rather than whichever locale happened to be active on the request.
   def create_default_pipeline
-    pipelines.create!(name: I18n.t('crm_deals.default_pipeline.name'))
+    I18n.with_locale(locale) do
+      pipelines.create!(name: I18n.t('crm_deals.default_pipeline.name'))
+    end
+  end
+
+  def create_default_ticket_pipeline
+    I18n.with_locale(locale) do
+      pipelines.create!(name: I18n.t('crm_tickets.default_pipeline.name'), pipeline_type: :ticket)
+    end
   end
 
   trigger.after(:insert).for_each(:row) do

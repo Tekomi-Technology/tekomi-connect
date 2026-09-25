@@ -239,7 +239,7 @@ class Seeders::Reports::ReportDataSeeder
     @assistant = Tekomi::Assistant.create!(
       account: @account,
       name: "#{Faker::Company.name} Copilot",
-      description: 'Tekomi assistant handling website support conversations.',
+      description: 'GMO assistant handling website support conversations.',
       config: { feature_faq: true, feature_memory: true, product_name: @account.name }
     )
     TekomiInbox.create!(tekomi_assistant: @assistant, inbox: @assistant_inbox)

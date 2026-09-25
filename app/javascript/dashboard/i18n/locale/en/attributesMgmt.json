@@ -12,7 +12,8 @@
       "CONVERSATION": "Conversation",
       "CONTACT": "Contact",
       "COMPANY": "Company",
-      "DEAL": "Deal"
+      "DEAL": "Deal",
+      "TICKET": "Ticket"
     },
     "ATTRIBUTE_TYPES": {
       "TEXT": "Text",

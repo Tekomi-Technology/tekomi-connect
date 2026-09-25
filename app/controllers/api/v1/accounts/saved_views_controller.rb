@@ -1,5 +1,5 @@
 class Api::V1::Accounts::SavedViewsController < Api::V1::Accounts::BaseController
-  include CrmDealsFeatureConcern
+  include CrmFeatureConcern
 
   JSON_ATTRIBUTES = %i[filters sorts fields settings].freeze
 
