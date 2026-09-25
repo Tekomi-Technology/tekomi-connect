@@ -601,6 +601,12 @@ const menuItems = computed(() => {
                 }),
               },
               {
+                name: 'ConversationAnalysis',
+                label: t('SIDEBAR.TEKOMI_CONVERSATION_ANALYSIS'),
+                activeOn: ['tekomi_conversation_analysis_index'],
+                to: accountScopedRoute('tekomi_conversation_analysis_index'),
+              },
+              {
                 name: 'Settings',
                 label: t('SIDEBAR.TEKOMI_SETTINGS'),
                 activeOn: [

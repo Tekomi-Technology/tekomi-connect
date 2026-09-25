@@ -45,6 +45,7 @@ const toggleSidebar = () => {
   updateUISettings({
     is_copilot_panel_open: !uiSettings.value.is_copilot_panel_open,
     is_contact_sidebar_open: false,
+    is_conversation_analysis_panel_open: false,
   });
 };
 </script>

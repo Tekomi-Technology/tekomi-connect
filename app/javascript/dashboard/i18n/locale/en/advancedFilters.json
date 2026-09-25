@@ -65,7 +65,9 @@
       "CUSTOM_ATTRIBUTE_LINK": "Link",
       "CUSTOM_ATTRIBUTE_CHECKBOX": "Checkbox",
       "CREATED_AT": "Created at",
-      "LAST_ACTIVITY": "Last activity"
+      "LAST_ACTIVITY": "Last activity",
+      "ANALYSIS_INTEREST_LEVEL": "Interest level (AI analysis)",
+      "ANALYSIS_QUALITY_SCORE": "Quality score (AI analysis)"
     },
     "ERRORS": {
       "VALUE_REQUIRED": "Value is required",

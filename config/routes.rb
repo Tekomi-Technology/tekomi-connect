@@ -163,6 +163,14 @@ Rails.application.routes.draw do
           namespace :channels do
             resource :twilio_channel, only: [:create]
           end
+          if ChatwootApp.enterprise?
+            resources :conversation_analyses, only: [] do
+              collection do
+                get :report
+                get :opportunities
+              end
+            end
+          end
           resources :conversations, only: [:index, :create, :show, :update, :destroy] do
             collection do
               get :meta
@@ -184,6 +192,11 @@ Rails.application.routes.draw do
               resource :draft_messages, only: [:show, :update, :destroy]
               resources :deals, only: [:index]
               resources :tickets, only: [:index]
+              if ChatwootApp.enterprise?
+                resource :analysis, only: [:show, :create] do
+                  post :care_suggestion
+                end
+              end
             end
             member do
               post :mute
@@ -253,6 +266,7 @@ Rails.application.routes.draw do
               resources :notes
               resources :deals, only: [:index]
               resources :tickets, only: [:index]
+              resources :conversation_analyses, only: [:index] if ChatwootApp.enterprise?
               get :attachments, to: 'attachments#index'
               post :call, on: :member, to: 'calls#create' if ChatwootApp.enterprise?
             end

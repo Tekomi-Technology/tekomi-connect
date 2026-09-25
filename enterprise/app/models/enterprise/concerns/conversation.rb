@@ -9,6 +9,7 @@ module Enterprise::Concerns::Conversation
     has_many :tekomi_responses, class_name: 'Tekomi::AssistantResponse', dependent: :nullify, as: :documentable
     has_many :tekomi_faq_observations, class_name: 'Tekomi::FaqObservation', dependent: :delete_all
     has_many :conversation_outcomes, dependent: :destroy_async
+    has_one :conversation_analysis, dependent: :destroy_async
     scope :with_sla_applicable_contact, -> { left_joins(:contact).where(contacts: { blocked: [false, nil] }) }
 
     before_validation :validate_sla_policy, if: -> { sla_policy_id_changed? }

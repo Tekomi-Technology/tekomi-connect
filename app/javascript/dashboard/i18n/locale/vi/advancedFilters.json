@@ -65,7 +65,9 @@
       "CUSTOM_ATTRIBUTE_LINK": "Liên kết",
       "CUSTOM_ATTRIBUTE_CHECKBOX": "Hộp kiểm",
       "CREATED_AT": "Tạo vào lúc",
-      "LAST_ACTIVITY": "Hành động cuối cùng"
+      "LAST_ACTIVITY": "Hành động cuối cùng",
+      "ANALYSIS_INTEREST_LEVEL": "Mức quan tâm (AI phân tích)",
+      "ANALYSIS_QUALITY_SCORE": "Điểm chất lượng (AI phân tích)"
     },
     "ERRORS": {
       "VALUE_REQUIRED": "Giá trị bắt buộc có",

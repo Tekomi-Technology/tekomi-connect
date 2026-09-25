@@ -394,7 +394,8 @@
     },
     "SIDEBAR": {
       "CONTACT": "Liên hệ",
-      "COPILOT": "Tekomi"
+      "COPILOT": "Tekomi",
+      "ANALYSIS": "Phân tích hội thoại"
     },
     "VOICE_WIDGET": {
       "INCOMING_CALL": "Cuộc gọi đến",
@@ -533,6 +534,7 @@
       "CONVERSATION_LABELS": "Nhãn hội thoại",
       "CONVERSATION_INFO": "Thông tin hội thoại",
       "CONTACT_NOTES": "Ghi chú liên hệ",
+      "CUSTOMER_INSIGHTS": "Hồ sơ khách hàng (AI)",
       "CONTACT_ATTRIBUTES": "Thuộc tính của liên hệ",
       "PREVIOUS_CONVERSATION": "Hội thoại trước đó",
       "MACROS": "Macro",
@@ -645,6 +647,122 @@
   },
   "COPILOT": {
     "TRY_THESE_PROMPTS": "Thử các câu gợi ý sau"
+  },
+  "CONVERSATION_ANALYSIS": {
+    "TITLE": "Phân tích hội thoại",
+    "ANALYZE": "Phân tích",
+    "REANALYZE": "Phân tích lại",
+    "ANALYZING": "Đang phân tích hội thoại, có thể mất vài giây…",
+    "EMPTY": "Hội thoại này chưa được phân tích.",
+    "ERROR": "Không phân tích được hội thoại. Vui lòng thử lại.",
+    "LOAD_ERROR": "Không tải được kết quả phân tích.",
+    "ANALYZED_BY": "Phân tích bởi {name} · {time}",
+    "QUALITY": {
+      "TITLE": "Chất lượng phục vụ",
+      "SCORE": "{score}/100",
+      "CRITERION_SCORE": "{score}/5",
+      "NOT_SCORED": "Chưa đủ dữ liệu",
+      "SERVED_BY": "Bên trả lời: {servedBy}",
+      "SERVED_BY_OPTIONS": {
+        "BOT": "Bot",
+        "AGENT": "Nhân viên",
+        "BOTH": "Bot và nhân viên",
+        "NONE": "Chưa có phản hồi"
+      },
+      "CRITERIA": {
+        "UNDERSTANDING": "Hiểu nhu cầu",
+        "COMPLETENESS": "Độ đầy đủ",
+        "ACCURACY": "Độ chính xác",
+        "TONE": "Tông giọng và xưng hô",
+        "RESOLUTION": "Giải quyết và kết quả",
+        "PROACTIVENESS": "Chủ động"
+      }
+    },
+    "CUSTOMER": {
+      "TITLE": "Thông tin khách hàng",
+      "EMPTY": "Khách chưa chia sẻ thông tin cụ thể.",
+      "FIELDS": {
+        "NEEDS": "Nhu cầu",
+        "PRODUCTS_OF_INTEREST": "Sản phẩm quan tâm",
+        "CURRENT_SOLUTION": "Giải pháp đang dùng",
+        "BUDGET": "Ngân sách",
+        "TIMELINE": "Thời gian dự kiến"
+      }
+    },
+    "INSIGHT": {
+      "TITLE": "Insight khách hàng",
+      "INTEREST": "Mức quan tâm: {level}",
+      "INTEREST_LEVELS": {
+        "HIGH": "Cao",
+        "MEDIUM": "Trung bình",
+        "LOW": "Thấp",
+        "UNKNOWN": "Chưa rõ"
+      },
+      "SENTIMENT": "Cảm xúc: {sentiment}",
+      "SENTIMENTS": {
+        "POSITIVE": "Tích cực",
+        "NEUTRAL": "Bình thường",
+        "CONCERNED": "Lo lắng",
+        "FRUSTRATED": "Bực bội",
+        "UNKNOWN": "Chưa rõ"
+      },
+      "FIELDS": {
+        "PAIN_POINTS": "Vấn đề gặp phải",
+        "BARRIERS": "Rào cản",
+        "MOTIVATIONS": "Điều khách coi trọng"
+      }
+    },
+    "STATE": {
+      "TITLE": "Tình trạng hội thoại",
+      "EMPTY": "Không có việc gì còn dở trong hội thoại này.",
+      "FIELDS": {
+        "ALREADY_DONE": "Đã làm hoặc đã hứa",
+        "OPEN_QUESTIONS": "Câu hỏi còn bỏ ngỏ"
+      }
+    },
+    "CARE": {
+      "TITLE": "Gợi ý chăm sóc",
+      "HINT": "Nhận gợi ý bước tiếp theo dựa trên kết quả phân tích này.",
+      "GENERATE": "Gợi ý chăm sóc",
+      "REGENERATE": "Gợi ý lại",
+      "GENERATING": "Đang chuẩn bị gợi ý…",
+      "ERROR": "Không tạo được gợi ý chăm sóc. Vui lòng thử lại.",
+      "FIELDS": {
+        "NEXT_ACTION": "Nên làm tiếp",
+        "TALKING_POINTS": "Nội dung nên trao đổi",
+        "OPPORTUNITY": "Cơ hội",
+        "CONTACT_TIMING": "Thời điểm liên hệ"
+      }
+    },
+    "REPORT": {
+      "TITLE": "Phân tích hội thoại",
+      "TABS": {
+        "QUALITY": "Chất lượng phục vụ",
+        "OPPORTUNITIES": "Cơ hội bán hàng"
+      },
+      "LAST_DAYS": "{days} ngày gần nhất",
+      "ALL_TIME": "Toàn bộ thời gian",
+      "ALL_INBOXES": "Tất cả hộp thư",
+      "ALL_AGENTS": "Tất cả nhân viên",
+      "LOAD_ERROR": "Không tải được báo cáo phân tích hội thoại.",
+      "ANALYZED_COUNT": "Hội thoại đã phân tích",
+      "AVERAGE_SCORE": "Điểm chất lượng trung bình",
+      "COUNT": "{count} hội thoại",
+      "CRITERIA": "Điểm trung bình theo tiêu chí (thang 5)",
+      "AGENTS": "Điểm trung bình theo nhân viên",
+      "NO_AGENTS": "Chưa có hội thoại nào do nhân viên xử lý được phân tích.",
+      "LOW_SCORES": "Hội thoại điểm thấp (dưới 60)",
+      "NO_LOW_SCORES": "Không có hội thoại nào điểm thấp."
+    },
+    "OPPORTUNITIES": {
+      "EMPTY": "Chưa có khách nào có mức quan tâm cao hoặc trung bình. Hãy phân tích hội thoại để tìm cơ hội bán hàng.",
+      "ASSIGNEE": "Phụ trách: {name}"
+    },
+    "CONTACT_INSIGHTS": {
+      "EMPTY": "Chưa có hội thoại nào của khách được phân tích. Dùng mục Phân tích hội thoại trong menu AI của ô soạn tin.",
+      "BASED_ON": "Tổng hợp từ {count} hội thoại đã phân tích",
+      "INTEREST_TREND": "Mức quan tâm qua các lần"
+    }
   },
   "GALLERY_VIEW": {
     "ERROR_DOWNLOADING": "Không tải được tệp đính kèm. Vui lòng thử lại"

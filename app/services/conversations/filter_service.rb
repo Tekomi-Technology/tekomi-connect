@@ -65,3 +65,5 @@ class Conversations::FilterService < FilterService
     payload.any? { |query_hash| query_hash[:attribute_key] == 'labels' && query_hash[:filter_operator] == 'equal_to' }
   end
 end
+
+Conversations::FilterService.prepend_mod_with('Conversations::FilterService')

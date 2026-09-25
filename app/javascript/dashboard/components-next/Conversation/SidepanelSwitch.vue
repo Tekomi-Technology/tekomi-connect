@@ -25,11 +25,15 @@ const isContactSidebarOpen = computed(
 const isCopilotPanelOpen = computed(
   () => uiSettings.value.is_copilot_panel_open
 );
+const isAnalysisPanelOpen = computed(
+  () => uiSettings.value.is_conversation_analysis_panel_open
+);
 
 const toggleConversationSidebarToggle = () => {
   updateUISettings({
     is_contact_sidebar_open: !isContactSidebarOpen.value,
     is_copilot_panel_open: false,
+    is_conversation_analysis_panel_open: false,
   });
 };
 
@@ -37,6 +41,7 @@ const handleConversationSidebarToggle = () => {
   updateUISettings({
     is_contact_sidebar_open: true,
     is_copilot_panel_open: false,
+    is_conversation_analysis_panel_open: false,
   });
 };
 
@@ -44,6 +49,15 @@ const handleCopilotSidebarToggle = () => {
   updateUISettings({
     is_contact_sidebar_open: false,
     is_copilot_panel_open: true,
+    is_conversation_analysis_panel_open: false,
+  });
+};
+
+const handleAnalysisSidebarToggle = () => {
+  updateUISettings({
+    is_contact_sidebar_open: false,
+    is_copilot_panel_open: false,
+    is_conversation_analysis_panel_open: true,
   });
 };
 
@@ -84,6 +98,20 @@ useKeyboardEvents(keyboardEvents);
       }"
       icon="i-woot-tekomi"
       @click="handleCopilotSidebarToggle"
+    />
+    <Button
+      v-if="showCopilotTab"
+      v-tooltip.bottom="$t('CONVERSATION.SIDEBAR.ANALYSIS')"
+      ghost
+      slate
+      sm
+      class="!rounded-full transition-all duration-[250ms] ease-out active:!scale-95 active:duration-75"
+      :class="{
+        'bg-n-alpha-2 !text-n-iris-9 active:!brightness-105 active:shadow-sm':
+          isAnalysisPanelOpen,
+      }"
+      icon="i-lucide-scan-search"
+      @click="handleAnalysisSidebarToggle"
     />
   </ButtonGroup>
 </template>

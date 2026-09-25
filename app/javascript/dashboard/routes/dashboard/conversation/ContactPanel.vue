@@ -27,6 +27,7 @@ import LinearIssuesList from 'dashboard/components/widgets/conversation/linear/I
 import LinearSetupCTA from 'dashboard/components/widgets/conversation/linear/LinearSetupCTA.vue';
 import ConversationDeals from 'dashboard/components-next/Deals/ConversationDeals.vue';
 import ConversationTickets from 'dashboard/components-next/Tickets/ConversationTickets.vue';
+import ContactInsights from 'dashboard/components-next/ConversationAnalysis/ContactInsights.vue';
 
 const props = defineProps({
   conversationId: {
@@ -69,6 +70,9 @@ const isCrmDealsEnabled = computed(() =>
 );
 const isCrmTicketsEnabled = computed(() =>
   isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_TICKETS)
+);
+const isTekomiEnabled = computed(() =>
+  isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.TEKOMI)
 );
 
 const isLinearFeatureEnabled = computed(() =>
@@ -334,6 +338,21 @@ onMounted(() => {
                 :conversation-id="conversationId"
                 :contact="contact.id ? contact : null"
               />
+            </AccordionItem>
+          </div>
+          <div
+            v-else-if="element.name === 'customer_insights' && isTekomiEnabled"
+          >
+            <AccordionItem
+              :title="$t('CONVERSATION_SIDEBAR.ACCORDION.CUSTOMER_INSIGHTS')"
+              :is-open="isContactSidebarItemOpen('is_customer_insights_open')"
+              compact
+              @toggle="
+                value =>
+                  toggleSidebarUIState('is_customer_insights_open', value)
+              "
+            >
+              <ContactInsights :contact-id="contactId" />
             </AccordionItem>
           </div>
           <div v-else-if="element.name === 'contact_notes'">

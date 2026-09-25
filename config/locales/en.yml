@@ -764,6 +764,12 @@ en:
         deal_field_extraction:
           name: 'Deal field extraction'
           description: 'Fills deal custom fields from the conversations.'
+        conversation_analysis:
+          name: 'Conversation analysis'
+          description: 'Scores service quality with evidence and extracts customer information, insights and conversation state.'
+        care_suggestion:
+          name: 'Care suggestion'
+          description: 'Suggests next care actions from a saved conversation analysis when an agent clicks the button.'
     llm_feature_models:
       save: 'Save'
       saved: 'AI feature models saved.'
@@ -821,6 +827,12 @@ en:
         conversation_completion:
           name: 'Conversation completion'
           description: 'Decides whether an inactive conversation can be resolved.'
+        conversation_analysis:
+          name: 'Conversation analysis'
+          description: 'Scores service quality and extracts customer information, insights and conversation state.'
+        care_suggestion:
+          name: 'Care suggestion'
+          description: 'Suggests how to take care of the customer, from a saved conversation analysis, when an agent asks for it.'
         document_faq_generation:
           name: 'Document FAQ generation'
           description: 'Creates FAQs from crawled documents.'

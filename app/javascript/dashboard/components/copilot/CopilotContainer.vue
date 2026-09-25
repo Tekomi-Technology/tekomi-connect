@@ -3,6 +3,7 @@ import { ref, computed, onMounted, watch } from 'vue';
 import { useAlert } from 'dashboard/composables';
 import { useStore } from 'dashboard/composables/store';
 import Copilot from 'dashboard/components-next/copilot/Copilot.vue';
+import SidePanelShell from 'dashboard/components-next/Conversation/SidePanelShell.vue';
 import { useMapGetter } from 'dashboard/composables/store';
 import { useUISettings } from 'dashboard/composables/useUISettings';
 import { useConfig } from 'dashboard/composables/useConfig';
@@ -146,10 +147,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
+  <SidePanelShell
     v-if="shouldShowCopilotPanel"
     v-on-click-outside="() => closeCopilotPanel()"
-    class="bg-n-surface-2 h-full overflow-hidden flex-col fixed top-0 ltr:right-0 rtl:left-0 z-40 w-full max-w-sm transition-transform duration-300 ease-in-out md:static md:w-[320px] md:min-w-[320px] ltr:border-l rtl:border-r border-n-weak 2xl:min-w-[360px] 2xl:w-[360px] shadow-lg md:shadow-none"
     :class="[
       {
         'md:flex': shouldShowCopilotPanel,
@@ -168,6 +168,6 @@ onMounted(() => {
       @send-message="sendMessage"
       @reset="handleReset"
     />
-  </div>
+  </SidePanelShell>
   <template v-else />
 </template>

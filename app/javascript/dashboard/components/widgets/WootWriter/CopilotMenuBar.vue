@@ -136,6 +136,16 @@ const generalMenuItems = computed(() => {
     });
   }
 
+  if (props.conversationId) {
+    items.push({
+      label: t(
+        'INTEGRATION_SETTINGS.OPEN_AI.REPLY_OPTIONS.ANALYZE_CONVERSATION'
+      ),
+      key: 'conversation_analysis',
+      icon: 'i-lucide-scan-search',
+    });
+  }
+
   items.push({
     label: t('INTEGRATION_SETTINGS.OPEN_AI.REPLY_OPTIONS.ASK_COPILOT'),
     key: 'ask_copilot',

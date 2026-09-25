@@ -14,6 +14,7 @@ import ConversationBox from 'dashboard/components/widgets/conversation/Conversat
 import InboxEmptyState from './InboxEmptyState.vue';
 import Spinner from 'dashboard/components-next/spinner/Spinner.vue';
 import ConversationSidebar from 'dashboard/components/widgets/conversation/ConversationSidebar.vue';
+import ConversationAnalysisPanel from 'dashboard/components-next/ConversationAnalysis/ConversationAnalysisPanel.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -217,6 +218,10 @@ onMounted(async () => {
         <ConversationSidebar
           v-if="isContactPanelOpen"
           :current-chat="currentChat"
+        />
+        <ConversationAnalysisPanel
+          v-if="currentChat.id"
+          :conversation-id="currentChat.id"
         />
       </div>
     </div>

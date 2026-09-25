@@ -440,7 +440,8 @@
     },
     "SIDEBAR": {
       "CONTACT": "Contact",
-      "COPILOT": "Tekomi"
+      "COPILOT": "Tekomi",
+      "ANALYSIS": "Conversation analysis"
     },
     "VOICE_WIDGET": {
       "INCOMING_CALL": "Incoming call",
@@ -542,6 +543,7 @@
       "CONVERSATION_INFO": "Conversation Information",
       "CRM_INFO": "CRM Information",
       "CONTACT_NOTES": "Contact Notes",
+      "CUSTOMER_INSIGHTS": "Customer profile (AI)",
       "CONTACT_ATTRIBUTES": "Contact Attributes",
       "PREVIOUS_CONVERSATION": "Previous Conversations",
       "MACROS": "Macros",
@@ -653,6 +655,122 @@
   },
   "COPILOT": {
     "TRY_THESE_PROMPTS": "Try these prompts"
+  },
+  "CONVERSATION_ANALYSIS": {
+    "TITLE": "Conversation analysis",
+    "ANALYZE": "Analyze",
+    "REANALYZE": "Analyze again",
+    "ANALYZING": "Analyzing the conversation, this can take a few seconds…",
+    "EMPTY": "This conversation has not been analyzed yet.",
+    "ERROR": "Could not analyze the conversation. Please try again.",
+    "LOAD_ERROR": "Could not load the analysis.",
+    "ANALYZED_BY": "Analyzed by {name} · {time}",
+    "QUALITY": {
+      "TITLE": "Service quality",
+      "SCORE": "{score}/100",
+      "CRITERION_SCORE": "{score}/5",
+      "NOT_SCORED": "Not enough to score",
+      "SERVED_BY": "Replies by: {servedBy}",
+      "SERVED_BY_OPTIONS": {
+        "BOT": "Bot",
+        "AGENT": "Agent",
+        "BOTH": "Bot and agent",
+        "NONE": "No reply yet"
+      },
+      "CRITERIA": {
+        "UNDERSTANDING": "Understanding the need",
+        "COMPLETENESS": "Completeness",
+        "ACCURACY": "Accuracy",
+        "TONE": "Tone and form of address",
+        "RESOLUTION": "Resolution",
+        "PROACTIVENESS": "Proactiveness"
+      }
+    },
+    "CUSTOMER": {
+      "TITLE": "Customer information",
+      "EMPTY": "The customer has not shared details yet.",
+      "FIELDS": {
+        "NEEDS": "Needs",
+        "PRODUCTS_OF_INTEREST": "Products of interest",
+        "CURRENT_SOLUTION": "Current solution",
+        "BUDGET": "Budget",
+        "TIMELINE": "Timeline"
+      }
+    },
+    "INSIGHT": {
+      "TITLE": "Customer insights",
+      "INTEREST": "Interest: {level}",
+      "INTEREST_LEVELS": {
+        "HIGH": "High",
+        "MEDIUM": "Medium",
+        "LOW": "Low",
+        "UNKNOWN": "Unknown"
+      },
+      "SENTIMENT": "Sentiment: {sentiment}",
+      "SENTIMENTS": {
+        "POSITIVE": "Positive",
+        "NEUTRAL": "Neutral",
+        "CONCERNED": "Concerned",
+        "FRUSTRATED": "Frustrated",
+        "UNKNOWN": "Unknown"
+      },
+      "FIELDS": {
+        "PAIN_POINTS": "Pain points",
+        "BARRIERS": "Barriers",
+        "MOTIVATIONS": "What matters to them"
+      }
+    },
+    "STATE": {
+      "TITLE": "Conversation status",
+      "EMPTY": "Nothing pending in this conversation.",
+      "FIELDS": {
+        "ALREADY_DONE": "Already done or promised",
+        "OPEN_QUESTIONS": "Open questions"
+      }
+    },
+    "CARE": {
+      "TITLE": "Care suggestion",
+      "HINT": "Get next-step suggestions based on this analysis.",
+      "GENERATE": "Suggest care actions",
+      "REGENERATE": "Suggest again",
+      "GENERATING": "Preparing suggestions…",
+      "ERROR": "Could not create care suggestions. Please try again.",
+      "FIELDS": {
+        "NEXT_ACTION": "Next action",
+        "TALKING_POINTS": "Talking points",
+        "OPPORTUNITY": "Opportunity",
+        "CONTACT_TIMING": "When to contact"
+      }
+    },
+    "REPORT": {
+      "TITLE": "Conversation analysis",
+      "TABS": {
+        "QUALITY": "Service quality",
+        "OPPORTUNITIES": "Sales opportunities"
+      },
+      "LAST_DAYS": "Last {days} days",
+      "ALL_TIME": "All time",
+      "ALL_INBOXES": "All inboxes",
+      "ALL_AGENTS": "All agents",
+      "LOAD_ERROR": "Could not load the conversation analysis report.",
+      "ANALYZED_COUNT": "Analyzed conversations",
+      "AVERAGE_SCORE": "Average quality score",
+      "COUNT": "{count} conversations",
+      "CRITERIA": "Average score per criterion (out of 5)",
+      "AGENTS": "Average score per agent",
+      "NO_AGENTS": "No conversations handled by agents have been analyzed yet.",
+      "LOW_SCORES": "Conversations with low scores (below 60)",
+      "NO_LOW_SCORES": "No conversations with low scores."
+    },
+    "OPPORTUNITIES": {
+      "EMPTY": "No customers with high or medium interest yet. Analyze conversations to find sales opportunities.",
+      "ASSIGNEE": "Assigned to {name}"
+    },
+    "CONTACT_INSIGHTS": {
+      "EMPTY": "No analyzed conversations for this contact yet. Use Analyze conversation in the AI menu of the reply box.",
+      "BASED_ON": "Based on {count} analyzed conversation(s)",
+      "INTEREST_TREND": "Interest over time"
+    }
   },
   "GALLERY_VIEW": {
     "ERROR_DOWNLOADING": "Unable to download attachment. Please try again"

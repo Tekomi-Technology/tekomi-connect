@@ -24,6 +24,7 @@ import DocumentsIndex from './documents/Index.vue';
 import ResponsesIndex from './responses/Index.vue';
 import FaqSuggestionsIndex from './responses/FaqSuggestions.vue';
 import CustomToolsIndex from './tools/Index.vue';
+import ConversationAnalysisIndex from './conversationAnalysis/Index.vue';
 
 const meta = {
   permissions: ['administrator', 'agent'],
@@ -153,6 +154,12 @@ const assistantRoutes = [
     component: AssistantGuidelinesIndex,
     name: 'tekomi_assistants_guidelines_index',
     meta: metaV2,
+  },
+  {
+    path: frontendURL('accounts/:accountId/tekomi/conversation-analysis'),
+    component: ConversationAnalysisIndex,
+    name: 'tekomi_conversation_analysis_index',
+    meta: faqSuggestionsMeta,
   },
   {
     path: frontendURL('accounts/:accountId/tekomi/assistants'),

@@ -17,6 +17,7 @@ module Enterprise::Concerns::Account
     has_many :tekomi_custom_tools, dependent: :destroy_async, class_name: 'Tekomi::CustomTool'
     has_many :tekomi_agent_sessions, dependent: :destroy_async, class_name: 'Tekomi::AgentSession'
     has_many :conversation_outcomes, dependent: :destroy_async
+    has_many :conversation_analyses, dependent: :destroy_async
 
     has_many :copilot_threads, dependent: :destroy_async
     has_many :companies, dependent: :destroy_async

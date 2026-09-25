@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue';
 import { useTekomi } from 'dashboard/composables/useTekomi';
 import { useUISettings } from 'dashboard/composables/useUISettings';
+import { useConversationAnalysis } from 'dashboard/composables/useConversationAnalysis';
 import { useTrack } from 'dashboard/composables';
 import { TEKOMI_EVENTS } from 'dashboard/helper/AnalyticsHelper/events';
 import {
@@ -79,6 +80,7 @@ function trackGenerationFailure({
 export function useCopilotReply() {
   const { processEvent, followUp, currentChat } = useTekomi();
   const { updateUISettings } = useUISettings();
+  const { requestAnalysis } = useConversationAnalysis();
 
   const showEditor = ref(false);
   const isGenerating = ref(false);
@@ -158,6 +160,17 @@ export function useCopilotReply() {
       updateUISettings({
         is_contact_sidebar_open: false,
         is_copilot_panel_open: true,
+        is_conversation_analysis_panel_open: false,
+      });
+      return;
+    }
+
+    if (action === 'conversation_analysis') {
+      requestAnalysis(conversationId.value);
+      updateUISettings({
+        is_contact_sidebar_open: false,
+        is_copilot_panel_open: false,
+        is_conversation_analysis_panel_open: true,
       });
       return;
     }

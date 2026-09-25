@@ -2,6 +2,8 @@ import { computed, h } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useOperators } from './operators';
 import { useMapGetter } from 'dashboard/composables/store.js';
+import { useConfig } from 'dashboard/composables/useConfig';
+import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import { useChannelIcon } from 'next/icon/provider';
 import { createContactSearcher } from 'dashboard/components-next/NewConversation/helpers/composeConversationHelper';
 import EmojiIcon from 'dashboard/components-next/emoji-icon-picker/EmojiIcon.vue';
@@ -62,11 +64,17 @@ export function useConversationFilterContext() {
   const inboxes = useMapGetter('inboxes/getInboxes');
   const teams = useMapGetter('teams/getTeams');
   const campaigns = useMapGetter('campaigns/getAllCampaigns');
+  const currentAccountId = useMapGetter('getCurrentAccountId');
+  const isFeatureEnabledonAccount = useMapGetter(
+    'accounts/isFeatureEnabledonAccount'
+  );
+  const { isEnterprise } = useConfig();
 
   const {
     equalityOperators,
     presenceOperators,
     containmentOperators,
+    comparisonOperators,
     dateOperators,
     getOperatorTypes,
   } = useOperators();
@@ -105,6 +113,45 @@ export function useConversationFilterContext() {
       'conversation'
     )
   );
+
+  const analysisFilterTypes = computed(() => {
+    const isAnalysisEnabled =
+      isEnterprise &&
+      isFeatureEnabledonAccount.value(
+        currentAccountId.value,
+        FEATURE_FLAGS.TEKOMI
+      );
+    if (!isAnalysisEnabled) return [];
+
+    return [
+      {
+        attributeKey: CONVERSATION_ATTRIBUTES.ANALYSIS_INTEREST_LEVEL,
+        value: CONVERSATION_ATTRIBUTES.ANALYSIS_INTEREST_LEVEL,
+        attributeName: t('FILTER.ATTRIBUTES.ANALYSIS_INTEREST_LEVEL'),
+        label: t('FILTER.ATTRIBUTES.ANALYSIS_INTEREST_LEVEL'),
+        inputType: 'multiSelect',
+        options: ['high', 'medium', 'low', 'unknown'].map(id => ({
+          id,
+          name: t(
+            `CONVERSATION_ANALYSIS.INSIGHT.INTEREST_LEVELS.${id.toUpperCase()}`
+          ),
+        })),
+        dataType: 'text',
+        filterOperators: equalityOperators.value,
+        attributeModel: 'standard',
+      },
+      {
+        attributeKey: CONVERSATION_ATTRIBUTES.ANALYSIS_QUALITY_SCORE,
+        value: CONVERSATION_ATTRIBUTES.ANALYSIS_QUALITY_SCORE,
+        attributeName: t('FILTER.ATTRIBUTES.ANALYSIS_QUALITY_SCORE'),
+        label: t('FILTER.ATTRIBUTES.ANALYSIS_QUALITY_SCORE'),
+        inputType: 'plainText',
+        dataType: 'number',
+        filterOperators: comparisonOperators.value,
+        attributeModel: 'standard',
+      },
+    ];
+  });
 
   /**
    * @type {import('vue').ComputedRef<FilterType[]>}
@@ -296,6 +343,7 @@ export function useConversationFilterContext() {
       filterOperators: dateOperators.value,
       attributeModel: 'standard',
     },
+    ...analysisFilterTypes.value,
     ...customFilterTypes.value,
   ]);
 

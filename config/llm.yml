@@ -33,6 +33,10 @@ features:
     group: conversation
   conversation_completion:
     group: conversation
+  conversation_analysis:
+    group: conversation
+  care_suggestion:
+    group: conversation
   document_faq_generation:
     group: faq
   pdf_faq_generation:
@@ -105,3 +109,9 @@ prompts:
   deal_field_extraction:
     group: deals
     path: enterprise/lib/tekomi/prompts/deal_field_extraction.liquid
+  conversation_analysis:
+    group: conversation
+    path: enterprise/lib/tekomi/prompts/conversation_analysis.liquid
+  care_suggestion:
+    group: conversation
+    path: enterprise/lib/tekomi/prompts/care_suggestion.liquid
