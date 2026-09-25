@@ -17,23 +17,23 @@
       "ERROR": "There was an error connecting to Shopify. Please try again or contact support if the issue persists."
     },
     "HEADER": "Integrations",
-    "DESCRIPTION": "GMO integrates with multiple tools and services to improve your team's efficiency. Explore the list below to configure your favorite apps.",
+    "DESCRIPTION": "Tekomi integrates with multiple tools and services to improve your team's efficiency. Explore the list below to configure your favorite apps.",
     "LEARN_MORE": "Learn more about integrations",
     "LOADING": "Fetching integrations",
     "SEARCH_PLACEHOLDER": "Search integrations...",
     "NO_RESULTS": "No integrations found matching your search",
     "TEKOMI": {
-      "DISABLED": "GMO AI is not enabled on your account.",
+      "DISABLED": "Tekomi AI is not enabled on your account.",
       "CLICK_HERE_TO_CONFIGURE": "Click here to configure",
-      "LOADING_CONSOLE": "Loading GMO AI Console...",
-      "FAILED_TO_LOAD_CONSOLE": "Failed to load GMO AI Console. Please refresh and try again."
+      "LOADING_CONSOLE": "Loading Tekomi AI Console...",
+      "FAILED_TO_LOAD_CONSOLE": "Failed to load Tekomi AI Console. Please refresh and try again."
     },
     "WEBHOOK": {
       "SUBSCRIBED_EVENTS": "Subscribed Events",
       "LEARN_MORE": "Learn more about webhooks",
       "PAYWALL": {
         "TITLE": "Webhooks are available on paid plans",
-        "AVAILABLE_ON": "Use webhooks to receive real-time events from your GMO account.",
+        "AVAILABLE_ON": "Use webhooks to receive real-time events from your Tekomi account.",
         "UPGRADE_PROMPT": "Upgrade to the Startups, Business, or Enterprise plan to use webhooks.",
         "UPGRADE_NOW": "Upgrade now",
         "CANCEL_ANYTIME": "Change or cancel your plan anytime."
@@ -51,7 +51,7 @@
       "NO_RESULTS": "No webhooks found matching your search",
       "FORM": {
         "CANCEL": "Cancel",
-        "DESC": "Webhook events provide you the realtime information about what's happening in your GMO account. Please enter a valid URL to configure a callback.",
+        "DESC": "Webhook events provide you the realtime information about what's happening in your Tekomi account. Please enter a valid URL to configure a callback.",
         "SUBSCRIPTIONS": {
           "LABEL": "Events",
           "EVENTS": {
@@ -86,7 +86,7 @@
       "HEADER_BTN_TXT": "Add new webhook",
       "LOADING": "Fetching attached webhooks",
       "SEARCH_404": "There are no items matching this query",
-      "SIDEBAR_TXT": "<p><b>Webhooks</b> </p> <p>Webhooks are HTTP callbacks which can be defined for every account. They are triggered by events like message creation in GMO. You can create more than one webhook for this account. <br /><br /> For creating a <b>webhook</b>, click on the <b>Add new webhook</b> button. You can also remove any existing webhook by clicking on the Delete button.</p>",
+      "SIDEBAR_TXT": "<p><b>Webhooks</b> </p> <p>Webhooks are HTTP callbacks which can be defined for every account. They are triggered by events like message creation in Tekomi. You can create more than one webhook for this account. <br /><br /> For creating a <b>webhook</b>, click on the <b>Add new webhook</b> button. You can also remove any existing webhook by clicking on the Delete button.</p>",
       "LIST": {
         "404": "There are no webhooks configured for this account.",
         "TITLE": "Manage webhooks",
@@ -134,7 +134,7 @@
       },
       "HELP_TEXT": {
         "TITLE": "How to use the Slack Integration?",
-        "BODY": "With this integration, all of your incoming conversations will be synced to the ***{selectedChannelName}*** channel in your Slack workspace. You can manage all your customer conversations right within the channel and never miss a message.\n\nHere are the main features of the integration:\n\n**Respond to conversations from within Slack:** To respond to a conversation in the ***{selectedChannelName}*** Slack channel, simply type out your message and send it as a thread. This will create a response back to the customer through GMO. It's that simple!\n\n **Create private notes:** If you want to create private notes instead of replies, start your message with ***`note:`***. This ensures that your message is kept private and won't be visible to the customer.\n\n**Associate an agent profile:** If the person who replied on Slack has an agent profile in GMO under the same email, the replies will be associated with that agent profile automatically. This means you can easily track who said what and when. On the other hand, when the replier doesn't have an associated agent profile, the replies will appear from the bot profile to the customer.",
+        "BODY": "With this integration, all of your incoming conversations will be synced to the ***{selectedChannelName}*** channel in your Slack workspace. You can manage all your customer conversations right within the channel and never miss a message.\n\nHere are the main features of the integration:\n\n**Respond to conversations from within Slack:** To respond to a conversation in the ***{selectedChannelName}*** Slack channel, simply type out your message and send it as a thread. This will create a response back to the customer through Tekomi. It's that simple!\n\n **Create private notes:** If you want to create private notes instead of replies, start your message with ***`note:`***. This ensures that your message is kept private and won't be visible to the customer.\n\n**Associate an agent profile:** If the person who replied on Slack has an agent profile in Tekomi under the same email, the replies will be associated with that agent profile automatically. This means you can easily track who said what and when. On the other hand, when the replier doesn't have an associated agent profile, the replies will appear from the bot profile to the customer.",
         "SELECTED": "selected"
       },
       "SELECT_CHANNEL": {
@@ -190,7 +190,7 @@
         "GRAMMAR": "Fix grammar & spelling",
         "SUGGESTION": "Suggest a reply",
         "SUMMARIZE": "Summarize the conversation",
-        "ASK_COPILOT": "Ask GMO"
+        "ASK_COPILOT": "Ask Tekomi"
       },
       "ASSISTANCE_MODAL": {
         "DRAFT_TITLE": "Draft content",
@@ -243,7 +243,7 @@
     "DASHBOARD_APPS": {
       "TITLE": "Dashboard Apps",
       "HEADER_BTN_TXT": "Add a new dashboard app",
-      "SIDEBAR_TXT": "<p><b>Dashboard Apps</b></p><p>Dashboard Apps allow organizations to embed an application inside the GMO dashboard to provide the context for customer support agents. This feature allows you to create an application independently and embed that inside the dashboard to provide user information, their orders, or their previous payment history.</p><p>When you embed your application using the dashboard in GMO, your application will get the context of the conversation and contact as a window event. Implement a listener for the message event on your page to receive the context.</p><p>To add a new dashboard app, click on the button 'Add a new dashboard app'.</p>",
+      "SIDEBAR_TXT": "<p><b>Dashboard Apps</b></p><p>Dashboard Apps allow organizations to embed an application inside the Tekomi dashboard to provide the context for customer support agents. This feature allows you to create an application independently and embed that inside the dashboard to provide user information, their orders, or their previous payment history.</p><p>When you embed your application using the dashboard in Tekomi, your application will get the context of the conversation and contact as a window event. Implement a listener for the message event on your page to receive the context.</p><p>To add a new dashboard app, click on the button 'Add a new dashboard app'.</p>",
       "DESCRIPTION": "Dashboard Apps allow organizations to embed an application inside the dashboard to provide the context for customer support agents. This feature allows you to create an application independently and embed that to provide user information, their orders, or their previous payment history.",
       "LEARN_MORE": "Learn more about Dashboard Apps",
       "COUNT": "{n} dashboard app | {n} dashboard apps",
@@ -397,12 +397,12 @@
     }
   },
   "TEKOMI": {
-    "NAME": "GMO AI",
+    "NAME": "Tekomi AI",
     "HEADER_KNOW_MORE": "Know more",
     "OVERVIEW": {
       "HEADER": "Overview",
       "WELCOME": {
-        "LABEL": "GMO AI summary",
+        "LABEL": "Tekomi AI summary",
         "LOADING": "Generating summary…"
       },
       "INBOX_BANNER": {
@@ -435,7 +435,7 @@
         },
         "HOURS_SAVED": {
           "LABEL": "Time saved",
-          "HINT": "Estimate: GMO AI replies times ~2 minutes of assumed agent effort per reply. Directional, not measured labor."
+          "HINT": "Estimate: Tekomi AI replies times ~2 minutes of assumed agent effort per reply. Directional, not measured labor."
         },
         "REOPEN": {
           "LABEL": "Reopen rate",
@@ -461,8 +461,8 @@
       },
       "LINKS": {
         "DOCS": {
-          "TITLE": "GMO AI docs",
-          "DESCRIPTION": "Guides and how-tos for GMO AI"
+          "TITLE": "Tekomi AI docs",
+          "DESCRIPTION": "Guides and how-tos for Tekomi AI"
         },
         "PLAYGROUND": {
           "TITLE": "Playground",
@@ -481,13 +481,13 @@
       "EMPTY_LIST": "No assistants found, please create one to get started"
     },
     "COPILOT": {
-      "TITLE": "GMO",
+      "TITLE": "Tekomi",
       "TRY_THESE_PROMPTS": "Try these prompts",
-      "PANEL_TITLE": "Get started with GMO",
-      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? GMO is here to speed things up.",
+      "PANEL_TITLE": "Get started with Tekomi",
+      "KICK_OFF_MESSAGE": "Need a quick summary, want to check past conversations, or draft a better reply? Tekomi is here to speed things up.",
       "SEND_MESSAGE": "Send message...",
       "EMPTY_MESSAGE": "There was an error generating the response. Please try again.",
-      "LOADER": "GMO AI is thinking",
+      "LOADER": "Tekomi AI is thinking",
       "YOU": "You",
       "USE": "Use this",
       "RESET": "Reset",
@@ -522,23 +522,23 @@
       "MESSAGE_PLACEHOLDER": "Type your message...",
       "HEADER": "Playground",
       "DESCRIPTION": "Use this playground to send messages to your assistant and check if it responds accurately, quickly, and in the tone you expect.",
-      "CREDIT_NOTE": "Messages sent here will count toward your GMO AI credits."
+      "CREDIT_NOTE": "Messages sent here will count toward your Tekomi AI credits."
     },
     "PAYWALL": {
-      "TITLE": "Upgrade to use GMO AI",
-      "AVAILABLE_ON": "GMO AI is not available on the free plan.",
-      "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, GMO and more.",
+      "TITLE": "Upgrade to use Tekomi AI",
+      "AVAILABLE_ON": "Tekomi AI is not available on the free plan.",
+      "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, Tekomi and more.",
       "UPGRADE_NOW": "Upgrade now",
       "CANCEL_ANYTIME": "You can change or cancel your plan anytime"
     },
     "ENTERPRISE_PAYWALL": {
-      "AVAILABLE_ON": "GMO AI is only available in the Enterprise plans.",
-      "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, GMO and more.",
+      "AVAILABLE_ON": "Tekomi AI is only available in the Enterprise plans.",
+      "UPGRADE_PROMPT": "Upgrade your plan to get access to our assistants, Tekomi and more.",
       "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
     },
     "BANNER": {
-      "RESPONSES": "You've used over 80% of your response limit. To continue using GMO AI, please upgrade.",
-      "DOCUMENTS": "Document limit reached. Upgrade to continue using GMO AI."
+      "RESPONSES": "You've used over 80% of your response limit. To continue using Tekomi AI, please upgrade.",
+      "DOCUMENTS": "Document limit reached. Upgrade to continue using Tekomi AI."
     },
     "FORM": {
       "CANCEL": "Cancel",
@@ -600,28 +600,28 @@
         },
         "INACTIVITY_RESOLUTION": {
           "TITLE": "When customers stop replying",
-          "DESCRIPTION": "Choose how GMO AI handles the conversation.",
+          "DESCRIPTION": "Choose how Tekomi AI handles the conversation.",
           "MODE_LABEL": "Action when the customer stops replying",
           "REVIEW_AFTER": "Review after",
           "RESOLVE_AFTER": "Resolve after",
-          "ALWAYS_WARNING": "GMO AI will resolve every conversation after the selected time without reviewing it. Some conversations that still need help may be closed.",
+          "ALWAYS_WARNING": "Tekomi AI will resolve every conversation after the selected time without reviewing it. Some conversations that still need help may be closed.",
           "PENDING_INFO": "The conversation remains pending until the customer replies.",
           "RESOLUTION_MESSAGE": {
             "TITLE": "Send a message when resolving",
-            "DESCRIPTION": "GMO AI sends this closing message before it resolves the conversation."
+            "DESCRIPTION": "Tekomi AI sends this closing message before it resolves the conversation."
           },
           "MODES": {
             "DISABLED": {
               "LABEL": "Wait for the customer",
-              "DESCRIPTION": "GMO AI does not resolve the conversation. GMO AI can still hand it off if the customer asks."
+              "DESCRIPTION": "Tekomi AI does not resolve the conversation. Tekomi AI can still hand it off if the customer asks."
             },
             "LEGACY": {
               "LABEL": "Always resolve",
-              "DESCRIPTION": "GMO AI resolves every conversation after the selected time."
+              "DESCRIPTION": "Tekomi AI resolves every conversation after the selected time."
             },
             "EVALUATED": {
-              "LABEL": "Let GMO AI review it (recommended)",
-              "DESCRIPTION": "GMO AI decides whether to resolve the conversation or hand it off."
+              "LABEL": "Let Tekomi AI review it (recommended)",
+              "DESCRIPTION": "Tekomi AI decides whether to resolve the conversation or hand it off."
             }
           },
           "DURATION_HOURS_ARIA_LABEL": "Hours before action",
@@ -644,11 +644,11 @@
         "AUDIENCE": {
           "EVERYONE": {
             "LABEL": "Everyone",
-            "DESC": "GMO AI responds to every conversation in connected inboxes."
+            "DESC": "Tekomi AI responds to every conversation in connected inboxes."
           },
           "SPECIFIC": {
             "LABEL": "Specific audience",
-            "DESC": "GMO AI responds only to customers who match the conditions below."
+            "DESC": "Tekomi AI responds only to customers who match the conditions below."
           },
           "ADD_CONDITION": "Add condition",
           "ADD_GROUP": "Add condition group",
@@ -671,15 +671,15 @@
         "SCHEDULE": {
           "ALWAYS": {
             "LABEL": "Anytime",
-            "DESC": "GMO AI responds to every conversation, regardless of time."
+            "DESC": "Tekomi AI responds to every conversation, regardless of time."
           },
           "BUSINESS_HOURS": {
             "LABEL": "During business hours",
-            "DESC": "GMO AI responds only within each inbox's business hours."
+            "DESC": "Tekomi AI responds only within each inbox's business hours."
           },
           "OUTSIDE_BUSINESS_HOURS": {
             "LABEL": "Outside business hours",
-            "DESC": "GMO AI responds only when each inbox is closed."
+            "DESC": "Tekomi AI responds only when each inbox is closed."
           },
           "HINT": "Inboxes without business hours configured are always covered."
         }
@@ -699,7 +699,7 @@
         "SYSTEM_SETTINGS": {
           "TITLE": "System settings",
           "DESCRIPTION": "Customize what the assistant says when ending a conversation or transferring to a human.",
-          "DESCRIPTION_V2": "Manage what GMO AI does when customers stop replying and set the handoff message."
+          "DESCRIPTION_V2": "Manage what Tekomi AI does when customers stop replying and set the handoff message."
         },
         "AUDIENCE": {
           "TITLE": "Audience",
@@ -707,7 +707,7 @@
         },
         "SCHEDULE": {
           "TITLE": "Schedule",
-          "DESCRIPTION": "Choose when GMO AI replies. Outside this window, conversations are handed to your team."
+          "DESCRIPTION": "Choose when Tekomi AI replies. Outside this window, conversations are handed to your team."
         },
         "CONTROL_ITEMS": {
           "TITLE": "The Fun Stuff",
@@ -738,8 +738,8 @@
         "TITLE": "No assistants available",
         "SUBTITLE": "Create an assistant to provide quick and accurate responses to your users. It can learn from your help articles and past conversations.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "GMO AI Assistant",
-          "NOTE": "GMO AI Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
+          "TITLE": "Tekomi AI Assistant",
+          "NOTE": "Tekomi AI Assistant engages directly with customers, learns from your help docs and past conversations, and delivers instant, accurate responses. It handles the initial queries, providing quick resolutions before  transferring to an agent when needed."
         }
       },
       "GUARDRAILS": {
@@ -1036,8 +1036,8 @@
         "FILTERED_TITLE": "No matching documents",
         "FILTERED_SUBTITLE": "Try changing the source, status, or search term.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "GMO AI Document",
-          "NOTE": "A document in GMO AI serves as a knowledge resource for the assistant. By connecting your help center or guides, GMO AI can analyze the content and provide accurate responses for customer inquiries."
+          "TITLE": "Tekomi AI Document",
+          "NOTE": "A document in Tekomi AI serves as a knowledge resource for the assistant. By connecting your help center or guides, Tekomi AI can analyze the content and provide accurate responses for customer inquiries."
         }
       }
     },
@@ -1076,14 +1076,14 @@
         "ERROR_MESSAGE": "Failed to delete custom tool"
       },
       "PAYWALL": {
-        "TITLE": "Upgrade to use tools with GMO AI",
-        "AVAILABLE_ON": "GMO AI Tools are only available in Business and Enterprise plans. Please upgrade to Business plan to use the feature.",
+        "TITLE": "Upgrade to use tools with Tekomi AI",
+        "AVAILABLE_ON": "Tekomi AI Tools are only available in Business and Enterprise plans. Please upgrade to Business plan to use the feature.",
         "UPGRADE_PROMPT": "",
         "UPGRADE_NOW": "Open billing",
         "CANCEL_ANYTIME": ""
       },
       "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "GMO AI Tools are only available in the paid plans.",
+        "AVAILABLE_ON": "Tekomi AI Tools are only available in the paid plans.",
         "UPGRADE_PROMPT": "Please upgrade to a paid plan to use this feature.",
         "ASK_ADMIN": "Please reach out to your administrator for the upgrade."
       },
@@ -1200,7 +1200,7 @@
         "ERROR_MESSAGE": "There was an error deleting the FAQ, please try again."
       },
       "SUGGESTIONS_BANNER": {
-        "TITLE": "GMO AI grouped recurring customer questions into FAQ suggestions.",
+        "TITLE": "Tekomi AI grouped recurring customer questions into FAQ suggestions.",
         "ACTION": "Review suggestions"
       },
       "FORM_DESCRIPTION": "Add a question and its corresponding answer to the knowledge base and select the assistant it should be associated with.",
@@ -1237,8 +1237,8 @@
         "SUBTITLE": "FAQs help your assistant provide quick and accurate answers to questions from your customers. They can be generated automatically from your content or can be added manually.",
         "CLEAR_SEARCH": "Clear active filters",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "GMO AI FAQ",
-          "NOTE": "GMO AI FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
+          "TITLE": "Tekomi AI FAQ",
+          "NOTE": "Tekomi AI FAQs detects common customer questions—whether missing from your knowledge base or frequently asked—and generates relevant FAQs to improve support. You can review each suggestion and decide whether to approve or reject it."
         }
       }
     },
@@ -1255,7 +1255,7 @@
       "SAVE": "Save changes",
       "DETAILS": {
         "TITLE": "Review FAQ suggestion",
-        "DESCRIPTION": "GMO AI grouped {count} conversation into this suggestion. Review the evidence and refine the FAQ before approval. | GMO AI grouped {count} conversations into this suggestion. Review the evidence and refine the FAQ before approval.",
+        "DESCRIPTION": "Tekomi AI grouped {count} conversation into this suggestion. Review the evidence and refine the FAQ before approval. | Tekomi AI grouped {count} conversations into this suggestion. Review the evidence and refine the FAQ before approval.",
         "SOURCES": "Source conversations",
         "SOURCE_PROGRESS": "{visible} of {total}",
         "NO_SOURCES": "No accessible source conversations were found.",
@@ -1267,7 +1267,7 @@
         "CLEAR_SEARCH": "Clear search"
       },
       "SUCCESS": {
-        "APPROVED": "FAQ approved and added to GMO AI's knowledge.",
+        "APPROVED": "FAQ approved and added to Tekomi AI's knowledge.",
         "DISMISSED": "Suggestion dismissed.",
         "SAVED": "Suggestion updated."
       },

@@ -22,7 +22,7 @@ const props = defineProps({
   },
   codepenTitle: {
     type: String,
-    default: 'GMO Codepen',
+    default: 'Tekomi Codepen',
   },
 });
 

@@ -23,10 +23,10 @@
     "SEARCH_PLACEHOLDER": "Tìm tích hợp...",
     "NO_RESULTS": "Không tìm thấy tích hợp nào phù hợp",
     "TEKOMI": {
-      "DISABLED": "GMO AI chưa được bật cho tài khoản của bạn.",
+      "DISABLED": "Tekomi AI chưa được bật cho tài khoản của bạn.",
       "CLICK_HERE_TO_CONFIGURE": "Bấm vào đây để cấu hình",
-      "LOADING_CONSOLE": "Đang tải Bảng điều khiển GMO AI...",
-      "FAILED_TO_LOAD_CONSOLE": "Không tải được Bảng điều khiển GMO AI. Vui lòng tải lại trang và thử lại."
+      "LOADING_CONSOLE": "Đang tải Bảng điều khiển Tekomi AI...",
+      "FAILED_TO_LOAD_CONSOLE": "Không tải được Bảng điều khiển Tekomi AI. Vui lòng tải lại trang và thử lại."
     },
     "WEBHOOK": {
       "SUBSCRIBED_EVENTS": "Những sự kiện được theo dõi",
@@ -141,7 +141,7 @@
         "OPTION_LABEL": "Chọn một kênh",
         "UPDATE": "Cập nhật",
         "BUTTON_TEXT": "Kết nối kênh",
-        "DESCRIPTION": "Workspace Slack của bạn đã được liên kết với GMO. Tuy nhiên, tích hợp hiện đang không hoạt động. Để kích hoạt và kết nối một kênh với GMO, hãy bấm nút bên dưới.\n\n**Lưu ý:** Nếu bạn muốn kết nối kênh riêng tư, hãy thêm ứng dụng GMO vào kênh Slack đó trước khi tiếp tục bước này.",
+        "DESCRIPTION": "Workspace Slack của bạn đã được liên kết với Tekomi. Tuy nhiên, tích hợp hiện đang không hoạt động. Để kích hoạt và kết nối một kênh với Tekomi, hãy bấm nút bên dưới.\n\n**Lưu ý:** Nếu bạn muốn kết nối kênh riêng tư, hãy thêm ứng dụng Tekomi vào kênh Slack đó trước khi tiếp tục bước này.",
         "ATTENTION_REQUIRED": "Cần chú ý",
         "EXPIRED": "Tích hợp Slack của bạn đã hết hạn. Để tiếp tục nhận tin nhắn trên Slack, vui lòng xoá tích hợp rồi kết nối lại workspace."
       },
@@ -190,7 +190,7 @@
         "GRAMMAR": "Sửa ngữ pháp & chính tả",
         "SUGGESTION": "Gợi ý câu trả lời",
         "SUMMARIZE": "Tóm tắt hội thoại",
-        "ASK_COPILOT": "Hỏi GMO"
+        "ASK_COPILOT": "Hỏi Tekomi"
       },
       "ASSISTANCE_MODAL": {
         "DRAFT_TITLE": "Nội dung nháp",
@@ -397,12 +397,12 @@
     }
   },
   "TEKOMI": {
-    "NAME": "GMO AI",
+    "NAME": "Tekomi AI",
     "HEADER_KNOW_MORE": "Tìm hiểu thêm",
     "OVERVIEW": {
       "HEADER": "Tổng quan",
       "WELCOME": {
-        "LABEL": "Tóm tắt GMO AI",
+        "LABEL": "Tóm tắt Tekomi AI",
         "LOADING": "Đang tạo tóm tắt…"
       },
       "INBOX_BANNER": {
@@ -435,7 +435,7 @@
         },
         "HOURS_SAVED": {
           "LABEL": "Thời gian tiết kiệm",
-          "HINT": "Ước tính: số câu trả lời của GMO AI nhân với ~2 phút công sức giả định của nhân viên mỗi câu. Chỉ mang tính tham khảo, không phải số đo thực tế."
+          "HINT": "Ước tính: số câu trả lời của Tekomi AI nhân với ~2 phút công sức giả định của nhân viên mỗi câu. Chỉ mang tính tham khảo, không phải số đo thực tế."
         },
         "REOPEN": {
           "LABEL": "Tỷ lệ mở lại",
@@ -461,8 +461,8 @@
       },
       "LINKS": {
         "DOCS": {
-          "TITLE": "Tài liệu GMO AI",
-          "DESCRIPTION": "Hướng dẫn sử dụng GMO AI"
+          "TITLE": "Tài liệu Tekomi AI",
+          "DESCRIPTION": "Hướng dẫn sử dụng Tekomi AI"
         },
         "PLAYGROUND": {
           "TITLE": "Sân chơi",
@@ -483,11 +483,11 @@
     "COPILOT": {
       "TITLE": "Trợ thủ",
       "TRY_THESE_PROMPTS": "Thử các câu gợi ý sau",
-      "PANEL_TITLE": "Bắt đầu với GMO",
-      "KICK_OFF_MESSAGE": "Cần tóm tắt nhanh, muốn kiểm tra các hội thoại trước, hay soạn câu trả lời tốt hơn? GMO sẽ giúp tăng tốc.",
+      "PANEL_TITLE": "Bắt đầu với Tekomi",
+      "KICK_OFF_MESSAGE": "Cần tóm tắt nhanh, muốn kiểm tra các hội thoại trước, hay soạn câu trả lời tốt hơn? Tekomi sẽ giúp tăng tốc.",
       "SEND_MESSAGE": "Gửi tin nhắn...",
       "EMPTY_MESSAGE": "Đã xảy ra lỗi khi tạo phản hồi. Vui lòng thử lại.",
-      "LOADER": "GMO AI đang suy nghĩ",
+      "LOADER": "Tekomi AI đang suy nghĩ",
       "YOU": "Bạn",
       "USE": "Sử dụng cái này",
       "RESET": "Đặt lại",
@@ -522,23 +522,23 @@
       "MESSAGE_PLACEHOLDER": "Gõ tin nhắn của bạn...",
       "HEADER": "Sân chơi",
       "DESCRIPTION": "Sử dụng sân chơi này để gửi tin nhắn tới trợ lý của bạn và kiểm tra xem nó phản hồi có chính xác, nhanh chóng và đúng giọng bạn mong đợi không.",
-      "CREDIT_NOTE": "Tin nhắn gửi ở đây sẽ tính vào tín dụng GMO AI của bạn."
+      "CREDIT_NOTE": "Tin nhắn gửi ở đây sẽ tính vào tín dụng Tekomi AI của bạn."
     },
     "PAYWALL": {
-      "TITLE": "Nâng cấp để sử dụng GMO AI",
-      "AVAILABLE_ON": "GMO AI không khả dụng trên gói miễn phí.",
-      "UPGRADE_PROMPT": "Nâng cấp gói của bạn để truy cập trợ lý, GMO và nhiều hơn nữa.",
+      "TITLE": "Nâng cấp để sử dụng Tekomi AI",
+      "AVAILABLE_ON": "Tekomi AI không khả dụng trên gói miễn phí.",
+      "UPGRADE_PROMPT": "Nâng cấp gói của bạn để truy cập trợ lý, Tekomi và nhiều hơn nữa.",
       "UPGRADE_NOW": "Nâng cấp ngay",
       "CANCEL_ANYTIME": "Bạn có thể đổi hoặc huỷ gói bất cứ lúc nào"
     },
     "ENTERPRISE_PAYWALL": {
-      "AVAILABLE_ON": "GMO AI chỉ có trong các gói Doanh nghiệp.",
-      "UPGRADE_PROMPT": "Nâng cấp gói của bạn để truy cập trợ lý, GMO và nhiều hơn nữa.",
+      "AVAILABLE_ON": "Tekomi AI chỉ có trong các gói Doanh nghiệp.",
+      "UPGRADE_PROMPT": "Nâng cấp gói của bạn để truy cập trợ lý, Tekomi và nhiều hơn nữa.",
       "ASK_ADMIN": "Vui lòng liên hệ quản trị viên để nâng cấp."
     },
     "BANNER": {
-      "RESPONSES": "Bạn đã sử dụng hơn 80% giới hạn phản hồi. Để tiếp tục sử dụng GMO AI, vui lòng nâng cấp.",
-      "DOCUMENTS": "Giới hạn tài liệu đã đạt. Nâng cấp để tiếp tục sử dụng GMO AI."
+      "RESPONSES": "Bạn đã sử dụng hơn 80% giới hạn phản hồi. Để tiếp tục sử dụng Tekomi AI, vui lòng nâng cấp.",
+      "DOCUMENTS": "Giới hạn tài liệu đã đạt. Nâng cấp để tiếp tục sử dụng Tekomi AI."
     },
     "FORM": {
       "CANCEL": "Huỷ",
@@ -611,28 +611,28 @@
         },
         "INACTIVITY_RESOLUTION": {
           "TITLE": "Khi khách ngừng trả lời",
-          "DESCRIPTION": "Chọn cách GMO AI xử lý hội thoại.",
+          "DESCRIPTION": "Chọn cách Tekomi AI xử lý hội thoại.",
           "MODE_LABEL": "Hành động khi khách ngừng trả lời",
           "REVIEW_AFTER": "Xem lại sau",
           "RESOLVE_AFTER": "Xử lý xong sau",
-          "ALWAYS_WARNING": "GMO AI sẽ đánh dấu mọi hội thoại là xử lý xong sau khoảng thời gian đã chọn mà không xem lại. Một số hội thoại vẫn cần hỗ trợ có thể bị đóng nhầm.",
+          "ALWAYS_WARNING": "Tekomi AI sẽ đánh dấu mọi hội thoại là xử lý xong sau khoảng thời gian đã chọn mà không xem lại. Một số hội thoại vẫn cần hỗ trợ có thể bị đóng nhầm.",
           "PENDING_INFO": "Hội thoại vẫn ở trạng thái chờ cho tới khi khách trả lời.",
           "RESOLUTION_MESSAGE": {
             "TITLE": "Gửi tin nhắn khi xử lý xong",
-            "DESCRIPTION": "GMO AI gửi tin nhắn kết thúc này trước khi đánh dấu hội thoại là xử lý xong."
+            "DESCRIPTION": "Tekomi AI gửi tin nhắn kết thúc này trước khi đánh dấu hội thoại là xử lý xong."
           },
           "MODES": {
             "DISABLED": {
               "LABEL": "Chờ khách trả lời",
-              "DESCRIPTION": "GMO AI không tự đánh dấu hội thoại là xử lý xong. Vẫn có thể chuyển tiếp nếu khách yêu cầu."
+              "DESCRIPTION": "Tekomi AI không tự đánh dấu hội thoại là xử lý xong. Vẫn có thể chuyển tiếp nếu khách yêu cầu."
             },
             "LEGACY": {
               "LABEL": "Luôn xử lý xong",
-              "DESCRIPTION": "GMO AI đánh dấu mọi hội thoại là xử lý xong sau khoảng thời gian đã chọn."
+              "DESCRIPTION": "Tekomi AI đánh dấu mọi hội thoại là xử lý xong sau khoảng thời gian đã chọn."
             },
             "EVALUATED": {
-              "LABEL": "Để GMO AI tự xem xét (khuyên dùng)",
-              "DESCRIPTION": "GMO AI tự quyết định đánh dấu xử lý xong hay chuyển tiếp."
+              "LABEL": "Để Tekomi AI tự xem xét (khuyên dùng)",
+              "DESCRIPTION": "Tekomi AI tự quyết định đánh dấu xử lý xong hay chuyển tiếp."
             }
           },
           "DURATION_HOURS_ARIA_LABEL": "Số giờ trước khi hành động",
@@ -643,11 +643,11 @@
         "AUDIENCE": {
           "EVERYONE": {
             "LABEL": "Mọi người",
-            "DESC": "GMO AI trả lời mọi hội thoại trong các hộp thư đã kết nối."
+            "DESC": "Tekomi AI trả lời mọi hội thoại trong các hộp thư đã kết nối."
           },
           "SPECIFIC": {
             "LABEL": "Đối tượng cụ thể",
-            "DESC": "GMO AI chỉ trả lời khách hàng thoả các điều kiện bên dưới."
+            "DESC": "Tekomi AI chỉ trả lời khách hàng thoả các điều kiện bên dưới."
           },
           "ADD_CONDITION": "Thêm điều kiện",
           "ADD_GROUP": "Thêm nhóm điều kiện",
@@ -670,15 +670,15 @@
         "SCHEDULE": {
           "ALWAYS": {
             "LABEL": "Mọi lúc",
-            "DESC": "GMO AI trả lời mọi hội thoại, bất kể thời gian."
+            "DESC": "Tekomi AI trả lời mọi hội thoại, bất kể thời gian."
           },
           "BUSINESS_HOURS": {
             "LABEL": "Trong giờ làm việc",
-            "DESC": "GMO AI chỉ trả lời trong giờ làm việc của từng hộp thư."
+            "DESC": "Tekomi AI chỉ trả lời trong giờ làm việc của từng hộp thư."
           },
           "OUTSIDE_BUSINESS_HOURS": {
             "LABEL": "Ngoài giờ làm việc",
-            "DESC": "GMO AI chỉ trả lời khi hộp thư đang đóng cửa."
+            "DESC": "Tekomi AI chỉ trả lời khi hộp thư đang đóng cửa."
           },
           "HINT": "Hộp thư chưa cấu hình giờ làm việc thì luôn được bao phủ."
         }
@@ -698,7 +698,7 @@
         "SYSTEM_SETTINGS": {
           "TITLE": "Cài đặt hệ thống",
           "DESCRIPTION": "Tuỳ chỉnh những gì trợ lý nói khi kết thúc hội thoại hoặc chuyển cho người thật.",
-          "DESCRIPTION_V2": "Quản lý việc GMO AI làm khi khách ngừng trả lời và đặt tin nhắn chuyển tiếp."
+          "DESCRIPTION_V2": "Quản lý việc Tekomi AI làm khi khách ngừng trả lời và đặt tin nhắn chuyển tiếp."
         },
         "CONTROL_ITEMS": {
           "TITLE": "Tuỳ chỉnh nâng cao",
@@ -725,7 +725,7 @@
         },
         "SCHEDULE": {
           "TITLE": "Lịch hoạt động",
-          "DESCRIPTION": "Chọn thời điểm GMO AI trả lời. Ngoài khung giờ này, hội thoại sẽ chuyển cho đội của bạn."
+          "DESCRIPTION": "Chọn thời điểm Tekomi AI trả lời. Ngoài khung giờ này, hội thoại sẽ chuyển cho đội của bạn."
         }
       },
       "OPTIONS": {
@@ -737,8 +737,8 @@
         "TITLE": "Chưa có trợ lý nào",
         "SUBTITLE": "Tạo trợ lý để trả lời nhanh và chính xác cho người dùng của bạn. Trợ lý có thể học từ bài viết trợ giúp và hội thoại cũ.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Trợ lý GMO AI",
-          "NOTE": "Trợ lý GMO AI tương tác trực tiếp với khách hàng, học từ tài liệu trợ giúp và hội thoại cũ, đưa ra câu trả lời chính xác tức thì. Nó xử lý các câu hỏi ban đầu, giải quyết nhanh trước khi chuyển cho nhân viên khi cần."
+          "TITLE": "Trợ lý Tekomi AI",
+          "NOTE": "Trợ lý Tekomi AI tương tác trực tiếp với khách hàng, học từ tài liệu trợ giúp và hội thoại cũ, đưa ra câu trả lời chính xác tức thì. Nó xử lý các câu hỏi ban đầu, giải quyết nhanh trước khi chuyển cho nhân viên khi cần."
         }
       },
       "GUARDRAILS": {
@@ -1032,8 +1032,8 @@
         "FILTERED_TITLE": "Không có tài liệu phù hợp",
         "FILTERED_SUBTITLE": "Hãy thử đổi nguồn, trạng thái hoặc từ khoá tìm kiếm.",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Tài liệu GMO AI",
-          "NOTE": "Tài liệu trong GMO AI đóng vai trò nguồn tri thức cho trợ lý. Bằng cách kết nối trung tâm trợ giúp hoặc hướng dẫn của bạn, GMO AI có thể phân tích nội dung và trả lời chính xác các câu hỏi của khách hàng."
+          "TITLE": "Tài liệu Tekomi AI",
+          "NOTE": "Tài liệu trong Tekomi AI đóng vai trò nguồn tri thức cho trợ lý. Bằng cách kết nối trung tâm trợ giúp hoặc hướng dẫn của bạn, Tekomi AI có thể phân tích nội dung và trả lời chính xác các câu hỏi của khách hàng."
         }
       },
       "USED_IN_CONVERSATIONS": "Dùng trong {n} hội thoại | Dùng trong {n} hội thoại",
@@ -1074,14 +1074,14 @@
         "ERROR_MESSAGE": "Không xoá được công cụ tuỳ chỉnh"
       },
       "PAYWALL": {
-        "TITLE": "Nâng cấp để dùng công cụ với GMO AI",
-        "AVAILABLE_ON": "Công cụ GMO AI chỉ có ở gói Business và Enterprise. Vui lòng nâng cấp lên gói Business để dùng tính năng này.",
+        "TITLE": "Nâng cấp để dùng công cụ với Tekomi AI",
+        "AVAILABLE_ON": "Công cụ Tekomi AI chỉ có ở gói Business và Enterprise. Vui lòng nâng cấp lên gói Business để dùng tính năng này.",
         "UPGRADE_PROMPT": "",
         "UPGRADE_NOW": "Mở trang thanh toán",
         "CANCEL_ANYTIME": ""
       },
       "ENTERPRISE_PAYWALL": {
-        "AVAILABLE_ON": "Công cụ GMO AI chỉ có ở các gói trả phí.",
+        "AVAILABLE_ON": "Công cụ Tekomi AI chỉ có ở các gói trả phí.",
         "UPGRADE_PROMPT": "Vui lòng nâng cấp lên gói trả phí để dùng tính năng này.",
         "ASK_ADMIN": "Vui lòng liên hệ quản trị viên để nâng cấp."
       },
@@ -1197,7 +1197,7 @@
         "ERROR_MESSAGE": "Có lỗi khi xoá câu hỏi thường gặp, vui lòng thử lại."
       },
       "SUGGESTIONS_BANNER": {
-        "TITLE": "GMO AI đã gom các câu hỏi lặp lại của khách thành gợi ý câu hỏi thường gặp.",
+        "TITLE": "Tekomi AI đã gom các câu hỏi lặp lại của khách thành gợi ý câu hỏi thường gặp.",
         "ACTION": "Xem gợi ý"
       },
       "FORM_DESCRIPTION": "Thêm một câu hỏi và câu trả lời tương ứng vào cơ sở tri thức, rồi chọn trợ lý sẽ dùng nó.",
@@ -1234,7 +1234,7 @@
         "SUBTITLE": "Câu hỏi thường gặp giúp trợ lý trả lời nhanh và chính xác cho khách hàng. Chúng có thể được tạo tự động từ nội dung của bạn hoặc thêm thủ công.",
         "CLEAR_SEARCH": "Xoá bộ lọc đang áp dụng",
         "FEATURE_SPOTLIGHT": {
-          "TITLE": "Câu hỏi thường gặp GMO AI",
+          "TITLE": "Câu hỏi thường gặp Tekomi AI",
           "NOTE": "Tính năng này phát hiện các câu hỏi phổ biến của khách — dù thiếu trong cơ sở tri thức hay được hỏi thường xuyên — và tạo câu hỏi thường gặp phù hợp để cải thiện hỗ trợ. Bạn có thể xem từng gợi ý và quyết định duyệt hay từ chối."
         }
       },
@@ -1253,7 +1253,7 @@
       "SAVE": "Lưu thay đổi",
       "DETAILS": {
         "TITLE": "Xem gợi ý câu hỏi thường gặp",
-        "DESCRIPTION": "GMO AI đã gom {count} hội thoại vào gợi ý này. Hãy xem bằng chứng và tinh chỉnh câu hỏi thường gặp trước khi duyệt. | GMO AI đã gom {count} hội thoại vào gợi ý này. Hãy xem bằng chứng và tinh chỉnh câu hỏi thường gặp trước khi duyệt.",
+        "DESCRIPTION": "Tekomi AI đã gom {count} hội thoại vào gợi ý này. Hãy xem bằng chứng và tinh chỉnh câu hỏi thường gặp trước khi duyệt. | Tekomi AI đã gom {count} hội thoại vào gợi ý này. Hãy xem bằng chứng và tinh chỉnh câu hỏi thường gặp trước khi duyệt.",
         "SOURCES": "Hội thoại nguồn",
         "SOURCE_PROGRESS": "{visible} trong {total}",
         "NO_SOURCES": "Không tìm thấy hội thoại nguồn nào có thể truy cập.",
@@ -1265,7 +1265,7 @@
         "CLEAR_SEARCH": "Xoá tìm kiếm"
       },
       "SUCCESS": {
-        "APPROVED": "Đã duyệt và thêm câu hỏi thường gặp vào kiến thức của GMO AI.",
+        "APPROVED": "Đã duyệt và thêm câu hỏi thường gặp vào kiến thức của Tekomi AI.",
         "DISMISSED": "Đã bỏ qua gợi ý.",
         "SAVED": "Đã cập nhật gợi ý."
       },

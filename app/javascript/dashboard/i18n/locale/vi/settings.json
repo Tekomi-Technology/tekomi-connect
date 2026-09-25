@@ -37,7 +37,7 @@
       },
       "INTERFACE_SECTION": {
         "TITLE": "Giao diện",
-        "NOTE": "Tuỳ chỉnh diện mạo bảng điều khiển GMO của bạn.",
+        "NOTE": "Tuỳ chỉnh diện mạo bảng điều khiển Tekomi của bạn.",
         "FONT_SIZE": {
           "TITLE": "Cỡ chữ",
           "NOTE": "Điều chỉnh cỡ chữ trên toàn bộ bảng điều khiển theo ý bạn.",
@@ -326,7 +326,7 @@
     "ACTIVE": "Có hiệu lực",
     "COMPANIES": "Công ty",
     "ALL_COMPANIES": "Tất cả công ty",
-    "TEKOMI": "GMO AI",
+    "TEKOMI": "Tekomi AI",
     "CALLS": "Cuộc gọi",
     "TEKOMI_ASSISTANTS": "Trợ lý",
     "TEKOMI_OVERVIEW": "Tổng quan",
@@ -418,7 +418,7 @@
     },
     "DOCS": "Đọc tài liệu",
     "SECURITY": "Bảo mật",
-    "TEKOMI_AI": "GMO AI",
+    "TEKOMI_AI": "Tekomi AI",
     "CONVERSATION_WORKFLOW": "Quy trình hội thoại",
     "CRM_DIRECTORY": "Danh bạ CRM",
     "DEALS": "Bán hàng",
@@ -537,11 +537,11 @@
     }
   },
   "TEKOMI_SETTINGS": {
-    "TITLE": "Cài đặt GMO AI",
-    "DESCRIPTION": "Cấu hình các mô hình AI và tính năng cho GMO AI. GMO AI tính phí theo tín dụng, mỗi thao tác của GMO AI sẽ trừ tín dụng tuỳ theo mô hình bạn chọn.",
-    "LOADING": "Đang tải cấu hình GMO AI...",
-    "LINK_TEXT": "Tìm hiểu thêm về tín dụng GMO AI",
-    "NOT_ENABLED": "GMO AI chưa được bật cho tài khoản của bạn. Vui lòng nâng cấp gói để dùng các tính năng GMO AI.",
+    "TITLE": "Cài đặt Tekomi AI",
+    "DESCRIPTION": "Cấu hình các mô hình AI và tính năng cho Tekomi AI. Tekomi AI tính phí theo tín dụng, mỗi thao tác của Tekomi AI sẽ trừ tín dụng tuỳ theo mô hình bạn chọn.",
+    "LOADING": "Đang tải cấu hình Tekomi AI...",
+    "LINK_TEXT": "Tìm hiểu thêm về tín dụng Tekomi AI",
+    "NOT_ENABLED": "Tekomi AI chưa được bật cho tài khoản của bạn. Vui lòng nâng cấp gói để dùng các tính năng Tekomi AI.",
     "MODEL_CONFIG": {
       "TITLE": "Cấu hình mô hình",
       "DESCRIPTION": "Chọn mô hình AI cho từng tính năng.",
@@ -582,8 +582,8 @@
       }
     },
     "API": {
-      "SUCCESS": "Đã cập nhật cài đặt GMO AI thành công.",
-      "ERROR": "Không cập nhật được cài đặt GMO AI. Vui lòng thử lại."
+      "SUCCESS": "Đã cập nhật cài đặt Tekomi AI thành công.",
+      "ERROR": "Không cập nhật được cài đặt Tekomi AI. Vui lòng thử lại."
     }
   },
   "BILLING_SETTINGS": {
@@ -613,12 +613,12 @@
       "BUTTON_TXT": "Đi tới cổng thanh toán"
     },
     "TEKOMI": {
-      "TITLE": "GMO AI",
-      "DESCRIPTION": "Quản lý mức sử dụng và tín dụng cho GMO AI.",
+      "TITLE": "Tekomi AI",
+      "DESCRIPTION": "Quản lý mức sử dụng và tín dụng cho Tekomi AI.",
       "BUTTON_TXT": "Mua thêm tín dụng",
       "DOCUMENTS": "Tài liệu",
       "RESPONSES": "Responses",
-      "UPGRADE": "GMO AI không có ở gói miễn phí, hãy nâng cấp ngay để dùng trợ lý, trợ thủ và nhiều tính năng khác.",
+      "UPGRADE": "Tekomi AI không có ở gói miễn phí, hãy nâng cấp ngay để dùng trợ lý, trợ thủ và nhiều tính năng khác.",
       "REFRESH_CREDITS": "Làm mới"
     },
     "CHAT_WITH_US": {
@@ -630,7 +630,7 @@
     "TOPUP": {
       "BUY_CREDITS": "Mua thêm tín dụng",
       "MODAL_TITLE": "Mua tín dụng AI",
-      "MODAL_DESCRIPTION": "Mua thêm tín dụng cho GMO AI.",
+      "MODAL_DESCRIPTION": "Mua thêm tín dụng cho Tekomi AI.",
       "CREDITS": "TÍN DỤNG",
       "ONE_TIME": "một lần",
       "POPULAR": "Phổ biến nhất",
