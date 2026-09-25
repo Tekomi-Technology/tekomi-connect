@@ -6,7 +6,7 @@ import FileUpload from 'vue-upload-component';
 import * as ActiveStorage from 'activestorage';
 import inboxMixin from 'shared/mixins/inboxMixin';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
-import { getAllowedFileTypesByChannel } from '@chatwoot/utils';
+import { getAllowedFileTypes } from 'shared/helpers/FileHelper';
 import VideoCallButton from '../VideoCallButton.vue';
 import { INBOX_TYPES } from 'dashboard/helper/inbox';
 import { mapGetters } from 'vuex';
@@ -207,7 +207,7 @@ export default {
     },
     allowedFileTypes() {
       if (this.isOnPrivateNote) {
-        return getAllowedFileTypesByChannel();
+        return getAllowedFileTypes();
       }
 
       let channelType = this.channelType || this.inbox?.channel_type;
@@ -215,7 +215,7 @@ export default {
         channelType = INBOX_TYPES.INSTAGRAM;
       }
 
-      return getAllowedFileTypesByChannel({
+      return getAllowedFileTypes({
         channelType,
         medium: this.inbox?.medium,
       });

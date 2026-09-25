@@ -1,7 +1,9 @@
 import { mapGetters } from 'vuex';
 import { useAlert } from 'dashboard/composables';
-import { checkFileSizeLimit } from 'shared/helpers/FileHelper';
-import { getMaxUploadSizeByChannel } from '@chatwoot/utils';
+import {
+  checkFileSizeLimit,
+  getMaxUploadSize,
+} from 'shared/helpers/FileHelper';
 import { DirectUpload } from 'activestorage';
 import { setDirectUploadAuthHeaders } from 'dashboard/helper/directUploadsHelper';
 import {
@@ -35,7 +37,7 @@ export default {
         return this.installationLimit;
       }
 
-      const channelLimit = getMaxUploadSizeByChannel({
+      const channelLimit = getMaxUploadSize({
         channelType,
         medium: this.inbox?.medium, // e.g. 'sms' | 'whatsapp'
         mime, // e.g. 'image/png'

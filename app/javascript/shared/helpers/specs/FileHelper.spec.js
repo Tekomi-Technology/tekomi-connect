@@ -5,6 +5,8 @@ import {
   checkFileSizeLimit,
   resolveMaximumFileUploadSize,
   isFileTypeAllowedForChannel,
+  getAllowedFileTypes,
+  getMaxUploadSize,
 } from '../FileHelper';
 
 describe('#File Helpers', () => {
@@ -243,6 +245,49 @@ describe('#File Helpers', () => {
           })
         ).toBe(true);
       });
+    });
+  });
+
+  describe('Zalo OA upload rules', () => {
+    const channelType = 'Channel::ZaloOa';
+
+    it('limits the picker to JPG/PNG images and PDF/DOC/DOCX files', () => {
+      const allowed = getAllowedFileTypes({ channelType });
+      expect(allowed).toContain('image/png');
+      expect(allowed).toContain('.docx');
+      expect(allowed).not.toContain('image/*');
+      expect(allowed).not.toContain('video');
+    });
+
+    it.each([
+      ['photo.jpg', 'image/jpeg', true],
+      ['scan.png', 'image/png', true],
+      ['report.pdf', 'application/pdf', true],
+      ['contract.docx', '', true],
+      ['animation.gif', 'image/gif', false],
+      ['sticker.webp', 'image/webp', false],
+      ['clip.mp4', 'video/mp4', false],
+      ['sheet.xlsx', 'application/vnd.ms-excel', false],
+    ])('allows %s (%s): %s', (name, type, expected) => {
+      expect(
+        isFileTypeAllowedForChannel({ name, type, size: 1000 }, { channelType })
+      ).toBe(expected);
+    });
+
+    it('caps images at 10MB and documents at 5MB', () => {
+      expect(getMaxUploadSize({ channelType, mime: 'image/png' })).toBe(10);
+      expect(getMaxUploadSize({ channelType, mime: 'application/pdf' })).toBe(
+        5
+      );
+    });
+
+    it('keeps the library rules for other channels', () => {
+      expect(
+        getAllowedFileTypes({ channelType: 'Channel::ZaloPersonal' })
+      ).toBe(getAllowedFileTypes());
+      expect(
+        getMaxUploadSize({ channelType: 'Channel::Tiktok', mime: 'image/png' })
+      ).toBe(3);
     });
   });
 });

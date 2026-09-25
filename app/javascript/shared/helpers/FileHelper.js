@@ -1,7 +1,46 @@
-import { getAllowedFileTypesByChannel } from '@chatwoot/utils';
+import {
+  getAllowedFileTypesByChannel,
+  getMaxUploadSizeByChannel,
+} from '@chatwoot/utils';
 import { INBOX_TYPES } from 'dashboard/helper/inbox';
 
 export const DEFAULT_MAXIMUM_FILE_UPLOAD_SIZE = 40;
+
+// Zalo OA is not in @chatwoot/utils' channel rules. Its upload/image endpoint takes JPG/PNG
+// only (ZaloOa::MessageSender compresses them under the 1MB cap, so the agent can pick a
+// normal phone photo) and upload/file takes PDF/DOC/DOCX up to 5MB. Extensions are listed
+// alongside MIME types because Windows often reports an empty type for .doc/.docx.
+const ZALO_OA_ALLOWED_FILE_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  '.jpg',
+  '.jpeg',
+  '.png',
+  '.pdf',
+  '.doc',
+  '.docx',
+].join(', ');
+const ZALO_OA_MAX_IMAGE_SIZE = 10;
+const ZALO_OA_MAX_FILE_SIZE = 5;
+
+export const getAllowedFileTypes = ({ channelType, medium } = {}) => {
+  if (channelType === INBOX_TYPES.ZALO_OA) return ZALO_OA_ALLOWED_FILE_TYPES;
+
+  return getAllowedFileTypesByChannel({ channelType, medium });
+};
+
+export const getMaxUploadSize = ({ channelType, medium, mime }) => {
+  if (channelType === INBOX_TYPES.ZALO_OA) {
+    return mime?.startsWith('image/')
+      ? ZALO_OA_MAX_IMAGE_SIZE
+      : ZALO_OA_MAX_FILE_SIZE;
+  }
+
+  return getMaxUploadSizeByChannel({ channelType, medium, mime });
+};
 
 export const formatBytes = (bytes, decimals = 2) => {
   if (bytes === 0) return '0 Bytes';
@@ -58,8 +97,8 @@ export const isFileTypeAllowedForChannel = (file, options = {}) => {
   } = options;
 
   const allowedFileTypes = isOnPrivateNote
-    ? getAllowedFileTypesByChannel()
-    : getAllowedFileTypesByChannel({
+    ? getAllowedFileTypes()
+    : getAllowedFileTypes({
         channelType:
           isInstagramChannel || conversationType === 'instagram_direct_message'
             ? INBOX_TYPES.INSTAGRAM

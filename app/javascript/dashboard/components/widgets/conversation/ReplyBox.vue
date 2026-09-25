@@ -346,6 +346,8 @@ export default {
         this.isATelegramChannel ||
         this.isALineChannel ||
         this.isAnInstagramChannel ||
+        this.isAZaloOaChannel ||
+        this.isAZaloPersonalChannel ||
         (this.isATiktokChannel && tiktokAttachmentSupported)
       );
     },
@@ -369,7 +371,10 @@ export default {
       return this.attachedFiles.length;
     },
     showAudioRecorder() {
-      return !this.isOnPrivateNote && this.showFileUpload;
+      // Neither Zalo sender has a voice-message path: Zalo OA rejects audio uploads and
+      // Zalo personal would deliver the recording as a plain file.
+      const isZalo = this.isAZaloOaChannel || this.isAZaloPersonalChannel;
+      return !this.isOnPrivateNote && this.showFileUpload && !isZalo;
     },
     showAudioRecorderEditor() {
       return this.showAudioRecorder && this.isRecordingAudio;
@@ -397,7 +402,9 @@ export default {
         this.isAWebWidgetInbox ||
         this.isAPIInbox ||
         this.isAWhatsAppChannel ||
-        this.isATelegramChannel
+        this.isATelegramChannel ||
+        this.isAZaloOaChannel ||
+        this.isAZaloPersonalChannel
       );
     },
     isSignatureEnabledForInbox() {
