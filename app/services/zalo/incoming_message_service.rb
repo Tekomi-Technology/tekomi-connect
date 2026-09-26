@@ -9,7 +9,7 @@ class Zalo::IncomingMessageService
 
   def perform
     return if thread_id.blank? || source_id.blank?
-    return if already_imported?
+    return store_quote_source_on_sent_message if already_imported?
 
     set_contact
     set_conversation
@@ -51,6 +51,13 @@ class Zalo::IncomingMessageService
     return true if inbox.messages.exists?(source_id: source_id)
 
     ::Redis::Alfred.exists?(format(::Redis::Alfred::ZALO_PERSONAL_SENT_MESSAGE, inbox_id: inbox.id, zalo_message_id: source_id))
+  end
+
+  def store_quote_source_on_sent_message
+    sent = inbox.messages.find_by(source_id: source_id)
+    return if sent.blank? || sent.content_attributes['zalo_quote_source'].present?
+
+    sent.update!(content_attributes: sent.content_attributes.merge('zalo_quote_source' => params[:quote_source]))
   end
 
   def set_contact

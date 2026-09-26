@@ -94,7 +94,10 @@ export class ZcaAdapter implements ZaloApi {
   // sticker. If resolution fails, fall back to the classified "[Sticker]" text (never blank).
   private async deliver(raw: any, cb: (msg: IncomingMessage) => void): Promise<void> {
     try {
-      const msg = normalizeIncoming(raw);
+      const normalized = normalizeIncoming(raw);
+      const msg = normalized.isSelf
+        ? { ...normalized, quoteSrc: { ...normalized.quoteSrc, uidFrom: String(this.api.getOwnId()) } }
+        : normalized;
       if (raw?.data?.msgType === 'chat.sticker') {
         const img = await resolveStickerImage(this.api, raw?.data?.content?.id);
         if (img) {

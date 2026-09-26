@@ -344,6 +344,7 @@ export default {
         this.isAnEmailChannel ||
         this.isASmsInbox ||
         this.isATelegramChannel ||
+        this.isAZaloPersonalChannel ||
         this.isALineChannel ||
         this.isAnInstagramChannel ||
         (this.isATiktokChannel && tiktokAttachmentSupported)
@@ -397,7 +398,8 @@ export default {
         this.isAWebWidgetInbox ||
         this.isAPIInbox ||
         this.isAWhatsAppChannel ||
-        this.isATelegramChannel
+        this.isATelegramChannel ||
+        this.isAZaloPersonalChannel
       );
     },
     isSignatureEnabledForInbox() {
