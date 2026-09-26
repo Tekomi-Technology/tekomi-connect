@@ -17,7 +17,7 @@ export interface QrStarted {
 }
 
 type Report = (result: QrLoginResult) => Promise<void>;
-export type QrFailureReason = 'expired' | 'declined';
+export type QrFailureReason = 'expired' | 'declined' | 'failed';
 type ReportFailure = (qrSessionId: string, reason: QrFailureReason) => Promise<void>;
 type Log = (obj: Record<string, unknown>, msg: string) => void;
 
@@ -41,6 +41,7 @@ export function startQrLogin(report: Report, reportFailure: ReportFailure, log: 
 
   return new Promise<QrStarted>((resolve, reject) => {
     let settled = false;
+    let failureReported = false;
     let displayName = '';
     let credentials: ZaloCredentials | null = null;
 
@@ -55,9 +56,11 @@ export function startQrLogin(report: Report, reportFailure: ReportFailure, log: 
       // Zalo gave up on this code. Say so now: otherwise the dashboard keeps polling a dead
       // code until the pending record expires, minutes after the code itself did.
       if (event.type === LoginQRCallbackEventType.QRCodeExpired) {
+        failureReported = true;
         await reportFailure(qrSessionId, 'expired').catch(() => {});
       }
       if (event.type === LoginQRCallbackEventType.QRCodeDeclined) {
+        failureReported = true;
         await reportFailure(qrSessionId, 'declined').catch(() => {});
       }
       if (event.type === LoginQRCallbackEventType.GotLoginInfo) {
@@ -83,6 +86,8 @@ export function startQrLogin(report: Report, reportFailure: ReportFailure, log: 
         if (!settled) {
           settled = true;
           reject(err);
+        } else if (!failureReported) {
+          void reportFailure(qrSessionId, 'failed').catch(() => {});
         }
       });
   });
