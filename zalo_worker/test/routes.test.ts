@@ -83,6 +83,15 @@ describe('POST /qr/start', () => {
     expect(res.statusCode).toBe(200);
     expect(res.json()).toEqual({ qr_session_id: 'qr-1', qr_image: 'data:image/png;base64,xx' });
   });
+
+  it('passes an existing channel id to QR login for stable proxy reuse', async () => {
+    const { app } = await buildApp({ proxyForQr: vi.fn(() => ({ protocol: 'http', host: 'proxy', port: 8080, username: 'u', password: 'p' })) });
+    const res = await app.inject({
+      method: 'POST', url: '/qr/start', headers: { 'x-zalo-worker-secret': SECRET, 'content-type': 'application/json' },
+      payload: { channel_id: 9 },
+    });
+    expect(res.statusCode).toBe(200);
+  });
 });
 
 describe('POST /sessions/:channelId/connect', () => {

@@ -5,6 +5,7 @@ export type SessionStatus = 'connected' | 'reconnecting' | 'expired';
 export function isZaloAuthError(err: unknown): boolean {
   const msg = String((err as { message?: unknown })?.message ?? '').toLowerCase();
   if (!msg) return false;
+  if (/proxy|tunnel|407/.test(msg)) return false;
   return /cookie|credential|unauthor|đăng nhập|(login|session|token).*(fail|expired|invalid|reject)|(invalid|expired|reject).*(login|session|token)/.test(
     msg
   );

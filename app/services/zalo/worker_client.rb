@@ -10,8 +10,8 @@ class Zalo::WorkerClient
   TIMEOUT = 30
 
   class << self
-    def start_qr_login
-      post('/qr/start')
+    def start_qr_login(channel_id = nil)
+      post('/qr/start', channel_id ? { channel_id: channel_id } : nil)
     end
 
     def connect(channel)

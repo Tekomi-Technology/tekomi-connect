@@ -44,6 +44,8 @@ services:
     image: chatwoot-custom-rails:1.0
     pull_policy: never
     env_file: .env
+    volumes:
+      - ${ZALO_PROXY_POOL_HOST_PATH:-./.zalo-proxy-pool}:/run/secrets/zalo-proxy-pool:ro
     depends_on:
       - rails
     environment:

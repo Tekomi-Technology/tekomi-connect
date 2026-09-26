@@ -8,6 +8,7 @@ class ZaloOa::CallbacksController < ApplicationController
 
     ::Redis::Alfred.delete(cache_key)
     inbox = build_inbox(pending)
+    ZaloOa::BackfillJob.perform_later(inbox.channel.id)
     redirect_to app_zalo_oa_inbox_agents_url(account_id: @account_id, inbox_id: inbox.id)
   rescue StandardError => e
     ChatwootExceptionTracker.new(e).capture_exception

@@ -1,7 +1,8 @@
 import { Zalo, LoginQRCallbackEventType } from 'zca-js';
 import type { LoginQRCallbackEvent } from 'zca-js';
 import { randomUUID } from 'node:crypto';
-import type { ZaloCredentials } from './types.js';
+import type { ProxyConnection, ZaloCredentials } from './types.js';
+import { buildProxyOptions } from './proxyOptions.js';
 
 export interface QrLoginResult {
   qrSessionId: string;
@@ -16,7 +17,7 @@ export interface QrStarted {
 }
 
 type Report = (result: QrLoginResult) => Promise<void>;
-export type QrFailureReason = 'expired' | 'declined';
+export type QrFailureReason = 'expired' | 'declined' | 'failed';
 type ReportFailure = (qrSessionId: string, reason: QrFailureReason) => Promise<void>;
 type Log = (obj: Record<string, unknown>, msg: string) => void;
 
@@ -34,12 +35,13 @@ function toDataUrl(image: string | undefined): string {
  * actually serves the inbox is created from the stored credentials, so there is exactly one
  * code path that opens a live session.
  */
-export function startQrLogin(report: Report, reportFailure: ReportFailure, log: Log): Promise<QrStarted> {
+export function startQrLogin(report: Report, reportFailure: ReportFailure, log: Log, proxy?: ProxyConnection): Promise<QrStarted> {
   const qrSessionId = randomUUID();
-  const zalo = new Zalo({ selfListen: true });
+  const zalo = new Zalo({ selfListen: true, ...buildProxyOptions(proxy) });
 
   return new Promise<QrStarted>((resolve, reject) => {
     let settled = false;
+    let failureReported = false;
     let displayName = '';
     let credentials: ZaloCredentials | null = null;
 
@@ -54,14 +56,16 @@ export function startQrLogin(report: Report, reportFailure: ReportFailure, log: 
       // Zalo gave up on this code. Say so now: otherwise the dashboard keeps polling a dead
       // code until the pending record expires, minutes after the code itself did.
       if (event.type === LoginQRCallbackEventType.QRCodeExpired) {
+        failureReported = true;
         await reportFailure(qrSessionId, 'expired').catch(() => {});
       }
       if (event.type === LoginQRCallbackEventType.QRCodeDeclined) {
+        failureReported = true;
         await reportFailure(qrSessionId, 'declined').catch(() => {});
       }
       if (event.type === LoginQRCallbackEventType.GotLoginInfo) {
         const data = event.data as any;
-        credentials = { imei: data.imei, cookie: data.cookie, userAgent: data.userAgent, language: 'vi' };
+        credentials = { imei: data.imei, cookie: data.cookie, userAgent: data.userAgent, language: 'vi', proxy };
       }
     });
 
@@ -82,6 +86,8 @@ export function startQrLogin(report: Report, reportFailure: ReportFailure, log: 
         if (!settled) {
           settled = true;
           reject(err);
+        } else if (!failureReported) {
+          void reportFailure(qrSessionId, 'failed').catch(() => {});
         }
       });
   });

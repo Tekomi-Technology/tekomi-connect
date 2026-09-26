@@ -14,6 +14,12 @@ trigger_scheduled_items_job:
   class: 'TriggerScheduledItemsJob'
   queue: scheduled_jobs
 
+# Recover OA messages missed while the webhook endpoint or worker was unavailable.
+zalo_oa_backfill_job:
+  cron: '*/5 * * * *'
+  class: 'ZaloOa::BackfillAllJob'
+  queue: scheduled_jobs
+
 # executed hourly for scheduled jobs that do not need minute-level cadence
 trigger_hourly_scheduled_items_job:
   cron: '0 * * * *'

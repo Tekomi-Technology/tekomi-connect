@@ -13,9 +13,11 @@ class ZaloOa::IncomingMessageService
 
     set_contact
     set_conversation
+    ZaloOa::ConsultationWindow.record_inbound(@conversation) unless outgoing_event?
     build_message
     attach_media
     @message.save!
+    ZaloOa::RequestInfoJob.perform_later(@conversation.id) unless outgoing_event? || params[:backfill]
   end
 
   private
@@ -68,11 +70,16 @@ class ZaloOa::IncomingMessageService
       contact_attributes: contact_attributes
     ).perform
     @contact = @contact_inbox.contact
+    profile = fetch_profile
+    ::Avatar::AvatarFromUrlJob.perform_later(@contact, profile[:avatar_url]) if profile&.dig(:avatar_url).present? && !@contact.avatar.attached?
   end
 
   def contact_attributes
     profile = fetch_profile
-    { name: profile&.dig(:name).presence || "Zalo User #{user_id}" }
+    {
+      name: profile&.dig(:name).presence || "Zalo User #{user_id}",
+      avatar_url: profile&.dig(:avatar_url).presence
+    }.compact
   end
 
   def fetch_profile
@@ -111,11 +118,26 @@ class ZaloOa::IncomingMessageService
   end
 
   def message_content
-    return message_text if TEXT_EVENTS.include?(event_name)
-    return message_text.presence if CAPTIONABLE_EVENTS.include?(event_name)
-    return nil if NO_CONTENT_EVENTS.include?(event_name)
+    return message_text.presence || attachment_url if TEXT_EVENTS.include?(event_name)
+    if CAPTIONABLE_EVENTS.include?(event_name)
+      return message_text.presence if message_text.present?
+      return nil if attachment_url.present?
+
+      return "[#{event_name}]"
+    end
+    return location_content if event_name == 'user_send_location'
+    return nil if NO_CONTENT_EVENTS.include?(event_name) && attachment_url.present?
 
     "[#{event_name.presence || 'unknown'}] #{message_text}".strip
+  end
+
+  def location_content
+    coordinates = attachment_payload[:coordinates] || {}
+    latitude = coordinates[:latitude]
+    longitude = coordinates[:longitude]
+    return "📍 Vị trí: https://www.google.com/maps?q=#{latitude},#{longitude}" if latitude.present? && longitude.present?
+
+    '📍 Vị trí'
   end
 
   def content_attributes
@@ -135,6 +157,7 @@ class ZaloOa::IncomingMessageService
     )
   rescue Down::Error => e
     Rails.logger.warn("Zalo OA attachment download failed for #{source_id}: #{e.message}")
+    raise
   end
 
   def media_file_type

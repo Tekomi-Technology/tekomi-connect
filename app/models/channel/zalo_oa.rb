@@ -5,6 +5,7 @@
 #  id               :bigint           not null, primary key
 #  access_token     :text
 #  app_secret       :text             not null
+#  backfill_watermark_ms :bigint       default(0), not null
 #  oa_name          :string
 #  oa_secret_key    :text
 #  refresh_token    :text

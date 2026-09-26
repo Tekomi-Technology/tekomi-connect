@@ -3,7 +3,7 @@ import { SessionManager, NoSessionError } from './sessionManager.js';
 import { ReconnectSupervisor } from './supervisor.js';
 import { startQrLogin, type QrLoginResult, type QrFailureReason } from './qrLogin.js';
 import { once } from './idempotency.js';
-import { ZaloThreadKind, ZaloFileRejectedError, type QuoteSource, type ZaloCredentials } from './types.js';
+import { ZaloThreadKind, ZaloFileRejectedError, type QuoteSource, type ZaloCredentials, type ProxyConnection } from './types.js';
 
 export interface RouteDeps {
   sessions: SessionManager;
@@ -13,6 +13,7 @@ export interface RouteDeps {
   reportQrFailure: (qrSessionId: string, reason: QrFailureReason) => Promise<void>;
   secret: string;
   log: (obj: Record<string, unknown>, msg: string) => void;
+  proxyForQr?: (channelId?: number) => ProxyConnection | undefined;
 }
 
 interface SendBody {
@@ -39,8 +40,11 @@ export function registerRoutes(app: FastifyInstance, deps: RouteDeps): void {
     sessions: deps.sessions.ids().map((channelId) => ({ channel_id: channelId, connected: true })),
   }));
 
-  app.post('/qr/start', async () => {
-    const { qrSessionId, qrImage } = await startQrLogin(deps.reportQrLogin, deps.reportQrFailure, deps.log);
+  app.post('/qr/start', async (request) => {
+    const channelId = typeof (request.body as { channel_id?: unknown } | undefined)?.channel_id === 'number'
+      ? Number((request.body as { channel_id: number }).channel_id)
+      : undefined;
+    const { qrSessionId, qrImage } = await startQrLogin(deps.reportQrLogin, deps.reportQrFailure, deps.log, deps.proxyForQr?.(channelId));
     return { qr_session_id: qrSessionId, qr_image: qrImage };
   });
 

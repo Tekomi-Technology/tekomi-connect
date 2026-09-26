@@ -16,13 +16,14 @@ import {
   toZcaThreadType,
 } from './types.js';
 import { resolveStickerImage } from './stickerResolver.js';
+import { buildProxyOptions } from './proxyOptions.js';
 
 export class ZcaAdapter implements ZaloApi {
   private constructor(private api: any) {}
 
   /** Login from saved credentials and start listening. */
   static async fromCredentials(creds: ZaloCredentials): Promise<ZcaAdapter> {
-    const zalo = new Zalo({ selfListen: true });
+    const zalo = new Zalo({ selfListen: true, ...buildProxyOptions(creds.proxy) });
     const api = await zalo.login({
       imei: creds.imei,
       cookie: creds.cookie as any,
@@ -93,7 +94,10 @@ export class ZcaAdapter implements ZaloApi {
   // sticker. If resolution fails, fall back to the classified "[Sticker]" text (never blank).
   private async deliver(raw: any, cb: (msg: IncomingMessage) => void): Promise<void> {
     try {
-      const msg = normalizeIncoming(raw);
+      const normalized = normalizeIncoming(raw);
+      const msg = normalized.isSelf
+        ? { ...normalized, quoteSrc: { ...normalized.quoteSrc, uidFrom: String(this.api.getOwnId()) } }
+        : normalized;
       if (raw?.data?.msgType === 'chat.sticker') {
         const img = await resolveStickerImage(this.api, raw?.data?.content?.id);
         if (img) {
