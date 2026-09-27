@@ -17,6 +17,7 @@ import ComposeConversation from 'dashboard/components-next/NewConversation/Compo
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import VoiceCallButton from 'dashboard/components-next/Contacts/VoiceCallButton.vue';
 import InlineInput from 'dashboard/components-next/inline-input/InlineInput.vue';
+import VipBadge from 'dashboard/components-next/Contacts/VipBadge.vue';
 
 export default {
   components: {
@@ -30,6 +31,7 @@ export default {
     ContactDeleteModal,
     VoiceCallButton,
     InlineInput,
+    VipBadge,
   },
   props: {
     contact: {
@@ -53,6 +55,7 @@ export default {
       showEditModal: false,
       isEditingName: false,
       editName: '',
+      isUpdatingVip: false,
     };
   },
   computed: {
@@ -139,6 +142,25 @@ export default {
     cancelNameEdit() {
       this.isEditingName = false;
     },
+    async toggleVip() {
+      const vip = !this.contact.vip;
+      this.isUpdatingVip = true;
+      try {
+        await this.$store.dispatch('contacts/update', {
+          id: this.contact.id,
+          vip,
+        });
+        useAlert(
+          this.$t(
+            vip ? 'CONTACT_PANEL.VIP.MARKED' : 'CONTACT_PANEL.VIP.UNMARKED'
+          )
+        );
+      } catch (error) {
+        useAlert(this.$t('CONTACT_PANEL.VIP.ERROR'));
+      } finally {
+        this.isUpdatingVip = false;
+      }
+    },
     onFieldUpdate(field, value) {
       this.updateContactField({ [field]: value });
     },
@@ -218,6 +240,7 @@ export default {
             >
               {{ contact.name }}
             </h3>
+            <VipBadge v-if="contact.vip && !isEditingName" />
             <NextButton
               ghost
               xs
@@ -341,6 +364,20 @@ export default {
           faded
           slate
           :tooltip-label="$t('CONTACT_PANEL.CALL')"
+        />
+        <NextButton
+          v-tooltip.top-end="
+            $t(
+              contact.vip ? 'CONTACT_PANEL.VIP.UNMARK' : 'CONTACT_PANEL.VIP.MARK'
+            )
+          "
+          icon="i-lucide-crown"
+          :color="contact.vip ? 'amber' : 'slate'"
+          faded
+          sm
+          :is-loading="isUpdatingVip"
+          :disabled="isUpdatingVip"
+          @click="toggleVip"
         />
         <NextButton
           v-tooltip.top-end="$t('EDIT_CONTACT.BUTTON_LABEL')"

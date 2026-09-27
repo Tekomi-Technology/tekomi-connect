@@ -23,6 +23,7 @@ export const CONVERSATION_ATTRIBUTES = {
   LAST_ACTIVITY_AT: 'last_activity_at',
   ANALYSIS_INTEREST_LEVEL: 'analysis_interest_level',
   ANALYSIS_QUALITY_SCORE: 'analysis_quality_score',
+  CONTACT_VIP: 'contact_vip',
 };
 
 export const CONTACT_ATTRIBUTES = {

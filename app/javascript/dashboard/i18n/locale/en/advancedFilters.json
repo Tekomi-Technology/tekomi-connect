@@ -55,6 +55,7 @@
       "CONVERSATION_IDENTIFIER": "Conversation identifier",
       "CAMPAIGN_NAME": "Campaign name",
       "LABELS": "Labels",
+      "CONTACT_VIP": "VIP customer",
       "BROWSER_LANGUAGE": "Browser language",
       "PRIORITY": "Priority",
       "COUNTRY_NAME": "Country name",

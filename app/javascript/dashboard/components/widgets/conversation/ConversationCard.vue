@@ -9,6 +9,7 @@ import TimeAgo from 'dashboard/components/ui/TimeAgo.vue';
 import SLACardLabel from './components/SLACardLabel.vue';
 import VoiceCallStatus from './VoiceCallStatus.vue';
 import Checkbox from 'dashboard/components-next/checkbox/Checkbox.vue';
+import VipBadge from 'dashboard/components-next/Contacts/VipBadge.vue';
 
 const props = defineProps({
   chat: { type: Object, required: true },
@@ -52,17 +53,9 @@ const hasSlaPolicyId = computed(
   () => props.chat?.applied_sla?.id && !props.currentContact?.blocked
 );
 
-const isVip = computed(() =>
-  (props.chat.labels ?? []).find(label =>
-    String(label).toLowerCase().includes('vip')
-  )
-);
+const isVip = computed(() => !!props.currentContact?.vip);
 
-const visibleLabels = computed(() =>
-  (props.chat.labels ?? [])
-    .filter(label => String(label).toLowerCase() !== 'vip')
-    .slice(0, 2)
-);
+const visibleLabels = computed(() => (props.chat.labels ?? []).slice(0, 2));
 
 const priorityPillClass = computed(() => {
   const priority = props.chat.priority;
@@ -240,12 +233,7 @@ watch(
             />
             {{ chat.priority }}
           </span>
-          <span
-            v-if="isVip"
-            class="px-2 py-0.5 rounded-full text-[11px] font-semibold uppercase bg-[#4F46E5]/10 text-[#4F46E5]"
-          >
-            {{ isVip }}
-          </span>
+          <VipBadge v-if="isVip" />
           <span
             v-for="label in visibleLabels"
             :key="label"

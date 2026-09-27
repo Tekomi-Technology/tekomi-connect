@@ -23,6 +23,14 @@
     "WHATSAPP_CALL_PERMISSION_REQUESTED": "Đã gửi yêu cầu xin phép gọi tới liên hệ. Hãy thử lại sau khi họ đồng ý.",
     "WHATSAPP_CALL_PERMISSION_PENDING": "Yêu cầu xin phép gọi vừa được gửi. Hãy thử lại sau khi liên hệ đồng ý.",
     "CLICK_TO_EDIT": "Bấm để sửa",
+    "VIP": {
+      "BADGE": "VIP",
+      "MARK": "Đánh dấu khách VIP",
+      "UNMARK": "Bỏ đánh dấu khách VIP",
+      "MARKED": "Đã đánh dấu khách VIP",
+      "UNMARKED": "Đã bỏ đánh dấu khách VIP",
+      "ERROR": "Không cập nhật được trạng thái VIP. Vui lòng thử lại."
+    },
     "VOICE_INBOX_PICKER": {
       "TITLE": "Chọn hộp thư thoại"
     },

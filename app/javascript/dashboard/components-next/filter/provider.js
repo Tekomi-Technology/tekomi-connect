@@ -303,6 +303,16 @@ export function useConversationFilterContext() {
       attributeModel: 'standard',
     },
     {
+      attributeKey: CONVERSATION_ATTRIBUTES.CONTACT_VIP,
+      value: CONVERSATION_ATTRIBUTES.CONTACT_VIP,
+      attributeName: t('FILTER.ATTRIBUTES.CONTACT_VIP'),
+      label: t('FILTER.ATTRIBUTES.CONTACT_VIP'),
+      inputType: 'booleanSelect',
+      dataType: 'checkbox',
+      filterOperators: equalityOperators.value,
+      attributeModel: 'standard',
+    },
+    {
       attributeKey: CONVERSATION_ATTRIBUTES.BROWSER_LANGUAGE,
       value: CONVERSATION_ATTRIBUTES.BROWSER_LANGUAGE,
       attributeName: t('FILTER.ATTRIBUTES.BROWSER_LANGUAGE'),

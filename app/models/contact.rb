@@ -18,7 +18,8 @@
 #  middle_name           :string           default("")
 #  name                  :string           default("")
 #  phone_number          :string
-#  created_at            :datetime         not null
+#  vip                   :boolean          default(FALSE), not null
+#  created_at           :datetime         not null
 #  updated_at            :datetime         not null
 #  account_id            :integer          not null
 #  company_id            :bigint
@@ -28,6 +29,7 @@
 #  index_contacts_on_account_id                          (account_id)
 #  index_contacts_on_account_id_and_contact_type         (account_id,contact_type)
 #  index_contacts_on_account_id_and_last_activity_at     (account_id,last_activity_at DESC NULLS LAST)
+#  index_contacts_on_account_id_and_vip                  (account_id,vip) WHERE (vip = true)
 #  index_contacts_on_blocked                             (blocked)
 #  index_contacts_on_company_id                          (company_id)
 #  index_contacts_on_lower_email_account_id              (lower((email)::text), account_id)
@@ -162,6 +164,7 @@ class Contact < ApplicationRecord
       phone_number: phone_number,
       thumbnail: avatar_url,
       blocked: blocked,
+      vip: vip,
       type: 'contact'
     }
     data[:company_id] = company_id if account.feature_enabled?('companies')

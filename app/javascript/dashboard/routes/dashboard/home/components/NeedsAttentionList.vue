@@ -4,7 +4,14 @@ import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import ConversationApi from 'dashboard/api/inbox/conversation';
 import Avatar from 'dashboard/components-next/avatar/Avatar.vue';
+import VipBadge from 'dashboard/components-next/Contacts/VipBadge.vue';
 import { dynamicTime, shortTimestamp } from 'shared/helpers/timeHelper';
+import { useSnakeCase } from 'dashboard/composables/useTransformKeys';
+import filterQueryGenerator from 'dashboard/helper/filterQueryGenerator';
+import {
+  VIP_FILTER_QUERY_VALUE,
+  buildOpenVipConversationFilters,
+} from 'dashboard/helper/vipConversationFilter';
 import { useAsyncBlock } from '../composables/useAsyncBlock';
 
 const { t } = useI18n();
@@ -29,6 +36,36 @@ const { data, isLoading, hasError, load } = useAsyncBlock(async () => {
     // `meta.all_count` is the account-wide open total; fall back to the
     // fetched slice when the shape is unexpected.
     total: response.data.meta?.all_count ?? response.data.data.payload.length,
+  };
+});
+
+// VIP is a property of the contact, so the tab queries the server-side
+// `contact_vip` filter instead of scanning the 10 rows above; its count is the
+// real number of open VIP conversations. The filter endpoint sorts by last
+// activity, so the page is re-sorted to match the longest-waiting order.
+const waitingSortKey = conversation =>
+  conversation.waiting_since > 0
+    ? conversation.waiting_since
+    : Number.MAX_SAFE_INTEGER;
+
+const {
+  data: vipData,
+  isLoading: isVipLoading,
+  hasError: hasVipError,
+  load: loadVip,
+} = useAsyncBlock(async () => {
+  const filters = buildOpenVipConversationFilters({
+    openLabel: '',
+    vipLabel: '',
+  });
+  const queryData = filterQueryGenerator(useSnakeCase(filters));
+  const response = await ConversationApi.filter({ queryData, page: 1 });
+  const payload = response.data.payload ?? [];
+  return {
+    rows: [...payload]
+      .sort((a, b) => waitingSortKey(a) - waitingSortKey(b))
+      .slice(0, 10),
+    total: response.data.meta?.all_count ?? payload.length,
   };
 });
 
@@ -64,36 +101,80 @@ const priorityBadgeClass = priority => {
 const senderName = row =>
   row.meta?.sender?.name || t('HOME.ATTENTION.UNKNOWN_CONTACT');
 
-const isVip = row =>
-  (row.labels ?? []).some(label => String(label).toLowerCase() === 'vip');
+const isVip = row => !!row.meta?.sender?.vip;
 
 const rows = computed(() => data.value?.rows ?? []);
 const total = computed(() => data.value?.total ?? 0);
+const vipRows = computed(() => vipData.value?.rows ?? []);
+const vipTotal = computed(() => vipData.value?.total ?? 0);
 
-const counts = computed(() => ({
-  all: rows.value.length,
-  sla: rows.value.filter(row => {
+const slaRows = computed(() =>
+  rows.value.filter(row => {
     const minutes = waitedMinutes(row);
     return minutes !== null && minutes >= 60;
-  }).length,
-  vip: rows.value.filter(isVip).length,
-}));
+  })
+);
+
+const isVipTab = computed(() => activeTab.value === 'vip');
+
+// `tone` highlights a tab only while it has something to act on, so an empty
+// tab stays neutral instead of permanently drawing the eye.
+const tabs = computed(() => [
+  { key: 'all', i18nKey: 'TAB_ALL', count: rows.value.length, tone: null },
+  {
+    key: 'sla',
+    i18nKey: 'TAB_SLA',
+    count: slaRows.value.length,
+    tone: 'ruby',
+  },
+  { key: 'vip', i18nKey: 'TAB_VIP', count: vipTotal.value, tone: 'amber' },
+]);
 
 const filtered = computed(() => {
-  if (activeTab.value === 'sla') {
-    return rows.value.filter(row => {
-      const minutes = waitedMinutes(row);
-      return minutes !== null && minutes >= 60;
-    });
-  }
-  if (activeTab.value === 'vip') return rows.value.filter(isVip);
+  if (activeTab.value === 'sla') return slaRows.value;
+  if (isVipTab.value) return vipRows.value;
   return rows.value;
 });
 
-const tabButtonClass = tab =>
-  activeTab.value === tab
-    ? 'bg-white text-n-slate-12 shadow-sm dark:bg-n-solid-2'
-    : 'text-n-slate-11 hover:text-n-slate-12';
+const isListLoading = computed(() =>
+  isVipTab.value ? isVipLoading.value : isLoading.value
+);
+const hasListError = computed(() =>
+  isVipTab.value ? hasVipError.value : hasError.value
+);
+const listTotal = computed(() =>
+  isVipTab.value ? vipTotal.value : rows.value.length
+);
+
+const TONE_CLASSES = {
+  ruby: {
+    text: 'text-n-ruby-11',
+    idle: 'bg-n-ruby-3 hover:bg-n-ruby-4',
+    dot: 'bg-n-ruby-9',
+  },
+  amber: {
+    text: 'text-n-amber-11',
+    idle: 'bg-n-amber-3 hover:bg-n-amber-4',
+    dot: 'bg-n-amber-9',
+  },
+};
+
+const tabTone = tab =>
+  tab.tone && tab.count > 0 ? TONE_CLASSES[tab.tone] : null;
+
+const tabButtonClass = tab => {
+  const tone = tabTone(tab);
+  if (activeTab.value === tab.key) {
+    return [
+      'bg-white shadow-sm dark:bg-n-solid-2',
+      tone ? tone.text : 'text-n-slate-12',
+    ];
+  }
+  if (tone) return [tone.idle, tone.text];
+  return 'text-n-slate-11 hover:text-n-slate-12';
+};
+
+const reload = () => (isVipTab.value ? loadVip() : load());
 
 const timeAgo = row => {
   const createdAt = row.messages?.[0]?.created_at;
@@ -115,7 +196,16 @@ const openConversation = id =>
     params: { accountId: route.params.accountId, conversation_id: id },
   });
 
-onMounted(load);
+const viewAllRoute = computed(() => ({
+  name: 'home',
+  params: { accountId: route.params.accountId },
+  ...(isVipTab.value && { query: { filter: VIP_FILTER_QUERY_VALUE } }),
+}));
+
+onMounted(() => {
+  load();
+  loadVip();
+});
 </script>
 
 <template>
@@ -137,33 +227,24 @@ onMounted(load);
         class="flex items-center gap-1 p-1 rounded-xl bg-n-alpha-1 border border-n-weak"
       >
         <button
+          v-for="tab in tabs"
+          :key="tab.key"
           type="button"
-          class="px-3 py-1 rounded-lg text-[13px] font-medium"
-          :class="tabButtonClass('all')"
-          @click="activeTab = 'all'"
+          class="flex items-center gap-1.5 px-3 py-1 rounded-lg text-[13px] font-medium"
+          :class="tabButtonClass(tab)"
+          @click="activeTab = tab.key"
         >
-          {{ t('HOME.ATTENTION.TAB_ALL', { count: counts.all }) }}
-        </button>
-        <button
-          type="button"
-          class="px-3 py-1 rounded-lg text-[13px] font-medium"
-          :class="tabButtonClass('sla')"
-          @click="activeTab = 'sla'"
-        >
-          {{ t('HOME.ATTENTION.TAB_SLA', { count: counts.sla }) }}
-        </button>
-        <button
-          type="button"
-          class="px-3 py-1 rounded-lg text-[13px] font-medium"
-          :class="tabButtonClass('vip')"
-          @click="activeTab = 'vip'"
-        >
-          {{ t('HOME.ATTENTION.TAB_VIP', { count: counts.vip }) }}
+          <span
+            v-if="tabTone(tab)"
+            class="rounded-full size-1.5"
+            :class="tabTone(tab).dot"
+          />
+          {{ t(`HOME.ATTENTION.${tab.i18nKey}`, { count: tab.count }) }}
         </button>
       </div>
     </div>
 
-    <div v-if="isLoading" class="flex flex-col gap-1 p-3">
+    <div v-if="isListLoading" class="flex flex-col gap-1 p-3">
       <div
         v-for="n in 4"
         :key="n"
@@ -172,9 +253,9 @@ onMounted(load);
     </div>
 
     <button
-      v-else-if="hasError"
+      v-else-if="hasListError"
       class="self-start m-5 text-[13px] text-n-brand hover:underline"
-      @click="load"
+      @click="reload"
     >
       {{ t('HOME.RETRY') }}
     </button>
@@ -207,6 +288,7 @@ onMounted(load);
               >
                 {{ senderName(row) }}
               </span>
+              <VipBadge v-if="isVip(row)" />
               <span
                 v-if="row.priority"
                 class="px-2 py-0.5 rounded-full text-[11px] font-semibold uppercase tracking-wide"
@@ -264,12 +346,12 @@ onMounted(load);
         {{
           t('HOME.ATTENTION.SHOWING', {
             shown: filtered.length,
-            total: rows.length,
+            total: listTotal,
           })
         }}
       </span>
       <router-link
-        :to="{ name: 'home', params: { accountId: route.params.accountId } }"
+        :to="viewAllRoute"
         class="font-medium text-[#4F46E5] hover:underline"
       >
         {{ t('HOME.ATTENTION.VIEW_ALL', { count: total }) }}

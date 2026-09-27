@@ -41,6 +41,10 @@ import countries from 'shared/constants/countries';
 import { generateValuesForEditCustomViews } from 'dashboard/helper/customViewsHelper';
 import { conversationListPageURL } from '../helper/URLHelper';
 import {
+  VIP_FILTER_QUERY_VALUE,
+  buildOpenVipConversationFilters,
+} from 'dashboard/helper/vipConversationFilter';
+import {
   isOnMentionsView,
   isOnParticipatingView,
   isOnUnattendedView,
@@ -430,6 +434,17 @@ function onApplyFilter(payload) {
   fetchFilteredConversations(payload);
 }
 
+// Opened from the Home "Needs attention" card (`?filter=vip`): apply the
+// open-VIP filter as if the agent had built it in the filter modal.
+function applyOpenVipFilter() {
+  const filters = buildOpenVipConversationFilters({
+    openLabel: t('CHAT_LIST.CHAT_STATUS_FILTER_ITEMS.open.TEXT'),
+    vipLabel: t('FILTER.ATTRIBUTE_LABELS.TRUE'),
+  });
+  store.dispatch('setConversationFilters', useSnakeCase(filters));
+  onApplyFilter(filters);
+}
+
 function closeAdvanceFiltersModal() {
   showAdvancedFilters.value = false;
   appliedFilter.value = [];
@@ -814,7 +829,12 @@ onMounted(() => {
   setFiltersFromUISettings();
   store.dispatch('setChatStatusFilter', activeStatus.value);
   store.dispatch('setChatSortFilter', activeSortBy.value);
-  resetAndFetchData();
+  const isVipDeepLink = route.query.filter === VIP_FILTER_QUERY_VALUE;
+  if (isVipDeepLink && !hasActiveFolders.value) {
+    applyOpenVipFilter();
+  } else {
+    resetAndFetchData();
+  }
   if (hasActiveFolders.value) {
     store.dispatch('campaigns/get');
   }

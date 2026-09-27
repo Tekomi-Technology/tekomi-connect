@@ -12,6 +12,7 @@ import SLACardLabel from 'dashboard/components-next/Conversation/Sla/SLACardLabe
 import CardStatusIcon from './CardStatusIcon.vue';
 import Checkbox from 'dashboard/components-next/checkbox/Checkbox.vue';
 import Icon from 'dashboard/components-next/icon/Icon.vue';
+import VipBadge from 'dashboard/components-next/Contacts/VipBadge.vue';
 
 const props = defineProps({
   chat: { type: Object, required: true },
@@ -152,11 +153,14 @@ const selectedModel = computed({
         :hide-thumbnail="false"
       />
 
-      <h4
-        class="text-heading-3 my-0 capitalize truncate text-n-slate-12 font-medium w-32 flex-shrink-0"
-      >
-        {{ currentContact.name }}
-      </h4>
+      <div class="flex items-center gap-1 w-32 min-w-0 flex-shrink-0">
+        <h4
+          class="text-heading-3 my-0 capitalize truncate text-n-slate-12 font-medium min-w-0"
+        >
+          {{ currentContact.name }}
+        </h4>
+        <VipBadge v-if="currentContact.vip" />
+      </div>
 
       <CardContent
         :last-message="lastMessageInChat"

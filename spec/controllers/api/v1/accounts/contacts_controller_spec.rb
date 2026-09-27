@@ -708,6 +708,26 @@ RSpec.describe 'Contacts API', type: :request do
         expect(response).to have_http_status(:success)
         expect(contact.reload.blocked).to be(false)
       end
+
+      it 'lets an agent mark and unmark the contact as VIP' do
+        agent = create(:user, account: account, role: :agent)
+
+        patch "/api/v1/accounts/#{account.id}/contacts/#{contact.id}",
+              params: { vip: true },
+              headers: agent.create_new_auth_token,
+              as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(response.parsed_body['payload']['vip']).to be(true)
+        expect(contact.reload.vip).to be(true)
+
+        patch "/api/v1/accounts/#{account.id}/contacts/#{contact.id}",
+              params: { vip: false },
+              headers: agent.create_new_auth_token,
+              as: :json
+
+        expect(contact.reload.vip).to be(false)
+      end
     end
   end
 
