@@ -6,12 +6,7 @@ import ConversationApi from 'dashboard/api/inbox/conversation';
 import Avatar from 'dashboard/components-next/avatar/Avatar.vue';
 import VipBadge from 'dashboard/components-next/Contacts/VipBadge.vue';
 import { dynamicTime, shortTimestamp } from 'shared/helpers/timeHelper';
-import { useSnakeCase } from 'dashboard/composables/useTransformKeys';
-import filterQueryGenerator from 'dashboard/helper/filterQueryGenerator';
-import {
-  VIP_FILTER_QUERY_VALUE,
-  buildOpenVipConversationFilters,
-} from 'dashboard/helper/vipConversationFilter';
+import wootConstants from 'dashboard/constants/globals';
 import { useAsyncBlock } from '../composables/useAsyncBlock';
 
 const { t } = useI18n();
@@ -39,33 +34,22 @@ const { data, isLoading, hasError, load } = useAsyncBlock(async () => {
   };
 });
 
-// VIP is a property of the contact, so the tab queries the server-side
-// `contact_vip` filter instead of scanning the 10 rows above; its count is the
-// real number of open VIP conversations. The filter endpoint sorts by last
-// activity, so the page is re-sorted to match the longest-waiting order.
-const waitingSortKey = conversation =>
-  conversation.waiting_since > 0
-    ? conversation.waiting_since
-    : Number.MAX_SAFE_INTEGER;
-
 const {
   data: vipData,
   isLoading: isVipLoading,
   hasError: hasVipError,
   load: loadVip,
 } = useAsyncBlock(async () => {
-  const filters = buildOpenVipConversationFilters({
-    openLabel: '',
-    vipLabel: '',
+  const response = await ConversationApi.get({
+    status: 'open',
+    assigneeType: wootConstants.ASSIGNEE_TYPE.VIP,
+    page: 1,
+    sortBy: 'waiting_since_asc',
   });
-  const queryData = filterQueryGenerator(useSnakeCase(filters));
-  const response = await ConversationApi.filter({ queryData, page: 1 });
-  const payload = response.data.payload ?? [];
+  const payload = response.data.data.payload;
   return {
-    rows: [...payload]
-      .sort((a, b) => waitingSortKey(a) - waitingSortKey(b))
-      .slice(0, 10),
-    total: response.data.meta?.all_count ?? payload.length,
+    rows: payload.slice(0, 10),
+    total: response.data.data.meta?.vip_count ?? payload.length,
   };
 });
 
@@ -199,7 +183,7 @@ const openConversation = id =>
 const viewAllRoute = computed(() => ({
   name: 'home',
   params: { accountId: route.params.accountId },
-  ...(isVipTab.value && { query: { filter: VIP_FILTER_QUERY_VALUE } }),
+  ...(isVipTab.value && { query: { tab: wootConstants.ASSIGNEE_TYPE.VIP } }),
 }));
 
 onMounted(() => {

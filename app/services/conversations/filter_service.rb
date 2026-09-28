@@ -1,21 +1,9 @@
 class Conversations::FilterService < FilterService
   ATTRIBUTE_MODEL = 'conversation_attribute'.freeze
-  CONTACT_FILTERS = {
-    'contact_vip' => { 'attribute_type' => 'contact', 'data_type' => 'boolean', 'filter_operators' => %w[equal_to not_equal_to] }
-  }.freeze
 
   def initialize(params, user, account)
     @account = account
     super(params, user)
-    @filters['conversations'] = @filters['conversations'].merge(CONTACT_FILTERS)
-  end
-
-  def build_condition_query_string(current_filter, query_hash, current_index)
-    return super unless current_filter&.dig('attribute_type') == 'contact'
-
-    @filter_values["value_#{current_index}"] = Array(query_hash['values']).map { |value| ActiveModel::Type::Boolean.new.cast(value) }
-    "conversations.contact_id IN (SELECT contacts.id FROM contacts WHERE contacts.account_id = #{@account.id.to_i} " \
-      "AND contacts.vip #{equals_to_filter_string(query_hash[:filter_operator], current_index)}) #{query_hash[:query_operator]}"
   end
 
   def perform
@@ -62,7 +50,8 @@ class Conversations::FilterService < FilterService
   end
 
   def conversations
-    @conversations.sort_on_last_activity_at.page(current_page)
+    vip_first = Arel.sql("(conversations.contact_id IN (#{@account.contacts.where(vip: true).select(:id).to_sql})) DESC")
+    @conversations.order(vip_first).sort_on_last_activity_at.page(current_page)
   end
 
   private

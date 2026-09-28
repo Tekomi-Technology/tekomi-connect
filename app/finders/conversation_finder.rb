@@ -41,7 +41,7 @@ class ConversationFinder
   def perform
     set_up
 
-    mine_count, unassigned_count, all_count = set_count_for_all_conversations
+    mine_count, unassigned_count, all_count, vip_count = set_count_for_all_conversations
     assigned_count = all_count - unassigned_count
 
     filter_by_assignee_type
@@ -52,7 +52,8 @@ class ConversationFinder
         mine_count: mine_count,
         assigned_count: assigned_count,
         unassigned_count: unassigned_count,
-        all_count: all_count
+        all_count: all_count,
+        vip_count: vip_count
       }
     }
   end
@@ -60,7 +61,7 @@ class ConversationFinder
   def perform_meta_only
     set_up
 
-    mine_count, unassigned_count, all_count, = set_count_for_all_conversations
+    mine_count, unassigned_count, all_count, vip_count = set_count_for_all_conversations
     assigned_count = all_count - unassigned_count
 
     {
@@ -68,7 +69,8 @@ class ConversationFinder
         mine_count: mine_count,
         assigned_count: assigned_count,
         unassigned_count: unassigned_count,
-        all_count: all_count
+        all_count: all_count,
+        vip_count: vip_count
       }
     }
   end
@@ -132,6 +134,8 @@ class ConversationFinder
       @conversations = @conversations.unassigned
     when 'assigned'
       @conversations = @conversations.assigned
+    when 'vip'
+      @conversations = @conversations.where(contact_id: vip_contacts)
     end
     @conversations
   end
@@ -191,17 +195,27 @@ class ConversationFinder
     counts = @conversations.unscope(:order).pick(
       Arel.sql("COUNT(*) FILTER (WHERE assignee_id = #{current_user.id})"),
       Arel.sql('COUNT(*) FILTER (WHERE assignee_id IS NULL AND assignee_agent_bot_id IS NULL)'),
-      Arel.sql('COUNT(*)')
+      Arel.sql('COUNT(*)'),
+      Arel.sql("COUNT(*) FILTER (WHERE #{vip_condition_sql})")
     )
-    counts || [0, 0, 0]
+    counts || [0, 0, 0, 0]
   end
 
   def legacy_count_for_all_conversations
     [
       @conversations.assigned_to(current_user).count,
       @conversations.unassigned.count,
-      @conversations.count
+      @conversations.count,
+      @conversations.where(contact_id: vip_contacts).count
     ]
+  end
+
+  def vip_contacts
+    current_account.contacts.where(vip: true).select(:id)
+  end
+
+  def vip_condition_sql
+    "conversations.contact_id IN (#{vip_contacts.to_sql})"
   end
 
   def current_page
@@ -218,7 +232,7 @@ class ConversationFinder
     @conversations = conversations_base_query
 
     sort_by, sort_order = SORT_OPTIONS[params[:sort_by]] || SORT_OPTIONS['last_activity_at_desc']
-    @conversations = @conversations.send(sort_by, sort_order)
+    @conversations = @conversations.order(Arel.sql("(#{vip_condition_sql}) DESC")).send(sort_by, sort_order)
 
     if params[:updated_within].present?
       @conversations.where('conversations.updated_at > ?', Time.zone.now - params[:updated_within].to_i.seconds)

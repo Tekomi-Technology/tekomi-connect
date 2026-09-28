@@ -76,7 +76,9 @@ const selectedModel = computed({
       'active animate-card-select bg-n-alpha-1 dark:bg-n-alpha-3 !border-n-surface-1':
         isActiveChat,
       'selected bg-n-slate-2 dark:bg-n-slate-3 !border-n-surface-1': selected,
-      'hover:bg-n-alpha-1': !isActiveChat && !selected,
+      'bg-n-amber-2 hover:bg-n-amber-3':
+        currentContact.vip && !isActiveChat && !selected,
+      'hover:bg-n-alpha-1': !isActiveChat && !selected && !currentContact.vip,
       'grid-cols-[minmax(0,2fr)_minmax(0,1fr)]': showLabelsSection,
       'grid-cols-[minmax(0,2fr)_max-content]': !showLabelsSection,
     }"

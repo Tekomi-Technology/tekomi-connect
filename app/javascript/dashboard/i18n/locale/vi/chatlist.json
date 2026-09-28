@@ -17,6 +17,7 @@
     "FILTER_ALL": "Tất cả",
     "ASSIGNEE_TYPE_TABS": {
       "me": "Của tôi",
+      "vip": "VIP",
       "unassigned": "Chưa được phân công",
       "all": "Tất cả"
     },

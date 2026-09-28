@@ -41,10 +41,6 @@ import countries from 'shared/constants/countries';
 import { generateValuesForEditCustomViews } from 'dashboard/helper/customViewsHelper';
 import { conversationListPageURL } from '../helper/URLHelper';
 import {
-  VIP_FILTER_QUERY_VALUE,
-  buildOpenVipConversationFilters,
-} from 'dashboard/helper/vipConversationFilter';
-import {
   isOnMentionsView,
   isOnParticipatingView,
   isOnUnattendedView,
@@ -309,11 +305,18 @@ function filterByAssigneeTab(conversations) {
   if (activeAssigneeTab.value === wootConstants.ASSIGNEE_TYPE.UNASSIGNED) {
     return conversations.filter(c => !c.meta?.assignee);
   }
+  if (activeAssigneeTab.value === wootConstants.ASSIGNEE_TYPE.VIP) {
+    return conversations.filter(c => c.meta?.sender?.vip);
+  }
   return [...conversations];
 }
 
 function sortByUnreadStatus(conversations) {
   return [...conversations].sort((a, b) => {
+    const vipOrder =
+      Number(!!b.meta?.sender?.vip) - Number(!!a.meta?.sender?.vip);
+    if (vipOrder !== 0) return vipOrder;
+
     const unreadCountDiff = (b.unread_count || 0) - (a.unread_count || 0);
     if (unreadCountDiff !== 0) return unreadCountDiff;
 
@@ -334,6 +337,10 @@ const conversationList = computed(() => {
       );
     } else if (activeAssigneeTab.value === 'me') {
       localConversationList = [...mineChatsList.value(filters)];
+    } else if (activeAssigneeTab.value === wootConstants.ASSIGNEE_TYPE.VIP) {
+      localConversationList = allChatList
+        .value(filters)
+        .filter(conversation => conversation.meta?.sender?.vip);
     } else if (activeAssigneeTab.value === 'unassigned') {
       localConversationList = [...unAssignedChatsList.value(filters)];
     } else {
@@ -432,17 +439,6 @@ function onApplyFilter(payload) {
   store.dispatch('conversationPage/reset');
   store.dispatch('emptyAllConversations');
   fetchFilteredConversations(payload);
-}
-
-// Opened from the Home "Needs attention" card (`?filter=vip`): apply the
-// open-VIP filter as if the agent had built it in the filter modal.
-function applyOpenVipFilter() {
-  const filters = buildOpenVipConversationFilters({
-    openLabel: t('CHAT_LIST.CHAT_STATUS_FILTER_ITEMS.open.TEXT'),
-    vipLabel: t('FILTER.ATTRIBUTE_LABELS.TRUE'),
-  });
-  store.dispatch('setConversationFilters', useSnakeCase(filters));
-  onApplyFilter(filters);
 }
 
 function closeAdvanceFiltersModal() {
@@ -829,12 +825,10 @@ onMounted(() => {
   setFiltersFromUISettings();
   store.dispatch('setChatStatusFilter', activeStatus.value);
   store.dispatch('setChatSortFilter', activeSortBy.value);
-  const isVipDeepLink = route.query.filter === VIP_FILTER_QUERY_VALUE;
-  if (isVipDeepLink && !hasActiveFolders.value) {
-    applyOpenVipFilter();
-  } else {
-    resetAndFetchData();
+  if (route.query.tab === wootConstants.ASSIGNEE_TYPE.VIP) {
+    activeAssigneeTab.value = wootConstants.ASSIGNEE_TYPE.VIP;
   }
+  resetAndFetchData();
   if (hasActiveFolders.value) {
     store.dispatch('campaigns/get');
   }

@@ -79,14 +79,6 @@ const filterTypes = [
     attributeModel: 'standard',
   },
   {
-    attributeKey: 'contact_vip',
-    attributeI18nKey: 'CONTACT_VIP',
-    inputType: 'search_select',
-    dataType: 'text',
-    filterOperators: OPERATOR_TYPES_1,
-    attributeModel: 'standard',
-  },
-  {
     attributeKey: 'browser_language',
     attributeI18nKey: 'BROWSER_LANGUAGE',
     inputType: 'search_select',

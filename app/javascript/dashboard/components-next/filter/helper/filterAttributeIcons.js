@@ -28,7 +28,6 @@ const ATTRIBUTE_ICONS = {
   referer: 'i-lucide-link',
   analysis_interest_level: 'i-lucide-target',
   analysis_quality_score: 'i-lucide-gauge',
-  contact_vip: 'i-lucide-crown',
   // Automation attributes
   message_type: 'i-lucide-message-square',
   private_note: 'i-lucide-sticky-note',

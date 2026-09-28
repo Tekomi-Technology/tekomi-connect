@@ -162,6 +162,10 @@ const sortConfig = {
 };
 
 export const sortComparator = (a, b, sortKey) => {
+  const vipOrder =
+    Number(!!b.meta?.sender?.vip) - Number(!!a.meta?.sender?.vip);
+  if (vipOrder !== 0) return vipOrder;
+
   const [sortMethod, sortDirection] =
     SORT_OPTIONS[sortKey] || SORT_OPTIONS.last_activity_at_desc;
   return sortConfig[sortMethod](a, b, sortDirection);

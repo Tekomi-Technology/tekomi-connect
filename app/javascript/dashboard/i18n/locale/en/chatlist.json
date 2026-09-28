@@ -17,6 +17,7 @@
     "FILTER_ALL": "All",
     "ASSIGNEE_TYPE_TABS": {
       "me": "Mine",
+      "vip": "VIP",
       "unassigned": "Unassigned",
       "all": "All"
     },

@@ -116,6 +116,7 @@ watch(
       {
         'bg-[#4F46E5]/[0.05] hover:bg-[#4F46E5]/[0.07]': isActiveChat,
         'selected bg-n-slate-2': selected,
+        'bg-n-amber-2 hover:bg-n-amber-3': isVip && !isActiveChat && !selected,
       },
     ]"
     @click="$emit('click', $event)"
