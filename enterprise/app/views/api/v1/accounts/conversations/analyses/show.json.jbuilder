@@ -5,3 +5,7 @@ if @analysis
 else
   json.payload nil
 end
+json.jobs do
+  json.analysis ConversationAnalyses::JobState.new(@conversation, :analysis).to_h
+  json.care ConversationAnalyses::JobState.new(@conversation, :care).to_h
+end

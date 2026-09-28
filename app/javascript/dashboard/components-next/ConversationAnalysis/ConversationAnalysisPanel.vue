@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, onBeforeUnmount } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useWindowSize } from '@vueuse/core';
 import { vOnClickOutside } from '@vueuse/components';
@@ -36,11 +36,18 @@ const isFeatureEnabledonAccount = useMapGetter(
   'accounts/isFeatureEnabledonAccount'
 );
 
+const POLL_INTERVAL = 3000;
+const POLL_TIMEOUT = 5 * 60 * 1000;
+const EMPTY_JOBS = { analysis: null, care: null };
+
 const analysis = ref(null);
+const jobs = ref(EMPTY_JOBS);
 const isLoading = ref(false);
-const analyzingConversationId = ref(null);
-const generatingCareConversationId = ref(null);
 const errorMessage = ref('');
+
+let pollTimer = null;
+let pollDeadline = null;
+let isUnmounted = false;
 
 const isOpen = computed(
   () =>
@@ -52,10 +59,10 @@ const isOpen = computed(
     uiSettings.value.is_conversation_analysis_panel_open
 );
 const isAnalyzing = computed(
-  () => analyzingConversationId.value === props.conversationId
+  () => jobs.value.analysis?.status === 'processing'
 );
 const isGeneratingCare = computed(
-  () => generatingCareConversationId.value === props.conversationId
+  () => jobs.value.care?.status === 'processing'
 );
 const headerButtons = computed(() =>
   analysis.value && !isAnalyzing.value && !isGeneratingCare.value
@@ -69,49 +76,81 @@ const headerButtons = computed(() =>
     : []
 );
 
-const runAnalysis = async () => {
-  const conversationId = props.conversationId;
-  analyzingConversationId.value = conversationId;
-  errorMessage.value = '';
-  try {
-    const { data } = await ConversationAnalysesAPI.create(conversationId);
-    if (conversationId === props.conversationId) {
-      analysis.value = data.payload;
-    }
-    markAnalyzed();
-  } catch (error) {
-    if (conversationId === props.conversationId) {
-      errorMessage.value =
-        error.response?.data?.error || t('CONVERSATION_ANALYSIS.ERROR');
-    }
-  } finally {
-    if (analyzingConversationId.value === conversationId) {
-      analyzingConversationId.value = null;
-    }
+const isCurrent = conversationId =>
+  !isUnmounted && isOpen.value && conversationId === props.conversationId;
+
+const stopPolling = () => {
+  clearTimeout(pollTimer);
+  pollTimer = null;
+  pollDeadline = null;
+};
+
+const applyResponse = (conversationId, data) => {
+  if (!isCurrent(conversationId)) return;
+  const analysisFinished = isAnalyzing.value && !data.jobs.analysis;
+  analysis.value = data.payload;
+  jobs.value = data.jobs;
+  if (analysisFinished) markAnalyzed();
+
+  const { analysis: analysisJob, care: careJob } = data.jobs;
+  if (analysisJob?.status === 'failed') {
+    errorMessage.value = analysisJob.error || t('CONVERSATION_ANALYSIS.ERROR');
+  } else if (careJob?.status === 'failed') {
+    errorMessage.value = careJob.error || t('CONVERSATION_ANALYSIS.CARE.ERROR');
   }
 };
 
-const generateCare = async () => {
+const schedulePoll = conversationId => {
+  if (!isCurrent(conversationId)) return;
+  clearTimeout(pollTimer);
+  if (!isAnalyzing.value && !isGeneratingCare.value) {
+    stopPolling();
+    return;
+  }
+  pollDeadline ||= Date.now() + POLL_TIMEOUT;
+  if (Date.now() > pollDeadline) {
+    stopPolling();
+    jobs.value = EMPTY_JOBS;
+    errorMessage.value = t('CONVERSATION_ANALYSIS.TIMEOUT');
+    return;
+  }
+  pollTimer = setTimeout(async () => {
+    const response = await ConversationAnalysesAPI.get(conversationId).catch(
+      () => null
+    );
+    if (response) applyResponse(conversationId, response.data);
+    schedulePoll(conversationId);
+  }, POLL_INTERVAL);
+};
+
+const startJob = async (kind, request, errorKey) => {
   const conversationId = props.conversationId;
-  generatingCareConversationId.value = conversationId;
   errorMessage.value = '';
+  jobs.value = { ...jobs.value, [kind]: { status: 'processing' } };
   try {
-    const { data } =
-      await ConversationAnalysesAPI.createCareSuggestion(conversationId);
-    if (conversationId === props.conversationId) {
-      analysis.value = data.payload;
-    }
+    const { data } = await request(conversationId);
+    applyResponse(conversationId, data);
+    schedulePoll(conversationId);
   } catch (error) {
-    if (conversationId === props.conversationId) {
-      errorMessage.value =
-        error.response?.data?.error || t('CONVERSATION_ANALYSIS.CARE.ERROR');
-    }
-  } finally {
-    if (generatingCareConversationId.value === conversationId) {
-      generatingCareConversationId.value = null;
-    }
+    if (!isCurrent(conversationId)) return;
+    jobs.value = { ...jobs.value, [kind]: null };
+    errorMessage.value = error.response?.data?.error || t(errorKey);
   }
 };
+
+const runAnalysis = () =>
+  startJob(
+    'analysis',
+    id => ConversationAnalysesAPI.create(id),
+    'CONVERSATION_ANALYSIS.ERROR'
+  );
+
+const generateCare = () =>
+  startJob(
+    'care',
+    id => ConversationAnalysesAPI.createCareSuggestion(id),
+    'CONVERSATION_ANALYSIS.CARE.ERROR'
+  );
 
 const handleRequest = () => {
   if (
@@ -126,14 +165,15 @@ const handleRequest = () => {
 
 const loadAnalysis = async () => {
   const conversationId = props.conversationId;
+  stopPolling();
   analysis.value = null;
+  jobs.value = EMPTY_JOBS;
   errorMessage.value = '';
   isLoading.value = true;
   try {
     const { data } = await ConversationAnalysesAPI.get(conversationId);
-    if (conversationId === props.conversationId) {
-      analysis.value = data.payload;
-    }
+    applyResponse(conversationId, data);
+    schedulePoll(conversationId);
   } catch (error) {
     if (conversationId === props.conversationId) {
       errorMessage.value =
@@ -149,10 +189,16 @@ watch(
   [() => props.conversationId, isOpen],
   ([, open]) => {
     if (open) loadAnalysis();
+    else stopPolling();
   },
   { immediate: true }
 );
 watch(requestedConversationId, handleRequest);
+
+onBeforeUnmount(() => {
+  isUnmounted = true;
+  stopPolling();
+});
 
 const closePanel = () => {
   updateUISettings({ is_conversation_analysis_panel_open: false });

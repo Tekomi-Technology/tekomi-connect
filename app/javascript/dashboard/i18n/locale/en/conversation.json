@@ -660,10 +660,11 @@
     "TITLE": "Conversation analysis",
     "ANALYZE": "Analyze",
     "REANALYZE": "Analyze again",
-    "ANALYZING": "Analyzing the conversation, this can take a few seconds…",
+    "ANALYZING": "Analyzing the conversation, this can take a minute. You can leave and come back later…",
     "EMPTY": "This conversation has not been analyzed yet.",
     "ERROR": "Could not analyze the conversation. Please try again.",
     "LOAD_ERROR": "Could not load the analysis.",
+    "TIMEOUT": "The analysis is taking longer than expected. Please check back later.",
     "ANALYZED_BY": "Analyzed by {name} · {time}",
     "QUALITY": {
       "TITLE": "Service quality",

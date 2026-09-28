@@ -4,19 +4,16 @@ class Api::V1::Accounts::Conversations::AnalysesController < Api::V1::Accounts::
   end
 
   def create
-    result = Tekomi::Llm::ConversationAnalysisService.new(account: Current.account, conversation_display_id: @conversation.display_id).perform
-    return render_could_not_create_error(result[:error]) if result[:error].present?
-
-    @analysis = ConversationAnalysis.record!(conversation: @conversation, analyzed_by: Current.user, result: result[:message])
-    render :show
+    if ConversationAnalyses::JobState.new(@conversation, :analysis).start
+      ConversationAnalyses::AnalyzeJob.perform_later(@conversation, Current.user)
+    end
+    @analysis = @conversation.conversation_analysis
+    render :show, status: :accepted
   end
 
   def care_suggestion
     @analysis = @conversation.conversation_analysis || raise(ActiveRecord::RecordNotFound)
-    result = Tekomi::Llm::CareSuggestionService.new(account: Current.account, analysis: @analysis).perform
-    return render_could_not_create_error(result[:error]) if result[:error].present?
-
-    @analysis.update!(care: result[:message])
-    render :show
+    ConversationAnalyses::CareSuggestionJob.perform_later(@analysis) if ConversationAnalyses::JobState.new(@conversation, :care).start
+    render :show, status: :accepted
   end
 end

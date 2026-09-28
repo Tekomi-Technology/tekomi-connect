@@ -652,10 +652,11 @@
     "TITLE": "Phân tích hội thoại",
     "ANALYZE": "Phân tích",
     "REANALYZE": "Phân tích lại",
-    "ANALYZING": "Đang phân tích hội thoại, có thể mất vài giây…",
+    "ANALYZING": "Đang phân tích hội thoại, có thể mất khoảng một phút. Bạn có thể rời đi và quay lại sau…",
     "EMPTY": "Hội thoại này chưa được phân tích.",
     "ERROR": "Không phân tích được hội thoại. Vui lòng thử lại.",
     "LOAD_ERROR": "Không tải được kết quả phân tích.",
+    "TIMEOUT": "Phân tích đang lâu hơn dự kiến. Vui lòng quay lại xem sau.",
     "ANALYZED_BY": "Phân tích bởi {name} · {time}",
     "QUALITY": {
       "TITLE": "Chất lượng phục vụ",
