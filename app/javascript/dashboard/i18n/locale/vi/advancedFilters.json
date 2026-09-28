@@ -43,8 +43,8 @@
       "startsWith": "Bắt đầu với"
     },
     "ATTRIBUTE_LABELS": {
-      "TRUE": "Đúng",
-      "FALSE": "Sai"
+      "TRUE": "Có",
+      "FALSE": "Không"
     },
     "ATTRIBUTES": {
       "STATUS": "Trạng thái",

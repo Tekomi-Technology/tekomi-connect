@@ -455,6 +455,10 @@ const actions = {
     commit(types.UPDATE_CONVERSATION_CONTACT, data);
   },
 
+  syncConversationSender({ commit }, contact) {
+    commit(types.SYNC_CONVERSATION_SENDER, contact);
+  },
+
   setActiveInbox({ commit }, inboxId) {
     commit(types.SET_ACTIVE_INBOX, inboxId);
   },

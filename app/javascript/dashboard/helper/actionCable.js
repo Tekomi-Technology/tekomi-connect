@@ -328,6 +328,7 @@ class ActionCableConnector extends BaseActionCableConnector {
 
   onContactUpdate = data => {
     this.app.$store.dispatch('contacts/updateContact', data);
+    this.app.$store.dispatch('syncConversationSender', data);
   };
 
   // eslint-disable-next-line class-methods-use-this

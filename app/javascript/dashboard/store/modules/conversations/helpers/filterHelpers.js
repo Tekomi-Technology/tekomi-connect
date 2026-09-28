@@ -86,6 +86,9 @@ const getValueFromConversation = (conversation, attributeKey) => {
     case 'browser_language':
     case 'referer':
       return conversation.additional_attributes?.[attributeKey];
+    case 'contact_vip':
+      // Mirrors the backend `contacts.vip` column, which is never null
+      return !!conversation.meta?.sender?.vip;
     default:
       // Check if it's a custom attribute
       if (

@@ -310,6 +310,16 @@ export const mutations = {
     }
   },
 
+  // Keeps `meta.sender` of every loaded conversation of a contact in step with
+  // contact updates, so client-side filters on sender fields (VIP) stay right.
+  [types.SYNC_CONVERSATION_SENDER](_state, contact) {
+    _state.allConversations.forEach(chat => {
+      if (chat.meta?.sender?.id === contact.id) {
+        chat.meta.sender = { ...chat.meta.sender, ...contact };
+      }
+    });
+  },
+
   [types.UPDATE_MESSAGE_CALL_STATUS](
     _state,
     { conversationId, callStatus, callSid }

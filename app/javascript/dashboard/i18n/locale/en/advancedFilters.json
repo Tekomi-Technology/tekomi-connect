@@ -43,8 +43,8 @@
       "startsWith": "Starts with"
     },
     "ATTRIBUTE_LABELS": {
-      "TRUE": "True",
-      "FALSE": "False"
+      "TRUE": "Yes",
+      "FALSE": "No"
     },
     "ATTRIBUTES": {
       "STATUS": "Status",
