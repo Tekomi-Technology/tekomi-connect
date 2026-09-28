@@ -8,7 +8,7 @@ import { useRoute, useRouter } from 'vue-router';
 import ContactsDetailsLayout from 'dashboard/components-next/Contacts/ContactsDetailsLayout.vue';
 import Spinner from 'dashboard/components-next/spinner/Spinner.vue';
 import ContactDetails from 'dashboard/components-next/Contacts/Pages/ContactDetails.vue';
-import TabBar from 'dashboard/components-next/tabbar/TabBar.vue';
+import AccordionItem from 'dashboard/components/Accordion/AccordionItem.vue';
 import ContactNotes from 'dashboard/components-next/Contacts/ContactsSidebar/ContactNotes.vue';
 import ContactHistory from 'dashboard/components-next/Contacts/ContactsSidebar/ContactHistory.vue';
 import ContactMedia from 'dashboard/components-next/Contacts/ContactsSidebar/ContactMedia.vue';
@@ -26,7 +26,7 @@ const router = useRouter();
 const contact = useMapGetter('contacts/getContactById');
 const uiFlags = useMapGetter('contacts/getUIFlags');
 
-const activeTab = ref('attributes');
+const openSections = ref(new Set(['attributes', 'channels']));
 const contactMergeRef = ref(null);
 
 const isFetchingItem = computed(() => uiFlags.value.isFetchingItem);
@@ -46,34 +46,22 @@ const isFeatureEnabledonAccount = useMapGetter(
   'accounts/isFeatureEnabledonAccount'
 );
 
-const CONTACT_TABS_OPTIONS = computed(() => [
-  { key: 'ATTRIBUTES', value: 'attributes' },
-  { key: 'CHANNELS', value: 'channels' },
-  { key: 'HISTORY', value: 'history' },
-  { key: 'NOTES', value: 'notes' },
-  ...(isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_DEALS)
-    ? [{ key: 'DEALS', value: 'deals' }]
-    : []),
-  ...(isFeatureEnabledonAccount.value(
-    accountId.value,
-    FEATURE_FLAGS.CRM_TICKETS
-  )
-    ? [{ key: 'TICKETS', value: 'tickets' }]
-    : []),
-  { key: 'MEDIA', value: 'media' },
-  { key: 'MERGE', value: 'merge' },
-]);
+const isDealsEnabled = computed(() =>
+  isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_DEALS)
+);
+const isTicketsEnabled = computed(() =>
+  isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_TICKETS)
+);
 
-const tabs = computed(() => {
-  return CONTACT_TABS_OPTIONS.value.map(tab => ({
-    label: t(`CONTACTS_LAYOUT.SIDEBAR.TABS.${tab.key}`),
-    value: tab.value,
-  }));
-});
+const isSectionOpen = key => openSections.value.has(key);
 
-const activeTabIndex = computed(() => {
-  return CONTACT_TABS_OPTIONS.value.findIndex(v => v.value === activeTab.value);
-});
+const toggleSection = key => {
+  if (openSections.value.has(key)) {
+    openSections.value.delete(key);
+  } else {
+    openSections.value.add(key);
+  }
+};
 
 const goToContactsList = () => {
   if (window.history.state?.back || window.history.length > 1) {
@@ -90,15 +78,6 @@ const fetchActiveContact = async () => {
       'contacts/fetchContactableInbox',
       route.params.contactId
     );
-  }
-};
-
-const handleTabChange = tab => {
-  activeTab.value = tab.value;
-  // Channels must reflect live inbox bindings, which can change outside this
-  // session (merges, new inbound messages), so refetch on every visit.
-  if (tab.value === 'channels') {
-    fetchActiveContact();
   }
 };
 
@@ -175,16 +154,6 @@ onMounted(() => {
         :selected-contact="selectedContact"
         @go-to-contacts-list="goToContactsList"
       />
-      <template #sidebarHeader>
-        <div class="px-6 pt-6 pb-3">
-          <TabBar
-            :tabs="tabs"
-            :initial-active-tab="activeTabIndex"
-            class="w-full [&>button]:w-full bg-n-alpha-black2"
-            @tab-changed="handleTabChange"
-          />
-        </div>
-      </template>
       <template #sidebar>
         <div
           v-if="isFetchingItem"
@@ -192,34 +161,71 @@ onMounted(() => {
         >
           <Spinner />
         </div>
-        <template v-else>
-          <ContactCustomAttributes
-            v-if="activeTab === 'attributes'"
-            :selected-contact="selectedContact"
-          />
-          <ContactChannels
-            v-if="activeTab === 'channels'"
-            :selected-contact="selectedContact"
-          />
-          <ContactNotes v-if="activeTab === 'notes'" />
-          <ContactDeals
-            v-if="activeTab === 'deals'"
-            :contact-id="route.params.contactId"
-          />
-          <ContactTickets
-            v-if="activeTab === 'tickets'"
-            :contact-id="route.params.contactId"
-          />
-          <ContactHistory v-if="activeTab === 'history'" />
-          <ContactMedia v-if="activeTab === 'media'" />
-          <ContactMerge
-            v-if="activeTab === 'merge'"
-            ref="contactMergeRef"
-            :selected-contact="selectedContact"
-            @go-to-contacts-list="goToContactsList"
-            @reset-tab="handleTabChange(CONTACT_TABS_OPTIONS[0])"
-          />
-        </template>
+        <div v-else class="flex flex-col gap-2 px-4">
+          <AccordionItem
+            :title="$t('CONTACTS_LAYOUT.SIDEBAR.TABS.ATTRIBUTES')"
+            :is-open="isSectionOpen('attributes')"
+            @toggle="toggleSection('attributes')"
+          >
+            <ContactCustomAttributes :selected-contact="selectedContact" />
+          </AccordionItem>
+          <AccordionItem
+            :title="$t('CONTACTS_LAYOUT.SIDEBAR.TABS.CHANNELS')"
+            :is-open="isSectionOpen('channels')"
+            @toggle="toggleSection('channels')"
+          >
+            <ContactChannels :selected-contact="selectedContact" />
+          </AccordionItem>
+          <AccordionItem
+            :title="$t('CONTACTS_LAYOUT.SIDEBAR.TABS.HISTORY')"
+            :is-open="isSectionOpen('history')"
+            @toggle="toggleSection('history')"
+          >
+            <ContactHistory />
+          </AccordionItem>
+          <AccordionItem
+            :title="$t('CONTACTS_LAYOUT.SIDEBAR.TABS.NOTES')"
+            :is-open="isSectionOpen('notes')"
+            @toggle="toggleSection('notes')"
+          >
+            <ContactNotes />
+          </AccordionItem>
+          <AccordionItem
+            v-if="isDealsEnabled"
+            :title="$t('CONTACTS_LAYOUT.SIDEBAR.TABS.DEALS')"
+            :is-open="isSectionOpen('deals')"
+            @toggle="toggleSection('deals')"
+          >
+            <ContactDeals :contact-id="route.params.contactId" />
+          </AccordionItem>
+          <AccordionItem
+            v-if="isTicketsEnabled"
+            :title="$t('CONTACTS_LAYOUT.SIDEBAR.TABS.TICKETS')"
+            :is-open="isSectionOpen('tickets')"
+            @toggle="toggleSection('tickets')"
+          >
+            <ContactTickets :contact-id="route.params.contactId" />
+          </AccordionItem>
+          <AccordionItem
+            :title="$t('CONTACTS_LAYOUT.SIDEBAR.TABS.MEDIA')"
+            :is-open="isSectionOpen('media')"
+            @toggle="toggleSection('media')"
+          >
+            <ContactMedia />
+          </AccordionItem>
+          <AccordionItem
+            :title="$t('CONTACTS_LAYOUT.SIDEBAR.TABS.MERGE')"
+            :is-open="isSectionOpen('merge')"
+            @toggle="toggleSection('merge')"
+          >
+            <ContactMerge
+              ref="contactMergeRef"
+              :selected-contact="selectedContact"
+              @go-to-contacts-list="goToContactsList"
+              @reset-tab="toggleSection('merge')"
+            />
+          </AccordionItem>
+        </div>
       </template>
     </ContactsDetailsLayout>
   </div>
