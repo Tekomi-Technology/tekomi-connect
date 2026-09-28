@@ -232,7 +232,8 @@ class ConversationFinder
     @conversations = conversations_base_query
 
     sort_by, sort_order = SORT_OPTIONS[params[:sort_by]] || SORT_OPTIONS['last_activity_at_desc']
-    @conversations = @conversations.order(Arel.sql("(#{vip_condition_sql}) DESC")).send(sort_by, sort_order)
+    @conversations = @conversations.order(Arel.sql("(#{vip_condition_sql} AND conversations.waiting_since IS NOT NULL) DESC"))
+                                   .send(sort_by, sort_order)
 
     if params[:updated_within].present?
       @conversations.where('conversations.updated_at > ?', Time.zone.now - params[:updated_within].to_i.seconds)

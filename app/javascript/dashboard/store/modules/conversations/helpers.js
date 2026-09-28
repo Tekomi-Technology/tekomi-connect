@@ -161,9 +161,12 @@ const sortConfig = {
   },
 };
 
+export const isVipAwaitingReply = conversation =>
+  !!conversation.meta?.sender?.vip && conversation.waiting_since > 0;
+
 export const sortComparator = (a, b, sortKey) => {
   const vipOrder =
-    Number(!!b.meta?.sender?.vip) - Number(!!a.meta?.sender?.vip);
+    Number(isVipAwaitingReply(b)) - Number(isVipAwaitingReply(a));
   if (vipOrder !== 0) return vipOrder;
 
   const [sortMethod, sortDirection] =

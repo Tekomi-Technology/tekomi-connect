@@ -15,7 +15,14 @@
       "INPUT": "Search for People, Chats, Saved Replies .."
     },
     "FILTER_ALL": "All",
+    "COMPANY_LIST": {
+      "EMPTY": "No companies yet",
+      "NO_CONVERSATIONS": "No conversations for this company",
+      "LOAD_MORE": "Load more",
+      "FETCH_ERROR": "Could not load companies"
+    },
     "ASSIGNEE_TYPE_TABS": {
+      "company": "Companies",
       "me": "Mine",
       "vip": "VIP",
       "unassigned": "Unassigned",

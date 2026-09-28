@@ -5,6 +5,7 @@ import { MESSAGE_STATUS, MESSAGE_TYPE } from 'shared/constants/messages';
 import { createPendingMessage } from 'dashboard/helper/commons';
 import {
   buildConversationList,
+  setContacts,
   isOnMentionsView,
   isOnParticipatingView,
   isOnUnattendedView,
@@ -59,6 +60,15 @@ const actions = {
     } catch (error) {
       // Handle error
     }
+  },
+
+  fetchCompanyConversations: async ({ commit, dispatch }, params) => {
+    const {
+      data: { data },
+    } = await ConversationApi.get(params);
+    commit(types.SET_ALL_CONVERSATION, data.payload);
+    dispatch('conversationLabels/setBulkConversationLabels', data.payload);
+    setContacts(commit, data.payload);
   },
 
   fetchFilteredConversations: async ({ commit, dispatch }, params) => {

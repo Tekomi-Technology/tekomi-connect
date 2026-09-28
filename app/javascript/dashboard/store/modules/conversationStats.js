@@ -7,6 +7,8 @@ const state = {
   vipCount: 0,
   unAssignedCount: 0,
   allCount: 0,
+  companyCounts: {},
+  companyCount: 0,
 };
 
 export const getters = {
@@ -53,6 +55,7 @@ export const actions = {
   get: ({ commit, state: $state }, params) => {
     metaDebouncers[getMetaDebounceKey($state.allCount)](commit, params);
   },
+  refresh: ({ commit }, params) => fetchMetaData(commit, params),
   set({ commit }, meta) {
     commit(types.SET_CONV_TAB_META, meta);
   },
@@ -66,12 +69,18 @@ export const mutations = {
       vip_count: vipCount,
       unassigned_count: unAssignedCount,
       all_count: allCount,
+      company_counts: companyCounts = {},
     } = {}
   ) {
     $state.mineCount = mineCount;
     $state.vipCount = vipCount;
     $state.allCount = allCount;
     $state.unAssignedCount = unAssignedCount;
+    $state.companyCounts = companyCounts;
+    $state.companyCount = Object.values(companyCounts).reduce(
+      (sum, count) => sum + count,
+      0
+    );
     $state.updatedOn = new Date();
   },
 };

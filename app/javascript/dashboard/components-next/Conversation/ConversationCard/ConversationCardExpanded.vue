@@ -49,6 +49,10 @@ const voiceCallData = computed(() => {
 
 const unreadCount = computed(() => props.chat.unread_count);
 
+const isVipAwaitingReply = computed(
+  () => !!props.currentContact.vip && props.chat.waiting_since > 0
+);
+
 const slaCardLabel = useTemplateRef('slaCardLabel');
 
 const hasSlaPolicyId = computed(
@@ -77,8 +81,8 @@ const selectedModel = computed({
         isActiveChat,
       'selected bg-n-slate-2 dark:bg-n-slate-3 !border-n-surface-1': selected,
       'bg-n-amber-3 hover:bg-n-amber-4':
-        currentContact.vip && !isActiveChat && !selected,
-      'hover:bg-n-alpha-1': !isActiveChat && !selected && !currentContact.vip,
+        isVipAwaitingReply && !isActiveChat && !selected,
+      'hover:bg-n-alpha-1': !isActiveChat && !selected && !isVipAwaitingReply,
       'grid-cols-[minmax(0,2fr)_minmax(0,1fr)]': showLabelsSection,
       'grid-cols-[minmax(0,2fr)_max-content]': !showLabelsSection,
     }"

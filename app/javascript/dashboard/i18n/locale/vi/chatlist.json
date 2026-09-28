@@ -15,7 +15,14 @@
       "INPUT": "Tìm kiếm cho người, đoạn chat, lưu trữ trả lời .."
     },
     "FILTER_ALL": "Tất cả",
+    "COMPANY_LIST": {
+      "EMPTY": "Chưa có công ty nào",
+      "NO_CONVERSATIONS": "Công ty này chưa có hội thoại nào",
+      "LOAD_MORE": "Xem thêm",
+      "FETCH_ERROR": "Không tải được danh sách công ty"
+    },
     "ASSIGNEE_TYPE_TABS": {
+      "company": "Công ty",
       "me": "Của tôi",
       "vip": "VIP",
       "unassigned": "Chưa được phân công",

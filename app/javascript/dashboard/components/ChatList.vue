@@ -9,6 +9,7 @@ import {
 
 import ChatListHeader from './ChatListHeader.vue';
 import ConversationList from './ConversationList.vue';
+import CompanyConversationList from './CompanyConversationList.vue';
 import Dialog from 'dashboard/components-next/dialog/Dialog.vue';
 import ConversationFilter from 'next/filter/ConversationFilter.vue';
 import SaveCustomView from 'next/filter/SaveCustomView.vue';
@@ -50,8 +51,10 @@ import {
   filterItemsByPermission,
 } from 'dashboard/helper/permissionsHelper.js';
 import { matchesFilters } from '../store/modules/conversations/helpers/filterHelpers';
+import { isVipAwaitingReply } from '../store/modules/conversations/helpers';
 import { CONVERSATION_EVENTS } from '../helper/AnalyticsHelper/events';
 import { ASSIGNEE_TYPE_TAB_PERMISSIONS } from 'dashboard/constants/permissions.js';
+import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
 const props = defineProps({
   conversationInbox: { type: [String, Number], default: 0 },
@@ -110,6 +113,9 @@ const currentAccountId = useMapGetter('getCurrentAccountId');
 // We can't useFunctionGetter here since it needs to be called on setup?
 const getTeamFn = useMapGetter('teams/getTeam');
 const getConversationById = useMapGetter('getConversationById');
+const isFeatureEnabledonAccount = useMapGetter(
+  'accounts/isFeatureEnabledonAccount'
+);
 
 const {
   selectedConversations,
@@ -175,16 +181,34 @@ const userPermissions = computed(() => {
   return getUserPermissions(currentUser.value, currentAccountId.value);
 });
 
+const isCompaniesEnabled = computed(() =>
+  isFeatureEnabledonAccount.value(
+    currentAccountId.value,
+    FEATURE_FLAGS.COMPANIES
+  )
+);
+
+const isCompanyTab = computed(
+  () =>
+    activeAssigneeTab.value === wootConstants.ASSIGNEE_TYPE.COMPANY &&
+    !hasAppliedFiltersOrActiveFolders.value
+);
+
 const assigneeTabItems = computed(() => {
   return filterItemsByPermission(
     ASSIGNEE_TYPE_TAB_PERMISSIONS,
     userPermissions.value,
     item => item.permissions
-  ).map(({ key, count: countKey }) => ({
-    key,
-    name: t(`CHAT_LIST.ASSIGNEE_TYPE_TABS.${key}`),
-    count: conversationStats.value[countKey] || 0,
-  }));
+  )
+    .filter(
+      ({ key }) =>
+        key !== wootConstants.ASSIGNEE_TYPE.COMPANY || isCompaniesEnabled.value
+    )
+    .map(({ key, count: countKey }) => ({
+      key,
+      name: t(`CHAT_LIST.ASSIGNEE_TYPE_TABS.${key}`),
+      count: conversationStats.value[countKey] || 0,
+    }));
 });
 
 const showAssigneeInConversationCard = computed(() => {
@@ -314,7 +338,7 @@ function filterByAssigneeTab(conversations) {
 function sortByUnreadStatus(conversations) {
   return [...conversations].sort((a, b) => {
     const vipOrder =
-      Number(!!b.meta?.sender?.vip) - Number(!!a.meta?.sender?.vip);
+      Number(isVipAwaitingReply(b)) - Number(isVipAwaitingReply(a));
     if (vipOrder !== 0) return vipOrder;
 
     const unreadCountDiff = (b.unread_count || 0) - (a.unread_count || 0);
@@ -341,6 +365,10 @@ const conversationList = computed(() => {
       localConversationList = allChatList
         .value(filters)
         .filter(conversation => conversation.meta?.sender?.vip);
+    } else if (isCompanyTab.value) {
+      localConversationList = allChatList
+        .value(filters)
+        .filter(conversation => conversation.meta?.sender?.company_id);
     } else if (activeAssigneeTab.value === 'unassigned') {
       localConversationList = [...unAssignedChatsList.value(filters)];
     } else {
@@ -584,6 +612,10 @@ function onToggleAdvanceFiltersModal() {
 
 function fetchConversations() {
   store.dispatch('updateChatListFilters', conversationFilters.value);
+  if (isCompanyTab.value) {
+    store.dispatch('conversationStats/refresh', conversationFilters.value);
+    return;
+  }
   store.dispatch('fetchAllConversations').then(emitConversationLoaded);
 }
 
@@ -954,7 +986,7 @@ watch(conversationFilters, (newVal, oldVal) => {
     />
 
     <p
-      v-if="!chatListLoading && !conversationList.length"
+      v-if="!isCompanyTab && !chatListLoading && !conversationList.length"
       class="flex overflow-auto justify-center items-center p-4"
     >
       {{ $t('CHAT_LIST.LIST.404') }}
@@ -969,7 +1001,16 @@ watch(conversationFilters, (newVal, oldVal) => {
       :class="isOnExpandedLayout && 'sm:!w-[24rem] !w-full'"
       @select-all-conversations="toggleSelectAll"
     />
+    <CompanyConversationList
+      v-if="isCompanyTab"
+      :filters="conversationFilters"
+      :label="label"
+      :team-id="teamId"
+      :conversation-type="conversationType"
+      :is-on-expanded-layout="isOnExpandedLayout"
+    />
     <ConversationList
+      v-else
       :conversation-list="conversationList"
       :is-loading="chatListLoading"
       :show-end-of-list-message="showEndOfListMessage"
