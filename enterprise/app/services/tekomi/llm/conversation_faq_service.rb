@@ -84,7 +84,7 @@ class Tekomi::Llm::ConversationFaqService < Llm::BaseAiService
     prompt = Tekomi::Llm::ConversationFaqPromptsService.same_faq
     faq_match = Llm::FeatureRouter.resolve(feature: 'conversation_faq_matching')
     response = instrument_llm_call(match_instrumentation_params(prompt, comparison, faq_match[:model])) do
-      chat(model: faq_match[:model], provider: faq_match[:provider])
+      chat(model: faq_match[:model], provider: faq_match[:provider], params: faq_match[:params])
         .with_params(response_format: { type: 'json_object' })
         .with_instructions(prompt)
         .ask(comparison.to_json)

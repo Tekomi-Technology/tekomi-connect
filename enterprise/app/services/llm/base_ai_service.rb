@@ -5,17 +5,18 @@
 class Llm::BaseAiService
   DEFAULT_TEMPERATURE = 1.0
 
-  attr_reader :model, :provider, :temperature
+  attr_reader :model, :provider, :temperature, :params
 
   def initialize(feature:)
     route = Llm::FeatureRouter.resolve(feature: feature)
     @model = route[:model]
     @provider = route[:provider]
+    @params = route[:params]
     @temperature = DEFAULT_TEMPERATURE
   end
 
-  def chat(model: @model, provider: @provider, temperature: @temperature)
-    RubyLLM.chat(model: model, provider: provider, assume_model_exists: true).with_temperature(temperature)
+  def chat(model: @model, provider: @provider, params: @params, temperature: @temperature)
+    RubyLLM.chat(model: model, provider: provider, assume_model_exists: true).with_temperature(temperature).with_params(**params)
   end
 
   private

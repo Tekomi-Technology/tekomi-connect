@@ -23,6 +23,16 @@
                 <% if warning.present? %>
                   <div class="mt-1 text-xs text-amber-700"><%= warning %></div>
                 <% end %>
+                <details class="mt-2" <%= 'open' if feature_model&.params.present? %>>
+                  <summary class="text-xs cursor-pointer text-slate-700"><%= t('super_admin.llm_feature_models.params.label') %></summary>
+                  <%= form.text_area "features[#{feature_key}][params_json]",
+                                     value: feature_model&.params_json,
+                                     rows: 4,
+                                     spellcheck: false,
+                                     placeholder: t('super_admin.llm_feature_models.params.placeholder'),
+                                     class: 'w-full p-2 mt-1 font-mono text-xs border border-slate-100 rounded-md' %>
+                  <div class="text-xs text-slate-500"><%= t('super_admin.llm_feature_models.params.hint') %></div>
+                </details>
               </td>
               <td>
                 <%= form.select "features[#{feature_key}][llm_provider_id]",
@@ -31,6 +41,13 @@
                                 class: 'border border-slate-100 p-1 rounded-md' %>
               </td>
               <td><%= form.text_field "features[#{feature_key}][model]", value: feature_model&.model %></td>
+              <td>
+                <%= form.select "features[#{feature_key}][reasoning]",
+                                LlmFeatureModel::REASONING_OPTIONS.map { |option| [t("super_admin.llm_feature_models.reasoning.options.#{option}"), option] },
+                                { include_blank: t('super_admin.llm_feature_models.reasoning.default'), selected: feature_model&.reasoning },
+                                title: t('super_admin.llm_feature_models.reasoning.label'),
+                                class: 'border border-slate-100 p-1 rounded-md' %>
+              </td>
               <td class="text-xs <%= feature_model ? 'text-green-700' : 'text-amber-700' %>">
                 <%= feature_model ? t('super_admin.llm_feature_models.configured') : t('super_admin.llm_feature_models.not_configured') %>
               </td>

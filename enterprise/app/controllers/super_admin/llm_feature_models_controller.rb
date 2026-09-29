@@ -16,13 +16,13 @@ class SuperAdmin::LlmFeatureModelsController < SuperAdmin::EnterpriseBaseControl
   private
 
   def feature_params
-    params.require(:features).permit(Llm::Features.keys.index_with { %i[llm_provider_id model] })
+    params.require(:features).permit(Llm::Features.keys.index_with { %i[llm_provider_id model reasoning params_json] })
   end
 
   def save_feature_model(feature_key, attributes)
     feature_model = LlmFeatureModel.find_or_initialize_by(feature_key: feature_key)
     return feature_model.destroy! if attributes[:llm_provider_id].blank? && attributes[:model].blank?
 
-    feature_model.update!(llm_provider_id: attributes[:llm_provider_id], model: attributes[:model])
+    feature_model.update!(attributes)
   end
 end

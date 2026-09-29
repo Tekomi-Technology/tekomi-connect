@@ -16,7 +16,7 @@ module Concerns::Agentable
       assume_model_exists: true,
       temperature: temperature.presence&.to_f || DEFAULT_TEMPERATURE,
       response_schema: agent_response_schema,
-      params: { max_tokens: DEFAULT_MAX_TOKENS }
+      params: { max_tokens: DEFAULT_MAX_TOKENS }.deep_merge(route[:params])
     )
   end
 

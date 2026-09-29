@@ -64,7 +64,7 @@ class Tekomi::BaseTaskService
   end
 
   def build_chat(route, messages:, schema: nil, tools: [])
-    chat = RubyLLM.chat(model: route[:model], provider: route[:provider], assume_model_exists: true)
+    chat = RubyLLM.chat(model: route[:model], provider: route[:provider], assume_model_exists: true).with_params(**route[:params])
     system_msg = messages.find { |m| m[:role] == 'system' }
     chat.with_instructions(system_msg[:content]) if system_msg
     chat.with_schema(schema) if schema

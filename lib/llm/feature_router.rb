@@ -10,7 +10,12 @@ module Llm::FeatureRouter
       raise CustomExceptions::Llm::FeatureNotConfigured.new(feature: feature_key) if feature_model.blank?
 
       Llm::Config.apply!
-      { feature: feature_key, provider: feature_model.llm_provider.provider_type.to_sym, model: feature_model.model }
+      {
+        feature: feature_key,
+        provider: feature_model.llm_provider.provider_type.to_sym,
+        model: feature_model.model,
+        params: feature_model.request_params
+      }
     end
   end
 end

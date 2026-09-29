@@ -71,7 +71,8 @@ class Tekomi::Assistant::ResponseRewriter
         provider: route[:provider],
         assume_model_exists: true,
         temperature: 0,
-        response_schema: Tekomi::ResponseSchema
+        response_schema: Tekomi::ResponseSchema,
+        params: route[:params]
       )
       Agents::Runner.with_agents(agent).tap { |runner| install_instrumentation(runner) }
     end

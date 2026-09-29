@@ -776,6 +776,19 @@ en:
       select_provider: 'Select provider'
       configured: 'Configured'
       not_configured: 'Not configured'
+      reasoning_unsupported: 'can only be set for OpenRouter providers. Use extra params for other providers.'
+      reasoning:
+        label: 'Reasoning'
+        default: 'Reasoning: model default'
+        options:
+          'off': 'Reasoning: off'
+          low: 'Reasoning: low'
+          medium: 'Reasoning: medium'
+          high: 'Reasoning: high'
+      params:
+        label: 'Extra params (JSON)'
+        placeholder: '{ "temperature": 0.2, "max_tokens": 2000, "provider": { "sort": "throughput" } }'
+        hint: 'Sent with every request of this feature and override the reasoning setting. Leave empty for none.'
       unconfigured_summary:
         one: '1 AI feature is not configured.'
         other: '%{count} AI features are not configured.'
