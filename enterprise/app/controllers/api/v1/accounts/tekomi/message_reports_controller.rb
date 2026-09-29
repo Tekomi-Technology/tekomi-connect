@@ -29,7 +29,7 @@ class Api::V1::Accounts::Tekomi::MessageReportsController < Api::V1::Accounts::B
   def ensure_tekomi_message
     return if @message.sender_type == 'Tekomi::Assistant'
 
-    render json: { error: 'Only Tekomi messages can be reported' }, status: :unprocessable_entity
+    render json: { error: 'Only GMO messages can be reported' }, status: :unprocessable_entity
   end
 
   def permitted_params

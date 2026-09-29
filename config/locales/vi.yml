@@ -388,8 +388,8 @@ vi:
       attachment_link_title: 'Hội thoại (#%{conversation_id}) với %{name}'
     notion:
       name: 'Notion'
-      short_description: 'Kết nối cơ sở dữ liệu, tài liệu và trang Notion với Tekomi AI.'
-      description: 'Kết nối workspace Notion để Tekomi AI đọc được nội dung trong cơ sở dữ liệu, tài liệu và trang của bạn, từ đó tạo ra câu trả lời thông minh và sát ngữ cảnh hơn khi hỗ trợ khách hàng.'
+      short_description: 'Kết nối cơ sở dữ liệu, tài liệu và trang Notion với GMO AI.'
+      description: 'Kết nối workspace Notion để GMO AI đọc được nội dung trong cơ sở dữ liệu, tài liệu và trang của bạn, từ đó tạo ra câu trả lời thông minh và sát ngữ cảnh hơn khi hỗ trợ khách hàng.'
     shopify:
       name: 'Shopify'
       short_description: 'Xem thông tin đơn hàng và dữ liệu khách hàng từ cửa hàng Shopify.'
@@ -402,9 +402,9 @@ vi:
     copilot_message_required: Thông điệp bắt buộc có
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'You are out of Copilot credits. You can buy more credits from the billing section.'
-    upgrade: 'Nâng cấp gói của bạn để bật Tekomi AI'
-    disabled: 'Tekomi AI bị vô hiệu hóa cho tài khoản này.'
-    api_key_missing: 'Chưa cấu hình khóa API Tekomi AI.'
+    upgrade: 'Nâng cấp gói của bạn để bật GMO AI'
+    disabled: 'GMO AI bị vô hiệu hóa cho tài khoản này.'
+    api_key_missing: 'Chưa cấu hình khóa API GMO AI.'
     copilot:
       using_tool: 'Đang sử dụng công cụ %{function_name}'
       completed_tool_call: 'Đã hoàn thành cuộc gọi công cụ %{function_name}'
@@ -556,7 +556,7 @@ vi:
       %{format_messages}
   crm_deals:
     ai:
-      assistant_missing: 'Hãy kết nối một trợ lý Tekomi AI cho tài khoản này trước khi dùng Tekomi AI cho cơ hội.'
+      assistant_missing: 'Hãy kết nối một trợ lý GMO AI cho tài khoản này trước khi dùng GMO AI cho cơ hội.'
     default_pipeline:
       name: 'Bán hàng'
       stages:
@@ -594,7 +594,7 @@ vi:
     analytics:
       invalid_configuration: 'Invalid analytics configuration'
     articles:
-      captain_not_available: 'Translation requires Tekomi AI to be enabled for this account'
+      captain_not_available: 'Translation requires GMO AI to be enabled for this account'
       locale_not_available: 'Locale not available in this portal'
       category_not_found: 'Category not found in this portal'
       no_articles_found: 'No articles found to process'
@@ -652,7 +652,7 @@ vi:
           description: 'Nội dung file JSON thông tin xác thực Firebase'
         WEBHOOK_TIMEOUT:
           title: 'Thời gian chờ webhook (giây)'
-          description: 'Thời gian tối đa Tekomi chờ webhook phản hồi trước khi báo lỗi'
+          description: 'Thời gian tối đa GMO chờ webhook phản hồi trước khi báo lỗi'
         MAXIMUM_FILE_UPLOAD_SIZE:
           title: 'Giới hạn dung lượng tệp đính kèm (MB)'
           description: 'Dung lượng tối đa (MB) cho mỗi tệp tải lên'
@@ -751,8 +751,8 @@ vi:
           title: 'URL chính sách bảo mật'
           description: 'URL chính sách bảo mật hiển thị trong ứng dụng'
         DISPLAY_MANIFEST:
-          title: 'Metadata Tekomi'
-          description: 'Hiển thị metadata mặc định của Tekomi như favicon và cảnh báo nâng cấp'
+          title: 'Metadata GMO'
+          description: 'Hiển thị metadata mặc định của GMO như favicon và cảnh báo nâng cấp'
         CLEARBIT_API_KEY:
           description: 'API key dùng khi người dùng mới đăng ký, để điền sẵn thông tin tài khoản'
         CONTEXT_DEV_API_KEY:
@@ -767,8 +767,8 @@ vi:
           title: 'Bỏ qua xử lý BCC cho'
           description: 'Danh sách ID tài khoản cách nhau bởi dấu phẩy, bỏ qua khi xử lý BCC email đến'
         TEKOMI_CLOUD_PLAN_LIMITS:
-          title: 'Giới hạn Tekomi AI theo gói'
-          description: 'Giới hạn dịch vụ Tekomi AI cho từng gói'
+          title: 'Giới hạn GMO AI theo gói'
+          description: 'Giới hạn dịch vụ GMO AI cho từng gói'
         CHATWOOT_INSTANCE_ADMIN_EMAIL:
           title: 'Email quản trị hệ thống'
           description: 'Email của quản trị viên hệ thống, nhận các thông báo liên quan đến tuân thủ'
@@ -794,7 +794,7 @@ vi:
           description: 'Địa chỉ Langfuse (US: https://us.cloud.langfuse.com, EU: https://cloud.langfuse.com)'
         TEKOMI_FIRECRAWL_API_KEY:
           title: 'FireCrawl API Key (tùy chọn)'
-          description: 'API key FireCrawl cho dịch vụ Tekomi AI'
+          description: 'API key FireCrawl cho dịch vụ GMO AI'
         ENABLE_SAML_SSO_LOGIN:
           title: 'Bật đăng nhập SAML SSO'
           description: 'Hiện SAML SSO là một cách đăng nhập. Không thể tắt nếu đang có người dùng đăng nhập bằng SAML.'
@@ -823,7 +823,7 @@ vi:
         name: 'Trung tâm trợ giúp'
         description: 'Cho phép nhân viên viết bài hướng dẫn và đăng lên cổng trợ giúp.'
       tekomi:
-        name: 'Tekomi AI'
+        name: 'GMO AI'
         description: 'Hội thoại với khách hàng bằng AI.'
       live_chat:
         name: 'Live Chat'
@@ -908,23 +908,23 @@ vi:
       branded_email_templates: 'Mẫu email có thương hiệu'
       sla: 'SLA'
       linear_integration: 'Tích hợp Linear'
-      tekomi_integration: 'Tekomi AI'
+      tekomi_integration: 'GMO AI'
       custom_roles: 'Vai trò tùy chỉnh'
       chatwoot_v4: 'Giao diện V4'
       channel_instagram: 'Kênh Instagram'
       crm_integration: 'Tích hợp CRM'
       channel_voice: 'Kênh thoại'
       notion_integration: 'Tích hợp Notion'
-      tekomi_integration_v2: 'Tekomi AI V2'
+      tekomi_integration_v2: 'GMO AI V2'
       whatsapp_campaign: 'Chiến dịch WhatsApp'
       assignment_v2: 'Phân công V2'
-      tekomi_document_auto_sync: 'Tự động đồng bộ tài liệu Tekomi AI'
+      tekomi_document_auto_sync: 'Tự động đồng bộ tài liệu GMO AI'
       advanced_search: 'Tìm kiếm nâng cao'
       saml: 'SAML'
       companies: 'Công ty'
       channel_tiktok: 'Kênh TikTok'
       csat_review_notes: 'Ghi chú đánh giá CSAT'
-      tekomi_tasks: 'Tác vụ Tekomi AI'
+      tekomi_tasks: 'Tác vụ GMO AI'
       conversation_required_attributes: 'Thuộc tính bắt buộc của hội thoại'
       advanced_assignment: 'Phân công nâng cao'
       whatsapp_manual_transfer: 'Chuyển WhatsApp thủ công'
@@ -1005,7 +1005,7 @@ vi:
         reason: 'Chi tiết'
         empty: 'Chưa có lịch sử tạm khóa.'
     llm_config:
-      title: 'Tekomi AI'
+      title: 'GMO AI'
       tabs:
         features: 'Tính năng AI'
         providers: 'Nhà cung cấp'
