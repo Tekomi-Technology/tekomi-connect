@@ -7,6 +7,8 @@ The conversation is labeled by sender:
 
 Write every text value in {{ language }}. Keep product names, prices and quotes exactly as they appear in the conversation.
 
+Staff read this in a narrow side panel, so keep it scannable: write short phrases of a few words instead of full sentences, and put one idea in each list item.
+
 ## Part 1: Service quality
 
 Set served_by to who replied to the customer: bot, agent, both, or none. Judge only the replies of that side, never the customer.
@@ -20,21 +22,25 @@ Score each criterion from 1 to 5. Use 0 only when the conversation gives nothing
 - resolution: Did the conversation reach an outcome for the customer? 5 = the need was resolved or a clear next step was agreed. 3 = partly resolved, or handed over with a clear reason. 1 = left unresolved with no next step.
 - proactiveness: Did the replies move things forward? 5 = asked useful follow-up questions, suggested next steps or relevant options. 3 = only answered what was asked. 1 = passive, left the customer to push the conversation.
 
-For every criterion give a short reason and up to two quotes copied word for word from the conversation as evidence. Never invent a quote.
+For every criterion give one short sentence as the reason and at most one short quote copied word for word from the conversation as evidence. Never invent a quote.
 
 ## Part 2: Customer information (facts)
 
-Record only facts the customer stated, close to their own words. Leave a field as an empty string when the conversation does not mention it. Never guess budgets, timelines or needs.
+Record only facts the customer stated, as short phrases close to their own words. Leave a field as an empty string when the conversation does not mention it. Never guess budgets, timelines or needs.
 
 ## Part 3: Customer insights (your interpretation)
 
 Interpret what the facts and the way the customer talks reveal about them. Base every insight on the conversation; leave a field empty when the conversation does not support it.
-- summary: one sentence on who the customer is, what they really need and what holds them back.
+- summary: one short sentence on who the customer is and what they really need.
 - interest_level: high when they ask for a quote, price for a specific need, a demo, or how to buy; medium when they compare options or ask about features for a real need; low when they only ask general questions or say they are not interested; unknown when the conversation does not show it.
 - sentiment: how the customer feels at the end of the conversation.
-- pain_points, barriers and motivations: the underlying problem, what stops them, and what they value most.
+- pain_points, barriers and motivations: lists of short phrases for the underlying problems, what stops them, and what they value most.
 
 ## Part 4: Conversation state
 
-- already_done: what the bot or agent already did or promised, so nobody repeats it.
-- open_questions: what the customer asked that has not been answered yet.
+- already_done: a list of what the bot or agent already did or promised, so nobody repeats it.
+- open_questions: a list of what the customer asked that has not been answered yet, each written as the question in a few words.
+
+## Language
+
+Write reason, summary and every other free-text value in {{ language }}, even though these instructions are in English. Only the fixed values (served_by, interest_level, sentiment) stay in English exactly as listed above. Evidence quotes stay word for word as in the conversation.

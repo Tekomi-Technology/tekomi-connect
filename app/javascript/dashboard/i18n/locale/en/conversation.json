@@ -543,7 +543,7 @@
       "CONVERSATION_INFO": "Conversation Information",
       "CRM_INFO": "CRM Information",
       "CONTACT_NOTES": "Contact Notes",
-      "CUSTOMER_INSIGHTS": "Customer profile (AI)",
+      "CUSTOMER_INSIGHTS": "Customer profile",
       "CONTACT_ATTRIBUTES": "Contact Attributes",
       "PREVIOUS_CONVERSATION": "Previous Conversations",
       "MACROS": "Macros",
@@ -671,7 +671,6 @@
       "SCORE": "{score}/100",
       "CRITERION_SCORE": "{score}/5",
       "NOT_SCORED": "Not enough to score",
-      "SERVED_BY": "Replies by: {servedBy}",
       "SERVED_BY_OPTIONS": {
         "BOT": "Bot",
         "AGENT": "Agent",
@@ -679,54 +678,74 @@
         "NONE": "No reply yet"
       },
       "CRITERIA": {
-        "UNDERSTANDING": "Understanding the need",
-        "COMPLETENESS": "Completeness",
-        "ACCURACY": "Accuracy",
-        "TONE": "Tone and form of address",
-        "RESOLUTION": "Resolution",
-        "PROACTIVENESS": "Proactiveness"
+        "UNDERSTANDING": "Understood the need",
+        "COMPLETENESS": "Answered every question",
+        "ACCURACY": "Correct information",
+        "TONE": "Polite, right form of address",
+        "RESOLUTION": "Agreed on a next step",
+        "PROACTIVENESS": "Moved things forward"
+      },
+      "VERDICT": {
+        "GOOD": "Good",
+        "FAIR": "Fair",
+        "POOR": "Needs work"
+      },
+      "JUDGED": {
+        "BOT": "Scoring the bot replies",
+        "AGENT": "Scoring the agent replies",
+        "BOTH": "Scoring bot and agent replies",
+        "NONE": "Nobody replied yet"
+      },
+      "SERVED_BY_CHIP": {
+        "BOT": "Served by bot",
+        "AGENT": "Served by agent",
+        "BOTH": "Bot and agent",
+        "NONE": "No reply yet"
       }
     },
     "CUSTOMER": {
-      "TITLE": "Customer information",
+      "TITLE": "Customer",
       "EMPTY": "The customer has not shared details yet.",
       "FIELDS": {
         "NEEDS": "Needs",
-        "PRODUCTS_OF_INTEREST": "Products of interest",
-        "CURRENT_SOLUTION": "Current solution",
+        "PRODUCTS_OF_INTEREST": "Interested in",
+        "CURRENT_SOLUTION": "Uses today",
         "BUDGET": "Budget",
-        "TIMELINE": "Timeline"
+        "TIMELINE": "Needed by"
       }
     },
     "INSIGHT": {
-      "TITLE": "Customer insights",
-      "INTEREST": "Interest: {level}",
       "INTEREST_LEVELS": {
         "HIGH": "High",
         "MEDIUM": "Medium",
         "LOW": "Low",
         "UNKNOWN": "Unknown"
       },
-      "SENTIMENT": "Sentiment: {sentiment}",
       "SENTIMENTS": {
-        "POSITIVE": "Positive",
+        "POSITIVE": "Satisfied",
         "NEUTRAL": "Neutral",
         "CONCERNED": "Concerned",
         "FRUSTRATED": "Frustrated",
         "UNKNOWN": "Unknown"
       },
       "FIELDS": {
-        "PAIN_POINTS": "Pain points",
-        "BARRIERS": "Barriers",
-        "MOTIVATIONS": "What matters to them"
+        "PAIN_POINTS": "Struggles with",
+        "BARRIERS": "Holding back",
+        "MOTIVATIONS": "Cares about"
+      },
+      "INTEREST_CHIP": {
+        "HIGH": "High interest",
+        "MEDIUM": "Medium interest",
+        "LOW": "Low interest",
+        "UNKNOWN": "Interest unclear"
       }
     },
     "STATE": {
-      "TITLE": "Conversation status",
-      "EMPTY": "Nothing pending in this conversation.",
+      "TITLE": "What to do next",
+      "EMPTY": "Nothing is pending in this conversation.",
       "FIELDS": {
         "ALREADY_DONE": "Already done or promised",
-        "OPEN_QUESTIONS": "Open questions"
+        "OPEN_QUESTIONS": "Customer is waiting for"
       }
     },
     "CARE": {
@@ -738,7 +757,7 @@
       "ERROR": "Could not create care suggestions. Please try again.",
       "FIELDS": {
         "NEXT_ACTION": "Next action",
-        "TALKING_POINTS": "Talking points",
+        "TALKING_POINTS": "Talk about",
         "OPPORTUNITY": "Opportunity",
         "CONTACT_TIMING": "When to contact"
       }
@@ -769,9 +788,12 @@
     },
     "CONTACT_INSIGHTS": {
       "EMPTY": "No analyzed conversations for this contact yet. Use Analyze conversation in the AI menu of the reply box.",
-      "BASED_ON": "Based on {count} analyzed conversation(s)",
-      "INTEREST_TREND": "Interest over time"
-    }
+      "BASED_ON": "From {count} analyzed conversation(s)",
+      "INTEREST_TREND": "Interest",
+      "OPEN_CONVERSATION": "Open conversation #{id}"
+    },
+    "SHOW_MORE": "Show more",
+    "SHOW_LESS": "Show less"
   },
   "GALLERY_VIEW": {
     "ERROR_DOWNLOADING": "Unable to download attachment. Please try again"

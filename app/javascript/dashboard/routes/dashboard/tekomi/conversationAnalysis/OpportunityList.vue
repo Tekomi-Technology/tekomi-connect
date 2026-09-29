@@ -1,7 +1,11 @@
 <script setup>
 import { useI18n } from 'vue-i18n';
 import { dynamicTime } from 'shared/helpers/timeHelper';
-import { INTEREST_BADGE_CLASSES } from 'dashboard/components-next/ConversationAnalysis/constants';
+import {
+  INTEREST_BADGE_CLASSES,
+  toList,
+  hasValue,
+} from 'dashboard/components-next/ConversationAnalysis/constants';
 
 defineProps({
   opportunities: {
@@ -60,7 +64,7 @@ const DETAIL_FIELDS = [
       <span class="grid grid-cols-1 gap-2 md:grid-cols-2">
         <template v-for="field in DETAIL_FIELDS" :key="field.key">
           <span
-            v-if="item[field.section]?.[field.key]"
+            v-if="hasValue(item[field.section]?.[field.key])"
             class="flex flex-col gap-0.5"
           >
             <span class="text-xs text-n-slate-11">
@@ -71,7 +75,7 @@ const DETAIL_FIELDS = [
               }}
             </span>
             <span class="text-sm text-n-slate-12">
-              {{ item[field.section][field.key] }}
+              {{ toList(item[field.section][field.key]).join(', ') }}
             </span>
           </span>
         </template>

@@ -534,7 +534,7 @@
       "CONVERSATION_LABELS": "Nhãn hội thoại",
       "CONVERSATION_INFO": "Thông tin hội thoại",
       "CONTACT_NOTES": "Ghi chú liên hệ",
-      "CUSTOMER_INSIGHTS": "Hồ sơ khách hàng (AI)",
+      "CUSTOMER_INSIGHTS": "Hồ sơ khách hàng",
       "CONTACT_ATTRIBUTES": "Thuộc tính của liên hệ",
       "PREVIOUS_CONVERSATION": "Hội thoại trước đó",
       "MACROS": "Macro",
@@ -663,7 +663,6 @@
       "SCORE": "{score}/100",
       "CRITERION_SCORE": "{score}/5",
       "NOT_SCORED": "Chưa đủ dữ liệu",
-      "SERVED_BY": "Bên trả lời: {servedBy}",
       "SERVED_BY_OPTIONS": {
         "BOT": "Bot",
         "AGENT": "Nhân viên",
@@ -672,53 +671,73 @@
       },
       "CRITERIA": {
         "UNDERSTANDING": "Hiểu nhu cầu",
-        "COMPLETENESS": "Độ đầy đủ",
-        "ACCURACY": "Độ chính xác",
-        "TONE": "Tông giọng và xưng hô",
-        "RESOLUTION": "Giải quyết và kết quả",
-        "PROACTIVENESS": "Chủ động"
+        "COMPLETENESS": "Trả lời đủ câu hỏi",
+        "ACCURACY": "Thông tin đúng",
+        "TONE": "Lịch sự, xưng hô đúng",
+        "RESOLUTION": "Chốt được bước tiếp",
+        "PROACTIVENESS": "Chủ động gợi mở"
+      },
+      "VERDICT": {
+        "GOOD": "Tốt",
+        "FAIR": "Khá",
+        "POOR": "Cần cải thiện"
+      },
+      "JUDGED": {
+        "BOT": "Chấm phần trả lời của bot",
+        "AGENT": "Chấm phần trả lời của nhân viên",
+        "BOTH": "Chấm phần trả lời của bot và nhân viên",
+        "NONE": "Chưa ai trả lời khách"
+      },
+      "SERVED_BY_CHIP": {
+        "BOT": "Bot phục vụ",
+        "AGENT": "Nhân viên phục vụ",
+        "BOTH": "Bot và nhân viên",
+        "NONE": "Chưa ai trả lời"
       }
     },
     "CUSTOMER": {
-      "TITLE": "Thông tin khách hàng",
+      "TITLE": "Khách hàng",
       "EMPTY": "Khách chưa chia sẻ thông tin cụ thể.",
       "FIELDS": {
         "NEEDS": "Nhu cầu",
-        "PRODUCTS_OF_INTEREST": "Sản phẩm quan tâm",
-        "CURRENT_SOLUTION": "Giải pháp đang dùng",
+        "PRODUCTS_OF_INTEREST": "Quan tâm",
+        "CURRENT_SOLUTION": "Đang dùng",
         "BUDGET": "Ngân sách",
-        "TIMELINE": "Thời gian dự kiến"
+        "TIMELINE": "Cần khi nào"
       }
     },
     "INSIGHT": {
-      "TITLE": "Insight khách hàng",
-      "INTEREST": "Mức quan tâm: {level}",
       "INTEREST_LEVELS": {
         "HIGH": "Cao",
         "MEDIUM": "Trung bình",
         "LOW": "Thấp",
         "UNKNOWN": "Chưa rõ"
       },
-      "SENTIMENT": "Cảm xúc: {sentiment}",
       "SENTIMENTS": {
-        "POSITIVE": "Tích cực",
+        "POSITIVE": "Hài lòng",
         "NEUTRAL": "Bình thường",
         "CONCERNED": "Lo lắng",
         "FRUSTRATED": "Bực bội",
         "UNKNOWN": "Chưa rõ"
       },
       "FIELDS": {
-        "PAIN_POINTS": "Vấn đề gặp phải",
-        "BARRIERS": "Rào cản",
-        "MOTIVATIONS": "Điều khách coi trọng"
+        "PAIN_POINTS": "Khó khăn",
+        "BARRIERS": "Còn chần chừ",
+        "MOTIVATIONS": "Coi trọng"
+      },
+      "INTEREST_CHIP": {
+        "HIGH": "Quan tâm cao",
+        "MEDIUM": "Quan tâm vừa",
+        "LOW": "Quan tâm thấp",
+        "UNKNOWN": "Chưa rõ mức quan tâm"
       }
     },
     "STATE": {
-      "TITLE": "Tình trạng hội thoại",
+      "TITLE": "Việc cần làm tiếp",
       "EMPTY": "Không có việc gì còn dở trong hội thoại này.",
       "FIELDS": {
         "ALREADY_DONE": "Đã làm hoặc đã hứa",
-        "OPEN_QUESTIONS": "Câu hỏi còn bỏ ngỏ"
+        "OPEN_QUESTIONS": "Khách đang chờ trả lời"
       }
     },
     "CARE": {
@@ -730,7 +749,7 @@
       "ERROR": "Không tạo được gợi ý chăm sóc. Vui lòng thử lại.",
       "FIELDS": {
         "NEXT_ACTION": "Nên làm tiếp",
-        "TALKING_POINTS": "Nội dung nên trao đổi",
+        "TALKING_POINTS": "Nên trao đổi",
         "OPPORTUNITY": "Cơ hội",
         "CONTACT_TIMING": "Thời điểm liên hệ"
       }
@@ -761,9 +780,12 @@
     },
     "CONTACT_INSIGHTS": {
       "EMPTY": "Chưa có hội thoại nào của khách được phân tích. Dùng mục Phân tích hội thoại trong menu AI của ô soạn tin.",
-      "BASED_ON": "Tổng hợp từ {count} hội thoại đã phân tích",
-      "INTEREST_TREND": "Mức quan tâm qua các lần"
-    }
+      "BASED_ON": "Từ {count} hội thoại đã phân tích",
+      "INTEREST_TREND": "Mức quan tâm",
+      "OPEN_CONVERSATION": "Mở hội thoại #{id}"
+    },
+    "SHOW_MORE": "Xem thêm",
+    "SHOW_LESS": "Thu gọn"
   },
   "GALLERY_VIEW": {
     "ERROR_DOWNLOADING": "Không tải được tệp đính kèm. Vui lòng thử lại"
