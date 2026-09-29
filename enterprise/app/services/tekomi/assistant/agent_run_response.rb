@@ -18,6 +18,12 @@ module Tekomi::Assistant::AgentRunResponse
     structured_response
   end
 
+  def customer_visible_response?(run_result)
+    return true if @handoff_tool_called
+
+    run_result.output.is_a?(Hash) && Tekomi::Assistant::ResponseParts.from_response(run_result.output).plain_text.present?
+  end
+
   def rewrite_oversized_response(run_result)
     response_parts = Tekomi::Assistant::ResponseParts.from_response(run_result.output)
     rendered_customer_message = customer_message_content(run_result)

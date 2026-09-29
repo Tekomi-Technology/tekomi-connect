@@ -27,6 +27,10 @@ class Tekomi::Assistant::AgentRunnerService
     message_to_process, context = run_payload(message_history)
     @last_run_result = runner.run(message_to_process, context: context, max_turns: 10)
     record_turn_start(@last_run_result)
+    unless customer_visible_response?(@last_run_result)
+      raise "Tekomi returned no customer-visible response: #{@last_run_result.output.to_s.truncate(300)}"
+    end
+
     @last_run_result = rewrite_oversized_response(@last_run_result) if response_too_long?(@last_run_result)
 
     raise "Tekomi response exceeds the channel limit of #{message_length_limit} characters" if response_too_long?(@last_run_result)

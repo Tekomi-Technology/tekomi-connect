@@ -8,11 +8,13 @@ class SuperAdmin::ApplicationController < Administrate::ApplicationController
   include ActionView::Helpers::TagHelper
   include ActionView::Context
   include SuperAdmin::NavigationHelper
+  include SwitchLocale
   helper SuperAdmin::BrandingHelper
 
   helper_method :render_vue_component, :settings_open?, :settings_pages
   # authenticiation done via devise : SuperAdmin Model
   before_action :authenticate_super_admin!
+  around_action :switch_super_admin_locale
 
   # Override this value to specify the number of elements to display at a time
   # on index pages. Defaults to 20.
@@ -40,10 +42,12 @@ class SuperAdmin::ApplicationController < Administrate::ApplicationController
     content_tag(:div, '', html_options)
   end
 
+  def switch_super_admin_locale(&)
+    set_locale(current_super_admin.ui_settings&.dig('locale') || ENV.fetch('DEFAULT_LOCALE', nil), &)
+  end
+
   def invalid_action_perfomed
-    # rubocop:disable Rails/I18nLocaleTexts
-    flash[:error] = 'Invalid action performed'
-    # rubocop:enable Rails/I18nLocaleTexts
+    flash[:error] = I18n.t('super_admin.flash.invalid_action')
     redirect_back(fallback_location: root_path)
   end
 end

@@ -4,6 +4,15 @@ import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import BarChart from 'shared/components/charts/BarChart.vue';
 
+const props = defineProps({
+  componentData: {
+    type: Object,
+    required: true,
+  },
+});
+
+const labels = computed(() => props.componentData.labels);
+
 const stats = ref(null);
 const failed = ref(false);
 
@@ -22,13 +31,14 @@ onMounted(async () => {
 });
 
 const metrics = computed(() => [
-  { label: 'Accounts', value: stats.value?.accountsCount },
-  { label: 'Users', value: stats.value?.usersCount },
-  { label: 'Inboxes', value: stats.value?.inboxesCount },
-  { label: 'Conversations', value: stats.value?.conversationsCount },
+  { label: labels.value.accounts, value: stats.value?.accountsCount },
+  { label: labels.value.users, value: stats.value?.usersCount },
+  { label: labels.value.inboxes, value: stats.value?.inboxesCount },
+  {
+    label: labels.value.conversations,
+    value: stats.value?.conversationsCount,
+  },
 ]);
-
-const chartAriaLabel = 'Conversations created by day';
 
 const chartData = computed(() => {
   const sourceData = stats.value?.chartData || [];
@@ -37,7 +47,7 @@ const chartData = computed(() => {
     series: [
       {
         id: 'conversations',
-        label: 'Conversations',
+        label: labels.value.conversations,
         color: '#1f93ff',
         data: sourceData.map(([, value]) => value),
       },
@@ -50,7 +60,7 @@ const chartData = computed(() => {
   <div class="w-full h-full">
     <header class="main-content__header" role="banner">
       <h1 id="page-title" class="main-content__page-title">
-        {{ 'Admin Dashboard' }}
+        {{ labels.title }}
       </h1>
     </header>
 
@@ -62,7 +72,7 @@ const chartData = computed(() => {
               v-if="loading"
               class="inline-block w-20 h-8 rounded bg-woot-100 animate-pulse"
             />
-            <template v-else>{{ item.value || 'N/A' }}</template>
+            <template v-else>{{ item.value || labels.not_available }}</template>
           </div>
           <div>{{ item.label }}</div>
         </div>
@@ -77,7 +87,7 @@ const chartData = computed(() => {
         :data="chartData"
         :height="500"
         timeseries
-        :aria-label="chartAriaLabel"
+        :aria-label="labels.chart_aria_label"
       />
     </div>
   </div>

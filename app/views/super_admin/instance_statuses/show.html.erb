@@ -1,5 +1,5 @@
 <% content_for(:title) do %>
-  Instance Status
+  <%= t('super_admin.instance_statuses.title') %>
 <% end %>
 <header class="main-content__header" role="banner">
   <h1 class="main-content__page-title" id="page-title">
@@ -9,12 +9,12 @@
 <section class="main-content__body">
   <table>
   <tr>
-    <th>Metric</th>
-    <th>Value</th>
+    <th><%= t('super_admin.instance_statuses.metric') %></th>
+    <th><%= t('super_admin.instance_statuses.value') %></th>
   </tr>
   <% @metrics.each do |key,value| %>
    <tr>
-   <td> <%= key %> </td>
+   <td> <%= t("super_admin.instance_statuses.metrics.#{key.parameterize(separator: '_')}", default: key) %> </td>
    <td> <%= value %></td>
   </tr>
   <% end %>

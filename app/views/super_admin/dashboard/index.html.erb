@@ -1,5 +1,5 @@
 <% content_for(:title) do %>
-  Admin Dashboard
+  <%= t('super_admin.navigation.admin_dashboard') %>
 <% end %>
 
-<%= render_vue_component('DashboardIndex', {}) %>
+<%= render_vue_component('DashboardIndex', { labels: t('super_admin.dashboard') }) %>
