@@ -313,6 +313,7 @@ Rails.application.routes.draw do
           end
           resources :phone_calls, only: [:show] do
             get :recording, on: :member
+            post :emotion_analysis, on: :member
           end
           resources :csat_survey_responses, only: [:index] do
             collection do

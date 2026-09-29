@@ -26,6 +26,22 @@ class Api::V1::Accounts::PhoneCallsController < Api::V1::Accounts::BaseControlle
     head :not_found
   end
 
+  def emotion_analysis
+    result = Phone::CallEmotionAnalysisService.new(@phone_call).perform
+    @phone_call.update!(metadata: @phone_call.metadata.merge('emotion_analysis' => result))
+    @phone_call.message&.reload&.send_update_event
+    render json: result
+  rescue CustomExceptions::Llm::FeatureNotConfigured => e
+    render json: { error: e.message }, status: :unprocessable_entity
+  rescue Phone::PbxRecordingFetcher::RecordingUnavailable,
+         Phone::ZipformerTranscriptionService::TranscriptionFailed => e
+    Rails.logger.warn("Phone emotion analysis failed for phone_call=#{@phone_call.id}: #{e.message}")
+    render json: { error: e.message }, status: :bad_gateway
+  rescue StandardError => e
+    Rails.logger.error("Phone emotion analysis failed for phone_call=#{@phone_call.id}: #{e.class}: #{e.message}")
+    render json: { error: 'Call emotion analysis failed' }, status: :unprocessable_entity
+  end
+
   private
 
   def phone_call

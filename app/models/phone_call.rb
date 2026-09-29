@@ -75,7 +75,8 @@ class PhoneCall < ApplicationRecord
       agent_name: user&.available_name,
       started_at: started_at&.iso8601,
       answered_at: answered_at&.iso8601,
-      ended_at: ended_at&.iso8601
+      ended_at: ended_at&.iso8601,
+      emotion_analysis: metadata['emotion_analysis']
     }.merge(callbot_message_data).compact
   end
 

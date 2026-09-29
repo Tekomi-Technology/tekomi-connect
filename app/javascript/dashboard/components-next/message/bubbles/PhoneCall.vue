@@ -5,7 +5,6 @@ import { useStore } from 'vuex';
 import { formatDuration } from 'shared/helpers/timeHelper';
 import { useMessageContext } from '../provider.js';
 import phoneCallsAPI from 'dashboard/api/phoneCalls';
-import analyzeCallRecording from 'dashboard/api/callEmotionAnalysis';
 
 import Icon from 'dashboard/components-next/icon/Icon.vue';
 import BaseBubble from 'next/message/bubbles/Base.vue';
@@ -118,6 +117,14 @@ const emotionAnalysisButtonLabel = computed(() =>
   isAnalyzingEmotion.value ? analyzingEmotionLabel : analyzeEmotionLabel
 );
 
+const savedEmotionAnalysis = computed(
+  () => call.value.emotionAnalysis || call.value.emotion_analysis
+);
+
+if (savedEmotionAnalysis.value) {
+  emotionResult.value = savedEmotionAnalysis.value;
+}
+
 const negativeEmotions = ['buồn', 'khó chịu', 'gay gắt'];
 const hasNegativeEmotion = computed(() =>
   negativeEmotions.includes(emotionResult.value?.emotion)
@@ -151,9 +158,9 @@ const analyzeEmotion = async () => {
   emotionAnalysisError.value = '';
   emotionNoteError.value = false;
   try {
-    emotionResult.value = await analyzeCallRecording(
-      recordingAttachment.value.dataUrl
-    );
+    const phoneCallId = call.value.phoneCallId || call.value.phone_call_id;
+    const response = await phoneCallsAPI.emotionAnalysis(phoneCallId);
+    emotionResult.value = response.data;
     await addEmotionReviewNote(emotionResult.value);
   } catch (error) {
     emotionAnalysisError.value = error.message;
