@@ -42,16 +42,37 @@ class Phone::CallEmotionAnalysisService
     response = chat.ask(
       "Transcript cuộc gọi:\n#{transcript.presence || '(trống)'}"
     )
-    parsed = JSON.parse(response.content.to_s)
-    label = parsed['label'].to_s
-    label = 'trung tính' unless LABELS.include?(label)
+    parsed = parse_response(response.content)
+    label = normalize_label(parsed['label'])
 
     {
       'label' => label,
       'reason' => parsed['reason'].to_s.strip.presence || 'Không có bằng chứng cảm xúc rõ ràng trong transcript.',
       'model' => route[:model]
     }
-  rescue JSON::ParserError => e
+  rescue JSON::ParserError, TypeError => e
     raise StandardError, "LLM returned invalid emotion JSON: #{e.message}"
+  end
+
+  def parse_response(content)
+    return content.stringify_keys if content.is_a?(Hash)
+
+    JSON.parse(content.to_s)
+  end
+
+  def normalize_label(value)
+    label = value.to_s.strip.downcase
+    aliases = {
+      'trung' => 'trung tính',
+      'trung tinh' => 'trung tính',
+      'neutral' => 'trung tính',
+      'sad' => 'buồn',
+      'happy' => 'vui',
+      'annoyed' => 'khó chịu',
+      'angry' => 'gay gắt'
+    }
+
+    normalized = aliases.fetch(label, label)
+    LABELS.include?(normalized) ? normalized : 'trung tính'
   end
 end
