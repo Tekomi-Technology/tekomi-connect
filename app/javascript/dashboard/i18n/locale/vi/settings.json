@@ -324,8 +324,8 @@
     "SETTINGS": "Cài Đặt",
     "CONTACTS": "Liên hệ",
     "ACTIVE": "Có hiệu lực",
-    "COMPANIES": "Công ty",
-    "ALL_COMPANIES": "Tất cả công ty",
+    "COMPANIES": "Doanh nghiệp",
+    "ALL_COMPANIES": "Tất cả doanh nghiệp",
     "TEKOMI": "GMO AI",
     "CALLS": "Cuộc gọi",
     "TEKOMI_ASSISTANTS": "Trợ lý",
@@ -1098,7 +1098,7 @@
     "SYNC_STARTED": "Đã bắt đầu đồng bộ CRM (dữ liệu cũ {age} phút). Tải lại trang sau một phút để thấy kết quả mới.",
     "SYNC_STARTED_FIRST_TIME": "Đã bắt đầu đồng bộ CRM lần đầu. Tải lại trang sau một phút để thấy kết quả.",
     "LOADING": "Đang tải danh bạ...",
-    "NO_CONTACTS": "Công ty này chưa có liên hệ nào",
+    "NO_CONTACTS": "Doanh nghiệp này chưa có liên hệ nào",
     "UNGROUPED": "Liên hệ chưa phân nhóm"
   }
 }

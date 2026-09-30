@@ -15,6 +15,8 @@ const createInitialUIFlags = () => ({
   fetchingContacts: false,
   fetchingConversations: false,
   fetchingNotes: false,
+  fetchingDeals: false,
+  fetchingAttachments: false,
   searchingContacts: false,
   creatingContact: false,
   removingContact: false,
@@ -75,6 +77,8 @@ export const useCompaniesStore = createStore({
     companyContactsMeta: {},
     companyConversations: [],
     companyNotes: [],
+    companyDeals: [],
+    companyAttachments: [],
     contactSearchResults: [],
     contactSearchMeta: {},
     activeContactSearchQuery: '',
@@ -350,6 +354,78 @@ export const useCompaniesStore = createStore({
       }
     },
 
+    async getCompanyDeals(companyId) {
+      this.setUIFlag({ fetchingDeals: true });
+      this.ensureActiveCompanyContext(companyId);
+      const activeCompanyId = Number(companyId);
+      const requestToken = (this.companyDealsRequestToken || 0) + 1;
+      this.companyDealsRequestToken = requestToken;
+
+      try {
+        const {
+          data: { payload },
+        } = await CompanyAPI.listDeals(companyId);
+        const deals = camelcaseKeys(payload || [], {
+          deep: true,
+          stopPaths: ['custom_attributes'],
+        });
+
+        if (
+          this.companyDealsRequestToken !== requestToken ||
+          this.activeCompanyId !== activeCompanyId
+        ) {
+          return deals;
+        }
+
+        this.companyDeals = deals;
+        return deals;
+      } catch (error) {
+        return throwErrorMessage(error);
+      } finally {
+        if (
+          this.companyDealsRequestToken === requestToken &&
+          this.activeCompanyId === activeCompanyId
+        ) {
+          this.setUIFlag({ fetchingDeals: false });
+        }
+      }
+    },
+
+    // Attachment payloads are consumed by the shared attachment components,
+    // which read the raw snake_case keys, so they are stored uncamelized.
+    async getCompanyAttachments(companyId) {
+      this.setUIFlag({ fetchingAttachments: true });
+      this.ensureActiveCompanyContext(companyId);
+      const activeCompanyId = Number(companyId);
+      const requestToken = (this.companyAttachmentsRequestToken || 0) + 1;
+      this.companyAttachmentsRequestToken = requestToken;
+
+      try {
+        const {
+          data: { payload },
+        } = await CompanyAPI.listAttachments(companyId);
+
+        if (
+          this.companyAttachmentsRequestToken !== requestToken ||
+          this.activeCompanyId !== activeCompanyId
+        ) {
+          return payload || [];
+        }
+
+        this.companyAttachments = payload || [];
+        return this.companyAttachments;
+      } catch (error) {
+        return throwErrorMessage(error);
+      } finally {
+        if (
+          this.companyAttachmentsRequestToken === requestToken &&
+          this.activeCompanyId === activeCompanyId
+        ) {
+          this.setUIFlag({ fetchingAttachments: false });
+        }
+      }
+    },
+
     async searchCompanyContactCandidates({ companyId, search, page = 1 }) {
       const query = search?.trim() || '';
       if (!query) {
@@ -462,12 +538,17 @@ export const useCompaniesStore = createStore({
       this.companyConversationsRequestToken =
         (this.companyConversationsRequestToken || 0) + 1;
       this.companyNotesRequestToken = (this.companyNotesRequestToken || 0) + 1;
+      this.companyDealsRequestToken = (this.companyDealsRequestToken || 0) + 1;
+      this.companyAttachmentsRequestToken =
+        (this.companyAttachmentsRequestToken || 0) + 1;
       this.contactSearchRequestToken =
         (this.contactSearchRequestToken || 0) + 1;
       this.companyContacts = [];
       this.companyContactsMeta = {};
       this.companyConversations = [];
       this.companyNotes = [];
+      this.companyDeals = [];
+      this.companyAttachments = [];
       this.contactSearchResults = [];
       this.contactSearchMeta = {};
       this.activeContactSearchQuery = '';

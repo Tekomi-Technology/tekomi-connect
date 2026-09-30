@@ -241,6 +241,8 @@ Rails.application.routes.draw do
               end
               resources :conversations, only: [:index]
               resources :notes, only: [:index]
+              resources :deals, only: [:index]
+              get :attachments, to: 'attachments#index'
             end
           end
           resources :contacts, only: [:index, :show, :update, :create, :destroy] do

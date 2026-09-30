@@ -1,6 +1,6 @@
 {
   "COMPANIES": {
-    "HEADER": "Công ty",
+    "HEADER": "Doanh nghiệp",
     "SORT_BY": {
       "LABEL": "Sắp bởi",
       "OPTIONS": {
@@ -18,32 +18,64 @@
         "DESCENDING": "Giảm dần"
       }
     },
-    "SEARCH_PLACEHOLDER": "Tìm công ty...",
-    "LOADING": "Đang tải danh sách công ty...",
-    "UNNAMED": "Công ty chưa đặt tên",
+    "SEARCH_PLACEHOLDER": "Tìm doanh nghiệp...",
+    "LOADING": "Đang tải danh sách doanh nghiệp...",
+    "UNNAMED": "Doanh nghiệp chưa đặt tên",
     "CONTACTS_COUNT": "{n} liên hệ | {n} liên hệ",
+    "CONVERSATION_PANEL": {
+      "EMPTY": "Doanh nghiệp này không còn tồn tại.",
+      "OPEN_COMPANY": "Mở trang doanh nghiệp",
+      "TABS": {
+        "OVERVIEW": "Tổng quan",
+        "CONTACTS": "Liên hệ",
+        "CONVERSATIONS": "Hội thoại",
+        "DEALS": "Cơ hội",
+        "FILES": "Tệp"
+      },
+      "PROFILE": {
+        "TITLE": "Thông tin doanh nghiệp",
+        "WEBSITE": "Website",
+        "EMPTY": "Chưa có thông tin doanh nghiệp."
+      },
+      "CONTACT": {
+        "TITLE": "Người liên hệ",
+        "VIEW_ALL": "Xem tất cả"
+      },
+      "NOTES": {
+        "TITLE": "Ghi chú doanh nghiệp"
+      },
+      "CONTACTS": {
+        "EMPTY": "Doanh nghiệp này chưa có liên hệ nào."
+      },
+      "DEALS": {
+        "EMPTY": "Doanh nghiệp này chưa có cơ hội nào."
+      },
+      "FILES": {
+        "EMPTY": "Chưa có tệp nào được chia sẻ với doanh nghiệp này."
+      }
+    },
     "ACTIONS": {
-      "CREATE": "Thêm công ty"
+      "CREATE": "Thêm doanh nghiệp"
     },
     "SELECTOR": {
-      "PLACEHOLDER": "Chọn công ty",
+      "PLACEHOLDER": "Chọn doanh nghiệp",
       "CREATE_OPTION": "Thêm \"{name}\""
     },
     "CREATE": {
-      "TITLE": "Thêm thông tin công ty",
+      "TITLE": "Thêm thông tin doanh nghiệp",
       "ACTIONS": {
-        "SAVE": "Thêm công ty"
+        "SAVE": "Thêm doanh nghiệp"
       },
       "MESSAGES": {
-        "SUCCESS": "Đã tạo công ty.",
-        "ERROR": "Không tạo được công ty."
+        "SUCCESS": "Đã tạo doanh nghiệp.",
+        "ERROR": "Không tạo được doanh nghiệp."
       }
     },
     "DETAIL": {
-      "LOADING": "Đang tải thông tin công ty...",
+      "LOADING": "Đang tải thông tin doanh nghiệp...",
       "EMPTY_STATE": {
-        "TITLE": "Không tìm thấy công ty",
-        "SUBTITLE": "Công ty này có thể đã bị xoá hoặc không còn trong tài khoản."
+        "TITLE": "Không tìm thấy doanh nghiệp",
+        "SUBTITLE": "Doanh nghiệp này có thể đã bị xoá hoặc không còn trong tài khoản."
       },
       "SIDEBAR": {
         "TABS": {
@@ -54,26 +86,26 @@
         }
       },
       "HISTORY": {
-        "EMPTY": "Chưa có hội thoại nào từ các liên hệ của công ty này."
+        "EMPTY": "Chưa có hội thoại nào từ các liên hệ của doanh nghiệp này."
       },
       "NOTES": {
-        "EMPTY": "Chưa có ghi chú nào từ các liên hệ của công ty này."
+        "EMPTY": "Chưa có ghi chú nào từ các liên hệ của doanh nghiệp này."
       },
       "ATTRIBUTES": {
         "SEARCH_PLACEHOLDER": "Tìm kiếm nhiều thuộc tính...",
-        "EMPTY_STATE": "Chưa có thuộc tính tuỳ chỉnh nào cho công ty.",
+        "EMPTY_STATE": "Chưa có thuộc tính tuỳ chỉnh nào cho doanh nghiệp.",
         "NO_ATTRIBUTES": "Không tìm thấy thuộc tính phù hợp.",
         "UNUSED_ATTRIBUTES": "{count} thuộc tính chưa dùng | {count} thuộc tính chưa dùng",
         "MESSAGES": {
-          "UPDATE_SUCCESS": "Đã cập nhật thuộc tính công ty.",
-          "UPDATE_ERROR": "Không cập nhật được thuộc tính công ty.",
-          "DELETE_SUCCESS": "Đã xoá thuộc tính công ty.",
-          "DELETE_ERROR": "Không xoá được thuộc tính công ty."
+          "UPDATE_SUCCESS": "Đã cập nhật thuộc tính doanh nghiệp.",
+          "UPDATE_ERROR": "Không cập nhật được thuộc tính doanh nghiệp.",
+          "DELETE_SUCCESS": "Đã xoá thuộc tính doanh nghiệp.",
+          "DELETE_ERROR": "Không xoá được thuộc tính doanh nghiệp."
         }
       },
       "CONTACTS": {
         "LOADING": "Đang tải liên hệ...",
-        "EMPTY": "Chưa có liên hệ nào gắn với công ty này.",
+        "EMPTY": "Chưa có liên hệ nào gắn với doanh nghiệp này.",
         "UNNAMED_CONTACT": "Liên hệ chưa đặt tên",
         "ACTIONS": {
           "ADD": "Thêm liên hệ",
@@ -81,13 +113,13 @@
         },
         "DIALOGS": {
           "ADD": {
-            "DESCRIPTION": "Tìm một liên hệ có sẵn và gắn vào công ty này.",
+            "DESCRIPTION": "Tìm một liên hệ có sẵn và gắn vào doanh nghiệp này.",
             "SEARCH_PLACEHOLDER": "Tìm kiếm liên hệ...",
             "INITIAL": "Bắt đầu gõ để tìm liên hệ.",
             "EMPTY": "Không tìm thấy liên hệ nào.",
             "CONFIRM_TITLE": "Gắn liên hệ",
-            "CONFIRM_DESCRIPTION": "Xác nhận công ty và liên hệ trước khi gắn.",
-            "COMPANY_LABEL": "Công ty",
+            "CONFIRM_DESCRIPTION": "Xác nhận doanh nghiệp và liên hệ trước khi gắn.",
+            "COMPANY_LABEL": "Doanh nghiệp",
             "CONTACT_LABEL": "Liên hệ",
             "CURRENT_COMPANY": "Hiện đang thuộc {companyName}",
             "ADD": "Gắn liên hệ",
@@ -95,32 +127,32 @@
           }
         },
         "MESSAGES": {
-          "ADD_SUCCESS": "Đã gắn liên hệ vào công ty.",
-          "ADD_ERROR": "Không gắn được liên hệ vào công ty.",
-          "REASSIGN_SUCCESS": "Đã chuyển liên hệ sang công ty khác.",
-          "REASSIGN_ERROR": "Không chuyển được liên hệ sang công ty khác.",
-          "REMOVE_SUCCESS": "Đã gỡ liên hệ khỏi công ty.",
-          "REMOVE_ERROR": "Không gỡ được liên hệ khỏi công ty."
+          "ADD_SUCCESS": "Đã gắn liên hệ vào doanh nghiệp.",
+          "ADD_ERROR": "Không gắn được liên hệ vào doanh nghiệp.",
+          "REASSIGN_SUCCESS": "Đã chuyển liên hệ sang doanh nghiệp khác.",
+          "REASSIGN_ERROR": "Không chuyển được liên hệ sang doanh nghiệp khác.",
+          "REMOVE_SUCCESS": "Đã gỡ liên hệ khỏi doanh nghiệp.",
+          "REMOVE_ERROR": "Không gỡ được liên hệ khỏi doanh nghiệp."
         }
       },
       "AVATAR": {
-        "UPDATING": "Đang cập nhật ảnh đại diện công ty...",
-        "UPLOAD_SUCCESS": "Đã cập nhật ảnh đại diện công ty.",
-        "UPLOAD_ERROR": "Không cập nhật được ảnh đại diện công ty.",
-        "DELETE_SUCCESS": "Đã xoá ảnh đại diện công ty.",
-        "DELETE_ERROR": "Không xoá được ảnh đại diện công ty."
+        "UPDATING": "Đang cập nhật ảnh đại diện doanh nghiệp...",
+        "UPLOAD_SUCCESS": "Đã cập nhật ảnh đại diện doanh nghiệp.",
+        "UPLOAD_ERROR": "Không cập nhật được ảnh đại diện doanh nghiệp.",
+        "DELETE_SUCCESS": "Đã xoá ảnh đại diện doanh nghiệp.",
+        "DELETE_ERROR": "Không xoá được ảnh đại diện doanh nghiệp."
       },
       "PROFILE": {
-        "TITLE": "Sửa thông tin công ty",
+        "TITLE": "Sửa thông tin doanh nghiệp",
         "CREATED_AT": "Tạo {date}",
         "LAST_ACTIVE": "Hoạt động lần cuối {date}",
-        "DESCRIPTION_PLACEHOLDER": "Thêm mô tả ngắn cho công ty này",
+        "DESCRIPTION_PLACEHOLDER": "Thêm mô tả ngắn cho doanh nghiệp này",
         "ACTIONS": {
-          "SAVE": "Cập nhật công ty"
+          "SAVE": "Cập nhật doanh nghiệp"
         },
         "MESSAGES": {
-          "UPDATE_SUCCESS": "Đã cập nhật công ty.",
-          "UPDATE_ERROR": "Không cập nhật được công ty."
+          "UPDATE_SUCCESS": "Đã cập nhật doanh nghiệp.",
+          "UPDATE_ERROR": "Không cập nhật được doanh nghiệp."
         },
         "FIELDS": {
           "NAME": "Tên",
@@ -129,25 +161,25 @@
       },
       "DELETE": {
         "SECTION_TITLE": "Vùng nguy hiểm",
-        "SECTION_DESCRIPTION": "Xoá công ty này và gỡ liên kết các liên hệ của nó. Các liên hệ vẫn được giữ lại trong tài khoản.",
-        "BUTTON": "Xoá công ty",
-        "TITLE": "Xoá công ty?",
-        "DESCRIPTION": "Thao tác này sẽ xoá công ty và gỡ liên kết mọi liên hệ liên quan. Bản thân các liên hệ vẫn được giữ lại.",
+        "SECTION_DESCRIPTION": "Xoá doanh nghiệp này và gỡ liên kết các liên hệ của nó. Các liên hệ vẫn được giữ lại trong tài khoản.",
+        "BUTTON": "Xoá doanh nghiệp",
+        "TITLE": "Xoá doanh nghiệp?",
+        "DESCRIPTION": "Thao tác này sẽ xoá doanh nghiệp và gỡ liên kết mọi liên hệ liên quan. Bản thân các liên hệ vẫn được giữ lại.",
         "DESCRIPTION_WITH_NAME": "Thao tác này sẽ xoá {companyName} và gỡ liên kết mọi liên hệ liên quan. Bản thân các liên hệ vẫn được giữ lại.",
-        "CONFIRM": "Xoá công ty",
+        "CONFIRM": "Xoá doanh nghiệp",
         "MESSAGES": {
-          "SUCCESS": "Đã xoá công ty.",
-          "ERROR": "Không xoá được công ty."
+          "SUCCESS": "Đã xoá doanh nghiệp.",
+          "ERROR": "Không xoá được doanh nghiệp."
         }
       }
     },
     "EMPTY_STATE": {
-      "TITLE": "Không tìm thấy công ty nào"
+      "TITLE": "Không tìm thấy doanh nghiệp nào"
     }
   },
   "COMPANIES_LAYOUT": {
     "PAGINATION_FOOTER": {
-      "SHOWING": "Hiển thị {startItem} – {endItem} trong {totalItems} công ty | Hiển thị {startItem} – {endItem} trong {totalItems} công ty"
+      "SHOWING": "Hiển thị {startItem} – {endItem} trong {totalItems} doanh nghiệp | Hiển thị {startItem} – {endItem} trong {totalItems} doanh nghiệp"
     }
   }
 }

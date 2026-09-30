@@ -9,6 +9,8 @@ import { BUS_EVENTS } from 'shared/constants/busEvents';
 import CmdBarConversationSnooze from 'dashboard/routes/dashboard/commands/CmdBarConversationSnooze.vue';
 import { emitter } from 'shared/helpers/mitt';
 import SidepanelSwitch from 'dashboard/components-next/Conversation/SidepanelSwitch.vue';
+import SidePanelToggle from 'dashboard/components-next/Conversation/SidePanelToggle.vue';
+import ConversationListToggle from 'dashboard/components-next/Conversation/ConversationListToggle.vue';
 import ConversationSidebar from 'dashboard/components/widgets/conversation/ConversationSidebar.vue';
 import ConversationAnalysisPanel from 'dashboard/components-next/ConversationAnalysis/ConversationAnalysisPanel.vue';
 
@@ -18,6 +20,8 @@ export default {
     ConversationBox,
     CmdBarConversationSnooze,
     SidepanelSwitch,
+    SidePanelToggle,
+    ConversationListToggle,
     ConversationSidebar,
     ConversationAnalysisPanel,
   },
@@ -75,8 +79,12 @@ export default {
       chatList: 'getAllConversations',
       currentChat: 'getSelectedChat',
     }),
+    isConversationListCollapsed() {
+      return Boolean(this.uiSettings.is_conversation_list_collapsed);
+    },
     showConversationList() {
-      return this.isOnExpandedLayout ? !this.conversationId : true;
+      if (this.isOnExpandedLayout) return !this.conversationId;
+      return !this.isConversationListCollapsed;
     },
     showMessageView() {
       return this.conversationId ? true : !this.isOnExpandedLayout;
@@ -197,7 +205,8 @@ export default {
 </script>
 
 <template>
-  <section class="flex w-full h-full min-w-0">
+  <section class="flex relative w-full h-full min-w-0">
+    <ConversationListToggle v-if="isConversationListCollapsed && !isOnExpandedLayout" floating />
     <ChatList
       :show-conversation-list="showConversationList"
       :conversation-inbox="inboxId"
@@ -214,6 +223,7 @@ export default {
       :is-on-expanded-layout="isOnExpandedLayout"
     >
       <SidepanelSwitch v-if="currentChat.id" />
+      <SidePanelToggle v-if="currentChat.id" />
     </ConversationBox>
     <ConversationSidebar v-if="shouldShowSidebar" :current-chat="currentChat" />
     <ConversationAnalysisPanel

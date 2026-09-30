@@ -1,0 +1,341 @@
+inboxes:
+  - name: 'Website'
+    type: web_widget
+  - name: 'Fanpage Facebook'
+    type: api
+  - name: 'Zalo OA'
+    type: api
+
+companies:
+  - name: 'Công ty TNHH Thương mại Minh Phát'
+    description: 'Phân phối vật liệu xây dựng, 3 kho tại Hà Nội'
+  - name: 'Công ty CP Dược phẩm An Khang'
+    description: 'Chuỗi 25 nhà thuốc tại TP.HCM'
+  - name: 'Công ty TNHH Nội thất Hòa Bình'
+    description: 'Sản xuất và bán lẻ nội thất gỗ'
+  - name: 'Trung tâm Anh ngữ Sunrise'
+    description: 'Hệ thống 6 cơ sở đào tạo tiếng Anh'
+  - name: 'Công ty CP Logistics Sao Việt'
+    description: 'Vận tải và kho bãi, 120 nhân viên'
+  - name: 'Spa Lotus Beauty'
+    description: 'Chuỗi 4 spa tại Đà Nẵng'
+
+contacts:
+  - { name: 'Nguyễn Văn Hùng', phone: '+84903112233', company: 'Công ty TNHH Thương mại Minh Phát', city: 'Hà Nội', vip: true }
+  - { name: 'Trần Thị Mai', phone: '+84912345678', company: 'Công ty CP Dược phẩm An Khang', city: 'TP. Hồ Chí Minh', vip: true }
+  - { name: 'Lê Quốc Bảo', phone: '+84987654321', company: 'Công ty TNHH Nội thất Hòa Bình', city: 'Bình Dương' }
+  - { name: 'Phạm Thu Hà', phone: '+84938222111', company: 'Trung tâm Anh ngữ Sunrise', city: 'Hà Nội' }
+  - { name: 'Đỗ Minh Tuấn', phone: '+84909888777', company: 'Công ty CP Logistics Sao Việt', city: 'Hải Phòng', vip: true }
+  - { name: 'Võ Thị Lan', phone: '+84935666444', company: 'Spa Lotus Beauty', city: 'Đà Nẵng' }
+  - { name: 'Hoàng Đức Anh', phone: '+84977123456', company: 'Công ty TNHH Thương mại Minh Phát', city: 'Hà Nội' }
+  - { name: 'Bùi Ngọc Ánh', phone: '+84916543210', company: 'Công ty CP Dược phẩm An Khang', city: 'TP. Hồ Chí Minh' }
+  - { name: 'Ngô Thanh Sơn', phone: '+84902468135', city: 'Cần Thơ' }
+  - { name: 'Đặng Thùy Linh', phone: '+84933579246', city: 'Hà Nội' }
+  - { name: 'Trịnh Văn Nam', phone: '+84968112244', company: 'Công ty CP Logistics Sao Việt', city: 'Hải Phòng' }
+  - { name: 'Lý Hải Yến', phone: '+84907334455', city: 'TP. Hồ Chí Minh' }
+  - { name: 'Phan Anh Khoa', phone: '+84945667788', city: 'Huế' }
+  - { name: 'Mai Thị Hồng', phone: '+84971223344', company: 'Spa Lotus Beauty', city: 'Đà Nẵng' }
+  - { name: 'Cao Minh Đức', phone: '+84913998877', city: 'Hà Nội' }
+  - { name: 'Tạ Thị Thu', phone: '+84936887766', company: 'Trung tâm Anh ngữ Sunrise', city: 'Hà Nội' }
+  - { name: 'Dương Quang Huy', phone: '+84983776655', city: 'Nha Trang' }
+  - { name: 'Hồ Ngọc Trâm', phone: '+84908665544', city: 'TP. Hồ Chí Minh' }
+  - { name: 'Vũ Tiến Dũng', phone: '+84962554433', company: 'Công ty TNHH Nội thất Hòa Bình', city: 'Bình Dương' }
+  - { name: 'Kiều Bảo Ngọc', phone: '+84939443322', city: 'Vũng Tàu' }
+  - { name: 'Lâm Chí Thanh', phone: '+84919332211', city: 'Hà Nội' }
+  - { name: 'Châu Mỹ Linh', phone: '+84976221100', city: 'TP. Hồ Chí Minh' }
+
+labels:
+  - { title: 'bao-gia', description: 'Khách yêu cầu báo giá', color: '#2781F6' }
+  - { title: 'khach-moi', description: 'Khách hàng tiềm năng mới', color: '#12A594' }
+  - { title: 'lich-demo', description: 'Đặt lịch demo sản phẩm', color: '#8E4EC6' }
+  - { title: 'su-co', description: 'Báo lỗi, sự cố hệ thống', color: '#E5484D' }
+  - { title: 'gia-han', description: 'Gia hạn dịch vụ, hợp đồng', color: '#F76B15' }
+  - { title: 'ke-toan', description: 'Hóa đơn, thanh toán', color: '#AB6400' }
+  - { title: 'huong-dan', description: 'Hướng dẫn sử dụng', color: '#0090FF' }
+  - { title: 'khieu-nai', description: 'Khiếu nại dịch vụ', color: '#D6409F' }
+
+scripts:
+  - key: erp_quote
+    labels: ['bao-gia', 'khach-moi']
+    priority: high
+    messages:
+      - in: 'Chào bên em, công ty anh phân phối vật liệu xây dựng, có 3 kho. Anh đang tìm phần mềm quản lý kho và bán hàng.'
+      - out: 'Dạ em chào anh ạ. Bên em có giải pháp ERP quản lý kho, bán hàng và công nợ. Anh cho em hỏi hiện mỗi kho có khoảng bao nhiêu mã hàng và bao nhiêu người dùng ạ?'
+      - in: 'Khoảng 2.000 mã hàng, 15 người dùng. Bên anh đang quản lý bằng Excel, hay bị lệch tồn kho.'
+      - out: 'Dạ với quy mô này gói ERP Tiêu chuẩn là phù hợp ạ, có đồng bộ tồn kho theo thời gian thực giữa các kho. Em gửi anh báo giá chi tiết qua email trong hôm nay nhé.'
+      - in: 'Ok em. Ngân sách bên anh tầm 150 triệu, cần chạy trước Tết. Có tích hợp được hóa đơn điện tử không?'
+      - out: 'Dạ có ạ, hệ thống tích hợp sẵn hóa đơn điện tử. Thời gian triển khai khoảng 6–8 tuần nên kịp trước Tết ạ.'
+    csat: { rating: 5, feedback: 'Tư vấn nhanh, rõ ràng' }
+    analysis:
+      served_by: agent
+      quality:
+        understanding: { score: 5, reason: 'Hỏi đúng quy mô kho và số người dùng.', evidence: ['Anh cho em hỏi hiện mỗi kho có khoảng bao nhiêu mã hàng'] }
+        completeness: { score: 4, reason: 'Trả lời đủ, còn thiếu chi phí bảo trì hằng năm.' }
+        accuracy: { score: 5, reason: 'Thông tin gói và thời gian triển khai rõ ràng.' }
+        tone: { score: 5, reason: 'Xưng hô anh – em lịch sự, nhất quán.' }
+        resolution: { score: 4, reason: 'Đã hẹn gửi báo giá trong ngày.' }
+        proactiveness: { score: 4, reason: 'Chủ động gợi ý gói phù hợp quy mô.' }
+      customer:
+        needs: 'Phần mềm quản lý kho và bán hàng cho 3 kho'
+        products_of_interest: 'ERP Tiêu chuẩn'
+        current_solution: 'Quản lý bằng Excel'
+        budget: '150 triệu'
+        timeline: 'Trước Tết'
+      insight:
+        summary: 'Nhà phân phối 3 kho cần ERP thay Excel, ngân sách rõ ràng.'
+        interest_level: high
+        sentiment: positive
+        pain_points: ['Lệch tồn kho giữa các kho', 'Quản lý thủ công bằng Excel']
+        barriers: ['Cần kịp trước Tết']
+        motivations: ['Tồn kho chính xác', 'Có hóa đơn điện tử']
+      conversation_state:
+        already_done: ['Hẹn gửi báo giá qua email trong hôm nay']
+        open_questions: ['Chi phí bảo trì hằng năm']
+      care:
+        next_action: 'Gửi báo giá ERP Tiêu chuẩn kèm lộ trình 8 tuần'
+        talking_points: ['Đồng bộ tồn kho thời gian thực', 'Kịp triển khai trước Tết']
+        opportunity: 'Bán thêm module công nợ và báo cáo'
+        contact_timing: 'Trong hôm nay'
+
+  - key: hrm_demo
+    labels: ['lich-demo', 'khach-moi']
+    messages:
+      - in: 'Cho chị hỏi phần mềm quản lý nhân sự bên em có chấm công bằng khuôn mặt không?'
+      - out: 'Dạ có chị ạ. Phần mềm HRM bên em hỗ trợ chấm công khuôn mặt, GPS và tính lương tự động. Bên chị hiện có bao nhiêu nhân viên ạ?'
+      - in: 'Khoảng 120 người, chia 3 ca. Chị muốn xem demo trước.'
+      - out: 'Dạ em xếp lịch demo online cho chị vào 9h sáng thứ Năm này được không ạ? Buổi demo khoảng 45 phút.'
+      - in: 'Được em, gửi chị link họp nhé.'
+      - out: 'Dạ em đã gửi lịch và link Google Meet qua Zalo cho chị rồi ạ.'
+    csat: { rating: 5, feedback: '' }
+    analysis:
+      served_by: agent
+      quality:
+        understanding: { score: 4, reason: 'Hỏi số nhân viên, chưa hỏi hình thức tính lương.' }
+        completeness: { score: 5, reason: 'Trả lời đủ câu hỏi về chấm công.' }
+        accuracy: { score: 5, reason: 'Thông tin tính năng chính xác.' }
+        tone: { score: 5, reason: 'Lịch sự, xưng hô chị – em đúng.' }
+        resolution: { score: 5, reason: 'Đã chốt lịch demo cụ thể.', evidence: ['vào 9h sáng thứ Năm này được không ạ'] }
+        proactiveness: { score: 4, reason: 'Chủ động đề xuất lịch demo.' }
+      customer:
+        needs: 'Chấm công khuôn mặt, quản lý 3 ca'
+        products_of_interest: 'Phần mềm HRM'
+        budget: ''
+        timeline: ''
+      insight:
+        summary: 'Doanh nghiệp 120 nhân sự, 3 ca, đang tìm hiểu HRM.'
+        interest_level: medium
+        sentiment: positive
+        pain_points: ['Chấm công 3 ca thủ công']
+        barriers: ['Muốn xem demo trước khi quyết định']
+        motivations: ['Tự động tính lương']
+      conversation_state:
+        already_done: ['Đã gửi lịch demo 9h thứ Năm']
+        open_questions: []
+      care:
+        next_action: 'Chuẩn bị demo chấm công 3 ca và tính lương'
+        talking_points: ['Chấm công khuôn mặt, GPS', 'Báo cáo lương theo ca']
+        opportunity: 'Gói HRM cho 120 người dùng'
+        contact_timing: 'Nhắc lịch trước 1 ngày'
+
+  - key: website_design
+    labels: ['bao-gia']
+    messages:
+      - in: 'Em ơi bên em có làm website bán hàng không? Chị bán nội thất, muốn có web đặt hàng online.'
+      - out: 'Dạ có chị ạ. Bên em thiết kế website bán hàng có giỏ hàng, thanh toán online và quản lý đơn. Chị đã có tên miền chưa ạ?'
+      - in: 'Chưa có. Làm mất bao lâu, giá khoảng bao nhiêu em?'
+      - out: 'Dạ gói website bán hàng từ 25 triệu, làm trong 4 tuần, tặng tên miền và hosting năm đầu ạ. Em gửi chị vài mẫu giao diện ngành nội thất để chị tham khảo nhé.'
+    csat: { rating: 4, feedback: 'Cần thêm mẫu giao diện' }
+
+  - key: mobile_app
+    labels: ['bao-gia', 'khach-moi']
+    messages:
+      - in: 'Bên em làm app đặt lịch cho spa được không? Chị có 4 cơ sở.'
+      - out: 'Dạ được chị ạ. App cho khách đặt lịch, chọn kỹ thuật viên, nhận thông báo và tích điểm thành viên. Chị cần cả iOS và Android đúng không ạ?'
+      - in: 'Ừ cả hai. Chị muốn ra mắt trước tháng 12.'
+      - out: 'Dạ em sẽ gửi chị bản đề xuất tính năng và báo giá. Để kịp tháng 12, mình nên chốt yêu cầu trong tuần này ạ.'
+
+  - key: domain_renew
+    labels: ['gia-han']
+    messages:
+      - in: 'Tên miền của công ty anh sắp hết hạn, gia hạn thế nào em?'
+      - out: 'Dạ anh cho em xin tên miền để em kiểm tra ạ.'
+      - in: 'minhphat-vlxd.vn'
+      - out: 'Dạ tên miền hết hạn ngày 15 tháng sau. Phí gia hạn 1 năm là 750.000đ, 2 năm được giảm 10% ạ. Anh chọn gói nào để em xuất hóa đơn ạ?'
+      - in: 'Gia hạn 2 năm luôn nhé.'
+      - out: 'Dạ em đã gia hạn 2 năm và gửi hóa đơn qua email cho anh rồi ạ.'
+    csat: { rating: 5, feedback: 'Nhanh gọn' }
+
+  - key: hosting_down
+    labels: ['su-co']
+    priority: urgent
+    messages:
+      - in: 'Website bên chị không vào được, báo lỗi 502 từ sáng!'
+      - out: 'Dạ em xin lỗi chị. Em kiểm tra ngay ạ, chị cho em xin địa chỉ website.'
+      - in: 'ankhangpharma.vn, khách đang không đặt hàng được, gấp lắm em.'
+      - out: 'Dạ máy chủ bị quá tải do lượng truy cập tăng đột biến. Kỹ thuật đang nâng cấp tài nguyên, dự kiến 30 phút nữa website hoạt động lại ạ.'
+      - in: 'Ok em, xong báo chị ngay nhé.'
+      - out: 'Dạ website đã hoạt động bình thường rồi ạ. Bên em cũng đã tăng giới hạn tài nguyên để tránh lặp lại.'
+    csat: { rating: 3, feedback: 'Xử lý được nhưng bị gián đoạn khá lâu' }
+    ticket:
+      title: 'Website ankhangpharma.vn lỗi 502 do quá tải'
+      description: 'Máy chủ quá tải, cần theo dõi tài nguyên và đề xuất nâng gói hosting.'
+    analysis:
+      served_by: agent
+      quality:
+        understanding: { score: 5, reason: 'Nắm ngay mức độ khẩn cấp.' }
+        completeness: { score: 4, reason: 'Có nguyên nhân và thời gian xử lý.' }
+        accuracy: { score: 5, reason: 'Chẩn đoán đúng nguyên nhân quá tải.' }
+        tone: { score: 5, reason: 'Xin lỗi và trấn an khách phù hợp.', evidence: ['Dạ em xin lỗi chị. Em kiểm tra ngay ạ'] }
+        resolution: { score: 4, reason: 'Đã khắc phục, còn thiếu biện pháp lâu dài.' }
+        proactiveness: { score: 3, reason: 'Chưa đề xuất nâng gói hosting.' }
+      customer:
+        needs: 'Website hoạt động ổn định để nhận đơn'
+        products_of_interest: 'Hosting'
+        current_solution: 'Hosting gói cơ bản'
+      insight:
+        summary: 'Chuỗi nhà thuốc bị gián đoạn bán hàng online do website quá tải.'
+        interest_level: medium
+        sentiment: concerned
+        pain_points: ['Mất đơn khi website lỗi']
+        barriers: []
+        motivations: ['Hệ thống ổn định']
+      conversation_state:
+        already_done: ['Đã nâng tài nguyên máy chủ']
+        open_questions: ['Làm sao tránh lỗi lặp lại']
+      care:
+        next_action: 'Đề xuất nâng gói hosting có tự mở rộng'
+        talking_points: ['Báo cáo nguyên nhân sự cố', 'Cam kết thời gian hoạt động']
+        opportunity: 'Nâng cấp lên hosting doanh nghiệp'
+        contact_timing: 'Trong 1–2 ngày'
+
+  - key: email_issue
+    labels: ['su-co']
+    priority: high
+    messages:
+      - in: 'Email công ty anh gửi ra ngoài bị vào spam hết em ơi.'
+      - out: 'Dạ anh cho em xin tên miền email để em kiểm tra cấu hình ạ.'
+      - in: 'saoviet-logistics.com.vn'
+      - out: 'Dạ tên miền đang thiếu bản ghi SPF và DKIM nên thư dễ bị đánh dấu spam. Em đã tạo yêu cầu kỹ thuật để bổ sung, trong 24 giờ sẽ có hiệu lực ạ.'
+    ticket:
+      title: 'Bổ sung SPF, DKIM cho saoviet-logistics.com.vn'
+      description: 'Email gửi ra ngoài bị vào spam do thiếu bản ghi SPF và DKIM.'
+
+  - key: invoice
+    labels: ['ke-toan']
+    messages:
+      - in: 'Em xuất giúp chị hóa đơn VAT cho đơn hàng tháng trước nhé.'
+      - out: 'Dạ chị gửi em thông tin xuất hóa đơn: tên công ty, mã số thuế và địa chỉ ạ.'
+      - in: 'Công ty CP Dược phẩm An Khang, MST 0312345678, 45 Lê Lợi, Quận 1.'
+      - out: 'Dạ em đã xuất hóa đơn điện tử và gửi vào email kế toán của công ty mình rồi ạ.'
+    csat: { rating: 5, feedback: '' }
+
+  - key: contract_extend
+    labels: ['gia-han']
+    messages:
+      - in: 'Hợp đồng bảo trì phần mềm của bên anh sắp hết, gia hạn có gì thay đổi không em?'
+      - out: 'Dạ gói bảo trì năm nay có thêm sao lưu dữ liệu hằng ngày và hỗ trợ ngoài giờ. Phí giữ nguyên nếu anh gia hạn trước ngày 30 ạ.'
+      - in: 'Vậy gửi anh phụ lục hợp đồng để anh ký nhé.'
+      - out: 'Dạ em gửi phụ lục qua email trong hôm nay ạ.'
+
+  - key: complaint_slow
+    labels: ['khieu-nai']
+    priority: high
+    messages:
+      - in: 'Chị báo lỗi từ hôm qua mà chưa ai xử lý, như vậy là quá chậm.'
+      - out: 'Dạ em thành thật xin lỗi chị vì phản hồi chậm. Chị cho em xin mã yêu cầu hoặc mô tả lỗi để em ưu tiên xử lý ngay ạ.'
+      - in: 'Phần mềm không in được hóa đơn, cửa hàng đang phải viết tay.'
+      - out: 'Dạ lỗi do cập nhật driver máy in. Em đã gửi hướng dẫn cài lại, kỹ thuật cũng sẽ gọi hỗ trợ trực tiếp cho chị trong 15 phút tới ạ.'
+    csat: { rating: 2, feedback: 'Phản hồi quá chậm, lần sau cần nhanh hơn' }
+    analysis:
+      served_by: agent
+      quality:
+        understanding: { score: 4, reason: 'Hiểu đúng vấn đề in hóa đơn.' }
+        completeness: { score: 4, reason: 'Có hướng dẫn và hẹn hỗ trợ trực tiếp.' }
+        accuracy: { score: 4, reason: 'Xác định đúng nguyên nhân do driver.' }
+        tone: { score: 5, reason: 'Xin lỗi chân thành, không đổ lỗi.', evidence: ['Dạ em thành thật xin lỗi chị vì phản hồi chậm'] }
+        resolution: { score: 3, reason: 'Chưa xác nhận khách đã in được.' }
+        proactiveness: { score: 3, reason: 'Chưa đề xuất bù đắp cho sự chậm trễ.' }
+      customer:
+        needs: 'In được hóa đơn tại cửa hàng'
+        products_of_interest: 'Phần mềm bán hàng'
+      insight:
+        summary: 'Khách bực vì báo lỗi từ hôm qua chưa được xử lý.'
+        interest_level: low
+        sentiment: frustrated
+        pain_points: ['Phải viết hóa đơn tay', 'Chờ hỗ trợ quá lâu']
+        barriers: ['Mất niềm tin vào tốc độ hỗ trợ']
+        motivations: ['Được hỗ trợ nhanh']
+      conversation_state:
+        already_done: ['Gửi hướng dẫn cài lại driver', 'Hẹn kỹ thuật gọi trong 15 phút']
+        open_questions: ['Đã in được hóa đơn chưa']
+      care:
+        next_action: 'Gọi xác nhận khách đã in được hóa đơn'
+        talking_points: ['Xin lỗi về thời gian phản hồi', 'Cam kết thời gian xử lý lỗi']
+        opportunity: ''
+        contact_timing: 'Ngay hôm nay'
+
+  - key: training
+    labels: ['huong-dan']
+    messages:
+      - in: 'Em hướng dẫn chị cách xuất báo cáo tồn kho theo tháng với.'
+      - out: 'Dạ chị vào menu Kho → Báo cáo → Tồn kho, chọn khoảng thời gian rồi bấm Xuất Excel ạ. Em gửi kèm video hướng dẫn 2 phút cho chị nhé.'
+      - in: 'Được rồi em, cảm ơn em.'
+    csat: { rating: 5, feedback: 'Hướng dẫn dễ hiểu' }
+
+  - key: integration
+    labels: ['huong-dan', 'su-co']
+    messages:
+      - in: 'Phần mềm kế toán MISA bên chị có kết nối với hệ thống bán hàng của em được không?'
+      - out: 'Dạ được chị ạ. Bên em có cổng đồng bộ chứng từ bán hàng sang MISA theo ngày. Chị đang dùng MISA SME hay AMIS ạ?'
+      - in: 'AMIS. Hôm trước bật đồng bộ mà báo lỗi xác thực.'
+      - out: 'Dạ lỗi do khóa kết nối AMIS đã hết hạn. Em đã tạo yêu cầu để kỹ thuật cấp lại khóa và kiểm tra đồng bộ cho chị ạ.'
+    ticket:
+      title: 'Đồng bộ AMIS báo lỗi xác thực'
+      description: 'Khóa kết nối AMIS hết hạn, cần cấp lại và chạy lại đồng bộ chứng từ.'
+
+  - key: outsource_japan
+    labels: ['bao-gia']
+    priority: high
+    messages:
+      - in: 'Công ty anh cần đội phát triển phần mềm cho dự án ở Nhật, bên em có nhận outsource không?'
+      - out: 'Dạ có anh ạ. Bên em có đội kỹ sư cầu nối tiếng Nhật và quy trình phát triển theo chuẩn Nhật. Dự án của anh thuộc lĩnh vực nào ạ?'
+      - in: 'Hệ thống quản lý kho vận, cần khoảng 8 kỹ sư trong 12 tháng.'
+      - out: 'Dạ em sắp xếp buổi trao đổi với trưởng dự án bên em trong tuần này để ước lượng chi tiết cho anh nhé.'
+    analysis:
+      served_by: agent
+      quality:
+        understanding: { score: 5, reason: 'Hỏi đúng lĩnh vực và quy mô dự án.' }
+        completeness: { score: 4, reason: 'Chưa nêu mô hình giá (theo tháng hay trọn gói).' }
+        accuracy: { score: 5, reason: 'Thông tin năng lực rõ ràng.' }
+        tone: { score: 5, reason: 'Chuyên nghiệp, phù hợp khách doanh nghiệp.' }
+        resolution: { score: 4, reason: 'Hẹn buổi trao đổi trong tuần.' }
+        proactiveness: { score: 5, reason: 'Chủ động kết nối trưởng dự án.' }
+      customer:
+        needs: 'Đội 8 kỹ sư cho dự án tại Nhật'
+        products_of_interest: 'Phát triển phần mềm outsource'
+        budget: ''
+        timeline: '12 tháng'
+      insight:
+        summary: 'Khách lớn cần đội outsource 8 kỹ sư cho thị trường Nhật.'
+        interest_level: high
+        sentiment: positive
+        pain_points: ['Thiếu nhân lực phát triển']
+        barriers: ['Cần ước lượng chi phí chi tiết']
+        motivations: ['Quy trình chuẩn Nhật', 'Có kỹ sư cầu nối']
+      conversation_state:
+        already_done: ['Hẹn buổi trao đổi với trưởng dự án']
+        open_questions: ['Mô hình giá theo tháng hay trọn gói']
+      care:
+        next_action: 'Sắp lịch họp với trưởng dự án trong tuần'
+        talking_points: ['Kinh nghiệm dự án kho vận', 'Mô hình giá linh hoạt']
+        opportunity: 'Hợp đồng outsource 12 tháng'
+        contact_timing: 'Trong tuần này'
+
+  - key: data_migration
+    labels: ['huong-dan']
+    messages:
+      - in: 'Bên chị có 3 năm dữ liệu khách hàng trên Excel, chuyển sang phần mềm mới được không em?'
+      - out: 'Dạ được chị ạ. Bên em hỗ trợ nhập dữ liệu từ Excel miễn phí, chị gửi em file mẫu để em kiểm tra định dạng nhé.'
+      - in: 'Ok, chị gửi file qua email rồi đó.'
+      - out: 'Dạ em nhận được rồi ạ. Dữ liệu hợp lệ, em sẽ nhập xong trong ngày mai và báo chị kiểm tra.'
+    csat: { rating: 4, feedback: '' }

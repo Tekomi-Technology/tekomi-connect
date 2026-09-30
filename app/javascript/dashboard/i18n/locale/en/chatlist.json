@@ -153,6 +153,8 @@
     "SHOW_QUOTED_TEXT": "Show Quoted Text",
     "MESSAGE_READ": "Read",
     "SENDING": "Sending",
-    "UNREAD_COUNT_OVERFLOW": "9+"
+    "UNREAD_COUNT_OVERFLOW": "9+",
+    "COLLAPSE_LIST": "Collapse conversation list",
+    "EXPAND_LIST": "Expand conversation list"
   }
 }

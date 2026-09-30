@@ -159,10 +159,6 @@ onMounted(fetchCompanies);
           "
           class="size-4 text-n-slate-11 flex-shrink-0"
         />
-        <Icon
-          icon="i-lucide-building-2"
-          class="size-4 text-n-slate-11 flex-shrink-0"
-        />
         <span class="text-sm font-medium truncate text-n-slate-12">
           {{ company.name }}
         </span>

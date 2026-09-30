@@ -6,6 +6,7 @@ import wootConstants from 'dashboard/constants/globals';
 
 import ConversationBasicFilter from './widgets/conversation/ConversationBasicFilter.vue';
 import SwitchLayout from 'dashboard/routes/dashboard/conversation/search/SwitchLayout.vue';
+import ConversationListToggle from 'dashboard/components-next/Conversation/ConversationListToggle.vue';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 
 const props = defineProps({
@@ -63,6 +64,7 @@ const toggleConversationLayout = () => {
     }"
   >
     <div class="flex items-center justify-center min-w-0">
+      <ConversationListToggle v-if="!isOnExpandedLayout" />
       <h1
         class="text-base font-medium truncate text-n-slate-12"
         :title="pageTitle"

@@ -5,7 +5,7 @@
     "PHONE_NUMBER": "Số điện thoại",
     "IDENTIFIER": "Định danh",
     "COPY_SUCCESSFUL": "Đã sao chép mã thành công",
-    "COMPANY": "Công ty",
+    "COMPANY": "Doanh nghiệp",
     "LOCATION": "Vị trí",
     "BROWSER_LANGUAGE": "Ngôn ngữ của Trình duyệt",
     "CONVERSATION_TITLE": "Chi tiết của hội thoại",
@@ -123,8 +123,8 @@
         "LABEL": "Địa điểm"
       },
       "COMPANY_NAME": {
-        "PLACEHOLDER": "Nhập tên công ty",
-        "LABEL": "Tên công ty"
+        "PLACEHOLDER": "Nhập tên doanh nghiệp",
+        "LABEL": "Tên doanh nghiệp"
       },
       "COUNTRY": {
         "PLACEHOLDER": "Nhập tên thành phố",
@@ -351,7 +351,7 @@
             "NAME": "Tên",
             "EMAIL": "Email",
             "PHONE_NUMBER": "Số điện thoại",
-            "COMPANY": "Công ty",
+            "COMPANY": "Doanh nghiệp",
             "COUNTRY": "Quốc gia",
             "CITY": "Tỉnh / Thành phố",
             "LAST_ACTIVITY": "Hành động cuối cùng",
@@ -396,7 +396,7 @@
       "IDENTIFIER": "Định danh",
       "COUNTRY": "Quốc gia",
       "CITY": "Tỉnh / Thành phố",
-      "COMPANY": "Công ty",
+      "COMPANY": "Doanh nghiệp",
       "CREATED_AT": "Tạo vào lúc",
       "LAST_ACTIVITY": "Hành động cuối cùng",
       "REFERER_LINK": "Liên kết người giới thiệu",
@@ -450,7 +450,7 @@
             "PLACEHOLDER": "Nhập giới thiệu"
           },
           "COMPANY_NAME": {
-            "PLACEHOLDER": "Nhập tên công ty"
+            "PLACEHOLDER": "Nhập tên doanh nghiệp"
           }
         },
         "UPDATE_BUTTON": "Cập nhật liên hệ",

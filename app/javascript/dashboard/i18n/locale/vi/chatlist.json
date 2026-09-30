@@ -15,14 +15,16 @@
       "INPUT": "Tìm kiếm cho người, đoạn chat, lưu trữ trả lời .."
     },
     "FILTER_ALL": "Tất cả",
+    "COLLAPSE_LIST": "Thu gọn danh sách hội thoại",
+    "EXPAND_LIST": "Mở danh sách hội thoại",
     "COMPANY_LIST": {
-      "EMPTY": "Chưa có công ty nào",
-      "NO_CONVERSATIONS": "Công ty này chưa có hội thoại nào",
+      "EMPTY": "Chưa có doanh nghiệp nào",
+      "NO_CONVERSATIONS": "Doanh nghiệp này chưa có hội thoại nào",
       "LOAD_MORE": "Xem thêm",
-      "FETCH_ERROR": "Không tải được danh sách công ty"
+      "FETCH_ERROR": "Không tải được danh sách doanh nghiệp"
     },
     "ASSIGNEE_TYPE_TABS": {
-      "company": "Công ty",
+      "company": "Doanh nghiệp",
       "me": "Của tôi",
       "vip": "VIP",
       "unassigned": "Chưa được phân công",

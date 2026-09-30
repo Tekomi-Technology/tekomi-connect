@@ -11,7 +11,7 @@
     "ATTRIBUTE_MODELS": {
       "CONVERSATION": "Cuộc hội thoại",
       "CONTACT": "Liên hệ",
-      "COMPANY": "Công ty",
+      "COMPANY": "Doanh nghiệp",
       "DEAL": "Cơ hội",
       "TICKET": "Ticket"
     },
@@ -112,7 +112,7 @@
       "HEADER": "Thuộc tính tùy chỉnh",
       "CONVERSATION": "Cuộc hội thoại",
       "CONTACT": "Liên lạc",
-      "COMPANY": "Công ty",
+      "COMPANY": "Doanh nghiệp",
       "DEAL": "Cơ hội"
     },
     "LIST": {

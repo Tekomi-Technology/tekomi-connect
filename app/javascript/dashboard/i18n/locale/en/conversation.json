@@ -441,7 +441,10 @@
     "SIDEBAR": {
       "CONTACT": "Contact",
       "COPILOT": "GMO",
-      "ANALYSIS": "Conversation analysis"
+      "ANALYSIS": "Conversation analysis",
+      "COMPANY": "Company",
+      "COLLAPSE_PANEL": "Collapse panel",
+      "EXPAND_PANEL": "Expand panel"
     },
     "VOICE_WIDGET": {
       "INCOMING_CALL": "Incoming call",

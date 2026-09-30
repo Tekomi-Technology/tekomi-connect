@@ -395,7 +395,10 @@
     "SIDEBAR": {
       "CONTACT": "Liên hệ",
       "COPILOT": "GMO",
-      "ANALYSIS": "Phân tích hội thoại"
+      "ANALYSIS": "Phân tích hội thoại",
+      "COMPANY": "Doanh nghiệp",
+      "COLLAPSE_PANEL": "Thu gọn bảng thông tin",
+      "EXPAND_PANEL": "Mở bảng thông tin"
     },
     "VOICE_WIDGET": {
       "INCOMING_CALL": "Cuộc gọi đến",
