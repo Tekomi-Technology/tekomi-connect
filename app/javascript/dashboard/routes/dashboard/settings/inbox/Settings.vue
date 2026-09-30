@@ -331,16 +331,7 @@ export default {
       return this.inbox.name;
     },
     canLocktoSingleConversation() {
-      return (
-        this.isASmsInbox ||
-        this.isAWhatsAppChannel ||
-        this.isAFacebookInbox ||
-        this.isAPIInbox ||
-        this.isAnInstagramChannel ||
-        this.isALineChannel ||
-        this.isATiktokChannel ||
-        this.isATelegramChannel
-      );
+      return true;
     },
     inboxNameLabel() {
       if (this.isAWebWidgetInbox) {

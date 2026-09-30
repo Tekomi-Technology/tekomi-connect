@@ -49,10 +49,7 @@ RSpec.describe Mailbox::ConversationFinderStrategies::NewConversationStrategy do
 
       context 'with existing contact' do
         let!(:existing_contact) { create(:contact, email: 'sender@example.com', account: account) }
-
-        before do
-          create(:contact_inbox, contact: existing_contact, inbox: email_channel.inbox)
-        end
+        let!(:contact_inbox) { create(:contact_inbox, contact: existing_contact, inbox: email_channel.inbox) }
 
         it 'builds conversation with existing contact' do
           strategy = described_class.new(mail)
@@ -65,6 +62,24 @@ RSpec.describe Mailbox::ConversationFinderStrategies::NewConversationStrategy do
           end.to not_change(Conversation, :count) # No conversation created yet
             .and not_change(Contact, :count)
             .and not_change(ContactInbox, :count)
+        end
+
+        it 'reuses the latest conversation when conversation locking is enabled' do
+          email_channel.inbox.update!(lock_to_single_conversation: true)
+          existing_conversation = create(:conversation, account: account, inbox: email_channel.inbox,
+                                                        contact: existing_contact, contact_inbox: contact_inbox,
+                                                        status: :resolved)
+
+          expect(described_class.new(mail).find).to eq(existing_conversation)
+        end
+
+        it 'builds a new conversation after resolve when conversation locking is disabled' do
+          email_channel.inbox.update!(lock_to_single_conversation: false)
+          create(:conversation, account: account, inbox: email_channel.inbox,
+                                contact: existing_contact, contact_inbox: contact_inbox,
+                                status: :resolved)
+
+          expect(described_class.new(mail).find).to be_new_record
         end
       end
 

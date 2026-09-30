@@ -25,6 +25,27 @@ RSpec.describe Mailbox::ConversationFinder do
 
         expect(Rails.logger).to have_received(:info).with('Conversation found via receiver_uuid_strategy strategy')
       end
+
+      it 'starts a new conversation when the referenced conversation is resolved and locking is disabled' do
+        conversation.update!(status: :resolved)
+        email_channel.inbox.update!(lock_to_single_conversation: false)
+        mail.from = 'sender@example.com'
+        mail.subject = 'Following up'
+        mail.message_id = '<follow-up@example.com>'
+
+        result = described_class.new(mail).find
+
+        expect(result).to be_new_record
+        expect(result).not_to eq(conversation)
+        expect(result.inbox).to eq(email_channel.inbox)
+      end
+
+      it 'keeps the resolved conversation when locking is enabled' do
+        conversation.update!(status: :resolved)
+        email_channel.inbox.update!(lock_to_single_conversation: true)
+
+        expect(described_class.new(mail).find).to eq(conversation)
+      end
     end
 
     context 'when in_reply_to strategy finds conversation' do

@@ -53,7 +53,7 @@ class Api::V1::Widget::MessagesController < Api::V1::Widget::BaseController
   end
 
   def set_conversation
-    return if conversation.present?
+    return if conversation.present? && (inbox.lock_to_single_conversation? || !conversation.resolved?)
 
     @conversation = create_conversation
     apply_labels if permitted_params[:labels].present?

@@ -68,6 +68,21 @@ RSpec.describe '/api/v1/widget/messages', type: :request do
                params: { website_token: web_widget.website_token, message: { content: 'hello world' } },
                headers: { 'X-Auth-Token' => token },
                as: :json
+        end.to change(Conversation, :count).by(1)
+
+        expect(response).to have_http_status(:success)
+        expect(contact.conversations.last).not_to eq(conversation)
+        expect(contact.conversations.last.messages.last.content).to eq('hello world')
+      end
+
+      it 'reuses the resolved conversation when conversation locking is enabled' do
+        web_widget.inbox.update!(allow_messages_after_resolved: true, lock_to_single_conversation: true)
+
+        expect do
+          post api_v1_widget_messages_url,
+               params: { website_token: web_widget.website_token, message: { content: 'hello world' } },
+               headers: { 'X-Auth-Token' => token },
+               as: :json
         end.not_to change(Conversation, :count)
 
         expect(response).to have_http_status(:success)
