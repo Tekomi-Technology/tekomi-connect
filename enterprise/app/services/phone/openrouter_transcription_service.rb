@@ -28,8 +28,7 @@ class Phone::OpenrouterTranscriptionService
       'asr_provider' => route[:provider].to_s,
       'asr_runtime' => 'ruby_llm_transcription',
       'language' => transcription.language,
-      'segments' => transcription.segments,
-      'words' => transcription.words
+      'segments' => transcription.segments
     }.compact
   rescue TranscriptionFailed
     raise
