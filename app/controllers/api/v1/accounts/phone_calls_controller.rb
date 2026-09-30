@@ -72,7 +72,11 @@ class Api::V1::Accounts::PhoneCallsController < Api::V1::Accounts::BaseControlle
     @phone_call.update!(metadata: @phone_call.metadata.merge(
       'emotion_analysis' => result.merge('report_id' => report.id, 'emotion_tag' => report.emotion_tag)
     ))
-    @phone_call.message&.reload&.send_update_event
+    message = @phone_call.message
+    if message
+      message.update!(content_attributes: { data: @phone_call.message_data })
+      message.reload.send_update_event
+    end
     render json: result
   rescue CustomExceptions::Llm::FeatureNotConfigured => e
     render json: { error: e.message }, status: :unprocessable_entity

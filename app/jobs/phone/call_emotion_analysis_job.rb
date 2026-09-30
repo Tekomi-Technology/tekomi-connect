@@ -71,7 +71,7 @@ class Phone::CallEmotionAnalysisJob < ApplicationJob
       'emotion_tag' => report.emotion_tag
     )
     phone_call.update!(metadata: phone_call.metadata.merge('emotion_analysis' => analysis))
-    phone_call.message&.reload&.send_update_event
+    refresh_message(phone_call)
   end
 
   def mark_failed(phone_call, report, error)
@@ -82,11 +82,19 @@ class Phone::CallEmotionAnalysisJob < ApplicationJob
       error_message: error.message.truncate(1_000),
       updated_at: Time.current
     )
-    phone_call&.message&.reload&.send_update_event
+    refresh_message(phone_call) if phone_call
   end
 
   def recording_available?(phone_call)
     metadata = phone_call.metadata || {}
     metadata['pbx_recording_url'].present? || metadata['callytics_recording_resource'].present?
+  end
+
+  def refresh_message(phone_call)
+    message = phone_call.message
+    return unless message
+
+    message.update!(content_attributes: { data: phone_call.message_data })
+    message.reload.send_update_event
   end
 end
