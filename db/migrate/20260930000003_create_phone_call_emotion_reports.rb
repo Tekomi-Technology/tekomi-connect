@@ -24,6 +24,5 @@ class CreatePhoneCallEmotionReports < ActiveRecord::Migration[7.2]
 
     add_index :phone_call_emotion_reports, %i[account_id status]
     add_index :phone_call_emotion_reports, %i[account_id emotion]
-    add_index :phone_call_emotion_reports, :conversation_id
   end
 end
