@@ -22,6 +22,7 @@ class Phone::PbxCallEventProcessor
   def perform
     validate_payload!
     event_record = insert_event
+    phone_call = nil
 
     event_record.with_lock do
       return if event_record.processed_at?
@@ -37,6 +38,8 @@ class Phone::PbxCallEventProcessor
       ensure_message(phone_call)
       event_record.update!(phone_call: phone_call, processed_at: Time.current)
     end
+
+    enqueue_emotion_analysis(phone_call)
   end
 
   private
@@ -273,6 +276,15 @@ class Phone::PbxCallEventProcessor
     )
     message.save!
     phone_call.update_column(:message_id, message.id) if phone_call.message_id != message.id
+  end
+
+  def enqueue_emotion_analysis(phone_call)
+    return unless phone_call&.terminal?
+
+    metadata = phone_call.metadata || {}
+    return unless metadata['pbx_recording_url'].present? || metadata['callytics_recording_resource'].present?
+
+    Phone::CallEmotionAnalysisJob.perform_later(phone_call.id)
   end
 
   def build_message(phone_call)

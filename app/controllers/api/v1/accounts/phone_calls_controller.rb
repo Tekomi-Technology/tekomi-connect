@@ -7,7 +7,7 @@ class Api::V1::Accounts::PhoneCallsController < Api::V1::Accounts::BaseControlle
   class RecordingTranscodeError < StandardError; end
 
   skip_before_action :authenticate_user!, :current_account, if: :signed_recording_request?
-  before_action :phone_call
+  before_action :phone_call, only: %i[show recording emotion_analysis emotion_report]
 
   # The dashboard calls Chatwoot, never the PBX. Chatwoot authorizes the agent
   # then proxies an authenticated request to the recording provider.
@@ -16,6 +16,24 @@ class Api::V1::Accounts::PhoneCallsController < Api::V1::Accounts::BaseControlle
     return head :not_found unless report.is_a?(Hash)
 
     render json: callbot_details(report)
+  end
+
+  def emotion_reports
+    reports = PhoneCallEmotionReport.where(account: Current.account)
+                                    .includes(:phone_call)
+                                    .order(created_at: :desc)
+    reports = reports.where(status: params[:status]) if params[:status].present?
+    reports = reports.where(emotion: params[:emotion]) if params[:emotion].present?
+    reports = reports.limit([params.fetch(:limit, 100).to_i, 500].min)
+
+    render json: {
+      data: reports.map(&:report_data),
+      counts: reports.group_by(&:status).transform_values(&:count)
+    }
+  end
+
+  def emotion_report
+    render json: @phone_call.emotion_report&.report_data || { status: 'pending', phone_call_id: @phone_call.id }
   end
 
   def recording
@@ -29,12 +47,37 @@ class Api::V1::Accounts::PhoneCallsController < Api::V1::Accounts::BaseControlle
   def emotion_analysis
     result = Phone::CallEmotionAnalysisService.new(@phone_call).perform
     @phone_call.update!(metadata: @phone_call.metadata.merge('emotion_analysis' => result))
+    report = PhoneCallEmotionReport.create_or_find_by!(phone_call_id: @phone_call.id) do |record|
+      record.assign_attributes(
+        account: @phone_call.account,
+        conversation: @phone_call.conversation,
+        inbox: @phone_call.inbox,
+        purpose: 'monitoring',
+        action_status: 'none'
+      )
+    end
+    report.update!(
+      status: 'completed',
+      emotion: result['emotion'],
+      reason: result.dig('semantic_emotion', 'reason'),
+      transcript: result['transcript'],
+      asr_model: result['asr_model'],
+      asr_provider: result['asr_provider'],
+      asr_runtime: result['asr_runtime'],
+      llm_model: result['llm_model'],
+      llm_provider: result['llm_provider'],
+      processed_at: Time.current,
+      error_message: nil
+    )
+    @phone_call.update!(metadata: @phone_call.metadata.merge(
+      'emotion_analysis' => result.merge('report_id' => report.id, 'emotion_tag' => report.emotion_tag)
+    ))
     @phone_call.message&.reload&.send_update_event
     render json: result
   rescue CustomExceptions::Llm::FeatureNotConfigured => e
     render json: { error: e.message }, status: :unprocessable_entity
   rescue Phone::PbxRecordingFetcher::RecordingUnavailable,
-         Phone::ZipformerTranscriptionService::TranscriptionFailed => e
+         Phone::OpenrouterTranscriptionService::TranscriptionFailed => e
     Rails.logger.warn("Phone emotion analysis failed for phone_call=#{@phone_call.id}: #{e.message}")
     render json: { error: e.message }, status: :bad_gateway
   rescue StandardError => e

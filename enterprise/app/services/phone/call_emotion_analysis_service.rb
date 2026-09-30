@@ -10,7 +10,7 @@ class Phone::CallEmotionAnalysisService
 
   def perform
     recording = Phone::PbxRecordingFetcher.new(@phone_call).download
-    transcription = Phone::ZipformerTranscriptionService.new(recording).perform
+    transcription = Phone::OpenrouterTranscriptionService.new(recording).perform
     transcript = transcription.fetch('transcript').to_s.strip
     analysis = analyze_transcript(transcript)
 
@@ -24,8 +24,13 @@ class Phone::CallEmotionAnalysisService
       },
       'transcript' => transcript,
       'asr_model' => transcription['asr_model'],
+      'asr_provider' => transcription['asr_provider'],
       'asr_runtime' => transcription['asr_runtime'],
+      'language' => transcription['language'],
+      'segments' => transcription['segments'],
+      'words' => transcription['words'],
       'llm_model' => analysis['model'],
+      'llm_provider' => analysis['provider'],
       'processed_at' => Time.current.iso8601
     }
   ensure
@@ -48,7 +53,8 @@ class Phone::CallEmotionAnalysisService
     {
       'label' => label,
       'reason' => parsed['reason'].to_s.strip.presence || 'Không có bằng chứng cảm xúc rõ ràng trong transcript.',
-      'model' => route[:model]
+      'model' => route[:model],
+      'provider' => route[:provider].to_s
     }
   rescue JSON::ParserError, TypeError => e
     raise StandardError, "LLM returned invalid emotion JSON: #{e.message}"

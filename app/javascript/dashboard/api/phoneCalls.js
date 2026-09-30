@@ -10,6 +10,14 @@ class PhoneCalls extends ApiClient {
   emotionAnalysis(id) {
     return axios.post(`${this.url}/${id}/emotion_analysis`);
   }
+
+  emotionReports(params = {}) {
+    return axios.get(`${this.url}/emotion_reports`, { params });
+  }
+
+  emotionReport(id) {
+    return axios.get(`${this.url}/${id}/emotion_report`);
+  }
 }
 
 export default new PhoneCalls();

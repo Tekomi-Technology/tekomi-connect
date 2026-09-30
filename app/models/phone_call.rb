@@ -48,6 +48,7 @@ class PhoneCall < ApplicationRecord
   belongs_to :user, optional: true
   belongs_to :phone_extension, optional: true
   has_many :pbx_call_events, dependent: :destroy
+  has_one :emotion_report, class_name: 'PhoneCallEmotionReport', dependent: :destroy
   has_one_attached :cached_recording
 
   validates :pbx_id, :linked_id, :customer_number, :status, presence: true
@@ -76,7 +77,9 @@ class PhoneCall < ApplicationRecord
       started_at: started_at&.iso8601,
       answered_at: answered_at&.iso8601,
       ended_at: ended_at&.iso8601,
-      emotion_analysis: metadata['emotion_analysis']
+      emotion_analysis: metadata['emotion_analysis'],
+      emotion_report: emotion_report&.report_data,
+      emotion_tag: emotion_report&.emotion_tag || metadata.dig('emotion_analysis', 'emotion_tag')
     }.merge(callbot_message_data).compact
   end
 
