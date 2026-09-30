@@ -35,8 +35,8 @@
     "UNREAD_MESSAGES": "Unread Messages",
     "UNREAD_MESSAGE": "Unread Message",
     "CONTACT_HISTORY": {
-      "OLDER": "Previous conversation",
-      "NEWER": "Next conversation",
+      "OLDER": "Previous chat with this customer",
+      "NEWER": "Next chat with this customer",
       "OLDER_WITH": "Previous conversation with {name} · {time}",
       "NEWER_WITH": "Next conversation with {name} · {time}",
       "CUSTOMER": "this customer",
