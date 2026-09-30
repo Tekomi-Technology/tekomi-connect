@@ -75,7 +75,9 @@ class Phone::CallEmotionAnalysisService
       'sad' => 'buồn',
       'happy' => 'vui',
       'annoyed' => 'khó chịu',
-      'angry' => 'gay gắt'
+      'angry' => 'gay gắt',
+      'gắt' => 'gay gắt',
+      'aggressive' => 'gay gắt'
     }
 
     normalized = aliases.fetch(label, label)
