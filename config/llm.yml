@@ -35,6 +35,8 @@ features:
     group: conversation
   conversation_analysis:
     group: conversation
+  call_emotion_analysis:
+    group: conversation
   care_suggestion:
     group: conversation
   document_faq_generation:

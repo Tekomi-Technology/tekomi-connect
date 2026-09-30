@@ -18,14 +18,27 @@ services:
     image: chatwoot-custom-rails:1.0
     depends_on:
       - redis
+      - call-emotion
     ports:
       - '5679:4000'
     environment:
       - NODE_ENV=production
       - RAILS_ENV=production
       - INSTALLATION_ENV=docker
+      - CALL_EMOTION_SERVICE_URL=${CALL_EMOTION_SERVICE_URL:-http://call-emotion:8080}
     entrypoint: docker/entrypoints/rails.sh
     command: ['bundle', 'exec', 'rails', 's', '-p', '4000', '-b', '0.0.0.0']
+    restart: always
+
+  call-emotion:
+    build:
+      context: ./call_emotion
+      dockerfile: Dockerfile
+    image: chatwoot-call-emotion:1.0
+    environment:
+      - MODEL_DIR=/models
+    volumes:
+      - ${CALL_EMOTION_MODEL_HOST_PATH:-./call-emotion-model}:/models:ro
     restart: always
 
   sidekiq:

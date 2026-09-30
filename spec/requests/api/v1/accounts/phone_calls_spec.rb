@@ -102,4 +102,37 @@ RSpec.describe 'Phone Calls API', type: :request do
       expect(response).to have_http_status(:unauthorized)
     end
   end
+
+  describe 'POST /api/v1/accounts/:account_id/phone_calls/:id/emotion_analysis' do
+    it 'runs server-side transcription and returns the persisted emotion result' do
+      result = {
+        'emotion' => 'khó chịu',
+        'semantic_emotion' => {
+          'label' => 'khó chịu',
+          'reason' => 'Khách phàn nàn vì phải chờ lâu.',
+          'model' => 'openai/gpt-4.1'
+        },
+        'transcript' => 'Tôi phải chờ quá lâu.',
+        'asr_model' => 'trung381/zip-30m',
+        'asr_runtime' => 'sherpa-onnx-offline',
+        'llm_model' => 'openai/gpt-4.1'
+      }
+      service = instance_double(Phone::CallEmotionAnalysisService, perform: result)
+      allow(Phone::CallEmotionAnalysisService).to receive(:new).with(phone_call).and_return(service)
+
+      post emotion_analysis_api_v1_account_phone_call_url(account_id: account.id, id: phone_call.id),
+           headers: agent.create_new_auth_token,
+           as: :json
+
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body).to include('emotion' => 'khó chịu', 'transcript' => 'Tôi phải chờ quá lâu.')
+      expect(phone_call.reload.metadata['emotion_analysis']).to include('emotion' => 'khó chịu')
+    end
+
+    it 'does not expose the endpoint without dashboard authentication' do
+      post emotion_analysis_api_v1_account_phone_call_url(account_id: account.id, id: phone_call.id), as: :json
+
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
 end

@@ -1,11 +1,10 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
 import { formatDuration } from 'shared/helpers/timeHelper';
 import { useMessageContext } from '../provider.js';
 import phoneCallsAPI from 'dashboard/api/phoneCalls';
-import analyzeCallRecording from 'dashboard/api/callEmotionAnalysis';
 
 import Icon from 'dashboard/components-next/icon/Icon.vue';
 import BaseBubble from 'next/message/bubbles/Base.vue';
@@ -118,6 +117,42 @@ const emotionAnalysisButtonLabel = computed(() =>
   isAnalyzingEmotion.value ? analyzingEmotionLabel : analyzeEmotionLabel
 );
 
+const savedEmotionAnalysis = computed(
+  () => call.value.emotionAnalysis || call.value.emotion_analysis
+);
+
+watch(
+  savedEmotionAnalysis,
+  value => {
+    if (value) emotionResult.value = value;
+  },
+  { immediate: true }
+);
+
+const emotionReport = computed(
+  () => call.value.emotionReport || call.value.emotion_report
+);
+const emotionTag = computed(
+  () =>
+    emotionResult.value?.emotionTag ||
+    emotionResult.value?.emotion_tag ||
+    call.value.emotionTag ||
+    call.value.emotion_tag ||
+    emotionReport.value?.emotionTag ||
+    emotionReport.value?.emotion_tag
+);
+const emotionReportStatus = computed(() => emotionReport.value?.status);
+const emotionTagClass = computed(() => {
+  const colors = {
+    green: 'bg-n-green-3 text-n-green-11',
+    blue: 'bg-n-blue-3 text-n-blue-11',
+    purple: 'bg-n-purple-3 text-n-purple-11',
+    orange: 'bg-n-amber-3 text-n-amber-11',
+    red: 'bg-n-ruby-3 text-n-ruby-11',
+  };
+  return colors[emotionTag.value?.color] || colors.green;
+});
+
 const negativeEmotions = ['buồn', 'khó chịu', 'gay gắt'];
 const hasNegativeEmotion = computed(() =>
   negativeEmotions.includes(emotionResult.value?.emotion)
@@ -151,9 +186,9 @@ const analyzeEmotion = async () => {
   emotionAnalysisError.value = '';
   emotionNoteError.value = false;
   try {
-    emotionResult.value = await analyzeCallRecording(
-      recordingAttachment.value.dataUrl
-    );
+    const phoneCallId = call.value.phoneCallId || call.value.phone_call_id;
+    const response = await phoneCallsAPI.emotionAnalysis(phoneCallId);
+    emotionResult.value = response.data;
     await addEmotionReviewNote(emotionResult.value);
   } catch (error) {
     emotionAnalysisError.value = error.message;
@@ -232,6 +267,7 @@ const openCallDetails = () => {
           :show-transcribed-text="false"
         />
         <button
+          v-if="emotionAnalysisError || emotionReportStatus === 'failed'"
           type="button"
           class="mt-2 inline-flex items-center gap-2 rounded-lg border border-n-strong px-3 py-2 text-sm font-medium hover:bg-n-alpha-2 disabled:cursor-wait disabled:opacity-60"
           :disabled="isAnalyzingEmotion"
@@ -248,14 +284,17 @@ const openCallDetails = () => {
           />
           {{ emotionAnalysisButtonLabel }}
         </button>
+        <span
+          v-if="emotionTag"
+          class="mt-2 inline-flex w-fit items-center rounded-full px-2.5 py-1 text-xs font-semibold"
+          :class="emotionTagClass"
+        >
+          {{ emotionTag.label }}
+        </span>
         <div
           v-if="emotionResult"
           class="mt-2 rounded-lg p-3 text-sm"
-          :class="
-            hasNegativeEmotion
-              ? 'bg-n-amber-3 text-n-amber-11'
-              : 'bg-n-alpha-2 text-n-slate-12'
-          "
+          :class="emotionTagClass"
           aria-live="polite"
         >
           <p class="font-medium">

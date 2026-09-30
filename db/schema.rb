@@ -1268,6 +1268,33 @@ ActiveRecord::Schema[7.2].define(version: 2026_09_25_000002) do
     t.index ["pbx_id", "linked_id"], name: "index_phone_calls_on_pbx_id_and_linked_id", unique: true
   end
 
+  create_table "phone_call_emotion_reports", force: :cascade do |t|
+    t.bigint "phone_call_id", null: false
+    t.bigint "account_id", null: false
+    t.bigint "conversation_id", null: false
+    t.bigint "inbox_id", null: false
+    t.string "status", default: "pending", null: false
+    t.string "purpose", default: "monitoring", null: false
+    t.string "action_status", default: "none", null: false
+    t.string "emotion"
+    t.string "emotion_color"
+    t.text "reason"
+    t.text "transcript"
+    t.string "asr_model"
+    t.string "asr_provider"
+    t.string "asr_runtime"
+    t.string "llm_model"
+    t.string "llm_provider"
+    t.text "error_message"
+    t.datetime "processed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "emotion"], name: "index_phone_call_emotion_reports_on_account_id_and_emotion"
+    t.index ["account_id", "status"], name: "index_phone_call_emotion_reports_on_account_id_and_status"
+    t.index ["conversation_id"], name: "index_phone_call_emotion_reports_on_conversation_id"
+    t.index ["phone_call_id"], name: "index_phone_call_emotion_reports_on_phone_call_id", unique: true
+  end
+
   create_table "phone_extensions", force: :cascade do |t|
     t.integer "account_id", null: false
     t.integer "inbox_id", null: false
