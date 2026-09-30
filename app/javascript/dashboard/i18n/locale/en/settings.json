@@ -426,7 +426,9 @@
     "SECURITY": "Security",
     "TEKOMI_AI": "GMO AI",
     "CONVERSATION_WORKFLOW": "Conversation Workflow",
-    "PIPELINES": "Pipelines"
+    "PIPELINES": "Pipelines",
+    "COLLAPSE": "Collapse sidebar",
+    "EXPAND": "Expand sidebar"
   },
   "DATA_IMPORTS": {
     "HEADER": "Data",

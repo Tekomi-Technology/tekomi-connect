@@ -24,9 +24,7 @@
       "FETCH_ERROR": "Không tải được danh sách doanh nghiệp"
     },
     "ASSIGNEE_TYPE_TABS": {
-      "company": "Doanh nghiệp",
       "me": "Của tôi",
-      "vip": "VIP",
       "unassigned": "Chưa được phân công",
       "all": "Tất cả"
     },
@@ -155,6 +153,14 @@
     "SHOW_QUOTED_TEXT": "Hiện Văn bản được trích dẫn",
     "MESSAGE_READ": "\bĐọc",
     "SENDING": "Đang gửi",
-    "UNREAD_COUNT_OVERFLOW": "9+"
+    "UNREAD_COUNT_OVERFLOW": "9+",
+    "DISPLAY_MODE": {
+      "LABEL": "Chế độ hiển thị",
+      "OPTIONS": {
+        "default": "Mặc định",
+        "company": "Hiển thị theo doanh nghiệp",
+        "vip": "Hiển thị theo khách hàng ưu tiên"
+      }
+    }
   }
 }

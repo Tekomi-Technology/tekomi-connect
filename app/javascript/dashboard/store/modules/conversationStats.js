@@ -8,7 +8,6 @@ const state = {
   unAssignedCount: 0,
   allCount: 0,
   companyCounts: {},
-  companyCount: 0,
 };
 
 export const getters = {
@@ -77,10 +76,6 @@ export const mutations = {
     $state.allCount = allCount;
     $state.unAssignedCount = unAssignedCount;
     $state.companyCounts = companyCounts;
-    $state.companyCount = Object.values(companyCounts).reduce(
-      (sum, count) => sum + count,
-      0
-    );
     $state.updatedOn = new Date();
   },
 };

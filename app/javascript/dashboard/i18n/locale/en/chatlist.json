@@ -22,9 +22,7 @@
       "FETCH_ERROR": "Could not load companies"
     },
     "ASSIGNEE_TYPE_TABS": {
-      "company": "Companies",
       "me": "Mine",
-      "vip": "VIP",
       "unassigned": "Unassigned",
       "all": "All"
     },
@@ -155,6 +153,14 @@
     "SENDING": "Sending",
     "UNREAD_COUNT_OVERFLOW": "9+",
     "COLLAPSE_LIST": "Collapse conversation list",
-    "EXPAND_LIST": "Expand conversation list"
+    "EXPAND_LIST": "Expand conversation list",
+    "DISPLAY_MODE": {
+      "LABEL": "Display mode",
+      "OPTIONS": {
+        "default": "Default",
+        "company": "Group by company",
+        "vip": "Priority customers only"
+      }
+    }
   }
 }

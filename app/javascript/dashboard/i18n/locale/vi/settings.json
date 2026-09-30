@@ -424,7 +424,9 @@
     "CRM_DIRECTORY": "Danh bạ CRM",
     "DEALS": "Bán hàng",
     "TICKETS": "Ticket",
-    "PIPELINES": "Pipeline"
+    "PIPELINES": "Pipeline",
+    "COLLAPSE": "Thu gọn thanh bên",
+    "EXPAND": "Mở thanh bên"
   },
   "DATA_IMPORTS": {
     "HEADER": "Dữ liệu",

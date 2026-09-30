@@ -1230,6 +1230,22 @@ const menuItems = computed(() => {
         />
       </div>
     </section>
+    <Button
+      v-tooltip.right="
+        isEffectivelyCollapsed
+          ? $t('SIDEBAR.EXPAND')
+          : $t('SIDEBAR.COLLAPSE')
+      "
+      :icon="
+        isEffectivelyCollapsed
+          ? 'i-lucide-chevron-right'
+          : 'i-lucide-chevron-left'
+      "
+      slate
+      xs
+      class="hidden md:inline-flex absolute top-16 z-50 rounded-full border shadow-sm ltr:-right-3 rtl:-left-3 rtl:rotate-180 bg-n-solid-2 border-n-weak hover:bg-n-alpha-2"
+      @click="onResizeHandleDoubleClick"
+    />
     <!-- Resize Handle (desktop only) -->
     <div
       class="hidden md:block absolute top-0 h-full w-1 cursor-col-resize z-40 ltr:right-0 rtl:left-0 group"

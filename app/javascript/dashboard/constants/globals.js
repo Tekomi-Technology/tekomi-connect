@@ -7,6 +7,11 @@ export default {
     UNASSIGNED: 'unassigned',
     ALL: 'all',
   },
+  DISPLAY_MODE: {
+    DEFAULT: 'default',
+    COMPANY: 'company',
+    VIP: 'vip',
+  },
   STATUS_TYPE: {
     OPEN: 'open',
     RESOLVED: 'resolved',
