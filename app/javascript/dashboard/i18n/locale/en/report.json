@@ -660,6 +660,77 @@
       "VIEW_DETAILS": "View Details"
     }
   },
+  "PHONE_CALL_REPORTS": {
+    "HEADER": "Phone call reports",
+    "DESCRIPTION": "Track every call, emotion level, and follow-up status.",
+    "TOTAL": "Total calls",
+    "LOADING": "Loading calls...",
+    "EMPTY": "No calls match these filters.",
+    "ERROR": "Could not load phone call reports.",
+    "UPDATE_ERROR": "Could not update the follow-up status.",
+    "PREVIOUS": "Previous",
+    "NEXT": "Next",
+    "EMPTY_VALUE": "—",
+    "CONVERSATION_ID": "#{id}",
+    "PAGINATION": "Page {current}/{total} · {count} calls",
+    "FILTERS": {
+      "ALL": "All",
+      "CALL_STATUS": "Call status",
+      "EMOTION": "Emotion",
+      "STATUS": "Analysis status",
+      "ACTION_STATUS": "Follow-up status",
+      "PURPOSE": "Purpose",
+      "DIRECTION": "Direction"
+    },
+    "TABLE": {
+      "TIME": "Time",
+      "CUSTOMER": "Customer",
+      "DIRECTION": "Direction",
+      "CALL_STATUS": "Call status",
+      "EMOTION": "Emotion",
+      "PURPOSE": "Purpose",
+      "DURATION": "Duration",
+      "ACTION_STATUS": "Follow-up",
+      "CONVERSATION": "Conversation"
+    },
+    "CALL_STATUS": {
+      "COMPLETED": "Completed",
+      "MISSED": "Missed",
+      "BUSY": "Busy",
+      "NO_ANSWER": "No answer",
+      "REJECTED": "Rejected",
+      "CANCELLED": "Cancelled",
+      "FAILED": "Failed",
+      "RINGING": "Ringing",
+      "IN_PROGRESS": "In progress"
+    },
+    "EMOTION": {
+      "VUI": "Happy",
+      "TRUNG TÍNH": "Neutral",
+      "BUỒN": "Sad",
+      "KHÓ CHỊU": "Dissatisfied",
+      "GAY GẮT": "Aggressive"
+    },
+    "REPORT_STATUS": {
+      "PENDING": "Pending",
+      "PROCESSING": "Processing",
+      "COMPLETED": "Analyzed",
+      "FAILED": "Analysis failed",
+      "NOT_ANALYZED": "Not analyzed"
+    },
+    "ACTION_STATUS": {
+      "NONE": "No action",
+      "NEEDS_FOLLOW_UP": "Needs follow-up",
+      "IN_PROGRESS": "In progress",
+      "RESOLVED": "Resolved"
+    },
+    "PURPOSE": {
+      "MONITORING": "Monitoring",
+      "FOLLOW_UP": "Follow-up",
+      "QUALITY_REVIEW": "Quality review"
+    },
+    "DIRECTION": { "INBOUND": "Inbound", "OUTBOUND": "Outbound" }
+  },
   "SUMMARY_REPORTS": {
     "INBOX": "Inbox",
     "AGENT": "Agent",

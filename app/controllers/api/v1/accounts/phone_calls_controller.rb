@@ -7,7 +7,7 @@ class Api::V1::Accounts::PhoneCallsController < Api::V1::Accounts::BaseControlle
   class RecordingTranscodeError < StandardError; end
 
   skip_before_action :authenticate_user!, :current_account, if: :signed_recording_request?
-  before_action :phone_call, only: %i[show recording emotion_analysis emotion_report]
+  before_action :phone_call, only: %i[show recording emotion_analysis emotion_report update_emotion_report]
 
   # The dashboard calls Chatwoot, never the PBX. Chatwoot authorizes the agent
   # then proxies an authenticated request to the recording provider.
@@ -19,21 +19,52 @@ class Api::V1::Accounts::PhoneCallsController < Api::V1::Accounts::BaseControlle
   end
 
   def emotion_reports
-    reports = PhoneCallEmotionReport.where(account: Current.account)
-                                    .includes(:phone_call)
-                                    .order(created_at: :desc)
-    reports = reports.where(status: params[:status]) if params[:status].present?
-    reports = reports.where(emotion: params[:emotion]) if params[:emotion].present?
-    reports = reports.limit([params.fetch(:limit, 100).to_i, 500].min)
+    phone_calls = PhoneCall.where(account: Current.account).left_joins(:emotion_report)
+    phone_calls = phone_calls.where(phone_calls: { status: params[:call_status] }) if params[:call_status].present?
+    phone_calls = phone_calls.where(phone_calls: { direction: params[:direction] }) if params[:direction].present?
+    if params[:status] == 'not_analyzed'
+      phone_calls = phone_calls.where(phone_call_emotion_reports: { id: nil })
+    elsif params[:status].present?
+      phone_calls = phone_calls.where(phone_call_emotion_reports: { status: params[:status] })
+    end
+    if params[:emotion].present?
+      phone_calls = phone_calls.where(phone_call_emotion_reports: { emotion: emotion_filter_values })
+    end
+    if params[:action_status].present?
+      phone_calls = phone_calls.where(phone_call_emotion_reports: { action_status: params[:action_status] })
+    end
+    phone_calls = phone_calls.where(phone_call_emotion_reports: { purpose: params[:purpose] }) if params[:purpose].present?
+
+    total = phone_calls.count
+    page = [params.fetch(:page, 1).to_i, 1].max
+    limit = params.fetch(:limit, 50).to_i.clamp(1, 100)
+    phone_calls = phone_calls.includes(:emotion_report)
+                             .order(Arel.sql('COALESCE(phone_calls.started_at, phone_calls.created_at) DESC'))
+                             .offset((page - 1) * limit)
+                             .limit(limit)
 
     render json: {
-      data: reports.map(&:report_data),
-      counts: reports.group_by(&:status).transform_values(&:count)
+      data: phone_calls.map { |call| phone_call_report_data(call) },
+      counts: emotion_report_counts,
+      meta: {
+        current_page: page,
+        per_page: limit,
+        total_entries: total,
+        total_pages: (total.to_f / limit).ceil
+      }
     }
   end
 
   def emotion_report
     render json: @phone_call.emotion_report&.report_data || { status: 'pending', phone_call_id: @phone_call.id }
+  end
+
+  def update_emotion_report
+    report = @phone_call.emotion_report
+    return head :not_found unless report
+
+    report.update!(params.require(:emotion_report).permit(:action_status, :purpose))
+    render json: report.report_data
   end
 
   def recording
@@ -69,15 +100,19 @@ class Api::V1::Accounts::PhoneCallsController < Api::V1::Accounts::BaseControlle
       processed_at: Time.current,
       error_message: nil
     )
-    @phone_call.update!(metadata: @phone_call.metadata.merge(
-      'emotion_analysis' => result.merge('report_id' => report.id, 'emotion_tag' => report.emotion_tag)
-    ))
+    normalized_result = result.merge(
+      'emotion' => report.emotion,
+      'semantic_emotion' => result.fetch('semantic_emotion', {}).merge('label' => report.emotion),
+      'report_id' => report.id,
+      'emotion_tag' => report.emotion_tag
+    )
+    @phone_call.update!(metadata: @phone_call.metadata.merge('emotion_analysis' => normalized_result))
     message = @phone_call.message
     if message
       message.update!(content_attributes: { data: @phone_call.message_data })
       message.reload.send_update_event
     end
-    render json: result
+    render json: normalized_result
   rescue CustomExceptions::Llm::FeatureNotConfigured => e
     render json: { error: e.message }, status: :unprocessable_entity
   rescue Phone::PbxRecordingFetcher::RecordingUnavailable,
@@ -90,6 +125,51 @@ class Api::V1::Accounts::PhoneCallsController < Api::V1::Accounts::BaseControlle
   end
 
   private
+
+  def emotion_filter_values
+    PhoneCallEmotionReport.emotion_filter_values(params[:emotion])
+  end
+
+  def emotion_report_counts
+    calls = PhoneCall.where(account: Current.account)
+    {
+      total: calls.count,
+      call_status: calls.group(:status).count,
+      direction: calls.group(:direction).count,
+      emotion: normalized_emotion_counts,
+      report_status: PhoneCallEmotionReport.where(account: Current.account).group(:status).count,
+      action_status: PhoneCallEmotionReport.where(account: Current.account).group(:action_status).count
+    }
+  end
+
+  def normalized_emotion_counts
+    raw_counts = PhoneCallEmotionReport.where(account: Current.account).group(:emotion).count
+    raw_counts.each_with_object(Hash.new(0)) do |(emotion, count), normalized|
+      next if emotion.blank?
+
+      normalized[PhoneCallEmotionReport.normalize_emotion_label(emotion)] += count
+    end
+  end
+
+  def phone_call_report_data(phone_call)
+    return phone_call.emotion_report.report_data if phone_call.emotion_report
+
+    {
+      phone_call_id: phone_call.id,
+      account_id: phone_call.account_id,
+      conversation_id: phone_call.conversation_id,
+      inbox_id: phone_call.inbox_id,
+      direction: phone_call.direction,
+      customer_number: phone_call.customer_number,
+      extension: phone_call.extension,
+      call_status: phone_call.status,
+      duration_seconds: phone_call.duration_seconds,
+      status: 'not_analyzed',
+      started_at: phone_call.started_at&.iso8601,
+      ended_at: phone_call.ended_at&.iso8601,
+      created_at: phone_call.created_at&.iso8601
+    }.compact
+  end
 
   def phone_call
     if signed_recording_request?

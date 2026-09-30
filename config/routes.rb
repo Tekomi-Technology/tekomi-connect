@@ -316,6 +316,7 @@ Rails.application.routes.draw do
             get :recording, on: :member
             post :emotion_analysis, on: :member
             get :emotion_report, on: :member
+            patch :emotion_report, action: :update_emotion_report, on: :member
           end
           resources :csat_survey_responses, only: [:index] do
             collection do

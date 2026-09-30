@@ -135,4 +135,90 @@ RSpec.describe 'Phone Calls API', type: :request do
       expect(response).to have_http_status(:unauthorized)
     end
   end
+
+  describe 'phone call emotion reports' do
+    let!(:emotion_report) do
+      PhoneCallEmotionReport.create!(
+        phone_call: phone_call,
+        account: account,
+        conversation: conversation,
+        inbox: inbox,
+        status: 'completed',
+        emotion: 'khó',
+        purpose: 'monitoring',
+        action_status: 'none'
+      )
+    end
+
+    let!(:unanalysed_call) do
+      PhoneCall.create!(
+        account: account,
+        inbox: inbox,
+        contact: contact,
+        conversation: conversation,
+        pbx_id: 'callytics:1',
+        linked_id: 'call-2',
+        direction: 'inbound',
+        status: 'rejected',
+        customer_number: '+84963100026',
+        metadata: {}
+      )
+    end
+
+    it 'returns all calls and canonical emotion tags' do
+      get "/api/v1/accounts/#{account.id}/phone_calls/emotion_reports",
+          headers: agent.create_new_auth_token,
+          as: :json
+
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['data'].pluck('phone_call_id')).to contain_exactly(phone_call.id, unanalysed_call.id)
+      analysed = response.parsed_body['data'].find { |item| item['phone_call_id'] == phone_call.id }
+      expect(analysed).to include(
+        'call_status' => 'completed',
+        'emotion' => 'khó chịu',
+        'emotion_tag' => { 'label' => 'khó chịu', 'color' => 'orange' }
+      )
+    end
+
+    it 'filters by call status and calls without an analysis report' do
+      get "/api/v1/accounts/#{account.id}/phone_calls/emotion_reports",
+          params: { call_status: 'rejected', status: 'not_analyzed' },
+          headers: agent.create_new_auth_token,
+          as: :json
+
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['data'].sole).to include(
+        'phone_call_id' => unanalysed_call.id,
+        'call_status' => 'rejected',
+        'status' => 'not_analyzed'
+      )
+    end
+
+    it 'finds a historical report that stored a split emotion label' do
+      emotion_report.update_columns(emotion: 'khó', emotion_color: 'green')
+
+      get "/api/v1/accounts/#{account.id}/phone_calls/emotion_reports",
+          params: { emotion: 'khó chịu' },
+          headers: agent.create_new_auth_token,
+          as: :json
+
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['data'].sole).to include(
+        'phone_call_id' => phone_call.id,
+        'emotion' => 'khó chịu',
+        'emotion_tag' => { 'label' => 'khó chịu', 'color' => 'orange' }
+      )
+    end
+
+    it 'updates the follow-up status' do
+      patch "/api/v1/accounts/#{account.id}/phone_calls/#{phone_call.id}/emotion_report",
+            params: { emotion_report: { action_status: 'needs_follow_up' } },
+            headers: agent.create_new_auth_token,
+            as: :json
+
+      expect(response).to have_http_status(:ok)
+      expect(response.parsed_body['action_status']).to eq('needs_follow_up')
+      expect(emotion_report.reload.action_status).to eq('needs_follow_up')
+    end
+  end
 end
