@@ -246,6 +246,15 @@ const showAssigneeInConversationCard = computed(() => {
   );
 });
 
+const effectiveAssigneeType = computed(() => {
+  const { ASSIGNEE_TYPE, DISPLAY_MODE } = wootConstants;
+  if (activeDisplayMode.value === DISPLAY_MODE.VIP) return ASSIGNEE_TYPE.VIP;
+  if (activeDisplayMode.value === DISPLAY_MODE.COMPANY) {
+    return ASSIGNEE_TYPE.ALL;
+  }
+  return activeAssigneeTab.value;
+});
+
 const currentPageFilterKey = computed(() => {
   return hasAppliedFiltersOrActiveFolders.value
     ? 'appliedFilters'
@@ -270,15 +279,6 @@ const conversationCustomAttributes = useFunctionGetter(
   'attributes/getAttributesByModel',
   'conversation_attribute'
 );
-
-const effectiveAssigneeType = computed(() => {
-  const { ASSIGNEE_TYPE, DISPLAY_MODE } = wootConstants;
-  if (activeDisplayMode.value === DISPLAY_MODE.VIP) return ASSIGNEE_TYPE.VIP;
-  if (activeDisplayMode.value === DISPLAY_MODE.COMPANY) {
-    return ASSIGNEE_TYPE.ALL;
-  }
-  return activeAssigneeTab.value;
-});
 
 const activeAssigneeTabCount = computed(() => {
   if (!isDefaultMode.value) {
