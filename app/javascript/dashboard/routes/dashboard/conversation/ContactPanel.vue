@@ -335,10 +335,7 @@ onMounted(() => {
               compact
               @toggle="value => toggleSidebarUIState('is_tickets_open', value)"
             >
-              <ConversationTickets
-                :conversation-id="conversationId"
-                :contact="contact.id ? contact : null"
-              />
+              <ConversationTickets :conversation-id="conversationId" />
             </AccordionItem>
           </div>
           <div

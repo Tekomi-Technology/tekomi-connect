@@ -23,7 +23,6 @@ import CsatResponses from './CsatResponses.vue';
 import BotReports from './BotReports.vue';
 import LiveReports from './LiveReports.vue';
 import SLAReports from './SLAReports.vue';
-import TicketReports from './TicketReports.vue';
 import PhoneCallReports from './PhoneCallReports.vue';
 
 const meta = {
@@ -141,15 +140,6 @@ export default {
           name: 'sla_reports',
           meta,
           component: SLAReports,
-        },
-        {
-          path: 'tickets',
-          name: 'ticket_reports',
-          meta: {
-            ...meta,
-            featureFlag: FEATURE_FLAGS.CRM_TICKETS,
-          },
-          component: TicketReports,
         },
         {
           path: 'phone-calls',

@@ -16,7 +16,6 @@ import ContactChannels from 'dashboard/components-next/Contacts/ContactsSidebar/
 import ContactMerge from 'dashboard/components-next/Contacts/ContactsSidebar/ContactMerge.vue';
 import ContactCustomAttributes from 'dashboard/components-next/Contacts/ContactsSidebar/ContactCustomAttributes.vue';
 import ContactDeals from 'dashboard/components-next/Deals/ContactDeals.vue';
-import ContactTickets from 'dashboard/components-next/Tickets/ContactTickets.vue';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
 const store = useStore();
@@ -48,9 +47,6 @@ const isFeatureEnabledonAccount = useMapGetter(
 
 const isDealsEnabled = computed(() =>
   isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_DEALS)
-);
-const isTicketsEnabled = computed(() =>
-  isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_TICKETS)
 );
 
 const isSectionOpen = key => openSections.value.has(key);
@@ -197,14 +193,6 @@ onMounted(() => {
             @toggle="toggleSection('deals')"
           >
             <ContactDeals :contact-id="route.params.contactId" />
-          </AccordionItem>
-          <AccordionItem
-            v-if="isTicketsEnabled"
-            :title="$t('CONTACTS_LAYOUT.SIDEBAR.TABS.TICKETS')"
-            :is-open="isSectionOpen('tickets')"
-            @toggle="toggleSection('tickets')"
-          >
-            <ContactTickets :contact-id="route.params.contactId" />
           </AccordionItem>
           <AccordionItem
             :title="$t('CONTACTS_LAYOUT.SIDEBAR.TABS.MEDIA')"

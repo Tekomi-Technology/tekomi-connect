@@ -30,17 +30,12 @@ class Tekomi::Llm::AssistantChatService < Llm::BaseAiService
   private
 
   def build_tools
-    tools = [Tekomi::Tools::SearchDocumentationService.new(@assistant, user: nil), ticket_tool].compact
+    tools = [Tekomi::Tools::SearchDocumentationService.new(@assistant, user: nil)]
     return tools unless custom_tools_enabled?
 
     tools + @assistant.account.tekomi_custom_tools.enabled.map do |ct|
       ct.tool(@assistant, base_class: Tekomi::Tools::CustomHttpTool, conversation: @conversation)
     end
-  end
-
-  def ticket_tool
-    tool = Tekomi::Tools::Tickets::CreateTicketService.new(@assistant, user: nil, conversation: @conversation)
-    tool if tool.active?
   end
 
   def system_message

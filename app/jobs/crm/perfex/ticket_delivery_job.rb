@@ -1,6 +1,8 @@
 class Crm::Perfex::TicketDeliveryJob < ApplicationJob
   queue_as :medium
 
+  DEFAULT_CUSTOMER_ID = 1
+
   retry_on Crm::Perfex::Api::BaseClient::ApiError, wait: :polynomially_longer, attempts: 5 do |job, error|
     conversation = Conversation.find_by(id: job.arguments.first.id)
     conversation&.update!(
@@ -28,7 +30,8 @@ class Crm::Perfex::TicketDeliveryJob < ApplicationJob
       subject: subject_for(contact),
       message: message,
       department: Crm::Perfex::Config.department_id,
-      userid: customer_id,
+      # TODO: demo tam thoi - thay bang gia tri cau hinh duoc sau khi demo xong
+      userid: customer_id.presence || DEFAULT_CUSTOMER_ID,
       contactid: contact_id
     )
 
@@ -48,11 +51,18 @@ class Crm::Perfex::TicketDeliveryJob < ApplicationJob
   def record_delivery(conversation, response)
     data = response.is_a?(Hash) ? response.fetch('data', {}) : {}
     ticket_id = data['ticketid'] || data['id']
+    return if ticket_id.blank?
 
-    delivery = { 'sent_at' => Time.current.iso8601 }
-    delivery['ticket_id'] = ticket_id if ticket_id.present?
+    delivery = {
+      'ticket_id' => ticket_id.to_s,
+      'sent_at' => Time.current.iso8601,
+      'session_at' => conversation.status_changed_at&.iso8601
+    }
 
     custom_attributes = (conversation.custom_attributes || {}).except('crm_ticket_error', 'crm_ticket_failed_at')
-    conversation.update!(custom_attributes: custom_attributes.merge('crm_ticket' => delivery))
+    deliveries = Crm::Perfex::ConversationTickets.entries(custom_attributes)
+    deliveries = deliveries.reject { |entry| entry['ticket_id'] == delivery['ticket_id'] } << delivery
+
+    conversation.update!(custom_attributes: custom_attributes.except('crm_ticket').merge('crm_tickets' => deliveries))
   end
 end

@@ -5,4 +5,9 @@ class Crm::Perfex::Api::TicketClient < Crm::Perfex::Api::BaseClient
 
     post('tickets', payload)
   end
+
+  def fetch_ticket(id)
+    response = get("tickets/#{id}", {})
+    response.is_a?(Hash) ? (response['data'] || response) : nil
+  end
 end
