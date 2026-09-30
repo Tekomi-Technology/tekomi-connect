@@ -60,12 +60,14 @@ export default {
     },
   },
   setup() {
-    const { uiSettings, updateUISettings } = useUISettings();
+    const { uiSettings, updateUISettings, isOnExpandedLayout } =
+      useUISettings();
     const { accountId } = useAccount();
 
     return {
       uiSettings,
       updateUISettings,
+      isOnExpandedLayout,
       accountId,
     };
   },
@@ -89,15 +91,6 @@ export default {
     showMessageView() {
       return this.conversationId ? true : !this.isOnExpandedLayout;
     },
-    isOnExpandedLayout() {
-      const {
-        LAYOUT_TYPES: { CONDENSED },
-      } = wootConstants;
-      const { conversation_display_type: conversationDisplayType = CONDENSED } =
-        this.uiSettings;
-      return conversationDisplayType !== CONDENSED;
-    },
-
     shouldShowSidebar() {
       if (!this.currentChat.id) {
         return false;
@@ -206,7 +199,10 @@ export default {
 
 <template>
   <section class="flex relative w-full h-full min-w-0">
-    <ConversationListToggle v-if="isConversationListCollapsed && !isOnExpandedLayout" floating />
+    <ConversationListToggle
+      v-if="isConversationListCollapsed && !isOnExpandedLayout"
+      floating
+    />
     <ChatList
       :show-conversation-list="showConversationList"
       :conversation-inbox="inboxId"

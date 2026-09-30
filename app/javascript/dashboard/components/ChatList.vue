@@ -40,12 +40,7 @@ import filterQueryGenerator from '../helper/filterQueryGenerator.js';
 import languages from 'dashboard/components/widgets/conversation/advancedFilterItems/languages';
 import countries from 'shared/constants/countries';
 import { generateValuesForEditCustomViews } from 'dashboard/helper/customViewsHelper';
-import { conversationListPageURL } from '../helper/URLHelper';
-import {
-  isOnMentionsView,
-  isOnParticipatingView,
-  isOnUnattendedView,
-} from '../store/modules/conversations/helpers/actionHelpers';
+import { useConversationRoutePath } from 'dashboard/composables/useConversationRoutePath';
 import {
   getUserPermissions,
   filterItemsByPermission,
@@ -76,6 +71,7 @@ const { t } = useI18n();
 const router = useRouter();
 const route = useRoute();
 const store = useStore();
+const { buildConversationListPath } = useConversationRoutePath();
 
 const resolveAttributesModalRef = ref(null);
 
@@ -87,7 +83,7 @@ const showAdvancedFilters = ref(false);
 // chatsOnView is to store the chats that are currently visible on the screen,
 // which mirrors the conversationList.
 const chatsOnView = ref([]);
-const foldersQuery = ref({});
+const foldersQuery = useMapGetter('getAppliedConversationFiltersQuery');
 const showAddFoldersModal = ref(false);
 const showDeleteFoldersModal = ref(false);
 const appliedFilter = ref([]);
@@ -108,6 +104,7 @@ const chatListLoading = useMapGetter('getChatListLoadingStatus');
 const activeInbox = useMapGetter('getSelectedInbox');
 const conversationStats = useMapGetter('conversationStats/getStats');
 const appliedFilters = useMapGetter('getAppliedConversationFiltersV2');
+const appliedContactFilter = useMapGetter('getAppliedContactFilter');
 const folders = useMapGetter('customViews/getConversationCustomViews');
 const agentList = useMapGetter('agents/getAgents');
 const teamsList = useMapGetter('teams/getTeams');
@@ -231,12 +228,11 @@ const assigneeTabItems = computed(() => {
     ASSIGNEE_TYPE_TAB_PERMISSIONS,
     userPermissions.value,
     item => item.permissions
-  )
-    .map(({ key, count: countKey }) => ({
-      key,
-      name: t(`CHAT_LIST.ASSIGNEE_TYPE_TABS.${key}`),
-      count: conversationStats.value[countKey] || 0,
-    }));
+  ).map(({ key, count: countKey }) => ({
+    key,
+    name: t(`CHAT_LIST.ASSIGNEE_TYPE_TABS.${key}`),
+    count: conversationStats.value[countKey] || 0,
+  }));
 });
 
 const showAssigneeInConversationCard = computed(() => {
@@ -505,11 +501,11 @@ function fetchSavedFilteredConversations(payload) {
 
 function onApplyFilter(payload) {
   payload = useSnakeCase(payload);
-  resetBulkActions();
-  foldersQuery.value = filterQueryGenerator(payload);
-  store.dispatch('conversationPage/reset');
-  store.dispatch('emptyAllConversations');
-  fetchFilteredConversations(payload);
+  showAdvancedFilters.value = false;
+  store
+    .dispatch('applyConversationFilters', { filters: payload })
+    .catch(() => useAlert(t('CHAT_LIST.FETCH_ERROR')))
+    .finally(emitConversationLoaded);
 }
 
 function closeAdvanceFiltersModal() {
@@ -741,29 +737,7 @@ function openLastItemAfterDeleteInFolder() {
 }
 
 function redirectToConversationList() {
-  const {
-    params: { accountId, inbox_id: inboxId, label, teamId },
-    name,
-  } = route;
-
-  let conversationType = '';
-  if (isOnMentionsView({ route: { name } })) {
-    conversationType = wootConstants.CONVERSATION_TYPE.MENTION;
-  } else if (isOnParticipatingView({ route: { name } })) {
-    conversationType = wootConstants.CONVERSATION_TYPE.PARTICIPATING;
-  } else if (isOnUnattendedView({ route: { name } })) {
-    conversationType = wootConstants.CONVERSATION_TYPE.UNATTENDED;
-  }
-  router.push(
-    conversationListPageURL({
-      accountId,
-      conversationType: conversationType,
-      customViewId: props.foldersId,
-      inboxId,
-      label,
-      teamId,
-    })
-  );
+  router.push(buildConversationListPath());
 }
 
 async function assignPriority(priority, conversationId = null) {
@@ -986,6 +960,9 @@ watch(conversationFilters, (newVal, oldVal) => {
     store.dispatch('updateChatListFilters', newVal);
   }
 });
+
+// Filters can be applied from outside the list, so clear the selection here.
+watch(appliedFilters, () => resetBulkActions());
 </script>
 
 <template>
@@ -999,6 +976,7 @@ watch(conversationFilters, (newVal, oldVal) => {
     <slot />
     <ChatListHeader
       :page-title="pageTitle"
+      :contact-filter="appliedContactFilter"
       :has-applied-filters="hasAppliedFilters"
       :has-active-folders="hasActiveFolders"
       :active-status="activeStatus"

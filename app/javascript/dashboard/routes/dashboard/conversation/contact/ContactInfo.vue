@@ -8,6 +8,7 @@ import {
 import { dynamicTime } from 'shared/helpers/timeHelper';
 import { useAdmin } from 'dashboard/composables/useAdmin';
 import ContactInfoRow from './ContactInfoRow.vue';
+import ViewAllConversations from './ViewAllConversations.vue';
 import Avatar from 'next/avatar/Avatar.vue';
 import SocialIcons from './SocialIcons.vue';
 import EditContact from './EditContact.vue';
@@ -23,6 +24,7 @@ export default {
   components: {
     NextButton,
     ContactInfoRow,
+    ViewAllConversations,
     EditContact,
     Avatar,
     ComposeConversation,
@@ -355,6 +357,7 @@ export default {
             />
           </template>
         </ComposeConversation>
+        <ViewAllConversations :contact="contact" />
         <VoiceCallButton
           :phone="contact.phone_number"
           :contact-id="contact.id"
@@ -368,7 +371,9 @@ export default {
         <NextButton
           v-tooltip.top-end="
             $t(
-              contact.vip ? 'CONTACT_PANEL.VIP.UNMARK' : 'CONTACT_PANEL.VIP.MARK'
+              contact.vip
+                ? 'CONTACT_PANEL.VIP.UNMARK'
+                : 'CONTACT_PANEL.VIP.MARK'
             )
           "
           icon="i-lucide-crown"
