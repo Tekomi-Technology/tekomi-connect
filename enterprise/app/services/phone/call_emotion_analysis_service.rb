@@ -67,20 +67,7 @@ class Phone::CallEmotionAnalysisService
   end
 
   def normalize_label(value)
-    label = value.to_s.strip.downcase
-    aliases = {
-      'trung' => 'trung tính',
-      'trung tinh' => 'trung tính',
-      'neutral' => 'trung tính',
-      'sad' => 'buồn',
-      'happy' => 'vui',
-      'annoyed' => 'khó chịu',
-      'angry' => 'gay gắt',
-      'gắt' => 'gay gắt',
-      'aggressive' => 'gay gắt'
-    }
-
-    normalized = aliases.fetch(label, label)
+    normalized = PhoneCallEmotionReport.normalize_emotion_label(value)
     LABELS.include?(normalized) ? normalized : 'trung tính'
   end
 end

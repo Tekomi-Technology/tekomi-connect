@@ -660,6 +660,77 @@
       "VIEW_DETAILS": "Xem chi tiết"
     }
   },
+  "PHONE_CALL_REPORTS": {
+    "HEADER": "Báo cáo cuộc gọi",
+    "DESCRIPTION": "Theo dõi toàn bộ cuộc gọi, mức độ cảm xúc và trạng thái cần xử lý.",
+    "TOTAL": "Tổng cuộc gọi",
+    "LOADING": "Đang tải cuộc gọi...",
+    "EMPTY": "Không có cuộc gọi phù hợp bộ lọc.",
+    "ERROR": "Không tải được báo cáo cuộc gọi.",
+    "UPDATE_ERROR": "Không cập nhật được trạng thái xử lý.",
+    "PREVIOUS": "Trang trước",
+    "NEXT": "Trang sau",
+    "EMPTY_VALUE": "—",
+    "CONVERSATION_ID": "#{id}",
+    "PAGINATION": "Trang {current}/{total} · {count} cuộc gọi",
+    "FILTERS": {
+      "ALL": "Tất cả",
+      "CALL_STATUS": "Trạng thái cuộc gọi",
+      "EMOTION": "Cảm xúc",
+      "STATUS": "Trạng thái phân tích",
+      "ACTION_STATUS": "Trạng thái xử lý",
+      "PURPOSE": "Mục đích",
+      "DIRECTION": "Chiều gọi"
+    },
+    "TABLE": {
+      "TIME": "Thời gian",
+      "CUSTOMER": "Khách hàng",
+      "DIRECTION": "Chiều gọi",
+      "CALL_STATUS": "Trạng thái",
+      "EMOTION": "Cảm xúc",
+      "PURPOSE": "Mục đích",
+      "DURATION": "Thời lượng",
+      "ACTION_STATUS": "Xử lý",
+      "CONVERSATION": "Hội thoại"
+    },
+    "CALL_STATUS": {
+      "COMPLETED": "Hoàn tất",
+      "MISSED": "Cuộc gọi nhỡ",
+      "BUSY": "Máy bận",
+      "NO_ANSWER": "Không trả lời",
+      "REJECTED": "Bị từ chối",
+      "CANCELLED": "Đã huỷ",
+      "FAILED": "Thất bại",
+      "RINGING": "Đang đổ chuông",
+      "IN_PROGRESS": "Đang gọi"
+    },
+    "EMOTION": {
+      "VUI": "Vui",
+      "TRUNG TÍNH": "Trung tính",
+      "BUỒN": "Buồn",
+      "KHÓ CHỊU": "Khó chịu",
+      "GAY GẮT": "Gay gắt"
+    },
+    "REPORT_STATUS": {
+      "PENDING": "Đang chờ",
+      "PROCESSING": "Đang phân tích",
+      "COMPLETED": "Đã phân tích",
+      "FAILED": "Phân tích lỗi",
+      "NOT_ANALYZED": "Chưa phân tích"
+    },
+    "ACTION_STATUS": {
+      "NONE": "Chưa cần xử lý",
+      "NEEDS_FOLLOW_UP": "Cần xử lý",
+      "IN_PROGRESS": "Đang xử lý",
+      "RESOLVED": "Đã giải quyết"
+    },
+    "PURPOSE": {
+      "MONITORING": "Theo dõi",
+      "FOLLOW_UP": "Chăm sóc lại",
+      "QUALITY_REVIEW": "Đánh giá chất lượng"
+    },
+    "DIRECTION": { "INBOUND": "Gọi vào", "OUTBOUND": "Gọi ra" }
+  },
   "SUMMARY_REPORTS": {
     "INBOX": "Hộp thư",
     "AGENT": "Nhà cung cấp",

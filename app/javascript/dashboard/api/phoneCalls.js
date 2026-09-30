@@ -18,6 +18,12 @@ class PhoneCalls extends ApiClient {
   emotionReport(id) {
     return axios.get(`${this.url}/${id}/emotion_report`);
   }
+
+  updateEmotionReport(id, data) {
+    return axios.patch(`${this.url}/${id}/emotion_report`, {
+      emotion_report: data,
+    });
+  }
 }
 
 export default new PhoneCalls();

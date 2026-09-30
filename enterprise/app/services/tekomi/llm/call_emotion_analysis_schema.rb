@@ -1,5 +1,5 @@
 class Tekomi::Llm::CallEmotionAnalysisSchema < RubyLLM::Schema
-  LABELS = %w[buồn trung tính vui khó chịu gay gắt].freeze
+  LABELS = ['buồn', 'trung tính', 'vui', 'khó chịu', 'gay gắt'].freeze
 
   string :label,
          description: 'The single most prominent customer emotion in the transcript.',

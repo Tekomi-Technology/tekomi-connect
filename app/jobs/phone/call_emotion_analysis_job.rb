@@ -67,6 +67,8 @@ class Phone::CallEmotionAnalysisJob < ApplicationJob
     )
 
     analysis = result.merge(
+      'emotion' => report.emotion,
+      'semantic_emotion' => result.fetch('semantic_emotion', {}).merge('label' => report.emotion),
       'report_id' => report.id,
       'emotion_tag' => report.emotion_tag
     )

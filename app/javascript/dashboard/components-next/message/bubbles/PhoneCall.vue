@@ -5,6 +5,7 @@ import { useStore } from 'vuex';
 import { formatDuration } from 'shared/helpers/timeHelper';
 import { useMessageContext } from '../provider.js';
 import phoneCallsAPI from 'dashboard/api/phoneCalls';
+import { normalizedEmotionTag, normalizeEmotion } from './emotionUtils';
 
 import Icon from 'dashboard/components-next/icon/Icon.vue';
 import BaseBubble from 'next/message/bubbles/Base.vue';
@@ -132,15 +133,16 @@ watch(
 const emotionReport = computed(
   () => call.value.emotionReport || call.value.emotion_report
 );
-const emotionTag = computed(
-  () =>
+const emotionTag = computed(() => {
+  const tag =
     emotionResult.value?.emotionTag ||
     emotionResult.value?.emotion_tag ||
     call.value.emotionTag ||
     call.value.emotion_tag ||
     emotionReport.value?.emotionTag ||
-    emotionReport.value?.emotion_tag
-);
+    emotionReport.value?.emotion_tag;
+  return normalizedEmotionTag(tag);
+});
 const emotionReportStatus = computed(() => emotionReport.value?.status);
 const emotionTagClass = computed(() => {
   const colors = {
@@ -149,17 +151,20 @@ const emotionTagClass = computed(() => {
     purple: 'bg-n-purple-3 text-n-purple-11',
     orange: 'bg-n-amber-3 text-n-amber-11',
     red: 'bg-n-ruby-3 text-n-ruby-11',
+    gray: 'bg-n-slate-3 text-n-slate-11',
   };
-  return colors[emotionTag.value?.color] || colors.green;
+  return colors[emotionTag.value?.color] || colors.gray;
 });
 
 const negativeEmotions = ['buồn', 'khó chịu', 'gay gắt'];
 const hasNegativeEmotion = computed(() =>
-  negativeEmotions.includes(emotionResult.value?.emotion)
+  negativeEmotions.includes(normalizeEmotion(emotionResult.value?.emotion))
 );
 
 const addEmotionReviewNote = async result => {
-  const emotion = result.emotion || result.semantic_emotion?.label;
+  const emotion = normalizeEmotion(
+    result.emotion || result.semantic_emotion?.label
+  );
   if (!negativeEmotions.includes(emotion) || isEmotionNoteSaved.value) return;
 
   const reason = result.semantic_emotion?.reason || result.reason || '';

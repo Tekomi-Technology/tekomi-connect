@@ -24,6 +24,7 @@ import BotReports from './BotReports.vue';
 import LiveReports from './LiveReports.vue';
 import SLAReports from './SLAReports.vue';
 import TicketReports from './TicketReports.vue';
+import PhoneCallReports from './PhoneCallReports.vue';
 
 const meta = {
   featureFlag: FEATURE_FLAGS.REPORTS,
@@ -149,6 +150,12 @@ export default {
             featureFlag: FEATURE_FLAGS.CRM_TICKETS,
           },
           component: TicketReports,
+        },
+        {
+          path: 'phone-calls',
+          name: 'phone_call_reports',
+          meta,
+          component: PhoneCallReports,
         },
         {
           path: 'csat',
