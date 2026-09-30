@@ -192,6 +192,7 @@ Rails.application.routes.draw do
               resource :draft_messages, only: [:show, :update, :destroy]
               resources :deals, only: [:index]
               resources :tickets, only: [:index]
+              resources :crm_tickets, only: [:index]
               if ChatwootApp.enterprise?
                 resource :analysis, only: [:show, :create] do
                   post :care_suggestion
@@ -268,7 +269,6 @@ Rails.application.routes.draw do
               resources :notes
               resources :deals, only: [:index]
               resources :tickets, only: [:index]
-              resources :crm_tickets, only: [:index]
               resources :conversation_analyses, only: [:index] if ChatwootApp.enterprise?
               get :attachments, to: 'attachments#index'
               post :call, on: :member, to: 'calls#create' if ChatwootApp.enterprise?
