@@ -1078,39 +1078,27 @@ const menuItems = computed(() => {
       :class="isEffectivelyCollapsed ? 'mt-3 mb-6 gap-4' : 'mt-1 mb-4 gap-2'"
     >
       <div
-        class="flex min-w-0 py-2"
-        :class="
-          isEffectivelyCollapsed
-            ? 'justify-center px-1'
-            : 'flex-col items-start gap-1.5 px-2'
-        "
+        class="flex items-center gap-3 min-w-0 py-2"
+        :class="isEffectivelyCollapsed ? 'justify-center px-1' : 'px-2'"
       >
-        <!-- Collapsed: square mark only. Expanded: full wordmark stacked above
-             the brand name so both read clearly at the default sidebar width. -->
-        <Logo
-          v-if="isEffectivelyCollapsed"
-          dark
-          class="shrink-0 size-11 object-contain"
-        />
-        <template v-else>
-          <Logo
-            dark
-            variant="full"
-            class="h-8 w-auto max-w-full object-contain object-left"
-          />
-          <span class="flex flex-col items-start min-w-0 leading-tight">
-            <span
-              class="text-[15px] font-bold tracking-[0.12em] text-n-slate-12 truncate"
-            >
-              {{ t('SIDEBAR_ITEMS.BRAND_NAME') }}
-            </span>
-            <span
-              class="text-[11px] font-medium italic tracking-wide text-n-brand truncate"
-            >
-              {{ t('SIDEBAR_ITEMS.BRAND_TAGLINE') }}
-            </span>
+        <!-- Logo and brand name sit on one row; the name is hidden when the
+             sidebar is collapsed so only the mark shows. -->
+        <Logo dark class="shrink-0 size-11 object-contain" />
+        <span
+          v-if="!isEffectivelyCollapsed"
+          class="flex flex-col items-start min-w-0 leading-tight"
+        >
+          <span
+            class="text-[15px] font-bold tracking-[0.1em] text-n-slate-12 whitespace-nowrap"
+          >
+            {{ t('SIDEBAR_ITEMS.BRAND_NAME') }}
           </span>
-        </template>
+          <span
+            class="text-[11px] font-medium italic tracking-wide text-n-brand whitespace-nowrap"
+          >
+            {{ t('SIDEBAR_ITEMS.BRAND_TAGLINE') }}
+          </span>
+        </span>
       </div>
       <div
         class="flex gap-2"
