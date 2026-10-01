@@ -13,6 +13,10 @@ const props = defineProps({
     type: [Number, String],
     required: true,
   },
+  conversationId: {
+    type: [Number, String],
+    required: true,
+  },
 });
 
 const POLL_INTERVAL_MS = 5000;
@@ -21,7 +25,6 @@ const SEARCH_DEBOUNCE_MS = 300;
 
 const { t } = useI18n();
 const store = useStore();
-const currentChat = useMapGetter('getCurrentChat');
 const contactGetter = useMapGetter('contacts/getContact');
 const contact = computed(() => contactGetter.value(props.contactId));
 const additionalAttributes = computed(
@@ -135,9 +138,7 @@ const assignTo = async targetContact => {
         name: targetContact.name,
       })
     );
-    if (currentChat.value?.id) {
-      await store.dispatch('getConversation', currentChat.value.id);
-    }
+    await store.dispatch('getConversation', props.conversationId);
   } catch (error) {
     useAlert(error.message);
   } finally {
@@ -146,12 +147,10 @@ const assignTo = async targetContact => {
 };
 
 const unmapCrm = async () => {
-  if (!currentChat.value?.id) return;
-
   isUnmapping.value = true;
   try {
-    await ContactAPI.unmapCrm(props.contactId, currentChat.value.id);
-    await store.dispatch('getConversation', currentChat.value.id);
+    await ContactAPI.unmapCrm(props.contactId, props.conversationId);
+    await store.dispatch('getConversation', props.conversationId);
     useAlert(t('CONVERSATION_SIDEBAR.CRM_INFO.CHANNEL_UNMAPPED'));
   } catch (error) {
     useAlert(

@@ -242,7 +242,10 @@ onMounted(() => {
               compact
               @toggle="value => toggleSidebarUIState('is_crm_info_open', value)"
             >
-              <CrmInfoPanel :contact-id="contactId" />
+              <CrmInfoPanel
+                :contact-id="contactId"
+                :conversation-id="conversationId"
+              />
             </AccordionItem>
           </div>
           <div
