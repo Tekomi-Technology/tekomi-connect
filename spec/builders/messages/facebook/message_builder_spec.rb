@@ -40,7 +40,7 @@ describe Messages::Facebook::MessageBuilder do
       expect(facebook_channel.authorization_error_count).to eq(2)
     end
 
-    it 'raises exception for non profile account' do
+    it 'uses the Facebook sender id when the profile is unavailable' do
       allow(Koala::Facebook::API).to receive(:new).and_return(fb_object)
       allow(fb_object).to receive(:get_object).and_raise(Koala::Facebook::ClientError.new(400, '',
                                                                                           {
@@ -52,11 +52,8 @@ describe Messages::Facebook::MessageBuilder do
       message_builder
 
       contact = facebook_channel.inbox.contacts.first
-      # Refer: https://github.com/chatwoot/chatwoot/pull/3016 for this check
-      default_name = 'John Doe'
-
       expect(facebook_channel.inbox.reload.contacts.count).to eq(1)
-      expect(contact.name).to eq(default_name)
+      expect(contact.name).to eq(incoming_fb_text_message.sender_id)
     end
 
     it 'marks echo messages as external echo messages' do

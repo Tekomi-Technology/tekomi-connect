@@ -8,7 +8,7 @@ import { registerRoutes } from './routes.js';
 import { isReactionRemoval, reactionEmoji } from './reactionIcons.js';
 import type { QrLoginResult } from './qrLogin.js';
 import type { IncomingMessage, ReactionEvent, UndoEvent, ZaloCredentials } from './types.js';
-import { ProxyPool } from './proxyPool.js';
+import { isProxyEnabled, ProxyPool } from './proxyPool.js';
 
 const PORT = Number(process.env.ZALO_WORKER_PORT ?? 3100);
 // Loopback by default so a single-host install cannot expose the worker. Compose deployments
@@ -26,10 +26,15 @@ if (!SECRET) throw new Error('ZALO_WORKER_SECRET is required');
 const app = Fastify({ logger: true });
 const rails = new RailsClient(RAILS_BASE_URL, SECRET);
 const sessions = new SessionManager();
+const proxyEnabled = isProxyEnabled();
 const proxyPool = await ProxyPool.fromEnvironment();
-app.log.info({ proxy_count: proxyPool.size }, 'zalo proxy pool loaded');
+app.log.info({ proxy_enabled: proxyEnabled, proxy_count: proxyPool.size }, 'zalo proxy configuration loaded');
 
 function credentialsWithProxy(channelId: number, creds: ZaloCredentials): ZaloCredentials {
+  if (!proxyEnabled) {
+    const { proxy: _proxy, ...directCredentials } = creds;
+    return directCredentials;
+  }
   if (creds.proxy || proxyPool.size === 0) return creds;
   return { ...creds, proxy: proxyPool.assign(channelId) };
 }
@@ -135,7 +140,8 @@ registerRoutes(app, {
   reportQrFailure,
   secret: SECRET,
   log,
-  proxyForQr: (channelId) => proxyPool.assign(channelId, channelId == null ? undefined : credentials.get(channelId)?.proxy),
+  proxyForQr: (channelId) =>
+    proxyEnabled ? proxyPool.assign(channelId, channelId == null ? undefined : credentials.get(channelId)?.proxy) : undefined,
 });
 
 // Rails does not know when the worker restarts, so the worker asks for the channels to restore.
