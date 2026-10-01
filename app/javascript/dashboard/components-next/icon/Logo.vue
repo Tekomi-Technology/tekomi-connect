@@ -9,16 +9,30 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  // `thumbnail` is the square mark (favicon-style), used in tight square slots
+  // like the collapsed sidebar. `full` is the wide wordmark used where there is
+  // room to show the brand name as part of the logo (e.g. the expanded sidebar).
+  variant: {
+    type: String,
+    default: 'thumbnail',
+    validator: value => ['thumbnail', 'full'].includes(value),
+  },
 });
 
 const attrs = useAttrs();
 const globalConfig = useMapGetter('globalConfig/get');
 
-const source = computed(() =>
-  props.dark
+const source = computed(() => {
+  if (props.variant === 'full') {
+    // No dark-specific wordmark exists, so the standard logo is used for both
+    // themes; it reads fine on the dark sidebar.
+    return globalConfig.value.logo || globalConfig.value.logoThumbnail;
+  }
+
+  return props.dark
     ? globalConfig.value.logoDark || globalConfig.value.logoThumbnail
-    : globalConfig.value.logoThumbnail
-);
+    : globalConfig.value.logoThumbnail;
+});
 </script>
 
 <template>
