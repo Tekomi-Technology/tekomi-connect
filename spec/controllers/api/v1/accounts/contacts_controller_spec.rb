@@ -847,6 +847,37 @@ RSpec.describe 'Contacts API', type: :request do
     end
   end
 
+  describe 'DELETE /api/v1/accounts/{account.id}/contacts/:id/unmap_crm' do
+    let(:admin) { create(:user, account: account, role: :administrator) }
+    let(:contact) do
+      create(:contact, account: account, additional_attributes: { external: { perfex_contact_id: '42' } })
+    end
+    let(:inbox) { create(:inbox, account: account) }
+    let(:contact_inbox) { create(:contact_inbox, contact: contact, inbox: inbox, source_id: 'facebook-user-123') }
+    let(:conversation) do
+      create(:conversation, account: account, contact: contact, inbox: inbox, contact_inbox: contact_inbox)
+    end
+
+    it 'returns unauthorized for an unauthenticated user' do
+      delete "/api/v1/accounts/#{account.id}/contacts/#{contact.id}/unmap_crm",
+             params: { conversation_id: conversation.display_id }
+
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'detaches the conversation identity and returns the new contact' do
+      delete "/api/v1/accounts/#{account.id}/contacts/#{contact.id}/unmap_crm",
+             params: { conversation_id: conversation.display_id },
+             headers: admin.create_new_auth_token,
+             as: :json
+
+      expect(response).to have_http_status(:success)
+      expect(response.parsed_body.dig('payload', 'id')).not_to eq(contact.id)
+      expect(response.parsed_body.dig('payload', 'name')).to eq('facebook-user-123')
+      expect(conversation.reload.contact_id).to eq(response.parsed_body.dig('payload', 'id'))
+    end
+  end
+
   describe 'DELETE /api/v1/accounts/{account.id}/contacts/:id/avatar' do
     let(:contact) { create(:contact, account: account) }
     let(:agent) { create(:user, account: account, role: :agent) }

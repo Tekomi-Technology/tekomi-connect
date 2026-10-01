@@ -4,6 +4,7 @@ import { useI18n } from 'vue-i18n';
 import { useStore, useMapGetter } from 'dashboard/composables/store';
 import { useAlert } from 'dashboard/composables';
 import NextButton from 'dashboard/components-next/button/Button.vue';
+import ConfirmButton from 'dashboard/components-next/button/ConfirmButton.vue';
 import Input from 'dashboard/components-next/input/Input.vue';
 import ContactAPI from 'dashboard/api/contacts';
 
@@ -37,6 +38,7 @@ const hasFailed = computed(
 
 const isForceSyncing = ref(false);
 const isMerging = ref(false);
+const isUnmapping = ref(false);
 const showAssignPanel = ref(false);
 const searchQuery = ref('');
 const searchResults = ref([]);
@@ -143,6 +145,24 @@ const assignTo = async targetContact => {
   }
 };
 
+const unmapCrm = async () => {
+  if (!currentChat.value?.id) return;
+
+  isUnmapping.value = true;
+  try {
+    await ContactAPI.unmapCrm(props.contactId, currentChat.value.id);
+    await store.dispatch('getConversation', currentChat.value.id);
+    useAlert(t('CONVERSATION_SIDEBAR.CRM_INFO.CHANNEL_UNMAPPED'));
+  } catch (error) {
+    useAlert(
+      error.response?.data?.error ||
+        t('CONVERSATION_SIDEBAR.CRM_INFO.UNMAP_ERROR')
+    );
+  } finally {
+    isUnmapping.value = false;
+  }
+};
+
 onBeforeUnmount(() => {
   stopPolling();
   clearTimeout(searchDebounceTimer);
@@ -156,8 +176,23 @@ onBeforeUnmount(() => {
         {{ crmInfo.name }}
       </p>
       <p class="text-xs text-n-slate-11">
-        {{ $t('CONVERSATION_SIDEBAR.CRM_INFO.USERID_LABEL') }}: {{ perfexId }}
+        {{
+          $t('CONVERSATION_SIDEBAR.CRM_INFO.USERID_WITH_VALUE', {
+            id: perfexId,
+          })
+        }}
       </p>
+      <ConfirmButton
+        class="mt-2"
+        variant="faded"
+        color="slate"
+        confirm-color="ruby"
+        size="sm"
+        :is-loading="isUnmapping"
+        :label="$t('CONVERSATION_SIDEBAR.CRM_INFO.UNMAP')"
+        :confirm-label="$t('CONVERSATION_SIDEBAR.CRM_INFO.UNMAP_CONFIRM')"
+        @click="unmapCrm"
+      />
     </div>
     <div v-else>
       <p class="mb-2 text-xs font-medium text-n-amber-11">

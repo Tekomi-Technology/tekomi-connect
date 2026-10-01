@@ -53,6 +53,12 @@ class ContactAPI extends ApiClient {
     return axios.post(`${this.url}/${contactId}/match_crm`);
   }
 
+  unmapCrm(contactId, conversationId) {
+    return axios.delete(`${this.url}/${contactId}/unmap_crm`, {
+      params: { conversation_id: conversationId },
+    });
+  }
+
   crmForceSync() {
     return axios.post(`${this.url}/crm_force_sync`);
   }

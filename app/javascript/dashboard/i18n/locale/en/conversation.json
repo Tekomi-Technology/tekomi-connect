@@ -565,6 +565,7 @@
     },
     "CRM_INFO": {
       "USERID_LABEL": "CRM ID",
+      "USERID_WITH_VALUE": "CRM ID: {id}",
       "UNIDENTIFIED": "Unidentified customer",
       "FORCE_SYNC": "Sync CRM",
       "FORCE_SYNC_STARTED": "CRM sync started in the background. This panel will update automatically.",
@@ -572,6 +573,10 @@
       "ASSIGN_TO_CUSTOMER": "Attach to customer",
       "ASSIGN_SEARCH_PLACEHOLDER": "Search contacts by name, email or phone...",
       "CHANNEL_MERGED": "Channel attached to {name}",
+      "UNMAP": "Detach customer",
+      "UNMAP_CONFIRM": "Confirm detach",
+      "CHANNEL_UNMAPPED": "Customer detached. You can now attach this channel to another customer.",
+      "UNMAP_ERROR": "Could not detach this customer. Please try again.",
       "NOT_FOUND": "Could not find this customer in the CRM"
     },
     "SHARED_FILES": {

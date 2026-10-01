@@ -579,6 +579,7 @@
     },
     "CRM_INFO": {
       "USERID_LABEL": "Mã CRM",
+      "USERID_WITH_VALUE": "Mã CRM: {id}",
       "UNIDENTIFIED": "Khách chưa xác định",
       "FORCE_SYNC": "Đồng bộ CRM",
       "FORCE_SYNC_STARTED": "Đã bắt đầu đồng bộ CRM ở chế độ nền. Khung này sẽ tự cập nhật.",
@@ -586,6 +587,10 @@
       "ASSIGN_TO_CUSTOMER": "Gắn với khách hàng",
       "ASSIGN_SEARCH_PLACEHOLDER": "Tìm liên hệ theo tên, email hoặc số điện thoại...",
       "CHANNEL_MERGED": "Đã gắn kênh với {name}",
+      "UNMAP": "Gỡ liên kết",
+      "UNMAP_CONFIRM": "Xác nhận gỡ",
+      "CHANNEL_UNMAPPED": "Đã gỡ liên kết CRM. Bạn có thể gắn kênh này với khách hàng khác.",
+      "UNMAP_ERROR": "Không thể gỡ liên kết CRM. Vui lòng thử lại.",
       "NOT_FOUND": "Không tìm thấy khách hàng này trong CRM"
     }
   },

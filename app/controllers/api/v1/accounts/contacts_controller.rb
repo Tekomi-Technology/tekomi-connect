@@ -13,7 +13,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
 
   before_action :check_authorization
   before_action :set_current_page, only: [:index, :active, :search, :filter]
-  before_action :fetch_contact, only: [:show, :update, :destroy, :avatar, :contactable_inboxes, :destroy_custom_attributes, :match_crm]
+  before_action :fetch_contact, only: [:show, :update, :destroy, :avatar, :contactable_inboxes, :destroy_custom_attributes, :match_crm, :unmap_crm]
   before_action :set_include_contact_inboxes, only: [:index, :active, :search, :filter, :show, :update]
 
   def index
@@ -90,6 +90,19 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   rescue Crm::Perfex::Api::BaseClient::ApiError => e
     Rails.logger.error "Crm::Perfex contact match failed for contact #{@contact.id}: #{e.message}"
     render json: { error: 'crm_unreachable' }, status: :bad_gateway
+  end
+
+  def unmap_crm
+    conversation = Current.account.conversations.find_by!(display_id: params.require(:conversation_id))
+    @contact = Crm::Perfex::ContactChannelUnmapper.new(
+      account: Current.account,
+      contact: @contact,
+      conversation: conversation
+    ).perform
+    @include_contact_inboxes = true
+    render :show
+  rescue Crm::Perfex::ContactChannelUnmapper::UnmapError => e
+    render json: { error: e.message }, status: :unprocessable_entity
   end
 
   def crm_force_sync

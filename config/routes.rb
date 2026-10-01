@@ -258,6 +258,7 @@ Rails.application.routes.draw do
             member do
               get :contactable_inboxes
               post :match_crm
+              delete :unmap_crm
               post :crm_force_sync
               post :destroy_custom_attributes
               delete :avatar
