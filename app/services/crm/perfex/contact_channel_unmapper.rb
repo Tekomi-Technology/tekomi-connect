@@ -7,8 +7,8 @@ module Crm
 
       def perform
         ActiveRecord::Base.transaction do
-          contact.lock!
-          conversation.lock!
+          contact.reload.lock!
+          conversation.reload.lock!
           conversation.contact_inbox.lock!
           validate!
 
