@@ -51,6 +51,10 @@ class ContactPolicy < ApplicationPolicy
     true
   end
 
+  def unmap_crm?
+    true
+  end
+
   def crm_force_sync?
     true
   end
