@@ -178,4 +178,5 @@ if resource.channel_type == 'Channel::ZaloPersonal'
   json.zalo_session_status resource.channel.status
   json.zalo_display_name resource.channel.display_name
   json.zalo_status_updated_at resource.channel.status_updated_at&.to_i
+  json.zalo_proxy_enabled resource.channel.proxy_enabled
 end

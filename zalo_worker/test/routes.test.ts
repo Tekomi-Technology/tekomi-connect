@@ -39,6 +39,7 @@ async function buildApp(deps: Partial<RouteDeps> = {}): Promise<{ app: FastifyIn
     reportQrFailure: vi.fn(async () => {}),
     secret: SECRET,
     log: vi.fn(),
+    proxyEnabled: new Map(),
     ...deps,
   };
   registerRoutes(app, fullDeps);
@@ -85,12 +86,24 @@ describe('POST /qr/start', () => {
   });
 
   it('passes an existing channel id to QR login for stable proxy reuse', async () => {
-    const { app } = await buildApp({ proxyForQr: vi.fn(() => ({ protocol: 'http', host: 'proxy', port: 8080, username: 'u', password: 'p' })) });
+    const proxyForQr = vi.fn(() => ({ protocol: 'http' as const, host: 'proxy', port: 8080, username: 'u', password: 'p' }));
+    const { app } = await buildApp({ proxyForQr });
     const res = await app.inject({
       method: 'POST', url: '/qr/start', headers: { 'x-zalo-worker-secret': SECRET, 'content-type': 'application/json' },
       payload: { channel_id: 9 },
     });
     expect(res.statusCode).toBe(200);
+    expect(proxyForQr).toHaveBeenCalledWith(9, true);
+  });
+
+  it('passes the inbox proxy switch to QR login', async () => {
+    const proxyForQr = vi.fn(() => undefined);
+    const { app } = await buildApp({ proxyForQr });
+    await app.inject({
+      method: 'POST', url: '/qr/start', headers: { 'x-zalo-worker-secret': SECRET, 'content-type': 'application/json' },
+      payload: { channel_id: 9, proxy_enabled: false },
+    });
+    expect(proxyForQr).toHaveBeenCalledWith(9, false);
   });
 });
 
@@ -107,6 +120,22 @@ describe('POST /sessions/:channelId/connect', () => {
     expect(res.statusCode).toBe(202);
     expect(res.json()).toEqual({ status: 'connecting' });
     expect(deps.credentials.get(5)).toEqual({ imei: 'i', cookie: {}, userAgent: 'ua' });
+    expect(deps.proxyEnabled.get(5)).toBe(true);
+    expect(supervisor.connect).toHaveBeenCalledWith(5);
+    expect(supervisor.remove).not.toHaveBeenCalled();
+  });
+
+  it('drops the live session before reconnecting when the proxy switch flips', async () => {
+    const supervisor = fakeSupervisor();
+    const { app, deps } = await buildApp({ supervisor: supervisor as never, proxyEnabled: new Map([[5, true]]) });
+    await app.inject({
+      method: 'POST',
+      url: '/sessions/5/connect',
+      headers: { 'x-zalo-worker-secret': SECRET, 'content-type': 'application/json' },
+      payload: { credentials: { imei: 'i', cookie: {}, userAgent: 'ua' }, proxy_enabled: false },
+    });
+    expect(deps.proxyEnabled.get(5)).toBe(false);
+    expect(supervisor.remove).toHaveBeenCalledWith(5);
     expect(supervisor.connect).toHaveBeenCalledWith(5);
   });
 });

@@ -47,15 +47,10 @@ export function parseProxyList(raw: string, source = 'proxy list'): ProxyConnect
   return raw.split(/\r?\n|,/).map((line, index) => parseProxyLine(line, `${source}:${index + 1}`)).filter((p): p is ProxyConnection => p !== null);
 }
 
-/** Proxying stays enabled by default for backwards compatibility. */
-export function isProxyEnabled(env: NodeJS.ProcessEnv = process.env): boolean {
-  const value = env.ZALO_PROXY_ENABLED?.trim().toLowerCase();
-  return !value || !['0', 'false', 'no', 'off'].includes(value);
-}
-
 /**
  * Assigns one proxy per channel. The assignment is deterministic when a channel id exists;
  * credentials then carry the selected proxy so restarts and reconnects never rotate identity.
+ * Whether a channel uses a proxy at all is chosen per inbox in the dashboard and sent by Rails.
  */
 export class ProxyPool {
   private next = 0;
@@ -63,7 +58,6 @@ export class ProxyPool {
   constructor(private readonly proxies: ProxyConnection[]) {}
 
   static async fromEnvironment(env: NodeJS.ProcessEnv = process.env): Promise<ProxyPool> {
-    if (!isProxyEnabled(env)) return new ProxyPool([]);
     const inline = env.ZALO_PROXY_POOL?.trim();
     const file = env.ZALO_PROXY_POOL_FILE?.trim();
     if (inline) return new ProxyPool(parseProxyList(inline, 'ZALO_PROXY_POOL'));

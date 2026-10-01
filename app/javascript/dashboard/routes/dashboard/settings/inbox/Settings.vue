@@ -10,6 +10,7 @@ import SettingIntroBanner from 'dashboard/components/widgets/SettingIntroBanner.
 import SettingsToggleSection from 'dashboard/components-next/Settings/SettingsToggleSection.vue';
 import SettingsFieldSection from 'dashboard/components-next/Settings/SettingsFieldSection.vue';
 import ZaloSessionStatus from 'dashboard/components-next/Settings/ZaloSessionStatus.vue';
+import ZaloProxyToggle from 'dashboard/components-next/Settings/ZaloProxyToggle.vue';
 import SettingsAccordion from 'dashboard/components-next/Settings/SettingsAccordion.vue';
 import inboxMixin from 'shared/mixins/inboxMixin';
 import FacebookReauthorize from './facebook/Reauthorize.vue';
@@ -66,6 +67,7 @@ export default {
     SettingsToggleSection,
     SettingsFieldSection,
     ZaloSessionStatus,
+    ZaloProxyToggle,
     SettingsAccordion,
     WeeklyAvailability,
     SenderNameExamplePreview,
@@ -905,6 +907,12 @@ export default {
               :label="$t('INBOX_MGMT.ZALO_PERSONAL_SESSION.LABEL')"
             >
               <ZaloSessionStatus :inbox="inbox" />
+            </SettingsFieldSection>
+            <SettingsFieldSection
+              v-if="isAZaloPersonalChannel"
+              :label="$t('INBOX_MGMT.ZALO_PERSONAL_PROXY.LABEL')"
+            >
+              <ZaloProxyToggle :inbox="inbox" />
             </SettingsFieldSection>
             <SettingsFieldSection
               v-if="isAPIInbox"

@@ -6,6 +6,7 @@
 #  credentials       :text             not null
 #  display_name      :string
 #  last_connected_at :datetime
+#  proxy_enabled     :boolean          default(TRUE), not null
 #  status            :string           not null
 #  status_updated_at :datetime
 #  created_at        :datetime         not null
@@ -26,8 +27,8 @@ class Channel::ZaloPersonal < ApplicationRecord
   encrypts :credentials if Chatwoot.encryption_configured?
 
   # Channels are created by the QR login callback (not the generic inbox-create endpoint), and
-  # credentials are only ever replaced by a fresh QR scan — so nothing here is user-editable.
-  EDITABLE_ATTRS = [].freeze
+  # credentials are only ever replaced by a fresh QR scan. Only the proxy switch is editable.
+  EDITABLE_ATTRS = [:proxy_enabled].freeze
 
   # `connected` is only ever set by the worker once a session is live. A channel starts as
   # `reconnecting` because the worker has not confirmed the session yet, and moves to `expired`
@@ -37,6 +38,10 @@ class Channel::ZaloPersonal < ApplicationRecord
   validates :zalo_uid, presence: true, uniqueness: true
   validates :credentials, presence: true
   validates :status, inclusion: { in: STATUSES }
+
+  # The worker applies the proxy choice when it logs in, so a change only takes effect after it
+  # reconnects the live session. An expired session has nothing to reconnect until a rescan.
+  after_update_commit :reconnect_worker, if: -> { saved_change_to_proxy_enabled? && status != 'expired' }
 
   def name
     'Zalo Personal'
@@ -52,6 +57,12 @@ class Channel::ZaloPersonal < ApplicationRecord
       status_updated_at: Time.current,
       last_connected_at: new_status == 'connected' ? Time.current : last_connected_at
     )
+  end
+
+  private
+
+  def reconnect_worker
+    ::Zalo::WorkerClient.connect(self)
   end
 end
 

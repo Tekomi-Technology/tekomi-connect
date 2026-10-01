@@ -5,7 +5,7 @@ class Internal::ZaloPersonal::SessionsController < ActionController::API
 
   def index
     sessions = ::Channel::ZaloPersonal.find_each.map do |channel|
-      { channel_id: channel.id, credentials: channel.parsed_credentials }
+      { channel_id: channel.id, credentials: channel.parsed_credentials, proxy_enabled: channel.proxy_enabled }
     end
 
     render json: { sessions: sessions }

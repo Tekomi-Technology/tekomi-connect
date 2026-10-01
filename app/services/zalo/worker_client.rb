@@ -10,12 +10,14 @@ class Zalo::WorkerClient
   TIMEOUT = 30
 
   class << self
-    def start_qr_login(channel_id = nil)
-      post('/qr/start', channel_id ? { channel_id: channel_id } : nil)
+    # A rescan of an existing inbox logs in through that inbox's proxy choice; a brand-new inbox
+    # has no choice yet, so the worker uses its default (proxied when a pool is configured).
+    def start_qr_login(channel = nil)
+      post('/qr/start', channel ? { channel_id: channel.id, proxy_enabled: channel.proxy_enabled } : nil)
     end
 
     def connect(channel)
-      post("/sessions/#{channel.id}/connect", credentials: channel.parsed_credentials)
+      post("/sessions/#{channel.id}/connect", credentials: channel.parsed_credentials, proxy_enabled: channel.proxy_enabled)
     end
 
     def disconnect(channel_id)

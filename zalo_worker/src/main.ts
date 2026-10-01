@@ -8,7 +8,7 @@ import { registerRoutes } from './routes.js';
 import { isReactionRemoval, reactionEmoji } from './reactionIcons.js';
 import type { QrLoginResult } from './qrLogin.js';
 import type { IncomingMessage, ReactionEvent, UndoEvent, ZaloCredentials } from './types.js';
-import { isProxyEnabled, ProxyPool } from './proxyPool.js';
+import { ProxyPool } from './proxyPool.js';
 
 const PORT = Number(process.env.ZALO_WORKER_PORT ?? 3100);
 // Loopback by default so a single-host install cannot expose the worker. Compose deployments
@@ -26,12 +26,15 @@ if (!SECRET) throw new Error('ZALO_WORKER_SECRET is required');
 const app = Fastify({ logger: true });
 const rails = new RailsClient(RAILS_BASE_URL, SECRET);
 const sessions = new SessionManager();
-const proxyEnabled = isProxyEnabled();
 const proxyPool = await ProxyPool.fromEnvironment();
-app.log.info({ proxy_enabled: proxyEnabled, proxy_count: proxyPool.size }, 'zalo proxy configuration loaded');
+app.log.info({ proxy_count: proxyPool.size }, 'zalo proxy pool loaded');
+
+// Each inbox switches its proxy on or off in the dashboard; Rails sends the choice with the
+// credentials. A channel Rails has not told us about yet keeps the proxied default.
+const proxyEnabled = new Map<number, boolean>();
 
 function credentialsWithProxy(channelId: number, creds: ZaloCredentials): ZaloCredentials {
-  if (!proxyEnabled) {
+  if (proxyEnabled.get(channelId) === false) {
     const { proxy: _proxy, ...directCredentials } = creds;
     return directCredentials;
   }
@@ -140,8 +143,9 @@ registerRoutes(app, {
   reportQrFailure,
   secret: SECRET,
   log,
-  proxyForQr: (channelId) =>
-    proxyEnabled ? proxyPool.assign(channelId, channelId == null ? undefined : credentials.get(channelId)?.proxy) : undefined,
+  proxyEnabled,
+  proxyForQr: (channelId, enabled = true) =>
+    enabled ? proxyPool.assign(channelId, channelId == null ? undefined : credentials.get(channelId)?.proxy) : undefined,
 });
 
 // Rails does not know when the worker restarts, so the worker asks for the channels to restore.
@@ -161,6 +165,7 @@ async function restoreSessions(): Promise<void> {
 
   for (const record of records) {
     credentials.set(record.channel_id, record.credentials);
+    proxyEnabled.set(record.channel_id, record.proxy_enabled !== false);
     void supervisor.connect(record.channel_id);
   }
   app.log.info({ count: records.length }, 'restored zalo sessions');

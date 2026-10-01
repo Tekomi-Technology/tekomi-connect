@@ -793,6 +793,14 @@
       },
       "EXPIRED_HINT": "Zalo allows one web session per account, so signing the same account in to Zalo Web somewhere else ends this one."
     },
+    "ZALO_PERSONAL_PROXY": {
+      "LABEL": "Proxy",
+      "ENABLED": "Connecting through a proxy",
+      "DISABLED": "Connecting directly",
+      "HINT": "Changing this reconnects the Zalo session right away.",
+      "SAVED": "Proxy setting saved",
+      "ERROR": "Could not update the proxy setting"
+    },
     "TABS": {
       "SETTINGS": "Settings",
       "COLLABORATORS": "Collaborators",

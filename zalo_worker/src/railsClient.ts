@@ -3,6 +3,7 @@ import type { ZaloCredentials } from './types.js';
 export interface SessionRecord {
   channel_id: number;
   credentials: ZaloCredentials;
+  proxy_enabled?: boolean;
 }
 
 /**

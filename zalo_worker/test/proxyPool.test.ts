@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isProxyEnabled, parseProxyLine, parseProxyList, ProxyPool } from '../src/proxyPool.js';
+import { parseProxyLine, parseProxyList, ProxyPool } from '../src/proxyPool.js';
 
 describe('proxy list parsing', () => {
   it('parses Webshare host:port:user:password rows', () => {
@@ -23,16 +23,9 @@ describe('proxy list parsing', () => {
     expect(pool.assign(undefined, { protocol: 'http', host: 'saved', port: 1, username: null, password: null })?.host).toBe('saved');
   });
 
-  it('allows proxy usage to be disabled explicitly', async () => {
-    expect(isProxyEnabled({})).toBe(true);
-    expect(isProxyEnabled({ ZALO_PROXY_ENABLED: 'off' })).toBe(false);
-    expect(isProxyEnabled({ ZALO_PROXY_ENABLED: 'TRUE' })).toBe(true);
-
-    const pool = await ProxyPool.fromEnvironment({
-      ZALO_PROXY_ENABLED: 'false',
-      ZALO_PROXY_POOL: 'a:1:u:p',
-    });
-    expect(pool.size).toBe(0);
-    expect(pool.assign(1)).toBeUndefined();
+  it('loads the pool from the environment; the on/off choice lives on each inbox', async () => {
+    const pool = await ProxyPool.fromEnvironment({ ZALO_PROXY_POOL: 'a:1:u:p' });
+    expect(pool.size).toBe(1);
+    expect(pool.assign(1)?.host).toBe('a');
   });
 });

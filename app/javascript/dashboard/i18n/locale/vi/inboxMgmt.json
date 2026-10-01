@@ -1524,6 +1524,14 @@
         "EXPIRED": "Phiên đã kết thúc"
       },
       "EXPIRED_HINT": "Mỗi tài khoản Zalo chỉ có một phiên web, nên khi tài khoản đó đăng nhập Zalo Web ở nơi khác thì phiên này sẽ kết thúc."
+    },
+    "ZALO_PERSONAL_PROXY": {
+      "LABEL": "Proxy",
+      "ENABLED": "Đang kết nối qua proxy",
+      "DISABLED": "Đang kết nối trực tiếp",
+      "HINT": "Đổi cài đặt này sẽ kết nối lại phiên Zalo ngay lập tức.",
+      "SAVED": "Đã lưu cài đặt proxy",
+      "ERROR": "Không cập nhật được cài đặt proxy"
     }
   }
 }

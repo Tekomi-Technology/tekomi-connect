@@ -13,7 +13,9 @@ export interface RouteDeps {
   reportQrFailure: (qrSessionId: string, reason: QrFailureReason) => Promise<void>;
   secret: string;
   log: (obj: Record<string, unknown>, msg: string) => void;
-  proxyForQr?: (channelId?: number) => ProxyConnection | undefined;
+  // The per-inbox proxy switch Rails last sent for each channel; absent means proxied.
+  proxyEnabled: Map<number, boolean>;
+  proxyForQr?: (channelId?: number, proxyEnabled?: boolean) => ProxyConnection | undefined;
 }
 
 interface SendBody {
@@ -41,17 +43,24 @@ export function registerRoutes(app: FastifyInstance, deps: RouteDeps): void {
   }));
 
   app.post('/qr/start', async (request) => {
-    const channelId = typeof (request.body as { channel_id?: unknown } | undefined)?.channel_id === 'number'
-      ? Number((request.body as { channel_id: number }).channel_id)
-      : undefined;
-    const { qrSessionId, qrImage } = await startQrLogin(deps.reportQrLogin, deps.reportQrFailure, deps.log, deps.proxyForQr?.(channelId));
+    const body = request.body as { channel_id?: unknown; proxy_enabled?: unknown } | undefined;
+    const channelId = typeof body?.channel_id === 'number' ? body.channel_id : undefined;
+    const proxyEnabled = body?.proxy_enabled !== false;
+    const proxy = deps.proxyForQr?.(channelId, proxyEnabled);
+    const { qrSessionId, qrImage } = await startQrLogin(deps.reportQrLogin, deps.reportQrFailure, deps.log, proxy);
     return { qr_session_id: qrSessionId, qr_image: qrImage };
   });
 
-  app.post<{ Params: { channelId: string }; Body: { credentials: ZaloCredentials } }>(
+  app.post<{ Params: { channelId: string }; Body: { credentials: ZaloCredentials; proxy_enabled?: boolean } }>(
     '/sessions/:channelId/connect',
     async (request, reply) => {
       const channelId = Number(request.params.channelId);
+      const proxyEnabled = request.body.proxy_enabled !== false;
+      const previous = deps.proxyEnabled.get(channelId);
+      deps.proxyEnabled.set(channelId, proxyEnabled);
+      // The proxy is fixed when a session logs in, so a flipped switch has to drop the live
+      // session first; otherwise connect would leave the old one running alongside the new one.
+      if (previous !== undefined && previous !== proxyEnabled) await deps.supervisor.remove(channelId);
       deps.credentials.set(channelId, request.body.credentials);
       // Connecting can take seconds and may retry with backoff; the supervisor reports the
       // outcome to Rails through the status event, so the caller does not wait for it.
@@ -88,6 +97,7 @@ export function registerRoutes(app: FastifyInstance, deps: RouteDeps): void {
     const channelId = Number(request.params.channelId);
     await deps.supervisor.remove(channelId);
     deps.credentials.delete(channelId);
+    deps.proxyEnabled.delete(channelId);
     return reply.code(204).send();
   });
 
