@@ -1084,31 +1084,32 @@ const menuItems = computed(() => {
         <!-- Logo and brand name sit on one row; the name is hidden when the
              sidebar is collapsed so only the mark shows. -->
         <!-- On desktop the logo doubles as the collapse toggle: hovering
-             swaps the mark for a panel icon. -->
+             covers the mark with a brand tile and a double chevron. -->
         <button
           v-if="!isMobile"
           v-tooltip.right="
             isEffectivelyCollapsed ? t('SIDEBAR.EXPAND') : t('SIDEBAR.COLLAPSE')
           "
           type="button"
-          class="relative grid shrink-0 rounded-lg place-items-center size-11 group/logo hover:bg-n-alpha-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-n-brand"
+          class="relative grid shrink-0 rounded-lg place-items-center size-11 group/logo focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-n-brand"
           :aria-label="
             isEffectivelyCollapsed ? t('SIDEBAR.EXPAND') : t('SIDEBAR.COLLAPSE')
           "
           @click="onResizeHandleDoubleClick"
         >
-          <Logo
-            dark
-            class="object-contain transition-opacity duration-150 size-11 group-hover/logo:opacity-0 group-focus-visible/logo:opacity-0"
-          />
+          <Logo dark class="object-contain size-11" />
           <span
-            class="absolute transition-opacity duration-150 opacity-0 size-6 text-n-slate-12 rtl:rotate-180 group-hover/logo:opacity-100 group-focus-visible/logo:opacity-100"
-            :class="
-              isEffectivelyCollapsed
-                ? 'i-lucide-panel-left-open'
-                : 'i-lucide-panel-left-close'
-            "
-          />
+            class="absolute inset-0 grid transition-opacity duration-150 rounded-lg opacity-0 place-items-center bg-n-brand shadow-md group-hover/logo:opacity-100 group-focus-visible/logo:opacity-100"
+          >
+            <span
+              class="text-white size-6 rtl:rotate-180"
+              :class="
+                isEffectivelyCollapsed
+                  ? 'i-ph-caret-double-right-bold'
+                  : 'i-ph-caret-double-left-bold'
+              "
+            />
+          </span>
         </button>
         <Logo v-else dark class="shrink-0 size-11 object-contain" />
         <span
