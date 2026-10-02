@@ -401,9 +401,7 @@
       "COPILOT": "GMO",
       "ANALYSIS": "Phân tích hội thoại",
       "COMPANY": "Doanh nghiệp",
-      "NO_COMPANY": "Liên hệ này chưa thuộc doanh nghiệp nào.",
-      "COLLAPSE_PANEL": "Thu gọn bảng thông tin",
-      "EXPAND_PANEL": "Mở bảng thông tin"
+      "NO_COMPANY": "Liên hệ này chưa thuộc doanh nghiệp nào."
     },
     "VOICE_WIDGET": {
       "INCOMING_CALL": "Cuộc gọi đến",

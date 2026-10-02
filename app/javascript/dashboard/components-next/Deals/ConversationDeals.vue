@@ -17,6 +17,8 @@ const props = defineProps({
   contact: { type: Object, default: null },
 });
 
+const emit = defineEmits(['loaded']);
+
 const { t } = useI18n();
 const router = useRouter();
 const dealsStore = useDealsStore();
@@ -55,8 +57,8 @@ const loadDeals = async () => {
       props.contact?.id ? DealsAPI.getByContact(props.contact.id) : null,
     ]);
     linkedDeals.value = linkedResponse.data.payload.map(camelizeDeal);
-    contactDeals.value =
-      contactResponse?.data.payload.map(camelizeDeal) || [];
+    contactDeals.value = contactResponse?.data.payload.map(camelizeDeal) || [];
+    emit('loaded', linkedDeals.value.length + contactDeals.value.length);
   } catch {
     useAlert(t('DEALS.CONVERSATION.LOAD_ERROR'));
   } finally {

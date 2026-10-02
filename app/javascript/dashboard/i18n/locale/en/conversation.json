@@ -456,9 +456,7 @@
       "COPILOT": "GMO",
       "ANALYSIS": "Conversation analysis",
       "COMPANY": "Company",
-      "NO_COMPANY": "This contact is not linked to a company yet.",
-      "COLLAPSE_PANEL": "Collapse panel",
-      "EXPAND_PANEL": "Expand panel"
+      "NO_COMPANY": "This contact is not linked to a company yet."
     },
     "VOICE_WIDGET": {
       "INCOMING_CALL": "Incoming call",

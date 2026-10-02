@@ -14,7 +14,6 @@ import { BUS_EVENTS } from 'shared/constants/busEvents';
 import CmdBarConversationSnooze from 'dashboard/routes/dashboard/commands/CmdBarConversationSnooze.vue';
 import { emitter } from 'shared/helpers/mitt';
 import SidepanelSwitch from 'dashboard/components-next/Conversation/SidepanelSwitch.vue';
-import SidePanelToggle from 'dashboard/components-next/Conversation/SidePanelToggle.vue';
 import SidePanelTransition from 'dashboard/components-next/Conversation/SidePanelTransition.vue';
 import ConversationListToggle from 'dashboard/components-next/Conversation/ConversationListToggle.vue';
 import ConversationSidebar from 'dashboard/components/widgets/conversation/ConversationSidebar.vue';
@@ -26,7 +25,6 @@ export default {
     ConversationBox,
     CmdBarConversationSnooze,
     SidepanelSwitch,
-    SidePanelToggle,
     SidePanelTransition,
     ConversationListToggle,
     ConversationSidebar,
@@ -235,7 +233,6 @@ export default {
       :is-on-expanded-layout="isListExpanded"
     >
       <SidepanelSwitch v-if="currentChat.id" />
-      <SidePanelToggle v-if="currentChat.id" />
     </ConversationBox>
     <SidePanelTransition>
       <ConversationSidebar

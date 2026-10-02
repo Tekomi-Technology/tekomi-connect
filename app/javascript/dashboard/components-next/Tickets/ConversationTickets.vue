@@ -13,6 +13,8 @@ const props = defineProps({
   conversationId: { type: [Number, String], required: true },
 });
 
+const emit = defineEmits(['loaded']);
+
 const { t } = useI18n();
 const currentChat = useMapGetter('getSelectedChat');
 
@@ -23,14 +25,19 @@ const isLoading = ref(false);
 // CRM replies, so the panel follows that value instead of a one-off event.
 const ticketRefs = computed(() => {
   const attributes = currentChat.value?.custom_attributes || {};
-  return JSON.stringify(attributes.crm_tickets || attributes.crm_ticket || null);
+  return JSON.stringify(
+    attributes.crm_tickets || attributes.crm_ticket || null
+  );
 });
 
 const loadTickets = async () => {
   isLoading.value = true;
   try {
-    const { data } = await CrmTicketsAPI.getByConversation(props.conversationId);
+    const { data } = await CrmTicketsAPI.getByConversation(
+      props.conversationId
+    );
     tickets.value = data.payload || [];
+    emit('loaded', tickets.value.length);
   } catch {
     useAlert(t('TICKETS.CONVERSATION.LOAD_ERROR'));
   } finally {

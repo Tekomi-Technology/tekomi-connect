@@ -99,10 +99,12 @@ const toggleConversationSidebar = () => {
   });
 };
 
+// Clicking the icon of the panel already open collapses it.
 const openSidebarPanel = panel => {
+  const isActive = isContactSidebarOpen.value && activePanel.value === panel;
   activePanel.value = panel;
   updateUISettings({
-    is_contact_sidebar_open: true,
+    is_contact_sidebar_open: !isActive,
     is_copilot_panel_open: false,
     is_conversation_analysis_panel_open: false,
   });
@@ -111,7 +113,7 @@ const openSidebarPanel = panel => {
 const handleCopilotSidebarToggle = () => {
   updateUISettings({
     is_contact_sidebar_open: false,
-    is_copilot_panel_open: true,
+    is_copilot_panel_open: !isCopilotPanelOpen.value,
     is_conversation_analysis_panel_open: false,
   });
 };
@@ -120,7 +122,7 @@ const handleAnalysisSidebarToggle = () => {
   updateUISettings({
     is_contact_sidebar_open: false,
     is_copilot_panel_open: false,
-    is_conversation_analysis_panel_open: true,
+    is_conversation_analysis_panel_open: !isAnalysisPanelOpen.value,
   });
 };
 
