@@ -152,17 +152,20 @@
         "WEBSITE": "Website",
         "EMPTY": "No company details yet."
       },
-      "CRM_ID": "CRM ID: {id}",
       "PHONE": "Phone number",
       "CREATED_AT": "Created {time}",
       "CURRENT_CONTACT": "In this chat",
-      "VIEW_ALL": "View all",
-      "DEALS_TOTAL": "Total value: {value}",
       "SECTIONS": {
-        "CONTACTS": "Contacts ({n})",
         "CONVERSATIONS": "Open conversations ({n})",
         "DEALS": "Open deals ({n})",
-        "EMPTY": "Nothing here yet."
+        "EMPTY": "Nothing here yet.",
+        "MAIN_CONTACT": "Main contact",
+        "NOTES": "Company notes"
+      },
+      "DETAILS": "Details",
+      "VIEW_ALL_COUNT": "View all ({n})",
+      "INFO": {
+        "CRM_ID": "CRM ID"
       }
     }
   },

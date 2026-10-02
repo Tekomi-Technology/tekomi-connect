@@ -30,17 +30,20 @@
         "WEBSITE": "Website",
         "EMPTY": "Chưa có thông tin doanh nghiệp."
       },
-      "CRM_ID": "Mã CRM: {id}",
       "PHONE": "Số điện thoại",
       "CREATED_AT": "Tạo {time}",
       "CURRENT_CONTACT": "Đang chat",
-      "VIEW_ALL": "Xem tất cả",
-      "DEALS_TOTAL": "Tổng giá trị: {value}",
       "SECTIONS": {
-        "CONTACTS": "Người liên hệ ({n})",
         "CONVERSATIONS": "Hội thoại đang mở ({n})",
         "DEALS": "Cơ hội đang mở ({n})",
-        "EMPTY": "Chưa có dữ liệu."
+        "EMPTY": "Chưa có dữ liệu.",
+        "MAIN_CONTACT": "Người liên hệ chính",
+        "NOTES": "Ghi chú doanh nghiệp"
+      },
+      "DETAILS": "Chi tiết",
+      "VIEW_ALL_COUNT": "Xem tất cả ({n})",
+      "INFO": {
+        "CRM_ID": "Mã CRM"
       }
     },
     "ACTIONS": {
