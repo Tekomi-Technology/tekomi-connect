@@ -1578,7 +1578,7 @@ export default {
   }
 
   &.is-focused {
-    @apply border-[#4F46E5] ring-1 ring-[#4F46E5]/20;
+    @apply border-n-brand ring-1 ring-n-brand/20;
   }
 }
 

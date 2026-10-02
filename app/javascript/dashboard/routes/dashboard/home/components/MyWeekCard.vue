@@ -189,7 +189,7 @@ watch(
                 r="15.9"
                 fill="none"
                 stroke-width="3.5"
-                stroke="#4F46E5"
+                class="stroke-n-brand"
                 stroke-linecap="round"
                 :stroke-dasharray="`${resolutionRate ?? 0} 100`"
               />
@@ -261,7 +261,7 @@ watch(
         <polyline
           :points="points"
           fill="none"
-          stroke="#4F46E5"
+          class="stroke-n-brand"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"

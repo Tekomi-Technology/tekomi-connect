@@ -44,7 +44,7 @@ const emailMetaClass = computed(() =>
 
 const varaintBaseMap = {
   [MESSAGE_VARIANTS.AGENT]:
-    'bg-[#3B82F6] text-white shadow-[0_1px_2px_rgba(59,130,246,0.3)] [&_.prose]:text-white [&_.prose_*]:!text-white [&_a]:underline',
+    'bg-n-brand text-white shadow-[0_1px_2px_rgba(0,120,155,0.3)] [&_.prose]:text-white [&_.prose_*]:!text-white [&_a]:underline',
   [MESSAGE_VARIANTS.PRIVATE]:
     'bg-n-solid-amber border border-n-amber-6 text-n-amber-12 shadow-sm [&_.prosemirror-mention-node]:font-semibold',
   [MESSAGE_VARIANTS.USER]:

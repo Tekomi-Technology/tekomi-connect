@@ -201,7 +201,7 @@ const csatPill = computed(() => {
   const delta = Math.round((csat - csatPrev) * 10) / 10;
   return {
     text: `${delta >= 0 ? '+' : ''}${delta}%`,
-    tone: delta >= 0 ? 'text-[#4F46E5]' : 'text-n-ruby-11',
+    tone: delta >= 0 ? 'text-n-brand' : 'text-n-ruby-11',
   };
 });
 
@@ -211,11 +211,11 @@ const cards = computed(() => [
     value: data.value?.open,
     display: data.value?.open == null ? '—' : String(data.value.open),
     icon: 'i-lucide-inbox',
-    tile: 'bg-[#4F46E5]/10 text-[#4F46E5]',
+    tile: 'bg-n-brand/10 text-n-brand',
     pill: openPill.value,
     caption: t('HOME.STATS.LIVE'),
     spark: sparkPoints(data.value?.volumeSpark ?? []),
-    sparkTone: 'text-[#3B82F6]',
+    sparkTone: 'text-n-brand',
   },
   {
     key: 'RESOLVED',
@@ -237,7 +237,7 @@ const cards = computed(() => [
     display:
       data.value?.frtToday == null ? '—' : formatTime(data.value.frtToday),
     icon: 'i-lucide-timer',
-    tile: 'bg-[#3B82F6]/10 text-[#3B82F6]',
+    tile: 'bg-n-brand/10 text-n-brand',
     pill: frtPill.value,
     caption: t('HOME.STATS.VS_YESTERDAY'),
     spark: sparkPoints(data.value?.frtSpark ?? []),
@@ -248,14 +248,14 @@ const cards = computed(() => [
     value: data.value?.csat,
     display: data.value?.csat == null ? '—' : `${data.value.csat}%`,
     icon: 'i-lucide-star',
-    tile: 'bg-[#4F46E5]/10 text-[#4F46E5]',
+    tile: 'bg-n-brand/10 text-n-brand',
     pill: csatPill.value,
     caption:
       data.value?.csatTotal == null
         ? ''
         : t('HOME.STATS.RATINGS', { count: data.value.csatTotal }),
     spark: '',
-    sparkTone: 'text-[#4F46E5]',
+    sparkTone: 'text-n-brand',
   },
 ]);
 

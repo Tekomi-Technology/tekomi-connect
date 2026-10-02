@@ -336,7 +336,7 @@ onMounted(() => {
       </span>
       <router-link
         :to="viewAllRoute"
-        class="font-medium text-[#4F46E5] hover:underline"
+        class="font-medium text-n-brand hover:underline"
       >
         {{ t('HOME.ATTENTION.VIEW_ALL', { count: total }) }}
       </router-link>

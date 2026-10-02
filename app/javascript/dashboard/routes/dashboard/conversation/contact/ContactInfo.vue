@@ -212,7 +212,7 @@ export default {
           :status="contact.availability_status"
           :size="64"
           hide-offline-status
-          class="ring-2 ring-[#4F46E5]/20"
+          class="ring-2 ring-n-brand/20"
         />
       </div>
 

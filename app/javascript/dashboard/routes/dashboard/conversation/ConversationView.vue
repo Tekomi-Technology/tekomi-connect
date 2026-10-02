@@ -93,8 +93,13 @@ export default {
     isConversationListCollapsed() {
       return Boolean(this.uiSettings.is_conversation_list_collapsed);
     },
+    // The expanded layout only spans the full width while no conversation is
+    // open; opening one shrinks the list back to a column beside it.
+    isListExpanded() {
+      return this.isOnExpandedLayout && !this.conversationId;
+    },
     showConversationList() {
-      if (this.isOnExpandedLayout) return !this.conversationId;
+      if (this.isListExpanded) return true;
       return !this.isConversationListCollapsed;
     },
     showMessageView() {
@@ -209,7 +214,7 @@ export default {
 <template>
   <section class="flex relative w-full h-full min-w-0">
     <ConversationListToggle
-      v-if="isConversationListCollapsed && !isOnExpandedLayout"
+      v-if="isConversationListCollapsed && !isListExpanded"
       floating
     />
     <ChatList
@@ -219,13 +224,13 @@ export default {
       :team-id="teamId"
       :conversation-type="conversationType"
       :folders-id="foldersId"
-      :is-on-expanded-layout="isOnExpandedLayout"
+      :is-on-expanded-layout="isListExpanded"
       @conversation-load="onConversationLoad"
     />
     <ConversationBox
       v-if="showMessageView"
       :inbox-id="inboxId"
-      :is-on-expanded-layout="isOnExpandedLayout"
+      :is-on-expanded-layout="isListExpanded"
     >
       <SidepanelSwitch v-if="currentChat.id" />
       <SidePanelToggle v-if="currentChat.id" />

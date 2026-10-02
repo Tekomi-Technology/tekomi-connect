@@ -74,7 +74,7 @@ onMounted(load);
         </p>
       </div>
       <span
-        class="px-2 py-1 text-[11px] font-semibold rounded-lg bg-[#4F46E5]/10 text-[#4F46E5]"
+        class="px-2 py-1 text-[11px] font-semibold rounded-lg bg-n-brand/10 text-n-brand"
       >
         {{ t('HOME.ACCOUNT.ADMIN') }}
       </span>
@@ -107,8 +107,8 @@ onMounted(load);
             class="w-full rounded-t-md"
             :class="
               index === bars.length - 1
-                ? 'bg-[#4F46E5]'
-                : 'bg-[#4F46E5]/25 hover:bg-[#4F46E5]/50'
+                ? 'bg-n-brand'
+                : 'bg-n-brand/25 hover:bg-n-brand/50'
             "
             :style="{ height: `${bar.height}%` }"
             :title="String(bar.value)"
@@ -117,7 +117,7 @@ onMounted(load);
             class="text-[11px]"
             :class="
               index === bars.length - 1
-                ? 'font-bold text-[#4F46E5]'
+                ? 'font-bold text-n-brand'
                 : 'text-n-slate-11'
             "
           >
@@ -129,11 +129,11 @@ onMounted(load);
         class="mt-4 pt-4 border-t border-n-weak grid grid-cols-2 gap-2 text-[13px]"
       >
         <p class="flex items-center gap-2 text-n-slate-11">
-          <span class="rounded-full bg-[#4F46E5] size-2 shrink-0" />
+          <span class="rounded-full bg-n-brand size-2 shrink-0" />
           {{ t('HOME.ACCOUNT.OPEN', { count: live.open ?? 0 }) }}
         </p>
         <p class="flex items-center gap-2 text-n-slate-11">
-          <span class="rounded-full bg-[#3B82F6] size-2 shrink-0" />
+          <span class="rounded-full bg-n-brand/40 size-2 shrink-0" />
           {{ t('HOME.ACCOUNT.PENDING', { count: live.pending ?? 0 }) }}
         </p>
         <p class="flex items-center gap-2 text-n-slate-10">

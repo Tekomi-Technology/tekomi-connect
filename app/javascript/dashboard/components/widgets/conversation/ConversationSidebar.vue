@@ -44,13 +44,13 @@ const contactId = computed(() => props.currentChat.meta?.sender?.id);
 const contact = computed(() => contactGetter.value(contactId.value));
 const companyId = computed(() => contact.value?.company_id);
 
-const showCompanyTab = computed(
-  () =>
-    Boolean(companyId.value) &&
-    isFeatureEnabledonAccount.value(
-      currentAccountId.value,
-      FEATURE_FLAGS.COMPANIES
-    )
+// Both tabs stay visible for every conversation; contacts without a company
+// get an empty state in the company tab instead of a missing tab bar.
+const showCompanyTab = computed(() =>
+  isFeatureEnabledonAccount.value(
+    currentAccountId.value,
+    FEATURE_FLAGS.COMPANIES
+  )
 );
 
 const activePanel = ref('contact');
@@ -128,11 +128,19 @@ const closeContactPanel = () => {
         />
       </div>
       <div class="flex flex-1 min-h-0 overflow-auto">
-        <CompanyPanel
-          v-if="isCompanyPanelActive"
-          :company-id="companyId"
-          :contact="contact"
-        />
+        <template v-if="isCompanyPanelActive">
+          <CompanyPanel
+            v-if="companyId"
+            :company-id="companyId"
+            :contact="contact"
+          />
+          <p
+            v-else
+            class="w-full px-4 py-8 text-sm text-center text-n-slate-11"
+          >
+            {{ $t('CONVERSATION.SIDEBAR.NO_COMPANY') }}
+          </p>
+        </template>
         <ContactPanel
           v-show="!isCompanyPanelActive"
           :conversation-id="currentChat.id"

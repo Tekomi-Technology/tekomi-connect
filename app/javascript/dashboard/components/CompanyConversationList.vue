@@ -100,6 +100,27 @@ const fetchCompanyConversations = async companyId => {
   }
 };
 
+// Only companies that actually have conversations need a request; empty ones
+// show their "no conversations" note straight away.
+const loadExpandedCompanies = () => {
+  expandedIds.value.forEach(companyId => {
+    if (
+      companyCount(companyId) &&
+      !loadedPages.value[companyId] &&
+      !loadingIds.value.has(companyId)
+    ) {
+      fetchCompanyConversations(companyId);
+    }
+  });
+};
+
+// Company mode opens with every group expanded so conversations are visible
+// at a glance; agents can still collapse groups by hand.
+const expandAllCompanies = () => {
+  expandedIds.value = new Set(companies.value.map(company => company.id));
+  loadExpandedCompanies();
+};
+
 const toggleCompany = companyId => {
   if (expandedIds.value.has(companyId)) {
     expandedIds.value.delete(companyId);
@@ -120,11 +141,16 @@ watch(
   ],
   () => {
     loadedPages.value = {};
-    expandedIds.value.forEach(fetchCompanyConversations);
+    loadExpandedCompanies();
   }
 );
 
-onMounted(fetchCompanies);
+watch(() => conversationStats.value.companyCounts, loadExpandedCompanies);
+
+onMounted(async () => {
+  await fetchCompanies();
+  expandAllCompanies();
+});
 </script>
 
 <template>

@@ -114,7 +114,7 @@ watch(
     :class="[
       compact ? 'p-3' : 'p-4',
       {
-        'bg-[#4F46E5]/[0.05] hover:bg-[#4F46E5]/[0.07]': isActiveChat,
+        'bg-n-brand/[0.05] hover:bg-n-brand/[0.07]': isActiveChat,
         'selected bg-n-slate-2': selected,
         'bg-n-amber-3 hover:bg-n-amber-4':
           isVip && chat.waiting_since && !isActiveChat && !selected,
@@ -125,7 +125,7 @@ watch(
   >
     <span
       v-if="isActiveChat"
-      class="absolute left-0 top-0 bottom-0 w-1 bg-[#4F46E5] rounded-r"
+      class="absolute left-0 top-0 bottom-0 w-1 bg-n-brand rounded-r"
     />
     <div
       class="relative shrink-0"
@@ -163,7 +163,7 @@ watch(
           </h4>
           <span
             v-if="hasUnread"
-            class="rounded-full bg-[#4F46E5] size-2 shrink-0"
+            class="rounded-full bg-n-brand size-2 shrink-0"
             :title="String(unreadCount)"
           />
         </div>
