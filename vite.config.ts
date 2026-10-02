@@ -6,6 +6,11 @@ import yaml from '@rollup/plugin-yaml';
 
 export default defineConfig({
   plugins: [ruby(), vue(vueOptions), yaml()],
+  // Keep the production build under the server's Node heap limit.
+  build: {
+    reportCompressedSize: false,
+    rollupOptions: { maxParallelFileOps: 2 },
+  },
   css: {
     preprocessorOptions: {
       scss: {
