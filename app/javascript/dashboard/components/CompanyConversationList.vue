@@ -8,7 +8,10 @@ import CompanyAPI from 'dashboard/api/companies';
 import ConversationItem from './ConversationItem.vue';
 import Spinner from 'dashboard/components-next/spinner/Spinner.vue';
 import Icon from 'dashboard/components-next/icon/Icon.vue';
-import { sortComparator } from 'dashboard/store/modules/conversations/helpers';
+import {
+  sortComparator,
+  isVipAwaitingReply,
+} from 'dashboard/store/modules/conversations/helpers';
 import wootConstants from 'dashboard/constants/globals';
 
 const props = defineProps({
@@ -45,11 +48,13 @@ const expandedIds = ref(new Set());
 const loadedPages = ref({});
 const loadingIds = ref(new Set());
 
+// Conversations of contacts without a company are listed under this key.
+const NO_COMPANY_KEY = 'none';
+
 const conversationsByCompany = computed(() => {
   const groups = {};
   allChatList.value(props.filters).forEach(conversation => {
-    const companyId = conversation.meta?.sender?.company_id;
-    if (!companyId) return;
+    const companyId = conversation.meta?.sender?.company_id || NO_COMPANY_KEY;
     groups[companyId] = groups[companyId] || [];
     groups[companyId].push(conversation);
   });
@@ -59,7 +64,39 @@ const conversationsByCompany = computed(() => {
   return groups;
 });
 
-const companyCount = id => conversationStats.value.companyCounts[id] || 0;
+const companyCount = id =>
+  id === NO_COMPANY_KEY
+    ? conversationStats.value.noCompanyCount
+    : conversationStats.value.companyCounts[id] || 0;
+
+// Loaded conversations react to new messages right away; the server meta only
+// covers companies whose conversations are not loaded yet, as it refreshes
+// with a delay.
+const hasStarredWaiting = id => {
+  if (loadedPages.value[id]) {
+    return (conversationsByCompany.value[id] || []).some(isVipAwaitingReply);
+  }
+  return conversationStats.value.companyStarredWaitingIds.includes(id);
+};
+
+// Starred companies with a starred contact waiting come first, then other
+// companies with a starred contact waiting; each tier keeps the original order.
+const companyTier = company => {
+  if (!hasStarredWaiting(company.id)) return 2;
+  return company.vip ? 0 : 1;
+};
+
+const companyGroups = computed(() => [
+  ...companies.value
+    .map((company, index) => ({ company, index, tier: companyTier(company) }))
+    .sort((a, b) => a.tier - b.tier || a.index - b.index)
+    .map(({ company, tier }) => ({ ...company, isPriority: tier < 2 })),
+  { id: NO_COMPANY_KEY, name: t('CHAT_LIST.COMPANY_LIST.NO_COMPANY') },
+]);
+
+const priorityCompanyIds = computed(() =>
+  companyGroups.value.filter(group => group.isPriority).map(group => group.id)
+);
 
 const canLoadMore = id =>
   (conversationsByCompany.value[id]?.length || 0) < companyCount(id);
@@ -69,6 +106,8 @@ const fetchCompanies = async () => {
     const all = [];
     let page = 1;
     for (;;) {
+      // Pages are fetched one by one until the total is reached.
+      // eslint-disable-next-line no-await-in-loop
       const { data } = await CompanyAPI.get({ page });
       all.push(...data.payload);
       if (!data.payload.length || all.length >= data.meta.total_count) break;
@@ -117,11 +156,15 @@ const loadExpandedCompanies = () => {
 // Company mode opens with every group expanded so conversations are visible
 // at a glance; agents can still collapse groups by hand.
 const expandAllCompanies = () => {
-  expandedIds.value = new Set(companies.value.map(company => company.id));
+  expandedIds.value = new Set(companyGroups.value.map(group => group.id));
   loadExpandedCompanies();
 };
 
+const isExpanded = companyId =>
+  expandedIds.value.has(companyId) && companyCount(companyId) > 0;
+
 const toggleCompany = companyId => {
+  if (!companyCount(companyId)) return;
   if (expandedIds.value.has(companyId)) {
     expandedIds.value.delete(companyId);
     return;
@@ -145,7 +188,22 @@ watch(
   }
 );
 
-watch(() => conversationStats.value.companyCounts, loadExpandedCompanies);
+watch(
+  () => [
+    conversationStats.value.companyCounts,
+    conversationStats.value.noCompanyCount,
+  ],
+  loadExpandedCompanies
+);
+
+// A company that just got a starred contact waiting opens even if it was
+// collapsed by hand.
+watch(priorityCompanyIds, (ids, previousIds = []) => {
+  ids
+    .filter(id => !previousIds.includes(id))
+    .forEach(id => expandedIds.value.add(id));
+  loadExpandedCompanies();
+});
 
 onMounted(async () => {
   await fetchCompanies();
@@ -169,30 +227,49 @@ onMounted(async () => {
       {{ $t('CHAT_LIST.COMPANY_LIST.EMPTY') }}
     </p>
     <div
-      v-for="company in companies"
+      v-for="company in companyGroups"
       :key="company.id"
       class="border-b border-n-weak"
     >
       <button
-        class="flex items-center w-full gap-2 px-4 py-3 text-left hover:bg-n-alpha-1"
+        class="flex items-center w-full gap-2 px-4 py-3 text-left"
+        :class="
+          companyCount(company.id)
+            ? 'hover:bg-n-alpha-1'
+            : 'opacity-60 cursor-default'
+        "
+        :disabled="!companyCount(company.id)"
         @click="toggleCompany(company.id)"
       >
         <Icon
           :icon="
-            expandedIds.has(company.id)
+            isExpanded(company.id)
               ? 'i-lucide-chevron-down'
               : 'i-lucide-chevron-right'
           "
-          class="size-4 text-n-slate-11 flex-shrink-0"
+          class="flex-shrink-0 size-4 text-n-slate-11"
+          :class="{ invisible: !companyCount(company.id) }"
         />
-        <span class="text-sm font-medium truncate text-n-slate-12">
+        <span
+          class="text-sm font-medium truncate"
+          :class="
+            company.id === NO_COMPANY_KEY
+              ? 'text-n-slate-11'
+              : 'text-n-slate-12'
+          "
+        >
           {{ company.name }}
         </span>
+        <span
+          v-if="company.vip"
+          v-tooltip.top="$t('COMPANIES.STAR.BADGE')"
+          class="flex-shrink-0 i-ph-star-fill size-3.5 text-n-amber-9"
+        />
         <span class="text-xs text-n-slate-11 ms-auto">
           {{ companyCount(company.id) }}
         </span>
       </button>
-      <div v-if="expandedIds.has(company.id)" class="border-t border-n-weak">
+      <div v-if="isExpanded(company.id)" class="border-t border-n-weak">
         <ConversationItem
           v-for="conversation in conversationsByCompany[company.id] || []"
           :key="conversation.id"
@@ -203,10 +280,7 @@ onMounted(async () => {
           show-assignee
           :show-expanded="showExpandedCards"
         />
-        <div
-          v-if="loadingIds.has(company.id)"
-          class="flex justify-center my-3"
-        >
+        <div v-if="loadingIds.has(company.id)" class="flex justify-center my-3">
           <Spinner class="text-n-brand" />
         </div>
         <p

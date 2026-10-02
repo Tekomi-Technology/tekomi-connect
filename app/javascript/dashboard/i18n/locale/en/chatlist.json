@@ -19,7 +19,8 @@
       "EMPTY": "No companies yet",
       "NO_CONVERSATIONS": "No conversations for this company",
       "LOAD_MORE": "Load more",
-      "FETCH_ERROR": "Could not load companies"
+      "FETCH_ERROR": "Could not load companies",
+      "NO_COMPANY": "No company"
     },
     "ASSIGNEE_TYPE_TABS": {
       "me": "Mine",

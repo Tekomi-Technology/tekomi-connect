@@ -8,6 +8,8 @@ const state = {
   unAssignedCount: 0,
   allCount: 0,
   companyCounts: {},
+  companyStarredWaitingIds: [],
+  noCompanyCount: 0,
 };
 
 export const getters = {
@@ -69,6 +71,8 @@ export const mutations = {
       unassigned_count: unAssignedCount,
       all_count: allCount,
       company_counts: companyCounts = {},
+      company_starred_waiting_ids: companyStarredWaitingIds = [],
+      no_company_count: noCompanyCount = 0,
     } = {}
   ) {
     $state.mineCount = mineCount;
@@ -76,6 +80,8 @@ export const mutations = {
     $state.allCount = allCount;
     $state.unAssignedCount = unAssignedCount;
     $state.companyCounts = companyCounts;
+    $state.companyStarredWaitingIds = companyStarredWaitingIds;
+    $state.noCompanyCount = noCompanyCount;
     $state.updatedOn = new Date();
   },
 };

@@ -21,7 +21,8 @@
       "EMPTY": "Chưa có doanh nghiệp nào",
       "NO_CONVERSATIONS": "Doanh nghiệp này chưa có hội thoại nào",
       "LOAD_MORE": "Xem thêm",
-      "FETCH_ERROR": "Không tải được danh sách doanh nghiệp"
+      "FETCH_ERROR": "Không tải được danh sách doanh nghiệp",
+      "NO_COMPANY": "Chưa thuộc doanh nghiệp"
     },
     "ASSIGNEE_TYPE_TABS": {
       "me": "Của tôi",
