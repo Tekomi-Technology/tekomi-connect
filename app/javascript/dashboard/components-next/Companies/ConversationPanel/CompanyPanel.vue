@@ -1,24 +1,17 @@
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { useMapGetter } from 'dashboard/composables/store';
 import { useCompaniesStore } from 'dashboard/stores/companies';
-import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 
 import Avatar from 'dashboard/components-next/avatar/Avatar.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
+import Icon from 'dashboard/components-next/icon/Icon.vue';
 import Spinner from 'dashboard/components-next/spinner/Spinner.vue';
-import TabBar from 'dashboard/components-next/tabbar/TabBar.vue';
-import CompanyHistorySidebar from 'dashboard/components-next/Companies/CompanyDetail/CompanyHistorySidebar.vue';
-import CompanyPanelContacts from './CompanyPanelContacts.vue';
-import CompanyPanelDeals from './CompanyPanelDeals.vue';
-import CompanyPanelFiles from './CompanyPanelFiles.vue';
-import CompanyPanelOverview from './CompanyPanelOverview.vue';
 
 const props = defineProps({
-  companyId: { type: [Number, String], required: true },
-  contact: { type: Object, default: () => ({}) },
+  companyId: { type: [Number, String], default: null },
 });
 
 const { t } = useI18n();
@@ -26,76 +19,46 @@ const route = useRoute();
 const router = useRouter();
 const companiesStore = useCompaniesStore();
 
-const accountId = useMapGetter('getCurrentAccountId');
-const isFeatureEnabledonAccount = useMapGetter(
-  'accounts/isFeatureEnabledonAccount'
-);
-const isCrmDealsEnabled = computed(() =>
-  isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_DEALS)
-);
-
-const activeTab = ref('overview');
+const companyAttributes = useMapGetter('attributes/getCompanyAttributes');
 
 const company = computed(() =>
   companiesStore.getRecord(Number(props.companyId))
 );
-const uiFlags = computed(() => companiesStore.getUIFlags);
-const contactsMeta = computed(() => companiesStore.companyContactsMeta);
-
 const hasCompany = computed(() => Boolean(company.value?.id));
 const isLoadingCompany = computed(
-  () => uiFlags.value.fetchingItem && !hasCompany.value
+  () => companiesStore.getUIFlags.fetchingItem && !hasCompany.value
 );
 
-const tabOptions = computed(() =>
-  [
-    {
-      value: 'overview',
-      label: t('COMPANIES.CONVERSATION_PANEL.TABS.OVERVIEW'),
-    },
-    {
-      value: 'contacts',
-      label: t('COMPANIES.CONVERSATION_PANEL.TABS.CONTACTS'),
-      count: Number(contactsMeta.value.totalCount || 0),
-    },
-    {
-      value: 'conversations',
-      label: t('COMPANIES.CONVERSATION_PANEL.TABS.CONVERSATIONS'),
-      count: companiesStore.companyConversations.length,
-    },
-    ...(isCrmDealsEnabled.value
-      ? [
-          {
-            value: 'deals',
-            label: t('COMPANIES.CONVERSATION_PANEL.TABS.DEALS'),
-            count: companiesStore.companyDeals.length,
-          },
-        ]
-      : []),
-    { value: 'files', label: t('COMPANIES.CONVERSATION_PANEL.TABS.FILES') },
-  ].map(tab => ({ ...tab, count: tab.count || null }))
+const websiteUrl = computed(() => {
+  const domain = company.value?.domain;
+  if (!domain) return '';
+  return /^https?:\/\//.test(domain) ? domain : `https://${domain}`;
+});
+
+const attributeRows = computed(() => {
+  const values = company.value?.customAttributes || {};
+  const definitions = companyAttributes.value || [];
+  const labelFor = key =>
+    definitions.find(attribute => attribute.attributeKey === key)
+      ?.attributeDisplayName || key;
+
+  return Object.entries(values)
+    .filter(
+      ([, value]) => value !== '' && value !== null && value !== undefined
+    )
+    .map(([key, value]) => ({
+      key,
+      label: labelFor(key),
+      value: Array.isArray(value) ? value.join(', ') : String(value),
+    }));
+});
+
+const hasProfile = computed(
+  () =>
+    Boolean(company.value?.description) ||
+    Boolean(websiteUrl.value) ||
+    attributeRows.value.length > 0
 );
-
-const activeTabIndex = computed(() =>
-  tabOptions.value.findIndex(tab => tab.value === activeTab.value)
-);
-
-const loadTab = tab => {
-  const id = Number(props.companyId);
-  if (!id) return;
-  if (tab === 'overview') companiesStore.getCompanyNotes(id);
-  if (tab === 'contacts') companiesStore.getCompanyContacts(id);
-  if (tab === 'conversations') companiesStore.getCompanyConversations(id);
-  if (tab === 'deals') companiesStore.getCompanyDeals(id);
-  if (tab === 'files') companiesStore.getCompanyAttachments(id);
-};
-
-const goToTab = tab => {
-  activeTab.value = tab;
-  loadTab(tab);
-};
-
-const handleTabChange = tab => goToTab(tab.value);
 
 const openCompany = () => {
   router.push({
@@ -106,15 +69,8 @@ const openCompany = () => {
 
 watch(
   () => Number(props.companyId),
-  async id => {
-    companiesStore.resetCompanyDetailState();
-    activeTab.value = 'overview';
-    if (!id) return;
-    await Promise.allSettled([
-      companiesStore.show(id),
-      companiesStore.getCompanyContacts(id),
-      companiesStore.getCompanyNotes(id),
-    ]);
+  id => {
+    if (id) companiesStore.show(id);
   },
   { immediate: true }
 );
@@ -130,7 +86,7 @@ watch(
     </div>
 
     <template v-else-if="hasCompany">
-      <div class="flex items-start gap-3 px-4 py-3">
+      <div class="flex items-start gap-3 px-4 py-3 border-b border-n-weak">
         <Avatar
           :name="company.name || ''"
           :src="company.avatarUrl"
@@ -160,46 +116,53 @@ watch(
         />
       </div>
 
-      <div class="px-4 pb-3">
-        <TabBar
-          :tabs="tabOptions"
-          :initial-active-tab="activeTabIndex"
-          @tab-changed="handleTabChange"
-        />
-      </div>
-
-      <CompanyPanelOverview
-        v-if="activeTab === 'overview'"
-        :company="company"
-        :contact="contact"
-        :notes="companiesStore.companyNotes"
-        :is-loading-notes="uiFlags.fetchingNotes"
-        @view-contacts="goToTab('contacts')"
-      />
-      <CompanyPanelContacts
-        v-else-if="activeTab === 'contacts'"
-        :contacts="companiesStore.companyContacts"
-        :is-loading="uiFlags.fetchingContacts"
-      />
-      <CompanyHistorySidebar
-        v-else-if="activeTab === 'conversations'"
-        :conversations="companiesStore.companyConversations"
-        :is-loading="uiFlags.fetchingConversations"
-      />
-      <CompanyPanelDeals
-        v-else-if="activeTab === 'deals'"
-        :deals="companiesStore.companyDeals"
-        :is-loading="uiFlags.fetchingDeals"
-      />
-      <CompanyPanelFiles
-        v-else-if="activeTab === 'files'"
-        :attachments="companiesStore.companyAttachments"
-        :is-loading="uiFlags.fetchingAttachments"
-      />
+      <section class="flex flex-col gap-3 px-4 py-4">
+        <h4 class="text-sm font-medium text-n-slate-12">
+          {{ t('COMPANIES.CONVERSATION_PANEL.PROFILE.TITLE') }}
+        </h4>
+        <p v-if="company.description" class="mb-0 text-sm text-n-slate-11">
+          {{ company.description }}
+        </p>
+        <dl v-if="hasProfile" class="flex flex-col gap-3 m-0">
+          <div v-if="websiteUrl" class="flex flex-col gap-0.5 text-sm">
+            <dt class="text-xs text-n-slate-11">
+              {{ t('COMPANIES.CONVERSATION_PANEL.PROFILE.WEBSITE') }}
+            </dt>
+            <dd class="m-0 min-w-0">
+              <a
+                :href="websiteUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1 break-all text-n-blue-text"
+              >
+                {{ company.domain }}
+                <Icon icon="i-lucide-external-link" class="size-3 shrink-0" />
+              </a>
+            </dd>
+          </div>
+          <div
+            v-for="row in attributeRows"
+            :key="row.key"
+            class="flex flex-col gap-0.5 text-sm"
+          >
+            <dt class="text-xs text-n-slate-11">{{ row.label }}</dt>
+            <dd class="m-0 min-w-0 break-words text-n-slate-12">
+              {{ row.value }}
+            </dd>
+          </div>
+        </dl>
+        <p v-else class="mb-0 text-sm text-n-slate-11">
+          {{ t('COMPANIES.CONVERSATION_PANEL.PROFILE.EMPTY') }}
+        </p>
+      </section>
     </template>
 
     <p v-else class="px-4 py-8 text-sm text-center text-n-slate-11">
-      {{ t('COMPANIES.CONVERSATION_PANEL.EMPTY') }}
+      {{
+        companyId
+          ? t('COMPANIES.CONVERSATION_PANEL.EMPTY')
+          : t('CONVERSATION.SIDEBAR.NO_COMPANY')
+      }}
     </p>
   </div>
 </template>

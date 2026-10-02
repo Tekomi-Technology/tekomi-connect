@@ -15,6 +15,7 @@ import CmdBarConversationSnooze from 'dashboard/routes/dashboard/commands/CmdBar
 import { emitter } from 'shared/helpers/mitt';
 import SidepanelSwitch from 'dashboard/components-next/Conversation/SidepanelSwitch.vue';
 import SidePanelToggle from 'dashboard/components-next/Conversation/SidePanelToggle.vue';
+import SidePanelTransition from 'dashboard/components-next/Conversation/SidePanelTransition.vue';
 import ConversationListToggle from 'dashboard/components-next/Conversation/ConversationListToggle.vue';
 import ConversationSidebar from 'dashboard/components/widgets/conversation/ConversationSidebar.vue';
 import ConversationAnalysisPanel from 'dashboard/components-next/ConversationAnalysis/ConversationAnalysisPanel.vue';
@@ -26,6 +27,7 @@ export default {
     CmdBarConversationSnooze,
     SidepanelSwitch,
     SidePanelToggle,
+    SidePanelTransition,
     ConversationListToggle,
     ConversationSidebar,
     ConversationAnalysisPanel,
@@ -235,7 +237,12 @@ export default {
       <SidepanelSwitch v-if="currentChat.id" />
       <SidePanelToggle v-if="currentChat.id" />
     </ConversationBox>
-    <ConversationSidebar v-if="shouldShowSidebar" :current-chat="currentChat" />
+    <SidePanelTransition>
+      <ConversationSidebar
+        v-if="shouldShowSidebar"
+        :current-chat="currentChat"
+      />
+    </SidePanelTransition>
     <ConversationAnalysisPanel
       v-if="currentChat.id"
       :conversation-id="currentChat.id"

@@ -25,33 +25,10 @@
     "CONVERSATION_PANEL": {
       "EMPTY": "Doanh nghiệp này không còn tồn tại.",
       "OPEN_COMPANY": "Mở trang doanh nghiệp",
-      "TABS": {
-        "OVERVIEW": "Tổng quan",
-        "CONTACTS": "Liên hệ",
-        "CONVERSATIONS": "Hội thoại",
-        "DEALS": "Cơ hội",
-        "FILES": "Tệp"
-      },
       "PROFILE": {
         "TITLE": "Thông tin doanh nghiệp",
         "WEBSITE": "Website",
         "EMPTY": "Chưa có thông tin doanh nghiệp."
-      },
-      "CONTACT": {
-        "TITLE": "Người liên hệ",
-        "VIEW_ALL": "Xem tất cả"
-      },
-      "NOTES": {
-        "TITLE": "Ghi chú doanh nghiệp"
-      },
-      "CONTACTS": {
-        "EMPTY": "Doanh nghiệp này chưa có liên hệ nào."
-      },
-      "DEALS": {
-        "EMPTY": "Doanh nghiệp này chưa có cơ hội nào."
-      },
-      "FILES": {
-        "EMPTY": "Chưa có tệp nào được chia sẻ với doanh nghiệp này."
       }
     },
     "ACTIONS": {

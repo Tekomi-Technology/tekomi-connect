@@ -1,11 +1,14 @@
 <script setup>
-import { computed, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
+import { useI18n } from 'vue-i18n';
 import Button from 'dashboard/components-next/button/Button.vue';
 import ContactPanel from 'dashboard/routes/dashboard/conversation/ContactPanel.vue';
 import CompanyPanel from 'dashboard/components-next/Companies/ConversationPanel/CompanyPanel.vue';
 import SidePanelShell from 'dashboard/components-next/Conversation/SidePanelShell.vue';
+import SidebarActionsHeader from 'dashboard/components-next/SidebarActionsHeader.vue';
 import { useUISettings } from 'dashboard/composables/useUISettings';
-import { useMapGetter } from 'dashboard/composables/store';
+import { useConversationSidePanel } from 'dashboard/composables/useConversationSidePanel';
+import { useMapGetter, useStore } from 'dashboard/composables/store';
 import { useWindowSize } from '@vueuse/core';
 import { vOnClickOutside } from '@vueuse/components';
 import wootConstants from 'dashboard/constants/globals';
@@ -18,17 +21,18 @@ const props = defineProps({
   },
 });
 
-const { uiSettings, updateUISettings } = useUISettings();
+const PANEL_TITLES = {
+  contact: 'CONVERSATION.SIDEBAR.CONTACT_INFO',
+  actions: 'CONVERSATION.SIDEBAR.ACTIONS',
+  history: 'CONVERSATION.SIDEBAR.HISTORY',
+  sales: 'CONVERSATION.SIDEBAR.SALES',
+};
+
+const { t } = useI18n();
+const store = useStore();
+const { updateUISettings } = useUISettings();
+const { activePanel } = useConversationSidePanel();
 const { width: windowWidth } = useWindowSize();
-
-const activeTab = computed(() => {
-  const { is_contact_sidebar_open: isContactSidebarOpen } = uiSettings.value;
-
-  if (isContactSidebarOpen) {
-    return 0;
-  }
-  return null;
-});
 
 const isSmallScreen = computed(
   () => windowWidth.value < wootConstants.SMALL_SCREEN_BREAKPOINT
@@ -53,30 +57,51 @@ const showCompanyTab = computed(() =>
   )
 );
 
-const activePanel = ref('contact');
+const contactTab = ref('contact');
 
-const isCompanyPanelActive = computed(
-  () => showCompanyTab.value && activePanel.value === 'company'
+const showContactTabs = computed(
+  () => activePanel.value === 'contact' && showCompanyTab.value
 );
 
-watch(showCompanyTab, canShowCompany => {
-  if (!canShowCompany) activePanel.value = 'contact';
+const isCompanyPanelActive = computed(
+  () => showContactTabs.value && contactTab.value === 'company'
+);
+
+// Shared by every panel, so it is loaded once here instead of per panel.
+watch(
+  contactId,
+  id => {
+    if (id) store.dispatch('contacts/show', { id });
+  },
+  { immediate: true }
+);
+
+onMounted(() => {
+  store.dispatch('attributes/get', 0);
+  store.dispatch('integrations/get', 'linear');
 });
 
-const closeContactPanel = () => {
-  if (isSmallScreen.value && uiSettings.value?.is_contact_sidebar_open) {
-    updateUISettings({
-      is_contact_sidebar_open: false,
-      is_copilot_panel_open: false,
-    });
-  }
+const scrollContainer = ref(null);
+const resetScroll = () => {
+  scrollContainer.value.scrollTop = 0;
+};
+
+const closePanel = () => {
+  updateUISettings({
+    is_contact_sidebar_open: false,
+    is_copilot_panel_open: false,
+  });
+};
+
+const closeOnSmallScreen = () => {
+  if (isSmallScreen.value) closePanel();
 };
 </script>
 
 <template>
   <SidePanelShell
     v-on-click-outside="[
-      () => closeContactPanel(),
+      closeOnSmallScreen,
       {
         ignore: [
           'dialog.ProseMirror-prompt-backdrop',
@@ -86,67 +111,69 @@ const closeContactPanel = () => {
       },
     ]"
     class="flex"
-    :class="[
-      {
-        'md:flex': activeTab === 0,
-        'md:hidden': activeTab !== 0,
-      },
-    ]"
   >
-    <div v-show="activeTab === 0" class="flex flex-col flex-1 min-h-0">
-      <div
-        v-if="showCompanyTab || isSmallScreen"
-        class="flex flex-shrink-0 items-center gap-1 px-3 pt-2"
-        :class="{ 'border-b border-n-weak': showCompanyTab }"
+    <div
+      v-if="showContactTabs"
+      class="flex items-end flex-shrink-0 h-12 gap-1 px-3 border-b border-n-weak"
+    >
+      <button
+        v-for="tab in ['contact', 'company']"
+        :key="tab"
+        type="button"
+        class="flex-1 pb-2 -mb-px text-sm font-medium border-b-2 transition-colors duration-200"
+        :class="
+          contactTab === tab
+            ? 'text-n-blue-text border-n-brand'
+            : 'text-n-slate-11 border-transparent hover:text-n-slate-12'
+        "
+        @click="contactTab = tab"
       >
-        <button
-          v-for="panel in showCompanyTab ? ['contact', 'company'] : []"
-          :key="panel"
-          type="button"
-          class="flex-1 pb-2 -mb-px text-sm font-medium border-b-2"
-          :class="
-            activePanel === panel
-              ? 'text-n-blue-text border-n-brand'
-              : 'text-n-slate-11 border-transparent hover:text-n-slate-12'
-          "
-          @click="activePanel = panel"
-        >
-          {{
-            panel === 'contact'
-              ? $t('CONVERSATION.SIDEBAR.CONTACT')
-              : $t('CONVERSATION.SIDEBAR.COMPANY')
-          }}
-        </button>
-        <Button
-          v-tooltip="$t('GENERAL.CLOSE')"
-          icon="i-lucide-x"
-          slate
-          ghost
-          xs
-          class="mb-1 md:hidden ms-auto"
-          @click="closeContactPanel"
-        />
-      </div>
-      <div class="flex flex-1 min-h-0 overflow-auto">
-        <template v-if="isCompanyPanelActive">
+        {{
+          tab === 'contact'
+            ? t('CONVERSATION.SIDEBAR.CONTACT')
+            : t('CONVERSATION.SIDEBAR.COMPANY')
+        }}
+      </button>
+      <Button
+        v-tooltip="t('GENERAL.CLOSE')"
+        icon="i-lucide-x"
+        slate
+        ghost
+        xs
+        class="self-center md:hidden"
+        @click="closePanel"
+      />
+    </div>
+    <SidebarActionsHeader
+      v-else
+      class="flex-shrink-0"
+      :title="t(PANEL_TITLES[activePanel])"
+      @close="closePanel"
+    />
+    <div ref="scrollContainer" class="flex flex-1 min-h-0 overflow-y-auto">
+      <Transition
+        mode="out-in"
+        enter-active-class="transition duration-200 ease-out motion-reduce:transition-none"
+        leave-active-class="transition duration-100 ease-in motion-reduce:transition-none"
+        enter-from-class="opacity-0 translate-y-1"
+        leave-to-class="opacity-0"
+        @before-enter="resetScroll"
+      >
+        <KeepAlive>
           <CompanyPanel
-            v-if="companyId"
+            v-if="isCompanyPanelActive"
+            key="company"
             :company-id="companyId"
-            :contact="contact"
           />
-          <p
+          <ContactPanel
             v-else
-            class="w-full px-4 py-8 text-sm text-center text-n-slate-11"
-          >
-            {{ $t('CONVERSATION.SIDEBAR.NO_COMPANY') }}
-          </p>
-        </template>
-        <ContactPanel
-          v-show="!isCompanyPanelActive"
-          :conversation-id="currentChat.id"
-          :inbox-id="currentChat.inbox_id"
-        />
-      </div>
+            :key="activePanel"
+            :panel="activePanel"
+            :conversation-id="currentChat.id"
+            :inbox-id="currentChat.inbox_id"
+          />
+        </KeepAlive>
+      </Transition>
     </div>
   </SidePanelShell>
 </template>

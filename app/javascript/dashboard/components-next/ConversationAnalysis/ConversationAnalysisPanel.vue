@@ -12,10 +12,12 @@ import wootConstants from 'dashboard/constants/globals';
 import { dynamicTime } from 'shared/helpers/timeHelper';
 import ConversationAnalysesAPI from 'dashboard/api/conversationAnalyses';
 import SidePanelShell from 'dashboard/components-next/Conversation/SidePanelShell.vue';
+import SidePanelTransition from 'dashboard/components-next/Conversation/SidePanelTransition.vue';
 import SidebarActionsHeader from 'dashboard/components-next/SidebarActionsHeader.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 import Spinner from 'dashboard/components-next/spinner/Spinner.vue';
 import ConversationAnalysisResult from './ConversationAnalysisResult.vue';
+import ContactInsights from './ContactInsights.vue';
 
 const props = defineProps({
   conversationId: {
@@ -32,6 +34,8 @@ const { requestedConversationId, clearRequest, markAnalyzed } =
   useConversationAnalysis();
 
 const currentAccountId = useMapGetter('getCurrentAccountId');
+const currentChat = useMapGetter('getSelectedChat');
+const contactId = computed(() => currentChat.value.meta?.sender?.id);
 const isFeatureEnabledonAccount = useMapGetter(
   'accounts/isFeatureEnabledonAccount'
 );
@@ -214,75 +218,86 @@ const onHeaderClick = key => {
 </script>
 
 <template>
-  <SidePanelShell
-    v-if="isOpen"
-    v-on-click-outside="[
-      closeOnSmallScreen,
-      {
-        ignore: [
-          'dialog.ProseMirror-prompt-backdrop',
-          '[data-popover-content]',
-          '[data-popover-backdrop]',
-        ],
-      },
-    ]"
-    class="flex"
-  >
-    <div class="flex flex-col w-full h-full">
-      <SidebarActionsHeader
-        :title="t('CONVERSATION_ANALYSIS.TITLE')"
-        :buttons="headerButtons"
-        @click="onHeaderClick"
-        @close="closePanel"
-      />
-      <div class="flex-1 overflow-y-auto">
-        <div
-          v-if="isLoading || isAnalyzing"
-          class="flex flex-col items-center gap-3 px-4 py-10 text-center"
-        >
-          <Spinner class="text-n-brand" />
-          <span v-if="isAnalyzing" class="text-sm text-n-slate-11">
-            {{ t('CONVERSATION_ANALYSIS.ANALYZING') }}
-          </span>
-        </div>
-        <template v-else>
-          <p
-            v-if="errorMessage"
-            class="px-3 py-2 mx-4 mt-4 text-sm rounded-lg bg-n-ruby-3 text-n-ruby-11"
-          >
-            {{ errorMessage }}
-          </p>
-          <template v-if="analysis">
-            <ConversationAnalysisResult
-              :analysis="analysis"
-              :is-generating-care="isGeneratingCare"
-              @generate-care="generateCare"
-            />
-            <p class="px-4 pb-6 text-xs text-n-slate-10">
-              {{
-                t('CONVERSATION_ANALYSIS.ANALYZED_BY', {
-                  name: analysis.analyzed_by.name,
-                  time: dynamicTime(analysis.updated_at),
-                })
-              }}
-            </p>
-          </template>
+  <SidePanelTransition>
+    <SidePanelShell
+      v-if="isOpen"
+      v-on-click-outside="[
+        closeOnSmallScreen,
+        {
+          ignore: [
+            'dialog.ProseMirror-prompt-backdrop',
+            '[data-popover-content]',
+            '[data-popover-backdrop]',
+          ],
+        },
+      ]"
+      class="flex"
+    >
+      <div class="flex flex-col w-full h-full">
+        <SidebarActionsHeader
+          :title="t('CONVERSATION_ANALYSIS.TITLE')"
+          :buttons="headerButtons"
+          @click="onHeaderClick"
+          @close="closePanel"
+        />
+        <div class="flex-1 overflow-y-auto">
           <div
-            v-else
+            v-if="isLoading || isAnalyzing"
             class="flex flex-col items-center gap-3 px-4 py-10 text-center"
           >
-            <span class="text-sm text-n-slate-11">
-              {{ t('CONVERSATION_ANALYSIS.EMPTY') }}
+            <Spinner class="text-n-brand" />
+            <span v-if="isAnalyzing" class="text-sm text-n-slate-11">
+              {{ t('CONVERSATION_ANALYSIS.ANALYZING') }}
             </span>
-            <Button
-              :label="t('CONVERSATION_ANALYSIS.ANALYZE')"
-              icon="i-lucide-scan-search"
-              sm
-              @click="runAnalysis"
-            />
           </div>
-        </template>
+          <template v-else>
+            <p
+              v-if="errorMessage"
+              class="px-3 py-2 mx-4 mt-4 text-sm rounded-lg bg-n-ruby-3 text-n-ruby-11"
+            >
+              {{ errorMessage }}
+            </p>
+            <template v-if="analysis">
+              <ConversationAnalysisResult
+                :analysis="analysis"
+                :is-generating-care="isGeneratingCare"
+                @generate-care="generateCare"
+              />
+              <p class="px-4 pb-6 text-xs text-n-slate-10">
+                {{
+                  t('CONVERSATION_ANALYSIS.ANALYZED_BY', {
+                    name: analysis.analyzed_by.name,
+                    time: dynamicTime(analysis.updated_at),
+                  })
+                }}
+              </p>
+            </template>
+            <div
+              v-else
+              class="flex flex-col items-center gap-3 px-4 py-10 text-center"
+            >
+              <span class="text-sm text-n-slate-11">
+                {{ t('CONVERSATION_ANALYSIS.EMPTY') }}
+              </span>
+              <Button
+                :label="t('CONVERSATION_ANALYSIS.ANALYZE')"
+                icon="i-lucide-scan-search"
+                sm
+                @click="runAnalysis"
+              />
+            </div>
+          </template>
+          <section
+            v-if="contactId"
+            class="flex flex-col gap-2.5 px-4 pt-4 pb-6 border-t border-n-weak"
+          >
+            <h3 class="m-0 text-sm font-semibold text-n-slate-12">
+              {{ t('CONVERSATION_SIDEBAR.ACCORDION.CUSTOMER_INSIGHTS') }}
+            </h3>
+            <ContactInsights :contact-id="contactId" />
+          </section>
+        </div>
       </div>
-    </div>
-  </SidePanelShell>
+    </SidePanelShell>
+  </SidePanelTransition>
 </template>

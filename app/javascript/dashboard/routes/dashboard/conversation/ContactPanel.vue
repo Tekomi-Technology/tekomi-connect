@@ -1,13 +1,10 @@
 <script setup>
-import { computed, watch, onMounted, ref } from 'vue';
-import {
-  useMapGetter,
-  useFunctionGetter,
-  useStore,
-} from 'dashboard/composables/store';
+import { computed } from 'vue';
+import { useMapGetter, useFunctionGetter } from 'dashboard/composables/store';
 import { useAccount } from 'dashboard/composables/useAccount';
 import { useUISettings } from 'dashboard/composables/useUISettings';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
+import { CONVERSATION_SIDE_PANELS } from 'dashboard/composables/useConversationSidePanel';
 
 import AccordionItem from 'dashboard/components/Accordion/AccordionItem.vue';
 import ContactConversations from './ContactConversations.vue';
@@ -26,7 +23,6 @@ import LinearIssuesList from 'dashboard/components/widgets/conversation/linear/I
 import LinearSetupCTA from 'dashboard/components/widgets/conversation/linear/LinearSetupCTA.vue';
 import ConversationDeals from 'dashboard/components-next/Deals/ConversationDeals.vue';
 import ConversationTickets from 'dashboard/components-next/Tickets/ConversationTickets.vue';
-import ContactInsights from 'dashboard/components-next/ConversationAnalysis/ContactInsights.vue';
 
 const props = defineProps({
   conversationId: {
@@ -36,6 +32,11 @@ const props = defineProps({
   inboxId: {
     type: Number,
     default: undefined,
+  },
+  panel: {
+    type: String,
+    required: true,
+    validator: value => value in CONVERSATION_SIDE_PANELS,
   },
 });
 
@@ -47,8 +48,23 @@ const {
   isOnExpandedLayout,
 } = useUISettings();
 
-const dragging = ref(false);
-const conversationSidebarItems = ref([]);
+// Sections are dragged within the panel; the reordered slice is written back
+// into the shared order so other panels keep their positions.
+const panelSections = computed(() => CONVERSATION_SIDE_PANELS[props.panel]);
+const panelItems = computed({
+  get: () =>
+    conversationSidebarItemsOrder.value.filter(item =>
+      panelSections.value.includes(item.name)
+    ),
+  set: reorderedItems => {
+    const queue = [...reorderedItems];
+    updateUISettings({
+      conversation_sidebar_items_order: conversationSidebarItemsOrder.value.map(
+        item => (panelSections.value.includes(item.name) ? queue.shift() : item)
+      ),
+    });
+  },
+});
 
 const shopifyIntegration = useFunctionGetter(
   'integrations/getIntegration',
@@ -71,9 +87,6 @@ const isCrmDealsEnabled = computed(() =>
 const isCrmTicketsEnabled = computed(() =>
   isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.CRM_TICKETS)
 );
-const isTekomiEnabled = computed(() =>
-  isFeatureEnabledonAccount.value(accountId.value, FEATURE_FLAGS.TEKOMI)
-);
 
 const isLinearFeatureEnabled = computed(() =>
   isCloudFeatureEnabled(FEATURE_FLAGS.LINEAR)
@@ -92,7 +105,6 @@ const isLinearConnected = computed(
   () => linearIntegration.value?.enabled || false
 );
 
-const store = useStore();
 const currentChat = useMapGetter('getSelectedChat');
 const conversationId = computed(() => props.conversationId);
 const conversationMetadataGetter = useMapGetter(
@@ -121,48 +133,23 @@ const isListScopedToContact = computed(
     !isOnExpandedLayout.value &&
     appliedContactFilter.value?.id === contactId.value
 );
-
-const getContactDetails = () => {
-  if (contactId.value) {
-    store.dispatch('contacts/show', { id: contactId.value });
-  }
-};
-
-watch(contactId, (newContactId, prevContactId) => {
-  if (newContactId && newContactId !== prevContactId) {
-    getContactDetails();
-  }
-});
-
-const onDragEnd = () => {
-  dragging.value = false;
-  updateUISettings({
-    conversation_sidebar_items_order: conversationSidebarItems.value,
-  });
-};
-
-onMounted(() => {
-  conversationSidebarItems.value = conversationSidebarItemsOrder.value;
-  getContactDetails();
-  store.dispatch('attributes/get', 0);
-  // Load integrations to ensure linear integration state is available
-  store.dispatch('integrations/get', 'linear');
-});
 </script>
 
 <template>
   <div class="w-full">
-    <ContactInfo :contact="contact" :channel-type="channelType" />
-    <div class="px-2 pb-8 list-group">
+    <ContactInfo
+      v-if="panel === 'contact'"
+      :contact="contact"
+      :channel-type="channelType"
+    />
+    <div class="px-2 pt-3 pb-8 list-group">
       <Draggable
-        :list="conversationSidebarItems"
+        v-model="panelItems"
         animation="200"
         ghost-class="ghost"
         handle=".drag-handle"
         item-key="name"
         class="flex flex-col gap-3"
-        @start="dragging = true"
-        @end="onDragEnd"
       >
         <template #item="{ element }">
           <div
@@ -339,21 +326,6 @@ onMounted(() => {
               @toggle="value => toggleSidebarUIState('is_tickets_open', value)"
             >
               <ConversationTickets :conversation-id="conversationId" />
-            </AccordionItem>
-          </div>
-          <div
-            v-else-if="element.name === 'customer_insights' && isTekomiEnabled"
-          >
-            <AccordionItem
-              :title="$t('CONVERSATION_SIDEBAR.ACCORDION.CUSTOMER_INSIGHTS')"
-              :is-open="isContactSidebarItemOpen('is_customer_insights_open')"
-              compact
-              @toggle="
-                value =>
-                  toggleSidebarUIState('is_customer_insights_open', value)
-              "
-            >
-              <ContactInsights :contact-id="contactId" />
             </AccordionItem>
           </div>
           <div v-else-if="element.name === 'contact_notes'">

@@ -394,6 +394,10 @@
     },
     "SIDEBAR": {
       "CONTACT": "Liên hệ",
+      "CONTACT_INFO": "Thông tin khách hàng",
+      "ACTIONS": "Xử lý hội thoại",
+      "HISTORY": "Lịch sử & ghi chú",
+      "SALES": "Bán hàng",
       "COPILOT": "GMO",
       "ANALYSIS": "Phân tích hội thoại",
       "COMPANY": "Doanh nghiệp",

@@ -449,6 +449,10 @@
     },
     "SIDEBAR": {
       "CONTACT": "Contact",
+      "CONTACT_INFO": "Customer info",
+      "ACTIONS": "Conversation handling",
+      "HISTORY": "History & notes",
+      "SALES": "Sales",
       "COPILOT": "GMO",
       "ANALYSIS": "Conversation analysis",
       "COMPANY": "Company",

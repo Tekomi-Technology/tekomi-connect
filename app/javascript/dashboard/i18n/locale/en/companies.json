@@ -147,33 +147,10 @@
     "CONVERSATION_PANEL": {
       "EMPTY": "This company is no longer available.",
       "OPEN_COMPANY": "Open company",
-      "TABS": {
-        "OVERVIEW": "Overview",
-        "CONTACTS": "Contacts",
-        "CONVERSATIONS": "Conversations",
-        "DEALS": "Deals",
-        "FILES": "Files"
-      },
       "PROFILE": {
         "TITLE": "Company details",
         "WEBSITE": "Website",
         "EMPTY": "No company details yet."
-      },
-      "CONTACT": {
-        "TITLE": "Contact",
-        "VIEW_ALL": "View all"
-      },
-      "NOTES": {
-        "TITLE": "Company notes"
-      },
-      "CONTACTS": {
-        "EMPTY": "No contacts in this company yet."
-      },
-      "DEALS": {
-        "EMPTY": "No deals for this company yet."
-      },
-      "FILES": {
-        "EMPTY": "No files shared with this company yet."
       }
     }
   },

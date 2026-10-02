@@ -4,6 +4,7 @@ import { useAlert } from 'dashboard/composables';
 import { useStore } from 'dashboard/composables/store';
 import Copilot from 'dashboard/components-next/copilot/Copilot.vue';
 import SidePanelShell from 'dashboard/components-next/Conversation/SidePanelShell.vue';
+import SidePanelTransition from 'dashboard/components-next/Conversation/SidePanelTransition.vue';
 import { useMapGetter } from 'dashboard/composables/store';
 import { useUISettings } from 'dashboard/composables/useUISettings';
 import { useConfig } from 'dashboard/composables/useConfig';
@@ -147,27 +148,23 @@ onMounted(() => {
 </script>
 
 <template>
-  <SidePanelShell
-    v-if="shouldShowCopilotPanel"
-    v-on-click-outside="() => closeCopilotPanel()"
-    :class="[
-      {
-        'md:flex': shouldShowCopilotPanel,
-        'md:hidden': !shouldShowCopilotPanel,
-      },
-    ]"
-  >
-    <Copilot
-      :messages="messages"
-      :support-agent="currentUser"
-      :conversation-inbox-type="conversationInboxType"
-      :assistants="assistants"
-      :active-assistant="activeAssistant"
-      :can-suggest-reply="canSuggestReply"
-      @set-assistant="setAssistant"
-      @send-message="sendMessage"
-      @reset="handleReset"
-    />
-  </SidePanelShell>
-  <template v-else />
+  <SidePanelTransition>
+    <SidePanelShell
+      v-if="shouldShowCopilotPanel"
+      v-on-click-outside="() => closeCopilotPanel()"
+      class="flex"
+    >
+      <Copilot
+        :messages="messages"
+        :support-agent="currentUser"
+        :conversation-inbox-type="conversationInboxType"
+        :assistants="assistants"
+        :active-assistant="activeAssistant"
+        :can-suggest-reply="canSuggestReply"
+        @set-assistant="setAssistant"
+        @send-message="sendMessage"
+        @reset="handleReset"
+      />
+    </SidePanelShell>
+  </SidePanelTransition>
 </template>
