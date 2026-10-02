@@ -1083,7 +1083,34 @@ const menuItems = computed(() => {
       >
         <!-- Logo and brand name sit on one row; the name is hidden when the
              sidebar is collapsed so only the mark shows. -->
-        <Logo dark class="shrink-0 size-11 object-contain" />
+        <!-- On desktop the logo doubles as the collapse toggle: hovering
+             swaps the mark for a panel icon. -->
+        <button
+          v-if="!isMobile"
+          v-tooltip.right="
+            isEffectivelyCollapsed ? t('SIDEBAR.EXPAND') : t('SIDEBAR.COLLAPSE')
+          "
+          type="button"
+          class="relative grid shrink-0 rounded-lg place-items-center size-11 group/logo hover:bg-n-alpha-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-n-brand"
+          :aria-label="
+            isEffectivelyCollapsed ? t('SIDEBAR.EXPAND') : t('SIDEBAR.COLLAPSE')
+          "
+          @click="onResizeHandleDoubleClick"
+        >
+          <Logo
+            dark
+            class="object-contain transition-opacity duration-150 size-11 group-hover/logo:opacity-0 group-focus-visible/logo:opacity-0"
+          />
+          <span
+            class="absolute transition-opacity duration-150 opacity-0 size-6 text-n-slate-12 rtl:rotate-180 group-hover/logo:opacity-100 group-focus-visible/logo:opacity-100"
+            :class="
+              isEffectivelyCollapsed
+                ? 'i-lucide-panel-left-open'
+                : 'i-lucide-panel-left-close'
+            "
+          />
+        </button>
+        <Logo v-else dark class="shrink-0 size-11 object-contain" />
         <span
           v-if="!isEffectivelyCollapsed"
           class="flex flex-col items-start min-w-0 leading-tight"
@@ -1177,20 +1204,6 @@ const menuItems = computed(() => {
         />
       </div>
     </section>
-    <Button
-      v-tooltip.right="
-        isEffectivelyCollapsed ? $t('SIDEBAR.EXPAND') : $t('SIDEBAR.COLLAPSE')
-      "
-      :icon="
-        isEffectivelyCollapsed
-          ? 'i-lucide-chevron-right'
-          : 'i-lucide-chevron-left'
-      "
-      slate
-      xs
-      class="hidden md:inline-flex absolute top-16 z-50 rounded-full border shadow-sm ltr:-right-3 rtl:-left-3 rtl:rotate-180 bg-n-solid-2 border-n-weak hover:bg-n-alpha-2"
-      @click="onResizeHandleDoubleClick"
-    />
     <!-- Resize Handle (desktop only) -->
     <div
       class="hidden md:block absolute top-0 h-full w-1 cursor-col-resize z-40 ltr:right-0 rtl:left-0 group"
