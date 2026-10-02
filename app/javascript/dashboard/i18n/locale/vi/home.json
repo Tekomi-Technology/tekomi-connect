@@ -3,21 +3,6 @@
     "TITLE": "Tổng quan",
     "GREETING": "Chào {name}",
     "RETRY": "Thử lại",
-    "STATS": {
-      "OPEN": "Hội thoại mới",
-      "PENDING": "Đang chờ xử lý",
-      "SLA": "Quá hạn SLA",
-      "ONLINE": "Đang online",
-      "RESOLVED": "Đã xử lý hôm nay",
-      "RESPONSE": "Thời gian phản hồi TB",
-      "CSAT": "Điểm CSAT",
-      "LIVE": "Đang trực tuyến",
-      "VOLUME": "Lượng 7 ngày",
-      "VS_YESTERDAY": "so với hôm qua",
-      "UNATTENDED": "{count} chưa xử lý",
-      "ATTENDED": "Đã xử lý hết",
-      "RATINGS": "{count} lượt đánh giá"
-    },
     "ATTENTION": {
       "TITLE": "Cần chú ý",
       "VIEW_ALL": "Xem tất cả",
@@ -32,24 +17,185 @@
       "SHOWING": "Hiển thị {shown} trong {total}",
       "REPLY": "Trả lời"
     },
-    "WEEK": {
-      "TITLE": "Tuần của tôi",
-      "FRT": "Phản hồi H1",
-      "RESOLVED": "Đã giải quyết",
-      "CSAT": "CSAT",
-      "SUBTITLE": "Chỉ số hiệu suất mục tiêu",
-      "RATE": "Tỷ lệ xử lý",
-      "WEEK_BADGE": "T{week}"
-    },
-    "ACCOUNT": {
-      "TITLE": "Tổng quan tài khoản",
-      "ADMIN": "Quản trị viên",
-      "OPEN": "Đang mở: {count}",
-      "PENDING": "Đang chờ: {count}",
-      "UNATTENDED": "Trong đó chưa phục vụ: {count}",
-      "UNASSIGNED": "Trong đó chưa gán: {count}",
-      "SUBTITLE": "Lượng hội thoại & phân bổ theo kênh",
-      "VOLUME": "Phân bổ ticket theo ngày"
+    "DASHBOARD": {
+      "LIVE": "Trực tiếp",
+      "TAGLINE": "Hiệu suất xử lý của đội ngũ trên mọi kênh.",
+      "UPDATING": "Đang cập nhật…",
+      "UPDATED_NOW": "Vừa cập nhật",
+      "UPDATED_AGO": "Cập nhật {minutes} phút trước",
+      "ERROR": "Không tải được dữ liệu tổng quan.",
+      "EMPTY": "Chưa có dữ liệu trong khoảng thời gian này.",
+      "PERIOD": {
+        "DAY": "24h",
+        "WEEK": "7 ngày",
+        "MONTH": "30 ngày",
+        "QUARTER": "Quý này"
+      },
+      "FILTER": {
+        "ALL_CHANNELS": "Tất cả",
+        "CHANNEL": "Kênh: {name}"
+      },
+      "UNITS": {
+        "SECONDS": "giây",
+        "MINUTES": "phút",
+        "HOURS": "giờ",
+        "DAYS": "ngày"
+      },
+      "TABS": {
+        "OVERVIEW": "Tổng quan",
+        "OVERVIEW_VALUE": "Toàn kênh",
+        "CONVERSATIONS": "Hội thoại mới",
+        "RESOLVED": "Đã xử lý",
+        "RESPONSE": "Phản hồi TB",
+        "CSAT": "Hài lòng (CSAT)",
+        "SLA": "Đạt SLA",
+        "CHANNELS": "Kênh dẫn đầu"
+      },
+      "DELTA": {
+        "FLAT": "Bằng kỳ trước",
+        "UP": "+{value}% so với kỳ trước",
+        "DOWN": "-{value}% so với kỳ trước",
+        "FASTER": "Nhanh hơn {value}%",
+        "SLOWER": "Chậm hơn {value}%"
+      },
+      "HINT": {
+        "HEALTHY": "Đang hoạt động tốt",
+        "NEEDS_ATTENTION": "{count} cần chú ý",
+        "COMPLETION": "Tỷ lệ hoàn tất {value}%",
+        "FIVE_STAR": "{value}% đánh giá 5★",
+        "SLA_MISSED": "{count} vi phạm cần giải cứu",
+        "SLA_CLEAN": "Không có vi phạm",
+        "SHARE": "Chiếm {value}% tải lượng"
+      },
+      "COMMON": {
+        "THIS_PERIOD": "Kỳ này",
+        "PREVIOUS_PERIOD": "Kỳ trước",
+        "VS_PREVIOUS": "{value}% so với kỳ trước",
+        "PREVIOUS_VALUE": "Kỳ trước: {value}",
+        "PERCENT": "{value}%",
+        "PERCENT_PAREN": "({value}%)"
+      },
+      "QUEUE": {
+        "TITLE": "Hôm nay cần xử lý",
+        "SUBTITLE": "Hàng đợi ưu tiên cập nhật theo thời gian thực",
+        "URGENT": "Khẩn",
+        "UNATTENDED": "Chưa trả lời",
+        "UNATTENDED_HINT": "Chờ phản hồi đầu tiên",
+        "STARRED": "Khách gắn sao",
+        "STARRED_HINT": "Đang chờ phản hồi",
+        "UNASSIGNED": "Chưa phân công",
+        "UNASSIGNED_HINT": "Chưa có nhân viên",
+        "OPEN_INBOX": "Mở hộp thư hội thoại"
+      },
+      "SLA": {
+        "TITLE": "Chỉ số đạt SLA",
+        "SUBTITLE": "Tỷ lệ hội thoại đạt cam kết SLA",
+        "UNAVAILABLE": "Chưa có chính sách SLA nào được áp dụng.",
+        "HIT_LABEL": "Đạt SLA",
+        "MISSED": "{count} vi phạm",
+        "ACTIVE": "{count} đang theo dõi",
+        "HIT": "Đạt",
+        "MISSED_SERIES": "Vi phạm",
+        "TRACKING": "Đang theo dõi",
+        "TOTAL": "Hội thoại áp SLA",
+        "CHART_TITLE": "SLA theo thời gian",
+        "CHART_SUBTITLE": "Đạt và vi phạm theo thời điểm tạo hội thoại",
+        "MISSED_TITLE": "Vi phạm SLA gần đây",
+        "MISSED_SUBTITLE": "Các hội thoại cần giải cứu"
+      },
+      "RESOLUTION": {
+        "TITLE": "Xử lý hội thoại",
+        "SUBTITLE": "Đã xử lý so với hội thoại mới trong kỳ",
+        "DONE": "Hoàn thành",
+        "OPEN": "Đang mở",
+        "PENDING": "Đang chờ"
+      },
+      "TRAFFIC": {
+        "TITLE": "Hội thoại theo thời gian",
+        "SUBTITLE": "Hội thoại đến so với hội thoại đã xử lý",
+        "INCOMING": "Hội thoại đến",
+        "RESOLVED": "Đã xử lý xong"
+      },
+      "CHANNELS_CARD": {
+        "TITLE": "Theo kênh",
+        "SUBTITLE": "Phân bổ lượng hội thoại theo kênh",
+        "TOTAL": "Tổng: {count}"
+      },
+      "ACTIVITY": {
+        "TITLE": "Hoạt động gần đây",
+        "SUBTITLE": "Sự kiện mới nhất trong hộp thư của bạn",
+        "RESOLVED": "Đã hoàn tất hỗ trợ #{id}",
+        "STARRED_WAITING": "Khách gắn sao đang chờ #{id}",
+        "SLA_MISSED": "Cảnh báo vi phạm SLA #{id}",
+        "CSAT": "Khách hàng đánh giá {rating}★ #{id}"
+      },
+      "CONVERSATIONS": {
+        "TOTAL": "Tổng hội thoại",
+        "PER_DAY": "Trung bình mỗi ngày",
+        "OPEN": "Đang mở",
+        "UNASSIGNED": "Chưa phân công",
+        "CHART_TITLE": "Hội thoại mới",
+        "CHART_SUBTITLE": "So sánh kỳ này với kỳ trước"
+      },
+      "RESOLVED": {
+        "TOTAL": "Đã xử lý",
+        "RATE": "Tỷ lệ hoàn tất",
+        "AVG_TIME": "Thời gian giải quyết TB",
+        "CHART_TITLE": "Đã xử lý theo thời gian",
+        "CHART_SUBTITLE": "Hội thoại đã xử lý so với hội thoại đến",
+        "DURATION_TITLE": "Thời gian giải quyết",
+        "DURATION_SUBTITLE": "Thời gian trung bình để giải quyết một hội thoại"
+      },
+      "RESPONSE": {
+        "FIRST": "Phản hồi đầu TB",
+        "REPLY": "Thời gian trả lời TB",
+        "WITHIN_HOUR": "Phản hồi trong 1 giờ",
+        "CHART_TITLE": "Thời gian phản hồi đầu tiên",
+        "CHART_SUBTITLE": "Thời gian trung bình đến phản hồi đầu tiên",
+        "DISTRIBUTION_TITLE": "Phân bố phản hồi",
+        "DISTRIBUTION_SUBTITLE": "Số hội thoại theo thời gian phản hồi đầu",
+        "CONVERSATIONS": "Hội thoại"
+      },
+      "CSAT": {
+        "AVERAGE": "Điểm trung bình",
+        "RESPONSES": "Lượt đánh giá",
+        "FIVE_STAR": "Đánh giá 5★",
+        "LOW": "Đánh giá thấp (1–2★)",
+        "VS_PREVIOUS": "{value} so với kỳ trước",
+        "CHART_TITLE": "Phân bố đánh giá",
+        "CHART_SUBTITLE": "Khách hàng đánh giá hội thoại như thế nào",
+        "RECENT_TITLE": "Phản hồi mới nhất",
+        "RECENT_SUBTITLE": "Đánh giá từ hộp thư của bạn"
+      },
+      "CHANNELS_TAB": {
+        "ACTIVE": "Kênh hoạt động",
+        "LEADER": "Kênh dẫn đầu",
+        "TOTAL": "Tổng",
+        "SHARE_TITLE": "Tỷ trọng tải lượng",
+        "SHARE_SUBTITLE": "Tỷ lệ hội thoại theo từng kênh",
+        "TABLE_TITLE": "Chi tiết theo kênh",
+        "TABLE_SUBTITLE": "Hội thoại đang mở và đã xử lý theo kênh",
+        "CHANNEL": "Kênh",
+        "OPEN": "Đang mở",
+        "RESOLVED": "Đã xử lý",
+        "SHARE": "Tỷ trọng"
+      },
+      "CHANNELS": {
+        "WEB": "Website Livechat",
+        "FACEBOOK": "Facebook Messenger",
+        "INSTAGRAM": "Instagram",
+        "TIKTOK": "TikTok",
+        "WHATSAPP": "WhatsApp",
+        "SMS": "SMS",
+        "EMAIL": "Email",
+        "TELEGRAM": "Telegram",
+        "LINE": "LINE",
+        "API": "API",
+        "ZALO_OA": "Zalo OA",
+        "ZALO_PERSONAL": "Zalo cá nhân",
+        "PHONE": "Điện thoại / Hotline",
+        "OTHER": "Khác"
+      }
     }
   }
 }

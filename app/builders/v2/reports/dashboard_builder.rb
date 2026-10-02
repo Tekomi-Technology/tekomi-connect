@@ -5,6 +5,9 @@ class V2::Reports::DashboardBuilder
   TIMESERIES_METRICS = %w[conversations_count resolutions_count avg_first_response_time avg_resolution_time].freeze
   ACTIVITY_LIMIT = 8
   RECENT_LIMIT = 5
+  FIRST_RESPONSE_BUCKETS = {
+    '0-1h' => 0...3600, '1-4h' => 3600...14_400, '4-8h' => 14_400...28_800, '8-24h' => 28_800...86_400, '24h+' => 86_400..
+  }.freeze
 
   pattr_initialize [:account!, :user!, :params!]
 
@@ -53,10 +56,9 @@ class V2::Reports::DashboardBuilder
   end
 
   def first_response_distribution
-    V2::Reports::FirstResponseTimeDistributionBuilder.new(account: account, params: params.slice(:since, :until))
-                                                     .build.values.each_with_object(Hash.new(0)) do |buckets, total|
-      buckets.each { |bucket, count| total[bucket] += count }
-    end
+    events = ReportingEvent.where(account_id: account.id, name: 'first_response', created_at: range)
+    events = events.where(inbox_id: inbox_id) if inbox_id.present?
+    FIRST_RESPONSE_BUCKETS.transform_values { |values| events.where(value: values).count }
   end
 
   def csat

@@ -3,18 +3,6 @@
     "TITLE": "Overview",
     "GREETING": "Hello, {name}",
     "RETRY": "Retry",
-    "STATS": {
-      "OPEN": "Open conversations",
-      "RESOLVED": "Resolved today",
-      "RESPONSE": "Avg response time",
-      "CSAT": "CSAT score",
-      "LIVE": "Live now",
-      "VOLUME": "7-day volume",
-      "VS_YESTERDAY": "vs. yesterday",
-      "UNATTENDED": "{count} unattended",
-      "ATTENDED": "All attended",
-      "RATINGS": "{count} ratings logged"
-    },
     "ATTENTION": {
       "TITLE": "Needs attention",
       "SUBTITLE": "Real-time triage stream across connected channels",
@@ -29,24 +17,185 @@
       "SHOWING": "Showing {shown} of {total}",
       "REPLY": "Reply"
     },
-    "WEEK": {
-      "TITLE": "My week",
-      "SUBTITLE": "Target performance metrics",
-      "FRT": "First response",
-      "RESOLVED": "Resolved",
-      "CSAT": "CSAT",
-      "RATE": "Resolution rate",
-      "WEEK_BADGE": "W{week}"
-    },
-    "ACCOUNT": {
-      "TITLE": "Account snapshot",
-      "SUBTITLE": "Volume & channel distribution",
-      "ADMIN": "Admin",
-      "VOLUME": "Daily ticket distribution",
-      "OPEN": "Open: {count}",
-      "PENDING": "Pending: {count}",
-      "UNATTENDED": "of which unattended: {count}",
-      "UNASSIGNED": "of which unassigned: {count}"
+    "DASHBOARD": {
+      "LIVE": "Live",
+      "TAGLINE": "Here is how your team is doing across every channel.",
+      "UPDATING": "Updating…",
+      "UPDATED_NOW": "Updated just now",
+      "UPDATED_AGO": "Updated {minutes} min ago",
+      "ERROR": "Could not load the dashboard.",
+      "EMPTY": "No data for this period yet.",
+      "PERIOD": {
+        "DAY": "24h",
+        "WEEK": "7 days",
+        "MONTH": "30 days",
+        "QUARTER": "This quarter"
+      },
+      "FILTER": {
+        "ALL_CHANNELS": "All",
+        "CHANNEL": "Inbox: {name}"
+      },
+      "UNITS": {
+        "SECONDS": "sec",
+        "MINUTES": "min",
+        "HOURS": "hrs",
+        "DAYS": "days"
+      },
+      "TABS": {
+        "OVERVIEW": "Overview",
+        "OVERVIEW_VALUE": "All channels",
+        "CONVERSATIONS": "New conversations",
+        "RESOLVED": "Resolved",
+        "RESPONSE": "Avg. response",
+        "CSAT": "Satisfaction (CSAT)",
+        "SLA": "SLA met",
+        "CHANNELS": "Top channel"
+      },
+      "DELTA": {
+        "FLAT": "Same as previous period",
+        "UP": "+{value}% vs previous",
+        "DOWN": "-{value}% vs previous",
+        "FASTER": "{value}% faster",
+        "SLOWER": "{value}% slower"
+      },
+      "HINT": {
+        "HEALTHY": "Running smoothly",
+        "NEEDS_ATTENTION": "{count} need attention",
+        "COMPLETION": "Completion rate {value}%",
+        "FIVE_STAR": "{value}% rated 5★",
+        "SLA_MISSED": "{count} breaches to rescue",
+        "SLA_CLEAN": "No breaches",
+        "SHARE": "{value}% of the volume"
+      },
+      "COMMON": {
+        "THIS_PERIOD": "This period",
+        "PREVIOUS_PERIOD": "Previous period",
+        "VS_PREVIOUS": "{value}% vs previous period",
+        "PREVIOUS_VALUE": "Previous period: {value}",
+        "PERCENT": "{value}%",
+        "PERCENT_PAREN": "({value}%)"
+      },
+      "QUEUE": {
+        "TITLE": "To handle today",
+        "SUBTITLE": "Priority queue, updated in real time",
+        "URGENT": "Urgent",
+        "UNATTENDED": "Unanswered",
+        "UNATTENDED_HINT": "Waiting for a first reply",
+        "STARRED": "Starred contacts",
+        "STARRED_HINT": "Waiting for a reply",
+        "UNASSIGNED": "Unassigned",
+        "UNASSIGNED_HINT": "No agent yet",
+        "OPEN_INBOX": "Open conversations"
+      },
+      "SLA": {
+        "TITLE": "SLA compliance",
+        "SUBTITLE": "Share of conversations meeting their SLA",
+        "UNAVAILABLE": "No SLA policies have been applied yet.",
+        "HIT_LABEL": "SLA met",
+        "MISSED": "{count} breached",
+        "ACTIVE": "{count} in progress",
+        "HIT": "Met",
+        "MISSED_SERIES": "Breached",
+        "TRACKING": "In progress",
+        "TOTAL": "Conversations with SLA",
+        "CHART_TITLE": "SLA over time",
+        "CHART_SUBTITLE": "Met vs breached by time of creation",
+        "MISSED_TITLE": "Recent SLA breaches",
+        "MISSED_SUBTITLE": "Conversations that need rescuing"
+      },
+      "RESOLUTION": {
+        "TITLE": "Conversation handling",
+        "SUBTITLE": "Resolved vs created in this period",
+        "DONE": "Resolved",
+        "OPEN": "Open",
+        "PENDING": "Pending"
+      },
+      "TRAFFIC": {
+        "TITLE": "Conversations over time",
+        "SUBTITLE": "Incoming conversations vs resolved",
+        "INCOMING": "Incoming",
+        "RESOLVED": "Resolved"
+      },
+      "CHANNELS_CARD": {
+        "TITLE": "By channel",
+        "SUBTITLE": "Conversation volume per channel",
+        "TOTAL": "Total: {count}"
+      },
+      "ACTIVITY": {
+        "TITLE": "Recent activity",
+        "SUBTITLE": "Latest events in your inboxes",
+        "RESOLVED": "Resolved #{id}",
+        "STARRED_WAITING": "Starred contact waiting #{id}",
+        "SLA_MISSED": "SLA breached #{id}",
+        "CSAT": "New {rating}★ rating #{id}"
+      },
+      "CONVERSATIONS": {
+        "TOTAL": "Total conversations",
+        "PER_DAY": "Avg. per day",
+        "OPEN": "Open now",
+        "UNASSIGNED": "Unassigned",
+        "CHART_TITLE": "New conversations",
+        "CHART_SUBTITLE": "This period compared with the previous one"
+      },
+      "RESOLVED": {
+        "TOTAL": "Resolved",
+        "RATE": "Completion rate",
+        "AVG_TIME": "Avg. resolution time",
+        "CHART_TITLE": "Resolved over time",
+        "CHART_SUBTITLE": "Resolved vs incoming conversations",
+        "DURATION_TITLE": "Resolution time",
+        "DURATION_SUBTITLE": "Average time to resolve a conversation"
+      },
+      "RESPONSE": {
+        "FIRST": "Avg. first response",
+        "REPLY": "Avg. reply time",
+        "WITHIN_HOUR": "First reply within 1h",
+        "CHART_TITLE": "First response time",
+        "CHART_SUBTITLE": "Average time until the first reply",
+        "DISTRIBUTION_TITLE": "Response distribution",
+        "DISTRIBUTION_SUBTITLE": "Conversations by first response time",
+        "CONVERSATIONS": "Conversations"
+      },
+      "CSAT": {
+        "AVERAGE": "Average rating",
+        "RESPONSES": "Ratings",
+        "FIVE_STAR": "Rated 5★",
+        "LOW": "Low ratings (1–2★)",
+        "VS_PREVIOUS": "{value} vs previous period",
+        "CHART_TITLE": "Rating distribution",
+        "CHART_SUBTITLE": "How customers rated their conversations",
+        "RECENT_TITLE": "Latest feedback",
+        "RECENT_SUBTITLE": "Ratings from your inboxes"
+      },
+      "CHANNELS_TAB": {
+        "ACTIVE": "Active channels",
+        "LEADER": "Top channel",
+        "TOTAL": "Total",
+        "SHARE_TITLE": "Volume share",
+        "SHARE_SUBTITLE": "Share of conversations per channel",
+        "TABLE_TITLE": "Channel details",
+        "TABLE_SUBTITLE": "Open and resolved conversations per channel",
+        "CHANNEL": "Channel",
+        "OPEN": "Open",
+        "RESOLVED": "Resolved",
+        "SHARE": "Share"
+      },
+      "CHANNELS": {
+        "WEB": "Website live chat",
+        "FACEBOOK": "Facebook Messenger",
+        "INSTAGRAM": "Instagram",
+        "TIKTOK": "TikTok",
+        "WHATSAPP": "WhatsApp",
+        "SMS": "SMS",
+        "EMAIL": "Email",
+        "TELEGRAM": "Telegram",
+        "LINE": "LINE",
+        "API": "API",
+        "ZALO_OA": "Zalo OA",
+        "ZALO_PERSONAL": "Zalo personal",
+        "PHONE": "Phone / Hotline",
+        "OTHER": "Other"
+      }
     }
   }
 }
