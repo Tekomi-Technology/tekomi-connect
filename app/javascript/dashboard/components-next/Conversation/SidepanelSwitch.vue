@@ -132,6 +132,34 @@ const keyboardEvents = {
   },
 };
 useKeyboardEvents(keyboardEvents);
+
+const switchItems = computed(() => [
+  ...sidebarPanels.value.map(item => ({
+    key: item.panel,
+    icon: item.icon,
+    tooltip: item.tooltip,
+    isActive: isContactSidebarOpen.value && activePanel.value === item.panel,
+    onClick: () => openSidebarPanel(item.panel),
+  })),
+  ...(showCopilotTab.value
+    ? [
+        {
+          key: 'copilot',
+          icon: 'i-woot-tekomi',
+          tooltip: 'CONVERSATION.SIDEBAR.COPILOT',
+          isActive: isCopilotPanelOpen.value,
+          onClick: handleCopilotSidebarToggle,
+        },
+        {
+          key: 'analysis',
+          icon: 'i-lucide-scan-search',
+          tooltip: 'CONVERSATION.SIDEBAR.ANALYSIS',
+          isActive: isAnalysisPanelOpen.value,
+          onClick: handleAnalysisSidebarToggle,
+        },
+      ]
+    : []),
+]);
 </script>
 
 <template>
@@ -139,47 +167,21 @@ useKeyboardEvents(keyboardEvents);
     class="flex flex-col justify-center items-center absolute top-36 xl:top-24 ltr:right-2 rtl:left-2 bg-n-solid-2/90 backdrop-blur-lg border border-n-weak/50 rounded-full gap-1.5 p-1.5 shadow-sm transition-shadow duration-200 hover:shadow !z-20"
   >
     <Button
-      v-for="item in sidebarPanels"
-      :key="item.panel"
+      v-for="item in switchItems"
+      :key="item.key"
       v-tooltip.left="$t(item.tooltip)"
       ghost
       slate
       sm
-      class="!rounded-full transition-all duration-[250ms] ease-out active:!scale-95 active:!brightness-105 active:duration-75"
-      :class="{
-        'bg-n-alpha-2 active:shadow-sm':
-          isContactSidebarOpen && activePanel === item.panel,
-      }"
+      class="!rounded-full transition-all duration-200 ease-out active:!scale-95 active:duration-75"
+      :class="
+        item.isActive
+          ? '!bg-n-brand !text-white shadow-sm ring-2 ring-n-brand/25'
+          : '!text-n-slate-11 hover:!bg-n-brand/10 hover:!text-n-brand'
+      "
+      :aria-pressed="item.isActive"
       :icon="item.icon"
-      @click="openSidebarPanel(item.panel)"
-    />
-    <Button
-      v-if="showCopilotTab"
-      v-tooltip.left="$t('CONVERSATION.SIDEBAR.COPILOT')"
-      ghost
-      slate
-      sm
-      class="!rounded-full transition-all duration-[250ms] ease-out active:!scale-95 active:duration-75"
-      :class="{
-        'bg-n-alpha-2 !text-n-iris-9 active:!brightness-105 active:shadow-sm':
-          isCopilotPanelOpen,
-      }"
-      icon="i-woot-tekomi"
-      @click="handleCopilotSidebarToggle"
-    />
-    <Button
-      v-if="showCopilotTab"
-      v-tooltip.left="$t('CONVERSATION.SIDEBAR.ANALYSIS')"
-      ghost
-      slate
-      sm
-      class="!rounded-full transition-all duration-[250ms] ease-out active:!scale-95 active:duration-75"
-      :class="{
-        'bg-n-alpha-2 !text-n-iris-9 active:!brightness-105 active:shadow-sm':
-          isAnalysisPanelOpen,
-      }"
-      icon="i-lucide-scan-search"
-      @click="handleAnalysisSidebarToggle"
+      @click="item.onClick"
     />
   </ButtonGroup>
 </template>
