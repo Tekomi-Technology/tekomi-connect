@@ -29,6 +29,18 @@
         "TITLE": "Thông tin doanh nghiệp",
         "WEBSITE": "Website",
         "EMPTY": "Chưa có thông tin doanh nghiệp."
+      },
+      "CRM_ID": "Mã CRM: {id}",
+      "PHONE": "Số điện thoại",
+      "CREATED_AT": "Tạo {time}",
+      "CURRENT_CONTACT": "Đang chat",
+      "VIEW_ALL": "Xem tất cả",
+      "DEALS_TOTAL": "Tổng giá trị: {value}",
+      "SECTIONS": {
+        "CONTACTS": "Người liên hệ ({n})",
+        "CONVERSATIONS": "Hội thoại đang mở ({n})",
+        "DEALS": "Cơ hội đang mở ({n})",
+        "EMPTY": "Chưa có dữ liệu."
       }
     },
     "ACTIONS": {

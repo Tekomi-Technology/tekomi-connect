@@ -164,6 +164,7 @@ const closeOnSmallScreen = () => {
             v-if="isCompanyPanelActive"
             key="company"
             :company-id="companyId"
+            :contact-id="contactId"
           />
           <ContactPanel
             v-else
