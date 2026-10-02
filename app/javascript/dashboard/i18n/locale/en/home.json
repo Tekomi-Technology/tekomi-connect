@@ -25,7 +25,7 @@
       "UNASSIGNED": "Unassigned",
       "TAB_ALL": "All ({count})",
       "TAB_SLA": "SLA breaching soon ({count})",
-      "TAB_VIP": "VIP accounts ({count})",
+      "TAB_VIP": "Starred customers ({count})",
       "SHOWING": "Showing {shown} of {total}",
       "REPLY": "Reply"
     },

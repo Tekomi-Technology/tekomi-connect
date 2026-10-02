@@ -376,7 +376,7 @@ export default {
                 : 'CONTACT_PANEL.VIP.MARK'
             )
           "
-          icon="i-lucide-crown"
+          :icon="contact.vip ? 'i-ph-star-fill' : 'i-ph-star'"
           :color="contact.vip ? 'amber' : 'slate'"
           faded
           sm

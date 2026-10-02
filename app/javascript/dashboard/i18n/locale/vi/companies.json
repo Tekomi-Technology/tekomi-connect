@@ -167,6 +167,14 @@
     },
     "EMPTY_STATE": {
       "TITLE": "Không tìm thấy doanh nghiệp nào"
+    },
+    "STAR": {
+      "MARK": "Gắn sao doanh nghiệp",
+      "UNMARK": "Bỏ gắn sao doanh nghiệp",
+      "MARKED": "Đã gắn sao doanh nghiệp",
+      "UNMARKED": "Đã bỏ gắn sao doanh nghiệp",
+      "ERROR": "Không cập nhật được gắn sao doanh nghiệp. Vui lòng thử lại.",
+      "BADGE": "Doanh nghiệp gắn sao"
     }
   },
   "COMPANIES_LAYOUT": {

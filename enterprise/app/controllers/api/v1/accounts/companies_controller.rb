@@ -89,6 +89,7 @@ class Api::V1::Accounts::CompaniesController < Api::V1::Accounts::EnterpriseAcco
       :domain,
       :description,
       :avatar,
+      :vip,
       additional_attributes: {},
       custom_attributes: {}
     )

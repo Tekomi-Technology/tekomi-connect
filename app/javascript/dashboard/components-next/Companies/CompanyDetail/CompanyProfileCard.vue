@@ -9,6 +9,7 @@ import Button from 'dashboard/components-next/button/Button.vue';
 import Input from 'dashboard/components-next/input/Input.vue';
 import TextArea from 'dashboard/components-next/textarea/TextArea.vue';
 import { useCompaniesStore } from 'dashboard/stores/companies';
+import CompanyStarButton from 'dashboard/components-next/Companies/CompanyStarButton.vue';
 
 const props = defineProps({
   company: { type: Object, default: () => ({}) },
@@ -147,9 +148,12 @@ const handleUpdateCompany = async () => {
       />
 
       <div class="flex flex-col gap-1">
-        <h3 class="text-base font-medium text-n-slate-12">
-          {{ displayName }}
-        </h3>
+        <div class="flex items-center gap-2">
+          <h3 class="text-base font-medium text-n-slate-12">
+            {{ displayName }}
+          </h3>
+          <CompanyStarButton :company="company" />
+        </div>
         <span class="text-sm leading-6 text-n-slate-11">{{ summary }}</span>
         <p
           v-if="isUploadingAvatar || uiFlags.deletingAvatar"

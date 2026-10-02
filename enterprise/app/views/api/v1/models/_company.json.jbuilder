@@ -3,6 +3,7 @@ json.name resource.name
 json.contacts_count resource.contacts_count
 json.domain resource.domain
 json.description resource.description
+json.vip resource.vip
 json.custom_attributes resource.custom_attributes
 json.additional_attributes resource.additional_attributes
 json.avatar_url resource.avatar_url

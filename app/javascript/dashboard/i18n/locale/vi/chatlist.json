@@ -159,7 +159,7 @@
       "OPTIONS": {
         "default": "Mặc định",
         "company": "Hiển thị theo doanh nghiệp",
-        "vip": "Hiển thị theo khách hàng ưu tiên"
+        "vip": "Hiển thị khách gắn sao"
       }
     }
   }

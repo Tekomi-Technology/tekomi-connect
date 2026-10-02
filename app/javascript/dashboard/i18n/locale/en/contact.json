@@ -24,12 +24,12 @@
     "WHATSAPP_CALL_PERMISSION_PENDING": "Call permission request already sent recently. Try again once the contact accepts.",
     "CLICK_TO_EDIT": "Click to edit",
     "VIP": {
-      "BADGE": "VIP",
-      "MARK": "Mark as VIP customer",
-      "UNMARK": "Unmark VIP customer",
-      "MARKED": "Marked as VIP customer",
-      "UNMARKED": "VIP customer unmarked",
-      "ERROR": "Could not update the VIP status. Please try again."
+      "BADGE": "Starred customer",
+      "MARK": "Star this customer",
+      "UNMARK": "Unstar this customer",
+      "MARKED": "Customer starred",
+      "UNMARKED": "Customer unstarred",
+      "ERROR": "Could not update the star. Please try again."
     },
     "VOICE_INBOX_PICKER": {
       "TITLE": "Choose a voice inbox"

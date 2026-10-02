@@ -159,7 +159,7 @@
       "OPTIONS": {
         "default": "Default",
         "company": "Group by company",
-        "vip": "Priority customers only"
+        "vip": "Starred customers only"
       }
     }
   }

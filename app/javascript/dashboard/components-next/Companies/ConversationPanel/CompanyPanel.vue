@@ -14,6 +14,7 @@ import Button from 'dashboard/components-next/button/Button.vue';
 import Spinner from 'dashboard/components-next/spinner/Spinner.vue';
 import VoiceCallButton from 'dashboard/components-next/Contacts/VoiceCallButton.vue';
 import CompanyPanelSection from './CompanyPanelSection.vue';
+import CompanyStarButton from '../CompanyStarButton.vue';
 
 const props = defineProps({
   companyId: { type: [Number, String], default: null },
@@ -208,16 +209,18 @@ watch(
             <span class="text-xs text-n-slate-11">{{ subtitle }}</span>
           </div>
         </div>
-        <Button
-          v-tooltip.top-end="t('COMPANIES.CONVERSATION_PANEL.OPEN_COMPANY')"
-          :label="t('COMPANIES.CONVERSATION_PANEL.DETAILS')"
-          icon="i-lucide-external-link"
-          slate
-          outline
-          xs
-          class="flex-shrink-0"
-          @click="openCompany"
-        />
+        <div class="flex items-center flex-shrink-0 gap-1.5">
+          <CompanyStarButton :company="company" />
+          <Button
+            v-tooltip.top-end="t('COMPANIES.CONVERSATION_PANEL.OPEN_COMPANY')"
+            :label="t('COMPANIES.CONVERSATION_PANEL.DETAILS')"
+            icon="i-lucide-external-link"
+            slate
+            outline
+            xs
+            @click="openCompany"
+          />
+        </div>
       </div>
 
       <CompanyPanelSection

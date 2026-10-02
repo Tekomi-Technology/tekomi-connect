@@ -28,7 +28,7 @@
       "UNASSIGNED": "Chưa phân công",
       "TAB_ALL": "Tất cả ({count})",
       "TAB_SLA": "Sắp vi phạm SLA ({count})",
-      "TAB_VIP": "Khách VIP ({count})",
+      "TAB_VIP": "Khách gắn sao ({count})",
       "SHOWING": "Hiển thị {shown} trong {total}",
       "REPLY": "Trả lời"
     },

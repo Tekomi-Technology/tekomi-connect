@@ -6,9 +6,9 @@ const { t } = useI18n();
 
 <template>
   <span
-    class="inline-flex items-center flex-shrink-0 gap-0.5 px-1.5 py-0.5 rounded-full text-[11px] font-semibold uppercase leading-none bg-n-amber-3 text-n-amber-11"
-  >
-    <span class="i-lucide-crown size-3" />
-    {{ t('CONTACT_PANEL.VIP.BADGE') }}
-  </span>
+    v-tooltip.top="t('CONTACT_PANEL.VIP.BADGE')"
+    class="flex-shrink-0 i-ph-star-fill size-3.5 text-n-amber-9"
+    :aria-label="t('CONTACT_PANEL.VIP.BADGE')"
+    role="img"
+  />
 </template>

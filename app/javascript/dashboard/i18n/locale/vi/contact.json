@@ -24,12 +24,12 @@
     "WHATSAPP_CALL_PERMISSION_PENDING": "Yêu cầu xin phép gọi vừa được gửi. Hãy thử lại sau khi liên hệ đồng ý.",
     "CLICK_TO_EDIT": "Bấm để sửa",
     "VIP": {
-      "BADGE": "VIP",
-      "MARK": "Đánh dấu khách VIP",
-      "UNMARK": "Bỏ đánh dấu khách VIP",
-      "MARKED": "Đã đánh dấu khách VIP",
-      "UNMARKED": "Đã bỏ đánh dấu khách VIP",
-      "ERROR": "Không cập nhật được trạng thái VIP. Vui lòng thử lại."
+      "BADGE": "Khách gắn sao",
+      "MARK": "Gắn sao khách hàng",
+      "UNMARK": "Bỏ gắn sao khách hàng",
+      "MARKED": "Đã gắn sao khách hàng",
+      "UNMARKED": "Đã bỏ gắn sao khách hàng",
+      "ERROR": "Không cập nhật được gắn sao. Vui lòng thử lại."
     },
     "VOICE_INBOX_PICKER": {
       "TITLE": "Chọn hộp thư thoại"
