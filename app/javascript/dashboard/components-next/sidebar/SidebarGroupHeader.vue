@@ -7,6 +7,7 @@ const props = defineProps({
   to: { type: [Object, String], default: '' },
   label: { type: String, default: '' },
   icon: { type: [String, Object], default: '' },
+  iconColor: { type: String, default: '' },
   expandable: { type: Boolean, default: false },
   isExpanded: { type: Boolean, default: false },
   isActive: { type: Boolean, default: false },
@@ -43,7 +44,7 @@ const count = computed(() =>
         v-if="icon"
         :icon="icon"
         class="size-4"
-        :class="{ 'text-n-teal-10': isActive || hasActiveChild }"
+        :class="iconColor || ((isActive || hasActiveChild) && 'text-n-teal-10')"
       />
       <span
         v-if="showBadge"

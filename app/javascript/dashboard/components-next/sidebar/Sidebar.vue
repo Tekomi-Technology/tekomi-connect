@@ -378,6 +378,7 @@ const menuItems = computed(() => {
       name: 'Home',
       label: t('SIDEBAR.HOME'),
       icon: 'i-lucide-house',
+      iconColor: 'text-n-blue-10',
       to: accountScopedRoute('account_home'),
       activeOn: ['account_home'],
     },
@@ -385,6 +386,7 @@ const menuItems = computed(() => {
       name: 'Inbox',
       label: t('SIDEBAR.INBOX'),
       icon: 'i-lucide-inbox',
+      iconColor: 'text-n-teal-10',
       to: accountScopedRoute('inbox_view'),
       activeOn: ['inbox_view', 'inbox_view_conversation'],
       getterKeys: {
@@ -395,6 +397,7 @@ const menuItems = computed(() => {
       name: 'Conversation',
       label: t('SIDEBAR.CONVERSATIONS'),
       icon: 'i-lucide-message-circle',
+      iconColor: 'text-n-brand',
       children: [
         {
           name: 'All',
@@ -521,6 +524,7 @@ const menuItems = computed(() => {
           {
             name: 'Tekomi',
             icon: 'i-woot-tekomi',
+            iconColor: 'text-n-violet-10',
             label: t('SIDEBAR.TEKOMI'),
             activeOn: ['tekomi_assistants_create_index'],
             children: [
@@ -614,6 +618,7 @@ const menuItems = computed(() => {
             name: 'Deals',
             label: t('SIDEBAR.DEALS'),
             icon: 'i-lucide-square-kanban',
+            iconColor: 'text-n-amber-10',
             activeOn: ['deals_dashboard_index', 'deals_show'],
             children: pipelinesStore.records.map(pipeline => ({
               name: `pipeline-${pipeline.id}`,
@@ -632,6 +637,7 @@ const menuItems = computed(() => {
             name: 'Calls',
             label: t('SIDEBAR.CALLS'),
             icon: 'i-lucide-phone',
+            iconColor: 'text-green-400',
             to: accountScopedRoute('calls_dashboard_index'),
             activeOn: ['calls_dashboard_index'],
           },
@@ -641,6 +647,7 @@ const menuItems = computed(() => {
       name: 'Contacts',
       label: t('SIDEBAR.CONTACTS'),
       icon: 'i-lucide-contact',
+      iconColor: 'text-n-iris-10',
       children: [
         {
           name: 'All Contacts',
@@ -715,6 +722,7 @@ const menuItems = computed(() => {
       name: 'Companies',
       label: t('SIDEBAR.COMPANIES'),
       icon: 'i-lucide-building-2',
+      iconColor: 'text-yellow-400',
       children: [
         {
           name: 'All Companies',
@@ -732,6 +740,7 @@ const menuItems = computed(() => {
       name: 'Reports',
       label: t('SIDEBAR.REPORTS'),
       icon: 'i-lucide-chart-spline',
+      iconColor: 'text-n-ruby-10',
       children: [
         {
           name: 'Report Overview',
@@ -770,6 +779,7 @@ const menuItems = computed(() => {
       name: 'Campaigns',
       label: t('SIDEBAR.CAMPAIGNS'),
       icon: 'i-lucide-megaphone',
+      iconColor: 'text-n-teal-10',
       children: [
         {
           name: 'Live chat',
@@ -792,6 +802,7 @@ const menuItems = computed(() => {
       name: 'Portals',
       label: t('SIDEBAR.HELP_CENTER.TITLE'),
       icon: 'i-lucide-library-big',
+      iconColor: 'text-n-blue-10',
       children: [
         {
           name: 'Articles',
@@ -839,6 +850,7 @@ const menuItems = computed(() => {
       name: 'Settings',
       label: t('SIDEBAR.SETTINGS'),
       icon: 'i-lucide-bolt',
+      iconColor: 'text-n-slate-11',
       children: [
         {
           name: 'Settings Account Settings',

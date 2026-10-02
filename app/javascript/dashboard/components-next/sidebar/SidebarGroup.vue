@@ -14,6 +14,7 @@ const props = defineProps({
   name: { type: String, required: true },
   label: { type: String, required: true },
   icon: { type: [String, Object, Function], default: null },
+  iconColor: { type: String, default: '' },
   to: { type: Object, default: null },
   activeOn: { type: Array, default: () => [] },
   children: { type: Array, default: undefined },
@@ -275,7 +276,9 @@ watch(
             v-if="icon"
             :icon="icon"
             class="size-4"
-            :class="{ 'text-n-teal-10': isActive || hasActiveChild }"
+            :class="
+              iconColor || ((isActive || hasActiveChild) && 'text-n-teal-10')
+            "
           />
         </component>
         <SidebarCollapsedPopover
@@ -295,6 +298,7 @@ watch(
     <template v-else>
       <SidebarGroupHeader
         :icon
+        :icon-color="iconColor"
         :name
         :label
         :to
@@ -330,6 +334,7 @@ watch(
             v-else-if="isAllowed(child.to)"
             v-show="isExpanded || activeChild?.name === child.name"
             v-bind="child"
+            :icon-color="child.iconColor || iconColor"
             :active="activeChild?.name === child.name"
           />
         </template>

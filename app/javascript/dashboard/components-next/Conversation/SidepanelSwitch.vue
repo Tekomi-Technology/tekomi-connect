@@ -133,6 +133,25 @@ const keyboardEvents = {
 };
 useKeyboardEvents(keyboardEvents);
 
+// Each panel keeps its own color; the open one gets a tint of it.
+const SWITCH_COLORS = {
+  contact: { icon: '!text-n-blue-11', active: '!bg-n-blue-3 ring-n-blue-9/40' },
+  actions: { icon: '!text-n-teal-11', active: '!bg-n-teal-3 ring-n-teal-9/40' },
+  history: {
+    icon: '!text-n-amber-11',
+    active: '!bg-n-amber-3 ring-n-amber-9/40',
+  },
+  sales: {
+    icon: '!text-n-violet-11',
+    active: '!bg-n-violet-3 ring-n-violet-9/40',
+  },
+  copilot: { icon: '!text-n-brand', active: '!bg-n-brand/15 ring-n-brand/40' },
+  analysis: {
+    icon: '!text-n-ruby-11',
+    active: '!bg-n-ruby-3 ring-n-ruby-9/40',
+  },
+};
+
 const switchItems = computed(() => [
   ...sidebarPanels.value.map(item => ({
     key: item.panel,
@@ -174,11 +193,12 @@ const switchItems = computed(() => [
       slate
       sm
       class="!rounded-full transition-all duration-200 ease-out active:!scale-95 active:duration-75"
-      :class="
+      :class="[
+        SWITCH_COLORS[item.key].icon,
         item.isActive
-          ? '!bg-n-brand !text-white shadow-sm ring-2 ring-n-brand/25'
-          : '!text-n-slate-11 hover:!bg-n-brand/10 hover:!text-n-brand'
-      "
+          ? `${SWITCH_COLORS[item.key].active} ring-2 shadow-sm`
+          : 'hover:!bg-n-alpha-2',
+      ]"
       :aria-pressed="item.isActive"
       :icon="item.icon"
       @click="item.onClick"

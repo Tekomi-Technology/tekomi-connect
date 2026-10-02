@@ -9,6 +9,7 @@ const props = defineProps({
   label: { type: String, required: true },
   to: { type: [String, Object], required: true },
   icon: { type: [String, Object], default: null },
+  iconColor: { type: String, default: '' },
   active: { type: Boolean, default: false },
   component: { type: Function, default: null },
   badgeCount: { type: [Number, String], default: 0 },
@@ -56,7 +57,7 @@ const TREE_CONNECTOR =
       />
       <template v-else>
         <span v-if="icon" class="size-4 grid place-content-center rounded-full">
-          <Icon :icon="icon" class="size-4 inline-block" />
+          <Icon :icon="icon" class="size-4 inline-block" :class="iconColor" />
         </span>
         <div class="flex-1 truncate min-w-0 text-sm">{{ label }}</div>
         <SidebarUnreadBadge :count="badgeCount" />
