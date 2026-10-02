@@ -599,6 +599,7 @@ Rails.application.routes.draw do
     namespace :v2 do
       resources :accounts, only: [:create] do
         scope module: :accounts do
+          resource :dashboard, only: [:show], controller: :dashboard
           resources :summary_reports, only: [] do
             collection do
               get :agent
