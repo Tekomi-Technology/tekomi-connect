@@ -1041,7 +1041,6 @@ const menuItems = computed(() => {
     'Settings Templates',
     'Settings Data',
     'Settings Audit Logs',
-    'Settings Custom Roles',
     'Settings Security',
     'Settings Billing',
   ];

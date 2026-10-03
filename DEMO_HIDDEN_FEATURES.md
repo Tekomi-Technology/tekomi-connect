@@ -25,27 +25,22 @@ Lưu lại — toàn bộ sidebar sẽ trở về đầy đủ như cũ ngay l�
 ## Danh sách đã ẩn
 
 **Menu cấp cao:**
-- Tekomi AI (tên nội bộ trong code vẫn là `Captain`, không đổi — chỉ tên hiển thị đã đổi từ 1 commit trước)
 - Calls
 - Companies
 - Portals (Help Center)
 
 **Đã bỏ ẩn (2026-09-22):** Reports — khách cần xem báo cáo, nên đã gỡ khỏi danh sách ẩn (`DEMO_HIDDEN_TOP_LEVEL`) trong khi các mục khác vẫn giữ nguyên trạng thái ẩn.
 
-**Menu con trong Settings (11 mục):**
-- Account Settings
-- Agents
-- Teams
+**Đã bỏ ẩn (2026-10-03):** Custom Roles — quản trị viên cần quản lý vai trò và phân quyền theo account.
+
+**Menu con trong Settings (5 mục):**
 - Templates (WhatsApp)
-- Custom Attributes
 - Data (Import/Export)
 - Audit Logs
-- Custom Roles
-- Conversation Workflow
 - Security
 - Billing
 
-**Giữ lại (khớp đúng tài liệu demo):** Inboxes, Labels, Automation, Agent Bots, Macros, Canned Responses, Integrations, SLA, Agent Assignment, Conversation, Contacts, Campaigns, Home, Inbox.
+**Giữ lại:** Home, Inbox, Conversation, Contacts, Campaigns, Reports, Tekomi AI, Account Settings, Agents, Teams, Inboxes, Labels, Custom Attributes, Automation, Agent Bots, Macros, Canned Responses, Integrations, Custom Roles, SLA, Conversation Workflow và Pipelines.
 
 ## Lưu ý cho phiên Claude Code sau
 
