@@ -31,6 +31,18 @@ class ReportsAPI extends ApiClient {
     });
   }
 
+  getConversationStatus({ from, to, groupBy, dimension }) {
+    return axios.get(`${this.url}/conversation_status`, {
+      params: {
+        since: from,
+        until: to,
+        group_by: groupBy,
+        dimension,
+        timezone_offset: getTimeOffset(),
+      },
+    });
+  }
+
   getDrilldown({
     metric,
     bucketTimestamp,

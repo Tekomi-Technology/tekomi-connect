@@ -85,6 +85,12 @@ class Api::V2::Accounts::ReportsController < Api::V1::Accounts::BaseController
     render json: builder.build
   end
 
+  def conversation_status
+    return head :unprocessable_entity unless valid_conversation_status_params?
+
+    render json: V2::Reports::ConversationStatusBuilder.new(Current.account, conversation_status_params).build
+  end
+
   OUTGOING_MESSAGES_ALLOWED_GROUP_BY = %w[agent team inbox label].freeze
 
   def outgoing_messages_count
@@ -138,6 +144,15 @@ class Api::V2::Accounts::ReportsController < Api::V1::Accounts::BaseController
                           until: params[:until],
                           timezone_offset: params[:timezone_offset]
                         })
+  end
+
+  def conversation_status_params
+    params.permit(:since, :until, :group_by, :dimension, :timezone_offset).to_h.symbolize_keys
+  end
+
+  def valid_conversation_status_params?
+    params[:since].present? && params[:until].present? &&
+      (params[:dimension].blank? || V2::Reports::ConversationStatusBuilder::DIMENSIONS.key?(params[:dimension]))
   end
 
   def drilldown_params

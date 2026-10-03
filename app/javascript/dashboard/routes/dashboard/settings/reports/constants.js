@@ -85,3 +85,12 @@ export const OVERVIEW_METRICS = {
   busy: 'BUSY',
   offline: 'OFFLINE',
 };
+
+export const CONVERSATION_STATUSES = ['resolved', 'open', 'pending', 'snoozed'];
+
+export const STATUS_BAR_CLASS = {
+  resolved: 'bg-n-teal-9',
+  open: 'bg-n-violet-9',
+  pending: 'bg-n-amber-9',
+  snoozed: 'bg-n-slate-9',
+};

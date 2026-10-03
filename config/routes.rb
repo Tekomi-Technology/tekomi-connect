@@ -620,6 +620,7 @@ Rails.application.routes.draw do
               get :conversations
               get :conversations_summary
               get :conversation_traffic
+              get :conversation_status
               get :drilldown
               get :bot_metrics
               get :inbox_label_matrix
