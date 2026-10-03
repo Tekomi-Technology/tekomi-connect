@@ -359,7 +359,6 @@ onUnmounted(() => {
       <DocumentFilter
         v-show="!bulkSelectedIds.size"
         ref="documentFilter"
-        class="mb-2"
         @change="onFiltersChanged"
       />
     </template>

@@ -197,7 +197,7 @@ onUnmounted(() => {
     <template #subHeader>
       <div
         v-if="suggestions.length"
-        class="mb-2 flex items-center gap-2 text-sm text-n-slate-11"
+        class="flex items-center gap-2 text-sm text-n-slate-11"
       >
         <span class="font-medium text-n-slate-12">
           {{

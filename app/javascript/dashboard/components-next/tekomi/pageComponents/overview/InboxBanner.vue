@@ -44,7 +44,7 @@ const goToInboxes = () => {
 <template>
   <div
     v-if="showBanner"
-    class="flex items-center justify-between gap-3 px-3 py-2 text-sm border rounded-xl bg-n-amber-3 border-n-amber-4 text-n-amber-11"
+    class="flex items-center justify-between gap-3 px-4 py-2.5 text-sm border rounded-2xl bg-n-amber-3 border-n-amber-4 text-n-amber-11"
   >
     <div class="flex items-center gap-2 min-w-0">
       <span class="shrink-0 i-lucide-triangle-alert size-4" />

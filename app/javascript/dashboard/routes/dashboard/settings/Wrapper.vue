@@ -18,15 +18,16 @@ const showSettingsHeader = computed(
 </script>
 
 <template>
-  <div class="flex flex-col h-full m-0 bg-n-surface-1 w-full">
-    <SettingsHeader
-      v-if="showSettingsHeader"
-      :icon="icon"
-      :header-title="t(headerTitle)"
-      :show-back-button="showBackButton"
-      :back-url="backUrl"
-      class="z-20 max-w-7xl w-full mx-auto"
-    />
+  <div class="flex flex-col w-full h-full m-0 bg-n-background">
+    <div v-if="showSettingsHeader" class="px-4 pt-6 pb-2">
+      <SettingsHeader
+        :icon="icon"
+        :header-title="t(headerTitle)"
+        :show-back-button="showBackButton"
+        :back-url="backUrl"
+        class="z-20 w-full mx-auto max-w-7xl"
+      />
+    </div>
 
     <router-view v-slot="{ Component }" class="px-4 overflow-hidden">
       <component :is="Component" v-if="!keepAlive" :key="$route.fullPath" />

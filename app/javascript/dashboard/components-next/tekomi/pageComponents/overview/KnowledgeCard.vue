@@ -52,10 +52,10 @@ const stats = computed(() => [
 
 <template>
   <div
-    class="flex flex-col gap-4 p-5 border rounded-xl bg-n-solid-1 border-n-weak"
+    class="flex flex-col gap-4 p-5 transition-shadow duration-300 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2 hover:shadow-md"
   >
     <div class="flex items-center justify-between">
-      <span class="text-sm font-medium text-n-slate-12">
+      <span class="text-base font-semibold tracking-tight text-n-slate-12">
         {{ $t('TEKOMI.OVERVIEW.KNOWLEDGE.TITLE') }}
       </span>
       <span class="text-sm tabular-nums text-n-slate-11">

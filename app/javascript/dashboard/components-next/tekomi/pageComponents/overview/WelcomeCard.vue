@@ -70,10 +70,17 @@ const formattedSummary = computed(
 
 <!-- eslint-disable-next-line vue/no-root-v-if -->
 <template>
-  <div v-if="isLoading || welcomeMarkdown" class="flex flex-col gap-3">
-    <div class="flex items-center gap-1.5 text-n-slate-10">
-      <span class="i-lucide-sparkles size-3.5" />
-      <span class="text-xs">
+  <div
+    v-if="isLoading || welcomeMarkdown"
+    class="flex flex-col gap-4 p-5 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
+  >
+    <div class="flex items-center gap-3">
+      <span
+        class="flex items-center justify-center rounded-xl size-9 shrink-0 bg-n-brand/10 text-n-brand"
+      >
+        <span class="i-lucide-sparkles size-5" />
+      </span>
+      <span class="text-base font-semibold tracking-tight text-n-slate-12">
         {{ $t('TEKOMI.OVERVIEW.WELCOME.LABEL') }}
       </span>
     </div>

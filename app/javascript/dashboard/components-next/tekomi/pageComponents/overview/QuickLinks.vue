@@ -46,7 +46,7 @@ const links = computed(() => [
 </script>
 
 <template>
-  <div v-if="isOnChatwootCloud" class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+  <div v-if="isOnChatwootCloud" class="grid grid-cols-1 gap-3 sm:grid-cols-3">
     <component
       :is="link.href ? 'a' : RouterLink"
       v-for="link in links"
@@ -55,10 +55,10 @@ const links = computed(() => [
       :to="link.to"
       :target="link.href ? '_blank' : undefined"
       :rel="link.href ? 'noopener noreferrer' : undefined"
-      class="flex items-center gap-3 p-4 transition-colors border rounded-xl bg-n-solid-1 border-n-weak hover:bg-n-alpha-1 group/link"
+      class="flex items-center gap-3 p-4 transition-shadow duration-300 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2 hover:shadow-md group/link"
     >
       <span
-        class="grid rounded-lg size-9 shrink-0 place-content-center bg-n-alpha-2 text-n-slate-11"
+        class="grid rounded-xl size-9 shrink-0 place-content-center bg-n-brand/10 text-n-brand"
       >
         <span :class="link.icon" class="size-4" />
       </span>

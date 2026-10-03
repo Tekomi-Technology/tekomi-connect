@@ -105,7 +105,9 @@ const activeTab = computed({
         content-class="max-w-[45rem] pb-8"
       >
         <template #[activeTab]>
-          <div class="flex flex-col w-full gap-6">
+          <div
+            class="flex flex-col w-full gap-6 p-6 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
+          >
             <SettingsHeader :heading="heading" :description="description" />
             <slot />
           </div>

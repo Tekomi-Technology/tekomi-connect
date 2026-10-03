@@ -17,7 +17,10 @@ RSpec.describe Sla::EvaluateAppliedSlaService do
            account: sla_policy.account,
            sla_policy: sla_policy)
   end
-  let!(:applied_sla) { conversation.applied_sla }
+  # The SLA was applied when the conversation was created.
+  let!(:applied_sla) do
+    conversation.applied_sla.tap { |sla| sla.update!(created_at: 6.hours.ago, frt_started_at: 6.hours.ago) }
+  end
 
   describe '#perform - blocked contacts' do
     before do
@@ -60,6 +63,34 @@ RSpec.describe Sla::EvaluateAppliedSlaService do
         expect(SlaEvent.where(applied_sla: applied_sla, event_type: 'frt').count).to eq(1)
         expect(SlaEvent.where(applied_sla: applied_sla, event_type: 'nrt').count).to eq(0)
         expect(SlaEvent.where(applied_sla: applied_sla, event_type: 'rt').count).to eq(0)
+      end
+    end
+
+    context 'when the bot still handles the conversation' do
+      before do
+        applied_sla.sla_policy.update(first_response_time_threshold: 1.hour)
+        applied_sla.update!(frt_started_at: nil)
+      end
+
+      it 'does not mark the first response SLA as missed' do
+        described_class.new(applied_sla: applied_sla).perform
+
+        expect(SlaEvent.where(applied_sla: applied_sla)).not_to exist
+        expect(applied_sla.reload.sla_status).to eq('active')
+      end
+    end
+
+    context 'when the SLA was applied late' do
+      before do
+        applied_sla.sla_policy.update(first_response_time_threshold: 1.hour, resolution_time_threshold: 1.hour)
+        applied_sla.update!(created_at: 10.minutes.ago, frt_started_at: 10.minutes.ago)
+      end
+
+      it 'counts from when the SLA was applied, not from conversation creation' do
+        described_class.new(applied_sla: applied_sla).perform
+
+        expect(SlaEvent.where(applied_sla: applied_sla)).not_to exist
+        expect(applied_sla.reload.sla_status).to eq('active')
       end
     end
 

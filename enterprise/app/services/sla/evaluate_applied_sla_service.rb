@@ -19,6 +19,8 @@ class Sla::EvaluateAppliedSlaService
 
   def check_frt
     return if sla_policy.first_response_time_threshold.blank?
+    # The bot is still handling the conversation, so the timer has not started.
+    return if applied_sla.frt_started_at.blank?
     return if frt_was_hit?
     return if within_threshold?(applied_sla.frt_due_at)
 

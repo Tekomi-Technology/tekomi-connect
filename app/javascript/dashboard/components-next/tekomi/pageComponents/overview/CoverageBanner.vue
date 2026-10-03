@@ -66,7 +66,7 @@ const goToSuggestions = () => {
 
 <template>
   <div
-    class="flex items-center justify-between gap-3 px-3 py-2 text-sm border rounded-xl bg-n-amber-3 border-n-amber-4 text-n-amber-11"
+    class="flex items-center justify-between gap-3 px-4 py-2.5 text-sm border rounded-2xl bg-n-amber-3 border-n-amber-4 text-n-amber-11"
     :class="{ hidden: !showBanner }"
   >
     <div class="flex items-center gap-2 min-w-0">

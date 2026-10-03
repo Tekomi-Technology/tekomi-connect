@@ -115,13 +115,15 @@ const handleCreateAssistant = () => {
 </script>
 
 <template>
-  <section class="flex flex-col w-full h-full overflow-hidden bg-n-surface-1">
-    <header class="sticky top-0 z-10 px-6">
-      <div class="w-full max-w-5xl mx-auto">
+  <section class="flex flex-col w-full h-full overflow-hidden bg-n-background">
+    <div class="relative z-10 px-6 pt-6">
+      <header
+        class="flex flex-col gap-4 p-6 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
+      >
         <div
-          class="flex items-start lg:items-center justify-between w-full py-6 lg:py-0 lg:h-20 gap-4 lg:gap-2 flex-col lg:flex-row"
+          class="flex flex-col items-start justify-between w-full gap-4 lg:flex-row lg:items-center"
         >
-          <div class="flex gap-3 items-center">
+          <div class="flex items-center min-w-0 gap-3">
             <BackButton v-if="backUrl" :back-url="backUrl" />
             <div
               v-if="showAssistantSwitcher && !showPaywall"
@@ -130,7 +132,7 @@ const handleCreateAssistant = () => {
               <div class="flex items-center gap-2">
                 <span
                   v-if="!isFetchingAssistants"
-                  class="text-xl font-medium truncate text-n-slate-12"
+                  class="text-2xl font-semibold tracking-tight truncate text-n-slate-12"
                 >
                   {{ activeAssistantName }}
                 </span>
@@ -166,12 +168,12 @@ const handleCreateAssistant = () => {
                 v-if="showAssistantSwitcher && !showPaywall && headerTitle"
                 class="w-0.5 h-4 rounded-2xl bg-n-weak"
               />
-              <span
+              <h1
                 v-if="headerTitle"
-                class="text-xl font-medium text-n-slate-12"
+                class="text-2xl font-semibold tracking-tight text-n-slate-12"
               >
                 {{ headerTitle }}
-              </span>
+              </h1>
               <div
                 v-if="!isEmpty && showKnowMore"
                 class="flex items-center gap-2"
@@ -182,7 +184,7 @@ const handleCreateAssistant = () => {
             </div>
           </div>
 
-          <div class="flex items-center gap-2">
+          <div class="flex flex-wrap items-center gap-2">
             <slot name="headerActions" />
             <slot name="search" />
             <div
@@ -203,12 +205,18 @@ const handleCreateAssistant = () => {
             </div>
           </div>
         </div>
-        <slot name="subHeader" />
-      </div>
-    </header>
-    <main class="flex-1 px-6 overflow-y-auto">
-      <div class="w-full max-w-5xl h-full mx-auto py-4">
+        <!-- Empty wrappers (e.g. a bulk bar with nothing selected) must not add a gap. -->
+        <div
+          v-if="$slots.subHeader"
+          class="flex flex-col gap-2 empty:hidden [&>*:empty]:hidden"
+        >
+          <slot name="subHeader" />
+        </div>
         <slot v-if="!showPaywall" name="controls" />
+      </header>
+    </div>
+    <main class="flex-1 px-6 overflow-y-auto">
+      <div class="w-full h-full py-5">
         <div
           v-if="isFetching"
           class="flex items-center justify-center py-10 text-n-slate-11"
@@ -230,7 +238,6 @@ const handleCreateAssistant = () => {
         :current-page="currentPage"
         :total-items="totalCount"
         :items-per-page="itemsPerPage"
-        class="max-w-[67rem]"
         @update:current-page="handlePageChange"
       />
     </footer>

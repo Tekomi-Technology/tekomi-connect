@@ -35,7 +35,7 @@ const DETAIL_FIELDS = [
       v-for="item in opportunities"
       :key="item.id"
       type="button"
-      class="flex flex-col gap-3 p-4 text-left rounded-xl bg-n-solid-2 hover:bg-n-alpha-2"
+      class="flex flex-col gap-3 p-4 text-left transition-shadow duration-300 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2 hover:shadow-md"
       @click="emit('openConversation', item.conversation_id)"
     >
       <span class="flex items-center justify-between gap-3">

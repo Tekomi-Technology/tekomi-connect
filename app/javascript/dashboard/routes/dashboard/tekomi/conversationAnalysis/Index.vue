@@ -136,7 +136,7 @@ onMounted(() => {
     @update:current-page="page => (currentPage = page)"
   >
     <template #controls>
-      <div class="flex flex-col gap-4 mb-6">
+      <div class="flex flex-col gap-4">
         <TabBar
           :tabs="tabs"
           :initial-active-tab="activeTab"

@@ -319,9 +319,6 @@ onUnmounted(() => {
         :selected-count-label="selectedCountLabel"
         :delete-label="$t('TEKOMI.RESPONSES.BULK_DELETE_BUTTON')"
         class="w-fit"
-        :class="{
-          'mb-2': bulkSelectedIds.size > 0,
-        }"
         @bulk-delete="bulkDeleteDialog.dialogRef.open()"
       />
     </template>

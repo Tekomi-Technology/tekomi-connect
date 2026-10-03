@@ -26,22 +26,30 @@ const criteria = computed(() =>
 </script>
 
 <template>
-  <div class="flex flex-col gap-6">
+  <div class="flex flex-col gap-5">
     <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
-      <div class="flex flex-col gap-1 p-4 rounded-xl bg-n-solid-2">
-        <span class="text-xs text-n-slate-11">
+      <div
+        class="flex flex-col gap-2 p-4 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
+      >
+        <span
+          class="text-[11px] font-semibold tracking-wide uppercase text-n-slate-11"
+        >
           {{ t('CONVERSATION_ANALYSIS.REPORT.ANALYZED_COUNT') }}
         </span>
-        <span class="text-2xl font-semibold text-n-slate-12">
+        <span class="text-3xl font-semibold tracking-tight text-n-slate-12">
           {{ report.analyzed_count }}
         </span>
       </div>
-      <div class="flex flex-col gap-1 p-4 rounded-xl bg-n-solid-2">
-        <span class="text-xs text-n-slate-11">
+      <div
+        class="flex flex-col gap-2 p-4 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
+      >
+        <span
+          class="text-[11px] font-semibold tracking-wide uppercase text-n-slate-11"
+        >
           {{ t('CONVERSATION_ANALYSIS.REPORT.AVERAGE_SCORE') }}
         </span>
         <span
-          class="text-2xl font-semibold"
+          class="text-3xl font-semibold tracking-tight"
           :class="scoreTextClass(report.average_score)"
         >
           {{ report.average_score ?? '—' }}
@@ -50,9 +58,11 @@ const criteria = computed(() =>
       <div
         v-for="row in report.served_by"
         :key="row.served_by"
-        class="flex flex-col gap-1 p-4 rounded-xl bg-n-solid-2"
+        class="flex flex-col gap-2 p-4 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
       >
-        <span class="text-xs text-n-slate-11">
+        <span
+          class="text-[11px] font-semibold tracking-wide uppercase text-n-slate-11"
+        >
           {{
             t(
               `CONVERSATION_ANALYSIS.QUALITY.SERVED_BY_OPTIONS.${row.served_by.toUpperCase()}`
@@ -62,7 +72,7 @@ const criteria = computed(() =>
           {{ t('CONVERSATION_ANALYSIS.REPORT.COUNT', { count: row.count }) }}
         </span>
         <span
-          class="text-2xl font-semibold"
+          class="text-3xl font-semibold tracking-tight"
           :class="scoreTextClass(row.average_score)"
         >
           {{ row.average_score ?? '—' }}
@@ -70,8 +80,10 @@ const criteria = computed(() =>
       </div>
     </div>
 
-    <section class="flex flex-col gap-3">
-      <h3 class="text-sm font-medium text-n-slate-12">
+    <section
+      class="flex flex-col gap-3 p-5 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
+    >
+      <h3 class="text-base font-semibold tracking-tight text-n-slate-12">
         {{ t('CONVERSATION_ANALYSIS.REPORT.CRITERIA') }}
       </h3>
       <div
@@ -97,8 +109,10 @@ const criteria = computed(() =>
       </div>
     </section>
 
-    <section class="flex flex-col gap-3">
-      <h3 class="text-sm font-medium text-n-slate-12">
+    <section
+      class="flex flex-col gap-3 p-5 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
+    >
+      <h3 class="text-base font-semibold tracking-tight text-n-slate-12">
         {{ t('CONVERSATION_ANALYSIS.REPORT.AGENTS') }}
       </h3>
       <p v-if="!report.agents.length" class="text-sm text-n-slate-11">
@@ -126,8 +140,10 @@ const criteria = computed(() =>
       </div>
     </section>
 
-    <section class="flex flex-col gap-3">
-      <h3 class="text-sm font-medium text-n-slate-12">
+    <section
+      class="flex flex-col gap-3 p-5 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
+    >
+      <h3 class="text-base font-semibold tracking-tight text-n-slate-12">
         {{ t('CONVERSATION_ANALYSIS.REPORT.LOW_SCORES') }}
       </h3>
       <p v-if="!report.low_scores.length" class="text-sm text-n-slate-11">
@@ -137,7 +153,7 @@ const criteria = computed(() =>
         v-for="item in report.low_scores"
         :key="item.id"
         type="button"
-        class="flex items-start justify-between gap-4 p-3 text-left rounded-lg bg-n-solid-2 hover:bg-n-alpha-2"
+        class="flex items-start justify-between gap-4 p-3 text-left rounded-xl bg-n-alpha-1 hover:bg-n-alpha-2"
         @click="emit('openConversation', item.conversation_id)"
       >
         <span class="flex flex-col min-w-0 gap-1">

@@ -213,7 +213,7 @@ const closeDrilldown = () => {
       <TekomiPaywall />
     </template>
     <template #body>
-      <div class="flex flex-col gap-6 pb-8">
+      <div class="flex flex-col gap-5 pb-8">
         <InboxBanner />
 
         <CoverageBanner :knowledge="faqStats ?? undefined" />
@@ -221,7 +221,7 @@ const closeDrilldown = () => {
         <WelcomeCard :range="selectedRange" :stats="summaryStats" />
 
         <div
-          class="grid grid-cols-1 gap-px overflow-hidden border rounded-xl sm:grid-cols-2 lg:grid-cols-3 bg-n-weak border-n-weak"
+          class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
         >
           <MetricCard
             v-for="metric in metrics"

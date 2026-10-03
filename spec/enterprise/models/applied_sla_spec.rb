@@ -51,7 +51,11 @@ RSpec.describe AppliedSla, type: :model do
         waiting_since: start_time + 1.hour
       )
       conversation.update!(waiting_since: start_time + 1.hour)
-      applied_sla = create(:applied_sla, account: account, conversation: conversation, sla_policy: sla_policy)
+      applied_sla = create(
+        :applied_sla,
+        account: account, conversation: conversation, sla_policy: sla_policy,
+        created_at: start_time, frt_started_at: start_time
+      )
       working_hours = inbox.working_hours
 
       expect(working_hours).to receive(:index_by).once.and_call_original
@@ -95,12 +99,49 @@ RSpec.describe AppliedSla, type: :model do
       expect(applied_sla.frt_due_at).to be_nil
     end
 
-    it 'returns deadline based on conversation created_at' do
+    it 'returns nil while the bot still handles the conversation' do
+      applied_sla = create(:applied_sla)
+      applied_sla.sla_policy.update!(first_response_time_threshold: 3600)
+      applied_sla.update!(frt_started_at: nil)
+
+      expect(applied_sla.frt_due_at).to be_nil
+    end
+
+    it 'returns deadline based on when the first response timer started' do
       applied_sla = create(:applied_sla)
       applied_sla.sla_policy.update!(first_response_time_threshold: 3600, only_during_business_hours: false)
 
-      expected_deadline = applied_sla.conversation.created_at.to_i + 3600
+      expected_deadline = applied_sla.frt_started_at.to_i + 3600
       expect(applied_sla.frt_due_at).to eq(expected_deadline)
+    end
+  end
+
+  describe 'first response timer' do
+    let(:account) { create(:account) }
+    let(:sla_policy) { create(:sla_policy, account: account, first_response_time_threshold: 3600) }
+
+    it 'starts when the SLA is applied to an open conversation' do
+      conversation = create(:conversation, account: account, sla_policy: sla_policy)
+
+      expect(conversation.applied_sla.frt_started_at).to be_present
+    end
+
+    it 'starts at handoff when the bot handled the conversation first' do
+      conversation = create(:conversation, account: account, status: :pending, sla_policy: sla_policy)
+      expect(conversation.applied_sla.frt_started_at).to be_nil
+
+      handoff_time = 10.minutes.from_now
+      travel_to(handoff_time) { conversation.open! }
+
+      expect(conversation.applied_sla.reload.frt_started_at).to be_within(1.second).of(handoff_time)
+    end
+
+    it 'does not start when the bot resolves the conversation' do
+      conversation = create(:conversation, account: account, status: :pending, sla_policy: sla_policy)
+
+      conversation.resolved!
+
+      expect(conversation.applied_sla.reload.frt_started_at).to be_nil
     end
   end
 
@@ -139,11 +180,11 @@ RSpec.describe AppliedSla, type: :model do
       expect(applied_sla.rt_due_at).to be_nil
     end
 
-    it 'returns deadline based on conversation created_at' do
-      applied_sla = create(:applied_sla)
+    it 'returns deadline based on when the SLA was applied' do
+      applied_sla = create(:applied_sla, created_at: 3.hours.ago)
       applied_sla.sla_policy.update!(resolution_time_threshold: 7200, only_during_business_hours: false)
 
-      expected_deadline = applied_sla.conversation.created_at.to_i + 7200
+      expected_deadline = applied_sla.created_at.to_i + 7200
       expect(applied_sla.rt_due_at).to eq(expected_deadline)
     end
   end

@@ -26,10 +26,10 @@ const onActivate = () => {
 
 <template>
   <div
-    class="flex flex-col gap-3 p-5 group bg-n-solid-1"
+    class="flex flex-col gap-2 p-4 bg-white border shadow-sm group rounded-2xl border-n-weak dark:bg-n-solid-2"
     :class="
       clickable
-        ? 'cursor-pointer transition-colors hover:bg-n-slate-2/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-n-brand'
+        ? 'cursor-pointer transition-all duration-300 hover:shadow-md hover:[transform:perspective(700px)_rotateX(6deg)_translateY(-2px)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-n-brand'
         : ''
     "
     :role="clickable ? 'button' : undefined"
@@ -39,7 +39,11 @@ const onActivate = () => {
     @keydown.space.self.prevent="onActivate"
   >
     <div class="flex items-center gap-1.5">
-      <span class="text-sm font-medium text-n-slate-11">{{ label }}</span>
+      <span
+        class="text-[11px] font-semibold tracking-wide uppercase text-n-slate-11"
+      >
+        {{ label }}
+      </span>
       <span
         v-if="hint"
         v-tooltip="hint"
