@@ -134,6 +134,16 @@ const closeOnSmallScreen = () => {
             : t('CONVERSATION.SIDEBAR.COMPANY')
         }}
       </button>
+      <!-- Same collapse toggle as the conversation list; on phones the panel is an overlay, so it closes. -->
+      <Button
+        v-tooltip.left="t('CONVERSATION.SIDEBAR.COLLAPSE_PANEL')"
+        icon="i-lucide-chevron-right"
+        slate
+        xs
+        faded
+        class="self-center flex-shrink-0 hidden mb-1 !rounded-full md:inline-flex rtl:rotate-180"
+        @click="closePanel"
+      />
       <Button
         v-tooltip="t('GENERAL.CLOSE')"
         icon="i-lucide-x"

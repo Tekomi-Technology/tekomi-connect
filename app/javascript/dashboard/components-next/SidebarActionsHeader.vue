@@ -34,11 +34,22 @@ const handleButtonClick = button => {
           sm
           @click="handleButtonClick(button)"
         />
+        <!-- Same collapse toggle as the conversation list; on phones the panel is an overlay, so it closes. -->
+        <Button
+          v-tooltip.left="$t('CONVERSATION.SIDEBAR.COLLAPSE_PANEL')"
+          icon="i-lucide-chevron-right"
+          slate
+          xs
+          faded
+          class="hidden ms-1 !rounded-full md:inline-flex rtl:rotate-180"
+          @click="$emit('close')"
+        />
         <Button
           v-tooltip="$t('GENERAL.CLOSE')"
           icon="i-lucide-x"
           ghost
           sm
+          class="md:hidden"
           @click="$emit('close')"
         />
       </div>

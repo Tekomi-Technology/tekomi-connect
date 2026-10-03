@@ -126,6 +126,16 @@ const handleAnalysisSidebarToggle = () => {
   });
 };
 
+// Nothing is open on the right: offer the way back to the panel last used.
+const isPanelCollapsed = computed(
+  () =>
+    !isContactSidebarOpen.value &&
+    !isCopilotPanelOpen.value &&
+    !isAnalysisPanelOpen.value
+);
+
+const expandPanel = () => openSidebarPanel(activePanel.value);
+
 const keyboardEvents = {
   'Alt+KeyO': {
     action: toggleConversationSidebar,
@@ -185,6 +195,16 @@ const switchItems = computed(() => [
   <ButtonGroup
     class="flex flex-col justify-center items-center absolute top-36 xl:top-24 ltr:right-2 rtl:left-2 bg-n-solid-2/90 backdrop-blur-lg border border-n-weak/50 rounded-full gap-1.5 p-1.5 shadow-sm transition-shadow duration-200 hover:shadow !z-20"
   >
+    <Button
+      v-if="isPanelCollapsed"
+      v-tooltip.left="$t('CONVERSATION.SIDEBAR.EXPAND_PANEL')"
+      icon="i-lucide-chevron-left"
+      slate
+      xs
+      faded
+      class="hidden !rounded-full md:inline-flex rtl:rotate-180"
+      @click="expandPanel"
+    />
     <Button
       v-for="item in switchItems"
       :key="item.key"
