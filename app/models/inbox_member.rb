@@ -24,6 +24,7 @@ class InboxMember < ApplicationRecord
 
   after_create :add_agent_to_round_robin
   after_destroy :remove_agent_from_round_robin
+  after_destroy :remove_phone_extension
   after_commit :invalidate_filtered_unread_count_visibility, on: [:create, :destroy]
 
   private
@@ -34,6 +35,10 @@ class InboxMember < ApplicationRecord
 
   def remove_agent_from_round_robin
     ::AutoAssignment::InboxRoundRobinService.new(inbox: inbox).remove_agent_from_queue(user_id) if inbox.present?
+  end
+
+  def remove_phone_extension
+    inbox.phone_extensions.find_by(user_id: user_id)&.destroy! if inbox&.phone?
   end
 
   def invalidate_filtered_unread_count_visibility

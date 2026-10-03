@@ -6,7 +6,7 @@ class Internal::AccountAnalysis::AccountUpdaterService
   def update_with_analysis(analysis, error_message = nil)
     if error_message
       save_error(error_message)
-      notify_on_discord
+      log_security_review
       return
     end
 
@@ -44,11 +44,10 @@ class Internal::AccountAnalysis::AccountUpdaterService
       Rails.logger.info("Flagging account #{@account.id} due to threat level: #{analysis['threat_level']}")
     end
 
-    notify_on_discord
+    log_security_review
   end
 
-  def notify_on_discord
+  def log_security_review
     Rails.logger.info("Account #{@account.id} has been flagged for security review")
-    Internal::AccountAnalysis::DiscordNotifierService.new.notify_flagged_account(@account)
   end
 end

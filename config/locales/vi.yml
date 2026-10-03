@@ -1,21 +1,3 @@
-#Files in the config/locales directory are used for internationalization
-#and are automatically loaded by Rails. If you want to use locales other
-#than English, add the necessary files in this directory.
-#To use the locales, use `I18n.t`:
-#I18n.t 'hello'
-#In views, this is aliased to just `t`:
-#<%= t('hello') %>
-#To use a different locale, set it with `I18n.locale`:
-#I18n.locale = :es
-#This would use the information in config/locales/es.yml.
-#The following keys must be escaped otherwise they will not be retrieved by
-#the default I18n backend:
-#true, false, on, off, yes, no
-#Instead, surround them with single quotes.
-#en:
-#'true': 'foo'
-#To learn more, please read the Rails Internationalization guide
-#available at https://guides.rubyonrails.org/i18n.html.
 vi:
   hello: 'Chào thế giới'
   inbox:
@@ -58,6 +40,8 @@ vi:
     sessions:
       cannot_revoke_current: You cannot revoke the current session.
   errors:
+    send_reply:
+      failed: 'Chưa gửi được tin nhắn: kênh không phản hồi sau nhiều lần thử. Kiểm tra kết nối của hộp thư rồi gửi lại.'
     account:
       not_authorized: You are not authorized to access this account
       email_limit_exceeded: The daily email limit for this account has been reached
@@ -259,7 +243,7 @@ vi:
         contact_email_address: Địa chỉ email của liên hệ
         contact_phone_number: Số điện thoại của liên hệ
         link_to_the_conversation: Liên kế tới hội thoại
-        agent_name: Tên nhà cung cấp
+        agent_name: Tên nhân viên
         rating: Đánh giá
         feedback: Bình luận phản hồi
         recorded_at: Ngày nghi
@@ -276,8 +260,8 @@ vi:
     attachment: 'Attachment'
     no_content: 'No content'
   conversations:
-    captain:
-      handoff: 'Transferring to another agent for further assistance.'
+    tekomi:
+      handoff: 'Đang chuyển hội thoại cho nhân viên hỗ trợ tiếp.'
     messages:
       instagram_story_content: '%{story_sender} đã đề cập đến bạn trong hội thoại: '
       instagram_deleted_story_content: Hội thoại này không còn nữa.
@@ -295,15 +279,15 @@ vi:
       delivery_status:
         error_code: 'Error code: %{error_code}'
     activity:
-      captain:
-        resolved: 'Conversation was marked resolved by %{user_name} due to inactivity'
-        resolved_with_reason: 'Conversation was marked resolved by %{user_name} (%{reason})'
-        resolved_by_tool: 'Conversation was marked resolved by %{user_name}: %{reason}'
-        open: 'Conversation was marked open by %{user_name}'
-        open_with_reason: 'Conversation was marked open by %{user_name} (%{reason})'
-        auto_opened_after_agent_reply: 'Conversation was marked open automatically after an agent reply'
+      tekomi:
+        resolved: 'Hội thoại được đánh dấu đã giải quyết bởi %{user_name} do không còn hoạt động'
+        resolved_with_reason: 'Hội thoại được đánh dấu đã giải quyết bởi %{user_name} (%{reason})'
+        resolved_by_tool: 'Hội thoại được đánh dấu đã giải quyết bởi %{user_name}: %{reason}'
+        open: 'Hội thoại được mở lại bởi %{user_name}'
+        open_with_reason: 'Hội thoại được mở lại bởi %{user_name} (%{reason})'
+        auto_opened_after_agent_reply: 'Hội thoại được tự động mở lại sau khi nhân viên trả lời'
       agent_bot:
-        error_moved_to_open: 'Conversation was marked open by system due to an error with the agent bot.'
+        error_moved_to_open: 'Hệ thống mở lại hội thoại do bot gặp lỗi.'
       status:
         resolved: 'Cuộc trò chuyện được đánh dấu là đã giải quyết bởi %{user_name}'
         contact_resolved: 'Hội thoại đã được giải quyết bởi %{contact_name}'
@@ -311,8 +295,8 @@ vi:
         pending: 'Hội thoại được đánh dấu là chưa giải quyết bởi %{user_name}'
         snoozed: 'Hội thoại đã được tạm dừng lại bởi %{user_name}'
         auto_resolved_days: 'Hội thoại được đánh dấu là đã giải quyết bởi hệ thống vì %{count} ngày không hoạt động'
-        auto_resolved_hours: 'Conversation was marked resolved by system due to %{count} hours of inactivity'
-        auto_resolved_minutes: 'Conversation was marked resolved by system due to %{count} minutes of inactivity'
+        auto_resolved_hours: 'Hội thoại được đánh dấu là đã giải quyết bởi hệ thống vì %{count} giờ không hoạt động'
+        auto_resolved_minutes: 'Hội thoại được đánh dấu là đã giải quyết bởi hệ thống vì %{count} phút không hoạt động'
         system_auto_open: Hệ thống mở lại hội thoại do có tin nhắn mới.
       priority:
         added: '%{user_name} thiết lập độ ưu tiên thành %{new_priority}'
@@ -330,22 +314,22 @@ vi:
         added: '%{user_name} thêm %{labels}'
         removed: '%{user_name} xoá %{labels}'
       sla:
-        added: '%{user_name} added SLA policy %{sla_name}'
-        removed: '%{user_name} removed SLA policy %{sla_name}'
+        added: '%{user_name} đã thêm chính sách SLA %{sla_name}'
+        removed: '%{user_name} đã gỡ chính sách SLA %{sla_name}'
       linear:
-        issue_created: 'Linear issue %{issue_id} was created by %{user_name}'
-        issue_linked: 'Linear issue %{issue_id} was linked by %{user_name}'
-        issue_unlinked: 'Linear issue %{issue_id} was unlinked by %{user_name}'
+        issue_created: '%{user_name} đã tạo issue Linear %{issue_id}'
+        issue_linked: '%{user_name} đã liên kết issue Linear %{issue_id}'
+        issue_unlinked: '%{user_name} đã bỏ liên kết issue Linear %{issue_id}'
       whatsapp_call:
-        permission_requested: 'Sent a call permission request to %{contact_name}.'
-        permission_granted: '%{contact_name} accepted the call permission request.'
+        permission_requested: 'Đã gửi yêu cầu cho phép gọi điện đến %{contact_name}.'
+        permission_granted: '%{contact_name} đã đồng ý cho phép gọi điện.'
       csat:
-        not_sent_due_to_messaging_window: 'CSAT survey not sent due to outgoing message restrictions'
+        not_sent_due_to_messaging_window: 'Không gửi được khảo sát CSAT do giới hạn gửi tin nhắn ra ngoài'
       auto_resolve:
-        not_sent_due_to_messaging_window: 'Auto-resolve message not sent due to outgoing message restrictions'
+        not_sent_due_to_messaging_window: 'Không gửi được tin nhắn tự đóng hội thoại do giới hạn gửi tin nhắn ra ngoài'
       muted: '%{user_name} đã tắt tiếng hội thoại'
       unmuted: '%{user_name} đã bật tiếng cuộc trò chuyện'
-      auto_resolution_message: 'Resolving the conversation as it has been inactive for a while. Please start a new conversation if you need further assistance.'
+      auto_resolution_message: 'Hội thoại sẽ được đóng do không có trao đổi trong một thời gian. Anh/chị vui lòng nhắn tin mới nếu cần hỗ trợ thêm.'
     templates:
       greeting_message_body: '%{account_name} thường trả lời trong vài giờ.'
       ways_to_reach_you_message_body: 'Trong lúc chờ đội ngũ hỗ trợ phản hồi, bạn hãy để lại email để nhận được thông báo nhanh nhất nhé.'
@@ -374,55 +358,55 @@ vi:
     #Note: webhooks and dashboard_apps don't need short_description as they use different modal components
     dashboard_apps:
       name: 'Ứng dụng bảng điều khiển'
-      description: 'Dashboard Apps allow you to create and embed applications that display user information, orders, or payment history, providing more context to your customer support agents.'
+      description: 'Ứng dụng bảng điều khiển cho phép bạn tạo và nhúng các ứng dụng hiển thị thông tin người dùng, đơn hàng hoặc lịch sử thanh toán, giúp nhân viên hỗ trợ có thêm ngữ cảnh về khách hàng.'
     dyte:
       name: 'Dyte'
-      short_description: 'Start video/voice calls with customers directly from Chatwoot.'
-      description: 'Dyte is a product that integrates audio and video functionalities into your application. With this integration, your agents can start video/voice calls with your customers directly from Chatwoot.'
+      short_description: 'Gọi video hoặc gọi thoại với khách hàng ngay trong Chatwoot.'
+      description: 'Dyte là sản phẩm tích hợp tính năng âm thanh và video vào ứng dụng của bạn. Khi bật tích hợp này, nhân viên có thể gọi video hoặc gọi thoại với khách hàng ngay trong Chatwoot.'
       meeting_name: '%{agent_name} đã bắt đầu một cuộc họp'
     slack:
       name: 'Slack'
-      short_description: 'Receive notifications and respond to conversations directly in Slack.'
-      description: "Integrate Chatwoot with Slack to keep your team in sync. This integration allows you to receive notifications for new conversations and respond to them directly within Slack's interface."
+      short_description: 'Nhận thông báo và trả lời hội thoại ngay trong Slack.'
+      description: 'Kết nối Chatwoot với Slack để cả nhóm luôn nắm được tình hình. Tích hợp này cho phép bạn nhận thông báo khi có hội thoại mới và trả lời ngay trong Slack.'
     webhooks:
       name: 'Webhooks'
-      description: 'Webhook events provide real-time updates about activities in your Chatwoot account. You can subscribe to your preferred events, and Chatwoot will send you HTTP callbacks with the updates.'
+      description: 'Webhook gửi thông tin theo thời gian thực về các hoạt động trong tài khoản Chatwoot của bạn. Bạn chọn những sự kiện muốn theo dõi, và Chatwoot sẽ gọi HTTP callback tới địa chỉ của bạn kèm nội dung cập nhật.'
     dialogflow:
       name: 'Dialogflow'
-      short_description: 'Build chatbots to handle initial queries before transferring to agents.'
-      description: 'Build chatbots with Dialogflow and easily integrate them into your inbox. These bots can handle initial queries before transferring them to a customer service agent.'
+      short_description: 'Tạo chatbot xử lý các câu hỏi ban đầu trước khi chuyển cho nhân viên.'
+      description: 'Tạo chatbot bằng Dialogflow và gắn vào hộp thư của bạn. Các bot này xử lý những câu hỏi ban đầu, sau đó chuyển hội thoại cho nhân viên chăm sóc khách hàng.'
     google_translate:
       name: 'Google Translate'
-      short_description: 'Automatically translate customer messages for agents.'
-      description: "Integrate Google Translate to help agents easily translate customer messages. This integration automatically detects the language and converts it to the agent's or admin's preferred language."
+      short_description: 'Tự động dịch tin nhắn của khách hàng cho nhân viên.'
+      description: 'Tích hợp Google Translate để nhân viên dịch tin nhắn của khách hàng dễ dàng hơn. Tích hợp này tự nhận diện ngôn ngữ và dịch sang ngôn ngữ mà nhân viên hoặc quản trị viên đang dùng.'
     openai:
       name: 'OpenAI'
-      short_description: 'AI-powered reply suggestions, summarization, and message enhancement.'
-      description: 'Leverage the power of large language models from OpenAI with the features such as reply suggestions, summarization, message rephrasing, spell-checking, and label classification.'
+      short_description: 'Gợi ý câu trả lời, tóm tắt và cải thiện tin nhắn bằng AI.'
+      description: 'Khai thác sức mạnh của các mô hình ngôn ngữ lớn từ OpenAI với những tính năng như gợi ý câu trả lời, tóm tắt hội thoại, viết lại tin nhắn, kiểm tra chính tả và phân loại nhãn.'
     linear:
       name: 'Linear'
-      short_description: 'Create and link Linear issues directly from conversations.'
-      description: 'Create issues in Linear directly from your conversation window. Alternatively, link existing Linear issues for a more streamlined and efficient issue tracking process.'
-      attachment_link_title: 'Conversation (#%{conversation_id}) with %{name}'
+      short_description: 'Tạo và liên kết issue Linear ngay từ hội thoại.'
+      description: 'Tạo issue trong Linear ngay tại khung hội thoại. Hoặc liên kết issue Linear có sẵn để việc theo dõi công việc gọn gàng và hiệu quả hơn.'
+      attachment_link_title: 'Hội thoại (#%{conversation_id}) với %{name}'
     notion:
       name: 'Notion'
-      short_description: 'Integrate databases, documents and pages directly with Captain.'
-      description: 'Connect your Notion workspace to enable Captain to access and generate intelligent responses using content from your databases, documents, and pages to provide more contextual customer support.'
+      short_description: 'Kết nối cơ sở dữ liệu, tài liệu và trang Notion với GMO AI.'
+      description: 'Kết nối workspace Notion để GMO AI đọc được nội dung trong cơ sở dữ liệu, tài liệu và trang của bạn, từ đó tạo ra câu trả lời thông minh và sát ngữ cảnh hơn khi hỗ trợ khách hàng.'
     shopify:
       name: 'Shopify'
-      short_description: 'Access order details and customer data from your Shopify store.'
-      description: 'Connect your Shopify store to access order details, customer information, and product data directly within your conversations and helps your support team provide faster, more contextual assistance to your customers.'
+      short_description: 'Xem thông tin đơn hàng và dữ liệu khách hàng từ cửa hàng Shopify.'
+      description: 'Kết nối cửa hàng Shopify để xem thông tin đơn hàng, thông tin khách hàng và dữ liệu sản phẩm ngay trong hội thoại, giúp đội hỗ trợ trả lời nhanh hơn và sát ngữ cảnh hơn.'
     leadsquared:
       name: 'LeadSquared'
-      short_description: 'Sync your contacts and conversations with LeadSquared CRM.'
-      description: 'Sync your contacts and conversations with LeadSquared CRM. This integration automatically creates leads in LeadSquared when new contacts are added, and logs conversation activity to provide your sales team with complete context.'
-  captain:
+      short_description: 'Đồng bộ liên hệ và hội thoại với LeadSquared CRM.'
+      description: 'Đồng bộ liên hệ và hội thoại với LeadSquared CRM. Tích hợp này tự tạo lead trong LeadSquared khi có liên hệ mới, và ghi lại hoạt động hội thoại để đội bán hàng nắm được đầy đủ bối cảnh.'
+  tekomi:
     copilot_message_required: Thông điệp bắt buộc có
     copilot_error: 'Please connect an assistant to this inbox to use Copilot'
     copilot_limit: 'You are out of Copilot credits. You can buy more credits from the billing section.'
-    upgrade: 'Nâng cấp gói của bạn để bật Captain AI'
-    disabled: 'Captain AI bị vô hiệu hóa cho tài khoản này.'
-    api_key_missing: 'Chưa cấu hình khóa API Captain AI.'
+    upgrade: 'Nâng cấp gói của bạn để bật GMO AI'
+    disabled: 'GMO AI bị vô hiệu hóa cho tài khoản này.'
+    api_key_missing: 'Chưa cấu hình khóa API GMO AI.'
     copilot:
       using_tool: 'Đang sử dụng công cụ %{function_name}'
       completed_tool_call: 'Đã hoàn thành cuộc gọi công cụ %{function_name}'
@@ -572,13 +556,47 @@ vi:
 
       Transcript:
       %{format_messages}
+  crm_deals:
+    ai:
+      assistant_missing: 'Hãy kết nối một trợ lý GMO AI cho tài khoản này trước khi dùng GMO AI cho cơ hội.'
+    default_pipeline:
+      name: 'Bán hàng'
+      stages:
+        new: 'Mới'
+        screening: 'Sàng lọc'
+        meeting: 'Gặp gỡ'
+        proposal: 'Báo giá'
+        customer: 'Khách hàng'
+    default_view:
+      name: 'Tất cả cơ hội'
+    stage_has_deals: 'Giai đoạn này vẫn còn cơ hội. Hãy chọn một giai đoạn khác để chuyển chúng sang trước khi xoá.'
+    invalid_sort: 'Trường sắp xếp không hợp lệ'
+  crm_tickets:
+    default_pipeline:
+      name: 'Ticket'
+      stages:
+        intake: 'Tiếp nhận'
+        dispatch: 'Điều phối'
+        field_work: 'Xử lý hiện trường'
+        done: 'Hoàn tất'
+    default_views:
+      all:
+        name: 'Tất cả ticket'
+      breached:
+        name: 'Đang trễ'
+      at_risk:
+        name: 'Sắp đến hạn'
+      mine:
+        name: 'Của tôi'
+    stage_has_tickets: 'Khâu này vẫn còn ticket. Hãy chọn một khâu khác để chuyển chúng sang trước khi xoá.'
+    invalid_sort: 'Trường sắp xếp không hợp lệ'
   agent_capacity_policy:
     inbox_already_assigned: 'Inbox has already been assigned to this policy'
   portals:
     analytics:
       invalid_configuration: 'Invalid analytics configuration'
     articles:
-      captain_not_available: 'Translation requires Captain to be enabled for this account'
+      captain_not_available: 'Translation requires GMO AI to be enabled for this account'
       locale_not_available: 'Locale not available in this portal'
       category_not_found: 'Category not found in this portal'
       no_articles_found: 'No articles found to process'
@@ -592,47 +610,840 @@ vi:
     ssl_status:
       custom_domain_not_configured: 'Custom domain is not configured'
   super_admin:
+    navigation:
+      console: 'Bảng quản trị hệ thống'
+      admin_dashboard: 'Tổng quan quản trị'
+      dashboard: 'Tổng quan'
+      sidekiq: 'Sidekiq'
+      instance_health: 'Tình trạng hệ thống'
+      push_diagnostics: 'Chẩn đoán thông báo đẩy'
+      agent_dashboard: 'Trang nhân viên'
+      logout: 'Đăng xuất'
+    dashboard:
+      title: 'Tổng quan quản trị'
+      accounts: 'Tài khoản'
+      users: 'Người dùng'
+      inboxes: 'Hộp thư'
+      conversations: 'Hội thoại'
+      not_available: 'Không có'
+      chart_aria_label: 'Số hội thoại được tạo theo ngày'
+    flash:
+      invalid_action: 'Thao tác không hợp lệ'
+      restart_required: 'Khởi động lại tiến trình web và worker để thay đổi có hiệu lực ở mọi nơi.'
+    settings:
+      title: 'Cài đặt'
+      subtitle: 'Cập nhật cài đặt của hệ thống'
+      edition: 'Phiên bản'
+      plan_details_html: "Hệ thống đang chạy phiên bản <span class='font-semibold'>nội bộ không giới hạn</span>."
+      features: 'Tính năng'
+    app_configs:
+      title: 'Cấu hình - %{config}'
+      updated: 'Đã cập nhật cài đặt %{config}'
+      submit: 'Lưu'
+      'true': 'Bật'
+      'false': 'Tắt'
+      fields:
+        ENABLE_ACCOUNT_SIGNUP:
+          title: 'Cho phép đăng ký tài khoản'
+          description: 'Cho phép người dùng tự đăng ký tài khoản mới'
+        FIREBASE_PROJECT_ID:
+          title: 'Firebase Project ID'
+          description: 'ID dự án Firebase'
+        FIREBASE_CREDENTIALS:
+          title: 'Firebase Credentials'
+          description: 'Nội dung file JSON thông tin xác thực Firebase'
+        WEBHOOK_TIMEOUT:
+          title: 'Thời gian chờ webhook (giây)'
+          description: 'Thời gian tối đa GMO chờ webhook phản hồi trước khi báo lỗi'
+        MAXIMUM_FILE_UPLOAD_SIZE:
+          title: 'Giới hạn dung lượng tệp đính kèm (MB)'
+          description: 'Dung lượng tối đa (MB) cho mỗi tệp tải lên'
+        WIDGET_TOKEN_EXPIRY:
+          title: 'Thời hạn token widget'
+          description: 'Số ngày token hết hạn'
+        FB_VERIFY_TOKEN:
+          description: 'Mã xác minh dùng cho webhook Facebook Messenger'
+        IG_VERIFY_TOKEN:
+          description: 'Mã xác minh dùng cho webhook Instagram'
+        FACEBOOK_API_VERSION:
+          title: 'Phiên bản Facebook API'
+          description: 'Chỉ cấu hình khi muốn dùng phiên bản Facebook API khác. Phải có tiền tố `v`'
+        ENABLE_MESSENGER_CHANNEL_HUMAN_AGENT:
+          title: 'Bật chế độ nhân viên (human agent)'
+          description: 'Bật chế độ human agent cho kênh Messenger để được trả lời trong thời gian dài hơn. Cần Facebook duyệt thêm quyền: https://developers.facebook.com/docs/features-reference/human-agent/'
+        SHOPIFY_CLIENT_ID:
+          description: 'Client ID (API Key) trong tài khoản Shopify Partner'
+        SHOPIFY_CLIENT_SECRET:
+          description: 'Client Secret (API Secret Key) trong tài khoản Shopify Partner'
+        AZURE_APP_ID:
+          description: 'App ID dùng để xác thực với tài khoản Microsoft của khách hàng. Hướng dẫn cài đặt Azure: https://chwt.app/dev/ms'
+        MAILER_INBOUND_EMAIL_DOMAIN:
+          title: 'Tên miền email đến'
+          description: 'Tên miền dùng để tạo email nối tiếp hội thoại (reply+id@domain.com)'
+        ACCOUNT_EMAILS_LIMIT:
+          title: 'Giới hạn gửi email của tài khoản (mỗi ngày)'
+          description: 'Số email ngoài kênh tối đa một tài khoản được gửi mỗi ngày'
+        ACCOUNT_EMAILS_PLAN_LIMITS:
+          title: 'Giới hạn email theo gói (mỗi ngày)'
+          description: 'Giới hạn gửi email mỗi ngày theo từng gói, dạng JSON'
+        INSTAGRAM_APP_SECRET:
+          description: 'App Secret dùng để xác thực Instagram'
+        INSTAGRAM_VERIFY_TOKEN:
+          description: 'Mã xác minh dùng cho webhook Instagram'
+        INSTAGRAM_API_VERSION:
+          title: 'Phiên bản Instagram API'
+          description: 'Chỉ cấu hình khi muốn dùng phiên bản Instagram API khác. Phải có tiền tố `v`'
+        ENABLE_INSTAGRAM_CHANNEL_HUMAN_AGENT:
+          title: 'Bật chế độ nhân viên (human agent) cho Instagram'
+          description: 'Bật chế độ human agent cho kênh Instagram để được trả lời trong thời gian dài hơn. Cần Facebook duyệt thêm quyền: https://developers.facebook.com/docs/features-reference/human-agent/'
+        TIKTOK_API_VERSION:
+          title: 'Phiên bản TikTok API'
+          description: 'Chỉ cấu hình khi muốn dùng phiên bản TikTok API khác. Phải có tiền tố `v`'
+        WHATSAPP_APP_ID:
+          description: 'Facebook App ID dùng cho tích hợp WhatsApp Business API'
+        WHATSAPP_APP_SECRET:
+          description: 'App Secret cho luồng đăng ký nhúng WhatsApp (bắt buộc với đăng ký nhúng)'
+        WHATSAPP_CONFIGURATION_ID:
+          description: 'Configuration ID cho luồng đăng ký nhúng WhatsApp (bắt buộc với đăng ký nhúng)'
+        WHATSAPP_API_VERSION:
+          title: 'Phiên bản WhatsApp API'
+          description: 'Chỉ cấu hình khi muốn dùng phiên bản WhatsApp API khác. Phải có tiền tố `v`'
+        GOOGLE_OAUTH_CLIENT_ID:
+          description: 'Google OAuth Client ID dùng để xác thực email'
+        GOOGLE_OAUTH_CLIENT_SECRET:
+          description: 'Google OAuth Client Secret dùng để xác thực email'
+        GOOGLE_OAUTH_REDIRECT_URI:
+          description: 'Redirect URI đã cấu hình trong ứng dụng Google OAuth'
+        ENABLE_GOOGLE_OAUTH_LOGIN:
+          title: 'Bật đăng nhập bằng Google'
+          description: 'Hiện nút đăng nhập bằng Google khi đã cấu hình thông tin xác thực'
+        EXTERNAL_TICKET_SYSTEM_URL:
+          title: 'URL hệ thống ticket ngoài'
+          description: 'URL REST API gốc của CRM ngoài nhận ticket, ví dụ https://crm.example.com/rest_api/v1/'
+        EXTERNAL_TICKET_SYSTEM_API_KEY:
+          title: 'API key hệ thống ticket ngoài'
+          description: 'API key dùng để xác thực với CRM ngoài'
+        EXTERNAL_TICKET_DEPARTMENT_ID:
+          title: 'ID phòng ban nhận ticket'
+          description: 'Phòng ban mà mọi ticket được gửi vào trong CRM ngoài'
+        LOGO_THUMBNAIL:
+          title: 'Logo thu nhỏ'
+          description: 'Ảnh dùng làm favicon (512px x 512px)'
+        LOGO:
+          description: 'Logo hiển thị trên trang quản trị, trang đăng nhập…'
+        LOGO_DARK:
+          title: 'Logo chế độ tối'
+          description: 'Logo hiển thị trên trang quản trị, trang đăng nhập… ở chế độ tối'
+        BRAND_NAME:
+          title: 'Tên thương hiệu'
+          description: 'Tên dùng trong email và widget'
+        INSTALLATION_NAME:
+          title: 'Tên hệ thống'
+          description: 'Tên dùng chung cho toàn hệ thống: trang quản trị, tiêu đề trang…'
+        BRAND_URL:
+          title: 'URL thương hiệu'
+          description: 'URL hiển thị trong email ở mục “Powered By”'
+        WIDGET_BRAND_URL:
+          title: 'URL thương hiệu trên widget'
+          description: 'URL hiển thị trên widget ở mục “Powered By”'
+        TERMS_URL:
+          title: 'URL điều khoản dịch vụ'
+          description: 'URL điều khoản dịch vụ hiển thị ở trang đăng ký'
+        PRIVACY_URL:
+          title: 'URL chính sách bảo mật'
+          description: 'URL chính sách bảo mật hiển thị trong ứng dụng'
+        DISPLAY_MANIFEST:
+          title: 'Metadata GMO'
+          description: 'Hiển thị metadata mặc định của GMO như favicon và cảnh báo nâng cấp'
+        CLEARBIT_API_KEY:
+          description: 'API key dùng khi người dùng mới đăng ký, để điền sẵn thông tin tài khoản'
+        CONTEXT_DEV_API_KEY:
+          description: 'API key của dịch vụ nhận diện thương hiệu Context.dev, dùng khi đăng ký tài khoản'
+        DASHBOARD_SCRIPTS:
+          title: 'Script cho trang quản trị'
+          description: 'Script được tải ở cuối thẻ <body>'
+        INACTIVE_WHATSAPP_NUMBERS:
+          title: 'Số WhatsApp ngừng hoạt động'
+          description: 'Danh sách số WhatsApp cách nhau bởi dấu phẩy, sẽ bị từ chối với lỗi 422'
+        SKIP_INCOMING_BCC_PROCESSING:
+          title: 'Bỏ qua xử lý BCC cho'
+          description: 'Danh sách ID tài khoản cách nhau bởi dấu phẩy, bỏ qua khi xử lý BCC email đến'
+        TEKOMI_CLOUD_PLAN_LIMITS:
+          title: 'Giới hạn GMO AI theo gói'
+          description: 'Giới hạn dịch vụ GMO AI cho từng gói'
+        CHATWOOT_INSTANCE_ADMIN_EMAIL:
+          title: 'Email quản trị hệ thống'
+          description: 'Email của quản trị viên hệ thống, nhận các thông báo liên quan đến tuân thủ'
+        OG_IMAGE_CDN_URL:
+          description: 'URL CDN dùng để phục vụ ảnh OG'
+        OG_IMAGE_CLIENT_REF:
+          description: 'Token dùng để chặn truy cập trái phép vào ảnh OG'
+        CLOUDFLARE_API_KEY:
+          description: 'API key để xác thực tài khoản Cloudflare'
+        CLOUDFLARE_ZONE_ID:
+          description: 'Zone ID của tên miền trên Cloudflare'
+        BLOCKED_EMAIL_DOMAINS:
+          title: 'Tên miền email bị chặn'
+          description: 'Mỗi dòng một tên miền bị chặn đăng ký, hỗ trợ Regex'
+        OTEL_PROVIDER:
+          title: 'Nhà cung cấp OpenTelemetry'
+          description: 'Nhà cung cấp theo dõi LLM (langfuse, langsmith…)'
+        LANGFUSE_PUBLIC_KEY:
+          description: 'Public key để xác thực Langfuse'
+        LANGFUSE_SECRET_KEY:
+          description: 'Secret key để xác thực Langfuse'
+        LANGFUSE_BASE_URL:
+          description: 'Địa chỉ Langfuse (US: https://us.cloud.langfuse.com, EU: https://cloud.langfuse.com)'
+        TEKOMI_FIRECRAWL_API_KEY:
+          title: 'FireCrawl API Key (tùy chọn)'
+          description: 'API key FireCrawl cho dịch vụ GMO AI'
+        ENABLE_SAML_SSO_LOGIN:
+          title: 'Bật đăng nhập SAML SSO'
+          description: 'Hiện SAML SSO là một cách đăng nhập. Không thể tắt nếu đang có người dùng đăng nhập bằng SAML.'
+    features:
+      general:
+        name: 'Chung'
+      saml:
+        name: 'SAML SSO'
+        description: 'Cấu hình đăng nhập một lần (SSO) bằng SAML'
+      custom_branding:
+        name: 'Thương hiệu riêng'
+        description: 'Áp dụng thương hiệu của bạn cho hệ thống này.'
+      agent_capacity:
+        name: 'Năng lực nhân viên'
+        description: 'Đặt giới hạn số hội thoại tự động phân công cho nhân viên.'
+      audit_logs:
+        name: 'Nhật ký hoạt động'
+        description: 'Theo dõi và truy vết hoạt động của tài khoản bằng nhật ký chi tiết.'
+      disable_branding:
+        name: 'Ẩn thương hiệu'
+        description: 'Ẩn thương hiệu trên widget chat và email gửi ra ngoài.'
+      voice_calls:
+        name: 'Gọi thoại'
+        description: 'Bật tính năng gọi thoại cho nhân viên và khách hàng.'
+      help_center:
+        name: 'Trung tâm trợ giúp'
+        description: 'Cho phép nhân viên viết bài hướng dẫn và đăng lên cổng trợ giúp.'
+      tekomi:
+        name: 'GMO AI'
+        description: 'Hội thoại với khách hàng bằng AI.'
+      live_chat:
+        name: 'Live Chat'
+        description: 'Nâng cao trải nghiệm khách hàng bằng live chat trên website.'
+      email:
+        name: 'Email'
+        description: 'Quản lý tương tác với khách hàng qua email.'
+      sms:
+        name: 'SMS'
+        description: 'Quản lý tương tác với khách hàng qua SMS.'
+      messenger:
+        name: 'Messenger'
+        description: 'Kết nối với khách hàng qua Facebook và Instagram.'
+      instagram:
+        name: 'Instagram'
+        description: 'Kết nối với khách hàng qua Instagram.'
+      tiktok:
+        name: 'TikTok'
+        description: 'Kết nối với khách hàng qua TikTok.'
+      whatsapp:
+        name: 'WhatsApp'
+        description: 'Quản lý tương tác WhatsApp Business.'
+      telegram:
+        name: 'Telegram'
+        description: 'Quản lý tương tác với khách hàng qua Telegram.'
+      line:
+        name: 'Line'
+        description: 'Quản lý tương tác với khách hàng qua Line.'
+      google:
+        name: 'Google'
+        description: 'Cấu hình tích hợp Google OAuth.'
+      microsoft:
+        name: 'Microsoft'
+        description: 'Cấu hình email Microsoft.'
+      linear:
+        name: 'Linear'
+        description: 'Cấu hình tích hợp Linear.'
+      notion:
+        name: 'Notion'
+        description: 'Cấu hình tích hợp Notion.'
+      slack:
+        name: 'Slack'
+        description: 'Cấu hình tích hợp Slack.'
+      whatsapp_embedded:
+        name: 'WhatsApp nhúng'
+        description: 'Cấu hình tích hợp đăng ký nhúng WhatsApp.'
+      shopify:
+        name: 'Shopify'
+        description: 'Cấu hình tích hợp Shopify.'
+      perfex:
+        name: 'Hệ thống ticket ngoài'
+        description: 'Cấu hình gửi hội thoại thành ticket sang CRM ngoài.'
+    account_features:
+      inbound_emails: 'Email đến'
+      channel_email: 'Kênh Email'
+      channel_facebook: 'Kênh Facebook'
+      ip_lookup: 'Tra cứu IP'
+      disable_branding: 'Ẩn thương hiệu'
+      email_continuity_on_api_channel: 'Nối tiếp email trên kênh API'
+      help_center: 'Trung tâm trợ giúp'
+      agent_bots: 'Bot nhân viên'
+      macros: 'Macro'
+      agent_management: 'Quản lý nhân viên'
+      team_management: 'Quản lý nhóm'
+      inbox_management: 'Quản lý hộp thư'
+      labels: 'Nhãn'
+      custom_attributes: 'Thuộc tính tùy chỉnh'
+      automations: 'Tự động hóa'
+      canned_responses: 'Câu trả lời soạn sẵn'
+      integrations: 'Tích hợp'
+      voice_recorder: 'Ghi âm'
+      report_rollup: 'Tổng hợp báo cáo'
+      channel_website: 'Kênh Website'
+      campaigns: 'Chiến dịch'
+      reports: 'Báo cáo'
+      crm: 'CRM'
+      auto_resolve_conversations: 'Tự động giải quyết hội thoại'
+      custom_reply_email: 'Email trả lời tùy chỉnh'
+      custom_reply_domain: 'Tên miền trả lời tùy chỉnh'
+      audit_logs: 'Nhật ký hoạt động'
+      custom_tools: 'Công cụ tùy chỉnh'
+      branded_email_templates: 'Mẫu email có thương hiệu'
+      sla: 'SLA'
+      linear_integration: 'Tích hợp Linear'
+      tekomi_integration: 'GMO AI'
+      custom_roles: 'Vai trò tùy chỉnh'
+      chatwoot_v4: 'Giao diện V4'
+      channel_instagram: 'Kênh Instagram'
+      crm_integration: 'Tích hợp CRM'
+      channel_voice: 'Kênh thoại'
+      notion_integration: 'Tích hợp Notion'
+      tekomi_integration_v2: 'GMO AI V2'
+      whatsapp_campaign: 'Chiến dịch WhatsApp'
+      assignment_v2: 'Phân công V2'
+      tekomi_document_auto_sync: 'Tự động đồng bộ tài liệu GMO AI'
+      advanced_search: 'Tìm kiếm nâng cao'
+      saml: 'SAML'
+      companies: 'Công ty'
+      channel_tiktok: 'Kênh TikTok'
+      csat_review_notes: 'Ghi chú đánh giá CSAT'
+      tekomi_tasks: 'Tác vụ GMO AI'
+      conversation_required_attributes: 'Thuộc tính bắt buộc của hội thoại'
+      advanced_assignment: 'Phân công nâng cao'
+      whatsapp_manual_transfer: 'Chuyển WhatsApp thủ công'
+      data_import: 'Nhập dữ liệu'
+      api_and_webhooks: 'API và Webhook'
+      whatsapp_reconfigure: 'Cấu hình lại WhatsApp'
+      whatsapp_embedded_signup_inbox_creation: 'Luồng đăng ký nhúng WhatsApp'
+      delayed_automations: 'Tự động hóa có độ trễ'
+      crm_deals: 'CRM Deals'
+      crm_deals_ai: 'CRM Deals AI'
+      crm_tickets: 'CRM Tickets'
+    account_statuses:
+      active: 'Đang hoạt động'
+      suspended: 'Tạm khóa'
+    filters:
+      filter_by: 'Lọc theo'
+      all_records: 'Tất cả'
+      clear: 'Bỏ lọc'
+      options:
+        active: 'Đang hoạt động'
+        suspended: 'Tạm khóa'
+        recent: 'Mới tạo (30 ngày)'
+        marked_for_deletion: 'Chờ xóa'
+        user: 'Người dùng'
+        agent_bot: 'Bot nhân viên'
+        platform_app: 'Ứng dụng nền tảng'
+        super_admin: 'Quản trị hệ thống'
+        confirmed: 'Đã xác nhận'
+    accounts:
+      deletion_in_progress: 'Đang xóa tài khoản.'
+      seed:
+        description: 'Bấm nút để tạo dữ liệu mẫu cho tài khoản này, dùng để demo.'
+        warning: 'Lưu ý: toàn bộ dữ liệu hiện có của tài khoản này sẽ bị xóa.'
+        button: 'Tạo dữ liệu mẫu'
+        triggered: 'Đã bắt đầu tạo dữ liệu mẫu'
+      reset_cache:
+        description_html: 'Xóa các khóa cache IndexedDB trong redis. <br>Lần tải tiếp theo sẽ lấy lại dữ liệu từ máy chủ.'
+        button: 'Xóa cache giao diện'
+        cleared: 'Đã xóa khóa cache'
+    instance_statuses:
+      title: 'Tình trạng hệ thống'
+      metric: 'Chỉ số'
+      value: 'Giá trị'
+      metrics:
+        chatwoot_version: 'Phiên bản'
+        git_sha: 'Git SHA'
+        postgres_alive: 'Postgres hoạt động'
+        redis_alive: 'Redis hoạt động'
+        redis_version: 'Phiên bản Redis'
+        redis_number_of_connected_clients: 'Số kết nối Redis'
+        redis_maxclients_setting: "Cài đặt 'maxclients' của Redis"
+        redis_memory_used: 'Bộ nhớ Redis đang dùng'
+        redis_memory_peak: 'Bộ nhớ Redis cao nhất'
+        redis_total_memory_available: 'Tổng bộ nhớ khả dụng'
+        redis_maxmemory_setting: "Cài đặt 'maxmemory' của Redis"
+        redis_maxmemory_policy_setting: "Cài đặt 'maxmemory_policy' của Redis"
+        chatwoot_edition: 'Phiên bản cài đặt'
+        database_migrations: 'Migration cơ sở dữ liệu'
+    sessions:
+      greeting: 'Xin chào quản trị viên 👋'
+      email: 'Địa chỉ email'
+      email_placeholder: 'Email, ví dụ: someone@example.com'
+      password: 'Mật khẩu'
+      login: 'Đăng nhập'
     account_suspension:
       categories:
         spam: 'Spam'
-        non_payment: 'Non-payment'
-        other: 'Other'
+        non_payment: 'Chưa thanh toán'
+        other: 'Khác'
       form:
-        category: 'Suspension category'
-        category_prompt: 'Select a category'
-        reason: 'Suspension reason'
-        reason_hint: 'Enter a reason of up to 256 characters.'
+        category: 'Lý do tạm khóa'
+        category_prompt: 'Chọn lý do'
+        reason: 'Chi tiết'
+        reason_hint: 'Nhập chi tiết, tối đa 256 ký tự.'
       history:
-        suspended_at: 'Suspended at'
-        category: 'Loại'
-        reason: 'Reason'
-        empty: 'No suspension history recorded.'
-    captain_model_overrides:
-      form:
-        helper_text: 'Leave a model blank to use the YAML default for that AI feature.'
-        use_default: 'Use default: %{model} (%{model_id})'
-      show:
-        summary: 'View model routing'
-        provider: 'Provider'
-        model: 'Model'
-      sources:
-        account_override: 'Account override'
-        default: 'Mặc định'
-      features:
-        editor: 'Editor'
-        assistant: 'Trợ lý'
+        suspended_at: 'Thời điểm tạm khóa'
+        category: 'Lý do'
+        reason: 'Chi tiết'
+        empty: 'Chưa có lịch sử tạm khóa.'
+    llm_config:
+      title: 'GMO AI'
+      tabs:
+        features: 'Tính năng AI'
+        providers: 'Nhà cung cấp'
+        prompts: 'Prompt'
+        firecrawl: 'FireCrawl'
+    llm_providers:
+      new: 'Thêm nhà cung cấp'
+      edit: 'Sửa'
+      delete: 'Xóa'
+      save: 'Lưu nhà cung cấp'
+      saved: 'Đã lưu nhà cung cấp.'
+      deleted: 'Đã xóa nhà cung cấp.'
+      default_api_base: 'Mặc định của nhà cung cấp'
+      api_key_keep_hint: 'Để trống nếu muốn giữ API key hiện tại.'
+      api_base_hint: 'Không bắt buộc. Nhập đầy đủ URL gốc, gồm cả đường dẫn phiên bản, ví dụ https://openrouter.ai/api/v1. Bắt buộc với Ollama. Không hỗ trợ với Mistral và xAI.'
+      usage:
+        zero: 'Chưa dùng'
+        one: 'Đang dùng cho 1 tính năng'
+        other: 'Đang dùng cho %{count} tính năng'
+      fields:
+        name: 'Tên'
+        provider_type: 'Loại'
+        api_key: 'API key'
+        api_base: 'Endpoint'
+        usage: 'Sử dụng'
+      types:
+        openai: 'OpenAI / tương thích OpenAI'
+        openrouter: 'OpenRouter'
+        deepseek: 'DeepSeek'
+        anthropic: 'Anthropic'
+        gemini: 'Gemini'
+        mistral: 'Mistral'
+        xai: 'xAI'
+        ollama: 'Ollama'
+    llm_prompt_templates:
+      description: 'Prompt hệ thống dùng cho các tính năng AI. Thay đổi áp dụng ngay cho mọi tài khoản. Cài đặt riêng của từng tài khoản, như hướng dẫn trả lời và giới hạn của trợ lý, vẫn được thêm vào sau.'
+      edit: 'Sửa'
+      save: 'Lưu prompt'
+      saved: 'Đã lưu prompt.'
+      restored: 'Đã khôi phục prompt mặc định.'
+      restore_default: 'Khôi phục mặc định'
+      restore_confirm: 'Bỏ các thay đổi và dùng lại prompt mặc định?'
+      customized: 'Đã chỉnh sửa'
+      default: 'Mặc định'
+      show_default: 'Xem prompt mặc định'
+      edit_warning: 'Giữ nguyên các {{ biến }}, {% thẻ %}, tên công cụ và định dạng đầu ra như prompt mặc định. Xóa chúng có thể làm tính năng hỏng mà không báo lỗi.'
+      prompts:
+        assistant:
+          name: 'Trợ lý'
+          description: 'Hướng dẫn chính cho trợ lý trả lời khách hàng.'
+        core_rules:
+          name: 'Quy tắc cốt lõi'
+          description: 'Quy tắc chung về giọng điệu, ngôn ngữ, cách xưng hô, độ dài và chuyển nhân viên. Dùng cho trợ lý, kịch bản và bản nháp trả lời.'
+        information_sources:
+          name: 'Nguồn thông tin'
+          description: 'Cách trợ lý dùng kho kiến thức, kiến thức chung và thông tin nhạy cảm.'
+        scenario:
+          name: 'Agent kịch bản'
+          description: 'Hướng dẫn cho các agent kịch bản mà trợ lý chuyển hội thoại sang.'
+        copilot:
+          name: 'Copilot'
+          description: 'Trả lời câu hỏi của nhân viên trong khung Copilot.'
+        copilot_reply_suggestion:
+          name: 'Bản nháp trả lời của trợ lý'
+          description: 'Soạn bản nháp trả lời cho nhân viên bằng kiến thức và công cụ của trợ lý.'
+        reply:
+          name: 'Gợi ý trả lời'
+          description: 'Soạn bản nháp trả lời cho nhân viên trong ô soạn tin.'
+        improve:
+          name: 'Cải thiện văn bản'
+          description: 'Cải thiện nội dung trong ô soạn tin.'
+        fix_spelling_grammar:
+          name: 'Sửa chính tả và ngữ pháp'
+          description: 'Sửa chính tả và ngữ pháp trong ô soạn tin.'
+        tone_rewrite:
+          name: 'Đổi giọng điệu'
+          description: 'Viết lại nội dung trong ô soạn tin theo giọng điệu khác.'
+        summary:
+          name: 'Tóm tắt hội thoại'
+          description: 'Tóm tắt hội thoại đang mở.'
+        deal_assistant:
+          name: 'Trợ lý Deal'
+          description: 'Trả lời câu hỏi của nhân viên kinh doanh về deal, pipeline và giai đoạn.'
+        deal_summary:
+          name: 'Tóm tắt Deal'
+          description: 'Tóm tắt một deal cho nhân viên kinh doanh.'
+        deal_suggestion:
+          name: 'Gợi ý Deal'
+          description: 'Quyết định hội thoại nào nên trở thành deal.'
+        deal_next_step:
+          name: 'Bước tiếp theo của Deal'
+          description: 'Gợi ý bước tiếp theo cho một deal.'
+        deal_field_extraction:
+          name: 'Trích xuất trường Deal'
+          description: 'Điền các trường tùy chỉnh của deal từ hội thoại.'
+        conversation_analysis:
+          name: 'Phân tích hội thoại'
+          description: 'Chấm điểm chất lượng phục vụ kèm dẫn chứng, trích xuất thông tin khách hàng, nhận định và trạng thái hội thoại.'
+        care_suggestion:
+          name: 'Gợi ý chăm sóc'
+          description: 'Gợi ý bước chăm sóc tiếp theo từ kết quả phân tích hội thoại đã lưu, khi nhân viên bấm nút.'
+    llm_feature_models:
+      save: 'Lưu'
+      saved: 'Đã lưu model cho các tính năng AI.'
+      select_provider: 'Chọn nhà cung cấp'
+      configured: 'Đã cấu hình'
+      not_configured: 'Chưa cấu hình'
+      reasoning_unsupported: 'chỉ đặt được khi nhà cung cấp là OpenRouter. Với nhà cung cấp khác, hãy dùng tham số thêm.'
+      reasoning:
+        label: 'Suy luận'
+        default: 'Suy luận: mặc định của model'
+        options:
+          'off': 'Suy luận: tắt'
+          low: 'Suy luận: thấp'
+          medium: 'Suy luận: vừa'
+          high: 'Suy luận: cao'
+      params:
+        label: 'Tham số thêm (JSON)'
+        placeholder: '{ "temperature": 0.2, "max_tokens": 2000, "provider": { "sort": "throughput" } }'
+        hint: 'Gửi kèm mọi request của tính năng này và ghi đè cài đặt suy luận. Để trống nếu không dùng.'
+      unconfigured_summary:
+        one: 'Có 1 tính năng AI chưa được cấu hình.'
+        other: 'Có %{count} tính năng AI chưa được cấu hình.'
+      groups:
+        editor: 'Soạn thảo'
         copilot: 'Copilot'
-        label_suggestion: 'Label suggestion'
-        document_faq_generation: 'Document FAQ generation'
-        conversation_faq_generation: 'Conversation FAQ generation'
-        conversation_faq_matching: 'Conversation FAQ matching'
-        help_center_article_generation: 'Help center article generation'
-        onboarding_content_generation: 'Onboarding content generation'
-        help_center_query_translation: 'Help center query translation'
-        audio_transcription: 'Audio transcription'
-        help_center_search: 'Help center search'
+        deals: 'Deal'
+        assistant: 'Trợ lý'
+        conversation: 'Hội thoại'
+        faq: 'FAQ'
+        help_center: 'Trung tâm trợ giúp'
+        onboarding: 'Khởi tạo tài khoản'
+        embedding: 'Embeddings'
+        audio: 'Âm thanh'
+      features:
+        reply_suggestion:
+          name: 'Gợi ý trả lời'
+          description: 'Soạn bản nháp trả lời cho nhân viên trong ô soạn tin.'
+        summary:
+          name: 'Tóm tắt hội thoại'
+          description: 'Tóm tắt hội thoại đang mở.'
+        rewrite:
+          name: 'Viết lại'
+          description: 'Cải thiện, đổi giọng điệu hoặc sửa ngữ pháp nội dung trong ô soạn tin.'
+        follow_up:
+          name: 'Chỉnh tiếp'
+          description: 'Chỉnh lại kết quả AI trước đó theo yêu cầu thêm của nhân viên.'
+        overview_summary:
+          name: 'Tóm tắt tổng quan'
+          description: 'Tạo bản tóm tắt tổng quan cho hội thoại và trợ lý.'
+        csat_analysis:
+          name: 'Phân tích CSAT'
+          description: 'Phân tích các phản hồi đánh giá CSAT.'
+        copilot:
+          name: 'Copilot'
+          description: 'Trả lời câu hỏi của nhân viên trong khung Copilot.'
+        assistant:
+          name: 'Trợ lý trả lời khách'
+          description: 'Trả lời khách hàng, ghi chú và cập nhật thuộc tính liên hệ, phân loại hành động của trợ lý.'
+        false_promise_detection:
+          name: 'Phát hiện hứa suông'
+          description: 'Kiểm tra câu trả lời của trợ lý có hứa những điều không làm được không.'
+        instruction_migration:
+          name: 'Chuyển đổi hướng dẫn'
+          description: 'Phân loại và kiểm tra hướng dẫn của trợ lý khi chuyển sang trợ lý mới.'
+        label_suggestion:
+          name: 'Gợi ý nhãn'
+          description: 'Gợi ý nhãn cho hội thoại.'
+        conversation_completion:
+          name: 'Kết thúc hội thoại'
+          description: 'Quyết định hội thoại không còn hoạt động có thể đánh dấu đã giải quyết không.'
+        conversation_analysis:
+          name: 'Phân tích hội thoại'
+          description: 'Chấm điểm chất lượng phục vụ, trích xuất thông tin khách hàng, nhận định và trạng thái hội thoại.'
+        care_suggestion:
+          name: 'Gợi ý chăm sóc'
+          description: 'Gợi ý cách chăm sóc khách hàng từ kết quả phân tích hội thoại đã lưu, khi nhân viên yêu cầu.'
+        document_faq_generation:
+          name: 'Tạo FAQ từ tài liệu'
+          description: 'Tạo FAQ từ tài liệu đã thu thập.'
+        pdf_faq_generation:
+          name: 'Tạo FAQ từ PDF'
+          description: 'Tạo FAQ từ file PDF đã tải lên.'
+          warning: 'Toàn bộ file PDF được gửi kèm mỗi lượt xử lý trang. Nên dùng model đọc PDF trực tiếp (ví dụ openai/gpt-4.1-mini); trên OpenRouter, các model khác bị tính phí OCR ở mỗi request.'
+        conversation_faq_generation:
+          name: 'Tạo FAQ từ hội thoại'
+          description: 'Tạo gợi ý FAQ từ hội thoại.'
+        conversation_faq_matching:
+          name: 'Đối chiếu FAQ từ hội thoại'
+          description: 'Kiểm tra FAQ được gợi ý có trùng với FAQ đã có không.'
+        help_center_article_generation:
+          name: 'Viết bài Trung tâm trợ giúp'
+          description: 'Viết và dịch bài viết cho Trung tâm trợ giúp.'
+        help_center_query_translation:
+          name: 'Dịch từ khóa tìm kiếm Trung tâm trợ giúp'
+          description: 'Dịch từ khóa tìm kiếm trên Trung tâm trợ giúp.'
+        help_center_curation:
+          name: 'Chọn lọc Trung tâm trợ giúp'
+          description: 'Chọn danh mục và bài viết từ các liên kết website khi khởi tạo tài khoản.'
+        article_search_terms:
+          name: 'Từ khóa tìm kiếm bài viết'
+          description: 'Tạo từ khóa dùng để lập chỉ mục bài viết Trung tâm trợ giúp.'
+        onboarding_content_generation:
+          name: 'Nội dung khởi tạo'
+          description: 'Phân tích website và viết khẩu hiệu cho widget khi khởi tạo tài khoản.'
+        embedding:
+          name: 'Embeddings'
+          description: 'Tạo vector để tìm kiếm tài liệu, FAQ và bài viết.'
+          warning: 'Model phải trả về vector 1536 chiều. Đổi sang model có số chiều khác cần chạy migration và tạo lại toàn bộ embeddings.'
+        audio_transcription:
+          name: 'Chuyển giọng nói thành văn bản'
+          description: 'Chuyển tin nhắn thoại và bản ghi cuộc gọi thành văn bản.'
+          warning: 'Nhà cung cấp phải hỗ trợ API chuyển giọng nói kiểu OpenAI, ví dụ OpenAI, Gemini hoặc OpenRouter.'
     push_diagnostics:
-      user_not_found: 'User not found.'
-      no_subscriptions_to_test: 'Select at least one subscription to test.'
-      no_subscriptions_to_delete: 'Select at least one subscription to delete.'
-      subscriptions_deleted: "Deleted %{count} subscription(s). The user's device(s) will re-register on next app launch."
+      title: 'Chẩn đoán thông báo đẩy'
+      description: 'Gửi thử thông báo đẩy đến các thiết bị đã đăng ký của một người dùng để tìm lỗi gửi. Kết quả hiển thị nguyên phản hồi từ FCM / Web Push / relay để biết chính xác lỗi ở đâu.'
+      accounts: 'Tài khoản:'
+      time_ago: '%{time} trước'
+      lookup:
+        title: '1. Tìm người dùng'
+        placeholder: 'user@example.com hoặc ID người dùng'
+        button: 'Tìm'
+        not_found: 'Không tìm thấy người dùng "%{query}".'
+      subscriptions:
+        title: '2. Chọn thiết bị đăng ký (%{count})'
+        warning: '⚠️ Thông báo thật sẽ được gửi đến mọi thiết bị được chọn. Chỉ dùng khi cần chẩn đoán lỗi đã được báo.'
+        empty: 'Người dùng này chưa đăng ký thiết bị nhận thông báo đẩy nào.'
+      form:
+        title: 'Tiêu đề'
+        body: 'Nội dung'
+        hint: 'Người dùng sẽ thấy nội dung này như một thông báo đẩy thật trên thiết bị.'
+      columns:
+        type: 'Loại'
+        device_endpoint: 'Thiết bị / endpoint'
+        device: 'Thiết bị'
+        push_token: 'Push token'
+        device_details: 'Chi tiết thiết bị'
+        created: 'Ngày tạo'
+        last_updated: 'Cập nhật lần cuối'
+        sub_id: 'ID đăng ký'
+        status: 'Trạng thái'
+        details: 'Chi tiết'
+      statuses:
+        success: 'Thành công'
+        failure: 'Thất bại'
+        skipped: 'Bỏ qua'
+      actions:
+        send: 'Gửi thử đến thiết bị đã chọn'
+        delete: 'Xóa các đăng ký đã chọn'
+        delete_confirm: 'Xóa các đăng ký đã chọn? Người dùng sẽ không nhận được thông báo đẩy trên các thiết bị đó cho đến khi ứng dụng đăng ký lại.'
+      results:
+        title: '3. Kết quả'
+      user_not_found: 'Không tìm thấy người dùng.'
+      no_subscriptions_to_test: 'Chọn ít nhất một đăng ký để gửi thử.'
+      no_subscriptions_to_delete: 'Chọn ít nhất một đăng ký để xóa.'
+      subscriptions_deleted:
+        one: 'Đã xóa %{count} đăng ký. Thiết bị sẽ đăng ký lại khi mở ứng dụng lần sau.'
+        other: 'Đã xóa %{count} đăng ký. Các thiết bị sẽ đăng ký lại khi mở ứng dụng lần sau.'
+    users:
+      impersonate:
+        caution: 'Cẩn thận: mọi thao tác sau khi đăng nhập thay sẽ được ghi nhận như do chính người dùng này thực hiện - [%{name} ]'
+        button: 'Đăng nhập thay người dùng'
+      mfa:
+        label: 'Xác thực 2 lớp'
+        enabled: 'Đã bật'
+        disabled: 'Chưa bật'
+      resend_confirmation:
+        button: 'Gửi lại email xác nhận'
+        sent: 'Đã gửi email xác nhận.'
+        already_confirmed: 'Người dùng đã được xác nhận.'
+  administrate:
+    actions:
+      confirm: 'Bạn có chắc không?'
+      destroy: 'Xóa'
+      edit: 'Sửa'
+      edit_resource: 'Sửa %{name}'
+      show_resource: 'Xem %{name}'
+      new_resource: 'Thêm %{name}'
+      back: 'Quay lại'
+    controller:
+      create:
+        success: '%{resource} đã được tạo.'
+      destroy:
+        success: '%{resource} đã được xóa.'
+      update:
+        success: '%{resource} đã được cập nhật.'
+    fields:
+      has_many:
+        more: '%{count} / %{total_count}'
+        none: 'Không có'
+    form:
+      error: 'lỗi'
+      errors: 'Có %{pluralized_errors} khiến %{resource_name} không lưu được:'
+    navigation:
+      back_to_app: 'Quay lại ứng dụng'
+    search:
+      clear: 'Xóa tìm kiếm'
+      label: 'Tìm %{resource}'
+  helpers:
+    submit:
+      create: 'Tạo %{model}'
+      update: 'Cập nhật %{model}'
+      submit: 'Lưu %{model}'
+    label:
+      account:
+        id: 'ID'
+        name: 'Tên'
+        created_at: 'Ngày tạo'
+        updated_at: 'Ngày cập nhật'
+        users: 'Người dùng'
+        conversations: 'Hội thoại'
+        locale: 'Ngôn ngữ'
+        status: 'Trạng thái'
+        suspension_history: 'Lịch sử tạm khóa'
+        account_users: 'Thành viên'
+        custom_attributes: 'Thuộc tính tùy chỉnh'
+        limits: 'Giới hạn'
+        all_features: 'Tính năng'
+        manually_managed_features: 'Tính năng quản lý thủ công'
+      user:
+        id: 'ID'
+        name: 'Tên'
+        display_name: 'Tên hiển thị'
+        email: 'Email'
+        avatar: 'Ảnh đại diện'
+        avatar_url: 'Ảnh đại diện'
+        password: 'Mật khẩu'
+        type: 'Loại'
+        accounts: 'Tài khoản'
+        account_users: 'Tài khoản'
+        access_token: 'Access token'
+        provider: 'Nhà cung cấp đăng nhập'
+        uid: 'UID'
+        sign_in_count: 'Số lần đăng nhập'
+        current_sign_in_at: 'Đăng nhập hiện tại lúc'
+        last_sign_in_at: 'Đăng nhập lần trước lúc'
+        current_sign_in_ip: 'IP đăng nhập hiện tại'
+        last_sign_in_ip: 'IP đăng nhập lần trước'
+        confirmation_token: 'Mã xác nhận'
+        confirmed_at: 'Xác nhận lúc'
+        confirmation_sent_at: 'Gửi xác nhận lúc'
+        unconfirmed_email: 'Email chưa xác nhận'
+        tokens: 'Tokens'
+        pubsub_token: 'Pubsub token'
+        created_at: 'Ngày tạo'
+        updated_at: 'Ngày cập nhật'
+      account_user:
+        id: 'ID'
+        account: 'Tài khoản'
+        account_id: 'Tài khoản'
+        user: 'Người dùng'
+        user_id: 'Người dùng'
+        inviter: 'Người mời'
+        inviter_id: 'Người mời'
+        role: 'Vai trò'
+        created_at: 'Ngày tạo'
+        updated_at: 'Ngày cập nhật'
+      agent_bot:
+        id: 'ID'
+        name: 'Tên'
+        description: 'Mô tả'
+        outgoing_url: 'URL webhook'
+        account: 'Tài khoản'
+        account_id: 'Tài khoản'
+        avatar: 'Ảnh đại diện'
+        avatar_url: 'Ảnh đại diện'
+        access_token: 'Access token'
+        created_at: 'Ngày tạo'
+        updated_at: 'Ngày cập nhật'
+      platform_app:
+        id: 'ID'
+        name: 'Tên'
+        access_token: 'Access token'
+        created_at: 'Ngày tạo'
+        updated_at: 'Ngày cập nhật'
+      platform_banner:
+        id: 'ID'
+        banner_message: 'Nội dung thông báo'
+        banner_type: 'Loại thông báo'
+        active: 'Đang bật'
+        created_at: 'Ngày tạo'
+        updated_at: 'Ngày cập nhật'
+      access_token:
+        id: 'ID'
+        owner: 'Chủ sở hữu'
+        token: 'Token'
+        created_at: 'Ngày tạo'
+        updated_at: 'Ngày cập nhật'
+      installation_config:
+        id: 'ID'
+        name: 'Tên'
+        value: 'Giá trị'
+        created_at: 'Ngày tạo'
+        updated_at: 'Ngày cập nhật'
+  activerecord:
+    models:
+      account:
+        one: 'Tài khoản'
+        other: 'Tài khoản'
+      user:
+        one: 'Người dùng'
+        other: 'Người dùng'
+      super_admin:
+        one: 'Quản trị hệ thống'
+        other: 'Quản trị hệ thống'
+      account_user:
+        one: 'Thành viên tài khoản'
+        other: 'Thành viên tài khoản'
+      agent_bot:
+        one: 'Bot nhân viên'
+        other: 'Bot nhân viên'
+      platform_app:
+        one: 'Ứng dụng nền tảng'
+        other: 'Ứng dụng nền tảng'
+      platform_banner:
+        one: 'Thông báo nền tảng'
+        other: 'Thông báo nền tảng'
+      access_token:
+        one: 'Access token'
+        other: 'Access token'
+      installation_config:
+        one: 'Cấu hình hệ thống'
+        other: 'Cấu hình hệ thống'
+    attributes:
+      llm_feature_model:
+        reasoning: 'Suy luận'
+        params: 'Tham số thêm'
+        model: 'Model'
+      llm_provider:
+        name: 'Tên'
+        api_key: 'API key'
+        api_base: 'Endpoint'
+  views:
+    pagination:
+      first: '&laquo; Đầu'
+      last: 'Cuối &raquo;'
+      previous: '&lsaquo; Trước'
+      next: 'Sau &rsaquo;'
+      truncate: '&hellip;'

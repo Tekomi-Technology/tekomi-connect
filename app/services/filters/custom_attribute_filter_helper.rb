@@ -23,7 +23,7 @@ module Filters::CustomAttributeFilterHelper
     validate_custom_attribute_values!(query_hash)
     filter_operator_value = filter_operation(query_hash, current_index)
     query_operator = query_hash[:query_operator]
-    table_name = attribute_model == 'conversation_attribute' ? 'conversations' : 'contacts'
+    table_name = { 'conversation_attribute' => 'conversations', 'deal_attribute' => 'deals' }.fetch(attribute_model, 'contacts')
 
     query = if attribute_data_type == 'text'
               ActiveRecord::Base.sanitize_sql_array(

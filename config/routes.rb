@@ -62,7 +62,7 @@ Rails.application.routes.draw do
           resources :agents, only: [:index, :create, :update, :destroy] do
             post :bulk_create, on: :collection
           end
-          namespace :captain do
+          namespace :tekomi do
             resource :preferences, only: [:show, :update]
             resources :assistants do
               member do
@@ -94,6 +94,11 @@ Rails.application.routes.draw do
             end
             resources :message_reports, only: [:create]
             resources :bulk_actions, only: [:create]
+            resources :deal_assistant_messages, only: [:create]
+            resources :deal_suggestions, only: [:create]
+            resources :deal_summaries, only: [:create]
+            resources :deal_next_steps, only: [:create]
+            resources :deal_field_extractions, only: [:create]
             resources :copilot_threads, only: [:index, :create] do
               resources :copilot_messages, only: [:index, :create]
             end
@@ -158,6 +163,14 @@ Rails.application.routes.draw do
           namespace :channels do
             resource :twilio_channel, only: [:create]
           end
+          if ChatwootApp.enterprise?
+            resources :conversation_analyses, only: [] do
+              collection do
+                get :report
+                get :opportunities
+              end
+            end
+          end
           resources :conversations, only: [:index, :create, :show, :update, :destroy] do
             collection do
               get :meta
@@ -177,11 +190,20 @@ Rails.application.routes.draw do
               resource :participants, only: [:show, :create, :update, :destroy]
               resource :direct_uploads, only: [:create]
               resource :draft_messages, only: [:show, :update, :destroy]
+              resources :deals, only: [:index]
+              resources :tickets, only: [:index]
+              resources :crm_tickets, only: [:index]
+              if ChatwootApp.enterprise?
+                resource :analysis, only: [:show, :create] do
+                  post :care_suggestion
+                end
+              end
             end
             member do
               post :mute
               post :unmute
               post :transcript
+              post :external_ticket
               post :toggle_status
               post :toggle_priority
               post :toggle_typing_status
@@ -220,6 +242,8 @@ Rails.application.routes.draw do
               end
               resources :conversations, only: [:index]
               resources :notes, only: [:index]
+              resources :deals, only: [:index]
+              get :attachments, to: 'attachments#index'
             end
           end
           resources :contacts, only: [:index, :show, :update, :create, :destroy] do
@@ -229,9 +253,13 @@ Rails.application.routes.draw do
               post :filter
               post :import
               post :export
+              post :crm_force_sync
             end
             member do
               get :contactable_inboxes
+              post :match_crm
+              delete :unmap_crm
+              post :crm_force_sync
               post :destroy_custom_attributes
               delete :avatar
             end
@@ -240,9 +268,39 @@ Rails.application.routes.draw do
               resources :contact_inboxes, only: [:create]
               resources :labels, only: [:create, :index]
               resources :notes
+              resources :deals, only: [:index]
+              resources :tickets, only: [:index]
+              resources :conversation_analyses, only: [:index] if ChatwootApp.enterprise?
               get :attachments, to: 'attachments#index'
               post :call, on: :member, to: 'calls#create' if ChatwootApp.enterprise?
             end
+          end
+          resources :pipelines, only: [:index, :show, :create, :update, :destroy] do
+            patch :reorder, on: :collection
+            scope module: :pipelines do
+              resources :stages, only: [:create, :update, :destroy] do
+                patch :reorder, on: :collection
+              end
+            end
+          end
+          resources :deals, only: [:show, :create, :update, :destroy] do
+            post :filter, on: :collection
+            patch :move, on: :member
+            scope module: :deals do
+              resources :conversations, only: [:index, :create, :destroy]
+              resources :activities, only: [:index]
+            end
+          end
+          resources :tickets, only: [:show, :create, :update, :destroy] do
+            post :filter, on: :collection
+            patch :move, on: :member
+            scope module: :tickets do
+              resources :conversations, only: [:index, :create, :destroy]
+              resources :activities, only: [:index, :create]
+            end
+          end
+          resources :saved_views, only: [:index, :show, :create, :update, :destroy] do
+            patch :reorder, on: :collection
           end
           resources :data_imports, only: [:index, :show, :create] do
             collection do
@@ -255,6 +313,13 @@ Rails.application.routes.draw do
               get :error_logs
               get :skip_logs
             end
+          end
+          resources :phone_calls, only: [:show] do
+            get :emotion_reports, on: :collection
+            get :recording, on: :member
+            post :emotion_analysis, on: :member
+            get :emotion_report, on: :member
+            patch :emotion_report, action: :update_emotion_report, on: :member
           end
           resources :csat_survey_responses, only: [:index] do
             collection do
@@ -292,6 +357,8 @@ Rails.application.routes.draw do
           resources :custom_filters, only: [:index, :show, :create, :update, :destroy]
           resource :branded_email_layout, only: [:show, :update]
           resources :inboxes, only: [:index, :show, :create, :update, :destroy] do
+            resources :phone_extensions, only: [:index, :create, :update, :destroy], controller: 'inboxes/phone_extensions'
+            resources :callbot_webhooks, only: [:index, :create, :update, :destroy], controller: 'inboxes/callbot_webhooks'
             get :assignable_agents, on: :member
             get :campaigns, on: :member
             get :agent_bot, on: :member
@@ -301,6 +368,7 @@ Rails.application.routes.draw do
             post :sync_templates, on: :member
             put :whatsapp_business_management_token, on: :member
             get :health, on: :member
+            get :phone_credentials, on: :member
             post :register_webhook, on: :member
             post :reset_secret, on: :member
             if ChatwootApp.enterprise?
@@ -386,6 +454,11 @@ Rails.application.routes.draw do
 
           namespace :zalo_oa do
             resource :authorization, only: [:create]
+          end
+
+          namespace :zalo_personal do
+            # create starts a QR login; show is polled by the dashboard until the scan completes.
+            resources :authorizations, only: [:create, :show], param: :qr_session_id
           end
 
           resources :webhooks, only: [:index, :create, :update, :destroy]
@@ -526,6 +599,7 @@ Rails.application.routes.draw do
     namespace :v2 do
       resources :accounts, only: [:create] do
         scope module: :accounts do
+          resource :dashboard, only: [:show], controller: :dashboard
           resources :summary_reports, only: [] do
             collection do
               get :agent
@@ -546,6 +620,7 @@ Rails.application.routes.draw do
               get :conversations
               get :conversations_summary
               get :conversation_traffic
+              get :conversation_status
               get :drilldown
               get :bot_metrics
               get :inbox_label_matrix
@@ -553,13 +628,13 @@ Rails.application.routes.draw do
               get :outgoing_messages_count
             end
           end
-          resource :year_in_review, only: [:show]
           resources :live_reports, only: [] do
             collection do
               get :conversation_metrics
               get :grouped_conversation_metrics
             end
           end
+          resources :ticket_reports, only: [:index]
         end
       end
     end
@@ -676,7 +751,17 @@ Rails.application.routes.draw do
   post 'webhooks/tiktok', to: 'webhooks/tiktok#events'
   post 'webhooks/shopify', to: 'webhooks/shopify#events'
   post 'webhooks/zalo_oa', to: 'webhooks/zalo_oa#process_payload'
+  post 'webhooks/zalo_personal', to: 'webhooks/zalo_personal#process_payload'
+  post 'webhooks/pbx/calls', to: 'webhooks/pbx/calls#process_payload'
+  post 'webhooks/callytics/:token', to: 'webhooks/callytics/calls#process_payload'
   get 'zalo_oa/callback', to: 'zalo_oa/callbacks#show'
+
+  # Consumed by the Zalo worker on boot to restore its sessions; loopback + shared secret only.
+  namespace :internal do
+    namespace :zalo_personal do
+      resources :sessions, only: [:index]
+    end
+  end
 
   namespace :twitter do
     resource :callback, only: [:show]
@@ -749,12 +834,16 @@ Rails.application.routes.draw do
       resources :platform_banners
       resource :instance_status, only: [:show]
 
-      resource :settings, only: [:show] do
-        get :refresh, on: :collection
+      resource :settings, only: [:show]
+
+      if ChatwootApp.enterprise?
+        resources :llm_providers, only: [:index, :new, :create, :edit, :update, :destroy]
+        resource :llm_feature_models, only: [:show, :update]
+        resources :llm_prompt_templates, only: [:index, :edit, :update, :destroy], param: :key
       end
 
       # resources that doesn't appear in primary navigation in super admin
-      resources :account_users, only: [:new, :create, :show, :destroy]
+      resources :account_users, only: [:new, :create, :show, :edit, :update, :destroy]
     end
     authenticated :super_admin do
       mount Sidekiq::Web => '/monitoring/sidekiq'

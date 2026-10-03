@@ -20,16 +20,22 @@ class ContactAPI extends ApiClient {
     });
   }
 
+  getWithParams(params = {}) {
+    return axios.get(this.url, { params });
+  }
+
   show(id) {
-    return axios.get(`${this.url}/${id}?include_contact_inboxes=false`);
+    return axios.get(`${this.url}/${id}?include_contact_inboxes=true`);
   }
 
   update(id, data) {
-    return axios.patch(`${this.url}/${id}?include_contact_inboxes=false`, data);
+    return axios.patch(`${this.url}/${id}?include_contact_inboxes=true`, data);
   }
 
-  getConversations(contactId, { inboxId } = {}) {
-    const params = inboxId ? { inbox_id: inboxId } : {};
+  getConversations(contactId, { inboxId, conversationId } = {}) {
+    const params = {};
+    if (inboxId) params.inbox_id = inboxId;
+    if (conversationId) params.conversation_id = conversationId;
     return axios.get(`${this.url}/${contactId}/conversations`, { params });
   }
 
@@ -41,6 +47,20 @@ class ContactAPI extends ApiClient {
 
   getContactableInboxes(contactId) {
     return axios.get(`${this.url}/${contactId}/contactable_inboxes`);
+  }
+
+  matchCrm(contactId) {
+    return axios.post(`${this.url}/${contactId}/match_crm`);
+  }
+
+  unmapCrm(contactId, conversationId) {
+    return axios.delete(`${this.url}/${contactId}/unmap_crm`, {
+      params: { conversation_id: conversationId },
+    });
+  }
+
+  crmForceSync() {
+    return axios.post(`${this.url}/crm_force_sync`);
   }
 
   getContactLabels(contactId) {

@@ -18,7 +18,6 @@ defineProps({
   isLabelView: { type: Boolean, default: false },
   isActiveView: { type: Boolean, default: false },
 });
-
 const emit = defineEmits([
   'search',
   'filter',

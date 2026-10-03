@@ -15,6 +15,7 @@ class ZaloOa::SendOnZaloOaService < Base::SendOnChannelService
     return if message.outgoing_content.blank?
 
     record_external_id(sender.send_text(user_id, message.outgoing_content, quoted_message_id))
+    ZaloOa::ConsultationWindow.record_outbound(message.conversation)
   end
 
   # Zalo has no multi-attachment send, so each attachment becomes its own Zalo message. Ids are
@@ -23,9 +24,21 @@ class ZaloOa::SendOnZaloOaService < Base::SendOnChannelService
   def send_attachments
     caption = external_message_ids.empty? ? message.outgoing_content : nil
     message.attachments.drop(external_message_ids.size).each do |attachment|
-      record_external_id(sender.send_attachment(user_id, attachment, caption))
+      begin
+        record_external_id(sender.send_attachment(user_id, attachment, caption))
+      rescue ZaloOa::MessageSender::FileRejectedError => e
+        record_external_id(sender.send_text(user_id, attachment_fallback_text(attachment, e), nil))
+      end
+      ZaloOa::ConsultationWindow.record_outbound(message.conversation)
       caption = nil # only the first attachment carries the caption
     end
+  end
+
+  def attachment_fallback_text(attachment, error)
+    filename = attachment.file.filename.to_s.presence || 'file'
+    url = attachment.file_url
+    Rails.logger.warn("Zalo OA attachment rejected for #{message.id}: #{error.message}; sent a download link")
+    "📎 Tệp «#{filename}» không thể gửi trực tiếp qua Zalo. Bạn có thể tải tại đây:\n#{url}"
   end
 
   # Each attachment is its own Zalo message, and record_external_id writes source_id after the

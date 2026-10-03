@@ -17,12 +17,16 @@ import {
   useMapGetter,
 } from 'dashboard/composables/store';
 import { useAccount } from 'dashboard/composables/useAccount';
+import { ATTRIBUTE_MODELS } from './constants';
 
 const { t } = useI18n();
 
 const getters = useStoreGetters();
 const store = useStore();
-const { currentAccount } = useAccount();
+const { currentAccount, accountId } = useAccount();
+const isFeatureEnabledonAccount = useMapGetter(
+  'accounts/isFeatureEnabledonAccount'
+);
 const inboxes = useMapGetter('inboxes/getInboxes');
 
 const [showAddPopup, toggleAddPopup] = useToggle(false);
@@ -32,7 +36,13 @@ const uiFlags = computed(() => getters['attributes/getUIFlags'].value);
 const [showEditPopup, toggleEditPopup] = useToggle(false);
 const [showDeletePopup, toggleDeletePopup] = useToggle(false);
 const selectedAttribute = ref({});
-const attributeModels = ['conversation_attribute', 'contact_attribute'];
+const attributeModels = computed(() =>
+  ATTRIBUTE_MODELS.filter(
+    model =>
+      !model.featureFlag ||
+      isFeatureEnabledonAccount.value(accountId.value, model.featureFlag)
+  )
+);
 
 const openAddPopup = () => {
   toggleAddPopup(true);
@@ -49,18 +59,12 @@ const closeDelete = () => {
   selectedAttribute.value = {};
 };
 
-const tabs = computed(() => {
-  return [
-    {
-      key: 0,
-      name: t('ATTRIBUTES_MGMT.TABS.CONVERSATION'),
-    },
-    {
-      key: 1,
-      name: t('ATTRIBUTES_MGMT.TABS.CONTACT'),
-    },
-  ];
-});
+const tabs = computed(() =>
+  attributeModels.value.map((model, index) => ({
+    key: index,
+    name: t(`ATTRIBUTES_MGMT.TABS.${model.key}`),
+  }))
+);
 
 const tabsForTabBar = computed(() =>
   tabs.value.map(tab => ({ label: tab.name, key: tab.key }))
@@ -70,8 +74,12 @@ onMounted(() => {
   store.dispatch('attributes/get');
 });
 
+const selectedAttributeModel = computed(
+  () => attributeModels.value[selectedTabIndex.value] || ATTRIBUTE_MODELS[0]
+);
+
 const attributeModel = computed(
-  () => attributeModels[selectedTabIndex.value] || 'conversation_attribute'
+  () => `${selectedAttributeModel.value.key.toLowerCase()}_attribute`
 );
 
 const attributes = computed(() =>
@@ -228,7 +236,7 @@ const filteredAttributes = computed(() => {
       v-if="showAddPopup"
       v-model:show="showAddPopup"
       :on-close="hideAddPopup"
-      :selected-attribute-model-tab="selectedTabIndex"
+      :selected-attribute-model-tab="selectedAttributeModel.id"
     />
     <woot-modal v-model:show="showEditPopup" :on-close="hideEditPopup">
       <EditAttribute

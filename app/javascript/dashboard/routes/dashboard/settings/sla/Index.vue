@@ -1,5 +1,6 @@
 <script>
 import AddSLA from './AddSLA.vue';
+import EditSLA from './EditSLA.vue';
 import SettingsLayout from '../SettingsLayout.vue';
 import BaseSettingsHeader from 'dashboard/routes/dashboard/settings/components/BaseSettingsHeader.vue';
 import SLAPaywallEnterprise from './SLAPaywallEnterprise.vue';
@@ -20,6 +21,7 @@ import { picoSearch } from '@chatwoot/pico-search';
 export default {
   components: {
     AddSLA,
+    EditSLA,
     SettingsLayout,
     BaseSettingsHeader,
     SLAPaywallEnterprise,
@@ -34,6 +36,7 @@ export default {
     return {
       loading: {},
       showAddPopup: false,
+      showEditPopup: false,
       showDeleteConfirmationPopup: false,
       selectedResponse: {},
       searchQuery: '',
@@ -91,6 +94,13 @@ export default {
     },
     hideAddPopup() {
       this.showAddPopup = false;
+    },
+    openEditPopup(response) {
+      this.selectedResponse = response;
+      this.showEditPopup = true;
+    },
+    hideEditPopup() {
+      this.showEditPopup = false;
     },
     openDeletePopup(response) {
       this.showDeleteConfirmationPopup = true;
@@ -282,7 +292,14 @@ export default {
               </BaseTableCell>
 
               <BaseTableCell align="end" class="w-12">
-                <div class="flex justify-end">
+                <div class="flex justify-end gap-1">
+                  <NextButton
+                    v-tooltip.top="$t('SLA.FORM.EDIT')"
+                    icon="i-woot-edit-pen"
+                    slate
+                    sm
+                    @click="openEditPopup(sla)"
+                  />
                   <NextButton
                     v-tooltip.top="$t('SLA.FORM.DELETE')"
                     icon="i-woot-bin"
@@ -301,6 +318,13 @@ export default {
 
       <woot-modal v-model:show="showAddPopup" :on-close="hideAddPopup">
         <AddSLA @close="hideAddPopup" />
+      </woot-modal>
+
+      <woot-modal v-model:show="showEditPopup" :on-close="hideEditPopup">
+        <EditSLA
+          :selected-response="selectedResponse"
+          @close="hideEditPopup"
+        />
       </woot-modal>
 
       <woot-delete-modal

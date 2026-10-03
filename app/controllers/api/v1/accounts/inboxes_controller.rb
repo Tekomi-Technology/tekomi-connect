@@ -3,7 +3,7 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   before_action :fetch_inbox, except: [:index, :create]
   before_action :fetch_agent_bot, only: [:set_agent_bot]
   # we are already handling the authorization in fetch inbox
-  before_action :check_authorization, except: [:show]
+  before_action :check_authorization, except: [:show, :phone_credentials]
 
   include Api::V1::Accounts::Concerns::WhatsappHealthManagement
 
@@ -14,6 +14,21 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   end
 
   def show; end
+
+  def phone_credentials
+    return head :not_found unless @inbox.phone?
+
+    extension = @inbox.phone_extensions.enabled.find_by!(user: Current.user)
+
+    render json: {
+      inbox_id: @inbox.id,
+      wss_url: @inbox.channel.wss_url,
+      sip_domain: @inbox.channel.sip_domain,
+      sip_username: extension.sip_username,
+      sip_password: extension.sip_password,
+      ice_servers: Phone::IceServerBuilder.new(channel: @inbox.channel, user: Current.user).call
+    }
+  end
 
   # Deprecated: This API will be removed in 2.7.0
   def assignable_agents
@@ -105,7 +120,7 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   end
 
   def allowed_channel_types
-    %w[web_widget api email line telegram whatsapp sms]
+    %w[web_widget api email line telegram whatsapp sms phone]
   end
 
   def update_inbox_working_hours
@@ -215,7 +230,8 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
       'line' => Channel::Line,
       'telegram' => Channel::Telegram,
       'whatsapp' => Channel::Whatsapp,
-      'sms' => Channel::Sms
+      'sms' => Channel::Sms,
+      'phone' => Channel::Phone
     }[permitted_params[:channel][:type]]
   end
 

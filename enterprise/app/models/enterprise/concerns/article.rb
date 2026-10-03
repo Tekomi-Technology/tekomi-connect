@@ -11,7 +11,7 @@ module Enterprise::Concerns::Article
     add_article_embedding_association
 
     def self.vector_search(params)
-      embedding = Captain::Llm::EmbeddingService.new(account_id: params[:account_id]).get_embedding(params['query'])
+      embedding = Tekomi::Llm::EmbeddingService.new(account_id: params[:account_id]).get_embedding(params['query'])
       records = joins(
         :category
       ).search_by_category_slug(
@@ -51,39 +51,15 @@ module Enterprise::Concerns::Article
   end
 
   def article_to_search_terms_prompt
-    <<~SYSTEM_PROMPT_MESSAGE
-      For the provided article content, generate potential search query keywords and snippets that can be used to generate the embeddings.
-      Ensure the search terms are as diverse as possible but capture the essence of the article and are super related to the articles.
-      Don't return any terms if there aren't any terms of relevance.
-      Always return results in valid JSON of the following format
-      {
-        "search_terms": []
-      }
-    SYSTEM_PROMPT_MESSAGE
+    Tekomi::PromptRenderer.render('article_search_terms')
   end
 
   def generate_article_search_terms
-    messages = [
-      { role: 'system', content: article_to_search_terms_prompt },
-      { role: 'user', content: "title: #{title} \n description: #{description} \n content: #{content}" }
-    ]
-    headers = { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{openai_api_key}" }
-    body = { model: 'gpt-4o', messages: messages, response_format: { type: 'json_object' } }.to_json
-    Rails.logger.info "Requesting Chat GPT with body: #{body}"
-    response = HTTParty.post(openai_api_url, headers: headers, body: body)
-    Rails.logger.info "Chat GPT response: #{response.body}"
-    JSON.parse(response.parsed_response['choices'][0]['message']['content'])['search_terms']
-  end
-
-  private
-
-  def openai_api_key
-    InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_API_KEY')&.value.presence || raise(I18n.t('captain.api_key_missing'))
-  end
-
-  def openai_api_url
-    endpoint = InstallationConfig.find_by(name: 'CAPTAIN_OPEN_AI_ENDPOINT')&.value.presence || 'https://api.openai.com/'
-    endpoint = endpoint.chomp('/')
-    "#{endpoint}/v1/chat/completions"
+    route = Llm::FeatureRouter.resolve(feature: 'article_search_terms')
+    response = RubyLLM.chat(model: route[:model], provider: route[:provider], assume_model_exists: true)
+                      .with_params(**route[:params], response_format: { type: 'json_object' })
+                      .with_instructions(article_to_search_terms_prompt)
+                      .ask("title: #{title} \n description: #{description} \n content: #{content}")
+    JSON.parse(response.content)['search_terms']
   end
 end

@@ -82,7 +82,11 @@ class Twitter::DirectMessageParserService < Twitter::WebhooksBaseService
   end
 
   def set_conversation
-    @conversation = @contact_inbox.conversations.where("additional_attributes ->> 'type' = 'direct_message'").first
+    conversations = @contact_inbox.conversations
+                                  .where("additional_attributes ->> 'type' = 'direct_message'")
+                                  .order(created_at: :desc)
+    conversations = conversations.where.not(status: :resolved) unless @inbox.lock_to_single_conversation?
+    @conversation = conversations.first
     return if @conversation
 
     @conversation = ::Conversation.create!(conversation_params)

@@ -30,6 +30,9 @@ class Mailbox::ConversationFinderStrategies::NewConversationStrategy < Mailbox::
 
     # Prepare contact (persisted) and build conversation (not persisted)
     find_or_create_contact
+    existing_conversation = reusable_existing_conversation
+    return existing_conversation if existing_conversation
+
     build_conversation
   end
 
@@ -78,6 +81,17 @@ class Mailbox::ConversationFinderStrategies::NewConversationStrategy < Mailbox::
   def find_conversation_by_in_reply_to
     return if in_reply_to.blank?
 
-    @account.conversations.where("additional_attributes->>'in_reply_to' = ?", in_reply_to).first
+    conversation = @account.conversations.where("additional_attributes->>'in_reply_to' = ?", in_reply_to).first
+    return conversation if reusable_conversation?(conversation)
+  end
+
+  def reusable_existing_conversation
+    return unless @inbox.lock_to_single_conversation?
+
+    @contact_inbox.conversations.order(created_at: :desc).first
+  end
+
+  def reusable_conversation?(conversation)
+    conversation && (@inbox.lock_to_single_conversation? || !conversation.resolved?)
   end
 end

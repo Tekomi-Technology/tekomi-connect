@@ -79,6 +79,14 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
     head :ok
   end
 
+  def external_ticket
+    contact_id = @conversation.contact.additional_attributes.dig('external', 'perfex_contact_id')
+    return render json: { error: 'contact not matched with crm' }, status: :unprocessable_entity if contact_id.blank?
+
+    Crm::Perfex::TicketDeliveryJob.perform_later(@conversation, params[:note])
+    head :ok
+  end
+
   def toggle_status
     # FIXME: move this logic into a service object
     if bot_handoff?
@@ -177,7 +185,7 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
 
   def handle_human_open
     @conversation.with_lock do
-      @conversation.assignee_agent_bot = nil
+      @conversation.ai_assignee = nil
       @conversation.assignee = Current.user if Current.user.agent?
       @conversation.save!
     end

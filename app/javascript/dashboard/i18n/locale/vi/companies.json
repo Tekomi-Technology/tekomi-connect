@@ -1,126 +1,150 @@
 {
   "COMPANIES": {
-    "HEADER": "Companies",
+    "HEADER": "Doanh nghiệp",
     "SORT_BY": {
       "LABEL": "Sắp bởi",
       "OPTIONS": {
         "NAME": "Tên",
         "DOMAIN": "Miền",
         "CREATED_AT": "Tạo vào lúc",
-        "LAST_ACTIVITY_AT": "Last activity",
-        "CONTACTS_COUNT": "Contacts count"
+        "LAST_ACTIVITY_AT": "Hoạt động cuối",
+        "CONTACTS_COUNT": "Số liên hệ"
       }
     },
     "ORDER": {
-      "LABEL": "Order",
+      "LABEL": "Thứ tự",
       "OPTIONS": {
-        "ASCENDING": "Ascending",
-        "DESCENDING": "Descending"
+        "ASCENDING": "Tăng dần",
+        "DESCENDING": "Giảm dần"
       }
     },
-    "SEARCH_PLACEHOLDER": "Search companies...",
-    "LOADING": "Loading companies...",
-    "UNNAMED": "Unnamed Company",
-    "CONTACTS_COUNT": "{n} contact | {n} contacts",
+    "SEARCH_PLACEHOLDER": "Tìm doanh nghiệp...",
+    "LOADING": "Đang tải danh sách doanh nghiệp...",
+    "UNNAMED": "Doanh nghiệp chưa đặt tên",
+    "CONTACTS_COUNT": "{n} liên hệ | {n} liên hệ",
+    "CONVERSATION_PANEL": {
+      "EMPTY": "Doanh nghiệp này không còn tồn tại.",
+      "OPEN_COMPANY": "Mở trang doanh nghiệp",
+      "PROFILE": {
+        "TITLE": "Thông tin doanh nghiệp",
+        "WEBSITE": "Website",
+        "EMPTY": "Chưa có thông tin doanh nghiệp."
+      },
+      "PHONE": "Số điện thoại",
+      "CREATED_AT": "Tạo {time}",
+      "CURRENT_CONTACT": "Đang chat",
+      "SECTIONS": {
+        "CONVERSATIONS": "Hội thoại đang mở ({n})",
+        "DEALS": "Cơ hội đang mở ({n})",
+        "EMPTY": "Chưa có dữ liệu.",
+        "MAIN_CONTACT": "Người liên hệ chính",
+        "NOTES": "Ghi chú doanh nghiệp"
+      },
+      "DETAILS": "Chi tiết",
+      "VIEW_ALL_COUNT": "Xem tất cả ({n})",
+      "INFO": {
+        "CRM_ID": "Mã CRM"
+      }
+    },
     "ACTIONS": {
-      "CREATE": "Add company"
+      "CREATE": "Thêm doanh nghiệp"
     },
     "SELECTOR": {
-      "PLACEHOLDER": "Select company",
-      "CREATE_OPTION": "Add \"{name}\""
+      "PLACEHOLDER": "Chọn doanh nghiệp",
+      "CREATE_OPTION": "Thêm \"{name}\""
     },
     "CREATE": {
-      "TITLE": "Add company details",
+      "TITLE": "Thêm thông tin doanh nghiệp",
       "ACTIONS": {
-        "SAVE": "Add company"
+        "SAVE": "Thêm doanh nghiệp"
       },
       "MESSAGES": {
-        "SUCCESS": "Company created.",
-        "ERROR": "Could not create the company."
+        "SUCCESS": "Đã tạo doanh nghiệp.",
+        "ERROR": "Không tạo được doanh nghiệp."
       }
     },
     "DETAIL": {
-      "LOADING": "Loading company details...",
+      "LOADING": "Đang tải thông tin doanh nghiệp...",
       "EMPTY_STATE": {
-        "TITLE": "Company not found",
-        "SUBTITLE": "This company may have been removed or is no longer available in this account."
+        "TITLE": "Không tìm thấy doanh nghiệp",
+        "SUBTITLE": "Doanh nghiệp này có thể đã bị xoá hoặc không còn trong tài khoản."
       },
       "SIDEBAR": {
         "TABS": {
-          "ATTRIBUTES": "Attributes",
+          "ATTRIBUTES": "Thuộc tính",
           "CONTACTS": "Liên hệ",
-          "HISTORY": "History",
+          "HISTORY": "Lịch sử",
           "NOTES": "Ghi chú"
         }
       },
       "HISTORY": {
-        "EMPTY": "No conversations found for this company's contacts yet."
+        "EMPTY": "Chưa có hội thoại nào từ các liên hệ của doanh nghiệp này."
       },
       "NOTES": {
-        "EMPTY": "No notes found for this company's contacts yet."
+        "EMPTY": "Chưa có ghi chú nào từ các liên hệ của doanh nghiệp này."
       },
       "ATTRIBUTES": {
         "SEARCH_PLACEHOLDER": "Tìm kiếm nhiều thuộc tính...",
-        "EMPTY_STATE": "There are no company custom attributes configured yet.",
-        "NO_ATTRIBUTES": "No matching attributes found.",
-        "UNUSED_ATTRIBUTES": "{count} unused attribute | {count} unused attributes",
+        "EMPTY_STATE": "Chưa có thuộc tính tuỳ chỉnh nào cho doanh nghiệp.",
+        "NO_ATTRIBUTES": "Không tìm thấy thuộc tính phù hợp.",
+        "UNUSED_ATTRIBUTES": "{count} thuộc tính chưa dùng | {count} thuộc tính chưa dùng",
         "MESSAGES": {
-          "UPDATE_SUCCESS": "Company attribute updated.",
-          "UPDATE_ERROR": "Could not update company attribute.",
-          "DELETE_SUCCESS": "Company attribute removed.",
-          "DELETE_ERROR": "Could not remove company attribute."
+          "UPDATE_SUCCESS": "Đã cập nhật thuộc tính doanh nghiệp.",
+          "UPDATE_ERROR": "Không cập nhật được thuộc tính doanh nghiệp.",
+          "DELETE_SUCCESS": "Đã xoá thuộc tính doanh nghiệp.",
+          "DELETE_ERROR": "Không xoá được thuộc tính doanh nghiệp."
         }
       },
       "CONTACTS": {
         "LOADING": "Đang tải liên hệ...",
-        "EMPTY": "No contacts are linked to this company yet.",
-        "UNNAMED_CONTACT": "Unnamed contact",
+        "EMPTY": "Chưa có liên hệ nào gắn với doanh nghiệp này.",
+        "UNNAMED_CONTACT": "Liên hệ chưa đặt tên",
         "ACTIONS": {
-          "ADD": "Add contact",
-          "REMOVE": "Remove contact"
+          "ADD": "Thêm liên hệ",
+          "REMOVE": "Gỡ liên hệ"
         },
         "DIALOGS": {
           "ADD": {
-            "DESCRIPTION": "Search for an existing contact and link it to this company.",
+            "DESCRIPTION": "Tìm một liên hệ có sẵn và gắn vào doanh nghiệp này.",
             "SEARCH_PLACEHOLDER": "Tìm kiếm liên hệ...",
-            "INITIAL": "Start typing to search contacts.",
-            "EMPTY": "No contacts found.",
-            "CONFIRM_TITLE": "Link contact",
-            "CONFIRM_DESCRIPTION": "Confirm the company and contact before linking them.",
-            "COMPANY_LABEL": "Công ty",
+            "INITIAL": "Bắt đầu gõ để tìm liên hệ.",
+            "EMPTY": "Không tìm thấy liên hệ nào.",
+            "CONFIRM_TITLE": "Gắn liên hệ",
+            "CONFIRM_DESCRIPTION": "Xác nhận doanh nghiệp và liên hệ trước khi gắn.",
+            "COMPANY_LABEL": "Doanh nghiệp",
             "CONTACT_LABEL": "Liên hệ",
-            "CURRENT_COMPANY": "Currently linked to {companyName}",
-            "ADD": "Link contact",
+            "CURRENT_COMPANY": "Hiện đang thuộc {companyName}",
+            "ADD": "Gắn liên hệ",
             "CANCEL": "Huỷ"
           }
         },
         "MESSAGES": {
-          "ADD_SUCCESS": "Contact linked to company.",
-          "ADD_ERROR": "Could not link contact to company.",
-          "REASSIGN_SUCCESS": "Contact reassigned to company.",
-          "REASSIGN_ERROR": "Could not reassign contact to company.",
-          "REMOVE_SUCCESS": "Contact removed from company.",
-          "REMOVE_ERROR": "Could not remove contact from company."
+          "ADD_SUCCESS": "Đã gắn liên hệ vào doanh nghiệp.",
+          "ADD_ERROR": "Không gắn được liên hệ vào doanh nghiệp.",
+          "REASSIGN_SUCCESS": "Đã chuyển liên hệ sang doanh nghiệp khác.",
+          "REASSIGN_ERROR": "Không chuyển được liên hệ sang doanh nghiệp khác.",
+          "REMOVE_SUCCESS": "Đã gỡ liên hệ khỏi doanh nghiệp.",
+          "REMOVE_ERROR": "Không gỡ được liên hệ khỏi doanh nghiệp."
         }
       },
       "AVATAR": {
-        "UPDATING": "Updating company avatar...",
-        "UPLOAD_SUCCESS": "Company avatar updated.",
-        "UPLOAD_ERROR": "Could not update the company avatar.",
-        "DELETE_SUCCESS": "Company avatar removed.",
-        "DELETE_ERROR": "Could not remove the company avatar."
+        "UPDATING": "Đang cập nhật ảnh đại diện doanh nghiệp...",
+        "UPLOAD_SUCCESS": "Đã cập nhật ảnh đại diện doanh nghiệp.",
+        "UPLOAD_ERROR": "Không cập nhật được ảnh đại diện doanh nghiệp.",
+        "DELETE_SUCCESS": "Đã xoá ảnh đại diện doanh nghiệp.",
+        "DELETE_ERROR": "Không xoá được ảnh đại diện doanh nghiệp."
       },
       "PROFILE": {
-        "TITLE": "Edit company details",
-        "CREATED_AT": "Created {date}",
-        "LAST_ACTIVE": "Last active {date}",
-        "DESCRIPTION_PLACEHOLDER": "Add a short description for this company",
+        "TITLE": "Sửa thông tin doanh nghiệp",
+        "CREATED_AT": "Tạo {date}",
+        "LAST_ACTIVE": "Hoạt động lần cuối {date}",
+        "DESCRIPTION_PLACEHOLDER": "Thêm mô tả ngắn cho doanh nghiệp này",
         "ACTIONS": {
-          "SAVE": "Update company"
+          "SAVE": "Cập nhật doanh nghiệp"
         },
         "MESSAGES": {
-          "UPDATE_SUCCESS": "Company updated.",
-          "UPDATE_ERROR": "Could not update the company."
+          "UPDATE_SUCCESS": "Đã cập nhật doanh nghiệp.",
+          "UPDATE_ERROR": "Không cập nhật được doanh nghiệp."
         },
         "FIELDS": {
           "NAME": "Tên",
@@ -128,26 +152,34 @@
         }
       },
       "DELETE": {
-        "SECTION_TITLE": "Danger zone",
-        "SECTION_DESCRIPTION": "Delete this company and unlink its contacts. The contacts will remain in the account.",
-        "BUTTON": "Delete company",
-        "TITLE": "Delete company?",
-        "DESCRIPTION": "This will remove the company and unlink all associated contacts. Contacts themselves will be preserved.",
-        "DESCRIPTION_WITH_NAME": "This will remove {companyName} and unlink all associated contacts. Contacts themselves will be preserved.",
-        "CONFIRM": "Delete company",
+        "SECTION_TITLE": "Vùng nguy hiểm",
+        "SECTION_DESCRIPTION": "Xoá doanh nghiệp này và gỡ liên kết các liên hệ của nó. Các liên hệ vẫn được giữ lại trong tài khoản.",
+        "BUTTON": "Xoá doanh nghiệp",
+        "TITLE": "Xoá doanh nghiệp?",
+        "DESCRIPTION": "Thao tác này sẽ xoá doanh nghiệp và gỡ liên kết mọi liên hệ liên quan. Bản thân các liên hệ vẫn được giữ lại.",
+        "DESCRIPTION_WITH_NAME": "Thao tác này sẽ xoá {companyName} và gỡ liên kết mọi liên hệ liên quan. Bản thân các liên hệ vẫn được giữ lại.",
+        "CONFIRM": "Xoá doanh nghiệp",
         "MESSAGES": {
-          "SUCCESS": "Company deleted.",
-          "ERROR": "Could not delete the company."
+          "SUCCESS": "Đã xoá doanh nghiệp.",
+          "ERROR": "Không xoá được doanh nghiệp."
         }
       }
     },
     "EMPTY_STATE": {
-      "TITLE": "No companies found"
+      "TITLE": "Không tìm thấy doanh nghiệp nào"
+    },
+    "STAR": {
+      "MARK": "Gắn sao doanh nghiệp",
+      "UNMARK": "Bỏ gắn sao doanh nghiệp",
+      "MARKED": "Đã gắn sao doanh nghiệp",
+      "UNMARKED": "Đã bỏ gắn sao doanh nghiệp",
+      "ERROR": "Không cập nhật được gắn sao doanh nghiệp. Vui lòng thử lại.",
+      "BADGE": "Doanh nghiệp gắn sao"
     }
   },
   "COMPANIES_LAYOUT": {
     "PAGINATION_FOOTER": {
-      "SHOWING": "Showing {startItem} – {endItem} of {totalItems} company | Showing {startItem} – {endItem} of {totalItems} companies"
+      "SHOWING": "Hiển thị {startItem} – {endItem} trong {totalItems} doanh nghiệp | Hiển thị {startItem} – {endItem} trong {totalItems} doanh nghiệp"
     }
   }
 }

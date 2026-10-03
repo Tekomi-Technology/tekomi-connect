@@ -708,6 +708,26 @@ RSpec.describe 'Contacts API', type: :request do
         expect(response).to have_http_status(:success)
         expect(contact.reload.blocked).to be(false)
       end
+
+      it 'lets an agent mark and unmark the contact as VIP' do
+        agent = create(:user, account: account, role: :agent)
+
+        patch "/api/v1/accounts/#{account.id}/contacts/#{contact.id}",
+              params: { vip: true },
+              headers: agent.create_new_auth_token,
+              as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(response.parsed_body['payload']['vip']).to be(true)
+        expect(contact.reload.vip).to be(true)
+
+        patch "/api/v1/accounts/#{account.id}/contacts/#{contact.id}",
+              params: { vip: false },
+              headers: agent.create_new_auth_token,
+              as: :json
+
+        expect(contact.reload.vip).to be(false)
+      end
     end
   end
 
@@ -786,6 +806,75 @@ RSpec.describe 'Contacts API', type: :request do
         expect(response).to have_http_status(:success)
         expect(contact.reload.custom_attributes).to eq({ 'test1' => 'test1' })
       end
+    end
+  end
+
+  describe 'POST /api/v1/accounts/{account.id}/contacts/:id/match_crm' do
+    let!(:contact) { create(:contact, account: account, phone_number: '+842437758899') }
+    let(:matcher) { instance_double(Crm::Perfex::ContactMatcherService) }
+
+    before do
+      allow(Crm::Perfex::ContactMatcherService).to receive(:new).and_return(matcher)
+    end
+
+    context 'when it is an unauthenticated user' do
+      it 'returns unauthorized' do
+        post "/api/v1/accounts/#{account.id}/contacts/#{contact.id}/match_crm"
+
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context 'when it is an authenticated user' do
+      let(:admin) { create(:user, account: account, role: :administrator) }
+
+      it 'matches the contact and returns the updated additional_attributes' do
+        allow(matcher).to receive(:match_one) do |c|
+          c.update!(additional_attributes: { 'external' => { 'perfex_contact_id' => '1' }, 'crm' => { 'name' => 'Acme' } })
+          c
+        end
+
+        with_modified_env(EXTERNAL_TICKET_SYSTEM_URL: 'https://crm.techxanh.com/rest_api/v1/',
+                           EXTERNAL_TICKET_SYSTEM_API_KEY: 'test-key') do
+          post "/api/v1/accounts/#{account.id}/contacts/#{contact.id}/match_crm",
+               headers: admin.create_new_auth_token,
+               as: :json
+        end
+
+        expect(response).to have_http_status(:success)
+        expect(response.parsed_body.dig('external', 'perfex_contact_id')).to eq('1')
+      end
+    end
+  end
+
+  describe 'DELETE /api/v1/accounts/{account.id}/contacts/:id/unmap_crm' do
+    let(:admin) { create(:user, account: account, role: :administrator) }
+    let(:contact) do
+      create(:contact, account: account, additional_attributes: { external: { perfex_contact_id: '42' } })
+    end
+    let(:inbox) { create(:inbox, account: account) }
+    let(:contact_inbox) { create(:contact_inbox, contact: contact, inbox: inbox, source_id: 'facebook-user-123') }
+    let(:conversation) do
+      create(:conversation, account: account, contact: contact, inbox: inbox, contact_inbox: contact_inbox)
+    end
+
+    it 'returns unauthorized for an unauthenticated user' do
+      delete "/api/v1/accounts/#{account.id}/contacts/#{contact.id}/unmap_crm",
+             params: { conversation_id: conversation.display_id }
+
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'detaches the conversation identity and returns the new contact' do
+      delete "/api/v1/accounts/#{account.id}/contacts/#{contact.id}/unmap_crm",
+             params: { conversation_id: conversation.display_id },
+             headers: admin.create_new_auth_token,
+             as: :json
+
+      expect(response).to have_http_status(:success)
+      expect(response.parsed_body.dig('payload', 'id')).not_to eq(contact.id)
+      expect(response.parsed_body.dig('payload', 'name')).to eq('facebook-user-123')
+      expect(conversation.reload.contact_id).to eq(response.parsed_body.dig('payload', 'id'))
     end
   end
 

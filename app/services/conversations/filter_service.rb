@@ -50,7 +50,8 @@ class Conversations::FilterService < FilterService
   end
 
   def conversations
-    @conversations.sort_on_last_activity_at.page(current_page)
+    vip_first = Arel.sql("(conversations.contact_id IN (#{@account.contacts.where(vip: true).select(:id).to_sql})) DESC")
+    @conversations.order(vip_first).sort_on_last_activity_at.page(current_page)
   end
 
   private
@@ -65,3 +66,5 @@ class Conversations::FilterService < FilterService
     payload.any? { |query_hash| query_hash[:attribute_key] == 'labels' && query_hash[:filter_operator] == 'equal_to' }
   end
 end
+
+Conversations::FilterService.prepend_mod_with('Conversations::FilterService')

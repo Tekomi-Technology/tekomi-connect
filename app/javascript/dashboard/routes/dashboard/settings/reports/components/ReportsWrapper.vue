@@ -1,7 +1,7 @@
 <template>
-  <div class="overflow-auto bg-n-surface-1 w-full px-6">
-    <div class="max-w-5xl mx-auto pb-12">
-      <router-view />
-    </div>
-  </div>
+  <main
+    class="flex flex-col w-full h-full gap-5 p-6 overflow-x-hidden overflow-y-auto bg-n-background"
+  >
+    <router-view />
+  </main>
 </template>

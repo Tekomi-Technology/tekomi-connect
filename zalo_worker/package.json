@@ -1,0 +1,31 @@
+{
+  "name": "zalo-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/main.js",
+    "dev": "tsx watch src/main.ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "proxy:check": "tsx scripts/checkProxies.ts"
+  },
+  "dependencies": {
+    "@fastify/multipart": "^9.0.3",
+    "fastify": "^5.2.0",
+    "https-proxy-agent": "^9.1.0",
+    "node-fetch": "^3.3.2",
+    "socks-proxy-agent": "^10.1.0",
+    "zca-js": "2.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0",
+    "vitest": "^4.1.8"
+  }
+}

@@ -1,17 +1,28 @@
 <script setup>
-import { useAttrs } from 'vue';
+import { computed, useAttrs } from 'vue';
 import { useMapGetter } from 'dashboard/composables/store';
+
+const props = defineProps({
+  // The sidebar is always rendered dark regardless of the app theme, so it opts
+  // in explicitly rather than relying on a prefers-color-scheme style switch.
+  dark: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 const attrs = useAttrs();
 const globalConfig = useMapGetter('globalConfig/get');
+
+const source = computed(() =>
+  props.dark
+    ? globalConfig.value.logoDark || globalConfig.value.logoThumbnail
+    : globalConfig.value.logoThumbnail
+);
 </script>
 
 <template>
-  <img
-    v-if="globalConfig.logoThumbnail"
-    v-bind="attrs"
-    :src="globalConfig.logoThumbnail"
-  />
+  <img v-if="source" v-bind="attrs" :src="source" />
   <svg
     v-else
     v-once

@@ -143,6 +143,38 @@
     },
     "EMPTY_STATE": {
       "TITLE": "No companies found"
+    },
+    "CONVERSATION_PANEL": {
+      "EMPTY": "This company is no longer available.",
+      "OPEN_COMPANY": "Open company",
+      "PROFILE": {
+        "TITLE": "Company details",
+        "WEBSITE": "Website",
+        "EMPTY": "No company details yet."
+      },
+      "PHONE": "Phone number",
+      "CREATED_AT": "Created {time}",
+      "CURRENT_CONTACT": "In this chat",
+      "SECTIONS": {
+        "CONVERSATIONS": "Open conversations ({n})",
+        "DEALS": "Open deals ({n})",
+        "EMPTY": "Nothing here yet.",
+        "MAIN_CONTACT": "Main contact",
+        "NOTES": "Company notes"
+      },
+      "DETAILS": "Details",
+      "VIEW_ALL_COUNT": "View all ({n})",
+      "INFO": {
+        "CRM_ID": "CRM ID"
+      }
+    },
+    "STAR": {
+      "MARK": "Star this company",
+      "UNMARK": "Unstar this company",
+      "MARKED": "Company starred",
+      "UNMARKED": "Company unstarred",
+      "ERROR": "Could not update the company star. Please try again.",
+      "BADGE": "Starred company"
     }
   },
   "COMPANIES_LAYOUT": {

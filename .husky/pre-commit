@@ -1,11 +1,38 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
+# This project installs its dependencies inside Docker (node_modules and the
+# gems live in named volumes), so the host usually has neither lint-staged nor
+# bundler. Each step below prefers a native install when one exists and falls
+# back to the container otherwise, so both workflows keep working.
+
+STAGED_JS=$(git diff --name-only --cached --diff-filter=ACMR | grep -E '^app/.*\.(js|vue)$' || true)
+STAGED_RB=$(git diff --name-only --cached --diff-filter=ACMR | grep -E '\.rb$' || true)
+
 # lint js and vue files
-npx --no-install lint-staged
+if [ -x node_modules/.bin/lint-staged ]; then
+  npx --no-install lint-staged
+elif [ -n "$STAGED_JS" ]; then
+  if docker compose exec -T vite true >/dev/null 2>&1; then
+    # Mirrors the "lint-staged" block in package.json: eslint --fix, then re-add.
+    echo "$STAGED_JS" | xargs docker compose exec -T vite pnpm exec eslint --fix
+    echo "$STAGED_JS" | xargs git add
+  else
+    echo "husky: eslint SKIPPED — no local node_modules and the vite container is not running."
+    echo "       Start it with 'docker compose up -d vite', or run 'pnpm install' on the host."
+  fi
+fi
 
 # lint only staged ruby files that still exist (not deleted)
-git diff --name-only --cached | xargs -I {} sh -c 'test -f "{}" && echo "{}"' | grep '\.rb$' | xargs -I {} bundle exec rubocop --force-exclusion -a "{}" || true
+if [ -n "$STAGED_RB" ]; then
+  if command -v bundle >/dev/null 2>&1; then
+    echo "$STAGED_RB" | xargs -I {} sh -c 'test -f "{}" && bundle exec rubocop --force-exclusion -a "{}"' || true
+  elif docker compose exec -T rails true >/dev/null 2>&1; then
+    echo "$STAGED_RB" | xargs -I {} sh -c 'test -f "{}" && docker compose exec -T rails bundle exec rubocop --force-exclusion -a "{}"' || true
+  else
+    echo "husky: rubocop SKIPPED — no local bundler and the rails container is not running."
+  fi
+fi
 
 # stage rubocop changes to files
 git diff --name-only --cached | xargs -I {} sh -c 'test -f "{}" && git add "{}"' || true

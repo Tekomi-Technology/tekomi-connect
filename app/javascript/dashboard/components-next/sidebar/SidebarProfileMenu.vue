@@ -5,7 +5,7 @@ import { useMapGetter } from 'dashboard/composables/store';
 import { useI18n } from 'vue-i18n';
 import Avatar from 'next/avatar/Avatar.vue';
 import SidebarProfileMenuStatus from './SidebarProfileMenuStatus.vue';
-import { FEATURE_FLAGS } from 'dashboard/featureFlags';
+import SidebarProfileMenuAccountSwitch from './SidebarProfileMenuAccountSwitch.vue';
 
 import {
   DropdownContainer,
@@ -19,7 +19,11 @@ defineProps({
   isCollapsed: { type: Boolean, default: false },
 });
 
-const emit = defineEmits(['close', 'openKeyShortcutModal']);
+const emit = defineEmits([
+  'close',
+  'openKeyShortcutModal',
+  'showCreateAccountModal',
+]);
 
 defineOptions({
   inheritAttrs: false,
@@ -29,36 +33,8 @@ const { t } = useI18n();
 
 const currentUser = useMapGetter('getCurrentUser');
 const currentUserAvailability = useMapGetter('getCurrentUserAvailability');
-const accountId = useMapGetter('getCurrentAccountId');
-const globalConfig = useMapGetter('globalConfig/get');
-const isFeatureEnabledonAccount = useMapGetter(
-  'accounts/isFeatureEnabledonAccount'
-);
-
-const showChatSupport = computed(() => {
-  return (
-    isFeatureEnabledonAccount.value(
-      accountId.value,
-      FEATURE_FLAGS.CONTACT_CHATWOOT_SUPPORT_TEAM
-    ) && globalConfig.value.chatwootInboxToken
-  );
-});
-
-const toggleChatSupport = () => {
-  if (window.$chatwoot) {
-    window.$chatwoot.toggle();
-  }
-};
-
 const menuItems = computed(() => {
   return [
-    {
-      show: showChatSupport.value,
-      showOnCustomBrandedInstance: false,
-      label: t('SIDEBAR_ITEMS.CONTACT_SUPPORT'),
-      icon: 'i-lucide-life-buoy',
-      click: toggleChatSupport,
-    },
     {
       show: true,
       showOnCustomBrandedInstance: true,
@@ -84,24 +60,6 @@ const menuItems = computed(() => {
         const ninja = document.querySelector('ninja-keys');
         ninja.open({ parent: 'appearance_settings' });
       },
-    },
-    {
-      show: true,
-      showOnCustomBrandedInstance: false,
-      label: t('SIDEBAR_ITEMS.DOCS'),
-      icon: 'i-lucide-book',
-      link: 'https://www.chatwoot.com/hc/user-guide/en',
-      nativeLink: true,
-      target: '_blank',
-    },
-    {
-      show: true,
-      showOnCustomBrandedInstance: false,
-      label: t('SIDEBAR_ITEMS.CHANGELOG'),
-      icon: 'i-lucide-scroll-text',
-      link: 'https://www.chatwoot.com/changelog/',
-      nativeLink: true,
-      target: '_blank',
     },
     {
       show: currentUser.value.type === 'SuperAdmin',
@@ -162,6 +120,9 @@ const allowedMenuItems = computed(() => {
     </template>
     <DropdownBody class="bottom-12 z-50 mb-2 w-80 ltr:left-0 rtl:right-0">
       <SidebarProfileMenuStatus />
+      <SidebarProfileMenuAccountSwitch
+        @show-create-account-modal="emit('showCreateAccountModal')"
+      />
       <DropdownSeparator />
       <template v-for="item in allowedMenuItems" :key="item.label">
         <CustomBrandPolicyWrapper

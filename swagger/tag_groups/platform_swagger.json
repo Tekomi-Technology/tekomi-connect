@@ -1637,7 +1637,7 @@
               "Contact",
               "User",
               "AgentBot",
-              "Captain::Assistant",
+              "Tekomi::Assistant",
               null
             ],
             "description": "The type of the sender"
@@ -2455,14 +2455,6 @@
           {
             "type": "object",
             "properties": {
-              "latest_chatwoot_version": {
-                "type": [
-                  "string",
-                  "null"
-                ],
-                "description": "Latest version of Chatwoot available",
-                "example": "3.0.0"
-              },
               "subscribed_features": {
                 "type": "array",
                 "items": {
@@ -3089,7 +3081,7 @@
           },
           "avatar_url": {
             "type": "string",
-            "description": "Avatar URL of the sender. Present for senders of type user, agent_bot, and captain_assistant. Not present for contact senders (use thumbnail instead)."
+            "description": "Avatar URL of the sender. Present for senders of type user, agent_bot, and tekomi_assistant. Not present for contact senders (use thumbnail instead)."
           },
           "thumbnail": {
             "type": "string",
@@ -3101,7 +3093,7 @@
               "contact",
               "user",
               "agent_bot",
-              "captain_assistant"
+              "tekomi_assistant"
             ],
             "description": "Type of the sender"
           },
@@ -3163,14 +3155,14 @@
               "string",
               "null"
             ],
-            "description": "Description when the sender is a captain assistant"
+            "description": "Description when the sender is a Tekomi AI assistant"
           },
           "created_at": {
             "type": [
               "string",
               "null"
             ],
-            "description": "Created timestamp in ISO 8601 format when the sender is a captain assistant"
+            "description": "Created timestamp in ISO 8601 format when the sender is a Tekomi AI assistant"
           }
         }
       },

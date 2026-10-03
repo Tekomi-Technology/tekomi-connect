@@ -3,21 +3,19 @@ require 'rails_helper'
 RSpec.describe Internal::AccountAnalysis::AccountUpdaterService do
   let(:account) { create(:account) }
   let(:service) { described_class.new(account) }
-  let(:discord_notifier) { instance_double(Internal::AccountAnalysis::DiscordNotifierService, notify_flagged_account: true) }
 
   before do
-    allow(Internal::AccountAnalysis::DiscordNotifierService).to receive(:new).and_return(discord_notifier)
     allow(Rails.logger).to receive(:info)
   end
 
   describe '#update_with_analysis' do
     context 'when error_message is provided' do
-      it 'saves the error and notifies Discord' do
+      it 'saves the error and logs it for review' do
         service.update_with_analysis({}, 'Analysis failed')
 
         expect(account.internal_attributes['security_flagged']).to be true
         expect(account.internal_attributes['security_flag_reason']).to eq('Error: Analysis failed')
-        expect(discord_notifier).to have_received(:notify_flagged_account).with(account)
+        expect(Rails.logger).to have_received(:info).with("Account #{account.id} has been flagged for security review")
       end
     end
 
@@ -45,7 +43,6 @@ RSpec.describe Internal::AccountAnalysis::AccountUpdaterService do
         service.update_with_analysis(analysis)
 
         expect(account.internal_attributes).not_to include('security_flagged')
-        expect(discord_notifier).not_to have_received(:notify_flagged_account)
       end
     end
 
@@ -59,12 +56,11 @@ RSpec.describe Internal::AccountAnalysis::AccountUpdaterService do
         }
       end
 
-      it 'flags the account and notifies Discord' do
+      it 'flags the account and logs it for review' do
         service.update_with_analysis(analysis)
 
         expect(account.internal_attributes['security_flagged']).to be true
         expect(account.internal_attributes['security_flag_reason']).to eq('Threat detected: Suspicious activity detected')
-        expect(discord_notifier).to have_received(:notify_flagged_account).with(account)
         expect(Rails.logger).to have_received(:info).with("Flagging account #{account.id} due to threat level: high")
         expect(Rails.logger).to have_received(:info).with("Account #{account.id} has been flagged for security review")
       end
@@ -80,12 +76,11 @@ RSpec.describe Internal::AccountAnalysis::AccountUpdaterService do
         }
       end
 
-      it 'flags the account and notifies Discord' do
+      it 'flags the account' do
         service.update_with_analysis(analysis)
 
         expect(account.internal_attributes['security_flagged']).to be true
         expect(account.internal_attributes['security_flag_reason']).to eq('Threat detected: Potential issues found')
-        expect(discord_notifier).to have_received(:notify_flagged_account).with(account)
       end
     end
 
@@ -99,12 +94,11 @@ RSpec.describe Internal::AccountAnalysis::AccountUpdaterService do
         }
       end
 
-      it 'flags the account and notifies Discord' do
+      it 'flags the account' do
         service.update_with_analysis(analysis)
 
         expect(account.internal_attributes['security_flagged']).to be true
         expect(account.internal_attributes['security_flag_reason']).to eq('Threat detected: Minor issues found')
-        expect(discord_notifier).to have_received(:notify_flagged_account).with(account)
       end
     end
 
@@ -118,12 +112,11 @@ RSpec.describe Internal::AccountAnalysis::AccountUpdaterService do
         }
       end
 
-      it 'flags the account and notifies Discord' do
+      it 'flags the account' do
         service.update_with_analysis(analysis)
 
         expect(account.internal_attributes['security_flagged']).to be true
         expect(account.internal_attributes['security_flag_reason']).to eq('Threat detected: Minor issues found')
-        expect(discord_notifier).to have_received(:notify_flagged_account).with(account)
       end
     end
   end

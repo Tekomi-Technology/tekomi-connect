@@ -35,8 +35,8 @@ class UserDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     pubsub_token: Field::String,
-    type: Field::Select.with_options(collection: [nil, 'SuperAdmin']),
-    accounts: CountField,
+    type: Field::Select.with_options(collection: %w[User SuperAdmin]),
+    accounts: AccountNamesField,
     access_token: Field::HasOne
   }.freeze
 

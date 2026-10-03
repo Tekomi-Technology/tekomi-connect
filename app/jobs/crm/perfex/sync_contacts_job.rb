@@ -1,0 +1,55 @@
+class Crm::Perfex::SyncContactsJob < ApplicationJob
+  queue_as :scheduled_jobs
+
+  LOCK_KEY = 'crm:perfex:directory-sync:lock'.freeze
+  LOCK_TTL = 15.minutes
+
+  def perform
+    return unless Crm::Perfex::Config.configured?
+
+    acquired = Redis::Alfred.set(LOCK_KEY, '1', nx: true, ex: LOCK_TTL)
+    return unless acquired
+    @lock_acquired = true
+
+    contact_client = Crm::Perfex::Api::ContactClient.new(
+      base_url: Crm::Perfex::Config.system_url,
+      api_key: Crm::Perfex::Config.api_key
+    )
+    customer_client = Crm::Perfex::Api::CustomerClient.new(
+      base_url: Crm::Perfex::Config.system_url,
+      api_key: Crm::Perfex::Config.api_key
+    )
+    contacts_cache = Crm::Perfex::DirectoryCacheService.new(contact_client)
+    contacts_cache.refresh!
+    customers_cache = Crm::Perfex::CustomerDirectoryCacheService.new(customer_client)
+    customers_cache.refresh!
+
+    sync_companies(customers_cache)
+    sync_contacts(contacts_cache)
+
+    contacts = Contact.where("additional_attributes -> 'external' ->> 'perfex_contact_id' IS NULL")
+    return if contacts.none?
+
+    Crm::Perfex::ContactMatcherService.new(contact_client: contact_client, customer_client: customer_client).match_all(contacts)
+  rescue Crm::Perfex::Api::BaseClient::ApiError => e
+    Rails.logger.error "Crm::Perfex::SyncContactsJob failed: #{e.message}"
+  ensure
+    Redis::Alfred.delete(LOCK_KEY) if @lock_acquired
+  end
+
+  private
+
+  def sync_companies(customers_cache)
+    customers = customers_cache.fetch_all
+    Account.find_each do |account|
+      Crm::Perfex::CompanySyncService.new(account).sync(customers)
+    end
+  end
+
+  def sync_contacts(contacts_cache)
+    perfex_contacts = contacts_cache.fetch_all
+    Account.find_each do |account|
+      Crm::Perfex::ContactSyncService.new(account).sync(perfex_contacts)
+    end
+  end
+end

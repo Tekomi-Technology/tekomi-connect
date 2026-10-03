@@ -125,6 +125,13 @@ export const SDK_CSS = `
   width: 20px !important;
 }
 
+.woot-widget-bubble.woot-widget--expanded img {
+  border-radius: 100% !important;
+  height: 32px !important;
+  margin: 8px !important;
+  width: 32px !important;
+}
+
 .woot-widget-bubble.woot-elements--left {
   left: 20px;
 }
@@ -144,6 +151,17 @@ export const SDK_CSS = `
   margin: 20px !important;
   padding: 0 !important;
   width: 24px !important;
+}
+
+.woot-widget-bubble img {
+  all: revert;
+  border-radius: inherit !important;
+  display: block !important;
+  height: 100% !important;
+  margin: 0 !important;
+  object-fit: cover !important;
+  padding: 0 !important;
+  width: 100% !important;
 }
 
 .woot-widget-bubble.woot-widget-bubble-color--lighter path{

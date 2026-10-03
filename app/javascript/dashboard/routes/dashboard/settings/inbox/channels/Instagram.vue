@@ -6,7 +6,6 @@ import Button from 'dashboard/components-next/button/Button.vue';
 import Banner from 'dashboard/components-next/banner/Banner.vue';
 import Icon from 'dashboard/components-next/icon/Icon.vue';
 import { useAccount } from 'dashboard/composables/useAccount';
-import { META_RESTRICTION_STATUS_URL } from 'dashboard/constants/globals';
 
 const { t } = useI18n();
 const { isMetaInboxCreationDisabled } = useAccount();
@@ -98,14 +97,6 @@ const requestAuthorization = async () => {
               />
               <span>
                 {{ $t('INBOX_MGMT.ADD.INSTAGRAM.RESTRICTED_WARNING') }}
-                <a
-                  :href="META_RESTRICTION_STATUS_URL"
-                  class="link underline"
-                  rel="noopener noreferrer nofollow"
-                  target="_blank"
-                >
-                  {{ $t('INBOX_MGMT.ADD.INSTAGRAM.STATUS_LINK') }}
-                </a>
               </span>
             </div>
           </Banner>

@@ -3,8 +3,8 @@
 # validations for this file exist in /spec/configs/schedule_spec.rb
 
 # executed daily at 0000 UTC
-# schedules daily deferred jobs at stable times for each installation
-internal_check_new_versions_job:
+# schedules daily internal maintenance jobs
+trigger_daily_scheduled_items_job:
   cron: '0 0 * * *'
   class: 'Internal::TriggerDailyScheduledItemsJob'
   queue: scheduled_jobs
@@ -14,16 +14,34 @@ trigger_scheduled_items_job:
   class: 'TriggerScheduledItemsJob'
   queue: scheduled_jobs
 
+# Recover OA messages missed while the webhook endpoint or worker was unavailable.
+zalo_oa_backfill_job:
+  cron: '*/5 * * * *'
+  class: 'ZaloOa::BackfillAllJob'
+  queue: scheduled_jobs
+
 # executed hourly for scheduled jobs that do not need minute-level cadence
 trigger_hourly_scheduled_items_job:
   cron: '0 * * * *'
   class: 'Internal::TriggerHourlyScheduledItemsJob'
   queue: scheduled_jobs
 
+# executed hourly — matches unmatched Chatwoot contacts against the Perfex CRM contact list
+crm_perfex_sync_contacts_job:
+  cron: '15 * * * *'
+  class: 'Crm::Perfex::SyncContactsJob'
+  queue: scheduled_jobs
+
 # executed At every minute..
 trigger_imap_email_inboxes_job:
   cron: '*/1 * * * *'
   class: 'Inboxes::FetchImapEmailInboxesJob'
+  queue: scheduled_jobs
+
+# executed every minute — flags tickets that are close to or past their per-stage SLA
+trigger_ticket_stage_slas_job:
+  cron: '*/1 * * * *'
+  class: 'Tickets::TriggerStageSlasJob'
   queue: scheduled_jobs
 
 # executed daily at 2230 UTC

@@ -12,6 +12,7 @@ import SLACardLabel from 'dashboard/components-next/Conversation/Sla/SLACardLabe
 import CardStatusIcon from './CardStatusIcon.vue';
 import Checkbox from 'dashboard/components-next/checkbox/Checkbox.vue';
 import Icon from 'dashboard/components-next/icon/Icon.vue';
+import VipBadge from 'dashboard/components-next/Contacts/VipBadge.vue';
 
 const props = defineProps({
   chat: { type: Object, required: true },
@@ -48,6 +49,10 @@ const voiceCallData = computed(() => {
 
 const unreadCount = computed(() => props.chat.unread_count);
 
+const isVipAwaitingReply = computed(
+  () => !!props.currentContact.vip && props.chat.waiting_since > 0
+);
+
 const slaCardLabel = useTemplateRef('slaCardLabel');
 
 const hasSlaPolicyId = computed(
@@ -75,7 +80,9 @@ const selectedModel = computed({
       'active animate-card-select bg-n-alpha-1 dark:bg-n-alpha-3 !border-n-surface-1':
         isActiveChat,
       'selected bg-n-slate-2 dark:bg-n-slate-3 !border-n-surface-1': selected,
-      'hover:bg-n-alpha-1': !isActiveChat && !selected,
+      'bg-n-amber-3 hover:bg-n-amber-4':
+        isVipAwaitingReply && !isActiveChat && !selected,
+      'hover:bg-n-alpha-1': !isActiveChat && !selected && !isVipAwaitingReply,
       'grid-cols-[minmax(0,2fr)_minmax(0,1fr)]': showLabelsSection,
       'grid-cols-[minmax(0,2fr)_max-content]': !showLabelsSection,
     }"
@@ -152,11 +159,14 @@ const selectedModel = computed({
         :hide-thumbnail="false"
       />
 
-      <h4
-        class="text-heading-3 my-0 capitalize truncate text-n-slate-12 font-medium w-32 flex-shrink-0"
-      >
-        {{ currentContact.name }}
-      </h4>
+      <div class="flex items-center gap-1 w-32 min-w-0 flex-shrink-0">
+        <h4
+          class="text-heading-3 my-0 capitalize truncate text-n-slate-12 font-medium min-w-0"
+        >
+          {{ currentContact.name }}
+        </h4>
+        <VipBadge v-if="currentContact.vip" />
+      </div>
 
       <CardContent
         :last-message="lastMessageInChat"

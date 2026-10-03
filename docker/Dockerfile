@@ -81,9 +81,19 @@ COPY . /app
 RUN mkdir -p /app/log
 
 # generate production assets if production environment
+ARG ASSETS_NODE_OPTIONS="--max-old-space-size=3072 --openssl-legacy-provider"
 RUN if [ "$RAILS_ENV" = "production" ]; then \
-  SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled bundle exec rake assets:precompile \
+  NODE_OPTIONS="$ASSETS_NODE_OPTIONS" SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled bundle exec rake assets:precompile \
   && rm -rf spec node_modules tmp/cache; \
+  fi
+
+# Build the Zalo worker, a standalone npm package (the app itself uses pnpm). TypeScript is a
+# dev dependency, so the tree is pruned to production deps only after compiling.
+RUN if [ "$RAILS_ENV" = "production" ]; then \
+  cd zalo_worker \
+  && npm ci --no-audit --no-fund \
+  && npm run build \
+  && npm prune --omit=dev; \
   fi
 
 # Generate .git_sha file with current commit hash
@@ -126,6 +136,7 @@ RUN apk update && apk add --no-cache \
   tzdata \
   postgresql-client \
   imagemagick \
+  ffmpeg \
   git \
   vips \
   && gem install bundler -v "$BUNDLER_VERSION"

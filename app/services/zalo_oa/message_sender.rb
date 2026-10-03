@@ -2,6 +2,7 @@ class ZaloOa::MessageSender
   class WindowError < StandardError; end
   class RetryableError < StandardError; end
   class PermanentError < StandardError; end
+  class FileRejectedError < PermanentError; end
 
   MESSAGE_URL = 'https://openapi.zalo.me/v3.0/oa/message/cs'.freeze
   IMAGE_UPLOAD_URL = 'https://openapi.zalo.me/v2.0/oa/upload/image'.freeze
@@ -76,7 +77,9 @@ class ZaloOa::MessageSender
     File.open(temp_file_path, 'rb') do |file|
       response = HTTParty.post(url, headers: { 'access_token' => channel.valid_access_token }, body: { file: file })
       id = response.parsed_response.dig('data', id_field)
-      raise PermanentError, "upload rejected: #{response.parsed_response['error']} #{response.parsed_response['message']}".strip if id.blank?
+      if id.blank?
+        raise FileRejectedError, "upload rejected: #{response.parsed_response['error']} #{response.parsed_response['message']}".strip
+      end
 
       id.to_s
     end

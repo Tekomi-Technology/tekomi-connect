@@ -14,10 +14,8 @@ class DashboardController < ActionController::Base
     PRIVACY_URL
     DISPLAY_MANIFEST
     CREATE_NEW_ACCOUNT_FROM_DASHBOARD
-    CHATWOOT_INBOX_TOKEN
     API_CHANNEL_NAME
     API_CHANNEL_THUMBNAIL
-    CLOUD_ANALYTICS_TOKEN
     DIRECT_UPLOADS_ENABLED
     MAXIMUM_FILE_UPLOAD_SIZE
     HCAPTCHA_SITE_KEY
@@ -26,7 +24,6 @@ class DashboardController < ActionController::Base
     DISABLE_META_INBOX_CREATION
     DISABLE_META_MESSAGE_SENDING
     DEPLOYMENT_ENV
-    INSTALLATION_PRICING_PLAN
   ].freeze
 
   before_action :set_application_pack
@@ -55,7 +52,7 @@ class DashboardController < ActionController::Base
   end
 
   def ensure_installation_onboarding
-    redirect_to '/installation/onboarding' if ::Redis::Alfred.get(::Redis::Alfred::CHATWOOT_INSTALLATION_ONBOARDING)
+    redirect_to '/installation/onboarding' if ::Redis::Alfred.get(::Redis::Alfred::TEKOMI_INSTALLATION_ONBOARDING)
   end
 
   def render_hc_if_custom_domain
@@ -99,7 +96,7 @@ class DashboardController < ActionController::Base
   def allowed_login_methods
     methods = ['email']
     methods << 'google_oauth' if GlobalConfigService.load('ENABLE_GOOGLE_OAUTH_LOGIN', 'true').to_s != 'false'
-    methods << 'saml' if ChatwootHub.pricing_plan != 'community' && GlobalConfigService.load('ENABLE_SAML_SSO_LOGIN', 'true').to_s != 'false'
+    methods << 'saml' if GlobalConfigService.load('ENABLE_SAML_SSO_LOGIN', 'true').to_s != 'false'
     methods
   end
 

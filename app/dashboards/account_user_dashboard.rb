@@ -50,6 +50,10 @@ class AccountUserDashboard < Administrate::BaseDashboard
     role
   ].freeze
 
+  FORM_ATTRIBUTES_EDIT = %i[
+    role
+  ].freeze
+
   # COLLECTION_FILTERS
   # a hash that defines filters that can be used while searching via the search
   # field of the dashboard.

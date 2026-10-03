@@ -12,6 +12,9 @@ export const FEATURE_FLAGS = {
   WHATSAPP_RECONFIGURE: 'whatsapp_reconfigure',
   CANNED_RESPONSES: 'canned_responses',
   CRM: 'crm',
+  CRM_DEALS: 'crm_deals',
+  CRM_DEALS_AI: 'crm_deals_ai',
+  CRM_TICKETS: 'crm_tickets',
   CUSTOM_ATTRIBUTES: 'custom_attributes',
   DATA_IMPORT: 'data_import',
   DELAYED_AUTOMATIONS: 'delayed_automations',
@@ -37,17 +40,16 @@ export const FEATURE_FLAGS = {
   INBOUND_EMAILS: 'inbound_emails',
   IP_LOOKUP: 'ip_lookup',
   LINEAR: 'linear_integration',
-  CAPTAIN: 'captain_integration',
+  TEKOMI: 'tekomi_integration',
   CUSTOM_ROLES: 'custom_roles',
   CHATWOOT_V4: 'chatwoot_v4',
   CHANNEL_INSTAGRAM: 'channel_instagram',
   CHANNEL_TIKTOK: 'channel_tiktok',
   CHANNEL_VOICE: 'channel_voice',
-  CONTACT_CHATWOOT_SUPPORT_TEAM: 'contact_chatwoot_support_team',
-  CAPTAIN_CUSTOM_TOOLS: 'custom_tools',
-  CAPTAIN_V2: 'captain_integration_v2',
-  CAPTAIN_TASKS: 'captain_tasks',
-  CAPTAIN_DOCUMENT_AUTO_SYNC: 'captain_document_auto_sync',
+  TEKOMI_CUSTOM_TOOLS: 'custom_tools',
+  TEKOMI_V2: 'tekomi_integration_v2',
+  TEKOMI_TASKS: 'tekomi_tasks',
+  TEKOMI_DOCUMENT_AUTO_SYNC: 'tekomi_document_auto_sync',
   SAML: 'saml',
   COMPANIES: 'companies',
   ADVANCED_SEARCH: 'advanced_search',
@@ -56,10 +58,12 @@ export const FEATURE_FLAGS = {
   UNREAD_COUNT_FOR_FILTERS: 'unread_count_for_filters',
 };
 
-export const PREMIUM_FEATURES = [
+// Chatwoot Cloud can still use subscription-specific availability. Self-hosted
+// installations do not consult this list and expose every public feature.
+export const CLOUD_PAID_FEATURES = [
   FEATURE_FLAGS.SLA,
-  FEATURE_FLAGS.CAPTAIN,
-  FEATURE_FLAGS.CAPTAIN_CUSTOM_TOOLS,
+  FEATURE_FLAGS.TEKOMI,
+  FEATURE_FLAGS.TEKOMI_CUSTOM_TOOLS,
   FEATURE_FLAGS.CUSTOM_ROLES,
   FEATURE_FLAGS.AUDIT_LOGS,
   FEATURE_FLAGS.HELP_CENTER,

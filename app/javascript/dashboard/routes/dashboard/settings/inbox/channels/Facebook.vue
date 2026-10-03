@@ -13,7 +13,6 @@ import { useBranding } from 'shared/composables/useBranding';
 import { useAccount } from 'dashboard/composables/useAccount';
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import ComboBox from 'dashboard/components-next/combobox/ComboBox.vue';
-import { META_RESTRICTION_STATUS_URL } from 'dashboard/constants/globals';
 import { parseAPIErrorResponse } from 'dashboard/store/utils/api';
 
 import * as Sentry from '@sentry/vue';
@@ -36,7 +35,6 @@ export default {
       isMetaInboxCreationDisabled,
       preloadSdk,
       loginAndFetchPages,
-      META_RESTRICTION_STATUS_URL,
       v$: useVuelidate(),
     };
   },
@@ -204,14 +202,6 @@ export default {
             />
             <span>
               {{ $t('INBOX_MGMT.ADD.FB.RESTRICTED_WARNING') }}
-              <a
-                :href="META_RESTRICTION_STATUS_URL"
-                class="link underline"
-                rel="noopener noreferrer nofollow"
-                target="_blank"
-              >
-                {{ $t('INBOX_MGMT.ADD.FB.STATUS_LINK') }}
-              </a>
             </span>
           </div>
         </Banner>

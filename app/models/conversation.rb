@@ -5,6 +5,7 @@
 #  id                     :integer          not null, primary key
 #  additional_attributes  :jsonb
 #  agent_last_seen_at     :datetime
+#  ai_assignee_type       :string
 #  assignee_last_seen_at  :datetime
 #  cached_label_list      :text
 #  contact_last_seen_at   :datetime
@@ -33,24 +34,25 @@
 #
 # Indexes
 #
-#  conv_acid_inbid_stat_asgnid_idx                    (account_id,inbox_id,status,assignee_id)
-#  index_conversations_on_account_id                  (account_id)
-#  index_conversations_on_account_id_and_display_id   (account_id,display_id) UNIQUE
-#  index_conversations_on_assignee_id_and_account_id  (assignee_id,account_id)
-#  index_conversations_on_campaign_id                 (campaign_id)
-#  index_conversations_on_contact_id                  (contact_id)
-#  index_conversations_on_contact_inbox_id            (contact_inbox_id)
-#  index_conversations_on_created_at                  (created_at)
-#  index_conversations_on_first_reply_created_at      (first_reply_created_at)
-#  index_conversations_on_id_and_account_id           (account_id,id)
-#  index_conversations_on_identifier_and_account_id   (identifier,account_id)
-#  index_conversations_on_inbox_id                    (inbox_id)
-#  index_conversations_on_priority                    (priority)
-#  index_conversations_on_status_and_account_id       (status,account_id)
-#  index_conversations_on_status_and_priority         (status,priority)
-#  index_conversations_on_team_id                     (team_id)
-#  index_conversations_on_uuid                        (uuid) UNIQUE
-#  index_conversations_on_waiting_since               (waiting_since)
+#  conv_acid_inbid_stat_asgnid_idx                      (account_id,inbox_id,status,assignee_id)
+#  index_conversations_on_account_id                    (account_id)
+#  index_conversations_on_account_id_and_display_id     (account_id,display_id) UNIQUE
+#  index_conversations_on_account_id_status_created_at  (account_id,status,created_at)
+#  index_conversations_on_assignee_id_and_account_id    (assignee_id,account_id)
+#  index_conversations_on_campaign_id                   (campaign_id)
+#  index_conversations_on_contact_id                    (contact_id)
+#  index_conversations_on_contact_inbox_id              (contact_inbox_id)
+#  index_conversations_on_created_at                    (created_at)
+#  index_conversations_on_first_reply_created_at        (first_reply_created_at)
+#  index_conversations_on_id_and_account_id             (account_id,id)
+#  index_conversations_on_identifier_and_account_id     (identifier,account_id)
+#  index_conversations_on_inbox_id                      (inbox_id)
+#  index_conversations_on_priority                      (priority)
+#  index_conversations_on_status_and_account_id         (status,account_id)
+#  index_conversations_on_status_and_priority           (status,priority)
+#  index_conversations_on_team_id                       (team_id)
+#  index_conversations_on_uuid                          (uuid) UNIQUE
+#  index_conversations_on_waiting_since                 (waiting_since)
 #
 
 class Conversation < ApplicationRecord
@@ -114,6 +116,11 @@ class Conversation < ApplicationRecord
   belongs_to :inbox
   belongs_to :assignee, class_name: 'User', optional: true, inverse_of: :assigned_conversations
   belongs_to :assignee_agent_bot, class_name: 'AgentBot', optional: true
+  belongs_to :ai_assignee,
+             polymorphic: true,
+             foreign_key: :assignee_agent_bot_id,
+             foreign_type: :ai_assignee_type,
+             optional: true
   belongs_to :contact
   belongs_to :contact_inbox
   belongs_to :team, optional: true
@@ -127,6 +134,10 @@ class Conversation < ApplicationRecord
   has_many :attachments, through: :messages
   has_many :reporting_events, dependent: :destroy_async
   has_many :automation_rule_pending_executions, dependent: :delete_all
+  has_many :deal_conversations, dependent: :delete_all
+  has_many :deals, through: :deal_conversations
+  has_many :ticket_conversations, dependent: :delete_all
+  has_many :tickets, through: :ticket_conversations
 
   before_save :ensure_snooze_until_reset
   before_save :set_status_changed_at
@@ -177,7 +188,7 @@ class Conversation < ApplicationRecord
 
   def bot_handoff!(dispatch_event: true)
     update(waiting_since: Time.current) if waiting_since.blank?
-    self.assignee_agent_bot = nil
+    self.ai_assignee = nil
     open!
     dispatch_bot_handoff_event if dispatch_event
   end
@@ -208,6 +219,12 @@ class Conversation < ApplicationRecord
     return false if self_assign?(assignee_id)
 
     true
+  end
+
+  # Keep legacy AgentBot reads coherent until they move to the typed association.
+  def ai_assignee=(owner)
+    super
+    association(:assignee_agent_bot).reset
   end
 
   # Virtual attribute till we switch completely to polymorphic assignee
@@ -296,7 +313,7 @@ class Conversation < ApplicationRecord
   def reset_agent_bot_when_assignee_present
     return if assignee_id.blank?
 
-    self.assignee_agent_bot_id = nil
+    self.ai_assignee = nil
   end
 
   def determine_conversation_status
@@ -316,7 +333,7 @@ class Conversation < ApplicationRecord
     self.status = :pending
     return unless inbox.agent_bot_inbox&.active? && assignee_id.blank?
 
-    self.assignee_agent_bot = inbox.agent_bot
+    self.ai_assignee = inbox.agent_bot
   end
 
   def notify_conversation_creation
@@ -367,6 +384,9 @@ class Conversation < ApplicationRecord
     obj_from_db = self.class.find(id)
     self[:display_id] = obj_from_db[:display_id]
     self[:uuid] = obj_from_db[:uuid]
+    # These values already match the database; left dirty, they make the next `with_lock` on a
+    # just-created conversation raise (e.g. ZaloOa::ConsultationWindow on a customer's first message).
+    clear_attribute_changes(%w[display_id uuid])
   end
 
   def notify_status_change

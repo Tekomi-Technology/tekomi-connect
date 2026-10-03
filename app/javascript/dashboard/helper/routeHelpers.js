@@ -23,7 +23,7 @@ export const defaultRedirectPage = (to, permissions) => {
   const permissionRoutes = [
     {
       permissions: [...ROLES, ...CONVERSATION_PERMISSIONS],
-      path: 'dashboard',
+      path: 'home',
     },
     { permissions: [CONTACT_PERMISSIONS], path: 'contacts' },
     { permissions: [REPORTS_PERMISSIONS], path: 'reports/overview' },
@@ -34,7 +34,7 @@ export const defaultRedirectPage = (to, permissions) => {
     hasPermissions(routePermissions, permissions)
   );
 
-  return `accounts/${accountId}/${route ? route.path : 'dashboard'}`;
+  return `accounts/${accountId}/${route ? route.path : 'home'}`;
 };
 
 const validateActiveAccountRoutes = (to, user) => {

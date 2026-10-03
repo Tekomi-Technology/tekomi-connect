@@ -17,6 +17,7 @@ const state = {
   currentInbox: null,
   selectedChatId: null,
   appliedFilters: [],
+  appliedFiltersSortBy: null,
   contextMenuChatId: null,
   conversationParticipants: [],
   conversationLastSeen: null,
@@ -310,6 +311,16 @@ export const mutations = {
     }
   },
 
+  // Keeps `meta.sender` of every loaded conversation of a contact in step with
+  // contact updates, so client-side filters on sender fields (VIP) stay right.
+  [types.SYNC_CONVERSATION_SENDER](_state, contact) {
+    _state.allConversations.forEach(chat => {
+      if (chat.meta?.sender?.id === contact.id) {
+        chat.meta.sender = { ...chat.meta.sender, ...contact };
+      }
+    });
+  },
+
   [types.UPDATE_MESSAGE_CALL_STATUS](
     _state,
     { conversationId, callStatus, callSid }
@@ -349,8 +360,13 @@ export const mutations = {
     _state.appliedFilters = data;
   },
 
+  [types.SET_CONVERSATION_FILTERS_SORT](_state, sortBy) {
+    _state.appliedFiltersSortBy = sortBy;
+  },
+
   [types.CLEAR_CONVERSATION_FILTERS](_state) {
     _state.appliedFilters = [];
+    _state.appliedFiltersSortBy = null;
   },
 
   [types.SET_LAST_MESSAGE_ID_IN_SYNC_CONVERSATION](
@@ -370,7 +386,7 @@ export const mutations = {
   [types.UPDATE_CHAT_LIST_FILTERS](_state, data) {
     _state.conversationFilters = { ..._state.conversationFilters, ...data };
   },
-  [types.SET_INBOX_CAPTAIN_ASSISTANT](_state, data) {
+  [types.SET_INBOX_TEKOMI_ASSISTANT](_state, data) {
     _state.copilotAssistant = data.assistant;
   },
 };

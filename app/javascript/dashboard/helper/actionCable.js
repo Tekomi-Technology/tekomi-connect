@@ -5,6 +5,8 @@ import { BUS_EVENTS } from 'shared/constants/busEvents';
 import { emitter } from 'shared/helpers/mitt';
 import { useImpersonation } from 'dashboard/composables/useImpersonation';
 import { useCallsStore } from 'dashboard/stores/calls';
+import { useDealsStore } from 'dashboard/stores/deals';
+import { useTicketsStore } from 'dashboard/stores/tickets';
 import {
   applyOutboundAnswer,
   armOutboundRecorder,
@@ -50,6 +52,12 @@ class ActionCableConnector extends BaseActionCableConnector {
       'presence.update': this.onPresenceUpdate,
       'contact.deleted': this.onContactDelete,
       'contact.updated': this.onContactUpdate,
+      'deal.created': this.onDealUpsert,
+      'deal.updated': this.onDealUpsert,
+      'deal.deleted': this.onDealDelete,
+      'ticket.created': this.onTicketUpsert,
+      'ticket.updated': this.onTicketUpsert,
+      'ticket.deleted': this.onTicketDelete,
       'conversation.mentioned': this.onConversationMentioned,
       'notification.created': this.onNotificationCreated,
       'notification.deleted': this.onNotificationDeleted,
@@ -320,6 +328,27 @@ class ActionCableConnector extends BaseActionCableConnector {
 
   onContactUpdate = data => {
     this.app.$store.dispatch('contacts/updateContact', data);
+    this.app.$store.dispatch('syncConversationSender', data);
+  };
+
+  // eslint-disable-next-line class-methods-use-this
+  onDealUpsert = data => {
+    useDealsStore().onRealtimeUpsert(data);
+  };
+
+  // eslint-disable-next-line class-methods-use-this
+  onDealDelete = data => {
+    useDealsStore().onRealtimeDelete(data);
+  };
+
+  // eslint-disable-next-line class-methods-use-this
+  onTicketUpsert = data => {
+    useTicketsStore().onRealtimeUpsert(data);
+  };
+
+  // eslint-disable-next-line class-methods-use-this
+  onTicketDelete = data => {
+    useTicketsStore().onRealtimeDelete(data);
   };
 
   onNotificationCreated = data => {

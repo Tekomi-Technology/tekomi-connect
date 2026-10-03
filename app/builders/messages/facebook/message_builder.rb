@@ -20,6 +20,8 @@ class Messages::Facebook::MessageBuilder < Messages::Messenger::MessageBuilder
   def perform
     # This channel might require reauthorization, may be owner might have changed the fb password
     return if @inbox.channel.reauthorization_required?
+    # Messenger redelivers a webhook it did not see acknowledged in time; store each mid once.
+    return if response.identifier.present? && @inbox.messages.exists?(source_id: response.identifier)
 
     ActiveRecord::Base.transaction do
       build_contact_inbox
@@ -133,8 +135,10 @@ class Messages::Facebook::MessageBuilder < Messages::Messenger::MessageBuilder
   end
 
   def process_contact_params_result(result)
+    name = result['name'].presence || [result['first_name'], result['last_name']].compact_blank.join(' ').presence || @sender_id.to_s
+
     {
-      name: "#{result['first_name'] || 'John'} #{result['last_name'] || 'Doe'}",
+      name: name,
       account_id: @inbox.account_id,
       avatar_url: result['profile_pic']
     }

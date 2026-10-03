@@ -776,7 +776,6 @@ describe('#addMentions', () => {
 
       expect(localCommit.mock.calls).toEqual([
         [types.SET_CURRENT_CHAT_WINDOW, data],
-        [types.CLEAR_ALL_MESSAGES_LOADED, 42],
       ]);
       expect(localDispatch).not.toHaveBeenCalled();
     });
@@ -799,7 +798,7 @@ describe('#addMentions', () => {
     });
   });
 
-  describe('#getInboxCaptainAssistantById', () => {
+  describe('#getInboxTekomiAssistantById', () => {
     it('fetches inbox assistant by id', async () => {
       axios.get.mockResolvedValue({
         data: {
@@ -808,10 +807,10 @@ describe('#addMentions', () => {
           description: 'Assistant description',
         },
       });
-      await actions.getInboxCaptainAssistantById({ commit }, 1);
+      await actions.getInboxTekomiAssistantById({ commit }, 1);
       expect(commit.mock.calls).toEqual([
         [
-          types.SET_INBOX_CAPTAIN_ASSISTANT,
+          types.SET_INBOX_TEKOMI_ASSISTANT,
           { id: 1, name: 'Assistant', description: 'Assistant description' },
         ],
       ]);

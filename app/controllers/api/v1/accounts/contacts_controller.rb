@@ -13,7 +13,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
 
   before_action :check_authorization
   before_action :set_current_page, only: [:index, :active, :search, :filter]
-  before_action :fetch_contact, only: [:show, :update, :destroy, :avatar, :contactable_inboxes, :destroy_custom_attributes]
+  before_action :fetch_contact, only: [:show, :update, :destroy, :avatar, :contactable_inboxes, :destroy_custom_attributes, :match_crm, :unmap_crm]
   before_action :set_include_contact_inboxes, only: [:index, :active, :search, :filter, :show, :update]
 
   def index
@@ -76,6 +76,44 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
     @contactable_inboxes = @all_contactable_inboxes.select { |contactable_inbox| policy(contactable_inbox[:inbox]).show? }
   end
 
+  def match_crm
+    client = Crm::Perfex::Api::ContactClient.new(
+      base_url: Crm::Perfex::Config.system_url,
+      api_key: Crm::Perfex::Config.api_key
+    )
+    customer_client = Crm::Perfex::Api::CustomerClient.new(
+      base_url: Crm::Perfex::Config.system_url,
+      api_key: Crm::Perfex::Config.api_key
+    )
+    Crm::Perfex::ContactMatcherService.new(contact_client: client, customer_client: customer_client).match_one(@contact)
+    render json: @contact.reload.additional_attributes
+  rescue Crm::Perfex::Api::BaseClient::ApiError => e
+    Rails.logger.error "Crm::Perfex contact match failed for contact #{@contact.id}: #{e.message}"
+    render json: { error: 'crm_unreachable' }, status: :bad_gateway
+  end
+
+  def unmap_crm
+    conversation = Current.account.conversations.find_by!(display_id: params.require(:conversation_id))
+    @contact = Crm::Perfex::ContactChannelUnmapper.new(
+      account: Current.account,
+      contact: @contact,
+      conversation: conversation
+    ).perform
+    @include_contact_inboxes = true
+    render :show
+  rescue Crm::Perfex::ContactChannelUnmapper::UnmapError => e
+    render json: { error: e.message }, status: :unprocessable_entity
+  end
+
+  def crm_force_sync
+    running = Redis::Alfred.exists?(Crm::Perfex::SyncContactsJob::LOCK_KEY)
+    Crm::Perfex::SyncContactsJob.perform_later unless running
+    render json: { running: running, cache_age_minutes: cache_age_minutes }, status: :accepted
+  rescue Redis::BaseConnectionError => e
+    Rails.logger.error "Crm::Perfex force sync check failed: #{e.message}"
+    render json: { error: 'crm_sync_unavailable' }, status: :service_unavailable
+  end
+
   # TODO : refactor this method into dedicated contacts/custom_attributes controller class and routes
   def destroy_custom_attributes
     @contact.custom_attributes = @contact.custom_attributes.excluding(params[:custom_attributes])
@@ -116,11 +154,19 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
 
   private
 
+  def cache_age_minutes
+    ttl = Redis::Alfred.ttl(Crm::Perfex::DirectoryCacheService::CACHE_KEY)
+    return if ttl.negative?
+
+    ((Crm::Perfex::DirectoryCacheService::TTL.to_i - ttl) / 60).to_i
+  end
+
   # TODO: Move this to a finder class
   def resolved_contacts
     return @resolved_contacts if @resolved_contacts
 
     @resolved_contacts = Current.account.contacts.resolved_contacts(use_crm_v2: Current.account.feature_enabled?('crm_v2'))
+    @resolved_contacts = @resolved_contacts.where(company_id: nil) if params[:company_id] == 'none'
 
     @resolved_contacts = @resolved_contacts.tagged_with(params[:labels], any: true) if params[:labels].present?
     @resolved_contacts
@@ -171,7 +217,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   end
 
   def permitted_params
-    params.permit(:name, :identifier, :email, :phone_number, :avatar, :blocked, :avatar_url, additional_attributes: {}, custom_attributes: {})
+    params.permit(:name, :identifier, :email, :phone_number, :avatar, :blocked, :vip, :avatar_url, additional_attributes: {}, custom_attributes: {})
   end
 
   def contact_custom_attributes

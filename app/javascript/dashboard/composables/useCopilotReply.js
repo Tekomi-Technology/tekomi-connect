@@ -1,12 +1,13 @@
 import { ref, computed } from 'vue';
-import { useCaptain } from 'dashboard/composables/useCaptain';
+import { useTekomi } from 'dashboard/composables/useTekomi';
 import { useUISettings } from 'dashboard/composables/useUISettings';
+import { useConversationAnalysis } from 'dashboard/composables/useConversationAnalysis';
 import { useTrack } from 'dashboard/composables';
-import { CAPTAIN_EVENTS } from 'dashboard/helper/AnalyticsHelper/events';
+import { TEKOMI_EVENTS } from 'dashboard/helper/AnalyticsHelper/events';
 import {
-  CAPTAIN_ERROR_TYPES,
-  CAPTAIN_GENERATION_FAILURE_REASONS,
-} from 'dashboard/composables/captain/constants';
+  TEKOMI_ERROR_TYPES,
+  TEKOMI_GENERATION_FAILURE_REASONS,
+} from 'dashboard/composables/tekomi/constants';
 
 // Actions that map to REWRITE events (with operation attribute)
 const REWRITE_ACTIONS = [
@@ -63,7 +64,7 @@ function trackGenerationFailure({
   stage,
   reason,
 }) {
-  useTrack(CAPTAIN_EVENTS.GENERATION_FAILED, {
+  useTrack(TEKOMI_EVENTS.GENERATION_FAILED, {
     ...buildPayload(action, conversationId, followUpCount),
     stage,
     reason,
@@ -77,8 +78,9 @@ function trackGenerationFailure({
  * @returns {Object} Copilot reply state and methods
  */
 export function useCopilotReply() {
-  const { processEvent, followUp, currentChat } = useCaptain();
+  const { processEvent, followUp, currentChat } = useTekomi();
   const { updateUISettings } = useUISettings();
+  const { requestAnalysis } = useConversationAnalysis();
 
   const showEditor = ref(false);
   const isGenerating = ref(false);
@@ -111,7 +113,7 @@ export function useCopilotReply() {
     if (trackDismiss && generatedContent.value && currentAction.value) {
       const eventKey = `${getEventPrefix(currentAction.value)}_DISMISSED`;
       useTrack(
-        CAPTAIN_EVENTS[eventKey],
+        TEKOMI_EVENTS[eventKey],
         buildPayload(
           currentAction.value,
           trackedConversationId.value,
@@ -158,6 +160,17 @@ export function useCopilotReply() {
       updateUISettings({
         is_contact_sidebar_open: false,
         is_copilot_panel_open: true,
+        is_conversation_analysis_panel_open: false,
+      });
+      return;
+    }
+
+    if (action === 'conversation_analysis') {
+      requestAnalysis(conversationId.value);
+      updateUISettings({
+        is_contact_sidebar_open: false,
+        is_copilot_panel_open: false,
+        is_conversation_analysis_panel_open: true,
       });
       return;
     }
@@ -182,7 +195,7 @@ export function useCopilotReply() {
       });
 
       if (requestController.signal.aborted) return;
-      if (errorType === CAPTAIN_ERROR_TYPES.ABORTED) {
+      if (errorType === TEKOMI_ERROR_TYPES.ABORTED) {
         if (abortController.value === requestController) {
           isGenerating.value = false;
         }
@@ -196,10 +209,10 @@ export function useCopilotReply() {
         // Track "Used" event on successful generation
         const eventKey = `${getEventPrefix(action)}_USED`;
         useTrack(
-          CAPTAIN_EVENTS[eventKey],
+          TEKOMI_EVENTS[eventKey],
           buildPayload(action, trackedConversationId.value)
         );
-      } else if (errorType && errorType !== CAPTAIN_ERROR_TYPES.ABORTED) {
+      } else if (errorType && errorType !== TEKOMI_ERROR_TYPES.ABORTED) {
         trackGenerationFailure({
           action,
           conversationId: trackedConversationId.value,
@@ -211,15 +224,15 @@ export function useCopilotReply() {
           action,
           conversationId: trackedConversationId.value,
           stage: 'initial',
-          reason: CAPTAIN_GENERATION_FAILURE_REASONS.EMPTY_RESPONSE,
+          reason: TEKOMI_GENERATION_FAILURE_REASONS.EMPTY_RESPONSE,
         });
       }
       isGenerating.value = false;
     } catch (error) {
       if (
         requestController.signal.aborted ||
-        error?.name === CAPTAIN_ERROR_TYPES.ABORT_ERROR ||
-        error?.name === CAPTAIN_ERROR_TYPES.CANCELED_ERROR
+        error?.name === TEKOMI_ERROR_TYPES.ABORT_ERROR ||
+        error?.name === TEKOMI_ERROR_TYPES.CANCELED_ERROR
       ) {
         return;
       }
@@ -227,7 +240,7 @@ export function useCopilotReply() {
         action,
         conversationId: trackedConversationId.value,
         stage: 'initial',
-        reason: error?.name || CAPTAIN_GENERATION_FAILURE_REASONS.EXCEPTION,
+        reason: error?.name || TEKOMI_GENERATION_FAILURE_REASONS.EXCEPTION,
       });
       isGenerating.value = false;
     } finally {
@@ -250,7 +263,7 @@ export function useCopilotReply() {
     isContentReady.value = false;
 
     // Track follow-up sent event
-    useTrack(CAPTAIN_EVENTS.FOLLOW_UP_SENT, {
+    useTrack(TEKOMI_EVENTS.FOLLOW_UP_SENT, {
       conversationId: trackedConversationId.value,
     });
     followUpCount.value += 1;
@@ -267,7 +280,7 @@ export function useCopilotReply() {
       });
 
       if (requestController.signal.aborted) return;
-      if (errorType === CAPTAIN_ERROR_TYPES.ABORTED) {
+      if (errorType === TEKOMI_ERROR_TYPES.ABORTED) {
         if (abortController.value === requestController) {
           isGenerating.value = false;
         }
@@ -278,7 +291,7 @@ export function useCopilotReply() {
         generatedContent.value = content;
         followUpContext.value = updatedContext;
         showEditor.value = true;
-      } else if (errorType && errorType !== CAPTAIN_ERROR_TYPES.ABORTED) {
+      } else if (errorType && errorType !== TEKOMI_ERROR_TYPES.ABORTED) {
         trackGenerationFailure({
           action: currentAction.value,
           conversationId: trackedConversationId.value,
@@ -292,15 +305,15 @@ export function useCopilotReply() {
           conversationId: trackedConversationId.value,
           followUpCount: followUpCount.value,
           stage: 'follow_up',
-          reason: CAPTAIN_GENERATION_FAILURE_REASONS.EMPTY_RESPONSE,
+          reason: TEKOMI_GENERATION_FAILURE_REASONS.EMPTY_RESPONSE,
         });
       }
       isGenerating.value = false;
     } catch (error) {
       if (
         requestController.signal.aborted ||
-        error?.name === CAPTAIN_ERROR_TYPES.ABORT_ERROR ||
-        error?.name === CAPTAIN_ERROR_TYPES.CANCELED_ERROR
+        error?.name === TEKOMI_ERROR_TYPES.ABORT_ERROR ||
+        error?.name === TEKOMI_ERROR_TYPES.CANCELED_ERROR
       ) {
         return;
       }
@@ -309,7 +322,7 @@ export function useCopilotReply() {
         conversationId: trackedConversationId.value,
         followUpCount: followUpCount.value,
         stage: 'follow_up',
-        reason: error?.name || CAPTAIN_GENERATION_FAILURE_REASONS.EXCEPTION,
+        reason: error?.name || TEKOMI_GENERATION_FAILURE_REASONS.EXCEPTION,
       });
       isGenerating.value = false;
     } finally {
@@ -332,7 +345,7 @@ export function useCopilotReply() {
     if (currentAction.value) {
       const eventKey = `${getEventPrefix(currentAction.value)}_APPLIED`;
       useTrack(
-        CAPTAIN_EVENTS[eventKey],
+        TEKOMI_EVENTS[eventKey],
         buildPayload(
           currentAction.value,
           trackedConversationId.value,

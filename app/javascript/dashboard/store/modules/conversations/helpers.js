@@ -129,7 +129,8 @@ const sortConfig = {
     getSortOrderFunction(sortDirection)(a.last_activity_at, b.last_activity_at),
 
   sortOnCreatedAt: (a, b, sortDirection) =>
-    getSortOrderFunction(sortDirection)(a.created_at, b.created_at),
+    getSortOrderFunction(sortDirection)(a.created_at, b.created_at) ||
+    getSortOrderFunction(sortDirection)(a.id, b.id),
 
   sortOnPriority: (a, b, sortDirection) => {
     const DEFAULT_FOR_NULL = sortDirection === 'asc' ? 5 : 0;
@@ -161,7 +162,14 @@ const sortConfig = {
   },
 };
 
+export const isVipAwaitingReply = conversation =>
+  !!conversation.meta?.sender?.vip && conversation.waiting_since > 0;
+
 export const sortComparator = (a, b, sortKey) => {
+  const vipOrder =
+    Number(isVipAwaitingReply(b)) - Number(isVipAwaitingReply(a));
+  if (vipOrder !== 0) return vipOrder;
+
   const [sortMethod, sortDirection] =
     SORT_OPTIONS[sortKey] || SORT_OPTIONS.last_activity_at_desc;
   return sortConfig[sortMethod](a, b, sortDirection);

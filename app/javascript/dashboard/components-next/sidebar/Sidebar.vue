@@ -8,6 +8,7 @@ import { useMapGetter } from 'dashboard/composables/store';
 import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n';
 import { useSidebarKeyboardShortcuts } from './useSidebarKeyboardShortcuts';
+import { usePipelinesStore } from 'dashboard/stores/pipelines';
 import { vOnClickOutside } from '@vueuse/components';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import { useWindowSize, useEventListener } from '@vueuse/core';
@@ -15,11 +16,8 @@ import { useWindowSize, useEventListener } from '@vueuse/core';
 import Button from 'dashboard/components-next/button/Button.vue';
 import SidebarGroup from './SidebarGroup.vue';
 import SidebarProfileMenu from './SidebarProfileMenu.vue';
-import SidebarChangelogCard from './SidebarChangelogCard.vue';
-import SidebarChangelogButton from './SidebarChangelogButton.vue';
 import ChannelLeaf from './ChannelLeaf.vue';
 import ChannelIcon from 'next/icon/ChannelIcon.vue';
-import SidebarAccountSwitcher from './SidebarAccountSwitcher.vue';
 import Logo from 'next/icon/Logo.vue';
 import ComposeConversation from 'dashboard/components-next/NewConversation/ComposeConversation.vue';
 import {
@@ -46,18 +44,18 @@ const emit = defineEmits([
 const { accountScopedRoute, isOnChatwootCloud } = useAccount();
 const { isEnterprise } = useConfig();
 const store = useStore();
+const pipelinesStore = usePipelinesStore();
 
 // Calls run on the enterprise-only API (cloud runs enterprise); hide the entry
 // on community so it doesn't lead to a dashboard/CTA the backend can't serve.
 const isCallsAvailable = computed(
   () => isOnChatwootCloud.value || isEnterprise
 );
+
+const SHOW_TEKOMI_MENU = true;
 const searchShortcut = useKbd([`$mod`, 'k']);
 const { t } = useI18n();
 
-const isACustomBrandedInstance = useMapGetter(
-  'globalConfig/isACustomBrandedInstance'
-);
 const isRTL = useMapGetter('accounts/isRTL');
 
 const { width: windowWidth } = useWindowSize();
@@ -90,6 +88,13 @@ const hasFilteredUnreadCounts = computed(() => {
       accountId.value,
       FEATURE_FLAGS.UNREAD_COUNT_FOR_FILTERS
     )
+  );
+});
+
+const hasCrmDeals = computed(() => {
+  return isFeatureEnabledonAccount.value(
+    accountId.value,
+    FEATURE_FLAGS.CRM_DEALS
   );
 });
 
@@ -263,6 +268,14 @@ watch([accountId, currentUserId], fetchSidebarSortPreferences, {
   immediate: true,
 });
 
+watch(
+  [accountId, hasCrmDeals],
+  ([currentAccountId, isEnabled]) => {
+    if (currentAccountId && isEnabled) pipelinesStore.fetch();
+  },
+  { immediate: true }
+);
+
 const hasUnreadCountsForSection = section => {
   if (section === SIDEBAR_SORT_SECTIONS.FOLDERS) {
     return hasFilteredUnreadCounts.value;
@@ -360,11 +373,20 @@ const newReportRoutes = () => [
 const reportRoutes = computed(() => newReportRoutes());
 
 const menuItems = computed(() => {
-  return [
+  const items = [
+    {
+      name: 'Home',
+      label: t('SIDEBAR.HOME'),
+      icon: 'i-lucide-house',
+      iconColor: 'text-n-blue-10',
+      to: accountScopedRoute('account_home'),
+      activeOn: ['account_home'],
+    },
     {
       name: 'Inbox',
       label: t('SIDEBAR.INBOX'),
       icon: 'i-lucide-inbox',
+      iconColor: 'text-n-teal-10',
       to: accountScopedRoute('inbox_view'),
       activeOn: ['inbox_view', 'inbox_view_conversation'],
       getterKeys: {
@@ -375,6 +397,7 @@ const menuItems = computed(() => {
       name: 'Conversation',
       label: t('SIDEBAR.CONVERSATIONS'),
       icon: 'i-lucide-message-circle',
+      iconColor: 'text-n-brand',
       children: [
         {
           name: 'All',
@@ -458,7 +481,11 @@ const menuItems = computed(() => {
             name: `${inbox.name}-${inbox.id}`,
             label: inbox.name,
             badgeCount: getInboxUnreadCount.value(inbox.id),
-            icon: h(ChannelIcon, { inbox, class: 'size-[16px]' }),
+            icon: h(ChannelIcon, {
+              inbox,
+              useBrandIcon: true,
+              class: 'size-[16px]',
+            }),
             to: accountScopedRoute('inbox_dashboard', { inbox_id: inbox.id }),
             component: leafProps =>
               h(ChannelLeaf, {
@@ -492,94 +519,125 @@ const menuItems = computed(() => {
         },
       ],
     },
-    {
-      name: 'Captain',
-      icon: 'i-woot-captain',
-      label: t('SIDEBAR.CAPTAIN'),
-      activeOn: ['captain_assistants_create_index'],
-      children: [
-        {
-          name: 'Overview',
-          label: t('SIDEBAR.CAPTAIN_OVERVIEW'),
-          activeOn: ['captain_assistants_overview_index'],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_assistants_overview_index',
-          }),
-        },
-        {
-          name: 'FAQs',
-          label: t('SIDEBAR.CAPTAIN_RESPONSES'),
-          activeOn: [
-            'captain_assistants_responses_index',
-            'captain_assistants_faq_suggestions',
-          ],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_assistants_responses_index',
-          }),
-        },
-        {
-          name: 'Documents',
-          label: t('SIDEBAR.CAPTAIN_DOCUMENTS'),
-          activeOn: ['captain_assistants_documents_index'],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_assistants_documents_index',
-          }),
-        },
-        {
-          name: 'Scenarios',
-          label: t('SIDEBAR.CAPTAIN_SCENARIOS'),
-          activeOn: ['captain_assistants_scenarios_index'],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_assistants_scenarios_index',
-          }),
-        },
-        {
-          name: 'Playground',
-          label: t('SIDEBAR.CAPTAIN_PLAYGROUND'),
-          activeOn: ['captain_assistants_playground_index'],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_assistants_playground_index',
-          }),
-        },
-        {
-          name: 'Inboxes',
-          label: t('SIDEBAR.CAPTAIN_INBOXES'),
-          activeOn: ['captain_assistants_inboxes_index'],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_assistants_inboxes_index',
-          }),
-        },
-        {
-          name: 'Tools',
-          label: t('SIDEBAR.CAPTAIN_TOOLS'),
-          activeOn: ['captain_tools_index'],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_tools_index',
-          }),
-        },
-        {
-          name: 'Settings',
-          label: t('SIDEBAR.CAPTAIN_SETTINGS'),
-          activeOn: [
-            'captain_assistants_settings_index',
-            'captain_assistants_settings_system_index',
-            'captain_assistants_settings_audience_index',
-            'captain_assistants_settings_schedule_index',
-            'captain_assistants_guidelines_index',
-            'captain_assistants_guardrails_index',
-          ],
-          to: accountScopedRoute('captain_assistants_index', {
-            navigationPath: 'captain_assistants_settings_index',
-          }),
-        },
-      ],
-    },
+    ...(SHOW_TEKOMI_MENU
+      ? [
+          {
+            name: 'Tekomi',
+            icon: 'i-woot-tekomi',
+            iconColor: 'text-n-violet-10',
+            label: t('SIDEBAR.TEKOMI'),
+            activeOn: ['tekomi_assistants_create_index'],
+            children: [
+              {
+                name: 'Overview',
+                label: t('SIDEBAR.TEKOMI_OVERVIEW'),
+                activeOn: ['tekomi_assistants_overview_index'],
+                to: accountScopedRoute('tekomi_assistants_index', {
+                  navigationPath: 'tekomi_assistants_overview_index',
+                }),
+              },
+              {
+                name: 'FAQs',
+                label: t('SIDEBAR.TEKOMI_RESPONSES'),
+                activeOn: [
+                  'tekomi_assistants_responses_index',
+                  'tekomi_assistants_faq_suggestions',
+                ],
+                to: accountScopedRoute('tekomi_assistants_index', {
+                  navigationPath: 'tekomi_assistants_responses_index',
+                }),
+              },
+              {
+                name: 'Documents',
+                label: t('SIDEBAR.TEKOMI_DOCUMENTS'),
+                activeOn: ['tekomi_assistants_documents_index'],
+                to: accountScopedRoute('tekomi_assistants_index', {
+                  navigationPath: 'tekomi_assistants_documents_index',
+                }),
+              },
+              {
+                name: 'Scenarios',
+                label: t('SIDEBAR.TEKOMI_SCENARIOS'),
+                activeOn: ['tekomi_assistants_scenarios_index'],
+                to: accountScopedRoute('tekomi_assistants_index', {
+                  navigationPath: 'tekomi_assistants_scenarios_index',
+                }),
+              },
+              {
+                name: 'Playground',
+                label: t('SIDEBAR.TEKOMI_PLAYGROUND'),
+                activeOn: ['tekomi_assistants_playground_index'],
+                to: accountScopedRoute('tekomi_assistants_index', {
+                  navigationPath: 'tekomi_assistants_playground_index',
+                }),
+              },
+              {
+                name: 'Inboxes',
+                label: t('SIDEBAR.TEKOMI_INBOXES'),
+                activeOn: ['tekomi_assistants_inboxes_index'],
+                to: accountScopedRoute('tekomi_assistants_index', {
+                  navigationPath: 'tekomi_assistants_inboxes_index',
+                }),
+              },
+              {
+                name: 'Tools',
+                label: t('SIDEBAR.TEKOMI_TOOLS'),
+                activeOn: ['tekomi_tools_index'],
+                to: accountScopedRoute('tekomi_assistants_index', {
+                  navigationPath: 'tekomi_tools_index',
+                }),
+              },
+              {
+                name: 'ConversationAnalysis',
+                label: t('SIDEBAR.TEKOMI_CONVERSATION_ANALYSIS'),
+                activeOn: ['tekomi_conversation_analysis_index'],
+                to: accountScopedRoute('tekomi_conversation_analysis_index'),
+              },
+              {
+                name: 'Settings',
+                label: t('SIDEBAR.TEKOMI_SETTINGS'),
+                activeOn: [
+                  'tekomi_assistants_settings_index',
+                  'tekomi_assistants_settings_system_index',
+                  'tekomi_assistants_settings_audience_index',
+                  'tekomi_assistants_settings_schedule_index',
+                  'tekomi_assistants_guidelines_index',
+                  'tekomi_assistants_guardrails_index',
+                ],
+                to: accountScopedRoute('tekomi_assistants_index', {
+                  navigationPath: 'tekomi_assistants_settings_index',
+                }),
+              },
+            ],
+          },
+        ]
+      : []),
+    ...(hasCrmDeals.value
+      ? [
+          {
+            name: 'Deals',
+            label: t('SIDEBAR.DEALS'),
+            icon: 'i-lucide-square-kanban',
+            iconColor: 'text-n-amber-10',
+            activeOn: ['deals_dashboard_index', 'deals_show'],
+            children: pipelinesStore.records.map(pipeline => ({
+              name: `pipeline-${pipeline.id}`,
+              label: pipeline.name,
+              to: accountScopedRoute('deals_pipeline_index', {
+                pipelineId: pipeline.id,
+              }),
+              activeOn: ['deals_pipeline_index'],
+            })),
+          },
+        ]
+      : []),
     ...(isCallsAvailable.value
       ? [
           {
             name: 'Calls',
             label: t('SIDEBAR.CALLS'),
             icon: 'i-lucide-phone',
+            iconColor: 'text-green-400',
             to: accountScopedRoute('calls_dashboard_index'),
             activeOn: ['calls_dashboard_index'],
           },
@@ -589,6 +647,7 @@ const menuItems = computed(() => {
       name: 'Contacts',
       label: t('SIDEBAR.CONTACTS'),
       icon: 'i-lucide-contact',
+      iconColor: 'text-n-iris-10',
       children: [
         {
           name: 'All Contacts',
@@ -605,6 +664,13 @@ const menuItems = computed(() => {
           label: t('SIDEBAR.ACTIVE'),
           to: accountScopedRoute('contacts_dashboard_active'),
           activeOn: ['contacts_dashboard_active'],
+        },
+        {
+          name: 'CRM Directory',
+          label: t('SIDEBAR.CRM_DIRECTORY'),
+          icon: 'i-lucide-building-2',
+          to: accountScopedRoute('crm_directory_index'),
+          activeOn: ['crm_directory_index'],
         },
         {
           name: 'Segments',
@@ -656,6 +722,7 @@ const menuItems = computed(() => {
       name: 'Companies',
       label: t('SIDEBAR.COMPANIES'),
       icon: 'i-lucide-building-2',
+      iconColor: 'text-yellow-400',
       children: [
         {
           name: 'All Companies',
@@ -673,6 +740,7 @@ const menuItems = computed(() => {
       name: 'Reports',
       label: t('SIDEBAR.REPORTS'),
       icon: 'i-lucide-chart-spline',
+      iconColor: 'text-n-ruby-10',
       children: [
         {
           name: 'Report Overview',
@@ -683,6 +751,11 @@ const menuItems = computed(() => {
           name: 'Report Conversation',
           label: t('SIDEBAR.REPORTS_CONVERSATION'),
           to: accountScopedRoute('conversation_reports'),
+        },
+        {
+          name: 'Reports Phone Calls',
+          label: t('SIDEBAR.REPORTS_PHONE_CALLS'),
+          to: accountScopedRoute('phone_call_reports'),
         },
         ...reportRoutes.value,
         {
@@ -706,6 +779,7 @@ const menuItems = computed(() => {
       name: 'Campaigns',
       label: t('SIDEBAR.CAMPAIGNS'),
       icon: 'i-lucide-megaphone',
+      iconColor: 'text-n-teal-10',
       children: [
         {
           name: 'Live chat',
@@ -728,6 +802,7 @@ const menuItems = computed(() => {
       name: 'Portals',
       label: t('SIDEBAR.HELP_CENTER.TITLE'),
       icon: 'i-lucide-library-big',
+      iconColor: 'text-n-blue-10',
       children: [
         {
           name: 'Articles',
@@ -775,6 +850,7 @@ const menuItems = computed(() => {
       name: 'Settings',
       label: t('SIDEBAR.SETTINGS'),
       icon: 'i-lucide-bolt',
+      iconColor: 'text-n-slate-11',
       children: [
         {
           name: 'Settings Account Settings',
@@ -783,10 +859,10 @@ const menuItems = computed(() => {
           to: accountScopedRoute('general_settings_index'),
         },
         // {
-        //   name: 'Settings Captain',
-        //   label: t('SIDEBAR.CAPTAIN_AI'),
-        //   icon: 'i-woot-captain',
-        //   to: accountScopedRoute('captain_settings_index'),
+        //   name: 'Settings Tekomi',
+        //   label: t('SIDEBAR.TEKOMI_AI'),
+        //   icon: 'i-woot-tekomi',
+        //   to: accountScopedRoute('tekomi_settings_index'),
         // },
         {
           name: 'Settings Agents',
@@ -926,20 +1002,62 @@ const menuItems = computed(() => {
           to: accountScopedRoute('conversation_workflow_index'),
         },
         {
+          name: 'Settings Pipelines',
+          label: t('SIDEBAR.PIPELINES'),
+          icon: 'i-lucide-square-kanban',
+          to: accountScopedRoute('settings_pipelines_index'),
+        },
+        {
           name: 'Settings Security',
           label: t('SIDEBAR.SECURITY'),
           icon: 'i-lucide-shield',
           to: accountScopedRoute('security_settings_index'),
         },
-        {
-          name: 'Settings Billing',
-          label: t('SIDEBAR.BILLING'),
-          icon: 'i-lucide-credit-card',
-          to: accountScopedRoute('billing_settings_index'),
-        },
+        ...(isOnChatwootCloud.value
+          ? [
+              {
+                name: 'Settings Billing',
+                label: t('SIDEBAR.BILLING'),
+                icon: 'i-lucide-credit-card',
+                to: accountScopedRoute('billing_settings_index'),
+              },
+            ]
+          : []),
       ],
     },
   ];
+
+  // ============================================================
+  // TEMP DEMO FILTER — added 2026-09-07, hides features not covered
+  // in the Tekomi_Connect.docx client demo doc. See
+  // DEMO_HIDDEN_FEATURES.md at repo root for full context.
+  // TO RESTORE: set DEMO_MODE to false (or delete this block).
+  // ============================================================
+  const DEMO_MODE = true;
+  if (!DEMO_MODE) return items;
+
+  const DEMO_HIDDEN_TOP_LEVEL = ['Calls', 'Companies', 'Portals'];
+  const DEMO_HIDDEN_SETTINGS_CHILDREN = [
+    'Settings Templates',
+    'Settings Data',
+    'Settings Audit Logs',
+    'Settings Security',
+    'Settings Billing',
+  ];
+
+  return items
+    .filter(item => !DEMO_HIDDEN_TOP_LEVEL.includes(item.name))
+    .map(item => {
+      if (item.name === 'Settings' && item.children) {
+        return {
+          ...item,
+          children: item.children.filter(
+            child => !DEMO_HIDDEN_SETTINGS_CHILDREN.includes(child.name)
+          ),
+        };
+      }
+      return item;
+    });
 });
 </script>
 
@@ -955,10 +1073,10 @@ const menuItems = computed(() => {
         ],
       },
     ]"
-    class="bg-n-background flex flex-col text-sm pb-px fixed top-0 ltr:left-0 rtl:right-0 h-full z-40 w-[200px] md:w-auto md:relative md:flex-shrink-0 md:ltr:translate-x-0 md:rtl:translate-x-0 ltr:border-r rtl:border-l border-n-weak"
+    class="dark bg-n-solid-3 flex flex-col text-sm pb-px fixed top-0 ltr:left-0 rtl:right-0 h-full z-40 w-[200px] md:w-auto md:relative md:flex-shrink-0 md:ltr:translate-x-0 md:rtl:translate-x-0 ltr:shadow-[6px_0_24px_-12px_rgba(11,31,58,0.45)] rtl:shadow-[-6px_0_24px_-12px_rgba(11,31,58,0.45)]"
     :class="[
       {
-        'shadow-lg md:shadow-none': isMobileSidebarOpen,
+        'shadow-lg': isMobileSidebarOpen,
         'ltr:-translate-x-full rtl:translate-x-full': !isMobileSidebarOpen,
         'transition-transform duration-200 ease-out md:transition-[width]':
           !isResizing,
@@ -971,28 +1089,55 @@ const menuItems = computed(() => {
       :class="isEffectivelyCollapsed ? 'mt-3 mb-6 gap-4' : 'mt-1 mb-4 gap-2'"
     >
       <div
-        class="flex gap-2 items-center min-w-0"
-        :class="{
-          'justify-center px-1': isEffectivelyCollapsed,
-          'px-2': !isEffectivelyCollapsed,
-        }"
+        class="flex items-center gap-3 min-w-0 py-2"
+        :class="isEffectivelyCollapsed ? 'justify-center px-1' : 'px-2'"
       >
-        <template v-if="isEffectivelyCollapsed">
-          <SidebarAccountSwitcher
-            is-collapsed
-            @show-create-account-modal="emit('showCreateAccountModal')"
-          />
-        </template>
-        <template v-else>
-          <div class="grid flex-shrink-0 place-content-center size-6">
-            <Logo class="size-4" />
-          </div>
-          <div class="flex-shrink-0 w-px h-3 bg-n-strong" />
-          <SidebarAccountSwitcher
-            class="flex-grow -mx-1 min-w-0"
-            @show-create-account-modal="emit('showCreateAccountModal')"
-          />
-        </template>
+        <!-- Logo and brand name sit on one row; the name is hidden when the
+             sidebar is collapsed so only the mark shows. -->
+        <!-- On desktop the logo doubles as the collapse toggle: hovering
+             covers the mark with a brand tile and a double chevron. -->
+        <button
+          v-if="!isMobile"
+          v-tooltip.right="
+            isEffectivelyCollapsed ? t('SIDEBAR.EXPAND') : t('SIDEBAR.COLLAPSE')
+          "
+          type="button"
+          class="relative grid shrink-0 rounded-lg place-items-center size-11 group/logo focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-n-brand"
+          :aria-label="
+            isEffectivelyCollapsed ? t('SIDEBAR.EXPAND') : t('SIDEBAR.COLLAPSE')
+          "
+          @click="onResizeHandleDoubleClick"
+        >
+          <Logo dark class="object-contain size-11" />
+          <span
+            class="absolute inset-0 grid transition-opacity duration-150 rounded-lg opacity-0 place-items-center bg-n-brand shadow-md group-hover/logo:opacity-100 group-focus-visible/logo:opacity-100"
+          >
+            <span
+              class="text-white size-6 rtl:rotate-180"
+              :class="
+                isEffectivelyCollapsed
+                  ? 'i-ph-caret-double-right-bold'
+                  : 'i-ph-caret-double-left-bold'
+              "
+            />
+          </span>
+        </button>
+        <Logo v-else dark class="shrink-0 size-11 object-contain" />
+        <span
+          v-if="!isEffectivelyCollapsed"
+          class="flex flex-col items-start min-w-0 leading-tight"
+        >
+          <span
+            class="text-[15px] font-bold tracking-[0.1em] text-n-slate-12 whitespace-nowrap"
+          >
+            {{ t('SIDEBAR_ITEMS.BRAND_NAME') }}
+          </span>
+          <span
+            class="text-[11px] font-medium italic tracking-wide text-n-brand whitespace-nowrap"
+          >
+            {{ t('SIDEBAR_ITEMS.BRAND_TAGLINE') }}
+          </span>
+        </span>
       </div>
       <div
         class="flex gap-2"
@@ -1060,20 +1205,6 @@ const menuItems = computed(() => {
       <div
         class="pointer-events-none absolute inset-x-0 -top-[1.938rem] h-8 bg-gradient-to-t from-n-background to-transparent"
       />
-      <SidebarChangelogCard
-        v-if="
-          isOnChatwootCloud &&
-          !isACustomBrandedInstance &&
-          !isEffectivelyCollapsed
-        "
-      />
-      <SidebarChangelogButton
-        v-if="
-          isOnChatwootCloud &&
-          !isACustomBrandedInstance &&
-          isEffectivelyCollapsed
-        "
-      />
       <div
         class="px-1 py-1.5 flex-shrink-0 flex w-full z-50 gap-2 items-center border-t border-n-weak shadow-[0px_-2px_4px_0px_rgba(27,28,29,0.02)]"
         :class="isEffectivelyCollapsed ? 'justify-center' : 'justify-between'"
@@ -1081,6 +1212,7 @@ const menuItems = computed(() => {
         <SidebarProfileMenu
           :is-collapsed="isEffectivelyCollapsed"
           @open-key-shortcut-modal="emit('openKeyShortcutModal')"
+          @show-create-account-modal="emit('showCreateAccountModal')"
         />
       </div>
     </section>

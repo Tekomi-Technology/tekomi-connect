@@ -4,7 +4,6 @@ import { useI18n } from 'vue-i18n';
 defineProps({
   title: { type: String, required: true },
   description: { type: String, required: true },
-  withBorder: { type: Boolean, default: false },
   hideContent: { type: Boolean, default: false },
   beta: { type: Boolean, default: false },
 });
@@ -13,11 +12,8 @@ const { t } = useI18n();
 
 <template>
   <section
-    class="grid grid-cols-1 pt-8 gap-5 [interpolate-size:allow-keywords]"
-    :class="{
-      'border-t border-n-weak': withBorder,
-      'pb-8': !hideContent,
-    }"
+    class="grid grid-cols-1 p-6 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2 [interpolate-size:allow-keywords]"
+    :class="{ 'gap-5': !hideContent }"
   >
     <header class="grid grid-cols-4">
       <div
@@ -28,7 +24,7 @@ const { t } = useI18n();
       >
         <h4
           v-if="title || beta || $slots.title"
-          class="text-heading-2 text-n-slate-12 flex items-center gap-2"
+          class="flex items-center gap-2 text-base font-semibold tracking-tight text-n-slate-12"
         >
           <slot name="title">{{ title }}</slot>
           <div
@@ -41,7 +37,7 @@ const { t } = useI18n();
         </h4>
         <p
           v-if="description || $slots.description"
-          class="text-n-slate-11 text-body-main mt-2"
+          class="mt-1 text-[13px] text-n-slate-11"
         >
           <slot name="description">{{ description }}</slot>
         </p>

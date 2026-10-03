@@ -30,6 +30,42 @@ defineOptions({
 const timeStampURL = computed(() => {
   return timeStampAppendedURL(attachment.dataUrl);
 });
+const audioPlayer = useTemplateRef('audioPlayer');
+
+// Chatwoot's dashboard uses token headers rather than a session cookie. Fetch
+// a short-lived signed playback URL while mounting, but leave the media itself
+// unloaded until play() is called.
+const authenticatedAudioUrl = ref('');
+const requiresAuth = computed(() => attachment.requiresAuth === true);
+const audioSourceUrl = computed(() =>
+  requiresAuth.value ? authenticatedAudioUrl.value : timeStampURL.value
+);
+const isLoadingAudio = ref(false);
+const isAudioReady = ref(!requiresAuth.value);
+
+const loadAuthenticatedAudio = async () => {
+  if (
+    !requiresAuth.value ||
+    authenticatedAudioUrl.value ||
+    isLoadingAudio.value
+  )
+    return;
+
+  isLoadingAudio.value = true;
+  try {
+    const response = await window.axios.get(attachment.dataUrl, {
+      params: { playback_url: true },
+    });
+    authenticatedAudioUrl.value = response.data.url;
+    isAudioReady.value = true;
+  } catch (error) {
+    authenticatedAudioUrl.value = '';
+    isAudioReady.value = false;
+    throw error;
+  } finally {
+    isLoadingAudio.value = false;
+  }
+};
 
 const TRANSCRIPT_PREVIEW_LENGTH = 200;
 const isTranscriptExpanded = ref(false);
@@ -41,8 +77,6 @@ const displayedTranscript = computed(() => {
   if (!isTranscriptLong.value || isTranscriptExpanded.value) return text;
   return `${text.slice(0, TRANSCRIPT_PREVIEW_LENGTH).trimEnd()}…`;
 });
-
-const audioPlayer = useTemplateRef('audioPlayer');
 
 const isPlaying = ref(false);
 const isMuted = ref(false);
@@ -75,10 +109,18 @@ const resolveStreamingDuration = () => {
 const onLoadedMetadata = () => {
   const d = audioPlayer.value?.duration;
   if (!Number.isFinite(d)) {
-    resolveStreamingDuration();
+    // Private call recordings are served with byte-range support. Do not use
+    // the WebM workaround here: seeking to MAX_SAFE_INTEGER can interrupt the
+    // browser's first media request before playback starts.
+    if (!requiresAuth.value) resolveStreamingDuration();
     return;
   }
   duration.value = d;
+};
+
+const onDurationChange = () => {
+  const d = audioPlayer.value?.duration;
+  if (Number.isFinite(d)) duration.value = d;
 };
 
 const playbackSpeedLabel = computed(() => {
@@ -88,7 +130,18 @@ const playbackSpeedLabel = computed(() => {
 // There maybe a chance that the audioPlayer ref is not available
 // When the onLoadMetadata is called, so we need to set the duration
 // value when the component is mounted
-onMounted(() => {
+onMounted(async () => {
+  // Fetch private recordings before the click. Calling play only after an
+  // awaited authenticated request loses the user gesture in Safari/iOS and
+  // is rejected by the browser's autoplay policy.
+  if (requiresAuth.value) {
+    try {
+      await loadAuthenticatedAudio();
+    } catch {
+      // Keep the control disabled when the recording could not be loaded.
+    }
+  }
+
   const d = audioPlayer.value?.duration;
   if (Number.isFinite(d)) duration.value = d;
   audioPlayer.value.playbackRate = playbackSpeed.value;
@@ -107,7 +160,7 @@ useEmitter('pause_playing_audio', currentPlayingId => {
 });
 
 const formatTime = time => {
-  if (!time || Number.isNaN(time)) return '00:00';
+  if (!time || !Number.isFinite(time)) return '00:00';
   const minutes = Math.floor(time / 60);
   const seconds = Math.floor(time % 60);
   return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
@@ -128,15 +181,23 @@ const seek = event => {
   currentTime.value = time;
 };
 
-const playOrPause = () => {
+const playOrPause = async () => {
   if (isPlaying.value) {
     audioPlayer.value.pause();
     isPlaying.value = false;
   } else {
-    // Emit event to pause all other audio
-    emitter.emit('pause_playing_audio', uid);
-    audioPlayer.value.play();
-    isPlaying.value = true;
+    if (requiresAuth.value && !isAudioReady.value) return;
+
+    try {
+      // Emit event to pause all other audio
+      emitter.emit('pause_playing_audio', uid);
+      // play() must be called directly from the click handler so Safari/iOS
+      // keeps the user-activation permission.
+      await audioPlayer.value.play();
+      isPlaying.value = true;
+    } catch {
+      isPlaying.value = false;
+    }
   }
 };
 
@@ -156,33 +217,44 @@ const changePlaybackSpeed = () => {
 };
 
 const downloadAudio = async () => {
-  const { fileType, dataUrl, extension } = attachment;
-  downloadFile({ url: dataUrl, type: fileType, extension });
+  await loadAuthenticatedAudio();
+  const { fileType, extension } = attachment;
+  downloadFile({ url: audioSourceUrl.value, type: fileType, extension });
 };
 </script>
 
 <template>
   <audio
     ref="audioPlayer"
+    :src="audioSourceUrl"
     controls
     class="hidden"
     playsinline
+    preload="none"
     @loadedmetadata="onLoadedMetadata"
+    @durationchange="onDurationChange"
     @timeupdate="onTimeUpdate"
     @ended="onEnd"
-  >
-    <source :src="timeStampURL" />
-  </audio>
+  />
   <div
     v-bind="$attrs"
     class="rounded-xl w-full gap-2 p-1.5 bg-n-alpha-white flex flex-col items-center border border-n-container shadow-[0px_2px_8px_0px_rgba(94,94,94,0.06)]"
   >
     <div class="flex gap-1 w-full flex-1 items-center justify-start">
-      <button class="p-0 border-0 size-8" @click="playOrPause">
+      <button
+        class="p-0 border-0 size-8 disabled:cursor-wait disabled:opacity-60"
+        :disabled="requiresAuth && !isAudioReady"
+        @click="playOrPause"
+      >
         <Icon
           v-if="isPlaying"
           class="size-8"
           icon="i-teenyicons-pause-small-solid"
+        />
+        <Icon
+          v-else-if="isLoadingAudio"
+          class="size-5 animate-spin"
+          icon="i-lucide-loader-circle"
         />
         <Icon v-else class="size-8" icon="i-teenyicons-play-small-solid" />
       </button>

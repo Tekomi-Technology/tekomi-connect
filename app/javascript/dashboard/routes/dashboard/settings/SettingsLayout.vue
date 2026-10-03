@@ -20,10 +20,14 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex flex-col w-full h-full gap-4 font-inter">
+  <div class="flex flex-col w-full h-full gap-5 font-inter">
     <slot name="header" />
     <!-- Added to render any templates that should be rendered before body -->
-    <main>
+    <!-- A table placed straight in the body sits in a Home-style card. BaseTable is
+         shared outside settings, so the card is applied here instead of in BaseTable. -->
+    <main
+      class="[&>div:has(>table)]:px-5 [&>div:has(>table)]:bg-white dark:[&>div:has(>table)]:bg-n-solid-2 [&>div:has(>table)]:border [&>div:has(>table)]:border-n-weak [&>div:has(>table)]:rounded-2xl [&>div:has(>table)]:shadow-sm [&>div>table>thead]:border-t-0"
+    >
       <slot name="preBody" />
       <slot v-if="isLoading" name="loading">
         <woot-loading-state :message="loadingMessage" />

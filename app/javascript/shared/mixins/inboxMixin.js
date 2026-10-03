@@ -16,6 +16,7 @@ export const INBOX_FEATURE_MAP = {
     INBOX_TYPES.TELEGRAM,
     INBOX_TYPES.TIKTOK,
     INBOX_TYPES.API,
+    INBOX_TYPES.ZALO_PERSONAL,
   ],
   [INBOX_FEATURES.REPLY_TO_OUTGOING]: [
     INBOX_TYPES.WEB,
@@ -24,6 +25,7 @@ export const INBOX_FEATURE_MAP = {
     INBOX_TYPES.TELEGRAM,
     INBOX_TYPES.TIKTOK,
     INBOX_TYPES.API,
+    INBOX_TYPES.ZALO_PERSONAL,
   ],
 };
 
@@ -58,6 +60,9 @@ export default {
     },
     isALineChannel() {
       return this.channelType === INBOX_TYPES.LINE;
+    },
+    isAZaloPersonalChannel() {
+      return this.channelType === INBOX_TYPES.ZALO_PERSONAL;
     },
     voiceCallEnabled() {
       return isVoiceCallEnabled(this.inbox);

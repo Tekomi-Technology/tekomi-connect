@@ -4,8 +4,12 @@ import { debounce } from '@chatwoot/utils';
 
 const state = {
   mineCount: 0,
+  vipCount: 0,
   unAssignedCount: 0,
   allCount: 0,
+  companyCounts: {},
+  companyStarredWaitingIds: [],
+  noCompanyCount: 0,
 };
 
 export const getters = {
@@ -52,6 +56,7 @@ export const actions = {
   get: ({ commit, state: $state }, params) => {
     metaDebouncers[getMetaDebounceKey($state.allCount)](commit, params);
   },
+  refresh: ({ commit }, params) => fetchMetaData(commit, params),
   set({ commit }, meta) {
     commit(types.SET_CONV_TAB_META, meta);
   },
@@ -62,13 +67,21 @@ export const mutations = {
     $state,
     {
       mine_count: mineCount,
+      vip_count: vipCount,
       unassigned_count: unAssignedCount,
       all_count: allCount,
+      company_counts: companyCounts = {},
+      company_starred_waiting_ids: companyStarredWaitingIds = [],
+      no_company_count: noCompanyCount = 0,
     } = {}
   ) {
     $state.mineCount = mineCount;
+    $state.vipCount = vipCount;
     $state.allCount = allCount;
     $state.unAssignedCount = unAssignedCount;
+    $state.companyCounts = companyCounts;
+    $state.companyStarredWaitingIds = companyStarredWaitingIds;
+    $state.noCompanyCount = noCompanyCount;
     $state.updatedOn = new Date();
   },
 };

@@ -14,6 +14,7 @@ import path from 'path';
 import { aliases } from './vite.shared';
 
 export default defineConfig({
+  publicDir: false,
   build: {
     rollupOptions: {
       output: {

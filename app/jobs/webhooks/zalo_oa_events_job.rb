@@ -8,6 +8,11 @@ class Webhooks::ZaloOaEventsJob < MutexApplicationJob
     channel = find_channel(params)
     return if channel.blank? || channel.inbox.blank?
 
+    if params['event_name'].to_s == 'user_submit_info'
+      ZaloOa::SharedInfoService.new(inbox: channel.inbox, params: params.with_indifferent_access).perform
+      return
+    end
+
     # Serialize per (inbox, user) so the first event creates the conversation and the rest append.
     # 30s TTL covers the attachment download; the 1s default expires mid-processing.
     key = format(::Redis::Alfred::ZALO_OA_MESSAGE_MUTEX, inbox_id: channel.inbox.id, user_id: user_id(params))

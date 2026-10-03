@@ -1,5 +1,7 @@
 <script setup>
 import OverviewReportFilters from './OverviewReportFilters.vue';
+import ReportHeader from './ReportHeader.vue';
+import V4Button from 'dashboard/components-next/button/Button.vue';
 import Spinner from 'dashboard/components-next/spinner/Spinner.vue';
 import { formatTime } from '@chatwoot/utils';
 import { useStore, useMapGetter } from 'dashboard/composables/store';
@@ -31,6 +33,18 @@ const props = defineProps({
     default: '',
   },
   fetchItemsKey: {
+    type: String,
+    required: true,
+  },
+  headerTitle: {
+    type: String,
+    required: true,
+  },
+  headerDescription: {
+    type: String,
+    required: true,
+  },
+  downloadLabel: {
     type: String,
     required: true,
   },
@@ -174,8 +188,6 @@ const table = useVueTable({
   getCoreRowModel: getCoreRowModel(),
 });
 
-// downloadReports method is not used in this component
-// but it is exposed to be used in the parent component
 const downloadReports = () => {
   const dispatchMethods = {
     agent: 'downloadAgentReports',
@@ -198,17 +210,29 @@ const downloadReports = () => {
     store.dispatch(dispatchMethods[props.type], params);
   }
 };
-
-defineExpose({ downloadReports });
 </script>
 
 <template>
-  <OverviewReportFilters
-    :disabled="isLoading"
-    @filter-change="onFilterChange"
-  />
+  <ReportHeader
+    :header-title="headerTitle"
+    :header-description="headerDescription"
+  >
+    <V4Button
+      :label="downloadLabel"
+      icon="i-ph-download-simple"
+      size="sm"
+      @click="downloadReports"
+    />
+    <template #filters>
+      <OverviewReportFilters
+        :disabled="isLoading"
+        class="w-full"
+        @filter-change="onFilterChange"
+      />
+    </template>
+  </ReportHeader>
   <div
-    class="relative flex-1 overflow-auto px-2 py-2 mt-5 shadow outline-1 outline outline-n-container rounded-xl bg-n-solid-2"
+    class="relative flex-1 p-2 overflow-auto bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
   >
     <Table :table="table" />
     <Transition
@@ -221,7 +245,7 @@ defineExpose({ downloadReports });
     >
       <div
         v-if="isLoading"
-        class="absolute inset-0 flex justify-center pt-[12.5rem] bg-n-solid-1/70 rounded-xl pointer-events-none"
+        class="absolute inset-0 flex justify-center pt-[12.5rem] bg-n-solid-1/70 rounded-2xl pointer-events-none"
       >
         <Spinner :size="32" class="text-n-brand" />
       </div>

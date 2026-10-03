@@ -26,10 +26,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  restrictionStatusUrl: {
-    type: String,
-    default: '',
-  },
 });
 
 const store = useStore();
@@ -199,15 +195,6 @@ const launchEmbeddedSignup = async () => {
             {{
               $t('INBOX_MGMT.ADD.WHATSAPP.EMBEDDED_SIGNUP.RESTRICTED_WARNING')
             }}
-            <a
-              v-if="restrictionStatusUrl"
-              :href="restrictionStatusUrl"
-              class="link underline"
-              rel="noopener noreferrer nofollow"
-              target="_blank"
-            >
-              {{ $t('INBOX_MGMT.ADD.WHATSAPP.EMBEDDED_SIGNUP.STATUS_LINK') }}
-            </a>
           </span>
         </div>
       </Banner>

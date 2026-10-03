@@ -16,6 +16,7 @@ class ConversationApi extends ApiClient {
     conversationType,
     sortBy,
     updatedWithin,
+    companyId,
   }) {
     return axios.get(this.url, {
       params: {
@@ -28,6 +29,7 @@ class ConversationApi extends ApiClient {
         conversation_type: conversationType,
         sort_by: sortBy,
         updated_within: updatedWithin,
+        company_id: companyId,
       },
     });
   }
@@ -112,6 +114,12 @@ class ConversationApi extends ApiClient {
 
   sendEmailTranscript({ conversationId, email }) {
     return axios.post(`${this.url}/${conversationId}/transcript`, { email });
+  }
+
+  sendConversationToExternalSystem({ conversationId, note }) {
+    return axios.post(`${this.url}/${conversationId}/external_ticket`, {
+      note,
+    });
   }
 
   updateCustomAttributes({ conversationId, customAttributes }) {

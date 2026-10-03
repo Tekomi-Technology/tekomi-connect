@@ -20,10 +20,7 @@ import router, { initalizeRouter } from 'dashboard/routes';
 import store from 'dashboard/store';
 import constants from 'dashboard/constants/globals';
 import * as Sentry from '@sentry/vue';
-import {
-  initializeAnalyticsEvents,
-  initializeChatwootEvents,
-} from 'dashboard/helper/scriptHelpers.js';
+import { initializeUserSessionEvents } from 'dashboard/helper/scriptHelpers.js';
 import FluentIcon from 'shared/components/FluentIcon/DashboardIcon.vue';
 import VueDOMPurifyHTML from 'vue-dompurify-html';
 import { domPurifyConfig } from 'shared/helpers/HTMLSanitizer.js';
@@ -114,8 +111,7 @@ window.axios = createAxios(axios);
 // [VITE] Disabled this we don't need it, we can use `useEmitter` directly
 // app.prototype.$emitter = emitter;
 
-initializeChatwootEvents();
-initializeAnalyticsEvents();
+initializeUserSessionEvents();
 initalizeRouter();
 
 window.onload = () => {

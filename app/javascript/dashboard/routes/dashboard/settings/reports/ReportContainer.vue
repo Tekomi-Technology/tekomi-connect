@@ -156,7 +156,7 @@ export default {
               metric.KEY === 'reply_time'
                 ? this.$t('REPORT.METRICS.REPLY_TIME.TOOLTIP_LABEL')
                 : metric.NAME,
-            color: 'rgb(var(--blue-9))',
+            color: 'rgb(var(--teal-9))',
             data,
           },
         ],
@@ -294,21 +294,18 @@ export default {
 </script>
 
 <template>
-  <div
-    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 px-6 py-5 shadow outline-1 outline outline-n-container rounded-xl bg-n-solid-2 mt-4"
-  >
-    <div
+  <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+    <section
       v-for="metric in metrics"
       :key="metric.KEY"
-      class="py-4 mb-3 rounded-md"
+      class="flex flex-col min-w-0 gap-4 p-5 transition-shadow duration-300 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2 hover:shadow-md"
     >
       <ChartStats
         :metric="metric"
         :account-summary-key="accountSummaryKey"
         :summary-fetching-key="summaryFetchingKey"
-        class="px-4"
       />
-      <div class="mt-4 h-72">
+      <div class="h-72">
         <woot-loading-state
           v-if="accountReport.isFetching[metric.KEY]"
           class="text-xs"
@@ -334,7 +331,7 @@ export default {
           </span>
         </div>
       </div>
-    </div>
+    </section>
   </div>
   <ReportDrilldownDrawer
     :id="drilldownRequest?.id"

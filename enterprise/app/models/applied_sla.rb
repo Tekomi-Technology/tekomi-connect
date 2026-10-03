@@ -5,6 +5,7 @@
 #  id              :bigint           not null, primary key
 #  sla_status      :integer          default("active")
 #  completed_at    :datetime
+#  frt_started_at  :datetime
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  account_id      :bigint           not null
@@ -27,6 +28,7 @@ class AppliedSla < ApplicationRecord
 
   validates :account_id, uniqueness: { scope: %i[sla_policy_id conversation_id] }
   before_validation :ensure_account_id
+  before_create :start_first_response_timer
 
   enum sla_status: { active: 0, hit: 1, missed: 2, active_with_misses: 3 }
 
@@ -77,11 +79,13 @@ class AppliedSla < ApplicationRecord
     }
   end
 
+  # Nil while the bot still handles the conversation: the timer starts when a human takes over.
   def frt_due_at(working_hours_by_day_cache: nil)
     return nil if sla_policy.first_response_time_threshold.blank?
+    return nil if frt_started_at.blank?
 
     calculate_due_at(
-      conversation.created_at,
+      frt_started_at,
       sla_policy.first_response_time_threshold,
       working_hours_by_day_cache: working_hours_by_day_cache
     )
@@ -101,8 +105,9 @@ class AppliedSla < ApplicationRecord
   def rt_due_at(working_hours_by_day_cache: nil)
     return nil if sla_policy.resolution_time_threshold.blank?
 
+    # Counted from when the SLA was applied, so a late-applied SLA is not overdue on arrival.
     calculate_due_at(
-      conversation.created_at,
+      created_at,
       sla_policy.resolution_time_threshold,
       working_hours_by_day_cache: working_hours_by_day_cache
     )
@@ -133,5 +138,11 @@ class AppliedSla < ApplicationRecord
 
   def ensure_account_id
     self.account_id ||= sla_policy&.account_id
+  end
+
+  # A conversation still with the bot (pending) starts the timer at handoff instead,
+  # see Enterprise::Concerns::Conversation#start_sla_first_response_timer.
+  def start_first_response_timer
+    self.frt_started_at ||= Time.current unless conversation.pending?
   end
 end

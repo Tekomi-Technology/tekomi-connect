@@ -22,6 +22,11 @@ defineProps({
     type: Boolean,
     default: true,
   },
+  // Keeps the content mounted while collapsed so it can load its data.
+  keepMounted: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits(['toggle']);
@@ -53,7 +58,8 @@ const onToggle = () => {
       </div>
     </button>
     <div
-      v-if="isOpen"
+      v-if="isOpen || keepMounted"
+      v-show="isOpen"
       class="outline outline-1 outline-n-weak -mt-[-1px] border-t-0 rounded-br-lg rounded-bl-lg"
       :class="compact ? 'p-0' : 'px-2 py-4'"
     >

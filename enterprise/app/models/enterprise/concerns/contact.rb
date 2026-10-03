@@ -3,6 +3,7 @@ module Enterprise::Concerns::Contact
   included do
     belongs_to :company, optional: true, counter_cache: true
     has_many :campaign_recipients, dependent: :destroy_async
+    has_many :conversation_analyses, dependent: :destroy_async
 
     after_commit :associate_company_from_email,
                  on: [:create, :update],

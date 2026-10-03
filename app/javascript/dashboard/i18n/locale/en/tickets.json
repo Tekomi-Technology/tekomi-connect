@@ -1,0 +1,227 @@
+{
+  "TICKETS": {
+    "HEADER": "Tickets",
+    "COUNT": "{n} ticket | {n} tickets",
+    "EMPTY_PIPELINES": "No ticket pipelines yet",
+    "EMPTY_STATE": "No tickets match this view",
+    "LOAD_MORE": "Load more",
+    "NO_VALUE": "No value",
+    "NO_CONTACT": "No contact",
+    "UNASSIGNED": "Unassigned",
+    "DELETE": "Delete ticket",
+    "DELETE_CONFIRM": {
+      "TITLE": "Delete this ticket?",
+      "DESCRIPTION": "\"{title}\" and its history will be removed. This cannot be undone.",
+      "CONFIRM": "Delete"
+    },
+    "MESSAGES": {
+      "DELETE_SUCCESS": "Ticket deleted",
+      "DELETE_ERROR": "Could not delete the ticket, please try again"
+    },
+    "FIELDS": {
+      "TITLE": "Title",
+      "DESCRIPTION": "Description",
+      "SLA": "SLA",
+      "SLA_STATUS": "SLA status",
+      "STAGE": "Stage",
+      "ASSIGNEE": "Assignee",
+      "CONTACT": "Contact",
+      "CREATED_BY": "Source",
+      "CREATED_AT": "Created at",
+      "UPDATED_AT": "Updated at"
+    },
+    "SLA": {
+      "DUE_IN": "Due in {duration}",
+      "OVERDUE_BY": "Overdue by {duration}",
+      "NONE": "No SLA on this stage",
+      "STAGE_TARGET": "Stage target / warning threshold"
+    },
+    "CREATED_BY": {
+      "STAFF": "Created by an agent",
+      "AI_CHATBOT": "Created by chatbot",
+      "AI_CALLBOT": "Created by callbot",
+      "WEBHOOK": "Created by an external system"
+    },
+    "KANBAN": {
+      "ADD": "Add ticket"
+    },
+    "VIEW": {
+      "KANBAN": "Show as board",
+      "TABLE": "Show as table"
+    },
+    "TOOLBAR": {
+      "NEW_TICKET": "New ticket",
+      "FILTER": "Filter",
+      "SORT": "Sort",
+      "OPTIONS": "Options"
+    },
+    "FORM": {
+      "CREATE_TITLE": "New ticket",
+      "SAVE": "Create",
+      "TITLE_PLACEHOLDER": "What is the issue?",
+      "DESCRIPTION_PLACEHOLDER": "Describe the issue",
+      "STAGE_PLACEHOLDER": "Stage",
+      "ASSIGNEE_PLACEHOLDER": "Assignee",
+      "CONTACT_PLACEHOLDER": "Contact",
+      "CONTACT_SEARCH_PLACEHOLDER": "Search contacts",
+      "CUSTOM_ATTRIBUTES": "Custom attributes",
+      "MESSAGES": {
+        "SUCCESS": "Ticket created",
+        "ERROR": "Could not create the ticket, please try again"
+      }
+    },
+    "ACTIVITY": {
+      "TITLE": "Activity",
+      "SYSTEM": "System",
+      "NOTE_PLACEHOLDER": "Write a note about this ticket",
+      "ADD_NOTE": "Add note",
+      "ACTIONS": {
+        "CREATED": "created this ticket",
+        "STAGE_CHANGED": "moved it to another stage",
+        "ASSIGNEE_CHANGED": "changed the assignee"
+      }
+    },
+    "FILTER": {
+      "TITLE": "Filter tickets",
+      "ADD_FILTER": "Add filter",
+      "CLEAR_FILTERS": "Clear",
+      "APPLY_FILTERS": "Apply"
+    },
+    "SORT": {
+      "MANUAL": "Manual order",
+      "ASC": "Ascending",
+      "DESC": "Descending",
+      "FIELD": "Sort by",
+      "DIRECTION": "Direction"
+    },
+    "SLA_STATUS": {
+      "ON_TRACK": "On track",
+      "AT_RISK": "Due soon",
+      "BREACHED": "Overdue",
+      "NO_SLA": "Not tracked"
+    },
+    "VIEW_TYPES": {
+      "KANBAN": "Board",
+      "TABLE": "Table"
+    },
+    "VIEWS": {
+      "DIALOG": {
+        "CREATE_TITLE": "New view",
+        "RENAME_TITLE": "Rename view",
+        "SAVE": "Save",
+        "NAME_PLACEHOLDER": "What should this view be called?",
+        "TYPE_LABEL": "How should it open?"
+      },
+      "CREATE": "New view",
+      "RENAME": "Rename",
+      "DUPLICATE": "Duplicate",
+      "DELETE": "Delete",
+      "DUPLICATE_SUFFIX": "{name} (copy)",
+      "DELETE_CONFIRM": {
+        "TITLE": "Delete this view?",
+        "DESCRIPTION": "\"{name}\" will be removed for everyone in the account.",
+        "CONFIRM": "Delete"
+      },
+      "MESSAGES": {
+        "SAVE_ERROR": "Could not save the view, please try again",
+        "DELETE_SUCCESS": "View deleted",
+        "DELETE_ERROR": "Could not delete the view, please try again"
+      }
+    },
+    "OPTIONS": {
+      "HIDE_EMPTY_COLUMNS": "Hide empty columns",
+      "VISIBLE_FIELDS": "Fields on the card"
+    },
+    "CONVERSATION": {
+      "TITLE": "Tickets",
+      "EMPTY": "No tickets for this customer yet",
+      "CREATE": "New ticket",
+      "LINKED": "On this conversation",
+      "CONTACT": "Other tickets of this customer",
+      "LOAD_ERROR": "Could not load tickets",
+      "LINK_ERROR": "Could not link the ticket",
+      "UNLINK_ERROR": "Could not unlink the ticket"
+    },
+    "CONTACT": {
+      "EMPTY": "This customer has no tickets yet"
+    }
+  },
+  "TICKET_SLA": {
+    "HEADER": "Ticket SLA",
+    "DESCRIPTION": "Set how long a ticket may stay in each stage before it is flagged as late, and which stages hand the ticket over on their own.",
+    "LOADING": "Loading ticket pipelines",
+    "EMPTY": "No ticket pipelines yet",
+    "STAGE": {
+      "TRACK": "Track SLA",
+      "THRESHOLD": "Time allowed",
+      "WARNING_PERCENT": "Warn at (% of the time)",
+      "WARNING_PERCENT_ERROR": "Enter a number between 1 and 99",
+      "AUTO_ADVANCE": "Move to the next stage automatically once the ticket has a description",
+      "SAVE": "Save",
+      "CANCEL": "Cancel"
+    },
+    "MESSAGES": {
+      "SAVE_SUCCESS": "Stage updated",
+      "SAVE_ERROR": "Could not save, please try again"
+    }
+  },
+  "WEBHOOK": {
+    "HEADER": "Webhook",
+    "DESCRIPTION": "Give an external system a private URL it can post to in order to open tickets, without handing it an agent API token.",
+    "LOADING": "Loading webhooks",
+    "EMPTY": "No webhooks yet",
+    "ADD": "New webhook",
+    "COPY_URL": "Copy URL",
+    "DELETE": "Delete",
+    "FORM": {
+      "TITLE": "New webhook",
+      "SAVE": "Create",
+      "NAME": "Name",
+      "NAME_PLACEHOLDER": "Which system will use this URL?",
+      "PIPELINE": "Tickets land in this pipeline"
+    },
+    "TOKEN": {
+      "TITLE": "Webhook created",
+      "DESCRIPTION": "Send a POST request to this URL with a JSON body containing title and description. Copy it now — you can also copy it again from the list.",
+      "DONE": "Done"
+    },
+    "DELETE_CONFIRM": {
+      "TITLE": "Delete this webhook?",
+      "DESCRIPTION": "\"{name}\" will stop accepting tickets immediately. This cannot be undone.",
+      "CONFIRM": "Delete"
+    },
+    "MESSAGES": {
+      "COPIED": "URL copied",
+      "DELETE_SUCCESS": "Webhook deleted"
+    }
+  },
+  "TICKET_REPORTS": {
+    "HEADER": "Ticket reports",
+    "DESCRIPTION": "How tickets move through the stages and where they run late.",
+    "FROM": "From",
+    "TO": "To",
+    "PIPELINE": "Pipeline",
+    "ALL_PIPELINES": "All pipelines",
+    "EMPTY": "No data for this range",
+    "STAGE_PERFORMANCE": {
+      "TITLE": "On-time rate by stage",
+      "HINT": "Counts every pass through a stage that started in the selected range.",
+      "TOTAL": "Passes",
+      "MISSED": "Late",
+      "ON_TIME_RATE": "On time",
+      "AVG_TIME": "Average time"
+    },
+    "WORKLOAD": {
+      "TITLE": "Open tickets right now",
+      "HINT": "A snapshot of this moment, not of the selected range.",
+      "OPEN": "Open"
+    },
+    "SOURCES": {
+      "TITLE": "Where tickets come from",
+      "HINT": "Share of tickets opened by a person versus automatically, in the selected range.",
+      "SOURCE": "Source",
+      "COUNT": "Tickets",
+      "SHARE": "Share"
+    }
+  }
+}

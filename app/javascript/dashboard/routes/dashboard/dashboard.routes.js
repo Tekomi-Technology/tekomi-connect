@@ -4,11 +4,13 @@ import { routes as searchRoutes } from '../../modules/search/search.routes';
 import { routes as callRoutes } from './calls/routes';
 import { routes as contactRoutes } from './contacts/routes';
 import { routes as companyRoutes } from './companies/routes';
+import { routes as dealRoutes } from './deals/routes';
+import { routes as homeRoutes } from './home/routes';
 import { routes as inboxRoutes } from './inbox/routes';
 import { frontendURL } from '../../helper/URLHelper';
 import helpcenterRoutes from './helpcenter/helpcenter.routes';
 import campaignsRoutes from './campaigns/campaigns.routes';
-import { routes as captainRoutes } from './captain/captain.routes';
+import { routes as tekomiRoutes } from './tekomi/tekomi.routes';
 import AppContainer from './Dashboard.vue';
 import Suspended from './suspended/Index.vue';
 import NoAccounts from './noAccounts/Index.vue';
@@ -21,13 +23,15 @@ export default {
       path: frontendURL('accounts/:accountId'),
       component: AppContainer,
       children: [
-        ...captainRoutes,
+        ...homeRoutes,
+        ...tekomiRoutes,
         ...inboxRoutes,
         ...conversation.routes,
         ...settings.routes,
         ...callRoutes,
         ...contactRoutes,
         ...companyRoutes,
+        ...dealRoutes,
         ...searchRoutes,
         ...helpcenterRoutes.routes,
         ...campaignsRoutes.routes,

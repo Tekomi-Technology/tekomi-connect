@@ -18,7 +18,8 @@
 #  middle_name           :string           default("")
 #  name                  :string           default("")
 #  phone_number          :string
-#  created_at            :datetime         not null
+#  vip                   :boolean          default(FALSE), not null
+#  created_at           :datetime         not null
 #  updated_at            :datetime         not null
 #  account_id            :integer          not null
 #  company_id            :bigint
@@ -28,6 +29,7 @@
 #  index_contacts_on_account_id                          (account_id)
 #  index_contacts_on_account_id_and_contact_type         (account_id,contact_type)
 #  index_contacts_on_account_id_and_last_activity_at     (account_id,last_activity_at DESC NULLS LAST)
+#  index_contacts_on_account_id_and_vip                  (account_id,vip) WHERE (vip = true)
 #  index_contacts_on_blocked                             (blocked)
 #  index_contacts_on_company_id                          (company_id)
 #  index_contacts_on_lower_email_account_id              (lower((email)::text), account_id)
@@ -47,13 +49,15 @@ class Contact < ApplicationRecord
   include Labelable
   include LlmFormattable
 
+  after_commit :enqueue_crm_cache_match, on: :create, if: :phone_number
+
   validates :account_id, presence: true
   validates :email, allow_blank: true, uniqueness: { scope: [:account_id], case_sensitive: false },
                     format: { with: Devise.email_regexp, message: I18n.t('errors.contacts.email.invalid') }
   validates :identifier, allow_blank: true, uniqueness: { scope: [:account_id] }
   validates :phone_number,
-            allow_blank: true, uniqueness: { scope: [:account_id] },
-            format: { with: /\A\+[1-9]\d{1,14}\z/, message: I18n.t('errors.contacts.phone_number.invalid') }
+            allow_blank: true,
+            format: { with: /\A(\+[1-9]\d{1,14}|0\d{8,10})\z/, message: I18n.t('errors.contacts.phone_number.invalid') }
 
   belongs_to :account
   has_many :conversations, dependent: :destroy_async
@@ -62,6 +66,8 @@ class Contact < ApplicationRecord
   has_many :inboxes, through: :contact_inboxes
   has_many :messages, as: :sender, dependent: :destroy_async
   has_many :notes, dependent: :destroy_async
+  has_many :deals, dependent: :nullify
+  has_many :tickets, dependent: :nullify
   before_validation :prepare_contact_attributes
   after_create_commit :dispatch_create_event, :ip_lookup
   after_update_commit :dispatch_update_event
@@ -158,6 +164,7 @@ class Contact < ApplicationRecord
       phone_number: phone_number,
       thumbnail: avatar_url,
       blocked: blocked,
+      vip: vip,
       type: 'contact'
     }
     data[:company_id] = company_id if account.feature_enabled?('companies')
@@ -197,6 +204,14 @@ class Contact < ApplicationRecord
 
   private
 
+  # Newly created phone identities are matched against the cached CRM
+  # directory so inbound channels resolve to a known customer instantly.
+  def enqueue_crm_cache_match
+    Crm::Perfex::MatchFromCacheJob.perform_later(id)
+  rescue StandardError => e
+    Rails.logger.error "Failed to enqueue CRM cache match for contact #{id}: #{e.message}"
+  end
+
   def ip_lookup
     return unless account.feature_enabled?('ip_lookup')
 
@@ -206,7 +221,7 @@ class Contact < ApplicationRecord
   def phone_number_format
     return if phone_number.blank?
 
-    self.phone_number = phone_number_was unless phone_number.match?(/\A\+[1-9]\d{1,14}\z/)
+    self.phone_number = phone_number_was unless phone_number.match?(/\A(\+[1-9]\d{1,14}|0\d{8,10})\z/)
   end
 
   def email_format

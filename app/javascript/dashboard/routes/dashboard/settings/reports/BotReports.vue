@@ -86,24 +86,24 @@ export default {
 </script>
 
 <template>
-  <ReportHeader :header-title="$t('BOT_REPORTS.HEADER')" />
-  <div class="flex flex-col gap-4">
-    <ReportFilters
-      :show-entity-filter="false"
-      show-group-by
-      :show-business-hours="false"
-      @filter-change="onFilterChange"
-    />
-
-    <BotMetrics :filters="requestPayload" />
-    <ReportContainer
-      account-summary-key="getBotSummary"
-      summary-fetching-key="getBotSummaryFetchingStatus"
-      :group-by="groupBy"
-      :report-keys="reportKeys"
-      :from="from"
-      :to="to"
-      :business-hours="businessHours"
-    />
-  </div>
+  <ReportHeader :header-title="$t('BOT_REPORTS.HEADER')">
+    <template #filters>
+      <ReportFilters
+        :show-entity-filter="false"
+        show-group-by
+        :show-business-hours="false"
+        @filter-change="onFilterChange"
+      />
+    </template>
+  </ReportHeader>
+  <BotMetrics :filters="requestPayload" />
+  <ReportContainer
+    account-summary-key="getBotSummary"
+    summary-fetching-key="getBotSummaryFetchingStatus"
+    :group-by="groupBy"
+    :report-keys="reportKeys"
+    :from="from"
+    :to="to"
+    :business-hours="businessHours"
+  />
 </template>

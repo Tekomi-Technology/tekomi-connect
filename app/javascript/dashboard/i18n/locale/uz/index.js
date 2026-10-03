@@ -44,7 +44,6 @@ import teamsSettings from './teamsSettings.json';
 import webhooks from './webhooks.json';
 import whatsappTemplates from './whatsappTemplates.json';
 import whatsappTemplateMgmt from './whatsappTemplateMgmt.json';
-import yearInReview from './yearInReview.json';
 
 export default {
   ...advancedFilters,
@@ -93,5 +92,4 @@ export default {
   ...webhooks,
   ...whatsappTemplates,
   ...whatsappTemplateMgmt,
-  ...yearInReview,
 };

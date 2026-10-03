@@ -62,15 +62,23 @@ class Twitter::TweetParserService < Twitter::WebhooksBaseService
   end
 
   def set_conversation
-    tweet_conversations = @contact_inbox.conversations.where("additional_attributes ->> 'tweet_id' = ?", parent_tweet_id)
+    tweet_conversations = @contact_inbox.conversations
+                                          .where("additional_attributes ->> 'tweet_id' = ?", parent_tweet_id)
+                                          .order(created_at: :desc)
+    tweet_conversations = tweet_conversations.where.not(status: :resolved) unless @inbox.lock_to_single_conversation?
     @conversation = tweet_conversations.first
     return if @conversation
 
     tweet_message = @inbox.messages.find_by(source_id: parent_tweet_id)
-    @conversation = tweet_message.conversation if tweet_message
+    referenced_conversation = tweet_message&.conversation
+    @conversation = referenced_conversation if reusable_conversation?(referenced_conversation)
     return if @conversation
 
     @conversation = ::Conversation.create!(conversation_params)
+  end
+
+  def reusable_conversation?(conversation)
+    conversation && (@inbox.lock_to_single_conversation? || !conversation.resolved?)
   end
 
   def message_already_exist?

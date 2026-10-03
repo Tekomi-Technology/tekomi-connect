@@ -88,21 +88,21 @@ export default {
       size="sm"
       @click="downloadReports"
     />
+    <template #filters>
+      <SLAReportFilters @filter-change="onFilterChange" />
+    </template>
   </ReportHeader>
-  <div class="flex flex-col flex-1 gap-6">
-    <SLAReportFilters @filter-change="onFilterChange" />
-    <SLAMetrics
-      :hit-rate="slaMetrics.hitRate"
-      :no-of-breaches="slaMetrics.numberOfSLAMisses"
-      :no-of-conversations="slaMetrics.numberOfConversations"
-      :is-loading="uiFlags.isFetchingMetrics"
-    />
-    <SLATable
-      :sla-reports="slaReports"
-      :is-loading="uiFlags.isFetching"
-      :current-page="Number(slaMeta.currentPage)"
-      :total-count="Number(slaMeta.count)"
-      @page-change="onPageChange"
-    />
-  </div>
+  <SLAMetrics
+    :hit-rate="slaMetrics.hitRate"
+    :no-of-breaches="slaMetrics.numberOfSLAMisses"
+    :no-of-conversations="slaMetrics.numberOfConversations"
+    :is-loading="uiFlags.isFetchingMetrics"
+  />
+  <SLATable
+    :sla-reports="slaReports"
+    :is-loading="uiFlags.isFetching"
+    :current-page="Number(slaMeta.currentPage)"
+    :total-count="Number(slaMeta.count)"
+    @page-change="onPageChange"
+  />
 </template>

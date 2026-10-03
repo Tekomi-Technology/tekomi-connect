@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
+ActiveRecord::Schema[7.2].define(version: 2026_09_25_000002) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -404,151 +404,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "captain_assistant_responses", force: :cascade do |t|
-    t.string "question", null: false
-    t.text "answer", null: false
-    t.vector "embedding", limit: 1536
-    t.bigint "assistant_id", null: false
-    t.bigint "documentable_id"
-    t.bigint "account_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "status", default: 1, null: false
-    t.string "documentable_type"
-    t.boolean "edited", default: false, null: false
-    t.index ["account_id"], name: "index_captain_assistant_responses_on_account_id"
-    t.index ["assistant_id"], name: "index_captain_assistant_responses_on_assistant_id"
-    t.index ["documentable_id", "documentable_type"], name: "idx_cap_asst_resp_on_documentable"
-    t.index ["embedding"], name: "vector_idx_knowledge_entries_embedding", using: :ivfflat
-    t.index ["status"], name: "index_captain_assistant_responses_on_status"
-  end
-
-  create_table "captain_assistants", force: :cascade do |t|
-    t.string "name", null: false
-    t.bigint "account_id", null: false
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.jsonb "config", default: {}, null: false
-    t.jsonb "response_guidelines", default: []
-    t.jsonb "guardrails", default: []
-    t.index ["account_id"], name: "index_captain_assistants_on_account_id"
-  end
-
-  create_table "captain_custom_tools", force: :cascade do |t|
-    t.bigint "account_id", null: false
-    t.string "slug", null: false
-    t.string "title", null: false
-    t.text "description"
-    t.string "http_method", default: "GET", null: false
-    t.text "endpoint_url", null: false
-    t.text "request_template"
-    t.text "response_template"
-    t.string "auth_type", default: "none"
-    t.jsonb "auth_config", default: {}
-    t.jsonb "param_schema", default: []
-    t.boolean "enabled", default: true, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id", "slug"], name: "index_captain_custom_tools_on_account_id_and_slug", unique: true
-    t.index ["account_id"], name: "index_captain_custom_tools_on_account_id"
-  end
-
-  create_table "captain_documents", force: :cascade do |t|
-    t.string "name"
-    t.text "external_link", null: false
-    t.text "content"
-    t.bigint "assistant_id", null: false
-    t.bigint "account_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "status", default: 0, null: false
-    t.jsonb "metadata", default: {}
-    t.integer "sync_status"
-    t.datetime "last_synced_at"
-    t.datetime "last_sync_attempted_at"
-    t.index "assistant_id, md5(external_link)", name: "idx_captain_documents_on_assistant_id_and_external_link_md5", unique: true
-    t.index ["account_id", "assistant_id", "sync_status", "last_synced_at"], name: "idx_captain_documents_on_account_assistant_sync_stats"
-    t.index ["account_id", "sync_status"], name: "index_captain_documents_on_account_id_and_sync_status"
-    t.index ["account_id"], name: "index_captain_documents_on_account_id"
-    t.index ["assistant_id"], name: "index_captain_documents_on_assistant_id"
-    t.index ["status"], name: "index_captain_documents_on_status"
-  end
-
-  create_table "captain_faq_observations", force: :cascade do |t|
-    t.bigint "account_id", null: false
-    t.bigint "conversation_id", null: false
-    t.bigint "faq_suggestion_id"
-    t.string "generated_question", null: false
-    t.text "generated_answer", null: false
-    t.string "language", default: "en", null: false
-    t.integer "status", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_captain_faq_observations_on_account_id"
-    t.index ["conversation_id", "faq_suggestion_id"], name: "idx_captain_faq_observations_on_conversation_and_suggestion", unique: true, where: "(faq_suggestion_id IS NOT NULL)"
-    t.index ["conversation_id"], name: "index_captain_faq_observations_on_conversation_id"
-    t.index ["faq_suggestion_id"], name: "index_captain_faq_observations_on_faq_suggestion_id"
-  end
-
-  create_table "captain_faq_suggestions", force: :cascade do |t|
-    t.string "question", null: false
-    t.text "answer", null: false
-    t.vector "embedding", limit: 1536
-    t.bigint "assistant_id", null: false
-    t.bigint "account_id", null: false
-    t.string "language", default: "en", null: false
-    t.integer "source_count", default: 0, null: false
-    t.integer "status", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_captain_faq_suggestions_on_account_id"
-    t.index ["account_id", "assistant_id", "status", "language"], name: "idx_cap_faq_suggestions_on_account_assistant_status_language"
-    t.index ["assistant_id"], name: "index_captain_faq_suggestions_on_assistant_id"
-    t.index ["embedding"], name: "vector_idx_captain_faq_suggestions_embedding", opclass: :vector_cosine_ops, using: :ivfflat
-  end
-
-  create_table "captain_inboxes", force: :cascade do |t|
-    t.bigint "captain_assistant_id", null: false
-    t.bigint "inbox_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["captain_assistant_id", "inbox_id"], name: "index_captain_inboxes_on_captain_assistant_id_and_inbox_id", unique: true
-    t.index ["captain_assistant_id"], name: "index_captain_inboxes_on_captain_assistant_id"
-    t.index ["inbox_id"], name: "index_captain_inboxes_on_inbox_id"
-  end
-
-  create_table "captain_message_reports", force: :cascade do |t|
-    t.bigint "account_id", null: false
-    t.bigint "conversation_id", null: false
-    t.bigint "message_id", null: false
-    t.bigint "user_id", null: false
-    t.string "report_reason", null: false
-    t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_captain_message_reports_on_account_id"
-    t.index ["conversation_id"], name: "index_captain_message_reports_on_conversation_id"
-    t.index ["message_id"], name: "index_captain_message_reports_on_message_id"
-    t.index ["user_id"], name: "index_captain_message_reports_on_user_id"
-  end
-
-  create_table "captain_scenarios", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
-    t.text "instruction"
-    t.jsonb "tools", default: []
-    t.boolean "enabled", default: true, null: false
-    t.bigint "assistant_id", null: false
-    t.bigint "account_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_captain_scenarios_on_account_id"
-    t.index ["assistant_id", "enabled"], name: "index_captain_scenarios_on_assistant_id_and_enabled"
-    t.index ["assistant_id"], name: "index_captain_scenarios_on_assistant_id"
-    t.index ["enabled"], name: "index_captain_scenarios_on_enabled"
-  end
-
   create_table "categories", force: :cascade do |t|
     t.integer "account_id", null: false
     t.integer "portal_id", null: false
@@ -646,6 +501,21 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
     t.index ["line_channel_id"], name: "index_channel_line_on_line_channel_id", unique: true
   end
 
+  create_table "channel_phone", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "wss_url", null: false
+    t.string "sip_domain", null: false
+    t.string "sip_username"
+    t.text "sip_password"
+    t.string "stun_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "ice_servers", default: [], null: false
+    t.text "turn_shared_secret"
+    t.integer "turn_credential_ttl", default: 3600, null: false
+    t.index ["account_id", "sip_domain", "sip_username"], name: "idx_channel_phone_on_account_and_sip_identity", unique: true
+  end
+
   create_table "channel_sms", force: :cascade do |t|
     t.integer "account_id", null: false
     t.string "phone_number", null: false
@@ -715,7 +585,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.string "website_token"
-    t.string "widget_color", default: "#1f93ff"
+    t.string "widget_color", default: "#11B8C8"
     t.string "welcome_title"
     t.string "welcome_tagline"
     t.integer "feature_flags", default: 7, null: false
@@ -743,8 +613,37 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
     t.jsonb "phone_number_health", default: {}, null: false
     t.datetime "phone_number_health_checked_at"
     t.string "phone_number_health_error", limit: 500
-    t.index ["phone_number_health_checked_at"], name: "index_channel_whatsapp_on_phone_number_health_checked_at"
     t.index ["phone_number"], name: "index_channel_whatsapp_on_phone_number", unique: true
+    t.index ["phone_number_health_checked_at"], name: "index_channel_whatsapp_on_phone_number_health_checked_at"
+  end
+
+  create_table "channel_zalo_oa", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.bigint "backfill_watermark_ms", default: 0, null: false
+    t.string "oa_id", null: false
+    t.string "oa_name"
+    t.string "app_id", null: false
+    t.text "app_secret", null: false
+    t.text "oa_secret_key"
+    t.text "access_token"
+    t.text "refresh_token"
+    t.datetime "token_expires_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["oa_id"], name: "index_channel_zalo_oa_on_oa_id", unique: true
+  end
+
+  create_table "channel_zalo_personal", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "zalo_uid", null: false
+    t.string "display_name"
+    t.text "credentials", null: false
+    t.string "status", default: "reconnecting", null: false
+    t.datetime "status_updated_at"
+    t.datetime "last_connected_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["zalo_uid"], name: "index_channel_zalo_personal_on_zalo_uid", unique: true
   end
 
   create_table "companies", force: :cascade do |t|
@@ -815,9 +714,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
     t.bigint "assistant_id", null: false
     t.bigint "conversation_id", null: false
     t.bigint "inbox_id", null: false
-    t.datetime "first_captain_reply_at"
-    t.datetime "last_captain_reply_at"
-    t.integer "captain_reply_count", default: 0, null: false
+    t.datetime "first_tekomi_reply_at"
+    t.datetime "last_tekomi_reply_at"
+    t.integer "tekomi_reply_count", default: 0, null: false
     t.datetime "first_human_reply_at"
     t.datetime "handoff_at"
     t.string "handoff_reason_category"
@@ -880,6 +779,7 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
     t.datetime "waiting_since"
     t.text "cached_label_list"
     t.bigint "assignee_agent_bot_id"
+    t.string "ai_assignee_type"
     t.datetime "status_changed_at"
     t.index ["account_id", "display_id"], name: "index_conversations_on_account_id_and_display_id", unique: true
     t.index ["account_id", "id"], name: "index_conversations_on_id_and_account_id"
@@ -1083,10 +983,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "inbox_id"
-    t.index ["account_id", "name", "template_type", "locale"], name: "index_email_templates_on_account_scope", unique: true, where: "(account_id IS NOT NULL) AND (inbox_id IS NULL)"
+    t.index ["account_id", "name", "template_type", "locale"], name: "index_email_templates_on_account_scope", unique: true, where: "((account_id IS NOT NULL) AND (inbox_id IS NULL))"
     t.index ["inbox_id", "name", "template_type", "locale"], name: "index_email_templates_on_inbox_scope", unique: true, where: "(inbox_id IS NOT NULL)"
     t.index ["inbox_id"], name: "index_email_templates_on_inbox_id"
-    t.index ["name", "template_type", "locale"], name: "index_email_templates_on_installation_scope", unique: true, where: "(account_id IS NULL) AND (inbox_id IS NULL)"
+    t.index ["name", "template_type", "locale"], name: "index_email_templates_on_installation_scope", unique: true, where: "((account_id IS NULL) AND (inbox_id IS NULL))"
   end
 
   create_table "folders", force: :cascade do |t|
@@ -1321,6 +1221,94 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+  create_table "pbx_call_events", force: :cascade do |t|
+    t.bigint "phone_call_id"
+    t.string "pbx_id", null: false
+    t.string "event_id", null: false
+    t.string "linked_id", null: false
+    t.string "event_type", null: false
+    t.jsonb "payload", default: {}, null: false
+    t.datetime "processed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["pbx_id", "event_id"], name: "index_pbx_call_events_on_pbx_id_and_event_id", unique: true
+    t.index ["pbx_id", "linked_id"], name: "index_pbx_call_events_on_pbx_id_and_linked_id"
+    t.index ["phone_call_id"], name: "index_pbx_call_events_on_phone_call_id"
+  end
+
+  create_table "phone_calls", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.integer "inbox_id", null: false
+    t.integer "contact_id", null: false
+    t.integer "conversation_id", null: false
+    t.integer "message_id"
+    t.integer "user_id"
+    t.bigint "phone_extension_id"
+    t.string "pbx_id", null: false
+    t.string "linked_id", null: false
+    t.string "last_event_id"
+    t.string "direction", null: false
+    t.string "customer_number", null: false
+    t.string "extension"
+    t.string "from_number"
+    t.string "to_number"
+    t.string "status", default: "ringing", null: false
+    t.datetime "started_at"
+    t.datetime "answered_at"
+    t.datetime "ended_at"
+    t.integer "duration_seconds"
+    t.string "hangup_cause"
+    t.text "recording_url"
+    t.jsonb "metadata", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "contact_id"], name: "index_phone_calls_on_account_id_and_contact_id"
+    t.index ["account_id", "conversation_id"], name: "index_phone_calls_on_account_id_and_conversation_id"
+    t.index ["message_id"], name: "index_phone_calls_on_message_id", unique: true, where: "(message_id IS NOT NULL)"
+    t.index ["pbx_id", "linked_id"], name: "index_phone_calls_on_pbx_id_and_linked_id", unique: true
+  end
+
+  create_table "phone_call_emotion_reports", force: :cascade do |t|
+    t.bigint "phone_call_id", null: false
+    t.bigint "account_id", null: false
+    t.bigint "conversation_id", null: false
+    t.bigint "inbox_id", null: false
+    t.string "status", default: "pending", null: false
+    t.string "purpose", default: "monitoring", null: false
+    t.string "action_status", default: "none", null: false
+    t.string "emotion"
+    t.string "emotion_color"
+    t.text "reason"
+    t.text "transcript"
+    t.string "asr_model"
+    t.string "asr_provider"
+    t.string "asr_runtime"
+    t.string "llm_model"
+    t.string "llm_provider"
+    t.text "error_message"
+    t.datetime "processed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "emotion"], name: "index_phone_call_emotion_reports_on_account_id_and_emotion"
+    t.index ["account_id", "status"], name: "index_phone_call_emotion_reports_on_account_id_and_status"
+    t.index ["conversation_id"], name: "index_phone_call_emotion_reports_on_conversation_id"
+    t.index ["phone_call_id"], name: "index_phone_call_emotion_reports_on_phone_call_id", unique: true
+  end
+
+  create_table "phone_extensions", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.integer "inbox_id", null: false
+    t.integer "user_id", null: false
+    t.string "sip_username", null: false
+    t.text "sip_password", null: false
+    t.boolean "enabled", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_phone_extensions_on_account_id"
+    t.index ["inbox_id", "sip_username"], name: "index_phone_extensions_on_inbox_id_and_sip_username", unique: true
+    t.index ["inbox_id", "user_id"], name: "index_phone_extensions_on_inbox_id_and_user_id", unique: true
+  end
+
   create_table "platform_app_permissibles", force: :cascade do |t|
     t.bigint "platform_app_id", null: false
     t.string "permissible_type", null: false
@@ -1500,6 +1488,151 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
     t.index ["name", "account_id"], name: "index_teams_on_name_and_account_id", unique: true
   end
 
+  create_table "tekomi_assistant_responses", force: :cascade do |t|
+    t.string "question", null: false
+    t.text "answer", null: false
+    t.vector "embedding", limit: 1536
+    t.bigint "assistant_id", null: false
+    t.bigint "documentable_id"
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status", default: 1, null: false
+    t.string "documentable_type"
+    t.boolean "edited", default: false, null: false
+    t.index ["account_id"], name: "index_tekomi_assistant_responses_on_account_id"
+    t.index ["assistant_id"], name: "index_tekomi_assistant_responses_on_assistant_id"
+    t.index ["documentable_id", "documentable_type"], name: "idx_cap_asst_resp_on_documentable"
+    t.index ["embedding"], name: "vector_idx_knowledge_entries_embedding", using: :ivfflat
+    t.index ["status"], name: "index_tekomi_assistant_responses_on_status"
+  end
+
+  create_table "tekomi_assistants", force: :cascade do |t|
+    t.string "name", null: false
+    t.bigint "account_id", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.jsonb "config", default: {}, null: false
+    t.jsonb "response_guidelines", default: []
+    t.jsonb "guardrails", default: []
+    t.index ["account_id"], name: "index_tekomi_assistants_on_account_id"
+  end
+
+  create_table "tekomi_custom_tools", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "slug", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.string "http_method", default: "GET", null: false
+    t.text "endpoint_url", null: false
+    t.text "request_template"
+    t.text "response_template"
+    t.string "auth_type", default: "none"
+    t.jsonb "auth_config", default: {}
+    t.jsonb "param_schema", default: []
+    t.boolean "enabled", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "slug"], name: "index_tekomi_custom_tools_on_account_id_and_slug", unique: true
+    t.index ["account_id"], name: "index_tekomi_custom_tools_on_account_id"
+  end
+
+  create_table "tekomi_documents", force: :cascade do |t|
+    t.string "name"
+    t.text "external_link", null: false
+    t.text "content"
+    t.bigint "assistant_id", null: false
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status", default: 0, null: false
+    t.jsonb "metadata", default: {}
+    t.integer "sync_status"
+    t.datetime "last_synced_at"
+    t.datetime "last_sync_attempted_at"
+    t.index "assistant_id, md5(external_link)", name: "idx_tekomi_documents_on_assistant_id_and_external_link_md5", unique: true
+    t.index ["account_id", "assistant_id", "sync_status", "last_synced_at"], name: "idx_tekomi_documents_on_account_assistant_sync_stats"
+    t.index ["account_id", "sync_status"], name: "index_tekomi_documents_on_account_id_and_sync_status"
+    t.index ["account_id"], name: "index_tekomi_documents_on_account_id"
+    t.index ["assistant_id"], name: "index_tekomi_documents_on_assistant_id"
+    t.index ["status"], name: "index_tekomi_documents_on_status"
+  end
+
+  create_table "tekomi_faq_observations", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "conversation_id", null: false
+    t.bigint "faq_suggestion_id"
+    t.string "generated_question", null: false
+    t.text "generated_answer", null: false
+    t.string "language", default: "en", null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_tekomi_faq_observations_on_account_id"
+    t.index ["conversation_id", "faq_suggestion_id"], name: "idx_tekomi_faq_observations_on_conversation_and_suggestion", unique: true, where: "(faq_suggestion_id IS NOT NULL)"
+    t.index ["conversation_id"], name: "index_tekomi_faq_observations_on_conversation_id"
+    t.index ["faq_suggestion_id"], name: "index_tekomi_faq_observations_on_faq_suggestion_id"
+  end
+
+  create_table "tekomi_faq_suggestions", force: :cascade do |t|
+    t.string "question", null: false
+    t.text "answer", null: false
+    t.vector "embedding", limit: 1536
+    t.bigint "assistant_id", null: false
+    t.bigint "account_id", null: false
+    t.string "language", default: "en", null: false
+    t.integer "source_count", default: 0, null: false
+    t.integer "status", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "assistant_id", "status", "language"], name: "idx_cap_faq_suggestions_on_account_assistant_status_language"
+    t.index ["account_id"], name: "index_tekomi_faq_suggestions_on_account_id"
+    t.index ["assistant_id"], name: "index_tekomi_faq_suggestions_on_assistant_id"
+    t.index ["embedding"], name: "vector_idx_tekomi_faq_suggestions_embedding", opclass: :vector_cosine_ops, using: :ivfflat
+  end
+
+  create_table "tekomi_inboxes", force: :cascade do |t|
+    t.bigint "tekomi_assistant_id", null: false
+    t.bigint "inbox_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inbox_id"], name: "index_tekomi_inboxes_on_inbox_id"
+    t.index ["tekomi_assistant_id", "inbox_id"], name: "index_tekomi_inboxes_on_tekomi_assistant_id_and_inbox_id", unique: true
+    t.index ["tekomi_assistant_id"], name: "index_tekomi_inboxes_on_tekomi_assistant_id"
+  end
+
+  create_table "tekomi_message_reports", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "conversation_id", null: false
+    t.bigint "message_id", null: false
+    t.bigint "user_id", null: false
+    t.string "report_reason", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_tekomi_message_reports_on_account_id"
+    t.index ["conversation_id"], name: "index_tekomi_message_reports_on_conversation_id"
+    t.index ["message_id"], name: "index_tekomi_message_reports_on_message_id"
+    t.index ["user_id"], name: "index_tekomi_message_reports_on_user_id"
+  end
+
+  create_table "tekomi_scenarios", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.text "instruction"
+    t.jsonb "tools", default: []
+    t.boolean "enabled", default: true, null: false
+    t.bigint "assistant_id", null: false
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_tekomi_scenarios_on_account_id"
+    t.index ["assistant_id", "enabled"], name: "index_tekomi_scenarios_on_assistant_id_and_enabled"
+    t.index ["assistant_id"], name: "index_tekomi_scenarios_on_assistant_id"
+    t.index ["enabled"], name: "index_tekomi_scenarios_on_enabled"
+  end
+
   create_table "user_sessions", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "client_id", null: false
@@ -1596,6 +1729,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_08_14_000000) do
   add_foreign_key "campaign_recipients", "contacts", on_delete: :cascade
   add_foreign_key "campaign_recipients", "inboxes", on_delete: :cascade
   add_foreign_key "inboxes", "portals"
+  add_foreign_key "pbx_call_events", "phone_calls", on_delete: :cascade
+  add_foreign_key "phone_extensions", "accounts", on_delete: :cascade
+  add_foreign_key "phone_extensions", "inboxes", on_delete: :cascade
+  add_foreign_key "phone_extensions", "users", on_delete: :cascade
   add_foreign_key "user_sessions", "users"
   create_trigger("accounts_after_insert_row_tr", :generated => true, :compatibility => 1).
       on("accounts").

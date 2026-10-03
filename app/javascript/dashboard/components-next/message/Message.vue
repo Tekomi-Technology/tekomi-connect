@@ -41,6 +41,7 @@ import LocationBubble from './bubbles/Location.vue';
 import CSATBubble from './bubbles/CSAT.vue';
 import FormBubble from './bubbles/Form.vue';
 import VoiceCallBubble from './bubbles/VoiceCall.vue';
+import PhoneCallBubble from './bubbles/PhoneCall.vue';
 import WhatsappFlowResponseBubble from './bubbles/WhatsappFlowResponse.vue';
 import WhatsappReferral from './bubbles/Text/WhatsappReferral.vue';
 
@@ -152,9 +153,9 @@ const inbox = computed(() => inboxGetter.value(props.inboxId) || {});
 const isOnChatwootCloud = useMapGetter('globalConfig/isOnChatwootCloud');
 const { replaceInstallationName } = useBranding();
 
-const isCaptainMessage = computed(() => {
+const isTekomiMessage = computed(() => {
   const senderType = props.sender?.type ?? props.senderType;
-  return senderType === SENDER_TYPES.CAPTAIN_ASSISTANT;
+  return senderType === SENDER_TYPES.TEKOMI_ASSISTANT;
 });
 
 /**
@@ -221,9 +222,7 @@ const isBotOrAgentMessage = computed(() => {
   }
 
   if (
-    [SENDER_TYPES.AGENT_BOT, SENDER_TYPES.CAPTAIN_ASSISTANT].includes(
-      senderType
-    )
+    [SENDER_TYPES.AGENT_BOT, SENDER_TYPES.TEKOMI_ASSISTANT].includes(senderType)
   ) {
     return true;
   }
@@ -314,6 +313,10 @@ const componentToRender = computed(() => {
 
   if (props.contentType === CONTENT_TYPES.VOICE_CALL) {
     return VoiceCallBubble;
+  }
+
+  if (props.contentType === CONTENT_TYPES.PHONE_CALL) {
+    return PhoneCallBubble;
   }
 
   if (props.contentType === CONTENT_TYPES.INCOMING_EMAIL) {
@@ -410,7 +413,7 @@ const contextMenuEnabledOptions = computed(() => {
       !isFailedOrProcessing,
     report:
       isOnChatwootCloud.value &&
-      isCaptainMessage.value &&
+      isTekomiMessage.value &&
       !isMessageDeleted.value,
   };
 });
@@ -498,7 +501,7 @@ const avatarInfo = computed(() => {
   const { name, type, avatarUrl, thumbnail } = sender || {};
 
   // If sender type is agent bot, use avatarUrl
-  if ([SENDER_TYPES.AGENT_BOT, SENDER_TYPES.CAPTAIN_ASSISTANT].includes(type)) {
+  if ([SENDER_TYPES.AGENT_BOT, SENDER_TYPES.TEKOMI_ASSISTANT].includes(type)) {
     return {
       name: name ?? '',
       src: avatarUrl ?? '',

@@ -1,0 +1,29 @@
+class TicketPolicy < ApplicationPolicy
+  def index?
+    @account_user.administrator? || @account_user.agent?
+  end
+
+  def filter?
+    index?
+  end
+
+  def show?
+    index?
+  end
+
+  def create?
+    index?
+  end
+
+  def update?
+    index?
+  end
+
+  def move?
+    index?
+  end
+
+  def destroy?
+    index?
+  end
+end

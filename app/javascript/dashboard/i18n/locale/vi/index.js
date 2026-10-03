@@ -17,10 +17,13 @@ import conversation from './conversation.json';
 import csatMgmt from './csatMgmt.json';
 import customRole from './customRole.json';
 import datePicker from './datePicker.json';
+import deals from './deals.json';
+import tickets from './tickets.json';
 import emoji from './emoji.json';
 import general from './general.json';
 import generalSettings from './generalSettings.json';
 import helpCenter from './helpCenter.json';
+import home from './home.json';
 import inbox from './inbox.json';
 import inboxMgmt from './inboxMgmt.json';
 import integrationApps from './integrationApps.json';
@@ -62,10 +65,13 @@ export default {
   ...csatMgmt,
   ...customRole,
   ...datePicker,
+  ...deals,
+  ...tickets,
   ...emoji,
   ...general,
   ...generalSettings,
   ...helpCenter,
+  ...home,
   ...inbox,
   ...inboxMgmt,
   ...integrationApps,

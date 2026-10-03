@@ -29,7 +29,7 @@ class Account < ApplicationRecord
   include Reportable
   include Featurable
   include CacheKeys
-  include CaptainFeaturable
+  include TekomiFeaturable
   include AccountEmailRateLimitable
   include AccountSettingsSchema
 
@@ -55,11 +55,11 @@ class Account < ApplicationRecord
   store_accessor :settings, :auto_resolve_after, :auto_resolve_message, :auto_resolve_ignore_waiting
 
   store_accessor :settings, :audio_transcriptions, :auto_resolve_label
-  store_accessor :settings, :captain_models, :captain_features
+  store_accessor :settings, :tekomi_features
   store_accessor :settings, :reporting_timezone
   store_accessor :settings, :keep_pending_on_bot_failure
-  store_accessor :settings, :captain_auto_resolve_mode, :captain_false_promise_harness_enabled
-  include AccountCaptainAutoResolve
+  store_accessor :settings, :tekomi_auto_resolve_mode, :tekomi_false_promise_harness_enabled
+  include AccountTekomiAutoResolve
 
   has_many :account_users, dependent: :destroy_async
   has_many :agent_bot_inboxes, dependent: :destroy_async
@@ -80,12 +80,16 @@ class Account < ApplicationRecord
   has_many :custom_filters, dependent: :destroy_async
   has_many :dashboard_apps, dependent: :destroy_async
   has_many :data_imports, dependent: :destroy_async
+  has_many :deals, dependent: :destroy_async
   has_many :email_channels, dependent: :destroy_async, class_name: '::Channel::Email'
   has_many :facebook_pages, dependent: :destroy_async, class_name: '::Channel::FacebookPage'
   has_many :instagram_channels, dependent: :destroy_async, class_name: '::Channel::Instagram'
   has_many :tiktok_channels, dependent: :destroy_async, class_name: '::Channel::Tiktok'
   has_many :hooks, dependent: :destroy_async, class_name: 'Integrations::Hook'
   has_many :inboxes, dependent: :destroy_async
+  has_many :phone_extensions, dependent: :destroy_async
+  has_many :pipelines, dependent: :destroy_async
+  has_many :tickets, dependent: :destroy_async
   has_many :labels, dependent: :destroy_async
   has_many :line_channels, dependent: :destroy_async, class_name: '::Channel::Line'
   has_many :mentions, dependent: :destroy_async
@@ -94,6 +98,8 @@ class Account < ApplicationRecord
   has_many :notification_settings, dependent: :destroy_async
   has_many :notifications, dependent: :destroy_async
   has_many :portals, dependent: :destroy_async, class_name: '::Portal'
+  has_many :saved_views, dependent: :destroy_async
+  has_many :phone_channels, dependent: :destroy_async, class_name: '::Channel::Phone'
   has_many :sms_channels, dependent: :destroy_async, class_name: '::Channel::Sms'
   has_many :teams, dependent: :destroy_async
   has_many :telegram_channels, dependent: :destroy_async, class_name: '::Channel::Telegram'
@@ -105,6 +111,7 @@ class Account < ApplicationRecord
   has_many :whatsapp_channels, dependent: :destroy_async, class_name: '::Channel::Whatsapp'
   has_many :working_hours, dependent: :destroy_async
   has_many :zalo_oa_channels, dependent: :destroy_async, class_name: '::Channel::ZaloOa'
+  has_many :zalo_personal_channels, dependent: :destroy_async, class_name: '::Channel::ZaloPersonal'
 
   has_one_attached :contacts_export
 
@@ -117,6 +124,10 @@ class Account < ApplicationRecord
   after_create_commit :notify_creation
   after_update_commit :clear_unread_conversation_counts_cache, if: :saved_change_to_feature_conversation_unread_counts?
   after_update :resume_delayed_automations, if: -> { saved_change_to_feature_delayed_automations? && feature_delayed_automations? }
+  after_update :create_default_pipeline, if: -> { saved_change_to_feature_crm_deals? && feature_crm_deals? && pipelines.pipeline_type_sales.none? }
+  after_update :create_default_ticket_pipeline, if: lambda {
+    saved_change_to_feature_crm_tickets? && feature_crm_tickets? && pipelines.pipeline_type_ticket.none?
+  }
   after_destroy :remove_account_sequences
 
   def agents
@@ -201,6 +212,20 @@ class Account < ApplicationRecord
 
   def resume_delayed_automations
     AutomationRulePendingExecution.reschedule_paused(self)
+  end
+
+  # The pipeline, its stages and its views are seeded as data, so they are named in the
+  # account's own language rather than whichever locale happened to be active on the request.
+  def create_default_pipeline
+    I18n.with_locale(locale) do
+      pipelines.create!(name: I18n.t('crm_deals.default_pipeline.name'))
+    end
+  end
+
+  def create_default_ticket_pipeline
+    I18n.with_locale(locale) do
+      pipelines.create!(name: I18n.t('crm_tickets.default_pipeline.name'), pipeline_type: :ticket)
+    end
   end
 
   trigger.after(:insert).for_each(:row) do

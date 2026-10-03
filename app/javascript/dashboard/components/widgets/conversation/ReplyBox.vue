@@ -41,7 +41,7 @@ import {
 } from 'dashboard/helper/quotedEmailHelper';
 import {
   CONVERSATION_EVENTS,
-  CAPTAIN_EVENTS,
+  TEKOMI_EVENTS,
 } from '../../../helper/AnalyticsHelper/events';
 import fileUploadMixin from 'dashboard/mixins/fileUploadMixin';
 import {
@@ -344,6 +344,7 @@ export default {
         this.isAnEmailChannel ||
         this.isASmsInbox ||
         this.isATelegramChannel ||
+        this.isAZaloPersonalChannel ||
         this.isALineChannel ||
         this.isAnInstagramChannel ||
         (this.isATiktokChannel && tiktokAttachmentSupported)
@@ -397,7 +398,8 @@ export default {
         this.isAWebWidgetInbox ||
         this.isAPIInbox ||
         this.isAWhatsAppChannel ||
-        this.isATelegramChannel
+        this.isATelegramChannel ||
+        this.isAZaloPersonalChannel
       );
     },
     isSignatureEnabledForInbox() {
@@ -938,7 +940,7 @@ export default {
       const normalizedEditorMessage = normalizeForComparison(editorMessage);
 
       if (normalizedAcceptedMessage && normalizedEditorMessage) {
-        useTrack(CAPTAIN_EVENTS.AI_ASSISTED_MESSAGE_SENT, {
+        useTrack(TEKOMI_EVENTS.AI_ASSISTED_MESSAGE_SENT, {
           conversationId: this.conversationIdByRoute,
           channelType: this.channelType,
           editedBeforeSend:
@@ -1569,10 +1571,14 @@ export default {
 }
 
 .reply-box {
-  @apply relative mb-2 mx-2 border border-n-weak rounded-xl bg-n-solid-1;
+  @apply relative mb-3 mx-3 border border-n-weak rounded-2xl bg-white shadow-[0_4px_6px_-1px_rgba(16,24,40,0.06),0_2px_4px_-2px_rgba(16,24,40,0.04)] dark:bg-n-solid-1;
 
   &.is-private {
-    @apply bg-n-solid-amber dark:border-n-amber-3/10 border-n-amber-12/5;
+    @apply bg-n-solid-amber border-n-amber-6 dark:border-n-amber-3/10;
+  }
+
+  &.is-focused {
+    @apply border-n-brand ring-1 ring-n-brand/20;
   }
 }
 

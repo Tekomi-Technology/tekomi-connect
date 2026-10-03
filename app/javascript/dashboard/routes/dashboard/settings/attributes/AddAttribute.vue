@@ -20,8 +20,6 @@ export default {
       type: Function,
       default: () => {},
     },
-    // Passes 0 or 1 based on the selected AttributeModel tab selected in the UI
-    // Needs a better data type, todo: refactor this component later
     selectedAttributeModelTab: {
       type: Number,
       default: 0,
@@ -52,9 +50,15 @@ export default {
   computed: {
     ...mapGetters({
       uiFlags: 'getUIFlags',
+      accountId: 'getCurrentAccountId',
+      isFeatureEnabledonAccount: 'accounts/isFeatureEnabledonAccount',
     }),
     models() {
-      return ATTRIBUTE_MODELS.map(item => ({
+      return ATTRIBUTE_MODELS.filter(
+        item =>
+          !item.featureFlag ||
+          this.isFeatureEnabledonAccount(this.accountId, item.featureFlag)
+      ).map(item => ({
         ...item,
         option: this.$t(`ATTRIBUTES_MGMT.ATTRIBUTE_MODELS.${item.key}`),
       }));

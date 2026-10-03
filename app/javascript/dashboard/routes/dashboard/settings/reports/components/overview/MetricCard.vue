@@ -6,6 +6,22 @@ defineProps({
     type: String,
     default: '',
   },
+  description: {
+    type: String,
+    default: '',
+  },
+  icon: {
+    type: String,
+    default: '',
+  },
+  showLiveBadge: {
+    type: Boolean,
+    default: true,
+  },
+  bodyClass: {
+    type: String,
+    default: 'flex justify-between w-full max-w-full',
+  },
   isLoading: {
     type: Boolean,
     default: false,
@@ -18,47 +34,54 @@ defineProps({
 </script>
 
 <template>
-  <div
-    class="flex flex-col m-0.5 px-6 py-5 rounded-xl flex-grow text-n-slate-12 shadow outline-1 outline outline-n-container bg-n-solid-2 min-h-[10rem]"
+  <section
+    class="flex flex-col flex-grow min-w-0 gap-4 p-5 transition-shadow duration-300 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2 hover:shadow-md"
   >
-    <div
-      class="card-header grid w-full mb-6 grid-cols-[repeat(auto-fit,minmax(max-content,50%))] gap-y-2"
-    >
+    <header class="flex items-start justify-between w-full gap-3">
       <slot name="header">
-        <div class="flex items-center gap-2 flex-row">
-          <h5 class="mb-0 text-n-slate-12 font-medium text-lg">
-            {{ header }}
-          </h5>
+        <div class="flex items-start min-w-0 gap-3">
           <span
-            class="flex flex-row items-center py-0.5 px-2 rounded bg-n-teal-3 text-xs"
+            v-if="icon"
+            class="flex items-center justify-center rounded-xl size-9 shrink-0 bg-n-brand/10 text-n-brand"
           >
-            <span
-              class="bg-n-teal-9 h-1 w-1 rounded-full mr-1 rtl:mr-0 rtl:ml-0"
-            />
-            <span class="text-xs text-n-teal-11">
-              {{ $t('OVERVIEW_REPORTS.LIVE') }}
-            </span>
+            <span class="size-5" :class="icon" />
           </span>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2">
+              <h3
+                class="text-base font-semibold tracking-tight text-n-slate-12"
+              >
+                {{ header }}
+              </h3>
+              <span
+                v-if="showLiveBadge"
+                class="flex items-center gap-1 px-2 py-0.5 rounded-full bg-n-brand/10 text-n-brand text-[11px] font-semibold uppercase tracking-wide"
+              >
+                <span class="rounded-full size-1.5 bg-n-brand animate-pulse" />
+                {{ $t('OVERVIEW_REPORTS.LIVE') }}
+              </span>
+            </div>
+            <p v-if="description" class="text-[13px] text-n-slate-11">
+              {{ description }}
+            </p>
+          </div>
         </div>
-        <div class="flex flex-row items-center justify-end gap-2">
+        <div class="flex flex-row items-center justify-end flex-shrink-0 gap-2">
           <slot name="control" />
         </div>
       </slot>
-    </div>
-    <div
-      v-if="!isLoading"
-      class="card-body max-w-full w-full ml-auto mr-auto justify-between flex"
-    >
+    </header>
+    <div v-if="!isLoading" :class="bodyClass">
       <slot />
     </div>
     <div
-      v-else-if="isLoading"
-      class="items-center flex text-base justify-center px-12 py-6"
+      v-else
+      class="flex items-center justify-center px-12 py-6 text-base gap-2"
     >
       <Spinner />
       <span class="text-n-slate-11">
         {{ loadingMessage }}
       </span>
     </div>
-  </div>
+  </section>
 </template>

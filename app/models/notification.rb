@@ -43,7 +43,9 @@ class Notification < ApplicationRecord
     participating_conversation_new_message: 5,
     sla_missed_first_response: 6,
     sla_missed_next_response: 7,
-    sla_missed_resolution: 8
+    sla_missed_resolution: 8,
+    ticket_sla_warning: 9,
+    ticket_sla_missed: 10
   }.freeze
 
   enum notification_type: NOTIFICATION_TYPES
@@ -53,7 +55,7 @@ class Notification < ApplicationRecord
   after_destroy_commit :dispatch_destroy_event
   after_update_commit :dispatch_update_event
 
-  PRIMARY_ACTORS = ['Conversation'].freeze
+  PRIMARY_ACTORS = %w[Conversation Ticket].freeze
 
   def push_event_data
     # Secondary actor could be nil for cases like system assigning conversation
@@ -96,7 +98,9 @@ class Notification < ApplicationRecord
       'conversation_mention' => 'notifications.notification_title.conversation_mention',
       'sla_missed_first_response' => 'notifications.notification_title.sla_missed_first_response',
       'sla_missed_next_response' => 'notifications.notification_title.sla_missed_next_response',
-      'sla_missed_resolution' => 'notifications.notification_title.sla_missed_resolution'
+      'sla_missed_resolution' => 'notifications.notification_title.sla_missed_resolution',
+      'ticket_sla_warning' => 'notifications.notification_title.ticket_sla_warning',
+      'ticket_sla_missed' => 'notifications.notification_title.ticket_sla_missed'
     }
 
     i18n_key = notification_title_map[notification_type]
@@ -107,14 +111,22 @@ class Notification < ApplicationRecord
     elsif %w[conversation_assignment assigned_conversation_new_message participating_conversation_new_message
              conversation_mention].include?(notification_type)
       I18n.t(i18n_key, display_id: conversation.display_id)
+    elsif ticket_notification?
+      I18n.t(i18n_key, title: primary_actor.title, stage_name: secondary_actor.pipeline_stage.name)
     else
       I18n.t(i18n_key, display_id: primary_actor.display_id)
     end
   end
   # rubocop:enable Metrics/MethodLength
 
+  def ticket_notification?
+    %w[ticket_sla_warning ticket_sla_missed].include?(notification_type)
+  end
+
   def push_message_body
     case notification_type
+    when 'ticket_sla_warning', 'ticket_sla_missed'
+      primary_actor.title
     when 'conversation_creation', 'sla_missed_first_response'
       message_body(conversation.messages.first)
     when 'assigned_conversation_new_message', 'participating_conversation_new_message', 'conversation_mention'

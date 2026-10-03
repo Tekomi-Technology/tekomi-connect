@@ -23,6 +23,7 @@ import CsatResponses from './CsatResponses.vue';
 import BotReports from './BotReports.vue';
 import LiveReports from './LiveReports.vue';
 import SLAReports from './SLAReports.vue';
+import PhoneCallReports from './PhoneCallReports.vue';
 
 const meta = {
   featureFlag: FEATURE_FLAGS.REPORTS,
@@ -139,6 +140,12 @@ export default {
           name: 'sla_reports',
           meta,
           component: SLAReports,
+        },
+        {
+          path: 'phone-calls',
+          name: 'phone_call_reports',
+          meta,
+          component: PhoneCallReports,
         },
         {
           path: 'csat',

@@ -1,0 +1,227 @@
+{
+  "TICKETS": {
+    "HEADER": "Ticket",
+    "COUNT": "{n} ticket",
+    "EMPTY_PIPELINES": "Chưa có quy trình ticket nào",
+    "EMPTY_STATE": "Không có ticket nào khớp với chế độ xem này",
+    "LOAD_MORE": "Tải thêm",
+    "NO_VALUE": "Chưa có giá trị",
+    "NO_CONTACT": "Chưa có liên hệ",
+    "UNASSIGNED": "Chưa phân công",
+    "DELETE": "Xoá ticket",
+    "DELETE_CONFIRM": {
+      "TITLE": "Xoá ticket này?",
+      "DESCRIPTION": "\"{title}\" và toàn bộ nhật ký sẽ bị xoá. Không khôi phục được.",
+      "CONFIRM": "Xoá"
+    },
+    "MESSAGES": {
+      "DELETE_SUCCESS": "Đã xoá ticket",
+      "DELETE_ERROR": "Không xoá được ticket, vui lòng thử lại"
+    },
+    "FIELDS": {
+      "TITLE": "Tiêu đề",
+      "DESCRIPTION": "Mô tả",
+      "SLA": "SLA",
+      "SLA_STATUS": "Trạng thái SLA",
+      "STAGE": "Khâu",
+      "ASSIGNEE": "Người phụ trách",
+      "CONTACT": "Liên hệ",
+      "CREATED_BY": "Nguồn tạo",
+      "CREATED_AT": "Ngày tạo",
+      "UPDATED_AT": "Ngày cập nhật"
+    },
+    "SLA": {
+      "DUE_IN": "Còn {duration}",
+      "OVERDUE_BY": "Trễ {duration}",
+      "NONE": "Khâu này không tính SLA",
+      "STAGE_TARGET": "Thời hạn của khâu / ngưỡng cảnh báo"
+    },
+    "CREATED_BY": {
+      "STAFF": "Nhân viên tạo",
+      "AI_CHATBOT": "Chatbot AI tạo",
+      "AI_CALLBOT": "Callbot AI tạo",
+      "WEBHOOK": "Hệ thống ngoài tạo"
+    },
+    "KANBAN": {
+      "ADD": "Thêm ticket"
+    },
+    "VIEW": {
+      "KANBAN": "Xem dạng bảng Kanban",
+      "TABLE": "Xem dạng bảng"
+    },
+    "TOOLBAR": {
+      "NEW_TICKET": "Ticket mới",
+      "FILTER": "Lọc",
+      "SORT": "Sắp xếp",
+      "OPTIONS": "Tuỳ chọn"
+    },
+    "FORM": {
+      "CREATE_TITLE": "Ticket mới",
+      "SAVE": "Tạo",
+      "TITLE_PLACEHOLDER": "Vấn đề là gì?",
+      "DESCRIPTION_PLACEHOLDER": "Mô tả chi tiết vấn đề",
+      "STAGE_PLACEHOLDER": "Khâu",
+      "ASSIGNEE_PLACEHOLDER": "Người phụ trách",
+      "CONTACT_PLACEHOLDER": "Liên hệ",
+      "CONTACT_SEARCH_PLACEHOLDER": "Tìm liên hệ",
+      "CUSTOM_ATTRIBUTES": "Trường tuỳ chỉnh",
+      "MESSAGES": {
+        "SUCCESS": "Đã tạo ticket",
+        "ERROR": "Không tạo được ticket, vui lòng thử lại"
+      }
+    },
+    "ACTIVITY": {
+      "TITLE": "Nhật ký",
+      "SYSTEM": "Hệ thống",
+      "NOTE_PLACEHOLDER": "Viết ghi chú cho ticket này",
+      "ADD_NOTE": "Thêm ghi chú",
+      "ACTIONS": {
+        "CREATED": "đã tạo ticket này",
+        "STAGE_CHANGED": "đã chuyển sang khâu khác",
+        "ASSIGNEE_CHANGED": "đã đổi người phụ trách"
+      }
+    },
+    "FILTER": {
+      "TITLE": "Lọc ticket",
+      "ADD_FILTER": "Thêm điều kiện",
+      "CLEAR_FILTERS": "Xoá hết",
+      "APPLY_FILTERS": "Áp dụng"
+    },
+    "SORT": {
+      "MANUAL": "Thứ tự thủ công",
+      "ASC": "Tăng dần",
+      "DESC": "Giảm dần",
+      "FIELD": "Sắp xếp theo",
+      "DIRECTION": "Chiều"
+    },
+    "SLA_STATUS": {
+      "ON_TRACK": "Đúng hạn",
+      "AT_RISK": "Sắp đến hạn",
+      "BREACHED": "Đang trễ",
+      "NO_SLA": "Không tính SLA"
+    },
+    "VIEW_TYPES": {
+      "KANBAN": "Kanban",
+      "TABLE": "Bảng"
+    },
+    "VIEWS": {
+      "DIALOG": {
+        "CREATE_TITLE": "Chế độ xem mới",
+        "RENAME_TITLE": "Đổi tên chế độ xem",
+        "SAVE": "Lưu",
+        "NAME_PLACEHOLDER": "Đặt tên cho chế độ xem này",
+        "TYPE_LABEL": "Mở ra ở dạng nào?"
+      },
+      "CREATE": "Chế độ xem mới",
+      "RENAME": "Đổi tên",
+      "DUPLICATE": "Nhân bản",
+      "DELETE": "Xoá",
+      "DUPLICATE_SUFFIX": "{name} (bản sao)",
+      "DELETE_CONFIRM": {
+        "TITLE": "Xoá chế độ xem này?",
+        "DESCRIPTION": "\"{name}\" sẽ bị xoá với tất cả mọi người trong tài khoản.",
+        "CONFIRM": "Xoá"
+      },
+      "MESSAGES": {
+        "SAVE_ERROR": "Không lưu được chế độ xem, vui lòng thử lại",
+        "DELETE_SUCCESS": "Đã xoá chế độ xem",
+        "DELETE_ERROR": "Không xoá được chế độ xem, vui lòng thử lại"
+      }
+    },
+    "OPTIONS": {
+      "HIDE_EMPTY_COLUMNS": "Ẩn cột trống",
+      "VISIBLE_FIELDS": "Trường hiện trên thẻ"
+    },
+    "CONVERSATION": {
+      "TITLE": "Ticket",
+      "EMPTY": "Khách này chưa có ticket nào",
+      "CREATE": "Ticket mới",
+      "LINKED": "Thuộc hội thoại này",
+      "CONTACT": "Ticket khác của khách này",
+      "LOAD_ERROR": "Không tải được danh sách ticket",
+      "LINK_ERROR": "Không gắn được ticket",
+      "UNLINK_ERROR": "Không gỡ được ticket"
+    },
+    "CONTACT": {
+      "EMPTY": "Khách này chưa có ticket nào"
+    }
+  },
+  "TICKET_SLA": {
+    "HEADER": "SLA Ticket",
+    "DESCRIPTION": "Đặt thời gian tối đa ticket được nằm ở mỗi khâu trước khi bị coi là trễ, và khâu nào tự chuyển ticket đi tiếp.",
+    "LOADING": "Đang tải quy trình ticket",
+    "EMPTY": "Chưa có quy trình ticket nào",
+    "STAGE": {
+      "TRACK": "Tính SLA",
+      "THRESHOLD": "Thời hạn",
+      "WARNING_PERCENT": "Cảnh báo khi đã dùng (%)",
+      "WARNING_PERCENT_ERROR": "Nhập số từ 1 đến 99",
+      "AUTO_ADVANCE": "Tự chuyển sang khâu kế tiếp ngay khi ticket đã có mô tả",
+      "SAVE": "Lưu",
+      "CANCEL": "Huỷ"
+    },
+    "MESSAGES": {
+      "SAVE_SUCCESS": "Đã cập nhật khâu",
+      "SAVE_ERROR": "Không lưu được, vui lòng thử lại"
+    }
+  },
+  "WEBHOOK": {
+    "HEADER": "Webhook",
+    "DESCRIPTION": "Cấp cho hệ thống ngoài một đường dẫn riêng để gửi yêu cầu tạo ticket, mà không phải đưa token API của nhân viên.",
+    "LOADING": "Đang tải webhook",
+    "EMPTY": "Chưa có webhook nào",
+    "ADD": "Webhook mới",
+    "COPY_URL": "Sao chép đường dẫn",
+    "DELETE": "Xoá",
+    "FORM": {
+      "TITLE": "Webhook mới",
+      "SAVE": "Tạo",
+      "NAME": "Tên",
+      "NAME_PLACEHOLDER": "Hệ thống nào sẽ dùng đường dẫn này?",
+      "PIPELINE": "Ticket sẽ vào quy trình"
+    },
+    "TOKEN": {
+      "TITLE": "Đã tạo webhook",
+      "DESCRIPTION": "Gửi yêu cầu POST tới đường dẫn này kèm nội dung JSON có title và description. Sao chép ngay, sau này vẫn lấy lại được ở danh sách.",
+      "DONE": "Xong"
+    },
+    "DELETE_CONFIRM": {
+      "TITLE": "Xoá webhook này?",
+      "DESCRIPTION": "\"{name}\" sẽ ngừng nhận ticket ngay lập tức. Không khôi phục được.",
+      "CONFIRM": "Xoá"
+    },
+    "MESSAGES": {
+      "COPIED": "Đã sao chép đường dẫn",
+      "DELETE_SUCCESS": "Đã xoá webhook"
+    }
+  },
+  "TICKET_REPORTS": {
+    "HEADER": "Báo cáo Ticket",
+    "DESCRIPTION": "Ticket đi qua các khâu ra sao và đang trễ ở đâu.",
+    "FROM": "Từ ngày",
+    "TO": "Đến ngày",
+    "PIPELINE": "Quy trình",
+    "ALL_PIPELINES": "Tất cả quy trình",
+    "EMPTY": "Không có dữ liệu trong khoảng này",
+    "STAGE_PERFORMANCE": {
+      "TITLE": "Tỷ lệ đúng hạn theo khâu",
+      "HINT": "Tính mọi lượt ticket đi qua khâu, bắt đầu trong khoảng ngày đã chọn.",
+      "TOTAL": "Lượt đi qua",
+      "MISSED": "Trễ",
+      "ON_TIME_RATE": "Đúng hạn",
+      "AVG_TIME": "Thời gian trung bình"
+    },
+    "WORKLOAD": {
+      "TITLE": "Ticket đang mở hiện tại",
+      "HINT": "Số liệu tại thời điểm này, không theo khoảng ngày đã chọn.",
+      "OPEN": "Đang mở"
+    },
+    "SOURCES": {
+      "TITLE": "Ticket đến từ đâu",
+      "HINT": "Tỷ lệ ticket do người tạo so với tạo tự động, trong khoảng ngày đã chọn.",
+      "SOURCE": "Nguồn",
+      "COUNT": "Số ticket",
+      "SHARE": "Tỷ lệ"
+    }
+  }
+}

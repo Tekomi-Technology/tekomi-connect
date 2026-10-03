@@ -51,3 +51,19 @@ export const ASSIGNEE_TYPE_TAB_PERMISSIONS = {
     ],
   },
 };
+
+export const DISPLAY_MODE_PERMISSIONS = {
+  default: {
+    permissions: [...ROLES, ...CONVERSATION_PERMISSIONS],
+  },
+  company: {
+    permissions: [
+      ...ROLES,
+      MANAGE_ALL_CONVERSATION_PERMISSIONS,
+      CONVERSATION_PARTICIPATING_PERMISSIONS,
+    ],
+  },
+  vip: {
+    permissions: [...ROLES, ...CONVERSATION_PERMISSIONS],
+  },
+};

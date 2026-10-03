@@ -3,6 +3,8 @@ import { ref, computed, onMounted, watch } from 'vue';
 import { useAlert } from 'dashboard/composables';
 import { useStore } from 'dashboard/composables/store';
 import Copilot from 'dashboard/components-next/copilot/Copilot.vue';
+import SidePanelShell from 'dashboard/components-next/Conversation/SidePanelShell.vue';
+import SidePanelTransition from 'dashboard/components-next/Conversation/SidePanelTransition.vue';
 import { useMapGetter } from 'dashboard/composables/store';
 import { useUISettings } from 'dashboard/composables/useUISettings';
 import { useConfig } from 'dashboard/composables/useConfig';
@@ -25,8 +27,8 @@ const { isEnterprise } = useConfig();
 const { width: windowWidth } = useWindowSize();
 
 const currentUser = useMapGetter('getCurrentUser');
-const assistants = useMapGetter('captainAssistants/getRecords');
-const uiFlags = useMapGetter('captainAssistants/getUIFlags');
+const assistants = useMapGetter('tekomiAssistants/getRecords');
+const uiFlags = useMapGetter('tekomiAssistants/getUIFlags');
 const inboxAssistant = useMapGetter('getCopilotAssistant');
 const currentChat = useMapGetter('getSelectedChat');
 const lastPublicMessage = useMapGetter('getLastEmailInSelectedChat');
@@ -54,7 +56,7 @@ const isFeatureEnabledonAccount = useMapGetter(
 const selectedAssistantId = ref(null);
 
 const activeAssistant = computed(() => {
-  const preferredId = uiSettings.value.preferred_captain_assistant_id;
+  const preferredId = uiSettings.value.preferred_tekomi_assistant_id;
 
   // If the user has selected a specific assistant, it takes first preference for Copilot.
   if (preferredId) {
@@ -86,7 +88,7 @@ const closeCopilotPanel = () => {
 const setAssistant = async assistant => {
   selectedAssistantId.value = assistant.id;
   await updateUISettings({
-    preferred_captain_assistant_id: assistant.id,
+    preferred_tekomi_assistant_id: assistant.id,
   });
 };
 
@@ -94,12 +96,12 @@ const shouldShowCopilotPanel = computed(() => {
   if (!isEnterprise) {
     return false;
   }
-  const isCaptainEnabled = isFeatureEnabledonAccount.value(
+  const isTekomiEnabled = isFeatureEnabledonAccount.value(
     currentAccountId.value,
-    FEATURE_FLAGS.CAPTAIN
+    FEATURE_FLAGS.TEKOMI
   );
   const { is_copilot_panel_open: isCopilotPanelOpen } = uiSettings.value;
-  return isCaptainEnabled && isCopilotPanelOpen && !uiFlags.value.fetchingList;
+  return isTekomiEnabled && isCopilotPanelOpen && !uiFlags.value.fetchingList;
 });
 
 const handleReset = () => {
@@ -140,34 +142,29 @@ const sendMessage = async payload => {
 
 onMounted(() => {
   if (isEnterprise) {
-    store.dispatch('captainAssistants/get');
+    store.dispatch('tekomiAssistants/get');
   }
 });
 </script>
 
 <template>
-  <div
-    v-if="shouldShowCopilotPanel"
-    v-on-click-outside="() => closeCopilotPanel()"
-    class="bg-n-surface-2 h-full overflow-hidden flex-col fixed top-0 ltr:right-0 rtl:left-0 z-40 w-full max-w-sm transition-transform duration-300 ease-in-out md:static md:w-[320px] md:min-w-[320px] ltr:border-l rtl:border-r border-n-weak 2xl:min-w-[360px] 2xl:w-[360px] shadow-lg md:shadow-none"
-    :class="[
-      {
-        'md:flex': shouldShowCopilotPanel,
-        'md:hidden': !shouldShowCopilotPanel,
-      },
-    ]"
-  >
-    <Copilot
-      :messages="messages"
-      :support-agent="currentUser"
-      :conversation-inbox-type="conversationInboxType"
-      :assistants="assistants"
-      :active-assistant="activeAssistant"
-      :can-suggest-reply="canSuggestReply"
-      @set-assistant="setAssistant"
-      @send-message="sendMessage"
-      @reset="handleReset"
-    />
-  </div>
-  <template v-else />
+  <SidePanelTransition>
+    <SidePanelShell
+      v-if="shouldShowCopilotPanel"
+      v-on-click-outside="() => closeCopilotPanel()"
+      class="flex"
+    >
+      <Copilot
+        :messages="messages"
+        :support-agent="currentUser"
+        :conversation-inbox-type="conversationInboxType"
+        :assistants="assistants"
+        :active-assistant="activeAssistant"
+        :can-suggest-reply="canSuggestReply"
+        @set-assistant="setAssistant"
+        @send-message="sendMessage"
+        @reset="handleReset"
+      />
+    </SidePanelShell>
+  </SidePanelTransition>
 </template>

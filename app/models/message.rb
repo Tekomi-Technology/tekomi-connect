@@ -35,6 +35,7 @@
 #  index_messages_on_created_at                         (created_at)
 #  index_messages_on_inbox_id                           (inbox_id)
 #  index_messages_on_sender_and_created                 (sender_type,sender_id,created_at)
+#  index_messages_on_sender_type_and_sender_id          (sender_type,sender_id)
 #  index_messages_on_source_id                          (source_id)
 #
 
@@ -99,7 +100,8 @@ class Message < ApplicationRecord
     input_csat: 9,
     integrations: 10,
     sticker: 11,
-    voice_call: 12
+    voice_call: 12,
+    phone_call: 13
   }
   enum status: { sent: 0, delivered: 1, read: 2, failed: 3 }
   # [:submitted_email, :items, :submitted_values] : Used for bot message types
@@ -120,6 +122,7 @@ class Message < ApplicationRecord
   scope :non_activity_messages, -> { where.not(message_type: :activity).reorder('created_at desc') }
   scope :today, -> { where("date_trunc('day', created_at) = ?", Date.current) }
   scope :voice_calls, -> { where(content_type: :voice_call) }
+  scope :phone_calls, -> { where(content_type: :phone_call) }
 
   # TODO: Get rid of default scope
   # https://stackoverflow.com/a/1834250/939299
@@ -226,7 +229,7 @@ class Message < ApplicationRecord
     return false unless human_response? && !private?
     return false if conversation.first_reply_created_at.present?
     return false if conversation.messages.outgoing
-                                .where.not(sender_type: ['AgentBot', 'Captain::Assistant'])
+                                .where.not(sender_type: ['AgentBot', 'Tekomi::Assistant'])
                                 .where.not(private: true)
                                 .where("(additional_attributes->'campaign_id') is null").count > 1
 
@@ -372,8 +375,8 @@ class Message < ApplicationRecord
   end
 
   def bot_response?
-    # Check if this is a response from AgentBot or Captain::Assistant
-    outgoing? && sender_type.in?(['AgentBot', 'Captain::Assistant'])
+    # Check if this is a response from AgentBot or Tekomi::Assistant
+    outgoing? && sender_type.in?(['AgentBot', 'Tekomi::Assistant'])
   end
 
   def dispatch_create_events
@@ -411,14 +414,14 @@ class Message < ApplicationRecord
   end
 
   def mark_pending_conversation_as_open_for_human_response
-    return unless captain_pending_conversation?
+    return unless tekomi_pending_conversation?
     return unless human_response?
     return if private?
 
     conversation.open!
   end
 
-  def captain_pending_conversation?
+  def tekomi_pending_conversation?
     false
   end
 

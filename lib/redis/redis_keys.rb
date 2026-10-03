@@ -69,9 +69,7 @@ module Redis::RedisKeys
   REAUTHORIZATION_REQUIRED =  'REAUTHORIZATION_REQUIRED:%<obj_type>s:%<obj_id>d'.freeze
 
   ## Internal Installation related keys
-  CHATWOOT_INSTALLATION_ONBOARDING = 'CHATWOOT_INSTALLATION_ONBOARDING'.freeze
-  CHATWOOT_INSTALLATION_CONFIG_RESET_WARNING = 'CHATWOOT_CONFIG_RESET_WARNING'.freeze
-  LATEST_CHATWOOT_VERSION = 'LATEST_CHATWOOT_VERSION'.freeze
+  TEKOMI_INSTALLATION_ONBOARDING = 'TEKOMI_INSTALLATION_ONBOARDING'.freeze
   # Check if a message create with same source-id is in progress?
   MESSAGE_SOURCE_KEY = 'MESSAGE_SOURCE_KEY::%<id>s'.freeze
   OPENAI_CONVERSATION_KEY = 'OPEN_AI_CONVERSATION_KEY::V1::%<event_name>s::%<conversation_id>d::%<updated_at>d'.freeze
@@ -90,9 +88,16 @@ module Redis::RedisKeys
   WHATSAPP_MESSAGE_MUTEX = 'WHATSAPP_MESSAGE_CREATE_LOCK::%<inbox_id>s::%<sender_id>s'.freeze
   ZALO_OA_MESSAGE_MUTEX = 'ZALO_OA_MESSAGE_CREATE_LOCK::%<inbox_id>s::%<user_id>s'.freeze
   ZALO_OA_SENT_MESSAGE = 'ZALO_OA_SENT_MESSAGE::%<inbox_id>s::%<zalo_message_id>s'.freeze
+  # Personal Zalo threads are serialized per (inbox, thread) so the first event creates the
+  # conversation and the rest append; a thread is a user id or a group id.
+  ZALO_PERSONAL_MESSAGE_MUTEX = 'ZALO_PERSONAL_MESSAGE_CREATE_LOCK::%<inbox_id>s::%<thread_id>s'.freeze
+  ZALO_PERSONAL_SENT_MESSAGE = 'ZALO_PERSONAL_SENT_MESSAGE::%<inbox_id>s::%<zalo_message_id>s'.freeze
+  # Holds a QR login in progress: what the dashboard polls, and what the worker's completion
+  # callback resolves against. Short-lived because a Zalo QR code expires within minutes.
+  ZALO_PERSONAL_QR_SESSION = 'ZALO_PERSONAL_QR_SESSION::%<qr_session_id>s'.freeze
   CRM_PROCESS_MUTEX = 'CRM_PROCESS_MUTEX::%<hook_id>s'.freeze
-  CAPTAIN_DOCUMENT_SYNC_MUTEX = 'CAPTAIN_DOCUMENT_SYNC_LOCK::%<document_id>s'.freeze
-  CAPTAIN_CONVERSATION_FAQ_MUTEX = 'CAPTAIN_CONVERSATION_FAQ_LOCK::%<assistant_id>s::%<language>s'.freeze
+  TEKOMI_DOCUMENT_SYNC_MUTEX = 'TEKOMI_DOCUMENT_SYNC_LOCK::%<document_id>s'.freeze
+  TEKOMI_CONVERSATION_FAQ_MUTEX = 'TEKOMI_CONVERSATION_FAQ_LOCK::%<assistant_id>s::%<language>s'.freeze
 
   ## Auto Assignment Keys
   # Track conversation assignments to agents for rate limiting

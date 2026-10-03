@@ -12,7 +12,6 @@ import Button from 'dashboard/components-next/button/Button.vue';
 import Icon from 'dashboard/components-next/icon/Icon.vue';
 import { useAccount } from 'dashboard/composables/useAccount';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
-import { META_RESTRICTION_STATUS_URL } from 'dashboard/constants/globals';
 
 const route = useRoute();
 const router = useRouter();
@@ -156,7 +155,6 @@ const requestEmbeddedSignupAccess = () => {
           <WhatsappEmbeddedSignup
             :is-disabled="isWhatsappEmbeddedSignupDisabled"
             :show-restriction-alert="isWhatsappEmbeddedSignupDisabled"
-            :restriction-status-url="META_RESTRICTION_STATUS_URL"
           />
 
           <!-- Manual setup fallback option -->
@@ -247,14 +245,6 @@ const requestEmbeddedSignupAccess = () => {
                 {{
                   $t('INBOX_MGMT.ADD.WHATSAPP.API.MANUAL_RESTRICTION_WARNING')
                 }}
-                <a
-                  :href="META_RESTRICTION_STATUS_URL"
-                  class="link underline"
-                  rel="noopener noreferrer nofollow"
-                  target="_blank"
-                >
-                  {{ $t('INBOX_MGMT.ADD.WHATSAPP.API.STATUS_LINK') }}
-                </a>
               </span>
             </div>
           </Banner>

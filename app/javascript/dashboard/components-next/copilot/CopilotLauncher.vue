@@ -31,12 +31,12 @@ const isFeatureEnabledonAccount = useMapGetter(
 );
 
 const showCopilotLauncher = computed(() => {
-  const isCaptainEnabled = isFeatureEnabledonAccount.value(
+  const isTekomiEnabled = isFeatureEnabledonAccount.value(
     currentAccountId.value,
-    FEATURE_FLAGS.CAPTAIN
+    FEATURE_FLAGS.TEKOMI
   );
   return (
-    isCaptainEnabled &&
+    isTekomiEnabled &&
     !uiSettings.value.is_copilot_panel_open &&
     !isConversationRoute.value
   );
@@ -45,6 +45,7 @@ const toggleSidebar = () => {
   updateUISettings({
     is_copilot_panel_open: !uiSettings.value.is_copilot_panel_open,
     is_contact_sidebar_open: false,
+    is_conversation_analysis_panel_open: false,
   });
 };
 </script>
@@ -58,7 +59,7 @@ const toggleSidebar = () => {
       class="rounded-full bg-n-alpha-2 backdrop-blur-lg p-1 shadow hover:shadow-md"
     >
       <Button
-        icon="i-woot-captain"
+        icon="i-woot-tekomi"
         no-animation
         class="!rounded-full !bg-n-solid-3 dark:!bg-n-alpha-2 !text-n-slate-12 text-xl transition-all duration-200 ease-out hover:brightness-110"
         lg

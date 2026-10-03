@@ -21,7 +21,7 @@ export const SENDER_TYPES = {
   CONTACT: 'Contact',
   USER: 'User',
   AGENT_BOT: 'agent_bot',
-  CAPTAIN_ASSISTANT: 'captain_assistant',
+  TEKOMI_ASSISTANT: 'tekomi_assistant',
 };
 
 export const ORIENTATION = {
@@ -69,6 +69,7 @@ export const CONTENT_TYPES = {
   INTEGRATIONS: 'integrations',
   STICKER: 'sticker',
   VOICE_CALL: 'voice_call',
+  PHONE_CALL: 'phone_call',
 };
 
 export const MEDIA_TYPES = [

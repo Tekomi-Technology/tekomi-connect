@@ -7,10 +7,12 @@ import BackButton from '../BackButton.vue';
 import InboxName from '../InboxName.vue';
 import MoreActions from './MoreActions.vue';
 import Avatar from 'next/avatar/Avatar.vue';
+import VipBadge from 'dashboard/components-next/Contacts/VipBadge.vue';
 import SLACardLabel from './components/SLACardLabel.vue';
 import ConversationCallButton from './ConversationCallButton.vue';
 import wootConstants from 'dashboard/constants/globals';
 import { conversationListPageURL } from 'dashboard/helper/URLHelper';
+import { getSenderDisplayName } from 'dashboard/helper/crmDisplayHelper';
 import { snoozedReopenTime } from 'dashboard/helper/snoozeHelpers';
 import { useInbox } from 'dashboard/composables/useInbox';
 import { useAlert } from 'dashboard/composables';
@@ -71,6 +73,9 @@ const isHMACVerified = computed(() => {
 const currentContact = computed(() =>
   store.getters['contacts/getContact'](props.chat.meta.sender.id)
 );
+const currentContactDisplayName = computed(() =>
+  getSenderDisplayName(currentContact.value)
+);
 
 const isSnoozed = computed(
   () => currentChat.value.status === wootConstants.STATUS_TYPE.SNOOZED
@@ -110,7 +115,7 @@ const copyConversationId = async () => {
 <template>
   <div
     ref="conversationHeader"
-    class="flex flex-col gap-3 items-center justify-between flex-1 w-full min-w-0 xl:flex-row px-3 pt-3 pb-2 h-24 xl:h-12"
+    class="flex flex-col gap-3 items-center justify-between flex-1 w-full min-w-0 xl:flex-row px-4 pt-3 pb-2.5 h-24 xl:h-[68px] bg-white border-b border-n-weak dark:bg-n-solid-2"
   >
     <div
       class="flex items-center justify-start w-full xl:w-auto max-w-full min-w-0 xl:flex-1"
@@ -123,17 +128,18 @@ const copyConversationId = async () => {
       <Avatar
         :name="currentContact.name"
         :src="currentContact.thumbnail"
-        :size="32"
+        :size="40"
         :status="currentContact.availability_status"
         hide-offline-status
       />
-      <div class="flex flex-col items-start min-w-0 ms-2 overflow-hidden">
+      <div class="flex flex-col items-start min-w-0 ms-2.5 overflow-hidden">
         <div class="flex flex-row items-center max-w-full gap-1 p-0 m-0">
           <span
-            class="text-sm font-medium truncate leading-tight text-n-slate-12"
+            class="text-[15px] font-semibold tracking-tight truncate leading-tight text-n-slate-12"
           >
-            {{ currentContact.name }}
+            {{ currentContactDisplayName }}
           </span>
+          <VipBadge v-if="currentContact.vip" />
           <fluent-icon
             v-if="!isHMACVerified"
             v-tooltip="$t('CONVERSATION.UNVERIFIED_SESSION')"

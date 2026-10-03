@@ -1,4 +1,4 @@
-# Chatwoot Development Guidelines
+# Tekomi Development Guidelines
 
 ## Build / Test / Lint
 
@@ -83,6 +83,10 @@
 - Optionally add a `What changed` section for implementation highlights.
 - Do not add a `How this was tested` section listing specs/commands.
 
+## Feature Map
+
+- Before searching the repo for where a feature lives, read `docs/feature-map/README.md` and open the one file for that area.
+
 ## Project-Specific
 
 - **Translations**:
@@ -100,7 +104,7 @@
 
 ## Enterprise Edition Notes
 
-- Chatwoot has an Enterprise overlay under `enterprise/` that extends/overrides OSS code.
+- Tekomi has an Enterprise overlay under `enterprise/` that extends/overrides OSS code.
 - When you add or modify core functionality, always check for corresponding files in `enterprise/` and keep behavior compatible.
 - Follow the Enterprise development practices documented here:
   - https://chatwoot.help/hc/handbook/articles/developing-enterprise-edition-features-38

@@ -127,6 +127,14 @@ end
 
 json.provider resource.channel.try(:provider)
 
+if resource.phone? && Current.account_user&.administrator?
+  json.wss_url resource.channel.wss_url
+  json.sip_domain resource.channel.sip_domain
+  json.ice_servers resource.channel.ice_servers
+  json.turn_credential_ttl resource.channel.turn_credential_ttl
+  json.turn_configured resource.channel.turn_configured?
+end
+
 ## Telegram Attributes
 json.bot_name resource.channel.try(:bot_name) if resource.telegram?
 
@@ -163,4 +171,12 @@ end
 if resource.channel_type == 'Channel::Whatsapp' && resource.channel.respond_to?(:voice_enabled?)
   json.voice_enabled resource.channel.voice_enabled?
   json.inbound_calls_enabled resource.channel.inbound_calls_enabled?
+end
+
+## Zalo personal sessions expire without notice, so the inbox surfaces its live state.
+if resource.channel_type == 'Channel::ZaloPersonal'
+  json.zalo_session_status resource.channel.status
+  json.zalo_display_name resource.channel.display_name
+  json.zalo_status_updated_at resource.channel.status_updated_at&.to_i
+  json.zalo_proxy_enabled resource.channel.proxy_enabled
 end

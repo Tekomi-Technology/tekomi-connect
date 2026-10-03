@@ -1,6 +1,11 @@
 <script>
+import { provide } from 'vue';
 import { mapGetters } from 'vuex';
 import { useUISettings } from 'dashboard/composables/useUISettings';
+import {
+  CONTACT_CONVERSATION_NAVIGATION,
+  useContactConversationNavigation,
+} from 'dashboard/composables/useContactConversationNavigation';
 import { useAccount } from 'dashboard/composables/useAccount';
 import ChatList from '../../../components/ChatList.vue';
 import ConversationBox from '../../../components/widgets/conversation/ConversationBox.vue';
@@ -9,7 +14,10 @@ import { BUS_EVENTS } from 'shared/constants/busEvents';
 import CmdBarConversationSnooze from 'dashboard/routes/dashboard/commands/CmdBarConversationSnooze.vue';
 import { emitter } from 'shared/helpers/mitt';
 import SidepanelSwitch from 'dashboard/components-next/Conversation/SidepanelSwitch.vue';
+import SidePanelTransition from 'dashboard/components-next/Conversation/SidePanelTransition.vue';
+import ConversationListToggle from 'dashboard/components-next/Conversation/ConversationListToggle.vue';
 import ConversationSidebar from 'dashboard/components/widgets/conversation/ConversationSidebar.vue';
+import ConversationAnalysisPanel from 'dashboard/components-next/ConversationAnalysis/ConversationAnalysisPanel.vue';
 
 export default {
   components: {
@@ -17,7 +25,10 @@ export default {
     ConversationBox,
     CmdBarConversationSnooze,
     SidepanelSwitch,
+    SidePanelTransition,
+    ConversationListToggle,
     ConversationSidebar,
+    ConversationAnalysisPanel,
   },
   beforeRouteLeave(to, from, next) {
     // Clear selected state if navigating away from a conversation to a route without a conversationId to prevent stale data issues
@@ -54,12 +65,18 @@ export default {
     },
   },
   setup() {
-    const { uiSettings, updateUISettings } = useUISettings();
+    const { uiSettings, updateUISettings, isOnExpandedLayout } =
+      useUISettings();
     const { accountId } = useAccount();
+    provide(
+      CONTACT_CONVERSATION_NAVIGATION,
+      useContactConversationNavigation()
+    );
 
     return {
       uiSettings,
       updateUISettings,
+      isOnExpandedLayout,
       accountId,
     };
   },
@@ -73,21 +90,21 @@ export default {
       chatList: 'getAllConversations',
       currentChat: 'getSelectedChat',
     }),
+    isConversationListCollapsed() {
+      return Boolean(this.uiSettings.is_conversation_list_collapsed);
+    },
+    // The expanded layout only spans the full width while no conversation is
+    // open; opening one shrinks the list back to a column beside it.
+    isListExpanded() {
+      return this.isOnExpandedLayout && !this.conversationId;
+    },
     showConversationList() {
-      return this.isOnExpandedLayout ? !this.conversationId : true;
+      if (this.isListExpanded) return true;
+      return !this.isConversationListCollapsed;
     },
     showMessageView() {
       return this.conversationId ? true : !this.isOnExpandedLayout;
     },
-    isOnExpandedLayout() {
-      const {
-        LAYOUT_TYPES: { CONDENSED },
-      } = wootConstants;
-      const { conversation_display_type: conversationDisplayType = CONDENSED } =
-        this.uiSettings;
-      return conversationDisplayType !== CONDENSED;
-    },
-
     shouldShowSidebar() {
       if (!this.currentChat.id) {
         return false;
@@ -195,7 +212,11 @@ export default {
 </script>
 
 <template>
-  <section class="flex w-full h-full min-w-0">
+  <section class="flex relative w-full h-full min-w-0">
+    <ConversationListToggle
+      v-if="isConversationListCollapsed && !isListExpanded"
+      floating
+    />
     <ChatList
       :show-conversation-list="showConversationList"
       :conversation-inbox="inboxId"
@@ -203,17 +224,26 @@ export default {
       :team-id="teamId"
       :conversation-type="conversationType"
       :folders-id="foldersId"
-      :is-on-expanded-layout="isOnExpandedLayout"
+      :is-on-expanded-layout="isListExpanded"
       @conversation-load="onConversationLoad"
     />
     <ConversationBox
       v-if="showMessageView"
       :inbox-id="inboxId"
-      :is-on-expanded-layout="isOnExpandedLayout"
+      :is-on-expanded-layout="isListExpanded"
     >
       <SidepanelSwitch v-if="currentChat.id" />
     </ConversationBox>
-    <ConversationSidebar v-if="shouldShowSidebar" :current-chat="currentChat" />
+    <SidePanelTransition>
+      <ConversationSidebar
+        v-if="shouldShowSidebar"
+        :current-chat="currentChat"
+      />
+    </SidePanelTransition>
+    <ConversationAnalysisPanel
+      v-if="currentChat.id"
+      :conversation-id="currentChat.id"
+    />
     <CmdBarConversationSnooze />
   </section>
 </template>

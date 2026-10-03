@@ -15,6 +15,13 @@
       "INPUT": "Search for People, Chats, Saved Replies .."
     },
     "FILTER_ALL": "All",
+    "COMPANY_LIST": {
+      "EMPTY": "No companies yet",
+      "NO_CONVERSATIONS": "No conversations for this company",
+      "LOAD_MORE": "Load more",
+      "FETCH_ERROR": "Could not load companies",
+      "NO_COMPANY": "No company"
+    },
     "ASSIGNEE_TYPE_TABS": {
       "me": "Mine",
       "unassigned": "Unassigned",
@@ -145,6 +152,16 @@
     "SHOW_QUOTED_TEXT": "Show Quoted Text",
     "MESSAGE_READ": "Read",
     "SENDING": "Sending",
-    "UNREAD_COUNT_OVERFLOW": "9+"
+    "UNREAD_COUNT_OVERFLOW": "9+",
+    "COLLAPSE_LIST": "Collapse conversation list",
+    "EXPAND_LIST": "Expand conversation list",
+    "DISPLAY_MODE": {
+      "LABEL": "Display mode",
+      "OPTIONS": {
+        "default": "Default",
+        "company": "Group by company",
+        "vip": "Starred customers only"
+      }
+    }
   }
 }

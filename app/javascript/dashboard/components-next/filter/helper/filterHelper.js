@@ -21,6 +21,8 @@ export const CONVERSATION_ATTRIBUTES = {
   REFERER: 'referer',
   CREATED_AT: 'created_at',
   LAST_ACTIVITY_AT: 'last_activity_at',
+  ANALYSIS_INTEREST_LEVEL: 'analysis_interest_level',
+  ANALYSIS_QUALITY_SCORE: 'analysis_quality_score',
 };
 
 export const CONTACT_ATTRIBUTES = {

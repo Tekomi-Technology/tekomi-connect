@@ -9,6 +9,8 @@ import Icon from 'dashboard/components-next/icon/Icon.vue';
 import SettingIntroBanner from 'dashboard/components/widgets/SettingIntroBanner.vue';
 import SettingsToggleSection from 'dashboard/components-next/Settings/SettingsToggleSection.vue';
 import SettingsFieldSection from 'dashboard/components-next/Settings/SettingsFieldSection.vue';
+import ZaloSessionStatus from 'dashboard/components-next/Settings/ZaloSessionStatus.vue';
+import ZaloProxyToggle from 'dashboard/components-next/Settings/ZaloProxyToggle.vue';
 import SettingsAccordion from 'dashboard/components-next/Settings/SettingsAccordion.vue';
 import inboxMixin from 'shared/mixins/inboxMixin';
 import FacebookReauthorize from './facebook/Reauthorize.vue';
@@ -25,6 +27,7 @@ import GreetingsEditor from 'shared/components/GreetingsEditor.vue';
 import ConfigurationPage from './settingsPage/ConfigurationPage.vue';
 import VoiceConfigurationPage from './settingsPage/VoiceConfigurationPage.vue';
 import WhatsappCallingPage from './settingsPage/WhatsappCallingPage.vue';
+import PhoneConfigurationPage from './settingsPage/PhoneConfigurationPage.vue';
 import CustomerSatisfactionPage from './settingsPage/CustomerSatisfactionPage.vue';
 import CollaboratorsPage from './settingsPage/CollaboratorsPage.vue';
 import BotConfiguration from './components/BotConfiguration.vue';
@@ -46,7 +49,6 @@ import SelectInput from 'dashboard/components-next/select/Select.vue';
 import Widget from 'dashboard/modules/widget-preview/components/Widget.vue';
 import AccessToken from 'dashboard/routes/dashboard/settings/profile/AccessToken.vue';
 import { copyTextToClipboard } from 'shared/helpers/clipboard';
-import { META_RESTRICTION_STATUS_URL } from 'dashboard/constants/globals';
 
 export default {
   components: {
@@ -56,6 +58,7 @@ export default {
     ConfigurationPage,
     VoiceConfigurationPage,
     WhatsappCallingPage,
+    PhoneConfigurationPage,
     CustomerSatisfactionPage,
     FacebookReauthorize,
     GreetingsEditor,
@@ -63,6 +66,8 @@ export default {
     SettingIntroBanner,
     SettingsToggleSection,
     SettingsFieldSection,
+    ZaloSessionStatus,
+    ZaloProxyToggle,
     SettingsAccordion,
     WeeklyAvailability,
     SenderNameExamplePreview,
@@ -223,6 +228,16 @@ export default {
         ];
       }
 
+      if (this.inbox.channel_type === INBOX_TYPES.PHONE) {
+        visibleToAllChannelTabs = [
+          ...visibleToAllChannelTabs,
+          {
+            key: 'phone-configuration',
+            name: this.$t('INBOX_MGMT.TABS.SOFTPHONE'),
+          },
+        ];
+      }
+
       if (
         this.isFeatureEnabledonAccount(this.accountId, FEATURE_FLAGS.AGENT_BOTS)
       ) {
@@ -318,16 +333,7 @@ export default {
       return this.inbox.name;
     },
     canLocktoSingleConversation() {
-      return (
-        this.isASmsInbox ||
-        this.isAWhatsAppChannel ||
-        this.isAFacebookInbox ||
-        this.isAPIInbox ||
-        this.isAnInstagramChannel ||
-        this.isALineChannel ||
-        this.isATiktokChannel ||
-        this.isATelegramChannel
-      );
+      return true;
     },
     inboxNameLabel() {
       if (this.isAWebWidgetInbox) {
@@ -355,9 +361,6 @@ export default {
     },
     showInstagramRestrictionSettingsBanner() {
       return this.isMetaMessageSendingDisabled && this.isAnInstagramChannel;
-    },
-    metaRestrictionStatusUrl() {
-      return META_RESTRICTION_STATUS_URL;
     },
     tiktokUnauthorized() {
       return this.isATiktokChannel && this.inbox.reauthorization_required;
@@ -849,14 +852,6 @@ export default {
             />
             <span>
               {{ $t('INBOX_MGMT.ADD.INSTAGRAM.SETTINGS_RESTRICTED_WARNING') }}
-              <a
-                :href="metaRestrictionStatusUrl"
-                class="link underline"
-                rel="noopener noreferrer nofollow"
-                target="_blank"
-              >
-                {{ $t('INBOX_MGMT.ADD.INSTAGRAM.STATUS_LINK') }}
-              </a>
             </span>
           </div>
         </Banner>
@@ -906,6 +901,18 @@ export default {
                 "
                 @blur="v$.selectedInboxName.$touch"
               />
+            </SettingsFieldSection>
+            <SettingsFieldSection
+              v-if="isAZaloPersonalChannel"
+              :label="$t('INBOX_MGMT.ZALO_PERSONAL_SESSION.LABEL')"
+            >
+              <ZaloSessionStatus :inbox="inbox" />
+            </SettingsFieldSection>
+            <SettingsFieldSection
+              v-if="isAZaloPersonalChannel"
+              :label="$t('INBOX_MGMT.ZALO_PERSONAL_PROXY.LABEL')"
+            >
+              <ZaloProxyToggle :inbox="inbox" />
             </SettingsFieldSection>
             <SettingsFieldSection
               v-if="isAPIInbox"
@@ -1414,6 +1421,12 @@ export default {
           class="mx-6 max-w-4xl"
         >
           <WhatsappCallingPage :inbox="inbox" />
+        </div>
+        <div
+          v-if="selectedTabKey === 'phone-configuration'"
+          class="mx-6 max-w-5xl"
+        >
+          <PhoneConfigurationPage :inbox="inbox" />
         </div>
         <div v-if="selectedTabKey === 'csat'">
           <CustomerSatisfactionPage :inbox="inbox" />

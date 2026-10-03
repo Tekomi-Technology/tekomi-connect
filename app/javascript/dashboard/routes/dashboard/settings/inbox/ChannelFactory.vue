@@ -14,6 +14,8 @@ import Instagram from './channels/Instagram.vue';
 import Tiktok from './channels/Tiktok.vue';
 import Voice from './channels/Voice.vue';
 import ZaloOa from './channels/ZaloOa.vue';
+import ZaloPersonal from './channels/ZaloPersonal.vue';
+import Phone from './channels/Phone.vue';
 
 const channelViewList = {
   facebook: Facebook,
@@ -30,6 +32,8 @@ const channelViewList = {
   tiktok: Tiktok,
   voice: Voice,
   zalo_oa: ZaloOa,
+  zalo_personal: ZaloPersonal,
+  phone: Phone,
 };
 
 export default defineComponent({

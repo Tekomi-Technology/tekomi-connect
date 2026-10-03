@@ -8,6 +8,7 @@ import {
 import { dynamicTime } from 'shared/helpers/timeHelper';
 import { useAdmin } from 'dashboard/composables/useAdmin';
 import ContactInfoRow from './ContactInfoRow.vue';
+import ViewAllConversations from './ViewAllConversations.vue';
 import Avatar from 'next/avatar/Avatar.vue';
 import SocialIcons from './SocialIcons.vue';
 import EditContact from './EditContact.vue';
@@ -17,11 +18,13 @@ import ComposeConversation from 'dashboard/components-next/NewConversation/Compo
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import VoiceCallButton from 'dashboard/components-next/Contacts/VoiceCallButton.vue';
 import InlineInput from 'dashboard/components-next/inline-input/InlineInput.vue';
+import VipBadge from 'dashboard/components-next/Contacts/VipBadge.vue';
 
 export default {
   components: {
     NextButton,
     ContactInfoRow,
+    ViewAllConversations,
     EditContact,
     Avatar,
     ComposeConversation,
@@ -30,6 +33,7 @@ export default {
     ContactDeleteModal,
     VoiceCallButton,
     InlineInput,
+    VipBadge,
   },
   props: {
     contact: {
@@ -53,6 +57,7 @@ export default {
       showEditModal: false,
       isEditingName: false,
       editName: '',
+      isUpdatingVip: false,
     };
   },
   computed: {
@@ -139,6 +144,25 @@ export default {
     cancelNameEdit() {
       this.isEditingName = false;
     },
+    async toggleVip() {
+      const vip = !this.contact.vip;
+      this.isUpdatingVip = true;
+      try {
+        await this.$store.dispatch('contacts/update', {
+          id: this.contact.id,
+          vip,
+        });
+        useAlert(
+          this.$t(
+            vip ? 'CONTACT_PANEL.VIP.MARKED' : 'CONTACT_PANEL.VIP.UNMARKED'
+          )
+        );
+      } catch (error) {
+        useAlert(this.$t('CONTACT_PANEL.VIP.ERROR'));
+      } finally {
+        this.isUpdatingVip = false;
+      }
+    },
     onFieldUpdate(field, value) {
       this.updateContactField({ [field]: value });
     },
@@ -178,22 +202,28 @@ export default {
 </script>
 
 <template>
-  <div class="relative items-center w-full p-4">
+  <div class="relative items-center w-full p-5">
     <div class="flex flex-col w-full gap-2 text-left rtl:text-right">
-      <div class="flex flex-row justify-between">
+      <div class="flex flex-col items-center text-center">
         <Avatar
           v-if="showAvatar"
           :src="contact.thumbnail"
           :name="contact.name"
           :status="contact.availability_status"
-          :size="48"
+          :size="64"
           hide-offline-status
+          class="ring-2 ring-n-brand/20"
         />
       </div>
 
-      <div class="flex flex-col items-start gap-1.5 min-w-0 w-full">
-        <div v-if="showAvatar" class="flex items-center w-full min-w-0 gap-2">
-          <div class="group/name flex items-center min-w-0 gap-2">
+      <div class="flex flex-col items-center gap-1 min-w-0 w-full text-center">
+        <div
+          v-if="showAvatar"
+          class="flex items-center justify-center w-full min-w-0 gap-2"
+        >
+          <div
+            class="group/name flex items-center justify-center min-w-0 gap-2"
+          >
             <InlineInput
               v-if="isEditingName"
               ref="nameInput"
@@ -206,12 +236,13 @@ export default {
             />
             <h3
               v-else
-              class="flex-shrink max-w-full min-w-0 my-0 text-base capitalize break-words text-n-slate-12 cursor-pointer hover:text-n-slate-12/80"
+              class="flex-shrink max-w-full min-w-0 my-0 text-lg font-semibold tracking-tight break-words text-n-slate-12 cursor-pointer hover:text-n-slate-12/80"
               :title="$t('CONTACT_PANEL.CLICK_TO_EDIT')"
               @click="startEditingName"
             >
               {{ contact.name }}
             </h3>
+            <VipBadge v-if="contact.vip && !isEditingName" />
             <NextButton
               ghost
               xs
@@ -247,6 +278,15 @@ export default {
             </a>
           </div>
         </div>
+        <p
+          v-if="additionalAttributes.company_name || location"
+          class="flex items-center justify-center gap-2 text-[13px] text-n-slate-11"
+        >
+          <span v-if="additionalAttributes.company_name">{{
+            additionalAttributes.company_name
+          }}</span>
+          <span v-if="location" v-dompurify-html="location" />
+        </p>
 
         <p v-if="additionalAttributes.description" class="break-words mb-0.5">
           {{ additionalAttributes.description }}
@@ -317,15 +357,32 @@ export default {
             />
           </template>
         </ComposeConversation>
+        <ViewAllConversations />
         <VoiceCallButton
           :phone="contact.phone_number"
           :contact-id="contact.id"
           :conversation-id="currentChat?.id"
-          icon="i-lucide-phone"
+          icon="i-ph-phone"
           sm
           faded
           slate
           :tooltip-label="$t('CONTACT_PANEL.CALL')"
+        />
+        <NextButton
+          v-tooltip.top-end="
+            $t(
+              contact.vip
+                ? 'CONTACT_PANEL.VIP.UNMARK'
+                : 'CONTACT_PANEL.VIP.MARK'
+            )
+          "
+          :icon="contact.vip ? 'i-ph-star-fill' : 'i-ph-star'"
+          :color="contact.vip ? 'amber' : 'slate'"
+          faded
+          sm
+          :is-loading="isUpdatingVip"
+          :disabled="isUpdatingVip"
+          @click="toggleVip"
         />
         <NextButton
           v-tooltip.top-end="$t('EDIT_CONTACT.BUTTON_LABEL')"

@@ -9,6 +9,7 @@ describe Enterprise::Billing::HandleStripeEventService do
   let!(:account) { create(:account, custom_attributes: { stripe_customer_id: 'cus_123' }) }
 
   before do
+    allow(ChatwootApp).to receive(:chatwoot_cloud?).and_return(true)
     # Create cloud plans configuration
     create(:installation_config, {
              name: 'CHATWOOT_CLOUD_PLANS',
@@ -21,7 +22,7 @@ describe Enterprise::Billing::HandleStripeEventService do
            })
 
     create(:installation_config, {
-             name: 'CAPTAIN_CLOUD_PLAN_LIMITS',
+             name: 'TEKOMI_CLOUD_PLAN_LIMITS',
              value: {
                'hacker' => { 'responses' => 0 },
                'startups' => { 'responses' => 300 },
@@ -64,10 +65,10 @@ describe Enterprise::Billing::HandleStripeEventService do
       expect(account).not_to be_feature_enabled('audit_logs')
     end
 
-    it 'resets captain usage on billing period renewal' do
+    it 'resets tekomi usage on billing period renewal' do
       # Prime the account with some usage
       5.times { account.increment_response_usage }
-      expect(account.custom_attributes['captain_responses_usage']).to eq(5)
+      expect(account.custom_attributes['tekomi_responses_usage']).to eq(5)
 
       # Setup for any plan
       allow(subscription).to receive(:[]).with('plan')
@@ -80,7 +81,7 @@ describe Enterprise::Billing::HandleStripeEventService do
       stripe_event_service.new.perform(event: event)
 
       # Verify usage was reset
-      expect(account.reload.custom_attributes['captain_responses_usage']).to eq(0)
+      expect(account.reload.custom_attributes['tekomi_responses_usage']).to eq(0)
     end
   end
 
@@ -98,40 +99,9 @@ describe Enterprise::Billing::HandleStripeEventService do
       expect(account.reload.custom_attributes['subscribed_quantity']).to eq(6)
     end
 
-    it 'tracks marketing attribution for plan activation' do
-      account.update!(
-        custom_attributes: account.custom_attributes.merge('plan_name' => 'Startups')
-      )
-      allow(subscription).to receive(:[]).with('plan')
-                                         .and_return({
-                                                       'id' => 'price_startups',
-                                                       'product' => 'plan_id_startups',
-                                                       'name' => 'Startups',
-                                                       'amount' => 19_900,
-                                                       'currency' => 'usd'
-                                                     })
-      allow(subscription).to receive(:[]).with('quantity').and_return(2)
-      allow(data).to receive(:previous_attributes).and_return({ 'plan' => { 'product' => 'plan_id_hacker' } })
-      conversion_service = instance_double(Internal::Accounts::CloudPlanActivationConversionService)
-      allow(Internal::Accounts::CloudPlanActivationConversionService).to receive(:new).and_return(conversion_service)
-      allow(conversion_service).to receive(:perform)
-
-      stripe_event_service.new.perform(event: event)
-
-      expect(Internal::Accounts::CloudPlanActivationConversionService).to have_received(:new).with(
-        account: account,
-        previous_plan_name: 'Hacker',
-        current_plan_name: 'Startups',
-        activated_at: Time.zone.at(account.created_at.to_i + 1.day.to_i),
-        conversion_value: 398.0,
-        currency_code: 'USD'
-      )
-      expect(conversion_service).to have_received(:perform)
-    end
-
     it 'persists quantity even when increment_response_usage runs concurrently' do
       allow(subscription).to receive(:[]).with('quantity').and_return(6)
-      account.update!(custom_attributes: account.custom_attributes.merge('captain_responses_usage' => 100))
+      account.update!(custom_attributes: account.custom_attributes.merge('tekomi_responses_usage' => 100))
 
       # Simulate: webhook updates quantity, then a concurrent increment_response_usage writes usage
       stripe_event_service.new.perform(event: event)
@@ -142,7 +112,7 @@ describe Enterprise::Billing::HandleStripeEventService do
 
       # Quantity must survive the concurrent usage update
       expect(account.reload.custom_attributes['subscribed_quantity']).to eq(6)
-      expect(account.reload.custom_attributes['captain_responses_usage']).to eq(101)
+      expect(account.reload.custom_attributes['tekomi_responses_usage']).to eq(101)
     end
   end
 
@@ -175,7 +145,7 @@ describe Enterprise::Billing::HandleStripeEventService do
         described_class::STARTUP_PLAN_FEATURES.each do |feature|
           account.enable_features(feature)
         end
-        account.enable_features('captain_integration_v2')
+        account.enable_features('tekomi_integration_v2')
         account.enable_features(*described_class::BUSINESS_PLAN_FEATURES)
         account.enable_features(*described_class::ENTERPRISE_PLAN_FEATURES)
         account.save!
@@ -194,7 +164,7 @@ describe Enterprise::Billing::HandleStripeEventService do
         all_features.each do |feature|
           expect(account).not_to be_feature_enabled(feature)
         end
-        expect(account).not_to be_feature_enabled('captain_integration_v2')
+        expect(account).not_to be_feature_enabled('tekomi_integration_v2')
       end
     end
 
@@ -221,19 +191,19 @@ describe Enterprise::Billing::HandleStripeEventService do
         end
       end
 
-      it 'enables Captain V2 for existing paid accounts during reconciliation' do
+      it 'enables Tekomi V2 for existing paid accounts during reconciliation' do
         allow(subscription).to receive(:[]).with('plan')
                                            .and_return({ 'id' => 'test', 'product' => 'plan_id_startups', 'name' => 'Startups' })
 
         stripe_event_service.new.perform(event: event)
 
-        expect(account.reload).to be_feature_enabled('captain_integration_v2')
+        expect(account.reload).to be_feature_enabled('tekomi_integration_v2')
       end
 
-      it 'enables Captain V2 for new cloud accounts marked as default eligible' do
+      it 'enables Tekomi V2 for new cloud accounts marked as default eligible' do
         account.update!(
           internal_attributes: account.internal_attributes.merge(
-            Enterprise::Account::CAPTAIN_V2_DEFAULT_ELIGIBLE => true
+            Enterprise::Account::TEKOMI_V2_DEFAULT_ELIGIBLE => true
           )
         )
         allow(subscription).to receive(:[]).with('plan')
@@ -241,14 +211,14 @@ describe Enterprise::Billing::HandleStripeEventService do
 
         stripe_event_service.new.perform(event: event)
 
-        expect(account.reload).to be_feature_enabled('captain_integration_v2')
+        expect(account.reload).to be_feature_enabled('tekomi_integration_v2')
       end
 
-      it 'disables Captain V2 for accounts explicitly held on V1' do
-        account.enable_features!('captain_integration_v2')
+      it 'disables Tekomi V2 for accounts explicitly held on V1' do
+        account.enable_features!('tekomi_integration_v2')
         account.update!(
           internal_attributes: account.internal_attributes.merge(
-            Enterprise::Account::CAPTAIN_V2_DEFAULT_ELIGIBLE => false
+            Enterprise::Account::TEKOMI_V2_DEFAULT_ELIGIBLE => false
           )
         )
         allow(subscription).to receive(:[]).with('plan')
@@ -256,7 +226,7 @@ describe Enterprise::Billing::HandleStripeEventService do
 
         stripe_event_service.new.perform(event: event)
 
-        expect(account.reload).not_to be_feature_enabled('captain_integration_v2')
+        expect(account.reload).not_to be_feature_enabled('tekomi_integration_v2')
       end
     end
 

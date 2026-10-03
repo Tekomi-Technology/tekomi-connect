@@ -3,8 +3,10 @@ import ConversationApi from '../../../api/inbox/conversation';
 import MessageApi from '../../../api/inbox/message';
 import { MESSAGE_STATUS, MESSAGE_TYPE } from 'shared/constants/messages';
 import { createPendingMessage } from 'dashboard/helper/commons';
+import filterQueryGenerator from 'dashboard/helper/filterQueryGenerator';
 import {
   buildConversationList,
+  setContacts,
   isOnMentionsView,
   isOnParticipatingView,
   isOnUnattendedView,
@@ -19,6 +21,8 @@ import {
   syncConversationCallVisibility,
 } from 'dashboard/helper/voice';
 
+// Page size MessageFinder uses when walking backwards through a conversation.
+const MESSAGES_PER_PAGE = 20;
 export const hasMessageFailedWithExternalError = pendingMessage => {
   // This helper is used to check if the message has failed with an external error.
   // We have two cases
@@ -61,6 +65,15 @@ const actions = {
     }
   },
 
+  fetchCompanyConversations: async ({ commit, dispatch }, params) => {
+    const {
+      data: { data },
+    } = await ConversationApi.get(params);
+    commit(types.SET_ALL_CONVERSATION, data.payload);
+    dispatch('conversationLabels/setBulkConversationLabels', data.payload);
+    setContacts(commit, data.payload);
+  },
+
   fetchFilteredConversations: async ({ commit, dispatch }, params) => {
     commit(types.SET_LIST_LOADING_STATUS);
     try {
@@ -98,7 +111,10 @@ const actions = {
         id: data.conversationId,
         data: payload,
       });
-      if (!payload.length) {
+      const hasReachedFirstMessage = data.after
+        ? !payload.length
+        : payload.length < MESSAGES_PER_PAGE;
+      if (hasReachedFirstMessage) {
         commit(types.SET_ALL_MESSAGES_LOADED, data.conversationId);
       }
     } catch (error) {
@@ -194,12 +210,14 @@ const actions = {
 
   async setActiveChat({ commit, dispatch }, { data, after }) {
     commit(types.SET_CURRENT_CHAT_WINDOW, data);
-    commit(types.CLEAR_ALL_MESSAGES_LOADED, data.id);
     if (data.dataFetched === undefined) {
+      // Reset only when refetching — a re-activated short conversation has no scroll to earn it back.
+      commit(types.CLEAR_ALL_MESSAGES_LOADED, data.id);
       try {
         await dispatch('fetchPreviousMessages', {
           after,
-          before: data.messages[0].id,
+          // A conversation created without an initial message has nothing to anchor on.
+          before: data.messages[0]?.id,
           conversationId: data.id,
         });
         commit(types.SET_CHAT_DATA_FETCHED, data.id);
@@ -455,6 +473,10 @@ const actions = {
     commit(types.UPDATE_CONVERSATION_CONTACT, data);
   },
 
+  syncConversationSender({ commit }, contact) {
+    commit(types.SYNC_CONVERSATION_SENDER, contact);
+  },
+
   setActiveInbox({ commit }, inboxId) {
     commit(types.SET_ACTIVE_INBOX, inboxId);
   },
@@ -481,6 +503,13 @@ const actions = {
     await ConversationApi.sendEmailTranscript({ conversationId, email });
   },
 
+  sendConversationToExternalSystem: async (_, { conversationId, note }) => {
+    await ConversationApi.sendConversationToExternalSystem({
+      conversationId,
+      note,
+    });
+  },
+
   updateCustomAttributes: async (
     { commit },
     { conversationId, customAttributes }
@@ -502,6 +531,22 @@ const actions = {
 
   setConversationFilters({ commit }, data) {
     commit(types.SET_CONVERSATION_FILTERS, data);
+  },
+
+  // Replaces the list with page 1 of the snake_case filters; sortBy overrides the activity order.
+  applyConversationFilters: (
+    { commit, dispatch },
+    { filters, sortBy = null }
+  ) => {
+    commit(types.SET_CONVERSATION_FILTERS, filters);
+    commit(types.SET_CONVERSATION_FILTERS_SORT, sortBy);
+    commit(types.EMPTY_ALL_CONVERSATION);
+    dispatch('conversationPage/reset', {}, { root: true });
+
+    return dispatch('fetchFilteredConversations', {
+      queryData: filterQueryGenerator(filters),
+      page: 1,
+    });
   },
 
   clearConversationFilters({ commit }) {
@@ -540,10 +585,10 @@ const actions = {
     commit(types.SET_CONTEXT_MENU_CHAT_ID, chatId);
   },
 
-  getInboxCaptainAssistantById: async ({ commit }, conversationId) => {
+  getInboxTekomiAssistantById: async ({ commit }, conversationId) => {
     try {
       const response = await ConversationApi.getInboxAssistant(conversationId);
-      commit(types.SET_INBOX_CAPTAIN_ASSISTANT, response.data);
+      commit(types.SET_INBOX_TEKOMI_ASSISTANT, response.data);
     } catch (error) {
       // Handle error
     }
