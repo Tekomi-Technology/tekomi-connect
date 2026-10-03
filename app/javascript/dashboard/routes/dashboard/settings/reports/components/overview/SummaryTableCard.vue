@@ -22,19 +22,19 @@ const key = 'OVERVIEW_REPORTS.SUMMARY';
 
 const ranked = computed(() =>
   [...props.rows]
-    .filter(row => row.conversations_count > 0)
-    .sort((a, b) => b.conversations_count - a.conversations_count)
+    .filter(row => row.conversationsCount > 0)
+    .sort((a, b) => b.conversationsCount - a.conversationsCount)
     .slice(0, props.limit)
 );
 
-const topCount = computed(() => ranked.value[0]?.conversations_count || 0);
+const topCount = computed(() => ranked.value[0]?.conversationsCount || 0);
 
 const share = row =>
-  topCount.value ? Math.round((row.conversations_count / topCount.value) * 100) : 0;
+  topCount.value ? Math.round((row.conversationsCount / topCount.value) * 100) : 0;
 
 const resolvedRate = row =>
-  row.conversations_count
-    ? `${Math.round((row.resolved_conversations_count / row.conversations_count) * 100)}%`
+  row.conversationsCount
+    ? `${Math.round((row.resolvedConversationsCount / row.conversationsCount) * 100)}%`
     : '—';
 </script>
 
@@ -104,7 +104,7 @@ const resolvedRate = row =>
           <td
             class="px-3 py-2.5 font-medium text-right tabular-nums text-n-slate-12"
           >
-            {{ row.conversations_count }}
+            {{ row.conversationsCount }}
           </td>
           <td class="hidden px-3 py-2.5 lg:table-cell">
             <span class="block w-full h-1.5 rounded-full bg-n-alpha-2">
@@ -119,8 +119,8 @@ const resolvedRate = row =>
           </td>
           <td class="py-2.5 pl-3 text-right tabular-nums text-n-slate-11">
             {{
-              row.avg_first_response_time
-                ? formatTime(row.avg_first_response_time)
+              row.avgFirstResponseTime
+                ? formatTime(row.avgFirstResponseTime)
                 : '—'
             }}
           </td>

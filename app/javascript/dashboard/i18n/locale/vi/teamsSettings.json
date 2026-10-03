@@ -67,9 +67,9 @@
       "ERROR_MESSAGE": "Không thể lưu chi tiết nhóm. Thử lại."
     },
     "AGENTS": {
-      "AGENT": "Nhà cung cấp",
+      "AGENT": "Nhân viên",
       "EMAIL": "Email",
-      "BUTTON_TEXT": "Thêm các nhà cung cấp",
+      "BUTTON_TEXT": "Thêm nhân viên",
       "ADD_AGENTS": "Thêm nhân viên vào nhóm của bạn...",
       "SELECT": "chọn",
       "SELECT_ALL": "chọn tất cả nhân viên",
@@ -81,7 +81,7 @@
       "SELECT": "chọn",
       "SELECT_ALL": "chọn tất cả nhân viên",
       "SELECTED_COUNT": "{selected} trên {total} nhân viên được chọn.",
-      "BUTTON_TEXT": "Thêm các nhà cung cấp",
+      "BUTTON_TEXT": "Thêm nhân viên",
       "AGENT_VALIDATION_ERROR": "Chọn ít nhật một nhân viên."
     },
     "FINISH": {

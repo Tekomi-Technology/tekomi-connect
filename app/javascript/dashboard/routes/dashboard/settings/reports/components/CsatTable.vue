@@ -142,7 +142,7 @@ const table = useVueTable({
 
 <template>
   <div
-    class="shadow outline-1 outline outline-n-container rounded-xl bg-n-solid-2 overflow-hidden"
+    class="overflow-hidden bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
   >
     <CsatTableLoader v-if="isLoading" />
 

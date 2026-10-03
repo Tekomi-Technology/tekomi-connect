@@ -154,89 +154,107 @@ onMounted(fetchReports);
   <ReportHeader
     :header-title="t('PHONE_CALL_REPORTS.HEADER')"
     :header-description="t('PHONE_CALL_REPORTS.DESCRIPTION')"
-  />
+  >
+    <template #filters>
+      <div class="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-6">
+        <label
+          v-for="filter in [
+            'call_status',
+            'emotion',
+            'status',
+            'action_status',
+            'purpose',
+            'direction',
+          ]"
+          :key="filter"
+          class="flex flex-col gap-1 text-xs text-n-slate-11"
+        >
+          {{ t(`PHONE_CALL_REPORTS.FILTERS.${filter.toUpperCase()}`) }}
+          <select
+            v-model="filters[filter]"
+            class="h-9 px-2 border rounded-lg border-n-weak bg-n-alpha-2 text-n-slate-12"
+          >
+            <option value="">{{ t('PHONE_CALL_REPORTS.FILTERS.ALL') }}</option>
+            <option
+              v-for="value in options[
+                filter === 'call_status'
+                  ? 'callStatus'
+                  : filter === 'action_status'
+                    ? 'actionStatus'
+                    : filter === 'status'
+                      ? 'reportStatus'
+                      : filter
+              ]"
+              :key="value"
+              :value="value"
+            >
+              {{
+                label(
+                  filter === 'status' ? 'REPORT_STATUS' : filter.toUpperCase(),
+                  value
+                )
+              }}
+            </option>
+          </select>
+        </label>
+      </div>
+    </template>
+  </ReportHeader>
 
-  <div class="grid grid-cols-2 gap-3 mb-5 sm:grid-cols-4">
-    <div class="p-4 border rounded-xl border-n-weak bg-n-solid-1">
-      <div class="text-xs text-n-slate-10">
+  <div class="grid grid-cols-2 gap-3 sm:grid-cols-4">
+    <div
+      class="flex flex-col gap-2 p-4 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
+    >
+      <div
+        class="text-[11px] font-semibold tracking-wide uppercase text-n-slate-11"
+      >
         {{ t('PHONE_CALL_REPORTS.TOTAL') }}
       </div>
-      <div class="mt-1 text-2xl font-semibold text-n-slate-12">
+      <div class="text-3xl font-semibold tracking-tight text-n-slate-12">
         {{ counts.total || 0 }}
       </div>
     </div>
-    <div class="p-4 border rounded-xl border-n-weak bg-n-solid-1">
-      <div class="text-xs text-n-slate-10">
+    <div
+      class="flex flex-col gap-2 p-4 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
+    >
+      <div
+        class="text-[11px] font-semibold tracking-wide uppercase text-n-slate-11"
+      >
         {{ label('CALL_STATUS', 'completed') }}
       </div>
-      <div class="mt-1 text-2xl font-semibold text-n-slate-12">
+      <div class="text-3xl font-semibold tracking-tight text-n-slate-12">
         {{ counts.call_status?.completed || 0 }}
       </div>
     </div>
-    <div class="p-4 border rounded-xl border-n-weak bg-n-solid-1">
-      <div class="text-xs text-n-slate-10">
+    <div
+      class="flex flex-col gap-2 p-4 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
+    >
+      <div
+        class="text-[11px] font-semibold tracking-wide uppercase text-n-slate-11"
+      >
         {{ label('CALL_STATUS', 'missed') }}
       </div>
-      <div class="mt-1 text-2xl font-semibold text-n-slate-12">
+      <div class="text-3xl font-semibold tracking-tight text-n-slate-12">
         {{ counts.call_status?.missed || 0 }}
       </div>
     </div>
-    <div class="p-4 border rounded-xl border-n-weak bg-n-solid-1">
-      <div class="text-xs text-n-slate-10">
+    <div
+      class="flex flex-col gap-2 p-4 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
+    >
+      <div
+        class="text-[11px] font-semibold tracking-wide uppercase text-n-slate-11"
+      >
         {{ label('ACTION_STATUS', 'needs_follow_up') }}
       </div>
-      <div class="mt-1 text-2xl font-semibold text-n-slate-12">
+      <div class="text-3xl font-semibold tracking-tight text-n-slate-12">
         {{ counts.action_status?.needs_follow_up || 0 }}
       </div>
     </div>
   </div>
 
   <div
-    class="grid grid-cols-1 gap-3 p-4 mb-5 border rounded-xl border-n-weak bg-n-solid-1 sm:grid-cols-2 lg:grid-cols-3"
+    class="overflow-x-auto bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
   >
-    <label
-      v-for="filter in [
-        'call_status',
-        'emotion',
-        'status',
-        'action_status',
-        'purpose',
-        'direction',
-      ]"
-      :key="filter"
-      class="flex flex-col gap-1 text-xs text-n-slate-11"
-    >
-      {{ t(`PHONE_CALL_REPORTS.FILTERS.${filter.toUpperCase()}`) }}
-      <select
-        v-model="filters[filter]"
-        class="h-9 px-2 border rounded-lg border-n-weak bg-n-alpha-2 text-n-slate-12"
-      >
-        <option value="">{{ t('PHONE_CALL_REPORTS.FILTERS.ALL') }}</option>
-        <option
-          v-for="value in options[
-            filter === 'call_status'
-              ? 'callStatus'
-              : filter === 'action_status'
-                ? 'actionStatus'
-                : filter === 'status'
-                  ? 'reportStatus'
-                  : filter
-          ]"
-          :key="value"
-          :value="value"
-        >
-          {{
-            label(
-              filter === 'status' ? 'REPORT_STATUS' : filter.toUpperCase(),
-              value
-            )
-          }}
-        </option>
-      </select>
-    </label>
-  </div>
-
-  <div class="overflow-x-auto border rounded-xl border-n-weak bg-n-solid-1">
     <table class="w-full text-sm text-left">
       <thead
         class="text-xs border-b bg-n-alpha-2 border-n-weak text-n-slate-10"

@@ -10,6 +10,7 @@ const props = defineProps({
   horizontal: { type: Boolean, default: false },
   colors: { type: Array, default: null },
   height: { type: Number, default: 260 },
+  formatValue: { type: Function, default: value => value },
 });
 
 const { baseOptions } = useChartTheme();
@@ -32,9 +33,18 @@ const options = computed(() => {
     },
     dataLabels: {
       enabled: true,
+      formatter: props.formatValue,
       style: { fontSize: '11px', fontWeight: 600 },
     },
-    xaxis: { ...base.xaxis, categories: props.categories },
+    tooltip: { ...base.tooltip, y: { formatter: props.formatValue } },
+    xaxis: {
+      ...base.xaxis,
+      categories: props.categories,
+      // Horizontal bars put the values on the x axis.
+      ...(props.horizontal && {
+        labels: { ...base.xaxis.labels, formatter: props.formatValue },
+      }),
+    },
     yaxis: base.yaxis,
   };
 });

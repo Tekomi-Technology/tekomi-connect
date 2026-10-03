@@ -14,7 +14,7 @@ const props = defineProps({
   isLoading: { type: Boolean, default: false },
 });
 
-const emit = defineEmits(['update:dimension', 'download']);
+const emit = defineEmits(['update:dimension']);
 
 const { t } = useI18n();
 const key = 'OVERVIEW_REPORTS.SUMMARY';
@@ -74,15 +74,6 @@ const segments = row =>
           @action="selectDimension($event)"
         />
       </div>
-      <Button
-        v-tooltip="t(`${key}.DOWNLOAD`)"
-        sm
-        slate
-        faded
-        icon="i-lucide-download"
-        class="rounded-md"
-        @click="$emit('download')"
-      />
     </template>
     <p v-if="!rows.length" class="py-6 text-sm text-center text-n-slate-11">
       {{ t(`${key}.EMPTY`) }}

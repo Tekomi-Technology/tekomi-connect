@@ -88,6 +88,16 @@ export const OVERVIEW_METRICS = {
 
 export const CONVERSATION_STATUSES = ['resolved', 'open', 'pending', 'snoozed'];
 
+// Overview KPI -> field on the camelcased inbox/agent summary rows.
+export const OVERVIEW_METRIC_FIELDS = {
+  conversations: 'conversationsCount',
+  resolved: 'resolvedConversationsCount',
+  first_response: 'avgFirstResponseTime',
+  resolution_time: 'avgResolutionTime',
+};
+
+export const OVERVIEW_TIME_METRICS = ['first_response', 'resolution_time'];
+
 export const STATUS_BAR_CLASS = {
   resolved: 'bg-n-teal-9',
   open: 'bg-n-violet-9',

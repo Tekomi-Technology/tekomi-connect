@@ -122,14 +122,13 @@ export default {
       size="sm"
       @click="downloadReports"
     />
+    <template #filters>
+      <CsatFilters
+        :show-team-filter="isTeamsEnabled"
+        @filter-change="onFilterChange"
+      />
+    </template>
   </ReportHeader>
-
-  <div class="flex flex-col gap-6">
-    <CsatFilters
-      :show-team-filter="isTeamsEnabled"
-      @filter-change="onFilterChange"
-    />
-    <CsatMetrics :filters="requestPayload" />
-    <CsatTable :page-index="pageIndex" @page-change="onPageNumberChange" />
-  </div>
+  <CsatMetrics :filters="requestPayload" />
+  <CsatTable :page-index="pageIndex" @page-change="onPageNumberChange" />
 </template>

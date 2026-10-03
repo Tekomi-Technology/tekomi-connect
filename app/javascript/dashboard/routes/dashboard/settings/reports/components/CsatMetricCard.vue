@@ -20,9 +20,11 @@ defineProps({
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 items-start justify-center min-w-[10rem]">
+  <div
+    class="flex flex-col items-start gap-2 p-4 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
+  >
     <span
-      class="inline-flex items-center gap-1 text-sm font-medium text-n-slate-11"
+      class="inline-flex items-center gap-1 text-[11px] font-semibold tracking-wide uppercase text-n-slate-11"
     >
       {{ label }}
       <span
@@ -32,9 +34,12 @@ defineProps({
     </span>
     <div
       v-if="isLoading"
-      class="w-16 h-8 rounded-md bg-n-slate-3 animate-pulse"
+      class="w-16 h-9 rounded-md bg-n-slate-3 animate-pulse"
     />
-    <span v-else class="text-2xl font-medium text-n-slate-12">
+    <span
+      v-else
+      class="text-3xl font-semibold tracking-tight text-n-slate-12"
+    >
       {{ value }}
     </span>
   </div>

@@ -463,7 +463,7 @@
         "RATINGS": "Tìm mức đánh giá"
       },
       "AGENTS": {
-        "LABEL": "Nhà cung cấp"
+        "LABEL": "Nhân viên"
       },
       "INBOXES": {
         "LABEL": "Hộp thư"
@@ -478,7 +478,7 @@
     "TABLE": {
       "HEADER": {
         "CONTACT_NAME": "Liên hệ",
-        "AGENT_NAME": "Nhà cung cấp",
+        "AGENT_NAME": "Nhân viên",
         "RATING": "Đánh giá",
         "FEEDBACK_TEXT": "Bình luận phản hồi",
         "CONVERSATION": "Cuộc hội thoại",
@@ -548,6 +548,81 @@
   "OVERVIEW_REPORTS": {
     "HEADER": "Tổng quan",
     "LIVE": "Trực tuyến",
+    "SUMMARY": {
+      "SUBTITLE": "Hội thoại theo kênh, nhân viên và trạng thái, kèm SLA, trong kỳ đã chọn",
+      "EXPORT": "Xuất báo cáo",
+      "EXPORT_HINT": "Tải các file CSV hội thoại, kênh, nhân viên và SLA",
+      "REFRESH": "Làm mới",
+      "LOADING": "Đang tải báo cáo...",
+      "EMPTY": "Không có hội thoại nào trong kỳ này",
+      "ERROR": "Không tải được báo cáo.",
+      "RETRY": "Thử lại",
+      "DOWNLOAD": "Tải CSV",
+      "TOTAL": "Tổng",
+      "UNASSIGNED": "Chưa phân công",
+      "UNKNOWN": "Không xác định",
+      "CONVERSATIONS": "Hội thoại",
+      "SHARE": "Tỉ trọng",
+      "RESOLVED": "Đã giải quyết",
+      "FIRST_RESPONSE": "Phản hồi đầu",
+      "SPLIT": "Tỉ lệ",
+      "SPLIT_BY": "Theo {name}",
+      "PERIOD": {
+        "WEEK": "7 ngày",
+        "MONTH": "30 ngày",
+        "QUARTER": "Quý này"
+      },
+      "KPI": {
+        "CONVERSATIONS": "Hội thoại",
+        "RESOLVED": "Đã giải quyết",
+        "RESOLVED_HINT": "{rate}% số hội thoại",
+        "FIRST_RESPONSE": "Phản hồi đầu TB",
+        "RESOLUTION_TIME": "Thời gian giải quyết TB",
+        "SLA": "Tỉ lệ đạt SLA",
+        "SLA_HINT": "{count} vi phạm"
+      },
+      "STATUS": {
+        "RESOLVED": "Đã giải quyết",
+        "OPEN": "Đang mở",
+        "PENDING": "Chờ giải quyết",
+        "SNOOZED": "Tạm dừng"
+      },
+      "DIMENSION": {
+        "INBOX": "Kênh",
+        "ASSIGNEE": "Nhân viên"
+      },
+      "CHART": {
+        "TITLE": "Phân tích hội thoại",
+        "BY_INBOX": "{metric} theo kênh",
+        "BY_AGENT": "{metric} theo nhân viên",
+        "BY_STATUS": "Trạng thái hiện tại của các hội thoại tạo ra trong từng mốc"
+      },
+      "VIEW": {
+        "INBOX": "Theo kênh",
+        "AGENT": "Theo nhân viên",
+        "STATUS": "Theo trạng thái"
+      },
+      "SLA": {
+        "TITLE": "SLA",
+        "DESCRIPTION": "{count} hội thoại có áp dụng SLA",
+        "LABEL": "Tỉ lệ đạt",
+        "BREACHES": "Vi phạm",
+        "APPLIED": "Có SLA",
+        "VIEW_FULL": "Xem báo cáo SLA đầy đủ"
+      },
+      "BY_INBOX": {
+        "TITLE": "Theo kênh",
+        "DESCRIPTION": "Các kênh có nhiều hội thoại nhất"
+      },
+      "BY_AGENT": {
+        "TITLE": "Theo nhân viên",
+        "DESCRIPTION": "Nhân viên xử lý nhiều hội thoại nhất"
+      },
+      "BREAKDOWN": {
+        "TITLE": "Hội thoại theo trạng thái",
+        "DESCRIPTION": "Trạng thái hiện tại của các hội thoại tạo ra trong kỳ này"
+      }
+    },
     "ACCOUNT_CONVERSATIONS": {
       "HEADER": "Mở cuộc hội thoại",
       "LOADING_MESSAGE": "Đang tải số liệu cuộc hội thoại...",
@@ -575,7 +650,7 @@
       "LOADING_MESSAGE": "Đang tải chỉ số nhân viên...",
       "NO_AGENTS": "Không có cuộc hội thoại nào của các nhân viên",
       "TABLE_HEADER": {
-        "AGENT": "Nhà cung cấp",
+        "AGENT": "Nhân viên",
         "OPEN": "Mở",
         "UNATTENDED": "Không giám sát",
         "STATUS": "Trạng thái"
@@ -632,7 +707,7 @@
       },
       "SLA": "Chính sách SLA",
       "INBOXES": "Hộp thư",
-      "AGENTS": "Nhà cung cấp",
+      "AGENTS": "Nhân viên",
       "LABELS": "Nhãn",
       "TEAMS": "Nhóm"
     },
@@ -655,7 +730,7 @@
       "HEADER": {
         "POLICY": "Chính sách",
         "CONVERSATION": "Cuộc hội thoại",
-        "AGENT": "Nhà cung cấp"
+        "AGENT": "Nhân viên"
       },
       "VIEW_DETAILS": "Xem chi tiết"
     }
@@ -733,7 +808,7 @@
   },
   "SUMMARY_REPORTS": {
     "INBOX": "Hộp thư",
-    "AGENT": "Nhà cung cấp",
+    "AGENT": "Nhân viên",
     "TEAM": "Nhóm",
     "LABEL": "Nhãn",
     "AVG_RESOLUTION_TIME": "Thời gian xử lý TB",

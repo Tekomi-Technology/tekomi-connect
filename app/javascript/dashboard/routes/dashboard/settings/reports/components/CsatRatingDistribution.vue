@@ -38,9 +38,9 @@ const chartData = computed(() => ({
 
 <template>
   <div
-    class="shadow outline-1 outline outline-n-container rounded-xl bg-n-solid-2 px-6 py-5"
+    class="p-5 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
   >
-    <span class="text-sm font-medium text-n-slate-11">
+    <span class="text-base font-semibold tracking-tight text-n-slate-12">
       {{ $t('CSAT_REPORTS.METRIC.RATING_DISTRIBUTION') }}
     </span>
 

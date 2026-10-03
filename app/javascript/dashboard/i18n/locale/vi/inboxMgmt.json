@@ -584,7 +584,7 @@
         }
       },
       "AGENTS": {
-        "TITLE": "Nhà Cung Cấp",
+        "TITLE": "Nhân viên",
         "DESC": "Tại đây bạn có thể thêm các tác nhân để quản lý hộp thư mới tạo của mình. Chỉ những nhân viên được chọn này mới có quyền truy cập vào hộp thư của bạn. Các nhân viên không thuộc hộp thư này sẽ không thể xem hoặc trả lời thư trong hộp thư này khi họ đăng nhập. <br> <b>PS:</b> Với tư cách là quản trị viên, nếu bạn cần quyền truy cập vào tất cả các hộp thư, bạn nên thêm mình làm nhân viên cho tất cả các hộp thư mà bạn tạo.",
         "VALIDATION_ERROR": "Thêm ít nhất một nhân viên vào hộp thư mới của bạn",
         "PICK_AGENTS": "Chọn nhân viên cho hộp thư"
@@ -702,8 +702,8 @@
       "ERROR_CHANNEL_CREATION": "Không tạo được hộp thư. Vui lòng thử lại."
     },
     "AGENTS": {
-      "BUTTON_TEXT": "Thêm các nhà cung cấp",
-      "ADD_AGENTS": "Thêm các nhà cung cấp vào hộp thư của bạn..."
+      "BUTTON_TEXT": "Thêm nhân viên",
+      "ADD_AGENTS": "Đang thêm nhân viên vào hộp thư..."
     },
     "FINISH": {
       "TITLE": "Hộp thư của bạn đã sẵn sàng!",
@@ -1000,7 +1000,7 @@
         "REQUIRE_LABEL": "Bắt buộc xác thực danh tính cho mọi hội thoại",
         "REQUIRE_DESCRIPTION": "Khi bật, người dùng phải cung cấp token danh tính hợp lệ để bắt đầu hội thoại. Yêu cầu không có token hợp lệ sẽ bị từ chối."
       },
-      "INBOX_AGENTS": "Nhà cung cấp",
+      "INBOX_AGENTS": "Nhân viên",
       "INBOX_AGENTS_SUB_TEXT": "Thêm hoặc xóa tác nhân khỏi hộp thư này",
       "AGENT_ASSIGNMENT": "Phân công hội thoại",
       "AGENT_ASSIGNMENT_SUB_TEXT": "Cập nhật phân công hội thoại",

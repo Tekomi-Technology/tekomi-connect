@@ -1,13 +1,13 @@
 {
   "AGENT_MGMT": {
-    "HEADER": "Nhà cung cấp",
-    "HEADER_BTN_TXT": "Thêm nhà cung cấp / nhân viên",
-    "LOADING": "Tải danh sách nhà cung cấp",
+    "HEADER": "Nhân viên",
+    "HEADER_BTN_TXT": "Thêm nhân viên",
+    "LOADING": "Tải danh sách nhân viên",
     "DESCRIPTION": "Nhân viên là thành viên trong đội hỗ trợ khách hàng, có thể xem và trả lời tin nhắn của người dùng. Danh sách dưới đây hiển thị toàn bộ nhân viên trong tài khoản của bạn.",
     "LEARN_MORE": "Tìm hiểu về vai trò người dùng",
     "AGENT_TYPES": {
       "ADMINISTRATOR": "Quản trị viên",
-      "AGENT": "Nhà cung cấp"
+      "AGENT": "Nhân viên"
     },
     "COUNT": "{n} nhân viên | {n} nhân viên",
     "LIST": {
@@ -28,22 +28,22 @@
       "CANCEL_BUTTON_TEXT": "Huỷ",
       "FORM": {
         "NAME": {
-          "LABEL": "Tên nhà cung cấp",
-          "PLACEHOLDER": "Vui lòng nhập tên nhà cung cấp"
+          "LABEL": "Tên nhân viên",
+          "PLACEHOLDER": "Vui lòng nhập tên nhân viên"
         },
         "AGENT_TYPE": {
-          "LABEL": "Loại nhà cung cấp",
+          "LABEL": "Vai trò",
           "PLACEHOLDER": "Vui lòng chọn loại",
-          "ERROR": "Loại nhà cung cấp là bắt buộc"
+          "ERROR": "Vai trò là bắt buộc"
         },
         "EMAIL": {
           "LABEL": "Email",
           "PLACEHOLDER": "Vui lòng nhập email"
         },
-        "SUBMIT": "Thêm nhà cung cấp"
+        "SUBMIT": "Thêm nhân viên"
       },
       "API": {
-        "SUCCESS_MESSAGE": "Nhà cung cấp được thêm thành công",
+        "SUCCESS_MESSAGE": "Nhân viên được thêm thành công",
         "EXIST_MESSAGE": "Email đã được sử dung, vui lòng chọn email khác.",
         "ERROR_MESSAGE": "Không thể kết nối với Máy chủ Woot, Vui lòng thử lại sau"
       }
@@ -51,7 +51,7 @@
     "DELETE": {
       "BUTTON_TEXT": "Xoá",
       "API": {
-        "SUCCESS_MESSAGE": "Nhà cung cấp được xoá thành công",
+        "SUCCESS_MESSAGE": "Nhân viên được xoá thành công",
         "ERROR_MESSAGE": "Không thể kết nối với Máy chủ Woot, Vui lòng thử lại sau"
       },
       "CONFIRM": {
@@ -62,16 +62,16 @@
       }
     },
     "EDIT": {
-      "TITLE": "Chỉnh sửa nhà cung cấp",
+      "TITLE": "Chỉnh sửa nhân viên",
       "FORM": {
         "NAME": {
-          "LABEL": "Tên nhà cung cấp",
-          "PLACEHOLDER": "Vui lòng nhập tên nhà cung cấp"
+          "LABEL": "Tên nhân viên",
+          "PLACEHOLDER": "Vui lòng nhập tên nhân viên"
         },
         "AGENT_TYPE": {
-          "LABEL": "Loại nhà cung cấp",
+          "LABEL": "Vai trò",
           "PLACEHOLDER": "Vui lòng chọn loại",
-          "ERROR": "Loại nhà cung cấp là bắt buộc"
+          "ERROR": "Vai trò là bắt buộc"
         },
         "EMAIL": {
           "LABEL": "Emails",
@@ -82,12 +82,12 @@
           "PLACEHOLDER": "Vui lòng chọn trạng thái sẵn sàng",
           "ERROR": "Vui lòng chọn trạng thái sẵn sàng"
         },
-        "SUBMIT": "Chỉnh sửa nhà cung cấp"
+        "SUBMIT": "Chỉnh sửa nhân viên"
       },
       "BUTTON_TEXT": "Chỉnh sửa",
       "CANCEL_BUTTON_TEXT": "Huỷ",
       "API": {
-        "SUCCESS_MESSAGE": "Nhà cung cấp được cập nhật thành công",
+        "SUCCESS_MESSAGE": "Nhân viên được cập nhật thành công",
         "ERROR_MESSAGE": "Không thể kết nối với Máy chủ Woot, Vui lòng thử lại sau"
       },
       "PASSWORD_RESET": {
@@ -113,7 +113,7 @@
       },
       "SEARCH": {
         "NO_RESULTS": {
-          "AGENT": "Không tìm thấy nhà cung cấp",
+          "AGENT": "Không tìm thấy nhân viên",
           "TEAM": "Không tìm thấy nhóm nào"
         },
         "PLACEHOLDER": {

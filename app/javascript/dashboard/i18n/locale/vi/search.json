@@ -57,10 +57,10 @@
       "FILTER_MESSAGE": "Lọc tin nhắn theo:",
       "FROM": "Người gửi",
       "IN": "Hộp thư",
-      "AGENTS": "Nhà cung cấp",
+      "AGENTS": "Nhân viên",
       "CONTACTS": "Liên hệ",
       "INBOXES": "Hộp thư",
-      "NO_AGENTS": "Không tìm thấy nhà cung cấp",
+      "NO_AGENTS": "Không tìm thấy nhân viên",
       "NO_CONTACTS": "Hãy nhập từ khoá để xem kết quả",
       "NO_INBOXES": "Không tìm thấy hộp thư nào"
     }

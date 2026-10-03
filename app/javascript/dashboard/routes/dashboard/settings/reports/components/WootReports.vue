@@ -172,14 +172,15 @@ export default {
       size="sm"
       @click="downloadReports"
     />
+    <template #filters>
+      <ReportFilters
+        v-if="filterItemsList"
+        :filter-type="filterType"
+        :selected-item="selectedFilter"
+        @filter-change="onFilterChange"
+      />
+    </template>
   </ReportHeader>
-
-  <ReportFilters
-    v-if="filterItemsList"
-    :filter-type="filterType"
-    :selected-item="selectedFilter"
-    @filter-change="onFilterChange"
-  />
   <ReportContainer
     v-if="filterItemsList.length"
     :group-by="groupBy"

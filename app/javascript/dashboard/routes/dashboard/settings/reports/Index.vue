@@ -114,18 +114,18 @@ export default {
       size="sm"
       @click="downloadConversationReports"
     />
+    <template #filters>
+      <ReportFilters
+        :show-entity-filter="false"
+        show-group-by
+        @filter-change="onFilterChange"
+      />
+    </template>
   </ReportHeader>
-  <div class="flex flex-col">
-    <ReportFilters
-      :show-entity-filter="false"
-      show-group-by
-      @filter-change="onFilterChange"
-    />
-    <ReportContainer
-      :group-by="groupBy"
-      :from="from"
-      :to="to"
-      :business-hours="businessHours"
-    />
-  </div>
+  <ReportContainer
+    :group-by="groupBy"
+    :from="from"
+    :to="to"
+    :business-hours="businessHours"
+  />
 </template>

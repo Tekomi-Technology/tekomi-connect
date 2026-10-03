@@ -13,7 +13,6 @@ export function useReportsOverview() {
   const statusData = shallowRef(null);
   const isLoading = ref(false);
   const hasError = ref(false);
-  const updatedAt = ref(null);
 
   const summary = useMapGetter('getAccountSummary');
   const slaMetrics = useMapGetter('slaReports/getMetrics');
@@ -58,7 +57,6 @@ export function useReportsOverview() {
       // A slower response for an older filter must not overwrite a newer one.
       if (currentRequest !== requestId) return;
       statusData.value = statusResponse.data;
-      updatedAt.value = Date.now();
     } catch {
       if (currentRequest === requestId) hasError.value = true;
     } finally {
@@ -88,7 +86,6 @@ export function useReportsOverview() {
     statusData,
     isLoading,
     hasError,
-    updatedAt,
     load,
   };
 }

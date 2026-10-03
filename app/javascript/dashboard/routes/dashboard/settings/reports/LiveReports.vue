@@ -1,29 +1,34 @@
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useStore } from 'dashboard/composables/store';
 import { formatTime } from '@chatwoot/utils';
 import { generateFileName } from 'dashboard/helper/downloadHelper';
 import Button from 'dashboard/components-next/button/Button.vue';
-import TrendChart from 'dashboard/routes/dashboard/home/components/cards/TrendChart.vue';
 import RadialChart from 'dashboard/routes/dashboard/home/components/cards/RadialChart.vue';
 import MiniStat from 'dashboard/routes/dashboard/home/components/cards/MiniStat.vue';
-import { useChartTheme } from 'dashboard/routes/dashboard/home/composables/useChartTheme';
 import ReportHeader from './components/ReportHeader.vue';
 import MetricCard from './components/overview/MetricCard.vue';
+import ConversationChartCard from './components/overview/ConversationChartCard.vue';
 import SummaryTableCard from './components/overview/SummaryTableCard.vue';
 import StatusBreakdownCard from './components/overview/StatusBreakdownCard.vue';
 import ConversationHeatmapContainer from './components/heatmaps/ConversationHeatmapContainer.vue';
 import ResolutionHeatmapContainer from './components/heatmaps/ResolutionHeatmapContainer.vue';
-import { CONVERSATION_STATUSES } from './constants';
 import { useReportsOverview } from './composables/useReportsOverview';
 
 const PERIODS = ['week', 'month', 'quarter'];
 const KEY = 'OVERVIEW_REPORTS.SUMMARY';
 
+// Each CSV the page can export: [store action, file name prefix].
+const DOWNLOADS = {
+  conversations: ['downloadConversationsSummaryReports', 'conversation'],
+  inbox: ['downloadInboxReports', 'inbox'],
+  agent: ['downloadAgentReports', 'agent'],
+  sla: ['slaReports/download', 'sla'],
+};
+
 const { t } = useI18n();
 const store = useStore();
-const { colors } = useChartTheme();
 
 const {
   period,
@@ -39,24 +44,24 @@ const {
   load,
 } = useReportsOverview();
 
-const statusColors = computed(() => [
-  colors.value.brand,
-  colors.value.palette[1],
-  colors.value.amber,
-  colors.value.palette[4],
-]);
+const activeMetric = ref('conversations');
+const chartView = ref('inbox');
 
-const timelineSeries = computed(() =>
-  CONVERSATION_STATUSES.map(status => ({
-    name: t(`${KEY}.STATUS.${status.toUpperCase()}`),
-    data: (statusData.value?.timeline ?? []).map(point => ({
-      timestamp: point.timestamp,
-      value: point[status],
-    })),
-  }))
-);
+// The status split only counts conversations, so it pins that metric.
+const selectMetric = metric => {
+  activeMetric.value = metric;
+  if (metric !== 'conversations' && chartView.value === 'status') {
+    chartView.value = 'inbox';
+  }
+};
 
-const hasTimeline = computed(() => Boolean(statusData.value?.timeline?.length));
+const chartViewModel = computed({
+  get: () => chartView.value,
+  set: value => {
+    chartView.value = value;
+    if (value === 'status') activeMetric.value = 'conversations';
+  },
+});
 
 const resolutionRate = computed(() => {
   const { conversations_count: total, resolutions_count: resolved } =
@@ -64,38 +69,41 @@ const resolutionRate = computed(() => {
   return total ? Math.round((resolved / total) * 100) : 0;
 });
 
-const slaHitRate = computed(() =>
-  Number.parseFloat(slaMetrics.value.hitRate) || 0
+const slaHitRate = computed(
+  () => Number.parseFloat(slaMetrics.value.hitRate) || 0
 );
 
 const kpis = computed(() => [
   {
     key: 'conversations',
+    icon: 'i-lucide-message-square-plus',
     value: summary.value.conversations_count,
   },
   {
     key: 'resolved',
+    icon: 'i-lucide-circle-check-big',
     value: summary.value.resolutions_count,
     hint: t(`${KEY}.KPI.RESOLVED_HINT`, { rate: resolutionRate.value }),
   },
   {
     key: 'first_response',
+    icon: 'i-lucide-timer',
     value: formatTime(summary.value.avg_first_response_time || 0),
   },
   {
     key: 'resolution_time',
+    icon: 'i-lucide-hourglass',
     value: formatTime(summary.value.avg_resolution_time || 0),
-  },
-  {
-    key: 'sla',
-    value: slaMetrics.value.hitRate,
-    hint: t(`${KEY}.KPI.SLA_HINT`, {
-      count: slaMetrics.value.numberOfSLAMisses,
-    }),
   },
 ]);
 
-const download = (action, type) => {
+const tileClass = key =>
+  activeMetric.value === key
+    ? 'bg-gradient-to-br from-n-brand/10 to-transparent ring-2 ring-n-brand/60 border-transparent shadow-[0_14px_32px_-14px_rgb(var(--teal-9)/0.7)] [transform:perspective(700px)_translateY(-4px)]'
+    : 'bg-white dark:bg-n-solid-2 border-n-weak shadow-sm hover:shadow-md hover:[transform:perspective(700px)_rotateX(6deg)_translateY(-2px)]';
+
+const download = name => {
+  const [action, type] = DOWNLOADS[name];
   const { since, until } = range.value;
   store.dispatch(action, {
     from: since,
@@ -103,6 +111,8 @@ const download = (action, type) => {
     fileName: generateFileName({ type, to: until }),
   });
 };
+
+const exportAll = () => Object.keys(DOWNLOADS).forEach(download);
 
 onMounted(load);
 </script>
@@ -114,10 +124,11 @@ onMounted(load);
     :header-description="t(`${KEY}.SUBTITLE`)"
   >
     <Button
+      v-tooltip="t(`${KEY}.EXPORT_HINT`)"
       :label="t(`${KEY}.EXPORT`)"
       icon="i-lucide-download"
       size="sm"
-      @click="download('downloadConversationsSummaryReports')"
+      @click="exportAll"
     />
     <template #filters>
       <div
@@ -169,76 +180,116 @@ onMounted(load);
   </div>
 
   <template v-else>
-    <div class="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
-      <div
+    <div
+      role="tablist"
+      class="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5"
+    >
+      <button
         v-for="kpi in kpis"
         :key="kpi.key"
-        class="flex flex-col gap-1 p-4 bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2"
+        type="button"
+        role="tab"
+        :aria-selected="activeMetric === kpi.key"
+        class="relative flex flex-col gap-2 p-4 overflow-hidden text-left border rounded-2xl transition-all duration-500 ease-out motion-reduce:transition-none"
+        :class="tileClass(kpi.key)"
+        @click="selectMetric(kpi.key)"
       >
-        <span class="text-xs text-n-slate-11">
-          {{ t(`${KEY}.KPI.${kpi.key.toUpperCase()}`) }}
+        <span
+          class="absolute inset-x-0 top-0 h-1 transition-transform duration-500 ease-out origin-left bg-n-brand"
+          :class="activeMetric === kpi.key ? 'scale-x-100' : 'scale-x-0'"
+        />
+        <span class="flex items-start justify-between gap-2">
+          <span
+            class="text-[11px] font-semibold tracking-wide uppercase"
+            :class="
+              activeMetric === kpi.key ? 'text-n-brand' : 'text-n-slate-11'
+            "
+          >
+            {{ t(`${KEY}.KPI.${kpi.key.toUpperCase()}`) }}
+          </span>
+          <span
+            class="size-4 shrink-0 transition-colors duration-300"
+            :class="[
+              kpi.icon,
+              activeMetric === kpi.key ? 'text-n-brand' : 'text-n-slate-10',
+            ]"
+          />
         </span>
         <span
-          class="text-2xl font-semibold tracking-tight text-n-slate-12 tabular-nums"
+          class="text-3xl font-semibold tracking-tight truncate text-n-slate-12 tabular-nums"
         >
           {{ kpi.value }}
         </span>
-        <span v-if="kpi.hint" class="text-[11px] text-n-slate-11">
+        <span v-if="kpi.hint" class="text-xs font-medium text-n-slate-11">
           {{ kpi.hint }}
         </span>
-      </div>
+      </button>
+      <router-link
+        :to="{ name: 'sla_reports' }"
+        class="relative flex flex-col gap-2 p-4 overflow-hidden bg-white border shadow-sm rounded-2xl border-n-weak dark:bg-n-solid-2 transition-all duration-500 ease-out hover:shadow-md hover:[transform:perspective(700px)_rotateX(6deg)_translateY(-2px)] motion-reduce:transition-none"
+      >
+        <span class="flex items-start justify-between gap-2">
+          <span
+            class="text-[11px] font-semibold tracking-wide uppercase text-n-slate-11"
+          >
+            {{ t(`${KEY}.KPI.SLA`) }}
+          </span>
+          <span class="i-lucide-arrow-up-right size-4 shrink-0 text-n-slate-10" />
+        </span>
+        <span
+          class="text-3xl font-semibold tracking-tight truncate text-n-slate-12 tabular-nums"
+        >
+          {{ slaMetrics.hitRate }}
+        </span>
+        <span
+          class="text-xs font-medium"
+          :class="
+            slaMetrics.numberOfSLAMisses ? 'text-n-ruby-11' : 'text-n-teal-11'
+          "
+        >
+          {{
+            t(`${KEY}.KPI.SLA_HINT`, { count: slaMetrics.numberOfSLAMisses })
+          }}
+        </span>
+      </router-link>
     </div>
 
     <div class="grid grid-cols-1 gap-5 lg:grid-cols-12">
-      <MetricCard
+      <ConversationChartCard
+        v-model:view="chartViewModel"
         class="lg:col-span-8"
-        :header="t(`${KEY}.TIMELINE.TITLE`)"
-        :description="t(`${KEY}.TIMELINE.DESCRIPTION`)"
-        icon="i-lucide-bar-chart-3"
-        :show-live-badge="false"
+        :metric="activeMetric"
+        :inbox-rows="inboxSummary"
+        :agent-rows="agentSummary"
+        :timeline="statusData?.timeline ?? []"
+        :group-by="range.groupBy"
         :is-loading="isLoading && !statusData"
-        :loading-message="t(`${KEY}.LOADING`)"
-        body-class="w-full min-w-0"
-      >
-        <div class="w-full min-w-0">
-          <div class="flex flex-wrap items-center gap-4 mb-2">
-            <span
-              v-for="(status, index) in CONVERSATION_STATUSES"
-              :key="status"
-              class="flex items-center gap-1.5 text-[11px] text-n-slate-11"
-            >
-              <span
-                class="rounded-sm size-2"
-                :style="{ backgroundColor: statusColors[index] }"
-              />
-              {{ t(`${KEY}.STATUS.${status.toUpperCase()}`) }}
-            </span>
-          </div>
-          <TrendChart
-            v-if="hasTimeline"
-            stacked
-            type="bar"
-            :series="timelineSeries"
-            :colors="statusColors"
-            :group-by="range.groupBy"
-            :height="300"
-          />
-          <p v-else class="py-16 text-sm text-center text-n-slate-11">
-            {{ t(`${KEY}.EMPTY`) }}
-          </p>
-        </div>
-      </MetricCard>
+        @download="download"
+      />
 
       <MetricCard
         class="lg:col-span-4"
         :header="t(`${KEY}.SLA.TITLE`)"
-        :description="t(`${KEY}.SLA.DESCRIPTION`, {
-          count: slaMetrics.numberOfConversations,
-        })"
-        icon="i-lucide-timer"
+        :description="
+          t(`${KEY}.SLA.DESCRIPTION`, {
+            count: slaMetrics.numberOfConversations,
+          })
+        "
+        icon="i-lucide-shield-check"
         :show-live-badge="false"
         body-class="flex flex-col w-full min-w-0 gap-4"
       >
+        <template #control>
+          <Button
+            v-tooltip="t(`${KEY}.DOWNLOAD`)"
+            sm
+            slate
+            faded
+            icon="i-lucide-download"
+            class="rounded-md"
+            @click="download('sla')"
+          />
+        </template>
         <RadialChart
           :value="slaHitRate"
           :label="t(`${KEY}.SLA.LABEL`)"
@@ -272,7 +323,7 @@ onMounted(load);
         icon="i-lucide-inbox"
         :rows="inboxSummary"
         :is-loading="isLoading && !inboxSummary.length"
-        @download="download('downloadInboxReports')"
+        @download="download('inbox')"
       />
       <SummaryTableCard
         :title="t(`${KEY}.BY_AGENT.TITLE`)"
@@ -281,7 +332,7 @@ onMounted(load);
         icon="i-lucide-users"
         :rows="agentSummary"
         :is-loading="isLoading && !agentSummary.length"
-        @download="download('downloadAgentReports')"
+        @download="download('agent')"
       />
     </div>
 
@@ -291,7 +342,6 @@ onMounted(load);
       :dimension="dimension"
       :is-loading="isLoading && !statusData"
       @update:dimension="dimension = $event"
-      @download="download('downloadConversationsSummaryReports')"
     />
 
     <ConversationHeatmapContainer />

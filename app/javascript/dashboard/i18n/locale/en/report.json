@@ -548,6 +548,81 @@
   "OVERVIEW_REPORTS": {
     "HEADER": "Overview",
     "LIVE": "Live",
+    "SUMMARY": {
+      "SUBTITLE": "Conversations by channel, agent and status, plus SLA, for the selected period",
+      "EXPORT": "Export",
+      "EXPORT_HINT": "Downloads the conversation, channel, agent and SLA CSV files",
+      "REFRESH": "Refresh",
+      "LOADING": "Loading report...",
+      "EMPTY": "No conversations in this period",
+      "ERROR": "Could not load the report.",
+      "RETRY": "Try again",
+      "DOWNLOAD": "Download CSV",
+      "TOTAL": "Total",
+      "UNASSIGNED": "Unassigned",
+      "UNKNOWN": "Unknown",
+      "CONVERSATIONS": "Conversations",
+      "SHARE": "Share",
+      "RESOLVED": "Resolved",
+      "FIRST_RESPONSE": "First response",
+      "SPLIT": "Split",
+      "SPLIT_BY": "By {name}",
+      "PERIOD": {
+        "WEEK": "7 days",
+        "MONTH": "30 days",
+        "QUARTER": "This quarter"
+      },
+      "KPI": {
+        "CONVERSATIONS": "Conversations",
+        "RESOLVED": "Resolved",
+        "RESOLVED_HINT": "{rate}% of conversations",
+        "FIRST_RESPONSE": "Avg. first response",
+        "RESOLUTION_TIME": "Avg. resolution time",
+        "SLA": "SLA hit rate",
+        "SLA_HINT": "{count} breaches"
+      },
+      "STATUS": {
+        "RESOLVED": "Resolved",
+        "OPEN": "Open",
+        "PENDING": "Pending",
+        "SNOOZED": "Snoozed"
+      },
+      "DIMENSION": {
+        "INBOX": "Channel",
+        "ASSIGNEE": "Agent"
+      },
+      "CHART": {
+        "TITLE": "Conversation analysis",
+        "BY_INBOX": "{metric} by channel",
+        "BY_AGENT": "{metric} by agent",
+        "BY_STATUS": "Current status of the conversations created in each period"
+      },
+      "VIEW": {
+        "INBOX": "By channel",
+        "AGENT": "By agent",
+        "STATUS": "By status"
+      },
+      "SLA": {
+        "TITLE": "SLA",
+        "DESCRIPTION": "{count} conversations with an SLA policy",
+        "LABEL": "Hit rate",
+        "BREACHES": "Breaches",
+        "APPLIED": "With SLA",
+        "VIEW_FULL": "View full SLA report"
+      },
+      "BY_INBOX": {
+        "TITLE": "By channel",
+        "DESCRIPTION": "Channels with the most conversations"
+      },
+      "BY_AGENT": {
+        "TITLE": "By agent",
+        "DESCRIPTION": "Agents handling the most conversations"
+      },
+      "BREAKDOWN": {
+        "TITLE": "Conversations by status",
+        "DESCRIPTION": "Current status of the conversations created in this period"
+      }
+    },
     "HEATMAP_ARIA_LABEL": "{metric} by day and hour",
     "ACCOUNT_CONVERSATIONS": {
       "HEADER": "Open Conversations",

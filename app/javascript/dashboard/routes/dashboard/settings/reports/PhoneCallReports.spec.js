@@ -53,7 +53,7 @@ const mountComponent = () =>
         createI18n({ legacy: false, locale: 'en', messages: { en: messages } }),
       ],
       stubs: {
-        ReportHeader: true,
+        ReportHeader: { template: '<div><slot name="filters" /></div>' },
         RouterLink: { template: '<a><slot /></a>' },
       },
     },
