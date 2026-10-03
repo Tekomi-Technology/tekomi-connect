@@ -20,6 +20,8 @@ class Messages::Facebook::MessageBuilder < Messages::Messenger::MessageBuilder
   def perform
     # This channel might require reauthorization, may be owner might have changed the fb password
     return if @inbox.channel.reauthorization_required?
+    # Messenger redelivers a webhook it did not see acknowledged in time; store each mid once.
+    return if response.identifier.present? && @inbox.messages.exists?(source_id: response.identifier)
 
     ActiveRecord::Base.transaction do
       build_contact_inbox

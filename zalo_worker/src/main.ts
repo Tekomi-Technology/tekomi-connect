@@ -9,6 +9,7 @@ import { isReactionRemoval, reactionEmoji } from './reactionIcons.js';
 import type { QrLoginResult } from './qrLogin.js';
 import type { IncomingMessage, ReactionEvent, UndoEvent, ZaloCredentials } from './types.js';
 import { ProxyPool } from './proxyPool.js';
+import { EventForwarder } from './eventForwarder.js';
 
 const PORT = Number(process.env.ZALO_WORKER_PORT ?? 3100);
 // Loopback by default so a single-host install cannot expose the worker. Compose deployments
@@ -69,10 +70,18 @@ const supervisor = new ReconnectSupervisor({
 });
 
 // Every inbound event is forwarded as-is; Rails owns all the decisions about what to store.
-// A failed post is logged and dropped: Zalo will not resend, and there is nowhere durable to
-// queue it here without giving the worker the state it is meant not to own.
+// Zalo will not resend an event, so a failed post is retried until Rails is back rather than
+// dropped, in order per channel.
+const forwarder = new EventForwarder({
+  post: (payload) => rails.postEvent(payload),
+  log: {
+    info: (obj, msg) => app.log.info(obj, msg),
+    warn: (obj, msg) => app.log.warn(obj, msg),
+    error: (obj, msg) => app.log.error(obj, msg),
+  },
+});
 const forward = (payload: Record<string, unknown>) => {
-  rails.postEvent(payload).catch((err) => app.log.error({ err: String(err), event: payload.event }, 'forward failed'));
+  void forwarder.forward(String(payload.channel_id), payload);
 };
 
 sessions.registerEventHandlers({

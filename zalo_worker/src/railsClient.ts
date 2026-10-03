@@ -10,6 +10,17 @@ export interface SessionRecord {
  * Talks to Rails, which owns every piece of durable state. The worker never reads the database.
  * Both directions authenticate with the same shared secret; the worker binds to loopback only.
  */
+/** A response from Rails that was not 2xx; the status tells a retryable outage from a rejection. */
+export class RailsRequestError extends Error {
+  constructor(
+    readonly status: number,
+    message: string
+  ) {
+    super(message);
+    this.name = 'RailsRequestError';
+  }
+}
+
 export class RailsClient {
   constructor(
     private baseUrl: string,
@@ -36,6 +47,6 @@ export class RailsClient {
       headers: { 'Content-Type': 'application/json', 'X-Zalo-Worker-Secret': this.secret },
       body: JSON.stringify(payload),
     });
-    if (!res.ok) throw new Error(`postEvent(${payload.event}) failed: ${res.status}`);
+    if (!res.ok) throw new RailsRequestError(res.status, `postEvent(${payload.event}) failed: ${res.status}`);
   }
 }

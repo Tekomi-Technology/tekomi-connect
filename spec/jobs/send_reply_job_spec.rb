@@ -123,4 +123,36 @@ RSpec.describe SendReplyJob do
       expect_mapped_service_to_perform(message, 'Tiktok::SendOnTiktokService')
     end
   end
+
+  context 'when the channel keeps failing' do
+    let(:telegram_inbox) { create(:channel_telegram).inbox }
+    let!(:message) { create(:message, message_type: :outgoing, conversation: create(:conversation, inbox: telegram_inbox)) }
+    let(:failing_service) { instance_double(Telegram::SendOnTelegramService) }
+
+    before do
+      allow(Telegram::SendOnTelegramService).to receive(:new).and_return(failing_service)
+      allow(failing_service).to receive(:perform).and_raise(Net::ReadTimeout)
+    end
+
+    it 'retries the send instead of failing the message straight away' do
+      expect { described_class.perform_now(message.id) }.to have_enqueued_job(described_class).with(message.id)
+      expect(message.reload.status).to eq('sent')
+    end
+
+    it 'marks the message failed once the retries run out' do
+      perform_enqueued_jobs(only: described_class) { described_class.perform_later(message.id) }
+
+      expect(failing_service).to have_received(:perform).exactly(5).times
+      expect(message.reload.status).to eq('failed')
+      expect(message.external_error).to eq(I18n.t('errors.send_reply.failed'))
+    end
+
+    it 'leaves a message the channel already accepted untouched' do
+      message.update!(source_id: 'tg-123')
+
+      perform_enqueued_jobs(only: described_class) { described_class.perform_later(message.id) }
+
+      expect(message.reload.status).to eq('sent')
+    end
+  end
 end

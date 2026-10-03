@@ -40,6 +40,8 @@ vi:
     sessions:
       cannot_revoke_current: You cannot revoke the current session.
   errors:
+    send_reply:
+      failed: 'Chưa gửi được tin nhắn: kênh không phản hồi sau nhiều lần thử. Kiểm tra kết nối của hộp thư rồi gửi lại.'
     account:
       not_authorized: You are not authorized to access this account
       email_limit_exceeded: The daily email limit for this account has been reached

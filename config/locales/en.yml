@@ -173,6 +173,8 @@ en:
     zalo_personal:
       no_session: 'Message not sent because the Zalo session has ended. Zalo keeps one web session per account, so signing that account in to Zalo Web elsewhere ends this one. Scan the QR code again in the inbox settings to reconnect.'
       file_rejected: 'Zalo refused this file. Try sending it in a different format, or as a smaller file.'
+    send_reply:
+      failed: 'Message not sent: the channel did not respond after several attempts. Check the inbox connection and send it again.'
     llm:
       feature_not_configured: 'The AI feature "%{feature}" has no model configured. Ask a Super Admin to configure it in Super Admin → Settings → GMO AI.'
     inboxes:

@@ -6,6 +6,7 @@ class Zalo::IncomingMessageService
   # Shown while the real group name has not been resolved — still better than a member's name.
   GROUP_FALLBACK_NAME = 'Nhóm Zalo'.freeze
   MAX_ATTACHMENT_SIZE = 40.megabytes
+  MISSING_ATTACHMENT_NOTE = '📎 Không tải được tệp đính kèm từ Zalo. Xem tệp gốc tại: %<url>s'.freeze
 
   def perform
     return if thread_id.blank? || source_id.blank?
@@ -156,6 +157,15 @@ class Zalo::IncomingMessageService
       file_type: media[:type],
       file: { io: file, filename: media[:filename].presence || "zalo-#{source_id}", content_type: file.content_type }
     )
+  rescue Down::Error => e
+    Rails.logger.warn("Zalo personal attachment download failed for #{source_id}: #{e.message}")
+    note_missing_attachment
+  end
+
+  # An expired link, a timeout or an oversized file must not cost the whole message: Zalo never
+  # resends it, so keep what was written and leave the agent the original link.
+  def note_missing_attachment
+    @message.content = [@message.content.presence, format(MISSING_ATTACHMENT_NOTE, url: media[:url])].compact.join("\n")
   end
 
   def media

@@ -384,6 +384,9 @@ class Conversation < ApplicationRecord
     obj_from_db = self.class.find(id)
     self[:display_id] = obj_from_db[:display_id]
     self[:uuid] = obj_from_db[:uuid]
+    # These values already match the database; left dirty, they make the next `with_lock` on a
+    # just-created conversation raise (e.g. ZaloOa::ConsultationWindow on a customer's first message).
+    clear_attribute_changes(%w[display_id uuid])
   end
 
   def notify_status_change

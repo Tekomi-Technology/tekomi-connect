@@ -6,6 +6,7 @@ class ZaloOa::IncomingMessageService
   FILE_EVENTS = %w[user_send_file oa_send_file].freeze
   CAPTIONABLE_EVENTS = (IMAGE_EVENTS + FILE_EVENTS).freeze
   NO_CONTENT_EVENTS = %w[user_send_location user_send_audio user_send_video].freeze
+  MISSING_ATTACHMENT_NOTE = '📎 Không tải được tệp đính kèm từ Zalo. Xem tệp gốc tại: %<url>s'.freeze
 
   def perform
     return if user_id.blank? || source_id.blank?
@@ -157,7 +158,13 @@ class ZaloOa::IncomingMessageService
     )
   rescue Down::Error => e
     Rails.logger.warn("Zalo OA attachment download failed for #{source_id}: #{e.message}")
-    raise
+    note_missing_attachment
+  end
+
+  # An expired link, a timeout or an oversized file must not cost the whole message: Zalo never
+  # resends it, so keep what the customer wrote and leave the agent the original link.
+  def note_missing_attachment
+    @message.content = [@message.content.presence, format(MISSING_ATTACHMENT_NOTE, url: attachment_url)].compact.join("\n")
   end
 
   def media_file_type
