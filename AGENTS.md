@@ -83,6 +83,10 @@
 - Optionally add a `What changed` section for implementation highlights.
 - Do not add a `How this was tested` section listing specs/commands.
 
+## Feature Map
+
+- Before searching the repo for where a feature lives, read `docs/feature-map/README.md` and open the one file for that area.
+
 ## Project-Specific
 
 - **Translations**:

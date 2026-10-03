@@ -81,8 +81,9 @@ COPY . /app
 RUN mkdir -p /app/log
 
 # generate production assets if production environment
+ARG ASSETS_NODE_OPTIONS="--max-old-space-size=3072 --openssl-legacy-provider"
 RUN if [ "$RAILS_ENV" = "production" ]; then \
-  SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled bundle exec rake assets:precompile \
+  NODE_OPTIONS="$ASSETS_NODE_OPTIONS" SECRET_KEY_BASE=precompile_placeholder RAILS_LOG_TO_STDOUT=enabled bundle exec rake assets:precompile \
   && rm -rf spec node_modules tmp/cache; \
   fi
 
