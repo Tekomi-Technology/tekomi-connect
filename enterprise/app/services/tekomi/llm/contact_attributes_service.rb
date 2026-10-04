@@ -2,7 +2,7 @@ class Tekomi::Llm::ContactAttributesService < Llm::BaseAiService
   include Integrations::LlmInstrumentation
 
   def initialize(assistant, conversation)
-    super(feature: 'assistant')
+    super(feature: 'assistant', account: conversation.account)
     @assistant = assistant
     @conversation = conversation
     @contact = conversation.contact

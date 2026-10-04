@@ -3,7 +3,7 @@ class Tekomi::Llm::AssistantFalsePromiseService < Llm::BaseAiService
   include Tekomi::Llm::AssistantResponseInspectionHelpers
 
   def initialize(assistant:, conversation:)
-    super(feature: 'false_promise_detection')
+    super(feature: 'false_promise_detection', account: conversation.account)
     @assistant = assistant
     @conversation = conversation
     @temperature = 0.0

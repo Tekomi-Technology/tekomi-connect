@@ -10,7 +10,7 @@ class Phone::CallEmotionAnalysisService
 
   def perform
     recording = Phone::PbxRecordingFetcher.new(@phone_call).download
-    transcription = Phone::OpenrouterTranscriptionService.new(recording).perform
+    transcription = Phone::OpenrouterTranscriptionService.new(recording, account: @account).perform
     transcript = transcription.fetch('transcript').to_s.strip
     analysis = analyze_transcript(transcript)
 
@@ -40,8 +40,8 @@ class Phone::CallEmotionAnalysisService
   private
 
   def analyze_transcript(transcript)
-    route = Llm::FeatureRouter.resolve(feature: 'call_emotion_analysis')
-    chat = RubyLLM.chat(model: route[:model], provider: route[:provider], assume_model_exists: true)
+    route = Llm::FeatureRouter.resolve(feature: 'call_emotion_analysis', account: @account)
+    chat = route[:context].chat(model: route[:model], provider: route[:provider], assume_model_exists: true)
                      .with_params(**route[:params])
                      .with_schema(Tekomi::Llm::CallEmotionAnalysisSchema)
     response = chat.ask(

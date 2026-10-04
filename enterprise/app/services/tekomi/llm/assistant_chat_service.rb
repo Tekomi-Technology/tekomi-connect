@@ -2,7 +2,8 @@ class Tekomi::Llm::AssistantChatService < Llm::BaseAiService
   include Tekomi::ChatHelper
 
   def initialize(assistant: nil, conversation: nil, source: nil)
-    super(feature: 'assistant')
+    account = assistant&.account || conversation&.account
+    super(feature: 'assistant', account: account)
 
     @assistant = assistant
     @conversation = conversation

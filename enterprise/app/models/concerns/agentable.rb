@@ -39,7 +39,7 @@ module Concerns::Agentable
   end
 
   def agent_llm_route
-    Llm::FeatureRouter.resolve(feature: 'assistant')
+    Llm::FeatureRouter.resolve(feature: 'assistant', account: account)
   end
 
   private

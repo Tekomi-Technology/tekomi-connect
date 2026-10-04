@@ -8,7 +8,7 @@ class Tekomi::Llm::PaginatedFaqGeneratorService < Llm::BaseAiService
   attr_reader :total_pages_processed, :iterations_completed
 
   def initialize(document, options = {})
-    super(feature: 'pdf_faq_generation')
+    super(feature: 'pdf_faq_generation', account: document.account)
     @document = document
     @language = options[:language] || 'english'
     @pages_per_chunk = options[:pages_per_chunk] || DEFAULT_PAGES_PER_CHUNK

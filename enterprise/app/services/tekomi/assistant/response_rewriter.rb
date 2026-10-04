@@ -19,7 +19,9 @@ class Tekomi::Assistant::ResponseRewriter
       state: run_result.context[:state],
       tekomi_v2_trace_input: rewrite_prompt
     }
-    rewrite_run_result = runner.run(rewrite_prompt, context: rewrite_context, max_turns: 1)
+    rewrite_run_result = Llm::Config.with_account(@assistant.account) do
+      runner.run(rewrite_prompt, context: rewrite_context, max_turns: 1)
+    end
     raise rewrite_run_result.error || 'Tekomi response rewrite failed' if rewrite_run_result.failed?
 
     rewritten_model_output = rewritten_response_with_original_citations(rewrite_run_result.output, response_parts)

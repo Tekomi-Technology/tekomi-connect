@@ -5,14 +5,16 @@ class Tekomi::Llm::EmbeddingService
 
   def initialize(account_id: nil)
     @account_id = account_id
-    @route = Llm::FeatureRouter.resolve(feature: 'embedding')
+    @route = Llm::FeatureRouter.resolve(feature: 'embedding', account: Account.find_by(id: account_id))
   end
 
   def get_embedding(content)
     return [] if content.blank?
 
     instrument_embedding_call(instrumentation_params(content)) do
-      RubyLLM.embed(content, model: @route[:model], provider: @route[:provider], assume_model_exists: true).vectors
+      RubyLLM.embed(
+        content, model: @route[:model], provider: @route[:provider], context: @route[:context], assume_model_exists: true
+      ).vectors
     end
   rescue RubyLLM::Error => e
     Rails.logger.error "Embedding API Error: #{e.message}"
