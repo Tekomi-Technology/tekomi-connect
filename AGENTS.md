@@ -1,9 +1,24 @@
 # Tekomi Development Guidelines
 
+## Project Overview
+
+- Tekomi Connect is a fork of Chatwoot (upstream version in `VERSION_CW`): Rails backend, Vue 3 dashboard under `app/javascript/`, Sidekiq jobs, PostgreSQL with pgvector, Redis.
+- Fork-specific areas that upstream does not have:
+  - Zalo OA and Zalo Personal channels; the personal channel runs through the Node/TypeScript worker in `zalo_worker/` (see `docs/zalo-personal-proxy.md`).
+  - Perfex CRM sync under `app/services/crm/perfex/` and `app/jobs/crm/perfex/`, configured through the `EXTERNAL_TICKET_*` settings.
+  - Phone calls and call transcription; `call_emotion/` is a separate Python service.
+  - Supervisor role and the Super Admin role matrix in `config/role_matrix.yml`.
+  - Tekomi AI, the renamed Captain feature, under `enterprise/`.
+- Main branch is `develop`. `customer/gmo-develop` is the white-label build for the GMO customer.
+- Human-facing setup instructions are in `README.md`.
+
 ## Build / Test / Lint
 
 - **Setup**: `bundle install && pnpm install`
-- **Run Dev**: `pnpm dev` or `overmind start -f ./Procfile.dev`
+- **Run Dev**: `pnpm dev` (runs `overmind start -f ./Procfile.dev`: Rails on 3000, Sidekiq, Vite, Zalo worker)
+- **Run Dev in Docker**: `docker compose build base`, then `docker compose build rails vite`, then `docker compose up -d rails`. `base` must be built first because the other images start `FROM chatwoot:development`. The compose file has no PostgreSQL service; `.env` must point `POSTGRES_HOST` at an existing one.
+- **Prepare DB**: `bundle exec rails db:chatwoot_prepare`
+- **Zalo worker tests**: `cd zalo_worker && npm test`
 - **Seed Local Test Data**: `bundle exec rails db:seed` (quickly populates minimal data for standard feature verification)
 - **Seed Search Test Data**: `bundle exec rails search:setup_test_data` (bulk fixture generation for search/performance/manual load scenarios)
 - **Seed Account Sample Data (richer test data)**: `Seeders::AccountSeeder` is available as an internal utility and is exposed through Super Admin `Accounts#seed`, but can be used directly in dev workflows too:
@@ -14,9 +29,8 @@
 - **Test JS**: `pnpm test` or `pnpm test:watch`
 - **Test Ruby**: `bundle exec rspec spec/path/to/file_spec.rb`
 - **Single Test**: `bundle exec rspec spec/path/to/file_spec.rb:LINE_NUMBER`
-- **Run Project**: `overmind start -f Procfile.dev`
 - **Ruby Version**: Manage Ruby via `rbenv` and install the version listed in `.ruby-version` (e.g., `rbenv install $(cat .ruby-version)`)
-- **rbenv setup**: Before running any `bundle` or `rspec` commands, init rbenv in your shell (`eval "$(rbenv init -)"`) so the correct Ruby/Bundler versions are used
+- **rbenv setup**: On macOS/Linux, before running any `bundle` or `rspec` commands, init rbenv in your shell (`eval "$(rbenv init -)"`) so the correct Ruby/Bundler versions are used. On Windows, run Ruby commands inside the `rails` container (`docker compose exec rails ...`).
 - Always prefer `bundle exec` for Ruby CLI tasks (rspec, rake, rubocop, etc.)
 
 ## Code Style
@@ -83,9 +97,15 @@
 - Optionally add a `What changed` section for implementation highlights.
 - Do not add a `How this was tested` section listing specs/commands.
 
-## Feature Map
+## Knowledge Graph (graphify)
 
-- Before searching the repo for where a feature lives, read `docs/feature-map/README.md` and open the one file for that area.
+- A code knowledge graph is committed at `graphify-out/graph.json` (with `GRAPH_REPORT.md` and `manifest.json`); the rest of `graphify-out/` is local. Install the CLI once with `uv tool install graphifyy` (the package name has two y's). A full rebuild is `graphify extract . --code-only` (local AST, no API cost, ~4 minutes).
+- If the `graphify` command is not installed, skip this section and search the repo normally; do not try to parse `graph.json` by hand (it is about 40 MB).
+- Do not run `graphify install`, `graphify claude install` or `graphify codex install` as part of a task: they rewrite `CLAUDE.md` / `AGENTS.md`. Setup steps for a new machine are in `README.md`.
+- To locate code, prefer `graphify explain "<Class or method>"` and `graphify path "<A>" "<B>"` over repo-wide grep. Use `graphify affected "<node>"` before changing a shared class or method; pass the file path (`enterprise/app/models/applied_sla.rb`) when a name reports "No unique node match".
+- `graphify query "<question>"` matches on node names, so use concrete identifiers (`AppliedSla`, `SlaTab`) rather than plain-language questions.
+- The graph only holds static relations (calls, imports, inheritance). It does not see implicit Rails wiring: model callbacks, Pundit `authorize`, background jobs, event dispatcher/listeners, routes, or Vue-to-API HTTP calls. Grep for those.
+- After modifying code, run `graphify update .` to keep the graph current.
 
 ## Project-Specific
 

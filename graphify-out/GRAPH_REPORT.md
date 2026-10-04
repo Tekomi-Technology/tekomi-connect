@@ -1,0 +1,5650 @@
+# Graph Report - tekomi-connect  (2026-10-04)
+
+## Corpus Check
+- cluster-only mode — file stats not available
+
+## Summary
+- 32790 nodes · 52586 edges · 2751 communities (937 shown, 1814 thin omitted)
+- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 2574 edges (avg confidence: 0.85)
+- Token cost: 0 input · 0 output
+
+## Graph Freshness
+- Built from commit: `cd293d0c`
+- Run `git rev-parse HEAD` and compare to check if the graph is stale.
+- Run `graphify update .` after code changes (no API cost).
+
+## Community Hubs (Navigation)
+- Community 0
+- Community 1
+- Community 2
+- Community 3
+- Community 4
+- Community 5
+- Community 6
+- Community 7
+- Community 8
+- Community 9
+- Community 10
+- Community 11
+- Community 12
+- Community 13
+- Community 14
+- Community 15
+- Community 16
+- Community 17
+- Community 18
+- Community 19
+- Community 20
+- Community 21
+- Community 22
+- Community 23
+- Community 24
+- Community 25
+- Community 26
+- Community 27
+- Community 28
+- Community 29
+- Community 30
+- Community 31
+- Community 32
+- Community 33
+- Community 34
+- Community 35
+- Community 36
+- Community 37
+- Community 38
+- Community 39
+- Community 40
+- Community 41
+- Community 42
+- Community 43
+- Community 44
+- Community 45
+- Community 46
+- Community 47
+- Community 48
+- Community 49
+- Community 50
+- Community 51
+- Community 52
+- Community 53
+- Community 54
+- Community 55
+- Community 56
+- Community 57
+- Community 58
+- Community 59
+- Community 60
+- Community 61
+- Community 62
+- Community 63
+- Community 64
+- Community 65
+- Community 66
+- Community 67
+- Community 68
+- Community 69
+- Community 70
+- Community 71
+- Community 73
+- Community 74
+- Community 75
+- Community 76
+- Community 77
+- Community 78
+- Community 79
+- Community 80
+- Community 81
+- Community 82
+- Community 83
+- Community 84
+- Community 85
+- Community 86
+- Community 87
+- Community 88
+- Community 89
+- Community 90
+- Community 91
+- Community 92
+- Community 93
+- Community 94
+- Community 95
+- Community 96
+- Community 97
+- Community 98
+- Community 99
+- Community 100
+- Community 101
+- Community 102
+- Community 103
+- Community 105
+- Community 106
+- Community 107
+- Community 110
+- Community 111
+- Community 112
+- Community 113
+- Community 114
+- Community 115
+- Community 116
+- Community 117
+- Community 118
+- Community 119
+- Community 120
+- Community 121
+- Community 122
+- Community 123
+- Community 124
+- Community 125
+- Community 126
+- Community 127
+- Community 128
+- Community 129
+- Community 130
+- Community 131
+- Community 132
+- Community 133
+- Community 134
+- Community 135
+- Community 136
+- Community 137
+- Community 138
+- Community 139
+- Community 140
+- Community 141
+- Community 142
+- Community 143
+- Community 144
+- Community 145
+- Community 146
+- Community 147
+- Community 148
+- Community 149
+- Community 150
+- Community 151
+- Community 152
+- Community 153
+- Community 154
+- Community 155
+- Community 156
+- Community 157
+- Community 158
+- Community 159
+- Community 160
+- Community 161
+- Community 162
+- Community 163
+- Community 164
+- Community 165
+- Community 166
+- Community 167
+- Community 168
+- Community 169
+- Community 170
+- Community 171
+- Community 172
+- Community 173
+- Community 174
+- Community 175
+- Community 176
+- Community 177
+- Community 178
+- Community 179
+- Community 180
+- Community 181
+- Community 182
+- Community 183
+- Community 184
+- Community 185
+- Community 186
+- Community 187
+- Community 188
+- Community 189
+- Community 190
+- Community 191
+- Community 192
+- Community 193
+- Community 194
+- Community 195
+- Community 196
+- Community 197
+- Community 198
+- Community 199
+- Community 200
+- Community 201
+- Community 202
+- Community 203
+- Community 204
+- Community 205
+- Community 206
+- Community 207
+- Community 208
+- Community 209
+- Community 210
+- Community 211
+- Community 212
+- Community 213
+- Community 214
+- Community 215
+- Community 216
+- Community 217
+- Community 218
+- Community 219
+- Community 220
+- Community 221
+- Community 222
+- Community 223
+- Community 224
+- Community 225
+- Community 226
+- Community 227
+- Community 228
+- Community 229
+- Community 230
+- Community 231
+- Community 232
+- Community 233
+- Community 234
+- Community 235
+- Community 236
+- Community 237
+- Community 238
+- Community 239
+- Community 240
+- Community 241
+- Community 242
+- Community 243
+- Community 244
+- Community 245
+- Community 246
+- Community 247
+- Community 248
+- Community 249
+- Community 250
+- Community 251
+- Community 252
+- Community 253
+- Community 254
+- Community 255
+- Community 256
+- Community 257
+- Community 258
+- Community 259
+- Community 260
+- Community 261
+- Community 262
+- Community 263
+- Community 264
+- Community 265
+- Community 266
+- Community 267
+- Community 268
+- Community 269
+- Community 270
+- Community 271
+- Community 272
+- Community 273
+- Community 274
+- Community 275
+- Community 276
+- Community 277
+- Community 278
+- Community 279
+- Community 280
+- Community 281
+- Community 282
+- Community 283
+- Community 284
+- Community 285
+- Community 286
+- Community 287
+- Community 288
+- Community 289
+- Community 290
+- Community 291
+- Community 292
+- Community 293
+- Community 294
+- Community 295
+- Community 296
+- Community 297
+- Community 298
+- Community 299
+- Community 300
+- Community 301
+- Community 302
+- Community 303
+- Community 304
+- Community 305
+- Community 306
+- Community 307
+- Community 308
+- Community 309
+- Community 310
+- Community 311
+- Community 312
+- Community 313
+- Community 314
+- Community 315
+- Community 316
+- Community 317
+- Community 318
+- Community 319
+- Community 320
+- Community 321
+- Community 322
+- Community 323
+- Community 324
+- Community 325
+- Community 326
+- Community 328
+- Community 329
+- Community 330
+- Community 331
+- Community 332
+- Community 333
+- Community 334
+- Community 335
+- Community 336
+- Community 337
+- Community 338
+- Community 339
+- Community 340
+- Community 341
+- Community 342
+- Community 343
+- Community 344
+- Community 345
+- Community 346
+- Community 347
+- Community 348
+- Community 349
+- Community 350
+- Community 351
+- Community 352
+- Community 353
+- Community 354
+- Community 355
+- Community 356
+- Community 357
+- Community 358
+- Community 359
+- Community 360
+- Community 361
+- Community 362
+- Community 363
+- Community 364
+- Community 365
+- Community 366
+- Community 367
+- Community 368
+- Community 369
+- Community 370
+- Community 371
+- Community 372
+- Community 373
+- Community 374
+- Community 375
+- Community 376
+- Community 377
+- Community 378
+- Community 379
+- Community 380
+- Community 381
+- Community 382
+- Community 383
+- Community 384
+- Community 385
+- Community 386
+- Community 387
+- Community 388
+- Community 389
+- Community 390
+- Community 391
+- Community 392
+- Community 393
+- Community 394
+- Community 395
+- Community 396
+- Community 397
+- Community 398
+- Community 399
+- Community 400
+- Community 401
+- Community 402
+- Community 403
+- Community 404
+- Community 405
+- Community 406
+- Community 407
+- Community 408
+- Community 409
+- Community 410
+- Community 411
+- Community 412
+- Community 413
+- Community 414
+- Community 415
+- Community 416
+- Community 417
+- Community 418
+- Community 419
+- Community 420
+- Community 421
+- Community 422
+- Community 423
+- Community 424
+- Community 425
+- Community 426
+- Community 427
+- Community 428
+- Community 429
+- Community 430
+- Community 431
+- Community 432
+- Community 433
+- Community 434
+- Community 435
+- Community 436
+- Community 437
+- Community 438
+- Community 439
+- Community 440
+- Community 441
+- Community 442
+- Community 443
+- Community 444
+- Community 445
+- Community 446
+- Community 447
+- Community 448
+- Community 449
+- Community 450
+- Community 451
+- Community 452
+- Community 453
+- Community 454
+- Community 455
+- Community 456
+- Community 457
+- Community 458
+- Community 459
+- Community 460
+- Community 461
+- Community 462
+- Community 463
+- Community 464
+- Community 465
+- Community 466
+- Community 467
+- Community 468
+- Community 469
+- Community 470
+- Community 471
+- Community 472
+- Community 473
+- Community 474
+- Community 475
+- Community 476
+- Community 477
+- Community 478
+- Community 479
+- Community 480
+- Community 481
+- Community 482
+- Community 483
+- Community 484
+- Community 485
+- Community 486
+- Community 487
+- Community 488
+- Community 489
+- Community 490
+- Community 491
+- Community 492
+- Community 493
+- Community 494
+- Community 495
+- Community 496
+- Community 497
+- Community 498
+- Community 499
+- Community 500
+- Community 501
+- Community 502
+- Community 503
+- Community 504
+- Community 505
+- Community 506
+- Community 507
+- Community 508
+- Community 509
+- Community 510
+- Community 511
+- Community 512
+- Community 513
+- Community 514
+- Community 515
+- Community 516
+- Community 517
+- Community 518
+- Community 519
+- Community 520
+- Community 521
+- Community 522
+- Community 523
+- Community 524
+- Community 525
+- Community 526
+- Community 527
+- Community 528
+- Community 529
+- Community 530
+- Community 531
+- Community 532
+- Community 533
+- Community 534
+- Community 535
+- Community 536
+- Community 537
+- Community 538
+- Community 539
+- Community 540
+- Community 541
+- Community 542
+- Community 543
+- Community 544
+- Community 545
+- Community 546
+- Community 547
+- Community 548
+- Community 549
+- Community 550
+- Community 551
+- Community 552
+- Community 553
+- Community 554
+- Community 555
+- Community 556
+- Community 557
+- Community 558
+- Community 559
+- Community 560
+- Community 561
+- Community 562
+- Community 563
+- Community 564
+- Community 565
+- Community 566
+- Community 567
+- Community 568
+- Community 569
+- Community 570
+- Community 571
+- Community 572
+- Community 573
+- Community 574
+- Community 575
+- Community 576
+- Community 577
+- Community 578
+- Community 579
+- Community 580
+- Community 581
+- Community 582
+- Community 583
+- Community 584
+- Community 585
+- Community 586
+- Community 587
+- Community 588
+- Community 589
+- Community 590
+- Community 591
+- Community 592
+- Community 593
+- Community 594
+- Community 595
+- Community 596
+- Community 597
+- Community 598
+- Community 599
+- Community 600
+- Community 601
+- Community 602
+- Community 603
+- Community 604
+- Community 605
+- Community 606
+- Community 607
+- Community 608
+- Community 609
+- Community 610
+- Community 611
+- Community 612
+- Community 613
+- Community 614
+- Community 615
+- Community 616
+- Community 617
+- Community 618
+- Community 619
+- Community 620
+- Community 621
+- Community 622
+- Community 623
+- Community 624
+- Community 625
+- Community 626
+- Community 627
+- Community 628
+- Community 629
+- Community 630
+- Community 631
+- Community 632
+- Community 633
+- Community 634
+- Community 635
+- Community 636
+- Community 637
+- Community 638
+- Community 639
+- Community 640
+- Community 641
+- Community 642
+- Community 643
+- Community 644
+- Community 645
+- Community 646
+- Community 647
+- Community 648
+- Community 649
+- Community 650
+- Community 651
+- Community 652
+- Community 653
+- Community 654
+- Community 655
+- Community 656
+- Community 657
+- Community 658
+- Community 659
+- Community 660
+- Community 661
+- Community 662
+- Community 663
+- Community 664
+- Community 665
+- Community 666
+- Community 667
+- Community 668
+- Community 669
+- Community 670
+- Community 671
+- Community 672
+- Community 673
+- Community 674
+- Community 675
+- Community 676
+- Community 677
+- Community 678
+- Community 679
+- Community 680
+- Community 681
+- Community 682
+- Community 683
+- Community 684
+- Community 685
+- Community 686
+- Community 687
+- Community 688
+- Community 689
+- Community 690
+- Community 691
+- Community 692
+- Community 693
+- Community 694
+- Community 695
+- Community 696
+- Community 697
+- Community 698
+- Community 699
+- Community 700
+- Community 701
+- Community 702
+- Community 703
+- Community 704
+- Community 705
+- Community 706
+- Community 707
+- Community 708
+- Community 709
+- Community 710
+- Community 711
+- Community 712
+- Community 713
+- Community 714
+- Community 715
+- Community 716
+- Community 717
+- Community 718
+- Community 719
+- Community 720
+- Community 721
+- Community 722
+- Community 723
+- Community 724
+- Community 725
+- Community 726
+- Community 727
+- Community 728
+- Community 729
+- Community 730
+- Community 731
+- Community 732
+- Community 733
+- Community 734
+- Community 735
+- Community 736
+- Community 737
+- Community 738
+- Community 739
+- Community 740
+- Community 741
+- Community 742
+- Community 743
+- Community 744
+- Community 745
+- Community 746
+- Community 747
+- Community 748
+- Community 749
+- Community 750
+- Community 751
+- Community 752
+- Community 753
+- Community 754
+- Community 755
+- Community 756
+- Community 757
+- Community 758
+- Community 759
+- Community 760
+- Community 761
+- Community 762
+- Community 763
+- Community 764
+- Community 765
+- Community 766
+- Community 767
+- Community 768
+- Community 769
+- Community 770
+- Community 771
+- Community 772
+- Community 773
+- Community 774
+- Community 775
+- Community 776
+- Community 777
+- Community 778
+- Community 779
+- Community 780
+- Community 781
+- Community 782
+- Community 783
+- Community 784
+- Community 785
+- Community 786
+- Community 787
+- Community 788
+- Community 789
+- Community 790
+- Community 791
+- Community 792
+- Community 793
+- Community 794
+- Community 795
+- Community 796
+- Community 797
+- Community 798
+- Community 799
+- Community 800
+- Community 801
+- Community 802
+- Community 803
+- Community 804
+- Community 805
+- Community 806
+- Community 807
+- Community 808
+- Community 809
+- Community 810
+- Community 811
+- Community 812
+- Community 813
+- Community 814
+- Community 815
+- Community 816
+- Community 817
+- Community 818
+- Community 819
+- Community 820
+- Community 821
+- Community 822
+- Community 823
+- Community 824
+- Community 825
+- Community 826
+- Community 827
+- Community 828
+- Community 829
+- Community 830
+- Community 831
+- Community 832
+- Community 833
+- Community 834
+- Community 835
+- Community 836
+- Community 837
+- Community 838
+- Community 839
+- Community 840
+- Community 841
+- Community 842
+- Community 843
+- Community 844
+- Community 845
+- Community 846
+- Community 847
+- Community 848
+- Community 849
+- Community 850
+- Community 851
+- Community 852
+- Community 854
+- Community 855
+- Community 856
+- Community 857
+- Community 858
+- Community 859
+- Community 860
+- Community 861
+- Community 862
+- Community 863
+- Community 864
+- Community 865
+- Community 866
+- Community 867
+- Community 868
+- Community 869
+- Community 870
+- Community 871
+- Community 872
+- Community 873
+- Community 874
+- Community 875
+- Community 876
+- Community 877
+- Community 878
+- Community 879
+- Community 880
+- Community 881
+- Community 882
+- Community 883
+- Community 884
+- Community 885
+- Community 886
+- Community 887
+- Community 888
+- Community 889
+- Community 890
+- Community 891
+- Community 892
+- Community 893
+- Community 895
+- Community 896
+- Community 897
+- Community 898
+- Community 899
+- Community 900
+- Community 901
+- Community 902
+- Community 903
+- Community 904
+- Community 905
+- Community 906
+- Community 907
+- Community 908
+- Community 909
+- Community 910
+- Community 911
+- Community 912
+- Community 913
+- Community 914
+- Community 915
+- Community 916
+- Community 917
+- Community 918
+- Community 919
+- Community 920
+- Community 921
+- Community 922
+- Community 923
+- Community 924
+- Community 925
+- Community 926
+- Community 927
+- Community 928
+- Community 929
+- Community 930
+- Community 931
+- Community 932
+- Community 933
+- Community 934
+- Community 935
+- Community 936
+- Community 937
+- Community 938
+- Community 939
+- Community 940
+- Community 941
+- Community 942
+- Community 943
+- Community 944
+- Community 945
+- Community 946
+- Community 947
+- Community 948
+- Community 949
+- Community 950
+- Community 951
+- Community 952
+- Community 953
+- Community 954
+- Community 955
+- Community 956
+- Community 957
+- Community 958
+- Community 959
+- Community 960
+- Community 961
+- Community 962
+- Community 963
+- Community 964
+- Community 965
+- Community 966
+- Community 967
+- Community 968
+- Community 969
+- Community 970
+- Community 971
+- Community 972
+- Community 973
+- Community 974
+- Community 975
+- Community 976
+- Community 977
+- Community 978
+- Community 979
+- Community 980
+- Community 981
+- Community 982
+- Community 983
+- Community 984
+- Community 985
+- Community 986
+- Community 987
+- Community 988
+- Community 989
+- Community 990
+- Community 991
+- Community 993
+- Community 994
+- Community 995
+- Community 996
+- Community 997
+- Community 998
+- Community 999
+- Community 1000
+- Community 1001
+- Community 1002
+- Community 1003
+- Community 1004
+- Community 1005
+- Community 1006
+- Community 1007
+- Community 1008
+- Community 1009
+- Community 1010
+- Community 1011
+- Community 1012
+- Community 1013
+- Community 1014
+- Community 1015
+- Community 1016
+- Community 1017
+- Community 1018
+- Community 1019
+- Community 1020
+- Community 1021
+- Community 1022
+- Community 1023
+- Community 1024
+- Community 1025
+- Community 1026
+- Community 1027
+- Community 1028
+- Community 1029
+- Community 1030
+- Community 1031
+- Community 1032
+- Community 1033
+- Community 1034
+- Community 1035
+- Community 1036
+- Community 1037
+- Community 1038
+- Community 1039
+- Community 1040
+- Community 1041
+- Community 1042
+- Community 1043
+- Community 1044
+- Community 1045
+- Community 1046
+- Community 1047
+- Community 1048
+- Community 1049
+- Community 1050
+- Community 1051
+- Community 1052
+- Community 1053
+- Community 1054
+- Community 1055
+- Community 1056
+- Community 1057
+- Community 1058
+- Community 1059
+- Community 1060
+- Community 1061
+- Community 1062
+- Community 1063
+- Community 1064
+- Community 1065
+- Community 1066
+- Community 1067
+- Community 1068
+- Community 1069
+- Community 1070
+- Community 1071
+- Community 1072
+- Community 1073
+- Community 1074
+- Community 1075
+- Community 1077
+- Community 1078
+- Community 1079
+- Community 1080
+- Community 1081
+- Community 1082
+- Community 1083
+- Community 1084
+- Community 1085
+- Community 1086
+- Community 1087
+- Community 1088
+- Community 1089
+- Community 1090
+- Community 1091
+- Community 1092
+- Community 1093
+- Community 1094
+- Community 1095
+- Community 1096
+- Community 1097
+- Community 1098
+- Community 1099
+- Community 1100
+- Community 1101
+- Community 1102
+- Community 1103
+- Community 1104
+- Community 1105
+- Community 1106
+- Community 1107
+- Community 1108
+- Community 1109
+- Community 1110
+- Community 1111
+- Community 1112
+- Community 1113
+- Community 1114
+- Community 1115
+- Community 1116
+- Community 1117
+- Community 1118
+- Community 1119
+- Community 1121
+- Community 1122
+- Community 1123
+- Community 1124
+- Community 1125
+- Community 1126
+- Community 1127
+- Community 1128
+- Community 1129
+- Community 1130
+- Community 1131
+- Community 1132
+- Community 1133
+- Community 1134
+- Community 1135
+- Community 1136
+- Community 1137
+- Community 1138
+- Community 1139
+- Community 1140
+- Community 1141
+- Community 1142
+- Community 1143
+- Community 1144
+- Community 1145
+- Community 1146
+- Community 1147
+- Community 1148
+- Community 1149
+- Community 1150
+- Community 1151
+- Community 1152
+- Community 1153
+- Community 1154
+- Community 1155
+- Community 1156
+- Community 1157
+- Community 1158
+- Community 1159
+- Community 1160
+- Community 1161
+- Community 1162
+- Community 1163
+- Community 1164
+- Community 1165
+- Community 1166
+- Community 1167
+- Community 1168
+- Community 1169
+- Community 1170
+- Community 1171
+- Community 1172
+- Community 1173
+- Community 1174
+- Community 1175
+- Community 1176
+- Community 1177
+- Community 1178
+- Community 1179
+- Community 1180
+- Community 1181
+- Community 1182
+- Community 1183
+- Community 1184
+- Community 1185
+- Community 1186
+- Community 1187
+- Community 1188
+- Community 1189
+- Community 1190
+- Community 1191
+- Community 1192
+- Community 1193
+- Community 1194
+- Community 1195
+- Community 1196
+- Community 1197
+- Community 1198
+- Community 1199
+- Community 1200
+- Community 1201
+- Community 1202
+- Community 1203
+- Community 1204
+- Community 1205
+- Community 1206
+- Community 1207
+- Community 1208
+- Community 1209
+- Community 1210
+- Community 1211
+- Community 1212
+- Community 1213
+- Community 1214
+- Community 1216
+- Community 1217
+- Community 1218
+- Community 1219
+- Community 1220
+- Community 1221
+- Community 1222
+- Community 1223
+- Community 1224
+- Community 1225
+- Community 1226
+- Community 1227
+- Community 1228
+- Community 1229
+- Community 1230
+- Community 1231
+- Community 1232
+- Community 1233
+- Community 1234
+- Community 1235
+- Community 1236
+- Community 1237
+- Community 1238
+- Community 1239
+- Community 1240
+- Community 1241
+- Community 1242
+- Community 1243
+- Community 1244
+- Community 1245
+- Community 1246
+- Community 1247
+- Community 1248
+- Community 1249
+- Community 1250
+- Community 1251
+- Community 1252
+- Community 1253
+- Community 1254
+- Community 1255
+- Community 1256
+- Community 1257
+- Community 1258
+- Community 1259
+- Community 1260
+- Community 1261
+- Community 1262
+- Community 1263
+- Community 1264
+- Community 1265
+- Community 1266
+- Community 1267
+- Community 1268
+- Community 1269
+- Community 1270
+- Community 1271
+- Community 1272
+- Community 1273
+- Community 1274
+- Community 1275
+- Community 1276
+- Community 1277
+- Community 1278
+- Community 1279
+- Community 1280
+- Community 1281
+- Community 1282
+- Community 1283
+- Community 1284
+- Community 1285
+- Community 1286
+- Community 1287
+- Community 1288
+- Community 1289
+- Community 1290
+- Community 1292
+- Community 1293
+- Community 1294
+- Community 1295
+- Community 1296
+- Community 1297
+- Community 1298
+- Community 1299
+- Community 1300
+- Community 1301
+- Community 1302
+- Community 1303
+- Community 1304
+- Community 1305
+- Community 1306
+- Community 1307
+- Community 1308
+- Community 1309
+- Community 1310
+- Community 1311
+- Community 1312
+- Community 1313
+- Community 1314
+- Community 1315
+- Community 1316
+- Community 1317
+- Community 1318
+- Community 1319
+- Community 1320
+- Community 1321
+- Community 1322
+- Community 1323
+- Community 1324
+- Community 1325
+- Community 1326
+- Community 1327
+- Community 1328
+- Community 1329
+- Community 1330
+- Community 1331
+- Community 1332
+- Community 1333
+- Community 1334
+- Community 1335
+- Community 1336
+- Community 1337
+- Community 1338
+- Community 1339
+- Community 1340
+- Community 1341
+- Community 1342
+- Community 1343
+- Community 1344
+- Community 1345
+- Community 1346
+- Community 1347
+- Community 1348
+- Community 1349
+- Community 1350
+- Community 1351
+- Community 1352
+- Community 1353
+- Community 1354
+- Community 1355
+- Community 1356
+- Community 1357
+- Community 1358
+- Community 1359
+- Community 1360
+- Community 1361
+- Community 1362
+- Community 1363
+- Community 1364
+- Community 1365
+- Community 1366
+- Community 1367
+- Community 1368
+- Community 1369
+- Community 1370
+- Community 1371
+- Community 1372
+- Community 1373
+- Community 1374
+- Community 1375
+- Community 1376
+- Community 1377
+- Community 1378
+- Community 1379
+- Community 1380
+- Community 1381
+- Community 1382
+- Community 1383
+- Community 1384
+- Community 1385
+- Community 1386
+- Community 1387
+- Community 1388
+- Community 1389
+- Community 1390
+- Community 1391
+- Community 1393
+- Community 1394
+- Community 1395
+- Community 1396
+- Community 1397
+- Community 1398
+- Community 1399
+- Community 1400
+- Community 1401
+- Community 1402
+- Community 1403
+- Community 1404
+- Community 1405
+- Community 1406
+- Community 1407
+- Community 1408
+- Community 1409
+- Community 1410
+- Community 1411
+- Community 1412
+- Community 1413
+- Community 1414
+- Community 1415
+- Community 1416
+- Community 1417
+- Community 1418
+- Community 1419
+- Community 1420
+- Community 1421
+- Community 1422
+- Community 1423
+- Community 1424
+- Community 1425
+- Community 1426
+- Community 1427
+- Community 1428
+- Community 1429
+- Community 1430
+- Community 1431
+- Community 1433
+- Community 1434
+- Community 1435
+- Community 1436
+- Community 1437
+- Community 1438
+- Community 1439
+- Community 1440
+- Community 1441
+- Community 1443
+- Community 1445
+- Community 1446
+- Community 1447
+- Community 1448
+- Community 1449
+- Community 1450
+- Community 1451
+- Community 1452
+- Community 1453
+- Community 1454
+- Community 1455
+- Community 1456
+- Community 1457
+- Community 1458
+- Community 1459
+- Community 1460
+- Community 1461
+- Community 1462
+- Community 1463
+- Community 1464
+- Community 1465
+- Community 1466
+- Community 1468
+- Community 1469
+- Community 1470
+- Community 1471
+- Community 1472
+- Community 1473
+- Community 1474
+- Community 1475
+- Community 1476
+- Community 1477
+- Community 1478
+- Community 1479
+- Community 1480
+- Community 1481
+- Community 1482
+- Community 1483
+- Community 1484
+- Community 1485
+- Community 1486
+- Community 1488
+- Community 1489
+- Community 1490
+- Community 1491
+- Community 1492
+- Community 1493
+- Community 1494
+- Community 1495
+- Community 1497
+- Community 1498
+- Community 1499
+- Community 1500
+- Community 1501
+- Community 1502
+- Community 1503
+- Community 1504
+- Community 1505
+- Community 1506
+- Community 1507
+- Community 1508
+- Community 1509
+- Community 1510
+- Community 1511
+- Community 1512
+- Community 1513
+- Community 1514
+- Community 1515
+- Community 1518
+- Community 1519
+- Community 1520
+- Community 1521
+- Community 1522
+- Community 1523
+- Community 1524
+- Community 1525
+- Community 1526
+- Community 1527
+- Community 1528
+- Community 1529
+- Community 1530
+- Community 1531
+- Community 1532
+- Community 1533
+- Community 1534
+- Community 1535
+- Community 1536
+- Community 1538
+- Community 1539
+- Community 1540
+- Community 1541
+- Community 1542
+- Community 1543
+- Community 1544
+- Community 1545
+- Community 1546
+- Community 1547
+- Community 1550
+- Community 1551
+- Community 1552
+- Community 1553
+- Community 1554
+- Community 1555
+- Community 1556
+- Community 1557
+- Community 1558
+- Community 1559
+- Community 1560
+- Community 1561
+- Community 1562
+- Community 1563
+- Community 1564
+- Community 1565
+- Community 1566
+- Community 1567
+- Community 1572
+- Community 1573
+- Community 1575
+- Community 1576
+- Community 1577
+- Community 1578
+- Community 1579
+- Community 1580
+- Community 1581
+- Community 1582
+- Community 1583
+- Community 1585
+- Community 1586
+- Community 1587
+- Community 1589
+- Community 1590
+- Community 1591
+- Community 1592
+- Community 1593
+- Community 1594
+- Community 1595
+- Community 1597
+- Community 1598
+- Community 1601
+- Community 1602
+- Community 1603
+- Community 1604
+- Community 1605
+- Community 1606
+- Community 1607
+- Community 1608
+- Community 1609
+- Community 1610
+- Community 1611
+- Community 1612
+- Community 1613
+- Community 1614
+- Community 1615
+- Community 1616
+- Community 1617
+- Community 1618
+- Community 1619
+- Community 1620
+- Community 1621
+- Community 1622
+- Community 1623
+- Community 1624
+- Community 1625
+- Community 1626
+- Community 1627
+- Community 1628
+- Community 1629
+- Community 1630
+- Community 1631
+- Community 1632
+- Community 1633
+- Community 1634
+- Community 1635
+- Community 1636
+- Community 1637
+- Community 1638
+- Community 1639
+- Community 1640
+- Community 1641
+- Community 1642
+- Community 1643
+- Community 1644
+- Community 1645
+- Community 1646
+- Community 1647
+- Community 1648
+- Community 1649
+- Community 1650
+- Community 1651
+- Community 1652
+- Community 1653
+- Community 1654
+- Community 1655
+- Community 1656
+- Community 1657
+- Community 1658
+- Community 1659
+- Community 1660
+- Community 1661
+- Community 1662
+- Community 1663
+- Community 1665
+- Community 1669
+- Community 1670
+- Community 1671
+- Community 1672
+- Community 1673
+- Community 1674
+- Community 1675
+- Community 1676
+- Community 1677
+- Community 1678
+- Community 1681
+- Community 1682
+- Community 1683
+- Community 1684
+- Community 1686
+- Community 1687
+- Community 1688
+- Community 1689
+- Community 1690
+- Community 1691
+- Community 1692
+- Community 1693
+- Community 1696
+- Community 1698
+- Community 1703
+- Community 1705
+- Community 1706
+- Community 1707
+- Community 1708
+- Community 1709
+- Community 1710
+- Community 1711
+- Community 1712
+- Community 1713
+- Community 1714
+- Community 1715
+- Community 1716
+- Community 1717
+- Community 1718
+- Community 1719
+- Community 1720
+- Community 1721
+- Community 1722
+- Community 1723
+- Community 1724
+- Community 1725
+- Community 1726
+- Community 1729
+- Community 1730
+- Community 1731
+- Community 1766
+- Community 1773
+
+## God Nodes (most connected - your core abstractions)
+1. `vue` - 916 edges
+2. `vue-i18n` - 588 edges
+3. `Current` - 430 edges
+4. `ApiClient` - 238 edges
+5. `vue-router` - 191 edges
+6. `vuex` - 138 edges
+7. `ApplicationRecord` - 124 edges
+8. `DataImports::Importer` - 118 edges
+9. `ApplicationJob` - 117 edges
+10. `@vueuse/core` - 93 edges
+
+## Surprising Connections (you probably didn't know these)
+- `widget_start()` --calls--> `Widget::TokenService`  [EXTRACTED]
+  spec/smoke/multichannel_conversation_flow_spec.rb → app/services/widget/token_service.rb
+- `phone_event()` --calls--> `Phone::PbxCallEventProcessor`  [EXTRACTED]
+  spec/smoke/multichannel_conversation_flow_spec.rb → app/services/phone/pbx_call_event_processor.rb
+- `telegram_receive()` --calls--> `Webhooks::TelegramEventsJob`  [EXTRACTED]
+  spec/smoke/multichannel_conversation_flow_spec.rb → app/jobs/webhooks/telegram_events_job.rb
+- `CacheKeys` --mixes_in--> `Events::Types`  [EXTRACTED]
+  app/models/concerns/cache_keys.rb → lib/events/types.rb
+- `Company` --mixes_in--> `Avatarable`  [EXTRACTED]
+  enterprise/app/models/company.rb → app/models/concerns/avatarable.rb
+
+## Import Cycles
+- 5-file cycle: `app/javascript/dashboard/routes/dashboard/dashboard.routes.js -> app/javascript/dashboard/routes/dashboard/settings/settings.routes.js -> app/javascript/dashboard/routes/dashboard/settings/teams/teams.routes.js -> app/javascript/dashboard/routes/dashboard/settings/teams/Edit/EditAgents.vue -> app/javascript/dashboard/routes/index.js -> app/javascript/dashboard/routes/dashboard/dashboard.routes.js`
+- 5-file cycle: `app/javascript/dashboard/routes/dashboard/dashboard.routes.js -> app/javascript/dashboard/routes/dashboard/settings/settings.routes.js -> app/javascript/dashboard/routes/dashboard/settings/inbox/inbox.routes.js -> app/javascript/dashboard/routes/dashboard/settings/inbox/AddAgents.vue -> app/javascript/dashboard/routes/index.js -> app/javascript/dashboard/routes/dashboard/dashboard.routes.js`
+- 5-file cycle: `app/javascript/dashboard/routes/dashboard/dashboard.routes.js -> app/javascript/dashboard/routes/dashboard/settings/settings.routes.js -> app/javascript/dashboard/routes/dashboard/settings/teams/teams.routes.js -> app/javascript/dashboard/routes/dashboard/settings/teams/Create/AddAgents.vue -> app/javascript/dashboard/routes/index.js -> app/javascript/dashboard/routes/dashboard/dashboard.routes.js`
+- 5-file cycle: `app/javascript/dashboard/routes/dashboard/dashboard.routes.js -> app/javascript/dashboard/routes/dashboard/settings/settings.routes.js -> app/javascript/dashboard/routes/dashboard/settings/teams/teams.routes.js -> app/javascript/dashboard/routes/dashboard/settings/teams/Create/CreateTeam.vue -> app/javascript/dashboard/routes/index.js -> app/javascript/dashboard/routes/dashboard/dashboard.routes.js`
+- 5-file cycle: `app/javascript/dashboard/routes/dashboard/dashboard.routes.js -> app/javascript/dashboard/routes/dashboard/settings/settings.routes.js -> app/javascript/dashboard/routes/dashboard/settings/teams/teams.routes.js -> app/javascript/dashboard/routes/dashboard/settings/teams/Edit/EditTeam.vue -> app/javascript/dashboard/routes/index.js -> app/javascript/dashboard/routes/dashboard/dashboard.routes.js`
+
+## Communities (2751 total, 1814 thin omitted)
+
+### Community 0 - "Community 0"
+Cohesion: 0.01
+Nodes (37): Api::V1::Accounts::AssignableAgentsController, Api::V1::Accounts::Contacts::AttachmentsController, Api::V1::Accounts::Contacts::BaseController, Api::V1::Accounts::Contacts::TicketsController, Api::V1::Accounts::Conversations::BaseController, Api::V1::Accounts::Conversations::TicketsController, Api::V1::Accounts::Conversations::UnreadCountsController, Api::V1::Accounts::Deals::ConversationsController (+29 more)
+
+### Community 1 - "Community 1"
+Cohesion: 0.02
+Nodes (46): AccountAPI, AccountActions, Agents, ApiClient, AssignmentPolicies, AttributeAPI, AuditLogs, AutomationsAPI (+38 more)
+
+### Community 2 - "Community 2"
+Cohesion: 0.02
+Nodes (54): props, addCannedResponse(), resetForm(), channelViewList, emailProviderList, getters, provider, { t } (+46 more)
+
+### Community 3 - "Community 3"
+Cohesion: 0.02
+Nodes (17): V2::ReportBuilder, V2::Reports::Timeseries::BaseTimeseriesBuilder, Api::V1::Accounts::Actions::ContactMergesController, Api::V1::Accounts::TeamMembersController, Api::V1::WebhooksController, Shopify::CallbacksController, SlackUploadsController, SuperAdmin::PushDiagnosticsController (+9 more)
+
+### Community 4 - "Community 4"
+Cohesion: 0.02
+Nodes (87): emit, ONE_OFF_CAMPAIGN_EMPTY_STATE_CONTENT, ONGOING_CAMPAIGN_EMPTY_STATE_CONTENT, modelValue, modelValue, emit, { isOnChatwootCloud }, onClick() (+79 more)
+
+### Community 5 - "Community 5"
+Cohesion: 0.01
+Nodes (106): route, router, { t }, currentUser, { formatMessage }, hasNotes, props, route (+98 more)
+
+### Community 6 - "Community 6"
+Cohesion: 0.02
+Nodes (77): isExpanded, props, description, policyName, bannerClass, buttonClass, emit, props (+69 more)
+
+### Community 7 - "Community 7"
+Cohesion: 0.02
+Nodes (111): EVENT_STYLES, route, router, { t }, { baseOptions }, options, props, series (+103 more)
+
+### Community 8 - "Community 8"
+Cohesion: 0.02
+Nodes (18): Api::V1::Accounts::Companies::BaseController, Api::V1::Accounts::ConferenceController, Api::V1::Accounts::Conversations::AnalysesController, Api::V1::Accounts::SamlSettingsController, Api::V1::Accounts::Tekomi::AssistantStatsController, Api::V1::Accounts::Tekomi::BulkActionsController, Api::V1::Accounts::Tekomi::CustomToolsController, Api::V1::Accounts::Tekomi::MessageReportsController (+10 more)
+
+### Community 9 - "Community 9"
+Cohesion: 0.02
+Nodes (78): companiesStore, componentMap, CurrentAttributeComponent, props, { t }, accountLabels, accountLabelsValue, contactsById (+70 more)
+
+### Community 10 - "Community 10"
+Cohesion: 0.02
+Nodes (54): addIntoEditor(), clearCopilotAcceptedMessage(), clearEmailField(), clearMessage(), confirmOnSendReply(), conversationIdByRoute(), currentChat(), effectiveReplyMode() (+46 more)
+
+### Community 11 - "Community 11"
+Cohesion: 0.02
+Nodes (91): FEATURE_HELP_URLS, getHelpUrlForFeature(), accountId, agentAssignments, isFeatureEnabledonAccount, route, router, { t } (+83 more)
+
+### Community 12 - "Community 12"
+Cohesion: 0.02
+Nodes (86): addAllExample(), addGuardrail(), { assistantId, assistant }, buildSelectedCountLabel, bulkDeleteGuardrails(), bulkSelectedIds, deleteGuardrail(), displayGuardrails (+78 more)
+
+### Community 13 - "Community 13"
+Cohesion: 0.02
+Nodes (92): activeAssigneeTab, activeAssigneeTabCount, activeDisplayMode, activeDisplayModeLabel, activeFolder, activeFolderName, activeInbox, activeSortBy (+84 more)
+
+### Community 14 - "Community 14"
+Cohesion: 0.03
+Nodes (8): Api::V1::Accounts::Articles::BulkActionsController, Api::V1::Accounts::BrandedEmailLayoutsController, Api::V1::Profile::MfaController, Api::V1::Accounts::Tekomi::DealAssistantMessagesController, Api::V1::Accounts::WhatsappCallsController, Enterprise::Api::V1::Accounts::Articles::BulkActionsController, Enterprise::Api::V1::Accounts::ContactsController, Enterprise::Api::V1::Accounts::InboxesController
+
+### Community 15 - "Community 15"
+Cohesion: 0.03
+Nodes (39): emit, onToggle(), emit, { isOnChatwootCloud }, onClick(), { replaceInstallationName }, getThemeOptions(), setAppearance() (+31 more)
+
+### Community 16 - "Community 16"
+Cohesion: 0.03
+Nodes (43): failedEmail, destination, dialpad, {
+  error,
+  isActive,
+  isIncoming,
+  micPermission,
+  muted,
+  registered,
+  remoteNumber,
+  remoteStream,
+  status,
+}, inboxes, isOpen, phoneInbox, remoteAudio (+35 more)
+
+### Community 17 - "Community 17"
+Cohesion: 0.02
+Nodes (76): emit, hovered, props, selectedModel, assignee, lastNonActivityMessage, props, unreadMessagesCount (+68 more)
+
+### Community 18 - "Community 18"
+Cohesion: 0.07
+Nodes (36): CLOUD_PAID_FEATURES, FEATURE_FLAGS, conversationListPageURL(), conversationUrl(), frontendURL(), getArticleSearchURL(), getHostNameFromURL(), hasValidAvatarUrl() (+28 more)
+
+### Community 19 - "Community 19"
+Cohesion: 0.04
+Nodes (11): Api::V1::Accounts::Tiktok::AuthorizationsController, Tiktok::CallbacksController, Webhooks::ZaloPersonalController, WidgetTestsController, Tiktok::IntegrationHelper, Channel::Tiktok, Channel::WebWidget, Channel::ZaloPersonal (+3 more)
+
+### Community 20 - "Community 20"
+Cohesion: 0.03
+Nodes (80): dependencies, activestorage, apexcharts, axios, @breezystack/lamejs, camelcase-keys, @chatwoot/ninja-keys, @chatwoot/pico-search (+72 more)
+
+### Community 21 - "Community 21"
+Cohesion: 0.04
+Nodes (13): CacheEnabledApiClient, CannedResponse, Inboxes, LabelsAPI, BareArrayClient, Incomplete, WrappedClient, TeamsAPI (+5 more)
+
+### Community 22 - "Community 22"
+Cohesion: 0.04
+Nodes (43): ACCOUNT_EVENTS, CAMPAIGNS_EVENTS, CONTACTS_EVENTS, COPILOT_EVENTS, GENERAL_EVENTS, INBOX_EVENTS, LINEAR_EVENTS, ONBOARDING_EVENTS (+35 more)
+
+### Community 23 - "Community 23"
+Cohesion: 0.04
+Nodes (77): hasMeaningfulEditorContent(), addSignature(), allowsInlineImagePaste, cannedSearchKey, caretPosition, checkSelection(), contentFromEditor(), createEditorView() (+69 more)
+
+### Community 24 - "Community 24"
+Cohesion: 0.03
+Nodes (9): V2::Reports::BotMetricsBuilder, V2::Reports::ChannelSummaryBuilder, V2::Reports::InboxLabelMatrixBuilder, V2::Reports::OutgoingMessagesCountBuilder, Api::V1::Accounts::CsatSurveyResponsesController, Api::V1::Accounts::NotificationsController, DateRangeHelper, Notification::DeleteNotificationJob (+1 more)
+
+### Community 25 - "Community 25"
+Cohesion: 0.05
+Nodes (8): Api::V1::Accounts::Conversations::AssignmentsController, Api::V1::Accounts::InboxCsatTemplatesController, Api::V1::Accounts::Inboxes::PhoneExtensionsController, Api::V2::Accounts::LiveReportsController, DeviseOverrides::TokenValidationsController, HealthController, Internal::ZaloPersonal::SessionsController, Messages::MarkdownRendererService
+
+### Community 26 - "Community 26"
+Cohesion: 0.03
+Nodes (25): AccessToken, ApplicationRecord, AssignmentPolicy, AccessTokenable, DashboardApp, DataImportError, DataImportItem, DealActivity (+17 more)
+
+### Community 27 - "Community 27"
+Cohesion: 0.03
+Nodes (52): description, emit, enabled, isValid, policyName, v$, validationRules, emit (+44 more)
+
+### Community 28 - "Community 28"
+Cohesion: 0.05
+Nodes (9): Tekomi::Tools::BaseTool, Tekomi::Tools::Instrumentation, Integrations::LlmInstrumentationCompletionHelpers, Integrations::LlmInstrumentationContext, Integrations::LlmInstrumentationHelpers, Integrations::LlmInstrumentation, Integrations::LlmInstrumentationSpans, Integrations::Slack::EmojiFormatter (+1 more)
+
+### Community 29 - "Community 29"
+Cohesion: 0.05
+Nodes (6): V2::Reports::ConversationStatusBuilder, V2::Reports::Conversations::BaseReportBuilder, V2::Reports::Conversations::MetricBuilder, V2::Reports::Conversations::ReportBuilder, V2::Reports::DashboardBuilder, Enterprise::V2::Reports::DashboardBuilder
+
+### Community 30 - "Community 30"
+Cohesion: 0.04
+Nodes (53): { content, createdAt }, readableTime, { sender }, senderName, { t }, action, { content, sender, id }, dyteAuthToken (+45 more)
+
+### Community 31 - "Community 31"
+Cohesion: 0.03
+Nodes (48): appliedSLA, chat, groupClass, hasSlaThreshold, isSlaMissed, props, showFullStatusText, showSlaPopoverCard (+40 more)
+
+### Community 32 - "Community 32"
+Cohesion: 0.05
+Nodes (67): ABSOLUTE_DATE_RE, ABSOLUTE_DATE_REVERSED_RE, applyTimeWithRollover(), buildDateWithOptionalTime(), COMPOUND_DURATION_RE, DASH_DATE_RE, DAY_AFTER_TOMORROW_RE, disambiguateDayMonth() (+59 more)
+
+### Community 33 - "Community 33"
+Cohesion: 0.03
+Nodes (62): hasAnUpdateAvailable(), getActiveCountryCode(), getActiveDialCode(), getTimezone(), engines, node, pnpm, pre-push (+54 more)
+
+### Community 34 - "Community 34"
+Cohesion: 0.03
+Nodes (47): emit, handleButtonClick(), emit, isSidebarOpen, slots, addFilter(), applyFilters(), clearFilters() (+39 more)
+
+### Community 35 - "Community 35"
+Cohesion: 0.05
+Nodes (52): dialogRef, emit, formState, handleDialogConfirm(), props, rules, { t }, v$ (+44 more)
+
+### Community 36 - "Community 36"
+Cohesion: 0.04
+Nodes (21): ApplicationJob, AutoAssignment::PeriodicAssignmentJob, Avatar::AvatarFromFaviconJob, Campaigns::TriggerOneoffCampaignJob, Channels::Whatsapp::HealthSyncJob, Channels::Whatsapp::HealthSyncSchedulerJob, Channels::Whatsapp::TemplatesSyncJob, Channels::Whatsapp::TemplatesSyncSchedulerJob (+13 more)
+
+### Community 37 - "Community 37"
+Cohesion: 0.07
+Nodes (54): runSDK(), addUnreadClass(), body, bubbleHolder, bubbleSVG, chatBubble, closeBubble, createBubbleHolder() (+46 more)
+
+### Community 38 - "Community 38"
+Cohesion: 0.06
+Nodes (10): ReportingEventsRollup, ReportingEvents::BackfillService, count_values(), duration_values(), metric_values(), ReportingEvents::EventMetricRegistry, ReportingEvents::EventMetricRegistry::Metric, ReportingEvents::RollupService (+2 more)
+
+### Community 39 - "Community 39"
+Cohesion: 0.04
+Nodes (58): accountId, { accountScopedRoute, isOnChatwootCloud }, allUnreadCount, buildSortConfig(), closeMobileSidebar(), contactCustomViews, conversationCustomViews, currentUserId (+50 more)
+
+### Community 40 - "Community 40"
+Cohesion: 0.06
+Nodes (5): Webhooks::TelegramController, Webhooks::TelegramEventsJob, Telegram::IncomingMessageService, Telegram::ParamHelpers, Telegram::SendOnTelegramService
+
+### Community 41 - "Community 41"
+Cohesion: 0.04
+Nodes (45): chatContainer, copilotButtons, emit, groupedMessages, handleSidebarAction(), hasAssistants, hasMessages, isLastMessageFromAssistant (+37 more)
+
+### Community 42 - "Community 42"
+Cohesion: 0.06
+Nodes (4): Api::V2::Accounts::ReportsController, Api::V2::Accounts::HeatmapHelper, Api::V2::Accounts::ReportsHelper, Reports::TimeFormatPresenter
+
+### Community 43 - "Community 43"
+Cohesion: 0.04
+Nodes (16): AndroidAppController, Api::V1::Integrations::WebhooksController, AppleAppController, ApplicationController, MicrosoftController, SuperAdmin::AccessTokensController, SuperAdmin::AccountUsersController, SuperAdmin::AgentBotsController (+8 more)
+
+### Community 44 - "Community 44"
+Cohesion: 0.06
+Nodes (9): Conversations::ActivityMessageJob, ActivityMessageHandler, AssigneeActivityMessageHandler, ConversationMuteHelpers, LabelActivityMessageHandler, PriorityActivityMessageHandler, SlaActivityMessageHandler, TeamActivityMessageHandler (+1 more)
+
+### Community 45 - "Community 45"
+Cohesion: 0.06
+Nodes (30): SDK_SET_BUBBLE_VISIBILITY, emitter, activeCampaign(), createWidgetEvents(), handleUnreadNotificationDot(), hideMessageBubble(), mounted(), registerCampaignEvents() (+22 more)
+
+### Community 46 - "Community 46"
+Cohesion: 0.07
+Nodes (4): ConversationReplyMailerAttachmentHelper, ConversationReplyMailer, ConversationReplyMailerHelper, ReferencesHeaderBuilder
+
+### Community 47 - "Community 47"
+Cohesion: 0.04
+Nodes (5): Messages::MarkdownRenderers::InstagramRenderer, Messages::MarkdownRenderers::LineRenderer, Messages::MarkdownRenderers::TelegramRenderer, Messages::MarkdownRenderers::WhatsAppRenderer, BaseMarkdownRenderer
+
+### Community 48 - "Community 48"
+Cohesion: 0.05
+Nodes (7): ConversationBuilder, Api::V1::Accounts::Contacts::ContactInboxesController, Api::V1::Accounts::ConversationsController, ConversationCustomAttributesConcern, HmacConcern, Conversations::TypingStatusManager, create_conversation()
+
+### Community 49 - "Community 49"
+Cohesion: 0.04
+Nodes (13): fetchSharedData(), goToWhatsAppConfiguration(), handleFeatureFlag(), handler(), mounted(), onTabChange(), openWhatsAppManualMigrationDialog(), openWhatsAppManualMigrationIfRequested() (+5 more)
+
+### Community 50 - "Community 50"
+Cohesion: 0.06
+Nodes (29): actions, getters, mutations, state, actions, getters, mutations, state (+21 more)
+
+### Community 51 - "Community 51"
+Cohesion: 0.05
+Nodes (7): Messages::Instagram::MessageBuilder, Messages::Instagram::Messenger::MessageBuilder, Instagram::BaseMessageText, Instagram::MessageText, Instagram::Messenger::MessageText, Instagram::WebhooksBaseService, ChatwootExceptionTracker
+
+### Community 52 - "Community 52"
+Cohesion: 0.07
+Nodes (50): buildReplacementPairs(), buildReplacementPairsUncached(), CACHE_SECTIONS, EN_DEFAULTS, EN_MONTHS_LIST, EN_WEEKDAYS_LIST, ENGLISH_VOCAB, escapeRegex() (+42 more)
+
+### Community 53 - "Community 53"
+Cohesion: 0.05
+Nodes (34): buildParams(), CompanyAPI, fetchCompanies(), comboboxOptions, createCompany(), createDialogRef, createOption, emit (+26 more)
+
+### Community 54 - "Community 54"
+Cohesion: 0.05
+Nodes (46): emit, setDateRange(), emit, onClickApply(), onClickClear(), activeDateRange, emit, formatDateRange (+38 more)
+
+### Community 55 - "Community 55"
+Cohesion: 0.04
+Nodes (53): ICON_ADD_LABEL, ICON_AI_ASSIST, ICON_AI_EXPAND, ICON_AI_GRAMMAR, ICON_AI_SHORTEN, ICON_AI_SPELLING, ICON_AI_SUMMARY, ICON_APPEARANCE (+45 more)
+
+### Community 56 - "Community 56"
+Cohesion: 0.04
+Nodes (41): agentList, agentMenuItems, assignmentDescription, assignmentHeader, assignmentMethodLabel, assignmentOrderLabel, assignmentPolicy, availablePolicies (+33 more)
+
+### Community 57 - "Community 57"
+Cohesion: 0.05
+Nodes (7): Api::BaseController, Api::V1::Accounts::BaseController, Api::V1::Accounts::Conversations::DirectUploadsController, Api::V1::Accounts::Inboxes::AssignmentPoliciesController, AccessTokenAuthHelper, EnsureCurrentAccountHelper, RequestExceptionHandler
+
+### Community 58 - "Community 58"
+Cohesion: 0.05
+Nodes (46): buildDocumentFilterParams(), bulkSelectedIds, canManageDocuments, { checkPermissions }, createDocumentDialog, currentAssistantId(), debouncedSearch, deleteDocumentDialog (+38 more)
+
+### Community 59 - "Community 59"
+Cohesion: 0.04
+Nodes (24): emit, inputType, maskIcon, onClick(), onReset(), props, dispatchUpdate(), initializeUser() (+16 more)
+
+### Community 60 - "Community 60"
+Cohesion: 0.04
+Nodes (42): useDealGroups(), collapsedGroups, emit, groups, props, sentinelRef, stagesById, agentOptions (+34 more)
+
+### Community 61 - "Community 61"
+Cohesion: 0.05
+Nodes (15): addSLA(), onClose(), editSLA(), onClose(), closeDeletePopup(), confirmDeletion(), deleteSla(), checkValidationState() (+7 more)
+
+### Community 62 - "Community 62"
+Cohesion: 0.05
+Nodes (12): Portal::ArticleIndexingJob, Enterprise::Concerns::Article, vector_search(), Internal::AccountAnalysis::ContentEvaluatorService, Tekomi::Llm::EmbeddingService, Tekomi::Llm::EmbeddingService::EmbeddingsError, CustomExceptions::Llm, CustomExceptions::Llm::FeatureNotConfigured (+4 more)
+
+### Community 63 - "Community 63"
+Cohesion: 0.06
+Nodes (7): Api::V1::Accounts::BulkActionsController, BulkActionsJob, Contacts::BulkActionJob, Contacts::BulkActionService, Contacts::BulkAssignLabelsService, Contacts::BulkDeleteService, Contacts::BulkRemoveLabelsService
+
+### Community 64 - "Community 64"
+Cohesion: 0.07
+Nodes (8): SuperAdmin::AppConfigsController, InstallationConfig, RemoveStaleCaptainFeatureDefaults, ConfigLoader, OpentelemetryConfig, set_installation_config(), update_sync_limit(), configure_embedding_model()
+
+### Community 65 - "Community 65"
+Cohesion: 0.05
+Nodes (24): buildContactParams(), ContactAPI, channels, fetchChannels(), isLoading, props, { t }, onContactSearch (+16 more)
+
+### Community 66 - "Community 66"
+Cohesion: 0.05
+Nodes (36): TicketsAPI, activities, addNote(), agentOptions, agents, alertError(), assignContact(), assignTo() (+28 more)
+
+### Community 67 - "Community 67"
+Cohesion: 0.05
+Nodes (48): activeTabIndex, addTypeToRecords(), articleRecords, articles, buildSearchPayload(), clearSearchResult(), contactRecords, contacts (+40 more)
+
+### Community 68 - "Community 68"
+Cohesion: 0.05
+Nodes (23): inbox(), mounted(), setDefaults(), allowMobileWebview(), handleHmacFlag(), handleMobileWebviewFlag(), hmacMandatory(), inbox() (+15 more)
+
+### Community 69 - "Community 69"
+Cohesion: 0.06
+Nodes (8): ApiController, SuperAdmin::InstanceStatusesController, Migration::BackfillCompaniesContactsCountJob, Chatwoot, Chatwoot::Application, InjectEnterpriseEditionModule, ChatwootApp, Redis::Config
+
+### Community 70 - "Community 70"
+Cohesion: 0.07
+Nodes (35): deleteAvatar(), getAuthData(), hasAuthCookie(), logout(), profilePasswordUpdate(), profileUpdate(), resendConfirmation(), resetAccessToken() (+27 more)
+
+### Community 73 - "Community 73"
+Cohesion: 0.04
+Nodes (43): activeLabel, activeSegment, activeSegmentId, appliedFilters, bulkDeleteDialogConfirmLabel, bulkDeleteDialogDescription, bulkDeleteDialogRef, bulkDeleteDialogTitle (+35 more)
+
+### Community 74 - "Community 74"
+Cohesion: 0.05
+Nodes (30): onCmdSnoozeNotification(), scheduleCustomSnooze(), snoozeNotification(), activeNotification, activeNotificationIndex, activeSortOrder, conversationById, conversationId (+22 more)
+
+### Community 75 - "Community 75"
+Cohesion: 0.05
+Nodes (42): activeFields, activeView, agents, alertError(), applyFilters(), applySorts(), deleteView(), deleteViewDialogRef (+34 more)
+
+### Community 76 - "Community 76"
+Cohesion: 0.07
+Nodes (4): Integrations::Linear::AutoLinkService, Llm::ExceptionTrackable, Tekomi::BaseTaskService, Tekomi::LabelSuggestionService
+
+### Community 77 - "Community 77"
+Cohesion: 0.04
+Nodes (47): addons, buildpacks, description, env, FRONTEND_URL, INSTALLATION_ENV, NODE_OPTIONS, RACK_ENV (+39 more)
+
+### Community 78 - "Community 78"
+Cohesion: 0.07
+Nodes (4): Api::V1::Widget::BaseController, Api::V1::Widget::ConversationsController, Api::V1::Widget::EventsController, Api::V1::Widget::MessagesController
+
+### Community 79 - "Community 79"
+Cohesion: 0.05
+Nodes (41): bccEmail, ccEmail, { contentAttributes, status, sender }, fromEmail, hasError, senderName, showMeta, subject (+33 more)
+
+### Community 80 - "Community 80"
+Cohesion: 0.04
+Nodes (36): accountId, activeFields, activeView, agents, calendarRange, { dealAttributes }, dealFormDialogRef, dealPanelRef (+28 more)
+
+### Community 81 - "Community 81"
+Cohesion: 0.06
+Nodes (8): agentName(), availabilityStatus(), avatarUrl(), isSenderExist(), ON_CAMPAIGN_MESSAGE_CLICK, ON_CONVERSATION_CREATED, ON_UNREAD_MESSAGE_CLICK, router
+
+### Community 82 - "Community 82"
+Cohesion: 0.06
+Nodes (7): Channel::Api, CsatSurveyResponse, TicketConversation, Api::V1::Accounts::Contacts::ConversationAnalysesController, ConversationAnalysis, Seeders::DemoAccountSeeder, Seeders::DemoAccountSeeder::NullDispatcher
+
+### Community 83 - "Community 83"
+Cohesion: 0.05
+Nodes (37): attributeValue, emit, handleChange(), props, defaultDateValue, editedValue, emit, formattedDate (+29 more)
+
+### Community 84 - "Community 84"
+Cohesion: 0.05
+Nodes (44): comparableLabel(), EMOTION_CONFIG, normalizedEmotionTag(), normalizeEmotion(), addEmotionReviewNote(), analyzeEmotion(), analyzeEmotionLabel, analyzingEmotionLabel (+36 more)
+
+### Community 85 - "Community 85"
+Cohesion: 0.07
+Nodes (5): Tekomi::Assistant::AgentRunnerService, Tekomi::Assistant::RunnerCallbacksHelper, Tekomi::Assistant::RunnerInstrumentationHelper, Tekomi::Assistant::RunnerStateHelper, Tekomi::Assistant::TracePayloadHelper
+
+### Community 86 - "Community 86"
+Cohesion: 0.06
+Nodes (44): accountId, activeInbox, assignAgent, assignee, assignLabels, assignPriority, assignTeam, chatMetadata (+36 more)
+
+### Community 87 - "Community 87"
+Cohesion: 0.08
+Nodes (36): keydownWrapper(), shouldIgnoreEvent(), useKeyboardEvents(), wrapEventsInKeybindingsHandler(), createAction(), createKeyboardEvents(), updateSelectionIndex(), useKeyboardNavigableList() (+28 more)
+
+### Community 88 - "Community 88"
+Cohesion: 0.05
+Nodes (16): closeDeletePopup(), confirmDeletion(), deleteWebhook(), createdWebhook, props, { replaceInstallationName }, store, { t } (+8 more)
+
+### Community 89 - "Community 89"
+Cohesion: 0.05
+Nodes (36): buildSelectedCountLabel, bulkDeleteDialog, bulkSelectedIds, createDialog, debouncedSearch, deleteDialog, dialogType, fetchResponseAfterBulkAction() (+28 more)
+
+### Community 90 - "Community 90"
+Cohesion: 0.06
+Nodes (26): mutations, app, i18n, pinia, ComponentMapping, app, i18n, app (+18 more)
+
+### Community 91 - "Community 91"
+Cohesion: 0.05
+Nodes (30): emit, handleDelete(), handleEdit(), handleFetchUsers(), props, emptyPolicy, loadingPolicy, mockUsers (+22 more)
+
+### Community 92 - "Community 92"
+Cohesion: 0.06
+Nodes (37): clearForm(), clearSelectedContact(), contactableInboxesList, copilot, effectiveChannelType, emit, handleContactSearch(), handleInboxAction() (+29 more)
+
+### Community 93 - "Community 93"
+Cohesion: 0.06
+Nodes (37): analyzeTemplateUtility(), applyUtilitySuggestion(), buildTemplateConfig(), checkTemplateStatus(), confirmDialog, createTemplate(), currentLabel, filterTypes (+29 more)
+
+### Community 94 - "Community 94"
+Cohesion: 0.05
+Nodes (6): Account, AccountSettingsSchema, AccountTekomiAutoResolve, Featurable, Reportable, TekomiFeaturable
+
+### Community 95 - "Community 95"
+Cohesion: 0.06
+Nodes (6): SuperAdmin::PlatformBannersController, AccountDashboard, SuperAdmin::AccountFeaturesHelper, Enterprise::Account, Enterprise::Billing::CancelCloudSubscriptionsService, Enterprise::Tekomi::BaseTaskService
+
+### Community 96 - "Community 96"
+Cohesion: 0.06
+Nodes (18): addScrollListener(), currentChat(), fetchAllAttachmentsFromCurrentChat(), fetchPreviousMessages(), fetchSuggestions(), handleScroll(), isLabelSuggestionDismissed(), makeMessagesRead() (+10 more)
+
+### Community 97 - "Community 97"
+Cohesion: 0.05
+Nodes (37): accountId, activeTab, activeTabIndex, addDialogRef, closeDeletePopup(), confirmDeletion(), confirmDialog, delayedRecords (+29 more)
+
+### Community 98 - "Community 98"
+Cohesion: 0.05
+Nodes (39): { colors }, description, props, ranked, statusColors, statusSeries, { t }, view (+31 more)
+
+### Community 99 - "Community 99"
+Cohesion: 0.05
+Nodes (36): companiesStore, isUpdating, props, { t }, accountId, additionalAttributes, companiesStore, company (+28 more)
+
+### Community 100 - "Community 100"
+Cohesion: 0.05
+Nodes (35): categoryLabel, emit, goBack(), hasMediaTemplate, hasMediaVariable, hasVariables, isFormInvalid, languageLabel (+27 more)
+
+### Community 101 - "Community 101"
+Cohesion: 0.05
+Nodes (31): avatarInfo, avatarTooltip, componentToRender, contextMenuEnabledOptions, contextMenuPosition, emit, flexOrientationClass, gridClass (+23 more)
+
+### Community 102 - "Community 102"
+Cohesion: 0.07
+Nodes (36): defaultRoot(), emit, { filterTypes }, findOption(), groupRef, handleSubmit(), hasConditions(), hydrateNode() (+28 more)
+
+### Community 103 - "Community 103"
+Cohesion: 0.05
+Nodes (38): activeTabIndex, activeTabKey, canManage, { checkPermissions }, contentTabLabel, currentPage, displayLink, displayUrl (+30 more)
+
+### Community 105 - "Community 105"
+Cohesion: 0.06
+Nodes (27): addLabel(), labelTitleErrorMessage(), onClose(), editLabel(), labelTitleErrorMessage(), mounted(), onClose(), setFormValues() (+19 more)
+
+### Community 106 - "Community 106"
+Cohesion: 0.08
+Nodes (40): buildFilterList(), buildRatingsList(), getActiveFilter(), getFilterType(), activeFilters, activeFilterType, addFilter(), agents (+32 more)
+
+### Community 107 - "Community 107"
+Cohesion: 0.05
+Nodes (30): { formatMessage }, hasChanges, hasExistingReviewNotes, { isCloudFeatureEnabled, isOnChatwootCloud }, isEditing, isFeatureEnabled, isSaving, props (+22 more)
+
+### Community 110 - "Community 110"
+Cohesion: 0.06
+Nodes (8): Crm::Perfex::MatchFromCacheJob, AgentBot, Avatarable, Labelable, WebhookSecretable, Contact, Webhook, Contacts::SyncAttributes
+
+### Community 112 - "Community 112"
+Cohesion: 0.06
+Nodes (3): InboxBotStatus, InboxBrandedEmailLayoutable, Inbox
+
+### Community 115 - "Community 115"
+Cohesion: 0.07
+Nodes (5): Api::V1::Accounts::AutomationRulesController, Api::V1::Accounts::MacrosController, AttachmentConcern, MacrosExecutionJob, Macro
+
+### Community 116 - "Community 116"
+Cohesion: 0.07
+Nodes (5): BillingHelper, Inboxes::FetchImapEmailInboxesJob, Enterprise::Api::V1::AccountsController, Enterprise::CreateStripeCustomerJob, Enterprise::Billing::CreateSessionService
+
+### Community 117 - "Community 117"
+Cohesion: 0.05
+Nodes (37): allAttributeOptions, attributeOptions, conversationAttributes, conversationRequiredAttributes, { currentAccount, accountId, isOnChatwootCloud, updateAccount }, currentUser, emit, handleAttributeAction() (+29 more)
+
+### Community 119 - "Community 119"
+Cohesion: 0.06
+Nodes (5): Inboxes::SyncWidgetPreChatCustomFieldsJob, Inboxes::UpdateWidgetPreChatCustomFieldsJob, AccountUser, CustomAttributeDefinition, CustomFilter
+
+### Community 120 - "Community 120"
+Cohesion: 0.07
+Nodes (15): health(), load_audio(), load_model(), transcribe(), ZipformerTranscriber, build_description(), cvss_score(), fetch_triage_advisories() (+7 more)
+
+### Community 121 - "Community 121"
+Cohesion: 0.09
+Nodes (4): Api::V1::Accounts::DataImportsController, DataImportErrorFinder, DataImports::RetryService, DataImports::Source
+
+### Community 122 - "Community 122"
+Cohesion: 0.07
+Nodes (6): Api::V1::Widget::ConfigsController, Api::V1::Widget::DirectUploadsController, WebsiteTokenHelper, BaseTokenService, Mfa::TokenService, Widget::TokenService
+
+### Community 123 - "Community 123"
+Cohesion: 0.07
+Nodes (24): handler(), initializeAccount(), initializeColorTheme(), listenToThemeChanges(), mounted(), setLocale(), bannerMessage, currentAccountId (+16 more)
+
+### Community 124 - "Community 124"
+Cohesion: 0.05
+Nodes (18): isEmptyObject(), closeDeletePopup(), confirmDeletion(), showIntegrationHooks(), filteredHooks, globalConfig, hookHeaders, hooks (+10 more)
+
+### Community 125 - "Community 125"
+Cohesion: 0.10
+Nodes (34): appendDelimiter(), appendSignature(), calculateMenuPosition(), cleanSignature(), collapseSelection(), createNode(), createVariableInputRule(), extractTextFromMarkdown() (+26 more)
+
+### Community 126 - "Community 126"
+Cohesion: 0.07
+Nodes (37): activeFilterType, addFilter(), appliedFilters, buildReportFilterList(), businessHoursSelected, closeActiveFilterDropdown(), customDateRange, daysDifference (+29 more)
+
+### Community 127 - "Community 127"
+Cohesion: 0.06
+Nodes (15): getAvailableAgents(), getMostReadArticles(), getCampaigns(), triggerCampaign(), CampaignTimer, actions, getters, mutations (+7 more)
+
+### Community 128 - "Community 128"
+Cohesion: 0.07
+Nodes (21): getConversationAPI(), actions, getters, mutations, state, actions, getters, mutations (+13 more)
+
+### Community 129 - "Community 129"
+Cohesion: 0.09
+Nodes (3): Tekomi::ChatGenerationRecorder, Tekomi::ChatHelper, Tekomi::ChatResponseHelper
+
+### Community 130 - "Community 130"
+Cohesion: 0.11
+Nodes (20): ClassifiedMessage, SendBody, NoSessionError, encodeSourceId(), GroupProfile, IncomingMessage, normalizeIncoming(), normalizeReaction() (+12 more)
+
+### Community 131 - "Community 131"
+Cohesion: 0.06
+Nodes (7): AccountDrop, BaseDrop, ContactDrop, InboxDrop, UserDrop, Liquid::CampaignTemplateService, SlaPolicyDrop
+
+### Community 132 - "Community 132"
+Cohesion: 0.11
+Nodes (35): emit, localDateValue, props, validateDate(), dayClasses(), emit, emitHoveredEndDate(), emitSelectDate() (+27 more)
+
+### Community 133 - "Community 133"
+Cohesion: 0.06
+Nodes (35): activeSidebarTab, activeSidebarTabIndex, breadcrumbItems, clearSelectedCandidate(), companiesStore, company, companyContacts, companyContactsMeta (+27 more)
+
+### Community 134 - "Community 134"
+Cohesion: 0.05
+Nodes (38): accountId, appliedContactFilter, attachments, channelType, contact, contactAdditionalAttributes, contactConversationGetter, contactGetter (+30 more)
+
+### Community 135 - "Community 135"
+Cohesion: 0.08
+Nodes (36): addFilter(), closeDropdown(), emit, props, removeFilter(), toggleDropdown(), buildFilterList(), getActiveFilter() (+28 more)
+
+### Community 136 - "Community 136"
+Cohesion: 0.11
+Nodes (23): actions, portalAPIs, getters, defaultPortalFlags, state, mutations, types, commit (+15 more)
+
+### Community 137 - "Community 137"
+Cohesion: 0.08
+Nodes (6): AgentNotifications::ConversationNotificationsMailer, ApplicationMailer, global_config(), PortalInstructionsMailer, TeamNotifications::AutomationNotificationMailer, Enterprise::AgentNotifications::ConversationNotificationsMailer
+
+### Community 138 - "Community 138"
+Cohesion: 0.09
+Nodes (5): Tekomi::Llm::ConversationFaqJob, Tekomi::FaqObservation, Tekomi::Llm::ConversationFaqPromptsService, Tekomi::Llm::ConversationFaqService, Tekomi::Llm::ConversationFaqService::SuggestionChangedError
+
+### Community 139 - "Community 139"
+Cohesion: 0.09
+Nodes (4): AutoAssignment::AssignmentService, AutoAssignment::RoundRobinSelector, Enterprise::AutoAssignment::AssignmentService, Enterprise::AutoAssignment::BalancedSelector
+
+### Community 140 - "Community 140"
+Cohesion: 0.08
+Nodes (29): activeEdge, aim(), aimEdge(), bounds, canPage(), displayItems, dragged, dragHeight (+21 more)
+
+### Community 141 - "Community 141"
+Cohesion: 0.07
+Nodes (32): selectedColor, { t }, DEFAULT_ICON_COLOR, ICON_COLORS, ICON_PREFIX, ICON_STYLE, iconClassFor(), isIconValue() (+24 more)
+
+### Community 142 - "Community 142"
+Cohesion: 0.07
+Nodes (24): emit, handleInsert(), handlePreview(), props, { t }, emit, isRTL, onBack() (+16 more)
+
+### Community 143 - "Community 143"
+Cohesion: 0.06
+Nodes (34): { accountId, currentAccount, finishOnboarding }, accountName, companyLogo, companySize, currentUser, { enabledLanguages }, enableWebsiteEditing(), handleSubmit() (+26 more)
+
+### Community 144 - "Community 144"
+Cohesion: 0.08
+Nodes (15): createConversation(), sendMessage(), triggerCampaign(), create(), generateEventParams(), availableAgents, { isOnline }, props (+7 more)
+
+### Community 145 - "Community 145"
+Cohesion: 0.08
+Nodes (10): DataImports::BaseJob, DataImports::ContactsPageJob, DataImports::ConversationsPageJob, DataImports::Freshdesk::ContactsPageJob, DataImports::Freshdesk::ConversationsPageJob, DataImports::Freshdesk::ImportJob, DataImports::ImportJob, DataImports::Intercom::ContactsPageJob (+2 more)
+
+### Community 146 - "Community 146"
+Cohesion: 0.07
+Nodes (27): emit, { t }, countryOptions, { currentAccount, isCloudFeatureEnabled }, defaultState, editDetailsForm, emit, emitContactUpdate() (+19 more)
+
+### Community 147 - "Community 147"
+Cohesion: 0.05
+Nodes (32): allItems, articlesCount, bulkTranslateDialogRef, categoryMenuItems, currentAccountId, deleteConfirmDialogRef, hasNoArticles, hasNoArticlesInPortal (+24 more)
+
+### Community 148 - "Community 148"
+Cohesion: 0.05
+Nodes (21): agentAssignmentsPolicies, breadcrumbItems, confirmDeletePolicyDialogRef, inboxUiFlags, router, store, { t }, uiFlags (+13 more)
+
+### Community 149 - "Community 149"
+Cohesion: 0.06
+Nodes (25): editCannedResponse(), resetForm(), activeResponse, cannedResponseAPI, closeDeletePopup(), confirmDeletion(), deleteCannedResponse(), deleteConfirmText (+17 more)
+
+### Community 150 - "Community 150"
+Cohesion: 0.07
+Nodes (16): agent, route, store, fetchAllData(), fetchChartData(), onFilterChange(), inbox, route (+8 more)
+
+### Community 151 - "Community 151"
+Cohesion: 0.11
+Nodes (36): configure_db(), configure_rvm(), configure_systemd_services(), convert_deployment(), create_cw_user(), cwctl_message(), cwctl_upgrade_check(), get_console() (+28 more)
+
+### Community 152 - "Community 152"
+Cohesion: 0.07
+Nodes (29): backupCode, canSubmit, contactDescKey, emit, errorMessage, focusInput(), handleBackspace(), handleOtpCodePaste() (+21 more)
+
+### Community 153 - "Community 153"
+Cohesion: 0.06
+Nodes (36): allowsDelayedExecution, automation, automationActionTypes, automationRuleEvents, cancelKey, close(), delayMinutes, delayUnit (+28 more)
+
+### Community 154 - "Community 154"
+Cohesion: 0.08
+Nodes (5): Tekomi::FirecrawlHelper, Tekomi::Documents::CrawlJob, Tekomi::Tools::SimplePageCrawlParserJob, Tekomi::Tools::SimplePageCrawlParserJob::PermanentCrawlError, Tekomi::Tools::SimplePageCrawlService
+
+### Community 155 - "Community 155"
+Cohesion: 0.08
+Nodes (5): Tekomi::Tools::AddContactNoteTool, Tekomi::Tools::AddLabelToConversationTool, Tekomi::Tools::AddPrivateNoteTool, Tekomi::Tools::BasePublicTool, Tekomi::Tools::ResolveConversationTool
+
+### Community 156 - "Community 156"
+Cohesion: 0.05
+Nodes (37): devDependencies, autoprefixer, @egoist/tailwindcss-icons, eslint, eslint-config-airbnb-base, eslint-config-prettier, eslint-interactive, eslint-plugin-html (+29 more)
+
+### Community 157 - "Community 157"
+Cohesion: 0.09
+Nodes (10): AccountBuilder, Account::SignUpEmailValidationService, CustomExceptions::Account, CustomExceptions::Account::EmailLimitExceeded, CustomExceptions::Account::InvalidEmail, CustomExceptions::Account::InvalidParams, CustomExceptions::Account::PlanUpgradeRequired, CustomExceptions::Account::SignupFailed (+2 more)
+
+### Community 159 - "Community 159"
+Cohesion: 0.10
+Nodes (4): GoogleConcern, Google::CallbacksController, OauthCallbackController, Channel::Email
+
+### Community 160 - "Community 160"
+Cohesion: 0.07
+Nodes (29): CampaignsAPI, activeTabIndex, analyticsEmptyState, audience, breadcrumbItems, campaign, campaignId, campaigns (+21 more)
+
+### Community 161 - "Community 161"
+Cohesion: 0.06
+Nodes (25): activeSegmentName, appliedFilter, appliedFilters, clearFilters(), closeAdvanceFiltersModal(), contactAttributes, contactExportDialogRef, contactImportDialogRef (+17 more)
+
+### Community 162 - "Community 162"
+Cohesion: 0.06
+Nodes (33): acceptedByAgentId, audioAttachment, {
+  call,
+  attachments,
+  contentAttributes,
+  conversationId,
+  currentUserId,
+  inboxId,
+  sender,
+  messageType,
+}, callSid, callsStore, canCallBack, canJoinCall, contactsUiFlags (+25 more)
+
+### Community 163 - "Community 163"
+Cohesion: 0.07
+Nodes (34): activeContact, clearFormState(), clearSelectedContact(), closeCompose(), contactById, contacts, contactsUiFlags, createConversation() (+26 more)
+
+### Community 168 - "Community 168"
+Cohesion: 0.08
+Nodes (26): DataImportsAPI, abandonImport(), changeSkipLogsType(), dataImport, downloadCsv(), downloadErrorLogs(), downloadSkipLogs(), errorsOpen (+18 more)
+
+### Community 169 - "Community 169"
+Cohesion: 0.07
+Nodes (4): ArticlesAPI, CategoriesAPI, PortalsAPI, portalAPI
+
+### Community 170 - "Community 170"
+Cohesion: 0.06
+Nodes (29): getters, props, shouldShowContent, allowedMenuItems, currentUser, currentUserAvailability, emit, menuItems (+21 more)
+
+### Community 171 - "Community 171"
+Cohesion: 0.06
+Nodes (11): ButtonStub, { checkPermissions }, { dispatch, getDrilldown, getterValues }, PaginationFooterStub, SidePanelStub, TabBarStub, tekomiDocument, BaseSettingsHeaderStub (+3 more)
+
+### Community 172 - "Community 172"
+Cohesion: 0.07
+Nodes (12): attachImage, clickToolbar(), pressEscape(), pressInEditor(), selectAll(), selectRange(), store, toolbarItem() (+4 more)
+
+### Community 173 - "Community 173"
+Cohesion: 0.06
+Nodes (24): agentConversationMetric, agents, { startRefetching }, store, uiFlags, { t }, { t }, props (+16 more)
+
+### Community 174 - "Community 174"
+Cohesion: 0.10
+Nodes (31): businessHoursSelected, customDateRange, emit, emitChange(), initializeFromURL(), onBusinessHoursToggle(), onDateRangeChange(), route (+23 more)
+
+### Community 175 - "Community 175"
+Cohesion: 0.07
+Nodes (30): activeSuggestionId, backUrl, clearFilters(), debouncedSearch, fetchSuggestions(), handleApprove(), handleDismiss(), handleResolved() (+22 more)
+
+### Community 177 - "Community 177"
+Cohesion: 0.11
+Nodes (5): Webhooks::ZaloPersonalEventsJob, Zalo::IncomingMessageService, Zalo::ReactionService, Zalo::UndoService, zalo_personal_receive()
+
+### Community 179 - "Community 179"
+Cohesion: 0.07
+Nodes (7): UserSession, Companies::DeleteJob, Companies::SyncContactNamesJob, Company, Enterprise::Concerns::Contact, Contacts::CompanyAssociationService, companies_without_avatars()
+
+### Community 182 - "Community 182"
+Cohesion: 0.07
+Nodes (6): Api::V1::Accounts::Contacts::DealsController, Api::V1::Accounts::Conversations::DealsController, Api::V1::Accounts::Deals::ActivitiesController, Api::V1::Accounts::DealsController, CrmDealsFeatureConcern, Api::V1::Accounts::Companies::DealsController
+
+### Community 183 - "Community 183"
+Cohesion: 0.09
+Nodes (22): WhatsappCallsAPI, armOutboundRecorder(), beaconTerminate(), buildPeerConnection(), cleanup(), cleanupWhatsappSession(), DEFAULT_OUTBOUND_ICE_SERVERS, ensureRemoteAudioElement() (+14 more)
+
+### Community 184 - "Community 184"
+Cohesion: 0.07
+Nodes (30): dialogRef, emit, fileInput, handleFileChange(), hasSelectedFile, isImportingContact, processFileName(), selectedFileName (+22 more)
+
+### Community 185 - "Community 185"
+Cohesion: 0.08
+Nodes (23): beforeClass, borderClass, { strong }, clickOutsideHandler, closeMenu(), containerRef, emit, [isOpen, toggle] (+15 more)
+
+### Community 186 - "Community 186"
+Cohesion: 0.06
+Nodes (29): emailMetaClass, flexOrientationClass, isTekomiMessage, messageClass, metaColorClass, orientationMap, props, replyToPreview (+21 more)
+
+### Community 187 - "Community 187"
+Cohesion: 0.08
+Nodes (17): { attachment }, displayFileName, fileDetails, { t }, textColorClass, useFileUpload(), alertOverLimit(), maxSizeFor() (+9 more)
+
+### Community 188 - "Community 188"
+Cohesion: 0.07
+Nodes (32): ACRONYMS, citations, currentUser, devDetails, formatArguments(), handoffLabel(), hasFetched, humanizeAgentName() (+24 more)
+
+### Community 189 - "Community 189"
+Cohesion: 0.06
+Nodes (15): MENU, filteredIntegrationList, getters, integrationList, { replaceInstallationName }, searchQuery, store, actionURL (+7 more)
+
+### Community 190 - "Community 190"
+Cohesion: 0.10
+Nodes (24): checkSelection(), contentFromEditor(), created(), createEditorView(), createSlashPlugin(), createState(), data(), editorId() (+16 more)
+
+### Community 191 - "Community 191"
+Cohesion: 0.06
+Nodes (28): areHooksAvailable, hasConnectedAChannel, hook, integration, integrationAction, integrationLoaded, isIntegrationHookEnabled, props (+20 more)
+
+### Community 192 - "Community 192"
+Cohesion: 0.06
+Nodes (29): accountId, activeTab, agentOptions, agents, assigneeId, currentPage, filterParams, inboxes (+21 more)
+
+### Community 193 - "Community 193"
+Cohesion: 0.07
+Nodes (13): sendTranscript(), startTranscriptCooldown(), emit, props, startConversation(), widgetColor, CHATWOOT_ON_START_CONVERSATION, APP_BASE_URL (+5 more)
+
+### Community 195 - "Community 195"
+Cohesion: 0.07
+Nodes (5): LlmFeatureModel, LlmProvider, SeedCallEmotionAnalysisFeature, SuperAdmin::LlmFeatureModelsController, SuperAdmin::LlmProvidersController
+
+### Community 196 - "Community 196"
+Cohesion: 0.13
+Nodes (12): BACKOFF_MS, ChannelState, isZaloAuthError(), MAX_AUTH_FAILURES, ReconnectDeps, ReconnectSupervisor, SessionStatus, SupervisedAdapter (+4 more)
+
+### Community 199 - "Community 199"
+Cohesion: 0.08
+Nodes (4): Api::V1::AccountsController, Auth::ResendConfirmationsController, Account::BrandingEnrichmentJob, ChatwootCaptcha
+
+### Community 200 - "Community 200"
+Cohesion: 0.09
+Nodes (5): Api::V1::Accounts::Conversations::DraftMessagesController, ConversationReplyEmailJob, Messages::SendEmailNotificationService, ConversationAnalyses::JobState, Redis::LockManager
+
+### Community 202 - "Community 202"
+Cohesion: 0.07
+Nodes (22): { checkPermissions }, contactMenuItems, emit, handleContactAction(), showActionsDropdown, { t }, activeOrdering, activeOrderingLabel (+14 more)
+
+### Community 203 - "Community 203"
+Cohesion: 0.07
+Nodes (16): routerMock, storeMock, formatDate(), formatUnixDate(), generateRelativeTime(), isTimeAfter(), getDayDifferenceFromNow(), hasOneDayPassed() (+8 more)
+
+### Community 204 - "Community 204"
+Cohesion: 0.07
+Nodes (25): setReplyMode(), CHAR_LENGTH_WARNING, REPLY_EDITOR_MODES, emit, generalMenuItems, handleMenuItemClick(), handleSubMenuItemClick(), { height: menuHeight } (+17 more)
+
+### Community 205 - "Community 205"
+Cohesion: 0.06
+Nodes (26): navigateTo, props, statusTextColor, truncatedContent, updatedAtTime, accountId, countriesMap, countryDetails (+18 more)
+
+### Community 206 - "Community 206"
+Cohesion: 0.07
+Nodes (23): activeTab, { data, isLoading, hasError, load }, {
+  data: vipData,
+  isLoading: isVipLoading,
+  hasError: hasVipError,
+  load: loadVip,
+}, filtered, hasListError, isListLoading, isVipTab, listTotal (+15 more)
+
+### Community 207 - "Community 207"
+Cohesion: 0.07
+Nodes (26): attributeModel, attributeModels, attributes, buildBadges(), closeDelete(), confirmDeleteAttribute(), { currentAccount, accountId }, derivedAttributes (+18 more)
+
+### Community 208 - "Community 208"
+Cohesion: 0.10
+Nodes (27): canAbandonImport, hasActiveImport, monitorTitle, props, stageLabels, statusDotClass, { t }, title (+19 more)
+
+### Community 209 - "Community 209"
+Cohesion: 0.10
+Nodes (16): fromTimeSlots(), groupByPeriod(), timeSlots, toTimeSlots(), DEFAULT_TIMEZONE, inbox(), mounted(), setDefaults() (+8 more)
+
+### Community 210 - "Community 210"
+Cohesion: 0.07
+Nodes (27): isExpanded, { t }, { accountId }, acsUrl, allInfoItems, props, { t }, visibleInfoItems (+19 more)
+
+### Community 211 - "Community 211"
+Cohesion: 0.11
+Nodes (18): getSelectedChatConversation(), getters, applyPageFilters(), applyRoleFilter(), filterByInbox(), filterByLabel(), filterByStatus(), filterByTeam() (+10 more)
+
+### Community 212 - "Community 212"
+Cohesion: 0.09
+Nodes (3): Api::V1::Accounts::Tekomi::AssistantsController, Tekomi::FaqSuggestionFinder, get_summary()
+
+### Community 214 - "Community 214"
+Cohesion: 0.10
+Nodes (19): https-proxy-agent, node-fetch, socks-proxy-agent, proxies, buildProxyOptions(), ProxyOptions, proxyUrl(), parsePort() (+11 more)
+
+### Community 215 - "Community 215"
+Cohesion: 0.08
+Nodes (8): Campaigns::CampaignConversationBuilder, Internal::ProcessStaleContactsJob, Internal::RemoveStaleContactInboxesJob, Internal::RemoveStaleContactsJob, ContactInbox, Internal::RemoveStaleContactInboxesService, Internal::RemoveStaleContactsService, contact_for()
+
+### Community 216 - "Community 216"
+Cohesion: 0.10
+Nodes (5): Phone::CallEmotionAnalysisJob, PhoneCallEmotionReport, Phone::CallEmotionAnalysisService, Phone::OpenrouterTranscriptionService, Phone::OpenrouterTranscriptionService::TranscriptionFailed
+
+### Community 217 - "Community 217"
+Cohesion: 0.08
+Nodes (7): DomainHelper, SwitchLocale, PublicController, SuperAdmin::ApplicationController, SuperAdmin::FeaturesHelper, SuperAdmin::NavigationHelper, account_locale()
+
+### Community 218 - "Community 218"
+Cohesion: 0.08
+Nodes (21): DealsAPI, loadDeals(), agents, contactDeals, createDeal(), dealFormDialogRef, dealsStore, emit (+13 more)
+
+### Community 219 - "Community 219"
+Cohesion: 0.07
+Nodes (8): focusInput(), hrefURL(), onEdit(), onFocusAttribute(), onUpdate(), onUpdateListValue(), urlValue(), isValidURL()
+
+### Community 220 - "Community 220"
+Cohesion: 0.06
+Nodes (23): emit, observedElement, { options }, confirmDeleteContactDialogRef, [showDeleteSection, toggleDeleteSection], { t }, [isOpen, toggle], props (+15 more)
+
+### Community 221 - "Community 221"
+Cohesion: 0.09
+Nodes (26): emit, formErrors, formState, getErrorMessage(), handleCancel(), handleSubmit(), inboxOptions, initialState (+18 more)
+
+### Community 222 - "Community 222"
+Cohesion: 0.06
+Nodes (19): { fileType }, fileTypeIcon, files, attachment, { attachments }, attachment, { filteredCurrentChatAttachments, attachments }, isDownloading (+11 more)
+
+### Community 223 - "Community 223"
+Cohesion: 0.07
+Nodes (24): autoResolveOptions, emit, fieldsToValidate(), formErrors, getErrorMessage(), handleSystemMessagesUpdate(), initialActionTimingLabel, initialState (+16 more)
+
+### Community 224 - "Community 224"
+Cohesion: 0.07
+Nodes (6): getFileType(), getLocalFileAttributes(), onDirectFileUpload(), onFileUpload(), onIndirectFileUpload(), vue-upload-component
+
+### Community 225 - "Community 225"
+Cohesion: 0.07
+Nodes (25): callbotWebhooks, creatingWebhook, deletingUserId, deletingWebhookId, extensionByUserId, extensionForms, extensions, fetchConfiguration() (+17 more)
+
+### Community 226 - "Community 226"
+Cohesion: 0.09
+Nodes (19): alertDescription, alertEventValues, emit, props, selectedValue, ALERT_EVENTS, EVENT_TYPES, NOTIFICATION_TYPES (+11 more)
+
+### Community 227 - "Community 227"
+Cohesion: 0.09
+Nodes (5): Migration::RemoveMessageNotifications, Notification::PushNotificationJob, Notification::RemoveDuplicateNotificationJob, Notification::RemoveOldNotificationJob, Notification
+
+### Community 228 - "Community 228"
+Cohesion: 0.11
+Nodes (4): AdministratorNotifications::AccountNotificationMailer, AdministratorNotifications::BaseMailer, AdministratorNotifications::ChannelNotificationsMailer, AdministratorNotifications::IntegrationsNotificationMailer
+
+### Community 230 - "Community 230"
+Cohesion: 0.09
+Nodes (5): Enterprise::SuperAdmin::AccountsController, AccountFeaturesField, ManuallyManagedFeaturesField, Enterprise::Billing::ReconcilePlanFeaturesService, Internal::Accounts::InternalAttributesService
+
+### Community 231 - "Community 231"
+Cohesion: 0.08
+Nodes (3): Migration::CopyTekomiAutoResolveModeToAssistantsJob, Tekomi::Tools::FirecrawlParserJob, Tekomi::Assistant
+
+### Community 232 - "Community 232"
+Cohesion: 0.12
+Nodes (3): Enterprise::Billing::CreateStripeCustomerService, Enterprise::Billing::Currencies, Enterprise::Billing::PlanConfiguration
+
+### Community 234 - "Community 234"
+Cohesion: 0.10
+Nodes (3): Api::V1::Widget::ContactsController, WidgetsController, WidgetHelper
+
+### Community 235 - "Community 235"
+Cohesion: 0.10
+Nodes (30): analysis, applyResponse(), closeOnSmallScreen(), closePanel(), contactId, currentAccountId, currentChat, EMPTY_JOBS (+22 more)
+
+### Community 236 - "Community 236"
+Cohesion: 0.07
+Nodes (22): { attachment }, audioPlayer, audioSourceUrl, authenticatedAudioUrl, currentTime, displayedTranscript, downloadAudio(), duration (+14 more)
+
+### Community 237 - "Community 237"
+Cohesion: 0.07
+Nodes (30): buildDynamicSnoozeActions(), { bulkActionsHotKeys }, { conversationHotKeys }, currentCommandRoot, dynamicSnoozeActions, { goToAppearanceHotKeys }, { goToCommandHotKeys }, hotKeys (+22 more)
+
+### Community 238 - "Community 238"
+Cohesion: 0.07
+Nodes (23): agentAPI, agentList, currentAgent, currentUserId, customRoles, deleteConfirmText, deleteMessage, deleteRejectText (+15 more)
+
+### Community 239 - "Community 239"
+Cohesion: 0.08
+Nodes (24): breadcrumbItems, buildInboxList(), confirmInboxDialogRef, formData, handleAddInbox(), handleConfirmAddInbox(), handleLinkSuggestedInbox(), inboxes (+16 more)
+
+### Community 243 - "Community 243"
+Cohesion: 0.11
+Nodes (5): Tekomi::Assistant::AgentRunResponse, Tekomi::Assistant::InstrumentationAttributeProvider, Tekomi::Assistant::ResponseRewriter, Tekomi::MessageLengthLimit, Integrations::LlmInstrumentationConstants
+
+### Community 245 - "Community 245"
+Cohesion: 0.06
+Nodes (30): tsx, zca-js, dependencies, fastify, @fastify/multipart, https-proxy-agent, node-fetch, socks-proxy-agent (+22 more)
+
+### Community 247 - "Community 247"
+Cohesion: 0.08
+Nodes (25): accessToken, canCreate, closeDrawer(), createImport(), credentialLabel, credentialPlaceholder, defaultImportName, dialogRef (+17 more)
+
+### Community 248 - "Community 248"
+Cohesion: 0.11
+Nodes (18): actions, hasMessageFailedWithExternalError(), buildConversationList(), isOnFoldersView(), isOnMentionsView(), isOnParticipatingView(), isOnUnattendedView(), setContacts() (+10 more)
+
+### Community 249 - "Community 249"
+Cohesion: 0.07
+Nodes (17): canAddMore, dragIndex, dropdownOptions, dropdownRef, emit, isOpen, onSearch(), optionsByValue (+9 more)
+
+### Community 250 - "Community 250"
+Cohesion: 0.07
+Nodes (22): setExpandedItem(), activeChild, {
+  activePopover,
+  setActivePopover,
+  closeActivePopover,
+  scheduleClose,
+  cancelClose,
+}, {
+  expandedItem,
+  setExpandedItem,
+  resolvePath,
+  resolvePermissions,
+  resolveFeatureFlag,
+  isAllowed,
+  isCollapsed,
+  isResizing,
+}, handleMouseEnter(), hasAccessibleChildren, hasActiveChild, hasChildren (+14 more)
+
+### Community 251 - "Community 251"
+Cohesion: 0.08
+Nodes (26): createResponse(), dialogRef, emit, handleClose(), handleSubmit(), i18nKey, props, responseForm (+18 more)
+
+### Community 252 - "Community 252"
+Cohesion: 0.08
+Nodes (27): activeOrdering, activeSort, buildSortAttr(), companies, companiesStore, createCompany(), createCompanyDialogRef, fetchCompanies() (+19 more)
+
+### Community 253 - "Community 253"
+Cohesion: 0.07
+Nodes (23): currentConversationId, fetchNotifications(), inboxById, inboxFilters, infiniteLoaderOptions, isInboxContextMenuOpen, meta, notificationList (+15 more)
+
+### Community 254 - "Community 254"
+Cohesion: 0.07
+Nodes (21): agentsList, allAgents, allInboxes, allLabels, breadcrumbItems, buildList(), formData, inboxes (+13 more)
+
+### Community 255 - "Community 255"
+Cohesion: 0.07
+Nodes (24): agentPath, contactPath, conversation, conversationDisplayId, conversationNumber, conversationPath, directionDetails, eventOccurredTooltip (+16 more)
+
+### Community 256 - "Community 256"
+Cohesion: 0.08
+Nodes (8): ArticlesAPI, clearSearchTerm(), closeSearch(), currentPage(), fetchArticlesByQuery(), onKeydown(), onUpdateSearchTerm(), openSearch()
+
+### Community 257 - "Community 257"
+Cohesion: 0.11
+Nodes (5): Enterprise::SyncDispatcher, Tekomi::ConversationOutcomeEventListener, ConversationOutcome, Tekomi::ConversationOutcomeTracker, episodes()
+
+### Community 258 - "Community 258"
+Cohesion: 0.11
+Nodes (4): Llm::BaseAiService, Tekomi::Llm::AssistantActionClassifierService, Tekomi::Llm::AssistantFalsePromiseService, Tekomi::Llm::AssistantResponseInspectionHelpers
+
+### Community 260 - "Community 260"
+Cohesion: 0.08
+Nodes (24): additionalAttributes, contact, contactGetter, crmInfo, forceSync(), hasFailed, isForceSyncing, isMatched() (+16 more)
+
+### Community 261 - "Community 261"
+Cohesion: 0.11
+Nodes (27): criterionBarClass(), hasValue(), INTEREST_BADGE_CLASSES, PROFILE_FIELDS, QUALITY_CRITERIA, scoreTextClass(), scoreVerdict(), SENTIMENT_BADGE_CLASSES (+19 more)
+
+### Community 262 - "Community 262"
+Cohesion: 0.08
+Nodes (25): canManage, canSync, { checkPermissions }, createdAtLabel, displayLink, emit, handleAction(), handleRetry() (+17 more)
+
+### Community 263 - "Community 263"
+Cohesion: 0.09
+Nodes (25): emit, formErrors, formState, getErrorMessage(), handleCancel(), handleSubmit(), initialState, isLoading (+17 more)
+
+### Community 264 - "Community 264"
+Cohesion: 0.08
+Nodes (24): template, bodyComponent, bodyText, categoryLabel, emit, formatType, goBack(), hasBodyVariables (+16 more)
+
+### Community 265 - "Community 265"
+Cohesion: 0.07
+Nodes (13): CONVERSATION_EVENTS, ALLOWED_FILE_TYPES, ATTACHMENT_ICONS, AUDIO_FORMATS, CONVERSATION_PRIORITY, CONVERSATION_PRIORITY_ORDER, CONVERSATION_STATUS, CSAT_DISPLAY_TYPES (+5 more)
+
+### Community 266 - "Community 266"
+Cohesion: 0.11
+Nodes (16): ACTION_ICONS, generateConditionOptions(), generateCustomAttributeTypes(), generateLabelOptions(), generateTeamOptions(), getActionOptions(), getAutomationType(), getConditionOptions() (+8 more)
+
+### Community 267 - "Community 267"
+Cohesion: 0.07
+Nodes (22): campaignsRoutes, meta, store, confirmDeleteCampaignDialogRef, getters, hasNoSMSCampaigns, isFetchingCampaigns, selectedCampaign (+14 more)
+
+### Community 268 - "Community 268"
+Cohesion: 0.08
+Nodes (22): billingCurrency, canPurchaseCredits, currencyOptions, currencySelectionRequired, { currentAccount, isOnChatwootCloud }, customAttributes, fetchAccountDetails(), handleBillingPageLogic() (+14 more)
+
+### Community 269 - "Community 269"
+Cohesion: 0.08
+Nodes (23): activeResponse, closeDeletePopup(), confirmDeletion(), currentAccountId, customRoleModalMode, deleteConfirmText, deleteCustomRole(), deleteMessage (+15 more)
+
+### Community 270 - "Community 270"
+Cohesion: 0.07
+Nodes (24): currentMonthOffset, downloadHeatmapData(), fetchHeatmapData(), heatmapAriaLabel, heatmapData, inboxes, inboxMenuItems, isLoading (+16 more)
+
+### Community 271 - "Community 271"
+Cohesion: 0.07
+Nodes (25): closeFilterMenu(), filterMenus, FUZZY_SEARCH_KEYS, handleFilterAction(), hasTemplates, inboxes, inboxOptions, isSyncing (+17 more)
+
+### Community 272 - "Community 272"
+Cohesion: 0.10
+Nodes (28): activeCountry, activeCountryCode, activeDialCode, adjustScroll(), adjustSelection(), closeDropdown(), { context }, countries (+20 more)
+
+### Community 273 - "Community 273"
+Cohesion: 0.09
+Nodes (3): Conversations::FilterService, Deals::FilterService, Tickets::FilterService
+
+### Community 275 - "Community 275"
+Cohesion: 0.12
+Nodes (3): Redis::Alfred, Redis::RedisKeys, ttl_for()
+
+### Community 277 - "Community 277"
+Cohesion: 0.11
+Nodes (4): ContactInboxWithContactBuilder, ContactInboxSourceIdResolver, Contacts::InboundPhoneResolver, PhoneNumberNormalizer
+
+### Community 278 - "Community 278"
+Cohesion: 0.12
+Nodes (3): Api::V1::Accounts::Channels::TwilioChannelsController, Channel::TwilioSms, Twilio::DeliveryStatusService
+
+### Community 279 - "Community 279"
+Cohesion: 0.11
+Nodes (3): Api::V1::Accounts::Concerns::WhatsappHealthManagement, Channels::Twilio::TemplatesSyncJob, Twilio::TemplateSyncService
+
+### Community 280 - "Community 280"
+Cohesion: 0.10
+Nodes (3): DataImports::CreationService, Api::V1::Accounts::Tekomi::FaqSuggestionsController, Tekomi::FaqSuggestionApprovalService
+
+### Community 282 - "Community 282"
+Cohesion: 0.10
+Nodes (27): allChatList, breakpoints, canLoadMore(), companies, companyCount(), companyGroups, companyTier(), conversationsByCompany (+19 more)
+
+### Community 283 - "Community 283"
+Cohesion: 0.09
+Nodes (16): emit, handleDismiss(), handlePostClick(), handleReadMore(), isPostDismissing(), props, stackedPosts, currentIndex (+8 more)
+
+### Community 284 - "Community 284"
+Cohesion: 0.07
+Nodes (20): emit, { formatMessage }, handleDelete(), [isExpanded, toggleExpanded], needsCollapse, noteContentRef, props, { t } (+12 more)
+
+### Community 285 - "Community 285"
+Cohesion: 0.09
+Nodes (24): asyncOptions, attributeKey, booleanOptions, currentFilter, currentOperator, debouncedAsyncSearch, emit, filterOperator (+16 more)
+
+### Community 286 - "Community 286"
+Cohesion: 0.14
+Nodes (19): useContactFilterContext(), ATTRIBUTE_ICONS, CUSTOM_TYPE_ICONS, getAttributeIcon(), groupFilterTypes(), GROUPS, KNOWN_MODELS, buildAttributesFilterTypes() (+11 more)
+
+### Community 287 - "Community 287"
+Cohesion: 0.08
+Nodes (25): articleCount, categoryOptions, confirmLabel, currentLocale, description, dialogRef, dialogTitle, duplicateArticles (+17 more)
+
+### Community 288 - "Community 288"
+Cohesion: 0.10
+Nodes (22): downloadingId, durations, emit, failedPreviews, failedThumbs, fallbackIcon(), hasPreview(), hasVideoPreview() (+14 more)
+
+### Community 289 - "Community 289"
+Cohesion: 0.09
+Nodes (23): dialogRef, emit, handleClose(), handleSubmit(), store, { t }, documentTypeOptions, emit (+15 more)
+
+### Community 290 - "Community 290"
+Cohesion: 0.07
+Nodes (22): activeTabIndex, getBubblePositionStyle, getWidgetBubbleLauncherTitle, getWidgetConfig, globalConfig, isBubbleExpanded, isChatMode, isPreviewTab (+14 more)
+
+### Community 291 - "Community 291"
+Cohesion: 0.07
+Nodes (22): attributes, combinedElements, contact, contactIdentifier, conversationId, currentChat, customAttributes, displayedElements (+14 more)
+
+### Community 292 - "Community 292"
+Cohesion: 0.08
+Nodes (26): activeLocale, allArticles, allowedLocales, articles, articlesSortedByPosition, author, categories, currentUserId (+18 more)
+
+### Community 293 - "Community 293"
+Cohesion: 0.10
+Nodes (21): activeTab, activeTabIndex, dataImportRoute(), dataImports, fetchImports(), getters, handleVisibilityChange(), importTypeLabel() (+13 more)
+
+### Community 294 - "Community 294"
+Cohesion: 0.08
+Nodes (25): getters, globalConfig, i18nMap, props, readableChannelName, { t }, twilioChannelName(), closeDelete() (+17 more)
+
+### Community 295 - "Community 295"
+Cohesion: 0.10
+Nodes (15): { calculateTrend, displayMetric, isAverageMetricType, fetchingStatus }, props, { t }, canDrilldownNext(), canDrilldownPrev(), canOpenDrilldown(), DURATION_STEP_MULTIPLIERS, DURATION_STEP_SIZES (+7 more)
+
+### Community 296 - "Community 296"
+Cohesion: 0.08
+Nodes (20): addScenario(), assistantId, buildSelectedCountLabel, bulkSelectedIds, filteredScenarios, { formatMessage }, getToolsFromInstruction(), hoveredCard (+12 more)
+
+### Community 297 - "Community 297"
+Cohesion: 0.13
+Nodes (3): Imap::ImapMailbox, MailboxSanitizer, Mailbox::ConversationFinderStrategies::BaseStrategy
+
+### Community 298 - "Community 298"
+Cohesion: 0.08
+Nodes (3): Pubsubable, UserAttributeHelpers, User
+
+### Community 299 - "Community 299"
+Cohesion: 0.13
+Nodes (4): Voice::Provider::Twilio::RecordingAttachmentJob, Voice::Provider::Twilio::RecordingAttachmentService, Voice::RecordingStatusService, perform_service()
+
+### Community 301 - "Community 301"
+Cohesion: 0.08
+Nodes (4): ApplicationPolicy, CsatSurveyResponsePolicy, ReportPolicy, CustomRolePolicy
+
+### Community 303 - "Community 303"
+Cohesion: 0.10
+Nodes (9): Enterprise::CloudflareVerificationJob, Enterprise::Concerns::Portal, Cloudflare::BaseCloudflareZoneService, Cloudflare::CheckCustomHostnameService, Cloudflare::CreateCustomHostnameService, apps_response_body(), stub_apps_list(), stub_apps_request() (+1 more)
+
+### Community 306 - "Community 306"
+Cohesion: 0.10
+Nodes (3): Tekomi::FollowUpService, Tekomi::RewriteService, Tekomi::SummaryService
+
+### Community 307 - "Community 307"
+Cohesion: 0.08
+Nodes (26): eslint, ajv, ajv-formats, @eslint/js, eslint-plugin-playwright, @faker-js/faker, genson-js, pg (+18 more)
+
+### Community 308 - "Community 308"
+Cohesion: 0.13
+Nodes (3): NotificationBuilder, Messages::MentionService, Messages::NewMessageNotificationService
+
+### Community 309 - "Community 309"
+Cohesion: 0.12
+Nodes (4): Email::BaseBuilder, Email::ReplyToBuilder, Email::SenderNameBuilder, EmailAddressParseable
+
+### Community 310 - "Community 310"
+Cohesion: 0.11
+Nodes (3): MetaTokenVerifyConcern, Webhooks::WhatsappController, Whatsapp::WebhookChannelFinderService
+
+### Community 311 - "Community 311"
+Cohesion: 0.09
+Nodes (3): Platform::Api::V1::AccountUsersController, Platform::Api::V1::AccountsController, PlatformController
+
+### Community 312 - "Community 312"
+Cohesion: 0.10
+Nodes (3): Platform::Api::V1::UsersController, Webhooks::Callytics::CallsController, CallbotWebhook
+
+### Community 313 - "Community 313"
+Cohesion: 0.12
+Nodes (4): ZaloOa::CallbacksController, ZaloOa::BackfillJob, ZaloOa::Client, ZaloOa::Client::Error
+
+### Community 314 - "Community 314"
+Cohesion: 0.07
+Nodes (20): activeAssistant, assistants, canSuggestReply, currentAccountId, currentChat, currentUser, inboxAssistant, { isEnterprise } (+12 more)
+
+### Community 315 - "Community 315"
+Cohesion: 0.10
+Nodes (24): AGGREGATES, CALENDAR_FIELDS, CALENDAR_MODES, CUSTOM_FIELD_PREFIX, DEAL_FIELDS, DEFAULT_COLUMN_WIDTH, GROUP_BY_FIELDS, normalizeFields() (+16 more)
+
+### Community 316 - "Community 316"
+Cohesion: 0.08
+Nodes (26): agentList, agents, author, authorName, authorThumbnailSrc, categories, categoryList, categorySlugFromRoute (+18 more)
+
+### Community 317 - "Community 317"
+Cohesion: 0.11
+Nodes (25): articleMenuItems, articleUiFlags, blockedWhileSaving(), discardDraftChanges(), emit, getStatusMessage(), hasPendingChanges, isArticlePublishing (+17 more)
+
+### Community 318 - "Community 318"
+Cohesion: 0.07
+Nodes (5): CommandBar, FloatingCallWidget, SoftphoneWidget, RoutedContent, ROUTES
+
+### Community 319 - "Community 319"
+Cohesion: 0.09
+Nodes (20): emit, errorState, formatDateTime(), formatModeDisplay(), formatStatusDisplay(), formatTierDisplay(), handleGoToConfiguration(), handleRegisterWebhook() (+12 more)
+
+### Community 320 - "Community 320"
+Cohesion: 0.07
+Nodes (23): availableMessage, {
+  currentTime,
+  hasOnlineAgents,
+  isOnline,
+  inboxConfig,
+  isInWorkingHours,
+}, headerText, isAvailable, props, replyTime, { t }, unavailableMessage (+15 more)
+
+### Community 322 - "Community 322"
+Cohesion: 0.08
+Nodes (6): Labels::UpdateJob, Label, Labels::UpdateService, CopilotThread, Tekomi::Tools::HtmlPageParser, RegexHelper
+
+### Community 323 - "Community 323"
+Cohesion: 0.11
+Nodes (3): Tekomi::Document, Tekomi::Document::LimitExceededError, Enterprise::Messages::SearchDataPresenter
+
+### Community 324 - "Community 324"
+Cohesion: 0.11
+Nodes (4): Voice::CallTranscriptionJob, Llm::SpeechToTextService, Messages::AudioTranscriptionService, Voice::CallTranscriptionService
+
+### Community 330 - "Community 330"
+Cohesion: 0.13
+Nodes (5): TekomiAssistantMigrationTask, TekomiAssistantMigrationTask::CsvAccount, TekomiAssistantMigrationTask::CsvAssistant, TekomiAssistantMigrationTask::CsvAssociation, TekomiAssistantMigrationTask::CsvRelation
+
+### Community 332 - "Community 332"
+Cohesion: 0.10
+Nodes (3): Campaign, Sms::OneoffSmsCampaignService, Twilio::OneoffSmsCampaignService
+
+### Community 333 - "Community 333"
+Cohesion: 0.11
+Nodes (4): Api::V2::AccountsController, AuthHelper, DeviseOverrides::ConfirmationsController, DeviseOverrides::PasswordsController
+
+### Community 335 - "Community 335"
+Cohesion: 0.10
+Nodes (20): ATTRIBUTE_TYPES, attributeIcon, emit, handleDelete(), iconByType, props, close(), comboBoxOptions (+12 more)
+
+### Community 336 - "Community 336"
+Cohesion: 0.11
+Nodes (24): toDate(), cardFields, createOnDay(), cursor, dateField, dayKey(), days, dealsByDay (+16 more)
+
+### Community 337 - "Community 337"
+Cohesion: 0.08
+Nodes (24): activeLocale, activeLocaleCode, activeLocaleName, breadcrumbItems, categoriesCount, currentPortal, currentPortalName, currentPortalSlug (+16 more)
+
+### Community 338 - "Community 338"
+Cohesion: 0.08
+Nodes (24): activeAttachment, activeFileType, activeImageIndex, ALLOWED_FILE_TYPES, currentUser, emit, fileNameFromDataUrl, getters (+16 more)
+
+### Community 339 - "Community 339"
+Cohesion: 0.08
+Nodes (25): accountId, accountUiFlags, activity, agents, assigneeId, callHistoryStore, calls, currentPage (+17 more)
+
+### Community 340 - "Community 340"
+Cohesion: 0.14
+Nodes (16): getUuid(), actions, getters, createTemporaryMessage(), findUndeliveredMessage(), getNonDeletedMessages(), getSenderName(), groupConversationBySender() (+8 more)
+
+### Community 347 - "Community 347"
+Cohesion: 0.10
+Nodes (4): Call, Voice::StatusUpdateService, perform_builder(), call_payload()
+
+### Community 348 - "Community 348"
+Cohesion: 0.13
+Nodes (4): Tekomi::Documents::SinglePageFetcher, Tekomi::Documents::SinglePageFetcher::Result, Tekomi::Tools::FirecrawlService, stub_page_fetch()
+
+### Community 349 - "Community 349"
+Cohesion: 0.10
+Nodes (17): app, cookieTimer, credentials, forward(), forwarder, PORT, proxyEnabled, rails (+9 more)
+
+### Community 350 - "Community 350"
+Cohesion: 0.12
+Nodes (3): InstagramConcern, SuperAdmin::BrandingHelper, GlobalConfigService
+
+### Community 351 - "Community 351"
+Cohesion: 0.12
+Nodes (3): PortalHomeData, DashboardController, PlatformBanner
+
+### Community 353 - "Community 353"
+Cohesion: 0.09
+Nodes (21): arrowDownButtonRef, { checkMissingAttributes }, closeDropdown(), currentChat, getters, handleResolveWithAttributes(), isLoading, isOpen (+13 more)
+
+### Community 354 - "Community 354"
+Cohesion: 0.09
+Nodes (19): activeChipLabel, activity, ACTIVITY_ICONS, activityLabel(), assigneeId, assigneeItems, BASE_ACTIVITIES, hasMoreFilters (+11 more)
+
+### Community 355 - "Community 355"
+Cohesion: 0.11
+Nodes (24): audienceList, currentDateTime, emit, formatToUTCString(), formErrors, formState, getErrorMessage(), handleCancel() (+16 more)
+
+### Community 356 - "Community 356"
+Cohesion: 0.10
+Nodes (23): contactMeta(), contactName(), contactOptions, currentPage, debouncedSearch, emit, emptyState, handleContactSelect() (+15 more)
+
+### Community 357 - "Community 357"
+Cohesion: 0.10
+Nodes (23): { activePanel }, currentAccountId, currentChat, expandPanel(), handleAnalysisSidebarToggle(), handleCopilotSidebarToggle(), isAccountFeatureEnabled(), isAnalysisPanelOpen (+15 more)
+
+### Community 358 - "Community 358"
+Cohesion: 0.11
+Nodes (23): activeLocale, articleOptionById, articleOptions, articleResults, cacheSelectedArticleOptions(), categoriesLoading, categoryOptions, dialogRef (+15 more)
+
+### Community 359 - "Community 359"
+Cohesion: 0.08
+Nodes (24): assigneeMeta, contextMenuActions, contextMenuPosition, emit, formatPushMessage(), formattedMessage, getMessageClasses, hasLastSnoozed (+16 more)
+
+### Community 360 - "Community 360"
+Cohesion: 0.10
+Nodes (21): connectForm, dialogRef, emit, handleClose(), store, { t }, emit, formErrors (+13 more)
+
+### Community 361 - "Community 361"
+Cohesion: 0.14
+Nodes (24): checkSelection(), contentFromEditor(), copilotSchema, createEditorView(), createState(), editor, emit, emitOnChange() (+16 more)
+
+### Community 362 - "Community 362"
+Cohesion: 0.10
+Nodes (22): applyCustomRange(), applySelection(), clearFilter(), computeDateRange(), CUSTOM_RANGE_TYPES, customFrom, customTo, DATE_FILTER_ACTIONS (+14 more)
+
+### Community 363 - "Community 363"
+Cohesion: 0.08
+Nodes (16): accountId, contact, contactMergeRef, isDealsEnabled, isFeatureEnabledonAccount, isFetchingItem, isMergingContact, isUpdatingContact (+8 more)
+
+### Community 364 - "Community 364"
+Cohesion: 0.09
+Nodes (5): findCountryFlag(), location(), onFieldUpdate(), saveNameEdit(), updateContactField()
+
+### Community 365 - "Community 365"
+Cohesion: 0.08
+Nodes (20): articlesCount, articlesText, categoriesCount, generatingPhases, generation, isCompleted, isNotStarted, isSkipped (+12 more)
+
+### Community 366 - "Community 366"
+Cohesion: 0.10
+Nodes (12): { currentAccount }, getAccountId, { t }, { currentAccount, updateAccount }, isEnabled, { t }, toggleAudioTranscription(), updateAccountSettings() (+4 more)
+
+### Community 367 - "Community 367"
+Cohesion: 0.08
+Nodes (18): accessToken, botNameError, botSecret, botUrlError, confirmButtonLabel, dialogDescription, dialogRef, dialogTitle (+10 more)
+
+### Community 368 - "Community 368"
+Cohesion: 0.11
+Nodes (22): applyDateRange(), closeFilterMenu(), closeMenus(), emit, eventTypeSections, filterMenus, handleFilterAction(), hasDateFilter (+14 more)
+
+### Community 369 - "Community 369"
+Cohesion: 0.10
+Nodes (22): props, routeName, businessHours, columnHelper, columns, defaulSpanRender(), fetchAllData(), fetchReportsWithRetry() (+14 more)
+
+### Community 370 - "Community 370"
+Cohesion: 0.09
+Nodes (7): updateSurvey(), getSurveyDetails(), mounted(), selectRating(), sendFeedback(), setLocale(), updateSurveyDetails()
+
+### Community 371 - "Community 371"
+Cohesion: 0.09
+Nodes (22): register(), allowedLoginMethods, credentials, globalConfig, hCaptcha, isFormValid, isPasswordFocused, isSignupInProgress (+14 more)
+
+### Community 372 - "Community 372"
+Cohesion: 0.12
+Nodes (16): buildUrl(), deleteCustomAttribute(), get(), setCustomAttributes(), setUser(), update(), SET_USER_ERROR, API (+8 more)
+
+### Community 375 - "Community 375"
+Cohesion: 0.13
+Nodes (3): Voice::CallMessageBuilder, Voice::InboundCallBuilder, Voice::OutboundCallBuilder
+
+### Community 377 - "Community 377"
+Cohesion: 0.13
+Nodes (6): BaseListener, CampaignListener, CsatSurveyListener, InstallationWebhookListener, NotificationListener, ParticipationListener
+
+### Community 378 - "Community 378"
+Cohesion: 0.14
+Nodes (3): FilterService, CustomExceptions::CustomFilter, CustomExceptions::CustomFilter::InvalidValue
+
+### Community 379 - "Community 379"
+Cohesion: 0.10
+Nodes (20): emit, emit, handleAction(), menuItems, showActionsDropdown, { t }, activeOrdering, activeOrderingLabel (+12 more)
+
+### Community 380 - "Community 380"
+Cohesion: 0.09
+Nodes (21): VIEW_TYPE_ICONS, VIEW_TYPES, close(), dialogRef, emit, handleConfirm(), isRename, name (+13 more)
+
+### Community 381 - "Community 381"
+Cohesion: 0.10
+Nodes (23): accountId, { accountScopedRoute }, activeTab, agentOptions, agents, applyChanges(), changeStage(), commitName() (+15 more)
+
+### Community 382 - "Community 382"
+Cohesion: 0.10
+Nodes (16): close(), confirm(), dialogContentRef, dialogRef, emit, handleClickOutside(), handleDialogClose(), isOpen (+8 more)
+
+### Community 383 - "Community 383"
+Cohesion: 0.12
+Nodes (18): dragEnabled, emit, getCategoryById, getStatusMessage(), handleArticleAction(), hasBulkSelection, hoveredArticleId, onDraftResolved() (+10 more)
+
+### Community 384 - "Community 384"
+Cohesion: 0.09
+Nodes (21): caretAnchor, caretAnchorRef, caretAnchorStyle, emit, hasPreview, inlineStart, isRTL, items (+13 more)
+
+### Community 385 - "Community 385"
+Cohesion: 0.09
+Nodes (17): containerRef, emit, handleUpdate(), props, [showDropdown, toggleDropdown], { t }, updateMenuItems, allSelected (+9 more)
+
+### Community 386 - "Community 386"
+Cohesion: 0.09
+Nodes (9): inbox(), message(), buildStore(), CHANNELS, mountWith(), REPLIABLE, emit, handleResetTemplate() (+1 more)
+
+### Community 387 - "Community 387"
+Cohesion: 0.19
+Nodes (8): getAssignee(), isConversationAssignedToMe(), isConversationUnassigned(), isMessageFromCurrentUser(), DashboardAudioNotificationHelper, DEFAULT_ALERT_TYPE, initFaviconSwitcher(), showBadgeOnFavicon()
+
+### Community 388 - "Community 388"
+Cohesion: 0.11
+Nodes (22): agents, automation, automationToSubmit, booleanFilterOptions, campaigns, contactAttrs, contacts, conversationAttrs (+14 more)
+
+### Community 389 - "Community 389"
+Cohesion: 0.09
+Nodes (19): authorText, { contentElement, showReadMore, showReadLess, toggleExpanded }, escapeHtml(), { getPlainText }, highlightedContent, messageContent, props, { t } (+11 more)
+
+### Community 390 - "Community 390"
+Cohesion: 0.09
+Nodes (17): OAUTH_CLIENTS, useChannelConnect(), {
+  accountId,
+  currentAccount,
+  finishOnboarding,
+  isMetaInboxCreationDisabled,
+}, channelsDialogRef, completeOnboarding(), { connectViaOAuth, connectWhatsapp }, {
+  displayedChannels,
+  remainingChannels,
+  connectedInbox,
+  hasDetectedChannels,
+}, handleContinue() (+9 more)
+
+### Community 391 - "Community 391"
+Cohesion: 0.14
+Nodes (17): actions, dispatchConversationUnreadCounts(), FILTER_KEYS, getFilteredUnreadCountsRefreshRetryDelay(), getters, hasFeatureEnabled(), mutations, refreshConversationUnreadCounts() (+9 more)
+
+### Community 392 - "Community 392"
+Cohesion: 0.12
+Nodes (16): setup(), emojiOnClick(), EmojiPicker, focusInput(), handleButtonClick(), handleEnterKeyPress(), hideEmojiPicker(), isWidgetOpen() (+8 more)
+
+### Community 393 - "Community 393"
+Cohesion: 0.10
+Nodes (7): contactCustomAttributes(), conversationCustomAttributes(), enabledPreChatFields(), findFieldType(), getValidation(), getValue(), isContactFieldRequired()
+
+### Community 395 - "Community 395"
+Cohesion: 0.11
+Nodes (3): Channel::FacebookPage, ChatwootFbProvider, Integrations::Facebook::MessageCreator
+
+### Community 396 - "Community 396"
+Cohesion: 0.14
+Nodes (3): AvailabilityStatusable, Internal::RemoveStaleRedisKeysService, OnlineStatusTracker
+
+### Community 400 - "Community 400"
+Cohesion: 0.15
+Nodes (6): ZaloOa::ImageCompressor, ZaloOa::MessageSender, ZaloOa::MessageSender::FileRejectedError, ZaloOa::MessageSender::PermanentError, ZaloOa::MessageSender::RetryableError, ZaloOa::MessageSender::WindowError
+
+### Community 402 - "Community 402"
+Cohesion: 0.11
+Nodes (6): Enterprise::DeleteObjectJob, Enterprise::Audit::InboxMember, Enterprise::AuditLog, Enterprise::Audit::TeamMember, Enterprise::Channelable, Enterprise::Channelable::InstanceMethods
+
+### Community 406 - "Community 406"
+Cohesion: 0.14
+Nodes (3): Avatar::AvatarFromGravatarJob, Avatar::AvatarFromUrlJob, UrlHelper
+
+### Community 408 - "Community 408"
+Cohesion: 0.13
+Nodes (4): MoveTekomiLlmConfigToLlmProviders, MoveTekomiLlmConfigToLlmProviders::MigrationLlmFeatureModel, MoveTekomiLlmConfigToLlmProviders::MigrationLlmProvider, Tekomi::AudienceValidator
+
+### Community 409 - "Community 409"
+Cohesion: 0.13
+Nodes (3): Installation::OnboardingController, AutoAssignment::AssignmentJob, SsoAuthenticatable
+
+### Community 410 - "Community 410"
+Cohesion: 0.09
+Nodes (6): AsyncDispatcher, BaseDispatcher, SyncDispatcher, EventDispatcherJob, Events::Base, create_reply_event()
+
+### Community 411 - "Community 411"
+Cohesion: 0.09
+Nodes (18): currentStep, dialogDescription, dialogRef, dialogTitle, dialogWidth, fetchError, fetchOptions(), formattedAmount (+10 more)
+
+### Community 413 - "Community 413"
+Cohesion: 0.09
+Nodes (20): assignees, createIssue(), dropdowns, emit, formState, inputStyles, isCreating, isSubmitDisabled (+12 more)
+
+### Community 414 - "Community 414"
+Cohesion: 0.11
+Nodes (16): slots, fetchAccountSummary(), fetchAllData(), fetchChartData(), getRequestPayload(), onFilterChange(), REPORTS_KEYS, fetchReport() (+8 more)
+
+### Community 415 - "Community 415"
+Cohesion: 0.10
+Nodes (19): AVATAR_COLORS, avatarStyles, badgeStyles, borderRadiusClass, containerStyles, emit, fileInput, getColorsByNameLength (+11 more)
+
+### Community 416 - "Community 416"
+Cohesion: 0.10
+Nodes (20): deleteCategory(), editCategoryDialog, emit, filteredCategories, handleAction(), handleLocaleChange(), hasCategories, isLoading (+12 more)
+
+### Community 417 - "Community 417"
+Cohesion: 0.11
+Nodes (18): addablePlatforms, buildSocialProfiles(), emit, handleSave(), hasChanges, platformByKey(), PORTAL_LAYOUTS, portalConfig (+10 more)
+
+### Community 418 - "Community 418"
+Cohesion: 0.09
+Nodes (19): activeCountry, activeCountryCode, activeDialCode, countryList, emitPhoneNumber(), filteredCountries, hasError, inputBorderClass (+11 more)
+
+### Community 419 - "Community 419"
+Cohesion: 0.10
+Nodes (19): accessibleChildren, emit, expandedSubGroup, getAccessibleSubChildren(), handleSortToggle(), { isAllowed, sidebarWidth }, isRTL, navigateAndClose() (+11 more)
+
+### Community 420 - "Community 420"
+Cohesion: 0.09
+Nodes (21): { activePanel }, closeOnSmallScreen(), closePanel(), companyId, contact, contactGetter, contactId, contactTab (+13 more)
+
+### Community 421 - "Community 421"
+Cohesion: 0.13
+Nodes (22): appliedHeight, clamp(), clampToBounds(), clearDragStyles(), editorHeight, getClientY(), handleMessageSent(), isContainerReady (+14 more)
+
+### Community 422 - "Community 422"
+Cohesion: 0.16
+Nodes (21): auditLogFiltersFromQuery(), availabilityMapping, buildAuditLogRouteQuery(), EVENT_TYPE_GROUPS, extractAttrChange(), extractChangedAccountUserValues(), generateLogActionKey(), generateTranslationPayload() (+13 more)
+
+### Community 423 - "Community 423"
+Cohesion: 0.13
+Nodes (12): created(), ERROR_MESSAGES, getTranslatedMessage(), handleImpersonation(), handleMfaVerified(), handleSessionRevoke(), handleSessionRevokeAll(), requestIdleCallbackPolyfill() (+4 more)
+
+### Community 424 - "Community 424"
+Cohesion: 0.15
+Nodes (3): Webhooks::WhatsappEventsJob, Whatsapp::IncomingMessageService, Whatsapp::IncomingMessageWhatsappCloudService
+
+### Community 427 - "Community 427"
+Cohesion: 0.12
+Nodes (4): InboxAgentAvailability, Enterprise::InboxAgentAvailability, Enterprise::Inbox, Enterprise::AutoAssignment::CapacityService
+
+### Community 430 - "Community 430"
+Cohesion: 0.15
+Nodes (5): DataImports::Freshdesk::Client, DataImports::Freshdesk::Client::AuthenticationError, DataImports::Freshdesk::Client::Error, DataImports::Freshdesk::Client::Page, DataImports::Freshdesk::Client::RateLimitError
+
+### Community 432 - "Community 432"
+Cohesion: 0.13
+Nodes (3): DataImports::MessageBatchBuilder, DataImports::MessageBatchBuilder::Batch, DataImports::MessageBatchBuilder::Entry
+
+### Community 438 - "Community 438"
+Cohesion: 0.15
+Nodes (4): Onboarding::HelpCenterArticleGenerationJob, Onboarding::HelpCenterArticleWriterJob, Onboarding::HelpCenterGenerationState, Onboarding::HelpCenterGenerationState::Missing
+
+### Community 439 - "Community 439"
+Cohesion: 0.16
+Nodes (4): Tekomi::Documents::PerformSyncJob, Tekomi::Documents::SyncService, Tekomi::Documents::SyncService::PermanentSyncError, Tekomi::Documents::SyncService::TransientSyncError
+
+### Community 442 - "Community 442"
+Cohesion: 0.12
+Nodes (5): TestData::AccountCreator, TestData::DisplayIdTracker, TestData::InboxCreator, TestData::Orchestrator, TestData::Orchestrator::DataGenerationParams
+
+### Community 443 - "Community 443"
+Cohesion: 0.16
+Nodes (18): fastify, @fastify/multipart, done, Entry, inFlight, once(), sweep(), QrFailureReason (+10 more)
+
+### Community 445 - "Community 445"
+Cohesion: 0.13
+Nodes (4): credentialsWithProxy(), supervisor, SessionManager, ZaloApi
+
+### Community 450 - "Community 450"
+Cohesion: 0.10
+Nodes (19): formatVND(), deals, isLoading, pipelinesStore, props, stagesById, { t }, activities (+11 more)
+
+### Community 451 - "Community 451"
+Cohesion: 0.11
+Nodes (20): animationClasses, attrs, buttonClasses, computedColor, computedJustify, computedSize, computedVariant, filteredAttrs (+12 more)
+
+### Community 452 - "Community 452"
+Cohesion: 0.09
+Nodes (15): avatarFile, avatarSrc, avatarUrl, confirmDeleteContactDialogRef, contactData, contactsFormRef, createdAt, emit (+7 more)
+
+### Community 453 - "Community 453"
+Cohesion: 0.11
+Nodes (21): attrs, callsStore, contactsUiFlags, dialogRef, hasVoiceInboxes, inboxesList, isCallButtonDisabled, isInitiatingCall (+13 more)
+
+### Community 454 - "Community 454"
+Cohesion: 0.14
+Nodes (18): customAttributeKey(), formatDealDate(), FIELD_ICONS, { fieldLabel }, customValue, { findAttribute }, props, attributes (+10 more)
+
+### Community 455 - "Community 455"
+Cohesion: 0.10
+Nodes (18): agentOptions, close(), contactLabel, contactOptions, createInitialForm(), customAttributes, { dealAttributes }, dialogRef (+10 more)
+
+### Community 456 - "Community 456"
+Cohesion: 0.09
+Nodes (18): DROPDOWN_SEARCH_THRESHOLD, hasItems, { options, maxChips, dropdownMaxHeight }, remainingItems, remainingTooltip, searchResults, searchTerm, selected (+10 more)
+
+### Community 457 - "Community 457"
+Cohesion: 0.10
+Nodes (20): articleMenuItems, authorName, authorThumbnailSrc, categoryName, currentAccountId, emit, handleArticleAction(), handleClick() (+12 more)
+
+### Community 458 - "Community 458"
+Cohesion: 0.11
+Nodes (20): attachmentId, emit, EmojiIconPicker, {
+  fetchSignatureFlagFromUISettings,
+  setSignatureFlagForInbox,
+  isEditorHotKeyEnabled,
+}, generateUid(), isEmojiPickerOpen, isRegularMessageMode, keyboardEvents (+12 more)
+
+### Community 459 - "Community 459"
+Cohesion: 0.15
+Nodes (21): handleMouseLeave(), handlePopoverMouseLeave(), clearCloseTimer(), closeMenu(), emit, { fixedPosition, updatePosition }, getSortGroupLabel(), getSortOptionLabel() (+13 more)
+
+### Community 460 - "Community 460"
+Cohesion: 0.11
+Nodes (18): canManage, { checkPermissions }, emit, handleAssistantAction(), handleDocumentableClick(), handleViewConversations(), hasConversationUsage, menuItems (+10 more)
+
+### Community 461 - "Community 461"
+Cohesion: 0.10
+Nodes (18): descriptionError, emit, { formatMessage }, { height: contentHeight }, instructionContentRef, instructionError, [isEditing, toggleEditing], [isInstructionExpanded, toggleInstructionExpanded] (+10 more)
+
+### Community 462 - "Community 462"
+Cohesion: 0.11
+Nodes (19): close(), details, detailsError, dialogRef, emit, handleApprove(), handleDismiss(), isDismissing (+11 more)
+
+### Community 463 - "Community 463"
+Cohesion: 0.10
+Nodes (18): agentOptions, close(), contactLabel, contactOptions, createInitialForm(), customAttributes, dialogRef, emit (+10 more)
+
+### Community 464 - "Community 464"
+Cohesion: 0.10
+Nodes (17): emit, hasSlaPolicyId, hasUnread, hovered, isVip, lastMessageInChat, messagePreviewClass, onSelectConversation() (+9 more)
+
+### Community 465 - "Community 465"
+Cohesion: 0.14
+Nodes (21): buildOpusHead(), buildOpusTags(), CRC_TABLE, createOggPage(), EBML_IDS, extractFrameFromBlock(), MASTER_ELEMENTS, oggCrc32() (+13 more)
+
+### Community 466 - "Community 466"
+Cohesion: 0.11
+Nodes (20): agentsList, agentsSection, contactsSection, createMenuItem(), debouncedSearch, emit, FROM_TYPE, handleAction() (+12 more)
+
+### Community 467 - "Community 467"
+Cohesion: 0.09
+Nodes (18): activeContextChat, activeInbox, { buildConversationPath }, contactConversationGetter, contactGetter, contextMenu, conversationPath, conversations (+10 more)
+
+### Community 468 - "Community 468"
+Cohesion: 0.10
+Nodes (18): agentList, commitSearch, filters, getters, hasActiveFilters, meta, onFiltersUpdate(), onPageChange() (+10 more)
+
+### Community 469 - "Community 469"
+Cohesion: 0.10
+Nodes (19): buildForm(), canContinue, close(), copy, currentStep, currentStepDetails, dialogRef, emit (+11 more)
+
+### Community 470 - "Community 470"
+Cohesion: 0.10
+Nodes (18): formatValue, assistantId, canDrilldown, { checkPermissions }, drilldown, faqStats, formatDuration(), isDrilldownOpen (+10 more)
+
+### Community 471 - "Community 471"
+Cohesion: 0.11
+Nodes (15): bucketValue, conversationCount, emit, isStatConversationCount, messageCount, navigate(), onKeydown(), panelRef (+7 more)
+
+### Community 475 - "Community 475"
+Cohesion: 0.13
+Nodes (5): Whatsapp::BusinessManagementTokenService, Campaigns::UpdateRecipientStatusJob, Campaigns::UpdateRecipientStatusJob::RecipientNotFoundError, CampaignRecipient, Enterprise::Whatsapp::IncomingMessageBaseService
+
+### Community 478 - "Community 478"
+Cohesion: 0.15
+Nodes (3): Enterprise::Billing::TopupCheckoutService, Enterprise::Billing::TopupCheckoutService::Error, Enterprise::Billing::TopupFulfillmentService
+
+### Community 482 - "Community 482"
+Cohesion: 0.09
+Nodes (21): compilerOptions, baseUrl, esModuleInterop, forceConsistentCasingInFileNames, module, moduleResolution, outDir, paths (+13 more)
+
+### Community 483 - "Community 483"
+Cohesion: 0.12
+Nodes (4): Api::V1::Accounts::Google::AuthorizationsController, Api::V1::Accounts::Instagram::AuthorizationsController, Api::V1::Accounts::Notion::AuthorizationsController, Api::V1::Accounts::OauthAuthorizationController
+
+### Community 486 - "Community 486"
+Cohesion: 0.15
+Nodes (4): Filters::FilterHelper, CustomExceptions::CustomFilter::InvalidAttribute, CustomExceptions::CustomFilter::InvalidOperator, CustomExceptions::CustomFilter::InvalidQueryOperator
+
+### Community 487 - "Community 487"
+Cohesion: 0.20
+Nodes (3): ReportingEventHelper, ReportingEventListener, ReportingEvent
+
+### Community 488 - "Community 488"
+Cohesion: 0.13
+Nodes (7): createCallDisconnectedEvent(), TwilioVoiceClient, VoiceAPI, buildCallActions(), isWhatsappCall(), teardownByProvider(), @twilio/voice-sdk
+
+### Community 489 - "Community 489"
+Cohesion: 0.11
+Nodes (16): {
+  activeCall,
+  incomingCalls,
+  hasActiveCall,
+  isJoining,
+  joinCall,
+  endCall: endCallSession,
+  rejectIncomingCall,
+  dismissCall,
+  formattedCallDuration,
+}, countryCodeToFlag(), getCallInfo(), handleEndCall(), handleJoinCall(), isMuted, isWhatsappActive, mainCardState (+8 more)
+
+### Community 490 - "Community 490"
+Cohesion: 0.14
+Nodes (4): PipelinesAPI, TicketPipelinesAPI, usePipelinesStore, useTicketPipelinesStore
+
+### Community 491 - "Community 491"
+Cohesion: 0.14
+Nodes (20): audienceList, currentDateTime, emit, formatToUTCString(), formErrors, formState, getErrorMessage(), handleCancel() (+12 more)
+
+### Community 492 - "Community 492"
+Cohesion: 0.12
+Nodes (16): contactData, contactsFormRef, countriesMap, countryDetails, emit, formattedLocation, getInitialContactData(), handleAvatarHover() (+8 more)
+
+### Community 493 - "Community 493"
+Cohesion: 0.10
+Nodes (17): dropdownPosition, dropdownRef, { height }, { height: dropdownHeight }, iconToRender, props, searchResults, searchTerm (+9 more)
+
+### Community 494 - "Community 494"
+Cohesion: 0.14
+Nodes (20): articleContent, articleTitle, diffPanelRef, effectiveContent(), effectiveTitle(), emit, handleCreateArticle(), hasPendingChanges (+12 more)
+
+### Community 495 - "Community 495"
+Cohesion: 0.12
+Nodes (20): activeCategory, activeCategoryName, activeLocaleName, activeTabIndex, categoryMenuItems, countKey(), emit, handleCategoryAction() (+12 more)
+
+### Community 496 - "Community 496"
+Cohesion: 0.11
+Nodes (19): addCustomDomainDialogRef, customDomainAddress, dnsConfigurationDialogRef, emit, isError, isLive, { isOnChatwootCloud }, isPending (+11 more)
+
+### Community 497 - "Community 497"
+Cohesion: 0.10
+Nodes (18): ANALYTICS_PROVIDERS, emit, handleSave(), hasChanges, invalidAnalyticsKeys, { isAdmin }, isUpdatingPortal, liveChatTitle (+10 more)
+
+### Community 498 - "Community 498"
+Cohesion: 0.12
+Nodes (17): { assistantId }, formatMessagesForApi(), handleEnterKey(), isLoading, messages, newMessage, sendMessage(), { t } (+9 more)
+
+### Community 499 - "Community 499"
+Cohesion: 0.10
+Nodes (20): ageInHours, canRetry, emit, ERROR_CODE_LABELS, errorLabel, fullLabel, hasBeenSynced, hasStaleThreshold (+12 more)
+
+### Community 500 - "Community 500"
+Cohesion: 0.10
+Nodes (17): authTypeOptions, DEFAULT_PARAM, formErrors, formState, getErrorMessage(), httpMethodOptions, initialState, isLoading (+9 more)
+
+### Community 501 - "Community 501"
+Cohesion: 0.10
+Nodes (14): sortIconMap, headerClass, isRelaxed, props, isRTL, { agents, agentMetrics }, columnHelper, columns (+6 more)
+
+### Community 502 - "Community 502"
+Cohesion: 0.13
+Nodes (9): confirmDeletion(), copyLinkToMessage(), handleClose(), handleCopy(), handleReplyTo(), handleTranslate(), hideCannedResponseModal(), openDeleteModal() (+1 more)
+
+### Community 503 - "Community 503"
+Cohesion: 0.11
+Nodes (20): assignedAgent, botAssigneeName, currentChat, currentUser, hasMessage, isAgentBotOwned, isAssignedToOtherAgent, isPendingConversation (+12 more)
+
+### Community 504 - "Community 504"
+Cohesion: 0.10
+Nodes (16): message, props, showForwardingAddress, { t }, currentInbox, generateQRCode(), generateQRCodes(), hasDuplicateInstagramInbox (+8 more)
+
+### Community 505 - "Community 505"
+Cohesion: 0.15
+Nodes (16): CHANNEL_LIST, channelByType(), DEFAULT_CHANNEL_TYPES, DIALOG_CHANNELS, EMAIL_PROVIDERS, FALLBACK_PREVIEW_CHANNELS, SOCIAL_PLATFORM_TYPES, SOCIAL_PLATFORMS (+8 more)
+
+### Community 506 - "Community 506"
+Cohesion: 0.11
+Nodes (16): CARD_CLASS, channelAvailability(), channelCards, close(), { connectViaOAuth, connectWhatsapp }, dialogDescription, dialogRef, dialogTitle (+8 more)
+
+### Community 507 - "Community 507"
+Cohesion: 0.10
+Nodes (16): createInbox(), emit, errored, hasFetched, { isAuthenticating, preloadSdk, loginAndFetchPages }, isCreating, pageOptions, pages (+8 more)
+
+### Community 509 - "Community 509"
+Cohesion: 0.10
+Nodes (4): editAttributes(), mounted(), onClose(), setFormValues()
+
+### Community 510 - "Community 510"
+Cohesion: 0.11
+Nodes (20): applyTrigger(), buildCondition(), conditionFor(), conditions, delay, durationLabel, eventName, explanation (+12 more)
+
+### Community 511 - "Community 511"
+Cohesion: 0.10
+Nodes (12): inboxEmail, isRequestingAuthorization, props, { t }, isRequestingAuthorization, { t }, isRequestingAuthorization, props (+4 more)
+
+### Community 512 - "Community 512"
+Cohesion: 0.16
+Nodes (19): actionLabel, description, handleEmbeddedSignupEvents(), handleLoginAndReauthorize(), isLoadingFacebook, isRequestingAuthorization, props, reauthorizeWhatsApp() (+11 more)
+
+### Community 513 - "Community 513"
+Cohesion: 0.11
+Nodes (5): closeModal(), submit(), closeDeletePopup(), confirmDeletion(), deleteApp()
+
+### Community 514 - "Community 514"
+Cohesion: 0.10
+Nodes (15): fetchIntegrations(), mounted(), autoAdvance, emit, hasSla, isDirty, isValid, props (+7 more)
+
+### Community 515 - "Community 515"
+Cohesion: 0.10
+Nodes (19): applySelection(), computeRange(), DATE_FILTER_TYPES, dayMenuItemConfigs, daysNumModel, emit, fromModel, menuItems (+11 more)
+
+### Community 516 - "Community 516"
+Cohesion: 0.12
+Nodes (18): createDialogRef, customTools, customToolsMeta, deleteDialogRef, dialogType, fetchCustomTools(), handleAction(), handleDelete() (+10 more)
+
+### Community 517 - "Community 517"
+Cohesion: 0.16
+Nodes (10): useMessageFormatter(), buildMentionTokens(), mentionPlugin(), renderMentions(), createMarkdownInstance(), imgResizeManager(), MessageFormatter, processInlineToken() (+2 more)
+
+### Community 518 - "Community 518"
+Cohesion: 0.10
+Nodes (3): onFormSubmit(), onOptionSelect(), onResponse()
+
+### Community 519 - "Community 519"
+Cohesion: 0.13
+Nodes (6): MutexApplicationJob, MutexApplicationJob::LockAcquisitionError, SendOnSlackJob, UpdateSlackMessageJob, Webhooks::FacebookEventsJob, facebook_receive()
+
+### Community 520 - "Community 520"
+Cohesion: 0.13
+Nodes (4): Tickets::ProcessAccountStageSlasJob, Tickets::TriggerStageSlasJob, TicketStageEvent, Tickets::EvaluateStageSlaService
+
+### Community 525 - "Community 525"
+Cohesion: 0.14
+Nodes (3): Whatsapp::EmbeddedSignupService, Whatsapp::ReauthorizationService, Whatsapp::TokenExchangeService
+
+### Community 528 - "Community 528"
+Cohesion: 0.15
+Nodes (5): built_in_agent_tools(), Concerns::TekomiToolsHelpers, load_agent_tools(), resolve_tool_class(), Tekomi::Scenario
+
+### Community 530 - "Community 530"
+Cohesion: 0.16
+Nodes (5): Integrations::Slack::SlackMessageHelper, build_sample_template_params(), build_template_params(), stub_sample_template_request(), stub_template_request()
+
+### Community 532 - "Community 532"
+Cohesion: 0.15
+Nodes (13): EventForwarder, ForwarderDeps, ForwarderLog, isRetryable(), MAX_PENDING_EVENTS, Payload, RETRY_BASE_MS, RETRY_MAX_DELAY_MS (+5 more)
+
+### Community 536 - "Community 536"
+Cohesion: 0.12
+Nodes (3): Survey::ResponsesController, GlobalConfig, toggle_feature()
+
+### Community 537 - "Community 537"
+Cohesion: 0.16
+Nodes (3): Webhooks::SmsController, Webhooks::SmsEventsJob, Channel::Sms
+
+### Community 538 - "Community 538"
+Cohesion: 0.13
+Nodes (3): getTimeOffset(), ReportsAPI, useReportsOverview()
+
+### Community 539 - "Community 539"
+Cohesion: 0.13
+Nodes (17): agentActionLabel, contactName, conversationRoute, createdAtLabel, kind, props, providerIcon, resultLabel (+9 more)
+
+### Community 540 - "Community 540"
+Cohesion: 0.11
+Nodes (17): avatarPreviewUrl, avatarSource, companiesStore, displayName, form, handleUpdateCompany(), hasChanges, isAvatarBusy (+9 more)
+
+### Community 541 - "Community 541"
+Cohesion: 0.11
+Nodes (19): accountLabels, activeLabels, allLabelsHidden, attrs, computeVisibleLabelPosition(), hiddenLabelsCount, hiddenLabelsTooltip, labelContainer (+11 more)
+
+### Community 542 - "Community 542"
+Cohesion: 0.10
+Nodes (17): adLabel, body, hasImage, hasVideo, headline, mediaLoadError, mediaThumbnail, props (+9 more)
+
+### Community 543 - "Community 543"
+Cohesion: 0.12
+Nodes (11): emit, formatOperatorLabel(), appliedFilters, maxVisibleFilters, moreFiltersLabel, conditionsRef, DEFAULT_FILTER, filters (+3 more)
+
+### Community 544 - "Community 544"
+Cohesion: 0.10
+Nodes (18): { content, contentAttributes, attachments, messageType }, contentContainer, fullHTML, hasEmailContent, { hasTranslations, translationContent }, isExpandable, isExpanded, isIncoming (+10 more)
+
+### Community 545 - "Community 545"
+Cohesion: 0.11
+Nodes (17): changePage(), currentPageInformation, emit, endItem, { formatCompactNumber, formatFullNumber }, isFirstPage, isLastPage, pageInfo (+9 more)
+
+### Community 546 - "Community 546"
+Cohesion: 0.11
+Nodes (17): emit, accountId, emit, expandSubGroupOnActiveChild(), getMinimizedSections(), hasAccessibleItems, hasActiveChild, hideLeafTreeLine (+9 more)
+
+### Community 547 - "Community 547"
+Cohesion: 0.11
+Nodes (15): agentMenuItems, assignableAgents, assignableAgentsList, assignableAgentsUiFlags, bulkActionsUiFlags, containerRef, emit, handleAssign() (+7 more)
+
+### Community 548 - "Community 548"
+Cohesion: 0.12
+Nodes (17): activeFilter, agentItems, agents, availabilityLabels, emit, getters, isRTL, items (+9 more)
+
+### Community 549 - "Community 549"
+Cohesion: 0.13
+Nodes (10): closeDropdown(), modelValue(), mounted(), moveDown(), moveUp(), onOutsideClick(), onSelectCountry(), scrollToSelected() (+2 more)
+
+### Community 550 - "Community 550"
+Cohesion: 0.13
+Nodes (17): emit, firstIndex, isFooterVisible, lastIndex, props, totalPages, emit, hasFirstPage (+9 more)
+
+### Community 551 - "Community 551"
+Cohesion: 0.16
+Nodes (15): MOCK_FEATURE_FLAGS, mockActiveLabels, mockAssignableAgents, mockCurrentChat, mockInactiveLabels, mockTeamsList, DEFAULT_META, ROUTE_META (+7 more)
+
+### Community 552 - "Community 552"
+Cohesion: 0.13
+Nodes (8): contact(), getContactObject(), handleSubmit(), mounted(), onSuccess(), setContactObject(), setDialCode(), libphonenumber-js
+
+### Community 553 - "Community 553"
+Cohesion: 0.12
+Nodes (5): conversationId(), fetchParticipants(), mounted(), set(), updateParticipant()
+
+### Community 554 - "Community 554"
+Cohesion: 0.14
+Nodes (7): conversationId(), fetchConversationIfUnavailable(), findConversation(), initialize(), mounted(), onConversationLoad(), setActiveChat()
+
+### Community 555 - "Community 555"
+Cohesion: 0.10
+Nodes (13): { accountScopedUrl }, dragging, {
+  executingMacroId,
+  execute,
+  submitPendingAttributes,
+  dismissPendingAttributes,
+}, macros, { orderedMacros }, props, resolveAttributesModalRef, store (+5 more)
+
+### Community 556 - "Community 556"
+Cohesion: 0.12
+Nodes (17): article, articleById, articleLink, fetchArticleDetails(), isCategoryArticles, isSaved, isUpdating, portal (+9 more)
+
+### Community 557 - "Community 557"
+Cohesion: 0.14
+Nodes (18): deletePortal(), fetchPortalAndItsCategories(), fetchSSLStatus(), getDefaultLocale(), getNextAvailablePortal(), getPortalBySlug, handleUpdatePortalConfiguration(), isFetching (+10 more)
+
+### Community 558 - "Community 558"
+Cohesion: 0.11
+Nodes (16): agentBotDeleteDialogRef, agentBotModalRef, agentBots, confirmDeletion(), deleteAgentBot(), filteredAgentBots, loading, MODAL_TYPES (+8 more)
+
+### Community 559 - "Community 559"
+Cohesion: 0.11
+Nodes (18): agentAvailability, agentCredentials, agentName, availabilityStatuses, editAgent(), emit, getCustomRoles, pageTitle (+10 more)
+
+### Community 560 - "Community 560"
+Cohesion: 0.12
+Nodes (17): accountId, assignmentOrderOptions, assignmentPriorityOptions, buttonLabel, createOption(), emit, excludeOlderThanMinutes, exclusionUnit (+9 more)
+
+### Community 561 - "Community 561"
+Cohesion: 0.13
+Nodes (18): addCustomRole, description, emit, getTranslationKey(), handleCustomRole(), isSubmitDisabled, modalDescription, modalTitle (+10 more)
+
+### Community 562 - "Community 562"
+Cohesion: 0.11
+Nodes (17): availableProviders, handleManualLinkClick(), hasWhatsappAppId, {
+  isCloudFeatureEnabled,
+  isOnChatwootCloud,
+  isMetaInboxCreationDisabled,
+}, isWhatsappEmbeddedSignupDisabled, isWhatsappEmbeddedSignupFeatureEnabled, PROVIDER_TYPES, providerSelectionDescription (+9 more)
+
+### Community 563 - "Community 563"
+Cohesion: 0.12
+Nodes (17): fetchDropdownData(), fetchMacro(), formatMacro(), { getMacroDropdownValues }, getters, { isAdmin }, isPublicMacroReadOnly, macro (+9 more)
+
+### Community 564 - "Community 564"
+Cohesion: 0.11
+Nodes (13): backupCodesDialogRef, disableBackupCode, disableDialogRef, disableOtpCode, disablePassword, emit, handleDisableMfa(), handleRegenerateBackupCodes() (+5 more)
+
+### Community 565 - "Community 565"
+Cohesion: 0.10
+Nodes (13): isLoading, metrics, ratingCount, responseCount, responseRate, satisfactionScore, uiFlags, chartData (+5 more)
+
+### Community 566 - "Community 566"
+Cohesion: 0.11
+Nodes (18): closeDelete(), confirmDeleteTitle, confirmDeletion(), confirmPlaceHolderText, deleteConfirmText, deleteRejectText, deleteTeam(), filteredTeamsList (+10 more)
+
+### Community 567 - "Community 567"
+Cohesion: 0.13
+Nodes (8): actions, getters, state, commit, filterQueryData, filterApiResponse, DuplicateContactException, ExceptionWithMessage
+
+### Community 568 - "Community 568"
+Cohesion: 0.10
+Nodes (3): containerClasses, { formatMessage }, props
+
+### Community 570 - "Community 570"
+Cohesion: 0.13
+Nodes (7): Webhooks::ZaloOaEventsJob, ZaloOa::SharedInfoService, phone_event(), telegram_receive(), widget_start(), zalo_oa_event(), zalo_oa_receive()
+
+### Community 572 - "Community 572"
+Cohesion: 0.15
+Nodes (3): Crm::Leadsquared::Api::ActivityClient, Crm::Leadsquared::Api::BaseClient, Crm::Leadsquared::Api::BaseClient::ApiError
+
+### Community 574 - "Community 574"
+Cohesion: 0.11
+Nodes (4): Whatsapp::PhoneNormalizers::ArgentinaPhoneNormalizer, Whatsapp::PhoneNormalizers::BasePhoneNormalizer, Whatsapp::PhoneNormalizers::BrazilPhoneNormalizer, Whatsapp::PhoneNormalizers::MexicoPhoneNormalizer
+
+### Community 582 - "Community 582"
+Cohesion: 0.11
+Nodes (14): { content, attachments, contentAttributes, messageType }, { hasTranslations, translationContent }, isEmpty, isTemplate, renderContent, renderOriginal, MESSAGE_TYPES, allMessages (+6 more)
+
+### Community 583 - "Community 583"
+Cohesion: 0.13
+Nodes (11): fetchAllData(), fetchBotSummary(), fetchChartData(), getRequestPayload(), onFilterChange(), conversationCount, fetchMetrics(), handoffRate (+3 more)
+
+### Community 584 - "Community 584"
+Cohesion: 0.11
+Nodes (15): buttonRef, dropdownRef, emit, filteredItems, handleAdd(), props, searchValue, shouldAlignRight (+7 more)
+
+### Community 585 - "Community 585"
+Cohesion: 0.11
+Nodes (11): audioPlayer, currentTime, displayedTime, duration, formatTime(), isPlaying, PLAYBACK_SPEEDS, playbackSpeed (+3 more)
+
+### Community 586 - "Community 586"
+Cohesion: 0.11
+Nodes (11): audioPlayer, currentTime, displayedTime, duration, formatTime(), isPlaying, PLAYBACK_SPEEDS, playbackSpeed (+3 more)
+
+### Community 587 - "Community 587"
+Cohesion: 0.12
+Nodes (16): comboboxRef, dropdownRef, emit, filteredOptions, open, props, removeTag(), search (+8 more)
+
+### Community 588 - "Community 588"
+Cohesion: 0.12
+Nodes (14): emit, expandedCardId, handleSelect(), hoveredAvatarId, isSelected(), isUpdating, props, route (+6 more)
+
+### Community 589 - "Community 589"
+Cohesion: 0.13
+Nodes (14): CATEGORY_SUB_ROUTES, currentPortalSlug, emit, fetchPortalAndItsCategories(), handlePortalChange(), isPortalActive(), openCreatePortalDialog(), portalLink (+6 more)
+
+### Community 590 - "Community 590"
+Cohesion: 0.12
+Nodes (13): emit, handleBack(), handleSendMessage(), { t }, contentTemplates, emit, filteredTemplates, handleSendMessage() (+5 more)
+
+### Community 591 - "Community 591"
+Cohesion: 0.13
+Nodes (17): belowMd, breakpoints, clickOutsideIgnore, emit, { fixedPosition, updatePosition }, handleClickOutside(), hide(), isActive (+9 more)
+
+### Community 592 - "Community 592"
+Cohesion: 0.19
+Nodes (15): CREATED_BY_ICONS, CUSTOM_FIELD_PREFIX, customAttributeKey(), DEFAULT_COLUMN_WIDTH, formatTicketDate(), normalizeFields(), TICKET_FIELDS, toDate() (+7 more)
+
+### Community 593 - "Community 593"
+Cohesion: 0.12
+Nodes (16): buttonLabel, confirmLabel, containerRef, emit, handleApply(), isLabelSelected(), isRemoveAction, isTypeContact (+8 more)
+
+### Community 594 - "Community 594"
+Cohesion: 0.21
+Nodes (14): dismissedCallSids, extractAssigneeId(), extractCallData(), extractCallerSnapshot(), handleVoiceCallCreated(), handleVoiceCallUpdated(), isAssignedToAnotherAgent(), isVoiceCallMessage() (+6 more)
+
+### Community 595 - "Community 595"
+Cohesion: 0.11
+Nodes (15): closeCreateModal(), contactId, currentUser, isCreatingNote, isFetchingNotes, keyboardEvents, noteContent, notes (+7 more)
+
+### Community 596 - "Community 596"
+Cohesion: 0.11
+Nodes (13): backupCodes, backupCodesGenerated, managementActionsRef, mfaEnabled, provisioningUri, qrCodeUrl, regenerateBackupCodes(), route (+5 more)
+
+### Community 597 - "Community 597"
+Cohesion: 0.11
+Nodes (13): columnHelper, columns, getTeamMetrics(), { t }, table, tableData, { teams, teamMetrics }, { uiSettings, updateUISettings } (+5 more)
+
+### Community 598 - "Community 598"
+Cohesion: 0.11
+Nodes (11): changePage(), counts, emotionClasses, fetchReports(), filters, isLoading, meta, options (+3 more)
+
+### Community 599 - "Community 599"
+Cohesion: 0.18
+Nodes (12): app, i18n, hasAuthCookie(), replaceRouteWithReload(), userInitial(), isOnOnboardingView(), validateRouteAccess(), validateSSOLoginParams() (+4 more)
+
+### Community 601 - "Community 601"
+Cohesion: 0.12
+Nodes (4): ApplicationMailbox, DefaultMailbox, ReplyMailbox, Mailbox::ConversationFinder
+
+### Community 602 - "Community 602"
+Cohesion: 0.13
+Nodes (3): ConversationParticipant, DealConversation, Enterprise::Conversations::PermissionFilterService
+
+### Community 604 - "Community 604"
+Cohesion: 0.15
+Nodes (3): LlmPromptTemplate, SuperAdmin::LlmPromptTemplatesController, Llm::Prompts
+
+### Community 608 - "Community 608"
+Cohesion: 0.16
+Nodes (3): MessageTemplates::HookExecutionService, MessageTemplates::Template::EmailCollect, MessageTemplates::Template::Greeting
+
+### Community 614 - "Community 614"
+Cohesion: 0.14
+Nodes (4): Conversations::UpdateMessageStatusJob, Webhooks::FacebookDeliveryJob, Instagram::ReadStatusService, Integrations::Facebook::DeliveryStatus
+
+### Community 615 - "Community 615"
+Cohesion: 0.16
+Nodes (10): Conversations::UserMentionJob, generate_sql_query(), sort_on_created_at(), sort_on_last_activity_at(), sort_on_last_user_message_at(), sort_on_priority(), sort_on_priority_created_at(), sort_on_waiting_since() (+2 more)
+
+### Community 617 - "Community 617"
+Cohesion: 0.14
+Nodes (14): availableInboxes, emit, handleAddInbox(), handleLimitChange(), handleRemoveLimit(), inboxCapacityLimits, inboxMap, isLimitValid() (+6 more)
+
+### Community 618 - "Community 618"
+Cohesion: 0.12
+Nodes (14): emit, filteredMenuItems, filteredMenuSections, flattenedMenuItems, handleAction(), handleSearchInput(), hasSections, props (+6 more)
+
+### Community 619 - "Community 619"
+Cohesion: 0.15
+Nodes (16): { attributeFilterTypes }, conditionsRef, DEFAULT_FILTER, emit, filterModalHeaderTitle, filters, isConditionsValid(), outsideClickHandler (+8 more)
+
+### Community 620 - "Community 620"
+Cohesion: 0.14
+Nodes (16): { attributeFilterTypes }, conditionsRef, DEFAULT_FILTER, emit, filterModalHeaderTitle, filters, folderNameLocal, isConditionsValid() (+8 more)
+
+### Community 621 - "Community 621"
+Cohesion: 0.14
+Nodes (16): activePortal, activeTab, currentPortalSlug, emit, fetchSSLStatus(), handleDeletePortal(), handleSendCnameInstructions(), handleUpdatePortal() (+8 more)
+
+### Community 622 - "Community 622"
+Cohesion: 0.16
+Nodes (14): brandIcon, channelIcon, icon, inboxRef, props, brandInboxes, inboxes, channelTypeBrandIconMap (+6 more)
+
+### Community 623 - "Community 623"
+Cohesion: 0.13
+Nodes (13): activePopover, provideSidebarContext(), SidebarControl, usePopoverState(), useSidebarContext(), useSidebarResize(), props, { resolvePermissions, resolveFeatureFlag } (+5 more)
+
+### Community 624 - "Community 624"
+Cohesion: 0.12
+Nodes (15): activeAssistantName, assistants, createAssistantDialogRef, currentAssistantId, emit, handleButtonClick(), handlePageChange(), isFetchingAssistants (+7 more)
+
+### Community 625 - "Community 625"
+Cohesion: 0.16
+Nodes (12): courseFeeReminder, discountCoupon, eventInvitation, greet, orderConfirmation, shoeLaunch, trainingVideo, twilioGreet (+4 more)
+
+### Community 627 - "Community 627"
+Cohesion: 0.13
+Nodes (17): AUDIO_EXTENSION_MAP, emit, formatTimeProgress(), getRecordPluginOptions(), hasRecording, initWaveSurfer(), isPlaying, isRecording (+9 more)
+
+### Community 628 - "Community 628"
+Cohesion: 0.17
+Nodes (4): init(), { isImpersonating }, BaseActionCableConnector, @rails/actioncable
+
+### Community 629 - "Community 629"
+Cohesion: 0.18
+Nodes (14): CHANNEL_TYPES, getInboxClassByType(), getInboxIconByType(), getInboxVoiceIcon(), getInboxWarningIconClass(), getVoiceCallIcon(), getVoiceCallProvider(), INBOX_ICON_MAP_FILL (+6 more)
+
+### Community 630 - "Community 630"
+Cohesion: 0.16
+Nodes (15): ARTICLE_EDITOR_STATUS_OPTIONS, ARTICLE_MENU_ITEMS, ARTICLE_MENU_OPTIONS, ARTICLE_STATUSES, ARTICLE_TABS, ARTICLE_TABS_OPTIONS, buildLocaleMenuItems(), buildPortalArticleURL() (+7 more)
+
+### Community 631 - "Community 631"
+Cohesion: 0.21
+Nodes (16): compareAlphabetically(), DEFAULT_SIDEBAR_SORT_PREFERENCES, getCreatedValue(), getLabelValue(), getSidebarSortOptions(), isUnreadCountSort(), isValidSidebarSort(), normalizeSidebarSortPreferences() (+8 more)
+
+### Community 632 - "Community 632"
+Cohesion: 0.13
+Nodes (12): backupCodesConfirmed, cancelSetup(), completeMfaSetup(), emit, props, qrCodeUrl, setupStep, { t } (+4 more)
+
+### Community 633 - "Community 633"
+Cohesion: 0.14
+Nodes (14): fetchTemplates(), languageOptions, emit, props, showStatus, statusLabel, { t }, statusLabel (+6 more)
+
+### Community 634 - "Community 634"
+Cohesion: 0.15
+Nodes (12): actions, getFilteredUnreadCountsRefreshRetryDelay(), getters, hasCurrentUser(), hasFeatureEnabled(), mutations, refreshConversationUnreadCounts(), shouldRefreshConversationUnreadCounts() (+4 more)
+
+### Community 635 - "Community 635"
+Cohesion: 0.13
+Nodes (5): focusInput(), mounted(), onAdd(), onAddRemove(), onRemove()
+
+### Community 640 - "Community 640"
+Cohesion: 0.19
+Nodes (3): DataImports::Intercom::Client, DataImports::Intercom::Client::AuthenticationError, DataImports::Intercom::Client::RateLimitError
+
+### Community 644 - "Community 644"
+Cohesion: 0.20
+Nodes (4): Zalo::WorkerClient, Zalo::WorkerClient::Error, Zalo::WorkerClient::FileRejectedError, Zalo::WorkerClient::NoSessionError
+
+### Community 647 - "Community 647"
+Cohesion: 0.11
+Nodes (18): devDependencies, ajv, ajv-formats, dotenv, eslint, @eslint/js, eslint-plugin-playwright, @faker-js/faker (+10 more)
+
+### Community 648 - "Community 648"
+Cohesion: 0.18
+Nodes (3): NotificationSubscriptionBuilder, Api::V1::NotificationSubscriptionsController, NotificationSubscription
+
+### Community 649 - "Community 649"
+Cohesion: 0.17
+Nodes (3): Crm::Perfex::TicketDeliveryJob, Crm::Perfex::Api::CustomerClient, Crm::Perfex::Config
+
+### Community 650 - "Community 650"
+Cohesion: 0.17
+Nodes (7): AssignableAgents, actions, getters, mutations, state, types, commit
+
+### Community 651 - "Community 651"
+Cohesion: 0.14
+Nodes (15): emit, isFetching, isLinking, isSubmitDisabled, issues, linkIssue(), linkIssueTitle, onClose() (+7 more)
+
+### Community 652 - "Community 652"
+Cohesion: 0.12
+Nodes (6): codepenScriptValue, props, scrubbedScript, { t }, WootUIKit, highlight.js
+
+### Community 653 - "Community 653"
+Cohesion: 0.15
+Nodes (14): bannerText, canRefresh, closeNotification(), handleReconnecting(), handleReconnectionCompleted(), iconName, isDisconnected, isInAnyOfTheRoutes() (+6 more)
+
+### Community 654 - "Community 654"
+Cohesion: 0.12
+Nodes (15): channelIcon, isIncoming, isOngoing, isOutgoing, props, statusIcon, statusLabel, log() (+7 more)
+
+### Community 655 - "Community 655"
+Cohesion: 0.12
+Nodes (14): campaignStatus, emit, { formatMessage }, inboxIcon, inboxName, isActive, props, statusTextColor (+6 more)
+
+### Community 656 - "Community 656"
+Cohesion: 0.13
+Nodes (15): comboboxRef, dropdownRef, emit, filteredOptions, open, props, search, selectedLabel (+7 more)
+
+### Community 657 - "Community 657"
+Cohesion: 0.15
+Nodes (15): activeAction, articleUiFlags, close(), dismiss(), emit, isLoading, isOpen, onApply() (+7 more)
+
+### Community 658 - "Community 658"
+Cohesion: 0.19
+Nodes (15): changeDefaultLocale(), contentDialogRef, deletePortalLocale(), handleAction(), moveLocaleToDraft(), popularContentDialogRef, props, publishLocale() (+7 more)
+
+### Community 659 - "Community 659"
+Cohesion: 0.12
+Nodes (11): emit, filteredTemplates, getFilteredWhatsAppTemplates, handleSendMessage(), inboxesUiFlags, isRefreshingTemplates, props, searchQuery (+3 more)
+
+### Community 660 - "Community 660"
+Cohesion: 0.13
+Nodes (13): canViewUsage, { checkPermissions }, closeMenu(), emit, filterMenus, handleMenuAction(), MENU_CONFIG, openMenu (+5 more)
+
+### Community 661 - "Community 661"
+Cohesion: 0.17
+Nodes (15): adjustHeight(), characterCount, cleanedSignature, emit, handleBlur(), handleFocus(), handleInput(), isFocused (+7 more)
+
+### Community 662 - "Community 662"
+Cohesion: 0.13
+Nodes (11): debouncedEmit, emit, filteredListItems, isDropdownListEmpty, onSearch(), props, searchTerm, shouldShowEmptyState (+3 more)
+
+### Community 663 - "Community 663"
+Cohesion: 0.15
+Nodes (16): buildSnippet(), cannedResponses, emit, filteredRecords, { getPlainText, formatMessage, highlightContent }, highlightMatches(), items, onSelect() (+8 more)
+
+### Community 664 - "Community 664"
+Cohesion: 0.15
+Nodes (16): activeChatSortLabel, activeChatStatusLabel, chatSortFilter, chatSortOptions, chatStatusFilter, chatStatusOptions, currentSortBy, currentStatusFilter (+8 more)
+
+### Community 665 - "Community 665"
+Cohesion: 0.13
+Nodes (16): callButtonTooltip, callsStore, contactsUiFlags, isCallButtonDisabled, isCallButtonLoading, { isCloudFeatureEnabled }, isVoiceCallInbox, isWhatsappVoiceInbox (+8 more)
+
+### Community 666 - "Community 666"
+Cohesion: 0.14
+Nodes (14): adjustScroll(), EDITOR_ACTIONS, emit, hasItems, items, KEY_ACTIONS, listContainerRef, menuStyle (+6 more)
+
+### Community 667 - "Community 667"
+Cohesion: 0.18
+Nodes (13): allElementsNumbers(), allElementsString(), formatArray(), generatePayload(), generatePayloadForObject(), generateAutomationPayload(), generatePayload(), generateValues() (+5 more)
+
+### Community 668 - "Community 668"
+Cohesion: 0.29
+Nodes (12): filterItemsByPermission(), getCurrentAccount(), getUserPermissions(), getUserRole(), hasPermissions(), defaultRedirectPage(), getConversationDashboardRoute(), isAConversationRoute() (+4 more)
+
+### Community 670 - "Community 670"
+Cohesion: 0.14
+Nodes (12): meta, portalRoutes, PortalsArticlesEditPage(), PortalsArticlesIndexPage(), PortalsArticlesNewPage(), PortalsLocalesIndexPage(), PortalsSettingsIndexPage(), getPortalRoute() (+4 more)
+
+### Community 671 - "Community 671"
+Cohesion: 0.12
+Nodes (13): article, categories, categoryId, currentUserId, isCategoryArticles, isSaved, isUpdating, route (+5 more)
+
+### Community 672 - "Community 672"
+Cohesion: 0.15
+Nodes (15): addStage(), deleteDialogRef, deleteStage(), moveTargetOptions, moveToStageId, pipelinesStore, props, renameStage() (+7 more)
+
+### Community 673 - "Community 673"
+Cohesion: 0.12
+Nodes (14): assistantId, assistantUiFlags, connectInboxDialog, dialogType, disconnectInboxDialog, handleAction(), handleDelete(), isFetching (+6 more)
+
+### Community 674 - "Community 674"
+Cohesion: 0.17
+Nodes (9): actions, getters, defaultHelpCenterFlags, state, mutations, articleList, camelCasedArticle, commit (+1 more)
+
+### Community 675 - "Community 675"
+Cohesion: 0.31
+Nodes (15): checkTodayAvailability(), convertSlotToUserTimezone(), findNextAvailableSlotDetails(), findNextAvailableSlotDiff(), findNextSlot(), getDateInTimezone(), getOpenDaysMap(), getTodayConfig() (+7 more)
+
+### Community 678 - "Community 678"
+Cohesion: 0.17
+Nodes (3): ZaloOa::BackfillAllJob, Channel::Instagram, Channel::ZaloOa
+
+### Community 680 - "Community 680"
+Cohesion: 0.12
+Nodes (3): LlmFormattable, Deal, LlmFormatter::LlmTextFormatterService
+
+### Community 681 - "Community 681"
+Cohesion: 0.15
+Nodes (3): Enterprise::Account::ConversationsResolutionSchedulerJob, Enterprise::Message, TekomiInbox
+
+### Community 684 - "Community 684"
+Cohesion: 0.19
+Nodes (3): BaseRefreshOauthTokenService, Google::RefreshOauthTokenService, Imap::GoogleFetchEmailService
+
+### Community 687 - "Community 687"
+Cohesion: 0.17
+Nodes (3): Crm::Perfex::Api::BaseClient, Crm::Perfex::Api::BaseClient::ApiError, Crm::Perfex::Api::TicketClient
+
+### Community 703 - "Community 703"
+Cohesion: 0.12
+Nodes (17): scripts, build:sdk, dev, eslint, eslint:fix, prepare, ruby:prettier, size (+9 more)
+
+### Community 704 - "Community 704"
+Cohesion: 0.15
+Nodes (10): create_resolved_unread_conversation(), redis_set_members(), create_visible_unread_conversation(), filter_lock_and_throttle_keys(), lock_and_throttle_keys(), redis_keys(), snapshot_keys(), user_lock_and_throttle_keys() (+2 more)
+
+### Community 706 - "Community 706"
+Cohesion: 0.17
+Nodes (3): ConversationDrop, MessageDrop, MessageFormatHelper
+
+### Community 708 - "Community 708"
+Cohesion: 0.15
+Nodes (9): close(), emit, modalClassName, { modalType, closeOnBackdropClick, onClose }, mousedDownOnBackdrop, onKeydown(), onMouseUp(), show (+1 more)
+
+### Community 709 - "Community 709"
+Cohesion: 0.12
+Nodes (11): addedTags, excludedLabels, excludeOlderThanMinutes, filteredTags, hoveredLabel, props, { t }, windowUnit (+3 more)
+
+### Community 710 - "Community 710"
+Cohesion: 0.13
+Nodes (12): errorCode(), errorReason(), headers, isEmpty, props, route, { t }, badgeClass (+4 more)
+
+### Community 711 - "Community 711"
+Cohesion: 0.15
+Nodes (15): emit, isMergingContact, isSearching, onMergeContacts(), primaryContactList, props, resetState(), route (+7 more)
+
+### Community 712 - "Community 712"
+Cohesion: 0.17
+Nodes (13): dragEnabled, emit, handleAction(), handleClick(), localCategories, onDragEnd(), props, emit (+5 more)
+
+### Community 713 - "Community 713"
+Cohesion: 0.16
+Nodes (15): createPortal(), dialogRef, emit, handleDialogConfirm(), isCreatingPortal, isSubmitDisabled, nameError, redirectToPortal() (+7 more)
+
+### Community 714 - "Community 714"
+Cohesion: 0.12
+Nodes (12): emit, hasPreview, isStacked, listboxId, listClass, listRef, previewClass, props (+4 more)
+
+### Community 715 - "Community 715"
+Cohesion: 0.12
+Nodes (5): currentUser, getters, globalConfig, greetingMessage, { t }
+
+### Community 716 - "Community 716"
+Cohesion: 0.13
+Nodes (10): emit, menuStyle, onSubmit(), props, showError, ButtonStub, InputStub, SUPPORTED_URLS (+2 more)
+
+### Community 717 - "Community 717"
+Cohesion: 0.23
+Nodes (10): mountParams, setup(), store, useFunctionGetter(), useMapGetter(), useStore(), useStoreGetters(), useAccount() (+2 more)
+
+### Community 718 - "Community 718"
+Cohesion: 0.23
+Nodes (14): capitalizeLabel(), expandUnit(), findNextDay(), findSnoozeTime(), findStartOfNextMonth(), findStartOfNextWeek(), formatSnoozeDate(), generateSnoozeSuggestions() (+6 more)
+
+### Community 719 - "Community 719"
+Cohesion: 0.18
+Nodes (9): agents, files, labels, teams, MACRO_ACTION_TYPES, emptyMacro, getFileName(), resolveActionName() (+1 more)
+
+### Community 720 - "Community 720"
+Cohesion: 0.18
+Nodes (14): ACTION_PARAMETERS_REQUIRED, ATLEAST_ONE_ACTION_REQUIRED, ATLEAST_ONE_CONDITION_REQUIRED, ATTRIBUTE_KEY_REQUIRED, FILTER_OPERATOR_REQUIRED, isEmptyValue(), validateActions(), validateAutomation() (+6 more)
+
+### Community 721 - "Community 721"
+Cohesion: 0.13
+Nodes (11): accountId, defaultPortalLocale, isFeatureEnabledonAccount(), isHelpCenterEnabled, portals, route, selectedLocaleInPortal, selectedPortal (+3 more)
+
+### Community 722 - "Community 722"
+Cohesion: 0.16
+Nodes (14): AUTOMATION_RULE_EVENTS, AUTOMATIONS, DEFAULT_DELAY_MINUTES, DEFAULT_TRIGGER, DEFAULT_TRIGGER_STATUS, DELAYED_TRIGGERS, MAX_DELAY_MINUTES, MIN_DELAY_MINUTES (+6 more)
+
+### Community 723 - "Community 723"
+Cohesion: 0.15
+Nodes (13): createDialogRef, createPipeline(), deleteDialogRef, newPipelineName, pipelineName, pipelines, pipelinesStore, renamePipeline() (+5 more)
+
+### Community 724 - "Community 724"
+Cohesion: 0.14
+Nodes (14): { accountId, currentAccount }, isAccountPaywalled, { isAdmin }, { isEnterprise }, isLimitExceeded, isOnChatwootCloud, isTrialAccount, limitExceededMessage (+6 more)
+
+### Community 725 - "Community 725"
+Cohesion: 0.23
+Nodes (8): actions, getters, defaultHelpCenterFlags, state, mutations, commit, categoriesPayload, categoriesState
+
+### Community 726 - "Community 726"
+Cohesion: 0.14
+Nodes (3): onSubmit(), selectRating(), selectStarRating()
+
+### Community 729 - "Community 729"
+Cohesion: 0.14
+Nodes (3): CannedResponse, AccountCacheRevalidator, Team
+
+### Community 742 - "Community 742"
+Cohesion: 0.17
+Nodes (3): Internal::AccountAnalysisJob, Internal::AccountAnalysis::AccountUpdaterService, Internal::AccountAnalysis::ThreatAnalyserService
+
+### Community 743 - "Community 743"
+Cohesion: 0.18
+Nodes (3): Concerns::SafeEndpointValidatable, Tekomi::CustomTool, Tekomi::CustomTool::LimitExceededError
+
+### Community 760 - "Community 760"
+Cohesion: 0.17
+Nodes (3): Api::V1::Accounts::Twitter::AuthorizationsController, TwitterConcern, Twitter::BaseController
+
+### Community 761 - "Community 761"
+Cohesion: 0.17
+Nodes (3): TrackSessionActivity, UserSessionIpLookupJob, UserSessionTrackingService
+
+### Community 763 - "Community 763"
+Cohesion: 0.15
+Nodes (12): CONFIDENCE_LEVELS, createDeal(), creatingConversationId, dealsStore, dialogRef, dismiss(), isScanning, open() (+4 more)
+
+### Community 764 - "Community 764"
+Cohesion: 0.14
+Nodes (12): { t }, emit, hasFbConfigured, hasInstagramConfigured, hasTiktokConfigured, hasVoiceBadge, isActive, isBeta (+4 more)
+
+### Community 765 - "Community 765"
+Cohesion: 0.14
+Nodes (11): allCount, emit, formattedAllCount, hasAppliedFiltersOrActiveFolders, isContactScoped, onBasicFilterChange(), props, showFilterScope (+3 more)
+
+### Community 766 - "Community 766"
+Cohesion: 0.15
+Nodes (14): companyAttributes, customAttributes, filteredUnusedAttributes, hasCompanyAttributes, hasNoUnusedAttributes, hasNoUsedAttributes, processCompanyAttributes(), props (+6 more)
+
+### Community 767 - "Community 767"
+Cohesion: 0.14
+Nodes (11): allLabels, contactLabels, handleLabelAction(), handleRemoveLabel(), hoveredLabel, labelMenuItems, props, route (+3 more)
+
+### Community 768 - "Community 768"
+Cohesion: 0.15
+Nodes (12): breadcrumbItems, contactId, emit, handleBreadcrumbClick(), isContactBlocked, isContactSidebarOpen, props, route (+4 more)
+
+### Community 769 - "Community 769"
+Cohesion: 0.17
+Nodes (14): filteredUnusedAttributes, hasContactAttributes, hasNoUnusedAttributes, hasNoUsedAttributes, processContactAttributes(), props, searchQuery, sortAttributesOrder (+6 more)
+
+### Community 770 - "Community 770"
+Cohesion: 0.14
+Nodes (13): applyColumnWidths(), contentBlocks, contentChanged, draftContent, draftTitle, liveContent, liveTitle, panelRef (+5 more)
+
+### Community 771 - "Community 771"
+Cohesion: 0.14
+Nodes (14): addedLocales, dialogRef, draftedLocales, isUpdating, locales, localeStatus, onCreate(), props (+6 more)
+
+### Community 772 - "Community 772"
+Cohesion: 0.17
+Nodes (13): emit, handleBlur(), handleEnter(), handleFocus(), handleInput(), inputOutlineClass, inputRef, isFocused (+5 more)
+
+### Community 773 - "Community 773"
+Cohesion: 0.17
+Nodes (9): emit, showDropdown, { t }, emit, handleMouseEnter(), handleRemoveLabel(), props, label (+1 more)
+
+### Community 774 - "Community 774"
+Cohesion: 0.30
+Nodes (14): attachmentsOnly, audioMessage, baseSenderData, brokenImageMessage, contact, currentUserId, dyte, getAttachment() (+6 more)
+
+### Community 775 - "Community 775"
+Cohesion: 0.13
+Nodes (11): bccEmails, bccEmailsArray, ccEmails, ccEmailsArray, contactEmailsList, emit, inputClass, props (+3 more)
+
+### Community 776 - "Community 776"
+Cohesion: 0.15
+Nodes (11): displayName(), downloadingId, emit, fileAttachments, fileNameFromUrl(), isPeekable, onActivate(), props (+3 more)
+
+### Community 777 - "Community 777"
+Cohesion: 0.14
+Nodes (10): activeElement, activeTab, emit, enableTransition, indicatorStyle, props, selectTab(), customTabs (+2 more)
+
+### Community 778 - "Community 778"
+Cohesion: 0.21
+Nodes (13): emit, onClickNext(), onClickPrev(), onClickSetView(), activeMonthIndex, emit, months, onClickNext() (+5 more)
+
+### Community 779 - "Community 779"
+Cohesion: 0.15
+Nodes (13): dateFormat, createdAt(), lastActivity(), emit, isOlder, label, lastMessage, props (+5 more)
+
+### Community 780 - "Community 780"
+Cohesion: 0.17
+Nodes (7): addAllLabels(), dismissSuggestions(), handler(), isConversationDismissed(), pushOrAddLabel(), trackLabelEvent(), TEKOMI_EVENTS
+
+### Community 781 - "Community 781"
+Cohesion: 0.14
+Nodes (11): bulkActionsUiFlags, containerRef, emit, handleAssign(), isUpdating, props, selectedTeam, [showDropdown, toggleDropdown] (+3 more)
+
+### Community 782 - "Community 782"
+Cohesion: 0.14
+Nodes (10): emit, filteredTemplateMessages, getTemplateHeader(), hasMediaContent(), isRefreshing, props, query, store (+2 more)
+
+### Community 783 - "Community 783"
+Cohesion: 0.13
+Nodes (14): CMD_AI_ASSIST, CMD_BULK_ACTION_REOPEN_CONVERSATION, CMD_BULK_ACTION_RESOLVE_CONVERSATION, CMD_BULK_ACTION_SNOOZE_CONVERSATION, CMD_MUTE_CONVERSATION, CMD_REOPEN_CONVERSATION, CMD_RESOLVE_CONVERSATION, CMD_SEND_TRANSCRIPT (+6 more)
+
+### Community 784 - "Community 784"
+Cohesion: 0.36
+Nodes (13): appendQuotedTextToMessage(), buildQuotedEmailHeader(), buildQuotedEmailHeaderFromContact(), buildQuotedEmailHeaderFromInbox(), extractPlainTextFromHtml(), extractQuotedEmailText(), formatQuotedEmailDate(), formatQuotedTextAsBlockquote() (+5 more)
+
+### Community 785 - "Community 785"
+Cohesion: 0.16
+Nodes (14): emit, hasValidationError, onCancel(), onSearch(), onSubmit(), parentContact, parentContactId, parentContactName (+6 more)
+
+### Community 786 - "Community 786"
+Cohesion: 0.17
+Nodes (13): clearAllFilters(), emit, filters, hasActiveFilters, onFilterChange(), { t }, emit, filters (+5 more)
+
+### Community 787 - "Community 787"
+Cohesion: 0.14
+Nodes (13): emit, handleAction(), inboxesList, inboxesSection, MENU_ACTIONS, MENU_ITEM_TYPES, menuSections, modelValue (+5 more)
+
+### Community 788 - "Community 788"
+Cohesion: 0.31
+Nodes (15): assignLabels(), buildSortAttr(), clearSelection(), deleteContacts(), fetchActiveContacts(), fetchContacts(), fetchContactsBasedOnContext(), fetchSavedOrAppliedFilteredContact() (+7 more)
+
+### Community 789 - "Community 789"
+Cohesion: 0.14
+Nodes (13): confirmPlaceHolderText, { currentAccount }, formattedDeletionDate, handleDeletionError(), isMarkedForDeletion, markAccountForDeletion(), markedForDeletionDate, markedForDeletionMessage (+5 more)
+
+### Community 790 - "Community 790"
+Cohesion: 0.13
+Nodes (10): customAttributes, preChatFieldOptions, preChatFields, preChatFormEnabled, preChatMessage, props, store, { t } (+2 more)
+
+### Community 791 - "Community 791"
+Cohesion: 0.27
+Nodes (13): buildJsonLogicRule(), compareDates(), contains(), equalTo(), evaluateFilters(), getValueFromConversation(), isDateOnly(), matchesCondition() (+5 more)
+
+### Community 792 - "Community 792"
+Cohesion: 0.16
+Nodes (9): actions, debouncedFetchMetaData, getters, longDebouncedFetchMetaData, metaDebouncers, mutations, state, superLongDebouncedFetchMetaData (+1 more)
+
+### Community 793 - "Community 793"
+Cohesion: 0.33
+Nodes (10): getResolvedTheme(), initializeMediaQueryListener(), initializeTheme(), initializeThemeHandlers(), removeQueryParamsFromUrl(), setPortalHoverColor(), switchTheme(), updateThemeInHeader() (+2 more)
+
+### Community 794 - "Community 794"
+Cohesion: 0.19
+Nodes (6): addMessageToData(), focusInput(), mounted(), onMessageSend(), scrollToLastMessage(), sendMessageToServer()
+
+### Community 799 - "Community 799"
+Cohesion: 0.13
+Nodes (3): Imap::MicrosoftFetchEmailService, Microsoft::RefreshOauthTokenService, MicrosoftGraphAuth
+
+### Community 803 - "Community 803"
+Cohesion: 0.15
+Nodes (3): Enterprise::Messages::MessageBuilder, Tekomi::Copilot::ResponseJob, CopilotMessage
+
+### Community 805 - "Community 805"
+Cohesion: 0.19
+Nodes (3): Migration::CompanyAccountBatchJob, Migration::CompanyBackfillJob, Companies::BusinessEmailDetectorService
+
+### Community 806 - "Community 806"
+Cohesion: 0.16
+Nodes (3): Enterprise::Concerns::Conversation, Enterprise::Conversations::EventDataPresenter, Tekomi::AssistantMigration::FaqApplier
+
+### Community 816 - "Community 816"
+Cohesion: 0.15
+Nodes (10): contactConversations, conversations, isLoading, linkConversation(), linkOptions, loadConversations(), props, route (+2 more)
+
+### Community 817 - "Community 817"
+Cohesion: 0.18
+Nodes (12): apply(), applyingKey, castValue(), dealsStore, emit, extract(), fields, hasScanned (+4 more)
+
+### Community 818 - "Community 818"
+Cohesion: 0.20
+Nodes (14): emit, emitConversationLoaded(), fetchConversations(), fetchFilteredConversations(), fetchSavedFilteredConversations(), loadMoreConversations(), onApplyFilter(), onBasicFilterChange() (+6 more)
+
+### Community 819 - "Community 819"
+Cohesion: 0.19
+Nodes (11): audience, chartData, count(), deliveryRate, props, segments, { t }, emit (+3 more)
+
+### Community 820 - "Community 820"
+Cohesion: 0.18
+Nodes (11): dialogRef, emit, handleDialogConfirm(), { t }, activePortalName, confirmDeletePortalDialogRef, emit, handleDeletePortal() (+3 more)
+
+### Community 821 - "Community 821"
+Cohesion: 0.19
+Nodes (12): dialogRef, domain, emit, handleSend(), onClose(), props, resetForm(), state (+4 more)
+
+### Community 822 - "Community 822"
+Cohesion: 0.19
+Nodes (13): action, addContact(), attachment, { attachments }, contactName, filterContactByNumber(), formattedPhoneNumber, getContactObject() (+5 more)
+
+### Community 823 - "Community 823"
+Cohesion: 0.24
+Nodes (6): hasQuotedMessage, unquotedHTML, EmailQuoteExtractor, QUOTE_INDICATORS, QUOTE_PATTERNS, dompurify
+
+### Community 824 - "Community 824"
+Cohesion: 0.19
+Nodes (11): analysisItems, dialogRef, directionLabel, formatDateTime(), formatValue(), hasBusinessData, overviewItems, present() (+3 more)
+
+### Community 825 - "Community 825"
+Cohesion: 0.19
+Nodes (6): selectedContact, targetInbox, activeContact, contacts, currentUser, emailInbox
+
+### Community 826 - "Community 826"
+Cohesion: 0.15
+Nodes (12): VIEW_TYPE_ICONS, VIEW_TYPES, close(), dialogRef, emit, handleConfirm(), isRename, name (+4 more)
+
+### Community 827 - "Community 827"
+Cohesion: 0.16
+Nodes (11): emit, props, unlinkIssue(), assignee, emit, issue, labels, priorityLabel (+3 more)
+
+### Community 828 - "Community 828"
+Cohesion: 0.16
+Nodes (13): CUSTOM_ATTRIBUTE_PREFIXES, customAttributes, customVariables, emit, hasValue(), items, onSelect(), props (+5 more)
+
+### Community 829 - "Community 829"
+Cohesion: 0.24
+Nodes (12): BLOCK_TYPE, buildDiffBlocks(), commonmark, diffSequence(), escapeHtml(), hasPendingChanges(), renderInlineDiff(), rendersIdentically() (+4 more)
+
+### Community 830 - "Community 830"
+Cohesion: 0.34
+Nodes (12): generateCustomAttributesInputType(), generateValuesForEditCustomViews(), getAttributeInputType(), getInputType(), getValuesForContact(), getValuesForCountries(), getValuesForFilter(), getValuesForLabels() (+4 more)
+
+### Community 831 - "Community 831"
+Cohesion: 0.18
+Nodes (9): debouncedEmit, emit, isInputFocused, onInput(), onSelectRecentSearch(), recentSearchesRef, searchInput, searchQuery (+1 more)
+
+### Community 832 - "Community 832"
+Cohesion: 0.15
+Nodes (13): addAgent(), agentEmail, agentName, emit, getCustomRoles, roles, rules, selectedRole (+5 more)
+
+### Community 833 - "Community 833"
+Cohesion: 0.23
+Nodes (11): importTypeLabel(), importTypesLabel, items, props, { t }, DEFAULT_IMPORT_SOURCE, IMPORT_SOURCES, importSourceConfigFor() (+3 more)
+
+### Community 834 - "Community 834"
+Cohesion: 0.19
+Nodes (9): actions, getters, mutations, state, accountData, commit, newAccountInfo, accountData (+1 more)
+
+### Community 835 - "Community 835"
+Cohesion: 0.25
+Nodes (9): actions, getters, mutations, state, commit, camelCaseFixtures, camelCaseMockInboxLimits, mockInboxLimits (+1 more)
+
+### Community 836 - "Community 836"
+Cohesion: 0.24
+Nodes (9): actions, createConversationPayload(), createMessagePayload(), createWhatsAppConversationPayload(), getters, mutations, setNewConversationPayload(), state (+1 more)
+
+### Community 837 - "Community 837"
+Cohesion: 0.25
+Nodes (8): focus(), modelValue(), mounted(), onInput(), resizeTextarea(), sendWithSignature(), setCursor(), toggleSignatureInEditor()
+
+### Community 838 - "Community 838"
+Cohesion: 0.29
+Nodes (12): getRegexp(), isDomain(), isNumber(), isPhoneE164(), isPhoneE164OrEmpty(), isPhoneNumberValid(), isPhoneNumberValidWithDialCode(), isValidPassword() (+4 more)
+
+### Community 839 - "Community 839"
+Cohesion: 0.26
+Nodes (9): wootAPI, login(), verifyPasswordToken(), capitalize(), getCredentialsFromEmail(), getLoginRedirectURL(), getSSOAccountPath(), confirmToken() (+1 more)
+
+### Community 840 - "Community 840"
+Cohesion: 0.18
+Nodes (12): resendConfirmation(), globalConfig, handleResendEmail(), hCaptcha, isResendingEmail, onCaptchaVerified(), performResend(), props (+4 more)
+
+### Community 859 - "Community 859"
+Cohesion: 0.18
+Nodes (11): @egoist/tailwindcss-icons, @radix-ui/colors, tailwindcss, defaultSansFonts, defaultTheme, {
+  iconsPlugin,
+  getIconCollections,
+}, { slateDark }, tailwindConfig (+3 more)
+
+### Community 861 - "Community 861"
+Cohesion: 0.14
+Nodes (13): compilerOptions, declaration, esModuleInterop, module, moduleResolution, outDir, resolveJsonModule, rootDir (+5 more)
+
+### Community 865 - "Community 865"
+Cohesion: 0.19
+Nodes (4): Crm, Crm::Perfex, Crm::Perfex::ContactChannelUnmapper, Crm::Perfex::ContactChannelUnmapper::UnmapError
+
+### Community 866 - "Community 866"
+Cohesion: 0.15
+Nodes (3): Api::V1::Accounts::Contacts::LabelsController, Api::V1::Accounts::Conversations::LabelsController, LabelConcern
+
+### Community 869 - "Community 869"
+Cohesion: 0.17
+Nodes (3): Api::V1::Accounts::Microsoft::AuthorizationsController, MicrosoftConcern, Microsoft::CallbacksController
+
+### Community 871 - "Community 871"
+Cohesion: 0.18
+Nodes (3): Webhooks::LineController, Webhooks::LineEventsJob, Channel::Line
+
+### Community 873 - "Community 873"
+Cohesion: 0.17
+Nodes (9): CrmTicketsAPI, currentChat, emit, isLoading, loadTickets(), props, { t }, ticketRefs (+1 more)
+
+### Community 874 - "Community 874"
+Cohesion: 0.17
+Nodes (10): closeCreateModal(), conversation, getters, hasIssues, isLoading, linkedIssues, loadLinkedIssues(), props (+2 more)
+
+### Community 875 - "Community 875"
+Cohesion: 0.19
+Nodes (10): emit, handleRevoke(), handleRevokeAll(), isUnknown(), props, revokingAll, revokingId, sessionLabel() (+2 more)
+
+### Community 876 - "Community 876"
+Cohesion: 0.19
+Nodes (9): closeTogglePicker(), emit, isPickerOpen, pickerRef, toggleColorPicker(), updateColor(), closeTogglePicker(), toggleColorPicker() (+1 more)
+
+### Community 877 - "Community 877"
+Cohesion: 0.18
+Nodes (12): activeSegment, activeSegmentId, appliedFilters, dialogRef, emit, exportContacts(), handleDialogConfirm(), isExportingContact (+4 more)
+
+### Community 878 - "Community 878"
+Cohesion: 0.17
+Nodes (11): contactListHeaderWrapper, emit, isActiveView, isLabelView, isNotSegmentView, props, route, showActiveFiltersPreview (+3 more)
+
+### Community 879 - "Community 879"
+Cohesion: 0.15
+Nodes (10): emit, {
+  options,
+  asyncSearch,
+  isSearching,
+  disableSearch,
+  disableDeselect,
+  placeholderIcon,
+  placeholder,
+  placeholderTrailingIcon,
+  searchPlaceholder,
+  dropdownMaxHeight,
+}, searchResults, searchTerm, selected, selectedItem, options, selected (+2 more)
+
+### Community 880 - "Community 880"
+Cohesion: 0.15
+Nodes (10): addLocaleDialogRef, filteredLocales, hasResults, isSearching, isSwitchingPortal, localeCount, props, searchQuery (+2 more)
+
+### Community 881 - "Community 881"
+Cohesion: 0.15
+Nodes (9): emit, panelRef, props, {
+  records,
+  meta,
+  isFetching,
+  isFetchingMore,
+  hasError,
+  hasRecords,
+  hasMore,
+  open: openDrilldown,
+  close,
+  loadMore,
+}, resolvedConversationCount, payload, SidePanelStub, subtitle (+1 more)
+
+### Community 882 - "Community 882"
+Cohesion: 0.19
+Nodes (10): SLA_STATUS_STYLES, SLA_STATUSES, FIELD_ICONS, { fieldLabel }, props, { style }, { hasSla, isOverdue, label, style }, props (+2 more)
+
+### Community 883 - "Community 883"
+Cohesion: 0.17
+Nodes (12): currentPage, currentPageSize, emit, end, getFormattedPages(), pageSizeOptions, props, start (+4 more)
+
+### Community 884 - "Community 884"
+Cohesion: 0.19
+Nodes (12): calculatePosition(), elementToLock, emit, handleClose(), handleFocusOut(), isLocked, menuRef, position (+4 more)
+
+### Community 886 - "Community 886"
+Cohesion: 0.31
+Nodes (12): DEFAULT_CONTACT_SIDEBAR_ITEMS_ORDER, DEFAULT_CONVERSATION_SIDEBAR_ITEMS_ORDER, fetchQuotedReplyFlagFromUISettings(), fetchSignatureFlagFromUISettings(), isEditorHotKeyEnabled(), setQuotedReplyFlagForInbox(), setSignatureFlagForInbox(), slugifyChannel() (+4 more)
+
+### Community 887 - "Community 887"
+Cohesion: 0.18
+Nodes (12): close(), dialogRef, form, handleConfirm(), isFormInvalid, isLoading, open(), props (+4 more)
+
+### Community 888 - "Community 888"
+Cohesion: 0.15
+Nodes (10): confirmDeleteCampaignDialogRef, editLiveChatCampaignDialogRef, getters, hasNoLiveChatCampaigns, isFetchingCampaigns, liveChatCampaigns, selectedCampaign, [showLiveChatCampaignDialog, toggleLiveChatCampaignDialog] (+2 more)
+
+### Community 889 - "Community 889"
+Cohesion: 0.15
+Nodes (9): isOnExpandedLayout, isOnFolderView, route, { buildConversationPath, buildConversationListPath, isOnFolderView }, { isOnExpandedLayout }, isOnInboxView, navigation, route (+1 more)
+
+### Community 890 - "Community 890"
+Cohesion: 0.18
+Nodes (12): PortalsCategoriesIndexPage(), allowedLocales, categories, fetchCategories(), fetchCategoriesByPortalSlugAndLocale(), getPortalBySlug, isFetching, portal (+4 more)
+
+### Community 891 - "Community 891"
+Cohesion: 0.22
+Nodes (11): buttonLabel, emit, handleAddInboxLimit(), handleDeleteInboxLimit(), handleLimitChange(), handleSubmit(), handleValidationChange(), props (+3 more)
+
+### Community 892 - "Community 892"
+Cohesion: 0.17
+Nodes (10): errors, headers, props, { t }, headers, props, skipLogs, { t } (+2 more)
+
+### Community 893 - "Community 893"
+Cohesion: 0.18
+Nodes (12): benefits, enableCallingForInbox(), handleSignupSuccess(), { isAuthenticating, runEmbeddedSignup }, isProcessing, launchEmbeddedSignup(), processingMessage, props (+4 more)
+
+### Community 895 - "Community 895"
+Cohesion: 0.19
+Nodes (5): deleteNode(), handler(), removeObjectProperty(), resetNode(), resetValidation()
+
+### Community 896 - "Community 896"
+Cohesion: 0.26
+Nodes (8): teamMembers(), commit, actions, ADD_AGENTS_TO_TEAM, getters, mutations, SET_TEAM_MEMBERS_UI_FLAG, state
+
+### Community 897 - "Community 897"
+Cohesion: 0.21
+Nodes (7): applyTheme(), data(), mounted(), onSystemChange(), OPTION_DEFS, readLabels(), select()
+
+### Community 898 - "Community 898"
+Cohesion: 0.18
+Nodes (6): resetPassword(), showAlertMessage(), submit(), globalConfig, isAChatwootInstance, store
+
+### Community 899 - "Community 899"
+Cohesion: 0.17
+Nodes (11): articleUiFlags, hasArticles, i18n, locale, openArticleInArticleViewer(), popularArticles, portal, { prefersDarkMode } (+3 more)
+
+### Community 900 - "Community 900"
+Cohesion: 0.26
+Nodes (7): actions, getters, mutations, state, commit, dispatch, campaigns
+
+### Community 901 - "Community 901"
+Cohesion: 0.21
+Nodes (3): Account::ConversationsResolutionSchedulerJob, Conversations::ResolutionJob, MessageTemplates::Template::AutoResolve
+
+### Community 902 - "Community 902"
+Cohesion: 0.19
+Nodes (3): ContactIpLookupJob, IpLookupService, Enterprise::WidgetsController
+
+### Community 903 - "Community 903"
+Cohesion: 0.18
+Nodes (3): Crm::Perfex::SyncContactsJob, Crm::Perfex::Api::ContactClient, Crm::Perfex::CustomerDirectoryCacheService
+
+### Community 918 - "Community 918"
+Cohesion: 0.21
+Nodes (3): Enterprise::AsyncDispatcher, TekomiListener, Tekomi::ReportingEventListener
+
+### Community 931 - "Community 931"
+Cohesion: 0.28
+Nodes (7): dotenv, @rollup/plugin-yaml, vite, vite-plugin-ruby, @vitejs/plugin-vue, aliases, vueOptions
+
+### Community 944 - "Community 944"
+Cohesion: 0.23
+Nodes (4): ConversationAnalysesAPI, loadAnalyses(), generateCare(), fetchData()
+
+### Community 945 - "Community 945"
+Cohesion: 0.18
+Nodes (10): ask(), emit, history, isAsking, messagesRef, outsideClickHandler, props, question (+2 more)
+
+### Community 946 - "Community 946"
+Cohesion: 0.18
+Nodes (8): ShopifyAPI, contact, error, fetchOrders(), hasSearchableInfo, loading, orders, props
+
+### Community 947 - "Community 947"
+Cohesion: 0.18
+Nodes (10): breakpoints, conversationListRef, emit, intersectionObserverOptions, isContextMenuOpen, isLgScreen, loadMoreConversations(), props (+2 more)
+
+### Community 949 - "Community 949"
+Cohesion: 0.20
+Nodes (9): currentColor, currentLabel, emit, handleClick(), isClicked, isConfirmMode, props, resetConfirmMode() (+1 more)
+
+### Community 950 - "Community 950"
+Cohesion: 0.18
+Nodes (11): dialogRef, handleSubmit(), isInvalidForm, isUpdatingCampaign, liveChatCampaignFormRef, props, selectedCampaignId, store (+3 more)
+
+### Community 951 - "Community 951"
+Cohesion: 0.18
+Nodes (8): contact, contactsFormRef, dialogRef, emit, handleDialogConfirm(), isCreatingContact, { t }, uiFlags
+
+### Community 952 - "Community 952"
+Cohesion: 0.18
+Nodes (10): SORT_FIELDS, activeDirection, activeField, directionOptions, emit, fieldOptions, isMenuOpen, props (+2 more)
+
+### Community 953 - "Community 953"
+Cohesion: 0.20
+Nodes (10): categoryMenuItems, description, emit, handleAction(), handleClick(), hasDescription, props, [showActionsDropdown, toggleDropdown] (+2 more)
+
+### Community 954 - "Community 954"
+Cohesion: 0.17
+Nodes (9): activeLocale, dialogRef, headerText, localeTranslations, name, pageTitle, props, store (+1 more)
+
+### Community 955 - "Community 955"
+Cohesion: 0.18
+Nodes (6): DURATION_UNITS, duration, props, { t }, transformedValue, unit
+
+### Community 956 - "Community 956"
+Cohesion: 0.20
+Nodes (9): close(), emit, isOpen, isScrollLocked, MAX_WIDTH_CLASSES, maxWidthClass, onOverlayClick(), panelRef (+1 more)
+
+### Community 957 - "Community 957"
+Cohesion: 0.18
+Nodes (9): emit, modelValue, checkedValue, defaultValue, eventValue, isEnabled, lastChange, { t } (+1 more)
+
+### Community 958 - "Community 958"
+Cohesion: 0.17
+Nodes (11): allSelected, bulkCheckboxState, emit, hasSelected, isIndeterminate, modelValue, props, selectedCount (+3 more)
+
+### Community 959 - "Community 959"
+Cohesion: 0.20
+Nodes (11): bulkDeleteDialog, emit, handleBulkSync(), hasSyncableSelection, isSyncableDocument(), props, selectAllLabel, selectedCountLabel (+3 more)
+
+### Community 960 - "Community 960"
+Cohesion: 0.23
+Nodes (9): emit, emitChange(), handleSortSelect(), handleSourceSelect(), handleStatusSelect(), hasActiveFilters, sort, source (+1 more)
+
+### Community 961 - "Community 961"
+Cohesion: 0.20
+Nodes (10): emit, formErrors, getErrorMessage(), handleBasicInfoUpdate(), initialState, props, state, { t } (+2 more)
+
+### Community 962 - "Community 962"
+Cohesion: 0.21
+Nodes (10): createTool(), dialogRef, emit, handleClose(), handleSubmit(), i18nKey, props, store (+2 more)
+
+### Community 963 - "Community 963"
+Cohesion: 0.23
+Nodes (11): assistants, currentAssistantId, emit, fetchDataForRoute(), handleAssistantChange(), isAssistantActive(), openCreateAssistantDialog(), route (+3 more)
+
+### Community 964 - "Community 964"
+Cohesion: 0.18
+Nodes (10): SORT_FIELDS, activeDirection, activeField, directionOptions, emit, fieldOptions, isMenuOpen, props (+2 more)
+
+### Community 965 - "Community 965"
+Cohesion: 0.18
+Nodes (8): activeYear, emit, firstYear, lastYear, props, selectYear(), startYear, years
+
+### Community 966 - "Community 966"
+Cohesion: 0.21
+Nodes (4): conversationId(), createTimer(), mounted(), refreshTime()
+
+### Community 967 - "Community 967"
+Cohesion: 0.18
+Nodes (11): emit, items, onSelect(), { orderedMacros }, props, { resolveMacroActions }, searchQuery, searchTerm (+3 more)
+
+### Community 968 - "Community 968"
+Cohesion: 0.27
+Nodes (8): typingUserNames(), convertToAttributeSlug(), convertToCategorySlug(), convertToPortalSlug(), createPendingMessage(), formatToTitleCase(), getTypingUsersText(), sanitizeVariableSearchKey()
+
+### Community 969 - "Community 969"
+Cohesion: 0.18
+Nodes (3): useBulkActions(), resetBulkActions(), selectAllConversations()
+
+### Community 970 - "Community 970"
+Cohesion: 0.32
+Nodes (11): attachGlobalsOnFirstMount(), buildReactiveSurface(), detachGlobalsOnLastUnmount(), globalCallDuration, globalIsJoining, globalIsJoiningReadonly, handleBeforeUnloadGlobal(), handlePageHideGlobal() (+3 more)
+
+### Community 971 - "Community 971"
+Cohesion: 0.32
+Nodes (9): buildPayload(), getEventPrefix(), REWRITE_ACTIONS, trackGenerationFailure(), useCopilotReply(), accept(), execute(), reset() (+1 more)
+
+### Community 972 - "Community 972"
+Cohesion: 0.17
+Nodes (11): ASSIGNEE_TYPE_TAB_PERMISSIONS, AVAILABLE_CUSTOM_ROLE_PERMISSIONS, CONTACT_PERMISSIONS, CONVERSATION_PARTICIPATING_PERMISSIONS, CONVERSATION_PERMISSIONS, CONVERSATION_UNASSIGNED_PERMISSIONS, DISPLAY_MODE_PERMISSIONS, MANAGE_ALL_CONVERSATION_PERMISSIONS (+3 more)
+
+### Community 973 - "Community 973"
+Cohesion: 0.30
+Nodes (9): filterDuplicateSourceMessages(), getLastMessage(), getLastNonActivityMessage(), getReadMessages(), getUnreadMessages(), conversationData, lastMessageData, readMessagesData (+1 more)
+
+### Community 974 - "Community 974"
+Cohesion: 0.24
+Nodes (7): allKeysRequired(), buildTemplateParameters(), DEFAULT_CATEGORY, DEFAULT_LANGUAGE, replaceTemplateVariables(), getters, templates
+
+### Community 975 - "Community 975"
+Cohesion: 0.21
+Nodes (11): allItems, emit, handleAssignLabels(), handleRemoveLabels(), props, selectAllLabel, selectedCount, selectedCountLabel (+3 more)
+
+### Community 976 - "Community 976"
+Cohesion: 0.20
+Nodes (11): AUTOMATION_ACTION_TYPES, allCustomAttributes, {
+  automation,
+  automationTypes,
+  onEventChange,
+  getConditionDropdownValues,
+  appendNewCondition,
+  appendNewAction,
+  removeFilter,
+  removeAction,
+  resetAction,
+  getActionDropdownValues,
+  manifestCustomAttributes,
+}, close(), emit, { formatAutomation }, formRef, onSave() (+3 more)
+
+### Community 977 - "Community 977"
+Cohesion: 0.18
+Nodes (10): chartData, COLOR_SCHEMES, colorSchemeClass, columns, DAYS_OF_WEEK, formatDate(), heatmapColors, props (+2 more)
+
+### Community 978 - "Community 978"
+Cohesion: 0.17
+Nodes (3): conversationLabels, props, routerParams
+
+### Community 979 - "Community 979"
+Cohesion: 0.33
+Nodes (9): PLATFORMS, TEMPLATE_TYPES, TWILIO_TYPE_PREFIX, TWILIO_TYPES, WA_BUTTON_TYPES, WA_COMPONENT_TYPES, WA_HEADER_FORMATS, WA_MEDIA_FORMATS (+1 more)
+
+### Community 980 - "Community 980"
+Cohesion: 0.30
+Nodes (7): actions, getters, mutations, state, commit, agentBotData, agentBotRecords
+
+### Community 981 - "Community 981"
+Cohesion: 0.27
+Nodes (7): actions, getters, mutations, state, commit, automationsList, payload
+
+### Community 982 - "Community 982"
+Cohesion: 0.21
+Nodes (5): elementBorderStyles(), elementTextStyles(), initializeIntersectionObserver(), isElementActive(), mounted()
+
+### Community 995 - "Community 995"
+Cohesion: 0.17
+Nodes (4): Enterprise::TriggerScheduledItemsJob, Sla::ProcessAccountAppliedSlasJob, Sla::ProcessAppliedSlaJob, Sla::TriggerSlasForAccountsJob
+
+### Community 996 - "Community 996"
+Cohesion: 0.24
+Nodes (3): Tekomi::Conversation::V2LifecycleEvents, Tekomi::ConversationEvents, Tekomi::ConversationEvents::Sources
+
+### Community 1007 - "Community 1007"
+Cohesion: 0.26
+Nodes (9): SafeFetch, SafeFetch::Error, SafeFetch::FetchError, SafeFetch::FileTooLargeError, SafeFetch::HttpError, SafeFetch::InvalidUrlError, SafeFetch::UnsafeUrlError, SafeFetch::UnsupportedContentTypeError (+1 more)
+
+### Community 1018 - "Community 1018"
+Cohesion: 0.20
+Nodes (9): advice, dealsStore, emit, generate(), isLoading, isMoving, moveToSuggestedStage(), props (+1 more)
+
+### Community 1019 - "Community 1019"
+Cohesion: 0.18
+Nodes (4): EnterpriseAccountAPI, close(), emit, handlePurchase()
+
+### Community 1020 - "Community 1020"
+Cohesion: 0.24
+Nodes (3): buildCreatePayload(), MessageApi, translateMessage()
+
+### Community 1021 - "Community 1021"
+Cohesion: 0.18
+Nodes (6): LinearAPI, getTeamEntities(), getTeams(), onChange(), unlinkIssue(), onSearch()
+
+### Community 1023 - "Community 1023"
+Cohesion: 0.18
+Nodes (8): isLoading, loadTickets(), pipelinesStore, props, router, stagesById, { t }, tickets
+
+### Community 1024 - "Community 1024"
+Cohesion: 0.18
+Nodes (8): fairDistributionLimit, fairDistributionWindow, { t }, windowInMinutes, windowUnit, fairDistributionLimit, fairDistributionWindow, windowUnit
+
+### Community 1025 - "Community 1025"
+Cohesion: 0.24
+Nodes (9): closeDialog(), dialogRef, emit, form, handleConfirm(), isFormInvalid, onSuccess(), resetForm() (+1 more)
+
+### Community 1026 - "Community 1026"
+Cohesion: 0.18
+Nodes (10): appliedSLA, conversation, hasSlaThreshold, isSlaMissed, props, slaEvents, { slaStatus }, slaStatusText (+2 more)
+
+### Community 1027 - "Community 1027"
+Cohesion: 0.24
+Nodes (10): positionBetween(), aggregate, cardFields, columns, dealsInStage(), emit, onColumnChange(), props (+2 more)
+
+### Community 1028 - "Community 1028"
+Cohesion: 0.20
+Nodes (9): activePortal, activePortalName, createPortalDialogRef, currentPortalSlug, emit, portals, route, showPortalSwitcher (+1 more)
+
+### Community 1029 - "Community 1029"
+Cohesion: 0.20
+Nodes (9): emit, handleAction(), localeLabel, localeMenuItems, localeMenuLabels, props, [showDropdownMenu, toggleDropdown], locales (+1 more)
+
+### Community 1030 - "Community 1030"
+Cohesion: 0.27
+Nodes (9): emit, handleBlur(), handleFocus(), handleInput(), inlineInputRef, modelValue, onEnterPress(), onEscapePress() (+1 more)
+
+### Community 1031 - "Community 1031"
+Cohesion: 0.22
+Nodes (10): attachment, emit, formattedContent, hasImgStoryError, hasVideoStoryError, isStoryReply, onImageLoadError(), onVideoLoadError() (+2 more)
+
+### Community 1032 - "Community 1032"
+Cohesion: 0.22
+Nodes (9): hasMediaError, isVideo, mediaUrl, props, renderVideo, safeUrl(), showMedia, sourceUrl (+1 more)
+
+### Community 1033 - "Community 1033"
+Cohesion: 0.18
+Nodes (9): detail, DOT_COLORS, dotColor, needsRescan, props, router, status, statusLabel (+1 more)
+
+### Community 1034 - "Community 1034"
+Cohesion: 0.22
+Nodes (8): editedContent, emit, isEditing, localContent, modelValue, props, saveEdit(), sampleRules
+
+### Community 1035 - "Community 1035"
+Cohesion: 0.18
+Nodes (9): description, emit, name, paramTypeOptions, required, showErrors, { t }, type (+1 more)
+
+### Community 1036 - "Community 1036"
+Cohesion: 0.24
+Nodes (9): positionBetween(), cardFields, columns, emit, onColumnChange(), props, stagesById, statsByStage (+1 more)
+
+### Community 1037 - "Community 1037"
+Cohesion: 0.24
+Nodes (10): emit, fields, isMenuOpen, props, settings, { t }, { ticketAttributes, fieldLabel }, toggleField() (+2 more)
+
+### Community 1038 - "Community 1038"
+Cohesion: 0.20
+Nodes (8): activeIndex, emit, hasScroll, props, tabsContainer, tabsList, { width: containerWidth }, { width: listWidth }
+
+### Community 1039 - "Community 1039"
+Cohesion: 0.36
+Nodes (7): filterAttributeGroups, filterTypes, OPERATOR_TYPES_1, OPERATOR_TYPES_2, OPERATOR_TYPES_3, OPERATOR_TYPES_4, OPERATOR_TYPES_5
+
+### Community 1040 - "Community 1040"
+Cohesion: 0.20
+Nodes (10): accountLabels, activeLabels, computeVisibleLabelPosition(), labelContainer, labelPosition, onShowLabels(), props, showAllLabels (+2 more)
+
+### Community 1041 - "Community 1041"
+Cohesion: 0.18
+Nodes (9): bannerMessage, dialogRef, { inbox, isAZaloPersonalChannel }, { isAdmin }, isSessionExpired, props, {
+  qrImage,
+  isStarting,
+  isExpired,
+  errorCode,
+  isWaitingForScan,
+  errorMessage,
+  connect,
+  reset,
+}, store (+1 more)
+
+### Community 1042 - "Community 1042"
+Cohesion: 0.22
+Nodes (3): getFrameId(), onIframeLoad(), triggerEvent()
+
+### Community 1043 - "Community 1043"
+Cohesion: 0.22
+Nodes (10): allEmojis, emit, items, normalizedTerm, onSelect(), props, searchQuery, searchTerm (+2 more)
+
+### Community 1044 - "Community 1044"
+Cohesion: 0.22
+Nodes (7): addLabel, checkMissingAttributes, dispatch, resolveConversation, RESOLVED_STATUSES, resolvesConversation(), useMacroExecution()
+
+### Community 1045 - "Community 1045"
+Cohesion: 0.27
+Nodes (6): LABEL_EVENTS, actions, getters, mutations, state, commit
+
+### Community 1046 - "Community 1046"
+Cohesion: 0.27
+Nodes (6): SLA_EVENTS, actions, getters, mutations, state, commit
+
+### Community 1047 - "Community 1047"
+Cohesion: 0.22
+Nodes (9): chooseSnoozeTime(), contextMenuChatId, getters, onCmdSnoozeConversation(), selectedChat, showCustomSnoozeModal, store, { t } (+1 more)
+
+### Community 1048 - "Community 1048"
+Cohesion: 0.18
+Nodes (9): browserInfo, browserLanguage, browserName, createdAtIp, initiatedAt, platformName, props, referer (+1 more)
+
+### Community 1050 - "Community 1050"
+Cohesion: 0.20
+Nodes (9): deal, dealsStore, deleteDeal(), deleteDialogRef, goToPipeline(), route, router, store (+1 more)
+
+### Community 1051 - "Community 1051"
+Cohesion: 0.25
+Nodes (10): generateRouterParams(), isPortalPresent(), performRouting(), portals, route, router, routeToLastActivePortal(), routeToView() (+2 more)
+
+### Community 1052 - "Community 1052"
+Cohesion: 0.18
+Nodes (8): breadcrumbItems, formRef, inboxIdFromQuery, route, router, store, { t }, uiFlags
+
+### Community 1053 - "Community 1053"
+Cohesion: 0.18
+Nodes (8): allLabels, breadcrumbItems, formRef, labelsList, router, store, { t }, uiFlags
+
+### Community 1054 - "Community 1054"
+Cohesion: 0.22
+Nodes (8): dialogRef, emit, handleClose(), handleConfirm(), inboxIcon, inboxName, props, { t }
+
+### Community 1055 - "Community 1055"
+Cohesion: 0.18
+Nodes (9): currentAccountId, currentUser, dummyCustomRolesData, i18nKey, isOnChatwootCloud, isSuperAdmin, router, { t } (+1 more)
+
+### Community 1056 - "Community 1056"
+Cohesion: 0.20
+Nodes (9): canManageMacro, createdByName, editTooltip, props, { t }, updatedByName, visibilityLabel, macro() (+1 more)
+
+### Community 1057 - "Community 1057"
+Cohesion: 0.20
+Nodes (6): isUnknown(), loading, revokeSession(), sessionLabel(), sessions, { t }
+
+### Community 1058 - "Community 1058"
+Cohesion: 0.20
+Nodes (9): allAgentsSelected, disableSubmitButton, handleSelectAgent(), headers, isAgentSelected(), props, selectedAgentCount, someAgentsSelected (+1 more)
+
+### Community 1059 - "Community 1059"
+Cohesion: 0.24
+Nodes (6): actions, getters, mutations, state, commit, dispatch
+
+### Community 1060 - "Community 1060"
+Cohesion: 0.29
+Nodes (6): actions, getters, mutations, state, commit, camelCaseFixtures
+
+### Community 1061 - "Community 1061"
+Cohesion: 0.24
+Nodes (6): actions, getters, initialState, mutations, commit, dispatch
+
+### Community 1062 - "Community 1062"
+Cohesion: 0.25
+Nodes (7): actions, getters, mutations, normalizeCount(), normalizeCounts(), state, commit
+
+### Community 1063 - "Community 1063"
+Cohesion: 0.33
+Nodes (6): actions, getters, mutations, state, commit, customRoleList
+
+### Community 1064 - "Community 1064"
+Cohesion: 0.25
+Nodes (6): actions, getters, mutations, state, commit, data
+
+### Community 1065 - "Community 1065"
+Cohesion: 0.24
+Nodes (6): actions, getters, mutations, state, commit, errorMessage
+
+### Community 1066 - "Community 1066"
+Cohesion: 0.24
+Nodes (8): emit, inputRef, isFocused, onBlur(), onChange(), onFocus(), props, sizeClasses
+
+### Community 1067 - "Community 1067"
+Cohesion: 0.22
+Nodes (10): emit, hasIcon, hasValue, isAgentBot, onClickSelectItem(), onCloseDropdown(), props, selectedItemName (+2 more)
+
+### Community 1068 - "Community 1068"
+Cohesion: 0.22
+Nodes (3): mounted(), scrollToBottom(), updated()
+
+### Community 1069 - "Community 1069"
+Cohesion: 0.33
+Nodes (6): actions, getters, mutations, state, commit, agents
+
+### Community 1094 - "Community 1094"
+Cohesion: 0.31
+Nodes (9): asObject(), classifyMessage(), ensureExt(), fetchable(), media(), MEDIA_LABEL, MediaKind, nameFromUrl() (+1 more)
+
+### Community 1103 - "Community 1103"
+Cohesion: 0.24
+Nodes (7): BANNER_COLOR_MAP, dismissBanner(), dismissedBannerIds, dismissKey(), globalConfig, { t }, visibleBanners
+
+### Community 1104 - "Community 1104"
+Cohesion: 0.22
+Nodes (9): avatarSource, contactsCountLabel, displayName, emit, formattedLastActivityAt, hasContacts, onClickViewDetails(), props (+1 more)
+
+### Community 1105 - "Community 1105"
+Cohesion: 0.22
+Nodes (9): dialogRef, emit, handleDialogConfirm(), isCreating, state, { t }, uiFlags, v$ (+1 more)
+
+### Community 1106 - "Community 1106"
+Cohesion: 0.24
+Nodes (9): activeLabels, calculateLabelWidth(), containerRef, getAverageWidth(), maxLabels, props, updateVisibleLabels(), visibleLabels (+1 more)
+
+### Community 1107 - "Community 1107"
+Cohesion: 0.20
+Nodes (9): appliedSLA, chat, hasSlaThreshold, isSlaMissed, props, slaEvents, slaLabel, { slaStatus } (+1 more)
+
+### Community 1108 - "Community 1108"
+Cohesion: 0.20
+Nodes (8): accountId, analyses, { analysisVersion }, interestTrend, isLoading, latestSummary, props, { t }
+
+### Community 1109 - "Community 1109"
+Cohesion: 0.22
+Nodes (7): characterCount, emit, handleInput(), isFocused, messageClass, props, slots
+
+### Community 1110 - "Community 1110"
+Cohesion: 0.31
+Nodes (9): activityMessage, baseSenderData, currentUserId, email, getAttachment(), getMessage(), privateText, simpleText (+1 more)
+
+### Community 1111 - "Community 1111"
+Cohesion: 0.22
+Nodes (7): emit, handleSelect(), isOpen, labelValue, props, sampleOptions, selectedValue
+
+### Community 1112 - "Community 1112"
+Cohesion: 0.22
+Nodes (8): { checkPermissions }, emit, handleAction(), lastUpdatedAt, menuItems, props, [showActionsDropdown, toggleDropdown], { t }
+
+### Community 1113 - "Community 1113"
+Cohesion: 0.20
+Nodes (9): activeTab, { isCloudFeatureEnabled }, isFetching, isTekomiV2Enabled, route, router, { t }, tabs (+1 more)
+
+### Community 1114 - "Community 1114"
+Cohesion: 0.20
+Nodes (7): accountId, assistantId, dismissed, props, route, router, showBanner
+
+### Community 1115 - "Community 1115"
+Cohesion: 0.20
+Nodes (8): assistantId, dismissed, inboxes, route, router, showBanner, store, uiFlags
+
+### Community 1116 - "Community 1116"
+Cohesion: 0.22
+Nodes (8): DAY_RANGES, decorate(), menuItems, menuSections, modelValue, selectedLabel, [showDropdown, toggleDropdown], { t }
+
+### Community 1117 - "Community 1117"
+Cohesion: 0.22
+Nodes (6): onNewToastMessage(), props, showPopover(), snackbarContainer, snackMessages, { t }
+
+### Community 1118 - "Community 1118"
+Cohesion: 0.31
+Nodes (9): clearEditorSelection(), copilotEditorContent, emit, onBlur(), onFocus(), onSend(), onStateEnter(), props (+1 more)
+
+### Community 1119 - "Community 1119"
+Cohesion: 0.24
+Nodes (9): emit, hasError, onSelect(), props, selectedItem, selectedItemId, selectedItemName, shouldShowDropdown (+1 more)
+
+### Community 1121 - "Community 1121"
+Cohesion: 0.24
+Nodes (5): financialStatus, fulfillmentStatus, getStatusI18nKey(), props, { t }
+
+### Community 1122 - "Community 1122"
+Cohesion: 0.20
+Nodes (9): COLOR_MAP, ICON_MAP, iconName, isFailed, isOutbound, LABEL_KEYS, labelKey, props (+1 more)
+
+### Community 1123 - "Community 1123"
+Cohesion: 0.29
+Nodes (6): createScriptElement(), findExistingScript(), loadScript(), SCRIPT_PROPERTIES, ScriptLoaderError, jsdom
+
+### Community 1124 - "Community 1124"
+Cohesion: 0.22
+Nodes (9): confirmMessage, emit, onDelete(), props, route, router, store, { t } (+1 more)
+
+### Community 1125 - "Community 1125"
+Cohesion: 0.22
+Nodes (9): emit, isSearching, onContactSearch(), onMergeContacts(), props, searchResults, store, { t } (+1 more)
+
+### Community 1126 - "Community 1126"
+Cohesion: 0.29
+Nodes (8): addRecentSearch(), clearRecentSearches(), emit, hasRecentSearches, onClearAll(), onSelectSearch(), recentSearches, saveRecentSearches()
+
+### Community 1127 - "Community 1127"
+Cohesion: 0.22
+Nodes (6): dispatch, hotKeySources, NinjaKeysStub, pendingAttributes, suggestion, track
+
+### Community 1128 - "Community 1128"
+Cohesion: 0.20
+Nodes (7): allAttachments, attachmentsLoaded, hasContent, mediaAttachments, selectedAttachment, showGallery, { t }
+
+### Community 1129 - "Community 1129"
+Cohesion: 0.27
+Nodes (5): mounted(), onSortOptionClick(), saveSelectedDisplayFilter(), setSavedFilter(), updateDisplayOption()
+
+### Community 1130 - "Community 1130"
+Cohesion: 0.27
+Nodes (4): deleteAll(), deleteAllRead(), markAllRead(), onInboxOptionMenuClick()
+
+### Community 1131 - "Community 1131"
+Cohesion: 0.22
+Nodes (9): emit, FORMS, isCreating, isValid, props, store, submit(), { t } (+1 more)
+
+### Community 1132 - "Community 1132"
+Cohesion: 0.20
+Nodes (9): createFlowSteps, globalConfig, isFinishStep, isFirstStep, items, pageTitle, { replaceInstallationName }, route (+1 more)
+
+### Community 1133 - "Community 1133"
+Cohesion: 0.31
+Nodes (5): fetchSLAMetrics(), fetchSLAReports(), mounted(), onFilterChange(), onPageChange()
+
+### Community 1134 - "Community 1134"
+Cohesion: 0.20
+Nodes (8): close(), managementLabel, managementUrl, panelRef, platform, props, { t }, variables
+
+### Community 1135 - "Community 1135"
+Cohesion: 0.31
+Nodes (5): actions, getters, mutations, state, commit
+
+### Community 1136 - "Community 1136"
+Cohesion: 0.31
+Nodes (5): actions, getters, mutations, state, commit
+
+### Community 1137 - "Community 1137"
+Cohesion: 0.27
+Nodes (5): actions, getters, mutations, state, commit
+
+### Community 1138 - "Community 1138"
+Cohesion: 0.31
+Nodes (5): actions, getters, mutations, state, commit
+
+### Community 1139 - "Community 1139"
+Cohesion: 0.31
+Nodes (5): actions, getters, mutations, state, commit
+
+### Community 1140 - "Community 1140"
+Cohesion: 0.31
+Nodes (5): commit, actions, getters, mutations, state
+
+### Community 1141 - "Community 1141"
+Cohesion: 0.29
+Nodes (4): buildFormObject(), mounted(), setFormDefaults(), updateFormValues()
+
+### Community 1142 - "Community 1142"
+Cohesion: 0.22
+Nodes (8): emit, emojiSearch, emojiSections, recentEmojis, searchInput, selectEmoji(), { t }, virtua
+
+### Community 1143 - "Community 1143"
+Cohesion: 0.22
+Nodes (8): applyDirection(), direction, handleIframeLoad(), iframe, isLoading, props, showEmptyState, { t }
+
+### Community 1145 - "Community 1145"
+Cohesion: 0.20
+Nodes (6): currentInputType, FIELDS, isPasswordField, [isPasswordVisible, togglePasswordVisibility], model, props
+
+### Community 1146 - "Community 1146"
+Cohesion: 0.24
+Nodes (8): articlesToDisplay, emit, onArticleClick(), props, widgetColor, emit, onClick(), props
+
+### Community 1147 - "Community 1147"
+Cohesion: 0.24
+Nodes (3): ActionCableBroadcastJob, Enterprise::ActionCableListener, Events::Types
+
+### Community 1186 - "Community 1186"
+Cohesion: 0.25
+Nodes (3): DyteAPI, createErrorMessage(), onClick()
+
+### Community 1190 - "Community 1190"
+Cohesion: 0.28
+Nodes (4): EMPTY_SUBSCRIPTION_INFO, getSubscriptionInfo(), isPaymentPending(), shouldShowBanner()
+
+### Community 1191 - "Community 1191"
+Cohesion: 0.25
+Nodes (7): emit, onClick(), longBreadcrumb, singleItem, threeItems, twoItems, { t }
+
+### Community 1192 - "Community 1192"
+Cohesion: 0.25
+Nodes (7): emit, handleChange(), modelValue, checkedValue, defaultValue, indeterminateValue, isChecked
+
+### Community 1193 - "Community 1193"
+Cohesion: 0.28
+Nodes (8): deleteContact(), dialogRef, emit, handleDialogConfirm(), props, route, store, { t }
+
+### Community 1194 - "Community 1194"
+Cohesion: 0.42
+Nodes (6): { content, contentAttributes }, responseEntries, { t }, buildFlowResponseEntries(), formatFlowResponseLabel(), formatFlowResponseValue()
+
+### Community 1195 - "Community 1195"
+Cohesion: 0.36
+Nodes (8): baseSenderData, currentUserId, getAttachment(), getMessage(), igReel, instagramStory, state, unsupported
+
+### Community 1196 - "Community 1196"
+Cohesion: 0.25
+Nodes (8): contactsList, emit, errorClass, handleInput(), inputType, props, selectedContactLabel, { t }
+
+### Community 1197 - "Community 1197"
+Cohesion: 0.22
+Nodes (5): props, reauthorizationRequired, displayCount, normalizedCount, props
+
+### Community 1198 - "Community 1198"
+Cohesion: 0.22
+Nodes (5): agentData, agentHeaders, automationData, emptyData, headers
+
+### Community 1199 - "Community 1199"
+Cohesion: 0.28
+Nodes (8): bulkDeleteDialogRef, emit, handleBulkDelete(), handleDialogConfirm(), i18nKey, props, store, { t }
+
+### Community 1200 - "Community 1200"
+Cohesion: 0.25
+Nodes (8): authTypeLabel, emit, handleAction(), menuItems, props, [showActionsDropdown, toggleDropdown], { t }, timestamp
+
+### Community 1201 - "Community 1201"
+Cohesion: 0.28
+Nodes (8): deleteDialogRef, deleteEntity(), emit, handleDialogConfirm(), i18nKey, props, store, { t }
+
+### Community 1202 - "Community 1202"
+Cohesion: 0.22
+Nodes (7): emit, panelRef, props, {
+  records,
+  meta,
+  isFetching,
+  isFetchingMore,
+  hasError,
+  hasRecords,
+  hasMore,
+  open: openDrilldown,
+  close,
+  loadMore,
+}, subtitle, { t }, title
+
+### Community 1203 - "Community 1203"
+Cohesion: 0.25
+Nodes (5): emit, nonRecordedAudioAttachments, onRemoveAttachment(), props, recordedAudioAttachments
+
+### Community 1204 - "Community 1204"
+Cohesion: 0.28
+Nodes (3): 'currentChat.id'(), fetchLabels(), mounted()
+
+### Community 1205 - "Community 1205"
+Cohesion: 0.25
+Nodes (7): emit, onClose(), props, selectedTabIndex, { t }, tabs, title
+
+### Community 1206 - "Community 1206"
+Cohesion: 0.42
+Nodes (8): bufferToWav(), convertAudio(), convertToMp3(), convertToWav(), decodeAudioData(), encodeToMP3(), writeString(), @breezystack/lamejs
+
+### Community 1207 - "Community 1207"
+Cohesion: 0.25
+Nodes (4): connected, PAGES, pagesResponse, useFacebookPageConnect()
+
+### Community 1209 - "Community 1209"
+Cohesion: 0.42
+Nodes (6): getCustomFields(), getFormattedPreChatFields(), getLabel(), getPlaceHolder(), getPreChatFields(), standardFieldKeys
+
+### Community 1210 - "Community 1210"
+Cohesion: 0.22
+Nodes (8): BALANCED, DEFAULT_EXCLUDE_OLDER_THAN_HOURS, DEFAULT_FAIR_DISTRIBUTION_LIMIT, DEFAULT_FAIR_DISTRIBUTION_WINDOW, EARLIEST_CREATED, LONGEST_WAITING, OPTIONS, ROUND_ROBIN
+
+### Community 1211 - "Community 1211"
+Cohesion: 0.25
+Nodes (7): {
+  automation,
+  automationTypes,
+  onEventChange,
+  getConditionDropdownValues,
+  appendNewCondition,
+  appendNewAction,
+  removeFilter,
+  removeAction,
+  resetAction,
+  getActionDropdownValues,
+  manifestCustomAttributes,
+}, close(), emit, formRef, onSave(), START_VALUE, store
+
+### Community 1212 - "Community 1212"
+Cohesion: 0.22
+Nodes (7): errorStateDescription, errorStateMessage, hasError, isInstagramConnectionDisabled, { isMetaInboxCreationDisabled }, isRequestingAuthorization, { t }
+
+### Community 1213 - "Community 1213"
+Cohesion: 0.28
+Nodes (8): emit, isKeyOptionFriendly(), props, { replaceInstallationName }, senderNameKeyOptions, { t }, toggleSenderNameType(), userName()
+
+### Community 1214 - "Community 1214"
+Cohesion: 0.33
+Nodes (5): loadFBsdk(), reauthorizeFBPage(), runFBInit(), startLogin(), tryFBlogin()
+
+### Community 1216 - "Community 1216"
+Cohesion: 0.22
+Nodes (7): actionData, errorMessage, { getMacroDropdownValues }, macroActionTypes, props, showActionInput, { t }
+
+### Community 1217 - "Community 1217"
+Cohesion: 0.36
+Nodes (6): addFilter(), closeDropdown(), emit, hideSubMenu(), hoveredItemId, toggleDropdown()
+
+### Community 1218 - "Community 1218"
+Cohesion: 0.31
+Nodes (5): getters, INBOX_SORT_OPTIONS, sortComparator(), sortConfig, notifications
+
+### Community 1219 - "Community 1219"
+Cohesion: 0.42
+Nodes (5): clearCache(), getFromCache(), setCache(), LocalStorage, localStorageMock
+
+### Community 1221 - "Community 1221"
+Cohesion: 0.28
+Nodes (7): buildUrl(), create(), destroy(), actions, getters, mutations, state
+
+### Community 1256 - "Community 1256"
+Cohesion: 0.25
+Nodes (4): post_instagram_webhook(), post_unsigned_whatsapp_webhook(), post_whatsapp_webhook(), with_modified_env()
+
+### Community 1257 - "Community 1257"
+Cohesion: 0.31
+Nodes (4): base_redis_keys(), built_in_filter_version_keys(), custom_filter_version_keys(), redis_keys()
+
+### Community 1271 - "Community 1271"
+Cohesion: 0.25
+Nodes (6): generate(), highlights, isLoading, props, summary, { t }
+
+### Community 1274 - "Community 1274"
+Cohesion: 0.32
+Nodes (5): emit, handleDelete(), handleNavigate(), mockAgentList, mockItems
+
+### Community 1275 - "Community 1275"
+Cohesion: 0.29
+Nodes (6): emit, onInputSearch(), props, searchInput, searchValue, { t }
+
+### Community 1276 - "Community 1276"
+Cohesion: 0.29
+Nodes (5): accountId, expandedKeys, isExpanded(), { t }, toggle()
+
+### Community 1277 - "Community 1277"
+Cohesion: 0.25
+Nodes (7): COLOR_CLASSES, colorClasses, isStringLabel, labelColor, labelDescription, labelTitle, props
+
+### Community 1278 - "Community 1278"
+Cohesion: 0.29
+Nodes (5): emit, handleChange(), props, selectedOption, { t }
+
+### Community 1279 - "Community 1279"
+Cohesion: 0.29
+Nodes (7): emit, handleSubmit(), OPTIONS, props, RESPONSE_WINDOW, selected, { t }
+
+### Community 1280 - "Community 1280"
+Cohesion: 0.25
+Nodes (6): emit, { formatMessage }, formattedQuotedEmailText, isExpanded, props, { t }
+
+### Community 1281 - "Community 1281"
+Cohesion: 0.29
+Nodes (6): emit, filteredTools, onSelect(), props, selectedIndex, tools
+
+### Community 1282 - "Community 1282"
+Cohesion: 0.32
+Nodes (6): KEYS, SHORTCUT_KEYS, currentLayout, needsShiftKey, { t }, title
+
+### Community 1283 - "Community 1283"
+Cohesion: 0.25
+Nodes (7): appliedContactFilter, currentChat, filteredConversations, mockDispatch, mockPush, neighbourRecords, route
+
+### Community 1284 - "Community 1284"
+Cohesion: 0.25
+Nodes (4): dropdownBounds, triggerBounds, winHeight, winWidth
+
+### Community 1285 - "Community 1285"
+Cohesion: 0.54
+Nodes (6): evaluateSLAStatus(), formatSLATime(), isSLACompleted(), isTerminalSLAStatus(), shouldRefreshSLAStatus(), toUnixTimestamp()
+
+### Community 1286 - "Community 1286"
+Cohesion: 0.25
+Nodes (7): allAgentsData, busyAgentsData, formattedAgentsByPresenceOffline, formattedAgentsByPresenceOnline, offlineAgentsData, onlineAgentsData, sortedByAvailability
+
+### Community 1287 - "Community 1287"
+Cohesion: 0.29
+Nodes (5): currentInbox, dialogRef, emit, handleDialogConfirm(), { t }
+
+### Community 1288 - "Community 1288"
+Cohesion: 0.25
+Nodes (7): conditions, conditionsRef, eventName, hasConditionErrors, props, resetValidation(), validate()
+
+### Community 1290 - "Community 1290"
+Cohesion: 0.36
+Nodes (7): addRecentEmoji(), buildEmojiSections(), emojiTintCache, getEmojiTint(), getRecentEmojis(), matchesSearch(), sampleEmojiTint()
+
+### Community 1292 - "Community 1292"
+Cohesion: 0.29
+Nodes (5): emit, hoveredRating, props, selectRating(), starRatings
+
+### Community 1293 - "Community 1293"
+Cohesion: 0.39
+Nodes (6): dropdownMenuRef, focusButton(), focusNextButton(), focusPreviousButton(), getActiveButtonIndex(), keyboardEvents
+
+### Community 1295 - "Community 1295"
+Cohesion: 0.50
+Nodes (6): checkFileSizeLimit(), DEFAULT_MAXIMUM_FILE_UPLOAD_SIZE, fileSizeInMegaBytes(), formatBytes(), isFileTypeAllowedForChannel(), resolveMaximumFileUploadSize()
+
+### Community 1296 - "Community 1296"
+Cohesion: 0.32
+Nodes (3): setNewPassword(), showAlertMessage(), submitForm()
+
+### Community 1316 - "Community 1316"
+Cohesion: 0.29
+Nodes (3): ActiveStorageBareDirectUploadGuard, ActiveStorageDirectUploadMetadataFilter, ActiveStorageProxyRangeLimit
+
+### Community 1325 - "Community 1325"
+Cohesion: 0.39
+Nodes (6): Voice::CallErrors, Voice::CallErrors::AlreadyAccepted, Voice::CallErrors::CallAlreadyEnded, Voice::CallErrors::CallFailed, Voice::CallErrors::NoCallPermission, Voice::CallErrors::NotRinging
+
+### Community 1339 - "Community 1339"
+Cohesion: 0.33
+Nodes (3): InboxHealthAPI, fetchHealthData(), registerWebhook()
+
+### Community 1345 - "Community 1345"
+Cohesion: 0.43
+Nodes (6): ANALYTICS_CAMPAIGN_STATUSES, emit, handleAnalytics(), handleDelete(), handleEdit(), { isEnterprise }
+
+### Community 1346 - "Community 1346"
+Cohesion: 0.33
+Nodes (6): deleteCampaign(), dialogRef, handleDialogConfirm(), props, store, { t }
+
+### Community 1347 - "Community 1347"
+Cohesion: 0.43
+Nodes (6): addCampaign(), emit, handleClose(), handleSubmit(), store, { t }
+
+### Community 1348 - "Community 1348"
+Cohesion: 0.38
+Nodes (6): addCampaign(), emit, handleClose(), handleSubmit(), store, { t }
+
+### Community 1349 - "Community 1349"
+Cohesion: 0.38
+Nodes (6): addCampaign(), emit, handleClose(), handleSubmit(), store, { t }
+
+### Community 1350 - "Community 1350"
+Cohesion: 0.33
+Nodes (6): dialogRef, emit, handleDialogConfirm(), isDeleting, { t }, uiFlags
+
+### Community 1351 - "Community 1351"
+Cohesion: 0.33
+Nodes (6): emit, isDefault, isMenuOpen, props, selectMode(), { t }
+
+### Community 1352 - "Community 1352"
+Cohesion: 0.33
+Nodes (5): emit, props, saveArticle, state, { t }
+
+### Community 1353 - "Community 1353"
+Cohesion: 0.29
+Nodes (7): debouncedSearch, emit, handleCategoryAction(), handleLocaleAction(), handlePageChange(), handleTabChange(), updateRoute()
+
+### Community 1354 - "Community 1354"
+Cohesion: 0.33
+Nodes (6): emit, handleCategory(), props, route, store, { t }
+
+### Community 1355 - "Community 1355"
+Cohesion: 0.43
+Nodes (6): emit, filteredImageAttachments, filteredNonImageAttachments, isTypeImage(), props, removeAttachment()
+
+### Community 1356 - "Community 1356"
+Cohesion: 0.29
+Nodes (5): editorKey, isCopilotActive, modelValue, props, { t }
+
+### Community 1357 - "Community 1357"
+Cohesion: 0.29
+Nodes (3): hasHeaderSlot, props, showHeaders
+
+### Community 1358 - "Community 1358"
+Cohesion: 0.29
+Nodes (6): emit, language, props, sourceLabel, { t }, updatedAt
+
+### Community 1359 - "Community 1359"
+Cohesion: 0.38
+Nodes (5): emit, onAddClick(), onClickClose(), guidelinesExample, { t }
+
+### Community 1360 - "Community 1360"
+Cohesion: 0.33
+Nodes (6): approvedPct, linkTo(), props, route, stats, { t }
+
+### Community 1361 - "Community 1361"
+Cohesion: 0.29
+Nodes (6): emit, { fieldLabel }, headers, props, stagesById, { t }
+
+### Community 1362 - "Community 1362"
+Cohesion: 0.33
+Nodes (6): active, activeIndex, getItemCount, onTabClick(), props, updateActiveIndex
+
+### Community 1363 - "Community 1363"
+Cohesion: 0.38
+Nodes (6): acceptLabel, emit, handleCancel(), handleSubmit(), shortcutKey, { t }
+
+### Community 1364 - "Community 1364"
+Cohesion: 0.43
+Nodes (4): botSummary, report, summary, useReportMetrics()
+
+### Community 1365 - "Community 1365"
+Cohesion: 0.29
+Nodes (6): DEFAULT_ACTIONS, DEFAULT_CONVERSATION_CONDITION, DEFAULT_MESSAGE_CREATED_CONDITION, DEFAULT_OTHER_CONDITION, MESSAGE_CONDITION_VALUES, PRIORITY_CONDITION_VALUES
+
+### Community 1366 - "Community 1366"
+Cohesion: 0.48
+Nodes (5): resolveContactName(), DATE_RANGE_TYPES, fetchContactDetails(), generateURLParams(), parseURLParams()
+
+### Community 1367 - "Community 1367"
+Cohesion: 0.33
+Nodes (5): emit, onCancel(), props, store, uiFlags
+
+### Community 1368 - "Community 1368"
+Cohesion: 0.43
+Nodes (5): findConnectedInbox(), isChannelConnected(), GMAIL, OUTLOOK, WHATSAPP
+
+### Community 1369 - "Community 1369"
+Cohesion: 0.43
+Nodes (4): filteredTemplates, typeOptions, templateTypeKey(), TemplateTypeDetector
+
+### Community 1371 - "Community 1371"
+Cohesion: 0.33
+Nodes (5): { isAdmin }, isOnChatwootCloud, setupListenerForWidgetEvent(), showBillingLink, toggleSupportWidgetVisibility()
+
+### Community 1372 - "Community 1372"
+Cohesion: 0.38
+Nodes (4): actions, getters, mutations, state
+
+### Community 1373 - "Community 1373"
+Cohesion: 0.57
+Nodes (5): clampDataBetweenTimeline(), flattenHeatmapData(), generateEmptyHeatmapData(), groupHeatmapByDay(), reconcileHeatmapData()
+
+### Community 1375 - "Community 1375"
+Cohesion: 0.52
+Nodes (5): calculatePrefersDarkMode(), getSystemPreference(), isDarkMode(), isDarkModeAuto(), useDarkMode()
+
+### Community 1399 - "Community 1399"
+Cohesion: 0.29
+Nodes (5): Slack, Slack::Web, Slack::Web::Api, Slack::Web::Api::Endpoints, Slack::Web::Api::Endpoints::Chat
+
+### Community 1400 - "Community 1400"
+Cohesion: 0.29
+Nodes (4): ActiveRecord, ActiveRecord::ConnectionAdapters, ActiveRecord::ConnectionAdapters::PostgreSQL, ActiveRecord::ConnectionAdapters::PostgreSQL::SchemaDumper
+
+### Community 1416 - "Community 1416"
+Cohesion: 0.43
+Nodes (5): add_messages(), create_contact(), create_message(), generate_e164_phone_number(), generate_movie_dialogue()
+
+### Community 1419 - "Community 1419"
+Cohesion: 0.29
+Nodes (7): minimatch@<4, minimatch@>=9.0.0 <9.0.7, rollup, vite, vitest, pnpm, overrides
+
+### Community 1420 - "Community 1420"
+Cohesion: 0.38
+Nodes (5): cache, httpUrl(), resolveStickerImage(), StickerApi, StickerImage
+
+### Community 1431 - "Community 1431"
+Cohesion: 0.33
+Nodes (5): count, dynamicCount, emit, props, showBadge
+
+### Community 1433 - "Community 1433"
+Cohesion: 0.40
+Nodes (5): activeTabIndex, emit, keyboardEvents, onTabChange(), props
+
+### Community 1434 - "Community 1434"
+Cohesion: 0.47
+Nodes (3): calculateScrollTop(), totalMessageHeight(), DOMElement
+
+### Community 1435 - "Community 1435"
+Cohesion: 0.40
+Nodes (5): BILLING_CURRENCY_CONFIG, DEFAULT_BILLING_CURRENCY, formatCurrencyAmount(), getCurrencyConfig(), SUPPORTED_BILLING_CURRENCIES
+
+### Community 1436 - "Community 1436"
+Cohesion: 0.33
+Nodes (4): ARTICLE_EDITOR_MENU_OPTIONS, FORMATTING, MARKDOWN_PATTERNS, MENU_OPTIONS_UNAVAILABLE_IN_TABLE
+
+### Community 1437 - "Community 1437"
+Cohesion: 0.40
+Nodes (5): activeTab, emit, onTabChange(), props, tabBarTabs
+
+### Community 1438 - "Community 1438"
+Cohesion: 0.33
+Nodes (6): alertError(), fetchDeals(), loadMoreDeals(), loadMoreInStage(), moveDeal(), updateDeal()
+
+### Community 1439 - "Community 1439"
+Cohesion: 0.40
+Nodes (3): automationActive, emit, props
+
+### Community 1440 - "Community 1440"
+Cohesion: 0.40
+Nodes (5): emit, props, signature, { t }, updateSignature()
+
+### Community 1441 - "Community 1441"
+Cohesion: 0.40
+Nodes (5): emit, handleInput(), localFlags, localValue, props
+
+### Community 1466 - "Community 1466"
+Cohesion: 0.53
+Nodes (5): lock_and_throttle_keys(), redis_keys(), snapshot_keys(), ttl_for(), version_keys()
+
+### Community 1477 - "Community 1477"
+Cohesion: 0.50
+Nodes (3): emit, handleClick(), agentAssignments
+
+### Community 1478 - "Community 1478"
+Cohesion: 0.40
+Nodes (5): bulkDelete(), bulkUpdateStatus(), clearSelection(), handleBulkUpdateCategory(), onBulkActionSuccess()
+
+### Community 1479 - "Community 1479"
+Cohesion: 0.60
+Nodes (4): emit, handleBack(), handleSendMessage(), { t }
+
+### Community 1480 - "Community 1480"
+Cohesion: 0.50
+Nodes (3): emit, modelValue, onClickAdd()
+
+### Community 1481 - "Community 1481"
+Cohesion: 0.50
+Nodes (4): emit, { isOnChatwootCloud }, onClick(), { replaceInstallationName }
+
+### Community 1482 - "Community 1482"
+Cohesion: 0.50
+Nodes (4): emit, onActivate(), props, trendClass
+
+### Community 1483 - "Community 1483"
+Cohesion: 0.60
+Nodes (3): getLanguageDirection(), getLanguageName(), languages
+
+### Community 1484 - "Community 1484"
+Cohesion: 0.60
+Nodes (3): USER_SESSION_READY, initializeAudioAlerts(), initializeUserSessionEvents()
+
+### Community 1485 - "Community 1485"
+Cohesion: 0.80
+Nodes (3): getAgentsByAvailability(), getAgentsByUpdatedPresence(), getSortedAgentsByAvailability()
+
+### Community 1488 - "Community 1488"
+Cohesion: 0.60
+Nodes (3): useAccountEnrichment(), ENABLED_LANGUAGES, mountComposable()
+
+### Community 1489 - "Community 1489"
+Cohesion: 0.40
+Nodes (4): connected, connectedName, props, { t }
+
+### Community 1490 - "Community 1490"
+Cohesion: 0.40
+Nodes (4): columnsClass, items, props, { t }
+
+### Community 1491 - "Community 1491"
+Cohesion: 0.50
+Nodes (4): dialogRef, emit, handleDialogConfirm(), { t }
+
+### Community 1492 - "Community 1492"
+Cohesion: 0.60
+Nodes (3): copyTextToClipboard(), handleOtpPaste(), mockWriteText
+
+### Community 1493 - "Community 1493"
+Cohesion: 0.70
+Nodes (3): formatDocumentLink(), getDocumentDisplayPath(), isPdfDocument()
+
+### Community 1494 - "Community 1494"
+Cohesion: 0.70
+Nodes (3): isAFormMessage(), isASubmittedFormMessage(), MESSAGE_MAX_LENGTH
+
+### Community 1495 - "Community 1495"
+Cohesion: 0.50
+Nodes (3): labelSanitizePattern, sanitizeLabel(), spacesPattern
+
+### Community 1511 - "Community 1511"
+Cohesion: 0.50
+Nodes (3): Onboarding::HelpCenterErrors, Onboarding::HelpCenterErrors::ArticleBuildFailed, Onboarding::HelpCenterErrors::CurationSkipped
+
+### Community 1528 - "Community 1528"
+Cohesion: 0.50
+Nodes (3): COLORS, SIZES, VARIANTS
+
+### Community 1531 - "Community 1531"
+Cohesion: 0.50
+Nodes (4): fetchDrilldown(), fetchDrilldown(), fetchDrilldown(), openDrilldown()
+
+### Community 1532 - "Community 1532"
+Cohesion: 0.50
+Nodes (3): authConfig, props, { t }
+
+### Community 1533 - "Community 1533"
+Cohesion: 0.50
+Nodes (4): emit, handleCancel(), handleSubmit(), isParamsValid()
+
+### Community 1536 - "Community 1536"
+Cohesion: 0.50
+Nodes (4): deleteView(), duplicateView(), saveView(), selectView()
+
+### Community 1538 - "Community 1538"
+Cohesion: 0.50
+Nodes (4): closeDeletePopup(), confirmDeletion(), deleteAgent(), showAlertMessage()
+
+### Community 1539 - "Community 1539"
+Cohesion: 0.50
+Nodes (3): actions, hasActionErrors, props
+
+### Community 1541 - "Community 1541"
+Cohesion: 0.50
+Nodes (3): colorClass, percent, props
+
+### Community 1544 - "Community 1544"
+Cohesion: 0.50
+Nodes (3): copy, emit, { t }
+
+### Community 1545 - "Community 1545"
+Cohesion: 0.67
+Nodes (3): getAlertAudio(), getAudioContext(), initOnEvents
+
+### Community 1567 - "Community 1567"
+Cohesion: 0.83
+Nodes (3): built_in_filter_keys(), folder_index_keys(), redis_keys()
+
+### Community 1587 - "Community 1587"
+Cohesion: 0.67
+Nodes (3): getEmptyStateSubtitle, getEmptyStateText(), getEmptyStateTitle
+
+### Community 1594 - "Community 1594"
+Cohesion: 0.67
+Nodes (3): deleteNotification(), markNotificationAsUnRead(), redirectToInbox()
+
+### Community 1595 - "Community 1595"
+Cohesion: 0.67
+Nodes (3): handleSubmit(), initializeForm(), resetForm()
+
+## Knowledge Gaps
+- **7850 isolated node(s):** `MediaKind`, `StickerImage`, `RuboCop::Cop::Chatwoot`, `Api::BaseHelper`, `Api::V1::AgentsHelper` (+7845 more)
+  These have ≤1 connection - possible missing edges. (Counts symbols only; 15766 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **1814 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+
+## Suggested Questions
+_Questions this graph is uniquely positioned to answer:_
+
+- **Why does `vue` connect `Community 6` to `Community 2`, `Community 4`, `Community 5`, `Community 7`, `Community 9`, `Community 10`, `Community 11`, `Community 12`, `Community 13`, `Community 15`, `Community 16`, `Community 17`, `Community 18`, `Community 23`, `Community 27`, `Community 30`, `Community 31`, `Community 33`, `Community 34`, `Community 35`, `Community 39`, `Community 41`, `Community 53`, `Community 54`, `Community 56`, `Community 58`, `Community 59`, `Community 60`, `Community 65`, `Community 66`, `Community 67`, `Community 68`, `Community 73`, `Community 74`, `Community 75`, `Community 79`, `Community 80`, `Community 83`, `Community 84`, `Community 86`, `Community 87`, `Community 88`, `Community 89`, `Community 90`, `Community 91`, `Community 92`, `Community 93`, `Community 96`, `Community 97`, `Community 98`, `Community 99`, `Community 100`, `Community 101`, `Community 102`, `Community 103`, `Community 105`, `Community 106`, `Community 107`, `Community 117`, `Community 123`, `Community 124`, `Community 126`, `Community 132`, `Community 133`, `Community 134`, `Community 135`, `Community 140`, `Community 141`, `Community 142`, `Community 143`, `Community 144`, `Community 146`, `Community 147`, `Community 148`, `Community 149`, `Community 150`, `Community 152`, `Community 153`, `Community 160`, `Community 161`, `Community 162`, `Community 163`, `Community 168`, `Community 170`, `Community 171`, `Community 173`, `Community 174`, `Community 175`, `Community 183`, `Community 184`, `Community 185`, `Community 186`, `Community 187`, `Community 188`, `Community 189`, `Community 191`, `Community 192`, `Community 202`, `Community 203`, `Community 204`, `Community 205`, `Community 206`, `Community 207`, `Community 208`, `Community 210`, `Community 218`, `Community 220`, `Community 221`, `Community 222`, `Community 223`, `Community 224`, `Community 225`, `Community 226`, `Community 235`, `Community 236`, `Community 237`, `Community 238`, `Community 239`, `Community 247`, `Community 249`, `Community 250`, `Community 251`, `Community 252`, `Community 253`, `Community 254`, `Community 255`, `Community 256`, `Community 260`, `Community 261`, `Community 262`, `Community 263`, `Community 264`, `Community 265`, `Community 267`, `Community 268`, `Community 269`, `Community 270`, `Community 271`, `Community 272`, `Community 282`, `Community 283`, `Community 284`, `Community 285`, `Community 286`, `Community 287`, `Community 288`, `Community 289`, `Community 290`, `Community 291`, `Community 292`, `Community 293`, `Community 294`, `Community 296`, `Community 314`, `Community 315`, `Community 316`, `Community 317`, `Community 318`, `Community 319`, `Community 320`, `Community 335`, `Community 336`, `Community 337`, `Community 338`, `Community 339`, `Community 353`, `Community 354`, `Community 355`, `Community 356`, `Community 357`, `Community 358`, `Community 359`, `Community 360`, `Community 361`, `Community 362`, `Community 363`, `Community 365`, `Community 366`, `Community 367`, `Community 368`, `Community 369`, `Community 371`, `Community 379`, `Community 380`, `Community 381`, `Community 382`, `Community 383`, `Community 384`, `Community 385`, `Community 386`, `Community 389`, `Community 390`, `Community 392`, `Community 411`, `Community 413`, `Community 414`, `Community 415`, `Community 416`, `Community 417`, `Community 418`, `Community 419`, `Community 420`, `Community 421`, `Community 450`, `Community 451`, `Community 452`, `Community 453`, `Community 454`, `Community 455`, `Community 456`, `Community 457`, `Community 458`, `Community 459`, `Community 460`, `Community 461`, `Community 462`, `Community 463`, `Community 464`, `Community 466`, `Community 467`, `Community 468`, `Community 469`, `Community 470`, `Community 471`, `Community 489`, `Community 491`, `Community 492`, `Community 493`, `Community 494`, `Community 495`, `Community 496`, `Community 497`, `Community 498`, `Community 499`, `Community 500`, `Community 501`, `Community 503`, `Community 504`, `Community 505`, `Community 506`, `Community 507`, `Community 510`, `Community 511`, `Community 512`, `Community 514`, `Community 515`, `Community 516`, `Community 538`, `Community 539`, `Community 540`, `Community 541`, `Community 542`, `Community 543`, `Community 544`, `Community 545`, `Community 546`, `Community 547`, `Community 548`, `Community 550`, `Community 551`, `Community 554`, `Community 555`, `Community 556`, `Community 558`, `Community 559`, `Community 560`, `Community 561`, `Community 562`, `Community 563`, `Community 564`, `Community 565`, `Community 566`, `Community 568`, `Community 582`, `Community 583`, `Community 584`, `Community 585`, `Community 586`, `Community 587`, `Community 588`, `Community 589`, `Community 590`, `Community 591`, `Community 592`, `Community 593`, `Community 595`, `Community 596`, `Community 597`, `Community 598`, `Community 599`, `Community 617`, `Community 618`, `Community 619`, `Community 620`, `Community 621`, `Community 622`, `Community 623`, `Community 624`, `Community 627`, `Community 632`, `Community 633`, `Community 651`, `Community 652`, `Community 653`, `Community 654`, `Community 655`, `Community 656`, `Community 657`, `Community 658`, `Community 659`, `Community 660`, `Community 661`, `Community 662`, `Community 663`, `Community 664`, `Community 665`, `Community 666`, `Community 670`, `Community 671`, `Community 672`, `Community 673`, `Community 708`, `Community 709`, `Community 710`, `Community 711`, `Community 712`, `Community 713`, `Community 714`, `Community 715`, `Community 716`, `Community 717`, `Community 721`, `Community 723`, `Community 724`, `Community 763`, `Community 764`, `Community 765`, `Community 766`, `Community 767`, `Community 768`, `Community 769`, `Community 770`, `Community 771`, `Community 772`, `Community 773`, `Community 774`, `Community 775`, `Community 776`, `Community 777`, `Community 778`, `Community 779`, `Community 781`, `Community 782`, `Community 785`, `Community 786`, `Community 787`, `Community 789`, `Community 790`, `Community 816`, `Community 817`, `Community 819`, `Community 820`, `Community 821`, `Community 822`, `Community 824`, `Community 825`, `Community 826`, `Community 827`, `Community 828`, `Community 831`, `Community 832`, `Community 833`, `Community 840`, `Community 873`, `Community 874`, `Community 875`, `Community 876`, `Community 877`, `Community 878`, `Community 879`, `Community 880`, `Community 881`, `Community 882`, `Community 883`, `Community 884`, `Community 886`, `Community 887`, `Community 888`, `Community 889`, `Community 890`, `Community 891`, `Community 892`, `Community 893`, `Community 895`, `Community 898`, `Community 899`, `Community 945`, `Community 946`, `Community 947`, `Community 949`, `Community 950`, `Community 951`, `Community 952`, `Community 953`, `Community 954`, `Community 955`, `Community 956`, `Community 957`, `Community 958`, `Community 959`, `Community 960`, `Community 961`, `Community 962`, `Community 963`, `Community 964`, `Community 965`, `Community 967`, `Community 969`, `Community 970`, `Community 971`, `Community 975`, `Community 976`, `Community 977`, `Community 978`, `Community 1018`, `Community 1023`, `Community 1024`, `Community 1025`, `Community 1026`, `Community 1027`, `Community 1028`, `Community 1029`, `Community 1030`, `Community 1031`, `Community 1032`, `Community 1033`, `Community 1034`, `Community 1035`, `Community 1036`, `Community 1037`, `Community 1038`, `Community 1040`, `Community 1041`, `Community 1043`, `Community 1044`, `Community 1047`, `Community 1048`, `Community 1050`, `Community 1051`, `Community 1052`, `Community 1053`, `Community 1054`, `Community 1055`, `Community 1056`, `Community 1057`, `Community 1058`, `Community 1066`, `Community 1067`, `Community 1102`, `Community 1103`, `Community 1104`, `Community 1105`, `Community 1106`, `Community 1107`, `Community 1108`, `Community 1109`, `Community 1110`, `Community 1111`, `Community 1112`, `Community 1113`, `Community 1114`, `Community 1115`, `Community 1116`, `Community 1117`, `Community 1118`, `Community 1119`, `Community 1121`, `Community 1122`, `Community 1124`, `Community 1125`, `Community 1126`, `Community 1127`, `Community 1128`, `Community 1131`, `Community 1132`, `Community 1134`, `Community 1142`, `Community 1143`, `Community 1145`, `Community 1146`, `Community 1191`, `Community 1192`, `Community 1193`, `Community 1194`, `Community 1195`, `Community 1196`, `Community 1197`, `Community 1198`, `Community 1199`, `Community 1200`, `Community 1201`, `Community 1202`, `Community 1203`, `Community 1205`, `Community 1207`, `Community 1211`, `Community 1212`, `Community 1213`, `Community 1216`, `Community 1217`, `Community 1271`, `Community 1275`, `Community 1276`, `Community 1277`, `Community 1278`, `Community 1279`, `Community 1280`, `Community 1281`, `Community 1282`, `Community 1283`, `Community 1284`, `Community 1287`, `Community 1288`, `Community 1292`, `Community 1293`, `Community 1337`, `Community 1346`, `Community 1350`, `Community 1351`, `Community 1352`, `Community 1355`, `Community 1356`, `Community 1357`, `Community 1358`, `Community 1360`, `Community 1361`, `Community 1362`, `Community 1363`, `Community 1364`, `Community 1371`, `Community 1375`, `Community 1431`, `Community 1433`, `Community 1437`, `Community 1439`, `Community 1440`, `Community 1441`, `Community 1482`, `Community 1488`, `Community 1489`, `Community 1490`, `Community 1491`, `Community 1532`, `Community 1539`, `Community 1541`, `Community 1544`?**
+  _High betweenness centrality (0.073) - this node is a cross-community bridge._
+- **Why does `ApplicationRecord` connect `Community 26` to `Community 257`, `Community 648`, `Community 520`, `Community 394`, `Community 395`, `Community 906`, `Community 138`, `Community 527`, `Community 528`, `Community 19`, `Community 278`, `Community 408`, `Community 537`, `Community 159`, `Community 803`, `Community 164`, `Community 165`, `Community 678`, `Community 38`, `Community 680`, `Community 1318`, `Community 426`, `Community 682`, `Community 300`, `Community 429`, `Community 298`, `Community 681`, `Community 305`, `Community 179`, `Community 691`, `Community 312`, `Community 440`, `Community 571`, `Community 1469`, `Community 64`, `Community 322`, `Community 195`, `Community 323`, `Community 581`, `Community 328`, `Community 1225`, `Community 842`, `Community 332`, `Community 845`, `Community 82`, `Community 341`, `Community 215`, `Community 600`, `Community 729`, `Community 602`, `Community 603`, `Community 472`, `Community 604`, `Community 94`, `Community 216`, `Community 351`, `Community 347`, `Community 475`, `Community 1379`, `Community 227`, `Community 871`, `Community 615`, `Community 487`, `Community 231`, `Community 1259`, `Community 1260`, `Community 743`, `Community 110`, `Community 111`, `Community 112`, `Community 752`, `Community 240`, `Community 115`, `Community 119`, `Community 1147`, `Community 636`?**
+  _High betweenness centrality (0.047) - this node is a cross-community bridge._
+- **Why does `Current` connect `Community 0` to `Community 3`, `Community 8`, `Community 14`, `Community 526`, `Community 19`, `Community 535`, `Community 24`, `Community 25`, `Community 26`, `Community 42`, `Community 43`, `Community 44`, `Community 46`, `Community 48`, `Community 57`, `Community 1085`, `Community 63`, `Community 581`, `Community 1095`, `Community 1096`, `Community 1097`, `Community 1098`, `Community 82`, `Community 610`, `Community 616`, `Community 111`, `Community 115`, `Community 121`, `Community 122`, `Community 639`, `Community 646`, `Community 137`, `Community 139`, `Community 1163`, `Community 1164`, `Community 1175`, `Community 1176`, `Community 1177`, `Community 1178`, `Community 1179`, `Community 1180`, `Community 157`, `Community 158`, `Community 1182`, `Community 165`, `Community 680`, `Community 681`, `Community 178`, `Community 690`, `Community 182`, `Community 694`, `Community 695`, `Community 194`, `Community 201`, `Community 1235`, `Community 212`, `Community 213`, `Community 216`, `Community 228`, `Community 740`, `Community 1259`, `Community 752`, `Community 756`, `Community 757`, `Community 758`, `Community 759`, `Community 760`, `Community 246`, `Community 278`, `Community 280`, `Community 804`, `Community 298`, `Community 813`, `Community 814`, `Community 1331`, `Community 308`, `Community 1332`, `Community 332`, `Community 855`, `Community 345`, `Community 864`, `Community 865`, `Community 867`, `Community 868`, `Community 870`, `Community 376`, `Community 1404`, `Community 1421`, `Community 1422`, `Community 1423`, `Community 397`, `Community 915`, `Community 916`, `Community 917`, `Community 407`, `Community 937`, `Community 938`, `Community 939`, `Community 940`, `Community 941`, `Community 446`, `Community 1470`, `Community 447`, `Community 1471`, `Community 449`, `Community 477`, `Community 994`, `Community 483`, `Community 1508`, `Community 1011`, `Community 1013`?**
+  _High betweenness centrality (0.033) - this node is a cross-community bridge._
+- **What connects `MediaKind`, `StickerImage`, `RuboCop::Cop::Chatwoot` to the rest of the system?**
+  _7850 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `Community 0` be split into smaller, more focused modules?**
+  _Cohesion score 0.011665338645418327 - nodes in this community are weakly interconnected._
+- **Should `Community 1` be split into smaller, more focused modules?**
+  _Cohesion score 0.01503968253968254 - nodes in this community are weakly interconnected._
+- **Should `Community 2` be split into smaller, more focused modules?**
+  _Cohesion score 0.0156128024980484 - nodes in this community are weakly interconnected._

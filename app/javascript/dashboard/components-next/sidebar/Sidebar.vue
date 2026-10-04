@@ -858,12 +858,12 @@ const menuItems = computed(() => {
           icon: 'i-lucide-briefcase',
           to: accountScopedRoute('general_settings_index'),
         },
-        // {
-        //   name: 'Settings Tekomi',
-        //   label: t('SIDEBAR.TEKOMI_AI'),
-        //   icon: 'i-woot-tekomi',
-        //   to: accountScopedRoute('tekomi_settings_index'),
-        // },
+        {
+          name: 'Settings Tekomi',
+          label: t('SIDEBAR.TEKOMI_AI'),
+          icon: 'i-woot-tekomi',
+          to: accountScopedRoute('tekomi_settings_index'),
+        },
         {
           name: 'Settings Agents',
           label: t('SIDEBAR.AGENTS'),
@@ -1036,12 +1036,9 @@ const menuItems = computed(() => {
   const DEMO_MODE = true;
   if (!DEMO_MODE) return items;
 
-  const DEMO_HIDDEN_TOP_LEVEL = ['Calls', 'Companies', 'Portals'];
+  const DEMO_HIDDEN_TOP_LEVEL = ['Calls'];
   const DEMO_HIDDEN_SETTINGS_CHILDREN = [
     'Settings Templates',
-    'Settings Data',
-    'Settings Audit Logs',
-    'Settings Security',
     'Settings Billing',
   ];
 

@@ -26,21 +26,18 @@ Lưu lại — toàn bộ sidebar sẽ trở về đầy đủ như cũ ngay l�
 
 **Menu cấp cao:**
 - Calls
-- Companies
-- Portals (Help Center)
 
 **Đã bỏ ẩn (2026-09-22):** Reports — khách cần xem báo cáo, nên đã gỡ khỏi danh sách ẩn (`DEMO_HIDDEN_TOP_LEVEL`) trong khi các mục khác vẫn giữ nguyên trạng thái ẩn.
 
 **Đã bỏ ẩn (2026-10-03):** Custom Roles — quản trị viên cần quản lý vai trò và phân quyền theo account.
 
-**Menu con trong Settings (5 mục):**
-- Templates (WhatsApp)
-- Data (Import/Export)
-- Audit Logs
-- Security
-- Billing
+**Đã bỏ ẩn (2026-10-04):** Companies, Portals (Help Center), và trong Settings: Data (Import/Export), Audit Logs, Security.
 
-**Giữ lại:** Home, Inbox, Conversation, Contacts, Campaigns, Reports, Tekomi AI, Account Settings, Agents, Teams, Inboxes, Labels, Custom Attributes, Automation, Agent Bots, Macros, Canned Responses, Integrations, Custom Roles, SLA, Conversation Workflow và Pipelines.
+**Menu con trong Settings (2 mục):**
+- Templates (WhatsApp)
+- Billing (chỉ có trên bản Cloud, nên bản tự cài vốn không hiện)
+
+**Giữ lại:** Home, Inbox, Conversation, Contacts, Companies, Campaigns, Reports, Help Center, Tekomi AI, Account Settings, Agents, Teams, Inboxes, Labels, Custom Attributes, Automation, Agent Bots, Macros, Canned Responses, Integrations, Data, Audit Logs, Custom Roles, SLA, Conversation Workflow, Pipelines và Security.
 
 ## Lưu ý cho phiên Claude Code sau
 

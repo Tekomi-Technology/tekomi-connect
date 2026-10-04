@@ -1,0 +1,17 @@
+# Same syntax as .gitignore; merged on top of it.
+
+# Translations: keep English only, the rest is Crowdin output
+app/javascript/**/i18n/locale/*/
+!app/javascript/**/i18n/locale/en/
+!app/javascript/**/i18n/locale/en/**
+config/locales/*.yml
+!config/locales/en.yml
+!config/locales/devise.en.yml
+
+# Generated or vendored
+swagger/
+public/
+vendor/
+storyboard_clips/
+pnpm-lock.yaml
+Gemfile.lock

@@ -1,139 +1,194 @@
-<img src="./.github/screenshots/header.png#gh-light-mode-only" width="100%" alt="Header light mode"/>
-<img src="./.github/screenshots/header-dark.png#gh-dark-mode-only" width="100%" alt="Header dark mode"/>
+# Tekomi Connect
 
-___
+Nền tảng chăm sóc khách hàng đa kênh của Tekomi, phát triển từ mã nguồn mở [Chatwoot](https://github.com/chatwoot/chatwoot) (bản gốc 4.17.0, xem `VERSION_CW`).
 
-# Chatwoot
+Tekomi Connect gom hội thoại từ website, email, Facebook, Zalo, WhatsApp, SMS và tổng đài về một hộp thư chung, kèm trợ lý AI, báo cáo và đồng bộ CRM.
 
-The modern customer support platform, an open-source alternative to Intercom, Zendesk, Salesforce Service Cloud etc.
+## Khác gì so với Chatwoot gốc
 
-<p>
-  <img src="https://img.shields.io/circleci/build/github/chatwoot/chatwoot" alt="CircleCI Badge">
-    <a href="https://hub.docker.com/r/chatwoot/chatwoot/"><img src="https://img.shields.io/docker/pulls/chatwoot/chatwoot" alt="Docker Pull Badge"></a>
-  <a href="https://hub.docker.com/r/chatwoot/chatwoot/"><img src="https://img.shields.io/docker/cloud/build/chatwoot/chatwoot" alt="Docker Build Badge"></a>
-  <img src="https://img.shields.io/github/commit-activity/m/chatwoot/chatwoot" alt="Commits-per-month">
-  <a title="Crowdin" target="_self" href="https://chatwoot.crowdin.com/chatwoot"><img src="https://badges.crowdin.net/e/37ced7eba411064bd792feb3b7a28b16/localized.svg"></a>
-  <a href="https://discord.gg/cJXdrwS"><img src="https://img.shields.io/discord/647412545203994635" alt="Discord"></a>
-  <a href="https://status.chatwoot.com"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fchatwoot%2Fstatus%2Fmaster%2Fapi%2Fchatwoot%2Fuptime.json" alt="uptime"></a>
-  <a href="https://status.chatwoot.com"><img src="https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fchatwoot%2Fstatus%2Fmaster%2Fapi%2Fchatwoot%2Fresponse-time.json" alt="response time"></a>
-  <a href="https://artifacthub.io/packages/helm/chatwoot/chatwoot"><img src="https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/artifact-hub" alt="Artifact HUB"></a>
-</p>
+| Phần | Nội dung | Mã nguồn |
+|---|---|---|
+| Zalo | Kênh Zalo OA và Zalo cá nhân, chạy qua một worker Node riêng | `zalo_worker/`, `app/controllers/**/zalo_*`, [docs/zalo-personal-proxy.md](docs/zalo-personal-proxy.md) |
+| CRM Perfex | Đồng bộ danh bạ, khớp liên hệ, gửi và đọc ticket | `app/services/crm/perfex/`, `app/jobs/crm/perfex/` |
+| Cuộc gọi | Nhận sự kiện từ tổng đài, phiên âm ghi âm và phân tích cảm xúc | `call_emotion/` (dịch vụ Python, model Zipformer) |
+| Tekomi AI | Trợ lý AI, đổi tên từ Captain của Chatwoot | `enterprise/` |
+| Phân quyền | Vai trò supervisor và ma trận quyền của Super Admin | `config/role_matrix.yml` |
 
+Phần mở rộng theo mô hình Enterprise của Chatwoot nằm trong `enterprise/` và ghi đè lên mã ở `app/`.
 
-<p>
-  <a href="https://heroku.com/deploy?template=https://github.com/chatwoot/chatwoot/tree/master" alt="Deploy to Heroku">
-     <img width="150" alt="Deploy" src="https://www.herokucdn.com/deploy/button.svg"/>
-  </a>
-  <a href="https://marketplace.digitalocean.com/apps/chatwoot?refcode=f2238426a2a8" alt="Deploy to DigitalOcean">
-     <img width="200" alt="Deploy to DO" src="https://www.deploytodo.com/do-btn-blue.svg"/>
-  </a>
-</p>
+## Yêu cầu
 
-<img src="./.github/screenshots/dashboard.png#gh-light-mode-only" width="100%" alt="Chat dashboard dark mode"/>
-<img src="./.github/screenshots/dashboard-dark.png#gh-dark-mode-only" width="100%" alt="Chat dashboard"/>
+| Thành phần | Phiên bản |
+|---|---|
+| Ruby | 3.4.4 (`.ruby-version`) |
+| Node.js | 24.x (`.nvmrc`) |
+| pnpm | 10.x |
+| PostgreSQL | có extension `pgvector` |
+| Redis | bất kỳ bản còn hỗ trợ |
 
----
+Nếu chạy bằng Docker thì chỉ cần Docker Desktop và một PostgreSQL truy cập được.
 
-Chatwoot is the modern, open-source, and self-hosted customer support platform designed to help businesses deliver exceptional customer support experience. Built for scale and flexibility, Chatwoot gives you full control over your customer data while providing powerful tools to manage conversations across channels.
+## Cài đặt
 
-### ✨ Tekomi AI – AI Agent for Support
+### 1. Lấy mã nguồn và tạo file môi trường
 
-Supercharge your support with Tekomi AI, Chatwoot’s AI agent. Tekomi AI helps automate responses, handle common queries, and reduce agent workload—ensuring customers get instant, accurate answers. With Tekomi AI, your team can focus on complex conversations while routine questions are resolved automatically. Read more about Tekomi AI [here](https://chwt.app/captain-docs).
+```bash
+git clone https://github.com/Tekomi-Technology/tekomi-connect.git
+cd tekomi-connect
+cp .env.example .env
+```
 
-### 💬 Omnichannel Support Desk
+Điền tối thiểu các biến sau trong `.env`: `SECRET_KEY_BASE`, `FRONTEND_URL`, `POSTGRES_HOST`, `POSTGRES_USERNAME`, `POSTGRES_PASSWORD`, `REDIS_URL`, `REDIS_PASSWORD`.
 
-Chatwoot centralizes all customer conversations into one powerful inbox, no matter where your customers reach out from. It supports live chat on your website, email, Facebook, Instagram, Twitter, WhatsApp, Telegram, Line, SMS etc.
+### 2a. Chạy bằng Docker
 
-### 📚 Help center portal
+```bash
+docker compose build base
+docker compose build rails vite
+docker compose up -d rails
+docker compose exec rails bundle exec rails db:chatwoot_prepare
+```
 
-Publish help articles, FAQs, and guides through the built-in Help Center Portal. Enable customers to find answers on their own, reduce repetitive queries, and keep your support team focused on more complex issues.
+Phải build `base` trước, vì image của `rails` và `vite` đều dựng từ `chatwoot:development` do `base` tạo ra.
 
-### 🗂️ Other features
+Lệnh `up -d rails` kéo theo `redis`, `vite`, `sidekiq` và `mailhog`. Worker Zalo chạy riêng bằng `docker compose up -d zalo`.
 
-#### Collaboration & Productivity
+| Dịch vụ | Địa chỉ |
+|---|---|
+| Ứng dụng | http://localhost:3000 |
+| Vite dev server | http://localhost:3036 |
+| Mailhog (hộp thư thử) | http://localhost:8025 |
+| Redis | localhost:6379 |
 
-- Private Notes and @mentions for internal team discussions.
-- Labels to organize and categorize conversations.
-- Keyboard Shortcuts and a Command Bar for quick navigation.
-- Canned Responses to reply faster to frequently asked questions.
-- Auto-Assignment to route conversations based on agent availability.
-- Multi-lingual Support to serve customers in multiple languages.
-- Custom Views and Filters for better inbox organization.
-- Business Hours and Auto-Responders to manage response expectations.
-- Teams and Automation tools for scaling support workflows.
-- Agent Capacity Management to balance workload across the team.
+**PostgreSQL không có trong `docker-compose.yaml`.** Bạn phải tự chạy một PostgreSQL có `pgvector` (ví dụ image `pgvector/pgvector:pg16`) và trỏ `POSTGRES_HOST` trong `.env` tới nó. Container gọi được máy chủ qua `host.docker.internal`.
 
-#### Customer Data & Segmentation
-- Contact Management with profiles and interaction history.
-- Contact Segments and Notes for targeted communication.
-- Campaigns to proactively engage customers.
-- Custom Attributes for storing additional customer data.
-- Pre-Chat Forms to collect user information before starting conversations.
+**Trên Windows:** đặt `git config core.autocrlf input` trước khi clone. Nếu để mặc định, các script trong `docker/entrypoints/` và `bin/` bị đổi sang CRLF và container báo `no such file or directory` khi khởi động.
 
-#### Integrations
-- Slack Integration to manage conversations directly from Slack.
-- Dialogflow Integration for chatbot automation.
-- Dashboard Apps to embed internal tools within Chatwoot.
-- Shopify Integration to view and manage customer orders right within Chatwoot.
-- Use Google Translate to translate messages from your customers in realtime.
-- Create and manage Linear tickets within Chatwoot.
+### 2b. Chạy trực tiếp trên máy
 
-#### Reports & Insights
-- Live View of ongoing conversations for real-time monitoring.
-- Conversation, Agent, Inbox, Label, and Team Reports for operational visibility.
-- CSAT Reports to measure customer satisfaction.
-- Downloadable Reports for offline analysis and reporting.
+```bash
+bundle install
+pnpm install
+bundle exec rails db:chatwoot_prepare
+pnpm dev
+```
 
+`pnpm dev` chạy `overmind start -f ./Procfile.dev`, gồm bốn tiến trình: Rails (cổng 3000), Sidekiq, Vite và worker Zalo. Nếu không có overmind, dùng `pnpm start:dev` (foreman).
 
-## Documentation
+### 3. Dữ liệu mẫu
 
-Detailed documentation is available at [chatwoot.com/help-center](https://www.chatwoot.com/help-center).
+```bash
+bundle exec rails db:seed
+```
 
-## Translation process
+Dữ liệu phong phú hơn cho một tài khoản: vào Super Admin → Accounts → Seed.
 
-The translation process for Chatwoot web and mobile app is managed at [https://translate.chatwoot.com](https://translate.chatwoot.com) using Crowdin. Please read the [translation guide](https://www.chatwoot.com/docs/contributing/translating-chatwoot-to-your-language) for contributing to Chatwoot.
+## Lệnh thường dùng
 
-## Branching model
+| Việc | Lệnh |
+|---|---|
+| Test JS | `pnpm test` |
+| Test Ruby | `bundle exec rspec spec/path/to/file_spec.rb` |
+| Lint JS/Vue | `pnpm eslint` hoặc `pnpm eslint:fix` |
+| Lint Ruby | `bundle exec rubocop -a` |
+| Test worker Zalo | `cd zalo_worker && npm test` |
 
-We use the [git-flow](https://nvie.com/posts/a-successful-git-branching-model/) branching model. The base branch is `develop`.
-If you are looking for a stable version, please use the `master` or tags labelled as `v1.x.x`.
+## Cấu trúc thư mục
 
-## Deployment
+| Thư mục | Nội dung |
+|---|---|
+| `app/` | Rails backend và frontend Vue 3 (`app/javascript/`) |
+| `enterprise/` | Phần mở rộng Enterprise, ghi đè lên `app/` |
+| `zalo_worker/` | Worker Node/TypeScript cho Zalo cá nhân |
+| `call_emotion/` | Dịch vụ phiên âm cuộc gọi (Python, FastAPI) |
+| `config/`, `db/`, `lib/` | Cấu hình, schema, thư viện và rake task |
+| `spec/` | Test Ruby |
+| `docker/`, `deployment/` | Dockerfile, entrypoint, cấu hình triển khai |
+| `docs/` | Tài liệu nội bộ |
+| `graphify-out/` | Đồ thị mã nguồn (xem bên dưới) |
 
-### Heroku one-click deploy
+## Nhánh
 
-Deploying Chatwoot to Heroku is a breeze. It's as simple as clicking this button:
+| Nhánh | Vai trò |
+|---|---|
+| `develop` | Nhánh chính, PR nhắm vào đây |
+| `customer/gmo-develop` | Bản white-label cho khách hàng GMO |
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/chatwoot/chatwoot/tree/master)
+Để lấy cập nhật từ bản gốc, thêm remote: `git remote add upstream https://github.com/chatwoot/chatwoot.git`.
 
-Follow this [link](https://www.chatwoot.com/docs/environment-variables) to understand setting the correct environment variables for the app to work with all the features. There might be breakages if you do not set the relevant environment variables.
+## Đồ thị mã nguồn (graphify)
 
+Repo có sẵn một đồ thị mã nguồn do [graphify](https://github.com/Graphify-Labs/graphify) tạo, tại `graphify-out/graph.json`. Đồ thị ghi lại class, hàm, file và các quan hệ gọi, import, kế thừa giữa chúng. Công cụ AI (Claude Code, Codex, Cursor) dùng nó để tìm vị trí code và phạm vi ảnh hưởng thay vì grep cả repo.
 
-### DigitalOcean 1-Click Kubernetes deployment
+### Cài trên máy mới
 
-Chatwoot now supports 1-Click deployment to DigitalOcean as a kubernetes app.
+```bash
+# Windows
+winget install astral-sh.uv
+# macOS
+brew install uv
+```
 
-<a href="https://marketplace.digitalocean.com/apps/chatwoot?refcode=f2238426a2a8" alt="Deploy to DigitalOcean">
-  <img width="200" alt="Deploy to DO" src="https://www.deploytodo.com/do-btn-blue.svg"/>
-</a>
+Mở terminal mới rồi chạy:
 
-### Other deployment options
+```bash
+uv tool install graphifyy
+graphify explain "ConversationPolicy"
+```
 
-For other supported options, checkout our [deployment page](https://chatwoot.com/deploy).
+Tên gói có hai chữ `y`; tên lệnh là `graphify`. Lệnh thứ hai dùng để kiểm tra: nếu in ra danh sách method là đồ thị dùng được, không cần xây lại.
 
-## Security
+### Bật cho Claude Code
 
-Looking to report a vulnerability? Please refer our [SECURITY.md](./SECURITY.md) file.
+```bash
+graphify install --project
+git checkout -- CLAUDE.md
+```
 
-## Community
+Lệnh đầu cài skill `/graphify` và hook nhắc Claude Code tra đồ thị trước khi tìm file. Chúng nằm trong `.claude/`, thư mục này không đi theo repo nên mỗi máy phải chạy một lần. Lệnh thứ hai khôi phục `CLAUDE.md`, vì trình cài ghi thêm nội dung vào đó.
 
-If you need help or just want to hang out, come, say hi on our [Discord](https://discord.gg/cJXdrwS) server.
+### Tra cứu
 
-## Contributors
+```bash
+graphify explain "ConversationPolicy"                      # một class nối với những gì
+graphify affected "enterprise/app/models/applied_sla.rb"   # sửa file này ảnh hưởng tới đâu
+graphify path "ContactIdentifyAction" "ContactMergeAction" # đường đi giữa hai thành phần
+graphify god-nodes --top 20                                # các thành phần được nối nhiều nhất
+```
 
-Thanks goes to all these [wonderful people](https://www.chatwoot.com/docs/contributors):
+### Cập nhật
 
-<a href="https://github.com/chatwoot/chatwoot/graphs/contributors"><img src="https://opencollective.com/chatwoot/contributors.svg?width=890&button=false" /></a>
+```bash
+graphify update .                 # sau khi sửa code hoặc git pull
+graphify extract . --code-only    # xây lại từ đầu, khoảng 4 phút
+```
 
+Cả hai lệnh chạy cục bộ, không gọi API. Khi đồ thị thay đổi nhiều, commit lại `graphify-out/graph.json` và `graphify-out/manifest.json`.
 
-*Chatwoot* &copy; 2017-2026, Chatwoot Inc - Released under the MIT License.
+### Xem bằng hình
+
+```bash
+graphify export html --node-limit 1500
+graphify tree
+```
+
+Mở `graphify-out/graph.html` hoặc `graphify-out/GRAPH_TREE.html` bằng trình duyệt. Vì dự án có hơn 32.000 node, `graph.html` chỉ hiển thị ở mức cụm; `GRAPH_TREE.html` xem được tới từng class.
+
+### Giới hạn
+
+Đồ thị chỉ ghi quan hệ tĩnh. Nó không thấy callback của model, `authorize` của Pundit, job nền, event/listener, route, và các lời gọi API từ Vue sang Rails. Với những phần đó vẫn phải đọc code.
+
+## Tài liệu cho công cụ AI
+
+| File | Dành cho | Nội dung |
+|---|---|---|
+| [AGENTS.md](AGENTS.md) | Mọi công cụ AI | Quy tắc code, lệnh build/test, quy ước commit và PR |
+| [CLAUDE.md](CLAUDE.md) | Claude Code | Nạp `AGENTS.md` |
+
+## Bảo mật
+
+Báo lỗ hổng theo hướng dẫn trong [SECURITY.md](SECURITY.md).
+
+## Giấy phép
+
+Mã nguồn gốc của Chatwoot dùng giấy phép MIT; nội dung trong `enterprise/` dùng giấy phép riêng tại `enterprise/LICENSE`. Chi tiết xem [LICENSE](LICENSE).
