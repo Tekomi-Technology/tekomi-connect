@@ -101,15 +101,15 @@ async function saveProvider(provider) {
   }
 }
 
-async function useGlobalProvider(provider) {
+async function removeProvider(provider) {
   const providerType = provider.provider_type;
   savingProviders[providerType] = true;
   try {
     await tekomiConfigStore.updatePreferences({
-      llm_provider: { provider_type: providerType, use_global: true },
+      llm_provider: { provider_type: providerType, remove: true },
     });
     providerKeys[providerType] = '';
-    useAlert(t('TEKOMI_SETTINGS.LLM_PROVIDERS.GLOBAL_SUCCESS'));
+    useAlert(t('TEKOMI_SETTINGS.LLM_PROVIDERS.REMOVE_SUCCESS'));
   } catch (error) {
     useAlert(t('TEKOMI_SETTINGS.LLM_PROVIDERS.SAVE_ERROR'));
   } finally {
@@ -189,7 +189,7 @@ onMounted(() => {
                       ? t('TEKOMI_SETTINGS.LLM_PROVIDERS.TENANT_KEY', {
                           key: provider.masked_api_key,
                         })
-                      : t('TEKOMI_SETTINGS.LLM_PROVIDERS.GLOBAL_KEY')
+                      : t('TEKOMI_SETTINGS.LLM_PROVIDERS.NOT_CONFIGURED')
                   }}
                 </span>
               </div>
@@ -222,9 +222,9 @@ onMounted(() => {
                   type="button"
                   class="px-4 py-2 text-sm font-medium border rounded-lg border-n-weak text-n-slate-11 disabled:cursor-not-allowed disabled:opacity-50"
                   :disabled="savingProviders[provider.provider_type]"
-                  @click="useGlobalProvider(provider)"
+                  @click="removeProvider(provider)"
                 >
-                  {{ t('TEKOMI_SETTINGS.LLM_PROVIDERS.USE_GLOBAL') }}
+                  {{ t('TEKOMI_SETTINGS.LLM_PROVIDERS.REMOVE') }}
                 </button>
               </div>
             </div>

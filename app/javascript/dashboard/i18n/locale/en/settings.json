@@ -566,15 +566,15 @@
     },
     "LLM_PROVIDERS": {
       "TITLE": "LLM API keys",
-      "DESCRIPTION": "Use API keys owned by this account. Features without an account key continue using the system-wide key configured by the Super Admin.",
+      "DESCRIPTION": "Configure an API key for every provider used by this account. AI features remain unavailable until the required key is configured.",
       "TENANT_KEY": "Account key {key}",
-      "GLOBAL_KEY": "System-wide key",
+      "NOT_CONFIGURED": "Not configured",
       "KEY_PLACEHOLDER": "Enter this account's API key",
       "REPLACE_PLACEHOLDER": "Enter a new key to replace the current one",
       "SAVE": "Save key",
-      "USE_GLOBAL": "Use system key",
+      "REMOVE": "Remove key",
       "SAVE_SUCCESS": "The account API key was saved.",
-      "GLOBAL_SUCCESS": "This provider now uses the system-wide API key.",
+      "REMOVE_SUCCESS": "The account API key was removed. AI features using this provider are now unavailable.",
       "SAVE_ERROR": "Could not update the account API key. Please try again."
     },
     "API": {

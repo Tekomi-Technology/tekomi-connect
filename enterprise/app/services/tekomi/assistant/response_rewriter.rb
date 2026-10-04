@@ -19,7 +19,8 @@ class Tekomi::Assistant::ResponseRewriter
       state: run_result.context[:state],
       tekomi_v2_trace_input: rewrite_prompt
     }
-    rewrite_run_result = Llm::Config.with_account(@assistant.account) do
+    route = @assistant.agent_llm_route
+    rewrite_run_result = Llm::Config.with_account(@assistant.account, provider_type: route[:provider]) do
       runner.run(rewrite_prompt, context: rewrite_context, max_turns: 1)
     end
     raise rewrite_run_result.error || 'Tekomi response rewrite failed' if rewrite_run_result.failed?

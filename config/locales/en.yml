@@ -177,6 +177,7 @@ en:
       failed: 'Message not sent: the channel did not respond after several attempts. Check the inbox connection and send it again.'
     llm:
       feature_not_configured: 'The AI feature "%{feature}" has no model configured. Ask a Super Admin to configure it in Super Admin → Settings → GMO AI.'
+      tenant_provider_not_configured: 'The AI provider "%{provider}" has no API key configured for this account. An account administrator must add it in Settings → GMO AI Settings.'
     inboxes:
       imap:
         socket_error: Please check the network connection, IMAP address and try again.

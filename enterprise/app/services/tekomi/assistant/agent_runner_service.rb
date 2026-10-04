@@ -25,7 +25,8 @@ class Tekomi::Assistant::AgentRunnerService
 
   def generate_response(message_history: [])
     message_to_process, context = run_payload(message_history)
-    @last_run_result = Llm::Config.with_account(@assistant.account) do
+    route = @assistant.agent_llm_route
+    @last_run_result = Llm::Config.with_account(@assistant.account, provider_type: route[:provider]) do
       runner.run(message_to_process, context: context, max_turns: 10)
     end
     record_turn_start(@last_run_result)

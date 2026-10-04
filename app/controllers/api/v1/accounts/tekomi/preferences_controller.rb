@@ -28,12 +28,12 @@ class Api::V1::Accounts::Tekomi::PreferencesController < Api::V1::Accounts::Base
   end
 
   def update_llm_provider
-    attributes = params.require(:llm_provider).permit(:provider_type, :api_key, :use_global)
+    attributes = params.require(:llm_provider).permit(:provider_type, :api_key, :remove)
     provider_type = attributes.fetch(:provider_type)
     raise ActiveRecord::RecordNotFound unless LlmProvider.exists?(provider_type: provider_type)
 
     account_provider = @current_account.account_llm_providers.find_by(provider_type: provider_type)
-    return account_provider&.destroy! if ActiveModel::Type::Boolean.new.cast(attributes[:use_global])
+    return account_provider&.destroy! if ActiveModel::Type::Boolean.new.cast(attributes[:remove])
 
     account_provider ||= @current_account.account_llm_providers.build(provider_type: provider_type)
     account_provider.api_key = attributes[:api_key] if attributes[:api_key].present?

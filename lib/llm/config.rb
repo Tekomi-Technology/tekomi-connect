@@ -22,18 +22,22 @@ module Llm::Config
       $alfred.with { |conn| conn.incr(VERSION_KEY) }
     end
 
-    def context_for(provider_type:, account: nil)
+    def context_for(provider_type:, account_provider:)
       apply!
-      account_provider = AccountLlmProvider.find_by(account: account, provider_type: provider_type) if account
 
       RubyLLM.context do |config|
-        assign_provider(config, provider_type, account_provider, clear_missing: false) if account_provider
+        clear_api_keys(config)
+        assign_provider(config, provider_type, account_provider, clear_missing: false)
       end
     end
 
-    def with_account(account)
+    def with_account(account, provider_type:)
       previous_credentials = ActiveSupport::IsolatedExecutionState[TENANT_CREDENTIALS_KEY]
       providers = account.account_llm_providers.index_by(&:provider_type).transform_values(&:api_key)
+      unless providers.key?(provider_type.to_s)
+        raise CustomExceptions::Llm::TenantProviderNotConfigured.new(provider: provider_type)
+      end
+
       ActiveSupport::IsolatedExecutionState[TENANT_CREDENTIALS_KEY] = providers
       yield
     ensure
@@ -44,6 +48,10 @@ module Llm::Config
       ActiveSupport::IsolatedExecutionState[TENANT_CREDENTIALS_KEY]&.[](provider_type.to_s)
     end
 
+    def tenant_credentials_active?
+      ActiveSupport::IsolatedExecutionState[TENANT_CREDENTIALS_KEY].is_a?(Hash)
+    end
+
     def assign_provider(config, provider_type, provider, clear_missing: true)
       %w[api_key api_base].each do |attribute|
         setter = "#{provider_type}_#{attribute}="
@@ -52,6 +60,13 @@ module Llm::Config
       end
     end
 
-    private :assign_provider
+    def clear_api_keys(config)
+      LlmProvider::PROVIDER_TYPES.each do |provider_type|
+        setter = "#{provider_type}_api_key="
+        config.public_send(setter, nil) if config.respond_to?(setter)
+      end
+    end
+
+    private :assign_provider, :clear_api_keys
   end
 end

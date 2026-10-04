@@ -5,7 +5,11 @@ module RubyLlmTenantCredentials
 
   PROVIDER_TYPES.each do |provider_type|
     define_method("#{provider_type}_api_key") do
-      Llm::Config.tenant_api_key(provider_type) || super()
+      if Llm::Config.tenant_credentials_active?
+        Llm::Config.tenant_api_key(provider_type)
+      else
+        super()
+      end
     end
   end
 end
