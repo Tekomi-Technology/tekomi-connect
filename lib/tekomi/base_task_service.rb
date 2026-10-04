@@ -35,7 +35,7 @@ class Tekomi::BaseTaskService
     # Enterprise module handles these with more specific error messages (cloud vs self-hosted)
     return { error: I18n.t('tekomi.disabled'), error_code: 403 } unless tekomi_tasks_enabled?
 
-    route = Llm::FeatureRouter.resolve(feature: feature)
+    route = Llm::FeatureRouter.resolve(feature: feature, account: account)
     instrumentation_params = build_instrumentation_params(route[:model], messages)
     instrumentation_method = tools.any? ? :instrument_tool_session : :instrument_llm_call
 
@@ -64,7 +64,7 @@ class Tekomi::BaseTaskService
   end
 
   def build_chat(route, messages:, schema: nil, tools: [])
-    chat = RubyLLM.chat(model: route[:model], provider: route[:provider], assume_model_exists: true).with_params(**route[:params])
+    chat = route[:context].chat(model: route[:model], provider: route[:provider], assume_model_exists: true).with_params(**route[:params])
     system_msg = messages.find { |m| m[:role] == 'system' }
     chat.with_instructions(system_msg[:content]) if system_msg
     chat.with_schema(schema) if schema

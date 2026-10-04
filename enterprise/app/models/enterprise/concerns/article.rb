@@ -55,8 +55,8 @@ module Enterprise::Concerns::Article
   end
 
   def generate_article_search_terms
-    route = Llm::FeatureRouter.resolve(feature: 'article_search_terms')
-    response = RubyLLM.chat(model: route[:model], provider: route[:provider], assume_model_exists: true)
+    route = Llm::FeatureRouter.resolve(feature: 'article_search_terms', account: account)
+    response = route[:context].chat(model: route[:model], provider: route[:provider], assume_model_exists: true)
                       .with_params(**route[:params], response_format: { type: 'json_object' })
                       .with_instructions(article_to_search_terms_prompt)
                       .ask("title: #{title} \n description: #{description} \n content: #{content}")

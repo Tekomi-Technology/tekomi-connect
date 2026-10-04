@@ -564,6 +564,19 @@
         "DESCRIPTION": "Automatically suggest relevant labels and tags for conversations based on content analysis and context."
       }
     },
+    "LLM_PROVIDERS": {
+      "TITLE": "LLM API keys",
+      "DESCRIPTION": "Configure an API key for every provider used by this account. AI features remain unavailable until the required key is configured.",
+      "TENANT_KEY": "Account key {key}",
+      "NOT_CONFIGURED": "Not configured",
+      "KEY_PLACEHOLDER": "Enter this account's API key",
+      "REPLACE_PLACEHOLDER": "Enter a new key to replace the current one",
+      "SAVE": "Save key",
+      "REMOVE": "Remove key",
+      "SAVE_SUCCESS": "The account API key was saved.",
+      "REMOVE_SUCCESS": "The account API key was removed. AI features using this provider are now unavailable.",
+      "SAVE_ERROR": "Could not update the account API key. Please try again."
+    },
     "API": {
       "SUCCESS": "GMO AI settings updated successfully.",
       "ERROR": "Failed to update GMO AI settings. Please try again."

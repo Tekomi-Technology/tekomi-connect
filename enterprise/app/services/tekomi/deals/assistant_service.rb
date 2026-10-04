@@ -4,10 +4,10 @@ class Tekomi::Deals::AssistantService < Llm::BaseAiService
   attr_reader :assistant, :account, :user, :messages
 
   def initialize(assistant, config)
-    super(feature: 'deal_assistant')
-
     @assistant = assistant
     @account = assistant.account
+    super(feature: 'deal_assistant', account: @account)
+
     @user = @account.users.find_by(id: config[:user_id])
     @previous_history = config[:previous_history].presence || []
     @deal = @account.deals.find_by(id: config[:deal_id]) if config[:deal_id].present?

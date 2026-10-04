@@ -3,7 +3,7 @@ class Tekomi::Llm::AssistantActionClassifierService < Llm::BaseAiService
   include Tekomi::Llm::AssistantResponseInspectionHelpers
 
   def initialize(assistant:, conversation:)
-    super(feature: 'assistant')
+    super(feature: 'assistant', account: conversation.account)
     @assistant = assistant
     @conversation = conversation
     @temperature = 0.0

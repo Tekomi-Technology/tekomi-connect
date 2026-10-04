@@ -26,7 +26,7 @@ class Llm::SpeechToTextService
   def initialize(blob:, account:)
     @blob = blob
     @account = account
-    @route = Llm::FeatureRouter.resolve(feature: 'audio_transcription')
+    @route = Llm::FeatureRouter.resolve(feature: 'audio_transcription', account: account)
   end
 
   def perform
@@ -35,7 +35,10 @@ class Llm::SpeechToTextService
       # temperature: 0.0 minimises hallucinations on silence / near-silent
       # audio; non-zero values trigger spiraling repeats — well-documented
       # behaviour across OpenAI transcription models.
-      RubyLLM.transcribe(temp_file_path, model: route[:model], provider: route[:provider], assume_model_exists: true, temperature: 0.0).text
+      RubyLLM.transcribe(
+        temp_file_path, model: route[:model], provider: route[:provider], context: route[:context],
+                        assume_model_exists: true, temperature: 0.0
+      ).text
     end
 
     account.increment_response_usage if transcribed_text.present?

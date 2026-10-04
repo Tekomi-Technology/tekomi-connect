@@ -1,9 +1,10 @@
 <script setup>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { storeToRefs } from 'pinia';
 import { useAlert } from 'dashboard/composables';
 import { useAccount } from 'dashboard/composables/useAccount';
+import { useAdmin } from 'dashboard/composables/useAdmin';
 import { useTekomi } from 'dashboard/composables/useTekomi';
 import { useConfig } from 'dashboard/composables/useConfig';
 import { useTekomiConfigStore } from 'dashboard/store/tekomi/preferences';
@@ -18,9 +19,12 @@ const { t } = useI18n();
 const { tekomiEnabled } = useTekomi();
 const { isEnterprise } = useConfig();
 const { isOnChatwootCloud } = useAccount();
+const { isAdmin } = useAdmin();
 
 const tekomiConfigStore = useTekomiConfigStore();
-const { uiFlags } = storeToRefs(tekomiConfigStore);
+const { uiFlags, llmProviders } = storeToRefs(tekomiConfigStore);
+const providerKeys = reactive({});
+const savingProviders = reactive({});
 
 const isLoading = computed(() => uiFlags.value.isFetching);
 
@@ -78,6 +82,41 @@ async function handleFeatureToggle({ feature, enabled }) {
   }
 }
 
+async function saveProvider(provider) {
+  const providerType = provider.provider_type;
+  const apiKey = providerKeys[providerType]?.trim();
+  if (!apiKey) return;
+
+  savingProviders[providerType] = true;
+  try {
+    await tekomiConfigStore.updatePreferences({
+      llm_provider: { provider_type: providerType, api_key: apiKey },
+    });
+    providerKeys[providerType] = '';
+    useAlert(t('TEKOMI_SETTINGS.LLM_PROVIDERS.SAVE_SUCCESS'));
+  } catch (error) {
+    useAlert(t('TEKOMI_SETTINGS.LLM_PROVIDERS.SAVE_ERROR'));
+  } finally {
+    savingProviders[providerType] = false;
+  }
+}
+
+async function removeProvider(provider) {
+  const providerType = provider.provider_type;
+  savingProviders[providerType] = true;
+  try {
+    await tekomiConfigStore.updatePreferences({
+      llm_provider: { provider_type: providerType, remove: true },
+    });
+    providerKeys[providerType] = '';
+    useAlert(t('TEKOMI_SETTINGS.LLM_PROVIDERS.REMOVE_SUCCESS'));
+  } catch (error) {
+    useAlert(t('TEKOMI_SETTINGS.LLM_PROVIDERS.SAVE_ERROR'));
+  } finally {
+    savingProviders[providerType] = false;
+  }
+}
+
 onMounted(() => {
   tekomiConfigStore.fetch();
 });
@@ -114,6 +153,81 @@ onMounted(() => {
               :feature-key="feature.key"
               @change="handleFeatureToggle"
             />
+          </div>
+        </SectionLayout>
+
+        <SectionLayout
+          v-if="isAdmin"
+          :title="t('TEKOMI_SETTINGS.LLM_PROVIDERS.TITLE')"
+          :description="t('TEKOMI_SETTINGS.LLM_PROVIDERS.DESCRIPTION')"
+        >
+          <div class="grid gap-4">
+            <div
+              v-for="provider in llmProviders"
+              :key="provider.provider_type"
+              class="grid gap-3 p-4 border rounded-xl border-n-weak"
+            >
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <p class="text-sm font-medium text-n-slate-12">
+                    {{ provider.name }}
+                  </p>
+                  <p class="text-xs text-n-slate-10">
+                    {{ provider.provider_type }}
+                  </p>
+                </div>
+                <span
+                  class="px-2 py-1 text-xs font-medium rounded-lg"
+                  :class="
+                    provider.configured
+                      ? 'bg-n-teal-3 text-n-teal-11'
+                      : 'bg-n-slate-3 text-n-slate-11'
+                  "
+                >
+                  {{
+                    provider.configured
+                      ? t('TEKOMI_SETTINGS.LLM_PROVIDERS.TENANT_KEY', {
+                          key: provider.masked_api_key,
+                        })
+                      : t('TEKOMI_SETTINGS.LLM_PROVIDERS.NOT_CONFIGURED')
+                  }}
+                </span>
+              </div>
+              <div class="flex flex-col gap-2 sm:flex-row">
+                <input
+                  v-model="providerKeys[provider.provider_type]"
+                  type="password"
+                  autocomplete="new-password"
+                  :placeholder="
+                    provider.configured
+                      ? t('TEKOMI_SETTINGS.LLM_PROVIDERS.REPLACE_PLACEHOLDER')
+                      : t('TEKOMI_SETTINGS.LLM_PROVIDERS.KEY_PLACEHOLDER')
+                  "
+                  class="w-full px-3 py-2 text-sm bg-transparent border rounded-lg border-n-weak text-n-slate-12 placeholder:text-n-slate-9 focus:border-n-brand"
+                  @keyup.enter="saveProvider(provider)"
+                />
+                <button
+                  type="button"
+                  class="px-4 py-2 text-sm font-medium rounded-lg bg-n-brand text-white disabled:cursor-not-allowed disabled:opacity-50"
+                  :disabled="
+                    savingProviders[provider.provider_type] ||
+                    !providerKeys[provider.provider_type]?.trim()
+                  "
+                  @click="saveProvider(provider)"
+                >
+                  {{ t('TEKOMI_SETTINGS.LLM_PROVIDERS.SAVE') }}
+                </button>
+                <button
+                  v-if="provider.configured"
+                  type="button"
+                  class="px-4 py-2 text-sm font-medium border rounded-lg border-n-weak text-n-slate-11 disabled:cursor-not-allowed disabled:opacity-50"
+                  :disabled="savingProviders[provider.provider_type]"
+                  @click="removeProvider(provider)"
+                >
+                  {{ t('TEKOMI_SETTINGS.LLM_PROVIDERS.REMOVE') }}
+                </button>
+              </div>
+            </div>
           </div>
         </SectionLayout>
       </div>

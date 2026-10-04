@@ -5,10 +5,10 @@ class Tekomi::Copilot::ChatService < Llm::BaseAiService
   attr_reader :assistant, :account, :user, :copilot_thread, :previous_history, :messages
 
   def initialize(assistant, config)
-    super(feature: 'copilot')
-
     @assistant = assistant
     @account = assistant.account
+    super(feature: 'copilot', account: @account)
+
     @user = nil
     @copilot_thread = nil
     @previous_history = []

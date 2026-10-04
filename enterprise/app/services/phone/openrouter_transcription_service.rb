@@ -3,16 +3,18 @@ class Phone::OpenrouterTranscriptionService
 
   class TranscriptionFailed < StandardError; end
 
-  def initialize(recording)
+  def initialize(recording, account:)
     @recording = recording
+    @account = account
   end
 
   def perform
-    route = Llm::FeatureRouter.resolve(feature: 'call_emotion_analysis')
+    route = Llm::FeatureRouter.resolve(feature: 'call_emotion_analysis', account: @account)
     transcription = RubyLLM.transcribe(
       @recording.path,
       model: MODEL,
       provider: route[:provider],
+      context: route[:context],
       assume_model_exists: true,
       language: 'vi',
       format: 'verbose_json',

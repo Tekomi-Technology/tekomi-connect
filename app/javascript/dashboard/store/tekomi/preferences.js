@@ -4,6 +4,7 @@ import TekomiPreferencesAPI from 'dashboard/api/tekomi/preferences';
 export const useTekomiConfigStore = defineStore('tekomiConfig', {
   state: () => ({
     features: {},
+    llmProviders: [],
     uiFlags: {
       isFetching: false,
     },
@@ -20,6 +21,7 @@ export const useTekomiConfigStore = defineStore('tekomiConfig', {
       try {
         const response = await TekomiPreferencesAPI.get();
         this.features = response.data.features || {};
+        this.llmProviders = response.data.llm_providers || [];
       } catch (error) {
         // Ignore error
       } finally {
@@ -30,6 +32,7 @@ export const useTekomiConfigStore = defineStore('tekomiConfig', {
     async updatePreferences(data) {
       const response = await TekomiPreferencesAPI.updatePreferences(data);
       this.features = response.data.features || {};
+      this.llmProviders = response.data.llm_providers || [];
     },
   },
 });
