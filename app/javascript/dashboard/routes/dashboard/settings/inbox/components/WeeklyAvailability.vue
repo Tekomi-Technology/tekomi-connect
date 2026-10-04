@@ -15,9 +15,10 @@ import {
 import NextButton from 'dashboard/components-next/button/Button.vue';
 import ComboBox from 'dashboard/components-next/combobox/ComboBox.vue';
 
+// Shown when the inbox time zone is not in the list; this deployment serves Vietnam.
 const DEFAULT_TIMEZONE = {
-  label: 'Pacific Time (US & Canada) (GMT-07:00)',
-  value: 'America/Los_Angeles',
+  label: 'Ho Chi Minh City (GMT+07:00)',
+  value: 'Asia/Ho_Chi_Minh',
 };
 
 export default {

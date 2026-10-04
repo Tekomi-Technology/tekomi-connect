@@ -5,7 +5,7 @@ import {
 } from 'widget/helpers/availabilityHelpers';
 import { useCamelCase } from 'dashboard/composables/useTransformKeys';
 
-const DEFAULT_TIMEZONE = 'UTC';
+const DEFAULT_TIMEZONE = 'Asia/Ho_Chi_Minh';
 const DEFAULT_REPLY_TIME = 'in_a_few_minutes';
 
 /**
