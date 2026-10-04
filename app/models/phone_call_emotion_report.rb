@@ -94,6 +94,8 @@ class PhoneCallEmotionReport < ApplicationRecord
       action_status: action_status,
       emotion: self.class.normalize_emotion_label(emotion),
       emotion_tag: emotion_tag,
+      confidence: phone_call.metadata.dig('emotion_analysis', 'confidence'),
+      probabilities: phone_call.metadata.dig('emotion_analysis', 'probabilities'),
       reason: reason,
       transcript: transcript,
       asr_model: asr_model,

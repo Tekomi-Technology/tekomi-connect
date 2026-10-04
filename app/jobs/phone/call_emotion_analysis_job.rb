@@ -13,7 +13,8 @@ class Phone::CallEmotionAnalysisJob < ApplicationJob
     result = Phone::CallEmotionAnalysisService.new(phone_call).perform
     persist_result(phone_call, report, result)
   rescue Phone::PbxRecordingFetcher::RecordingUnavailable,
-         Phone::OpenrouterTranscriptionService::TranscriptionFailed => e
+         Phone::OpenrouterTranscriptionService::TranscriptionFailed,
+         Phone::JevEmotionAnalysisService::DecisionFailed => e
     mark_failed(phone_call, report, e)
   rescue StandardError => e
     mark_failed(phone_call, report, e)

@@ -116,7 +116,8 @@ class Api::V1::Accounts::PhoneCallsController < Api::V1::Accounts::BaseControlle
   rescue CustomExceptions::Llm::FeatureNotConfigured => e
     render json: { error: e.message }, status: :unprocessable_entity
   rescue Phone::PbxRecordingFetcher::RecordingUnavailable,
-         Phone::OpenrouterTranscriptionService::TranscriptionFailed => e
+         Phone::OpenrouterTranscriptionService::TranscriptionFailed,
+         Phone::JevEmotionAnalysisService::DecisionFailed => e
     Rails.logger.warn("Phone emotion analysis failed for phone_call=#{@phone_call.id}: #{e.message}")
     render json: { error: e.message }, status: :bad_gateway
   rescue StandardError => e
