@@ -44,6 +44,16 @@ RSpec.describe Conversations::PermissionFilterService do
       end
     end
 
+    context 'when user is a supervisor outside the inbox' do
+      let(:supervisor) { create(:user, account: account, role: :supervisor) }
+
+      it 'returns all conversations' do
+        result = described_class.new(account.conversations, supervisor, account).perform
+
+        expect(result).to contain_exactly(conversation, another_conversation)
+      end
+    end
+
     context 'when plan_hint_selective_filter is enabled' do
       let!(:other_inbox) { create(:inbox, account: account) }
       let!(:inaccessible_conversation) { create(:conversation, account: account, inbox: other_inbox) }

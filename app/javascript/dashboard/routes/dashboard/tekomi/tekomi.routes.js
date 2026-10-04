@@ -27,7 +27,7 @@ import CustomToolsIndex from './tools/Index.vue';
 import ConversationAnalysisIndex from './conversationAnalysis/Index.vue';
 
 const meta = {
-  permissions: ['administrator', 'agent'],
+  permissions: ['administrator', 'supervisor', 'agent'],
   featureFlag: FEATURE_FLAGS.TEKOMI,
   installationTypes: [INSTALLATION_TYPES.CLOUD, INSTALLATION_TYPES.ENTERPRISE],
 };
@@ -38,13 +38,13 @@ const faqSuggestionsMeta = {
 };
 
 const metaCustomTools = {
-  permissions: ['administrator', 'agent'],
+  permissions: ['administrator', 'supervisor', 'agent'],
   featureFlag: FEATURE_FLAGS.TEKOMI_CUSTOM_TOOLS,
   installationTypes: [INSTALLATION_TYPES.CLOUD, INSTALLATION_TYPES.ENTERPRISE],
 };
 
 const metaV2 = {
-  permissions: ['administrator', 'agent'],
+  permissions: ['administrator', 'supervisor', 'agent'],
   featureFlag: FEATURE_FLAGS.TEKOMI_V2,
   installationTypes: [INSTALLATION_TYPES.CLOUD, INSTALLATION_TYPES.ENTERPRISE],
 };
@@ -166,7 +166,7 @@ const assistantRoutes = [
     component: AssistantEmptyStateIndex,
     name: 'tekomi_assistants_create_index',
     meta: {
-      permissions: ['administrator', 'agent'],
+      permissions: ['administrator', 'supervisor', 'agent'],
       installationTypes: [
         INSTALLATION_TYPES.CLOUD,
         INSTALLATION_TYPES.ENTERPRISE,

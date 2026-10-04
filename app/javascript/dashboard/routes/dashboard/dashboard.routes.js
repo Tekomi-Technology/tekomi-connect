@@ -41,7 +41,7 @@ export default {
       path: frontendURL('accounts/:accountId/onboarding'),
       name: 'onboarding_account_details',
       meta: {
-        permissions: ['administrator', 'agent', 'custom_role'],
+        permissions: ['administrator', 'supervisor', 'agent', 'custom_role'],
       },
       component: OnboardingAccountDetails,
     },
@@ -49,7 +49,7 @@ export default {
       path: frontendURL('accounts/:accountId/onboarding/inbox-setup'),
       name: 'onboarding_inbox_setup',
       meta: {
-        permissions: ['administrator', 'agent', 'custom_role'],
+        permissions: ['administrator', 'supervisor', 'agent', 'custom_role'],
       },
       component: OnboardingInboxSetup,
     },
@@ -57,7 +57,7 @@ export default {
       path: frontendURL('accounts/:accountId/suspended'),
       name: 'account_suspended',
       meta: {
-        permissions: ['administrator', 'agent', 'custom_role'],
+        permissions: ['administrator', 'supervisor', 'agent', 'custom_role'],
       },
       component: Suspended,
     },

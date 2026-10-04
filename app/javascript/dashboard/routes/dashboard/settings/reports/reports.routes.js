@@ -27,7 +27,7 @@ import PhoneCallReports from './PhoneCallReports.vue';
 
 const meta = {
   featureFlag: FEATURE_FLAGS.REPORTS,
-  permissions: ['administrator', 'report_manage'],
+  permissions: ['administrator', 'supervisor', 'report_manage'],
 };
 
 const oldReportRoutes = [

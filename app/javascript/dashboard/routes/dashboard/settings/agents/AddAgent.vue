@@ -39,6 +39,11 @@ const roles = computed(() => {
       label: t('AGENT_MGMT.AGENT_TYPES.ADMINISTRATOR'),
     },
     {
+      id: 'supervisor',
+      name: 'supervisor',
+      label: t('AGENT_MGMT.AGENT_TYPES.SUPERVISOR'),
+    },
+    {
       id: 'agent',
       name: 'agent',
       label: t('AGENT_MGMT.AGENT_TYPES.AGENT'),
@@ -72,6 +77,7 @@ const addAgent = async () => {
     };
 
     if (selectedRole.value.name.startsWith('custom_')) {
+      payload.role = 'agent';
       payload.custom_role_id = selectedRole.value.id;
     } else {
       payload.role = selectedRole.value.name;

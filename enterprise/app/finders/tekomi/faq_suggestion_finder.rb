@@ -6,7 +6,7 @@ class Tekomi::FaqSuggestionFinder
 
   def perform
     suggestions = @current_account.tekomi_faq_suggestions
-    return suggestions if account_user&.administrator?
+    return suggestions if account_user&.full_conversation_access?
 
     accessible_suggestion_ids = Tekomi::FaqObservation
                                 .where(conversation_id: accessible_conversations.select(:id))

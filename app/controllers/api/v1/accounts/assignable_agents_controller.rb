@@ -11,7 +11,7 @@ class Api::V1::Accounts::AssignableAgentsController < Api::V1::Accounts::BaseCon
     end
     agent_ids = agent_ids.inject(:&)
     agents = Current.account.users.where(id: agent_ids)
-    @assignable_agents = (agents + Current.account.administrators).uniq
+    @assignable_agents = (agents + Current.account.full_conversation_access_users).uniq
     @agent_bots = @include_agent_bots ? AgentBot.accessible_to(Current.account) : []
   end
 

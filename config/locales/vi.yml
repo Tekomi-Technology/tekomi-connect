@@ -616,6 +616,7 @@ vi:
       dashboard: 'Tổng quan'
       sidekiq: 'Sidekiq'
       instance_health: 'Tình trạng hệ thống'
+      role_matrix: 'Bảng phân quyền'
       push_diagnostics: 'Chẩn đoán thông báo đẩy'
       agent_dashboard: 'Trang nhân viên'
       logout: 'Đăng xuất'
@@ -985,6 +986,69 @@ vi:
         redis_maxmemory_policy_setting: "Cài đặt 'maxmemory_policy' của Redis"
         chatwoot_edition: 'Phiên bản cài đặt'
         database_migrations: 'Migration cơ sở dữ liệu'
+    role_matrix:
+      title: 'Bảng phân quyền'
+      description: 'Quyền của các vai trò cố định trong một tài khoản. Vai trò tùy chỉnh do từng tài khoản tự tạo nên không nằm trong bảng này.'
+      feature: 'Chức năng'
+      source_note: 'Bảng được khai báo trong config/role_matrix.yml. Khi quyền trong code thay đổi thì cập nhật file này.'
+      roles:
+        administrator: 'Quản trị viên'
+        supervisor: 'Giám sát viên'
+        agent: 'Nhân viên'
+      values:
+        allow: 'Được phép'
+        deny: 'Không'
+        view_only: 'Chỉ xem'
+        all_inboxes: 'Mọi hộp thư'
+        assigned_inboxes: 'Hộp thư và nhóm được thêm vào'
+        all_macros: 'Tất cả, kể cả macro chung'
+        own_macros: 'Macro của mình'
+        account_wide: 'Toàn tài khoản'
+      groups:
+        conversations:
+          title: 'Hội thoại'
+          rows:
+            handle: 'Xem, trả lời và xử lý hội thoại'
+            reassign: 'Phân công lại hội thoại'
+            delete: 'Xoá hội thoại'
+        contacts:
+          title: 'Liên hệ và công ty'
+          rows:
+            manage: 'Xem, tạo, sửa liên hệ và công ty'
+            export: 'Xuất danh sách liên hệ'
+            import_delete: 'Nhập liên hệ, xoá liên hệ và công ty'
+        sales:
+          title: 'Bán hàng và ticket'
+          rows:
+            deals_tickets: 'Deal, pipeline bán hàng và ticket'
+        reports:
+          title: 'Báo cáo'
+          rows:
+            reports: 'Xem báo cáo, kể cả CSAT, SLA và cuộc gọi'
+            drilldown: 'Xem các hội thoại đằng sau một điểm trên biểu đồ'
+            home_dashboard: 'Số liệu trên Trang chủ'
+        people:
+          title: 'Nhân viên và nhóm'
+          rows:
+            agents_view: 'Vào trang Nhân viên'
+            agents_manage: 'Thêm, sửa, xoá nhân viên'
+            team_members: 'Thêm, bớt thành viên nhóm'
+            teams_manage: 'Tạo, đổi tên, xoá nhóm'
+        tools:
+          title: 'Công cụ làm việc'
+          rows:
+            canned_responses: 'Mẫu trả lời (tạo, sửa, xoá)'
+            macros: 'Macro'
+            workspace_data: 'Nhãn, thuộc tính, bot, SLA, pipeline, kho kiến thức'
+        gmo_ai:
+          title: 'GMO AI'
+          rows:
+            use: 'Xem trợ lý, dùng Playground, duyệt gợi ý FAQ'
+            manage: 'Tạo, sửa trợ lý, công cụ, kịch bản'
+        system:
+          title: 'Cấu hình hệ thống'
+          rows:
+            settings: 'Hộp thư, tích hợp, webhook, tự động hóa, chiến dịch, phân công, vai trò tùy chỉnh, SAML, nhập dữ liệu, nhật ký kiểm tra, tài khoản và thanh toán'
     sessions:
       greeting: 'Xin chào quản trị viên 👋'
       email: 'Địa chỉ email'

@@ -16,7 +16,7 @@ import EmojiIcon from 'dashboard/components-next/emoji-icon-picker/EmojiIcon.vue
 const store = useStore();
 const { t } = useI18n();
 const getters = useStoreGetters();
-const { isAdmin } = useAdmin();
+const { isAdmin, isSupervisor } = useAdmin();
 
 const loading = ref({});
 const searchQuery = ref('');
@@ -148,6 +148,21 @@ const confirmPlaceHolderText = computed(() =>
             </div>
           </div>
           <div class="flex justify-end gap-3">
+            <!-- Supervisors manage team members but not the team itself -->
+            <router-link
+              v-if="isSupervisor"
+              :to="{
+                name: 'settings_teams_edit_members',
+                params: { teamId: team.id },
+              }"
+            >
+              <Button
+                v-tooltip.top="$t('TEAMS_SETTINGS.LIST.EDIT_MEMBERS')"
+                icon="i-lucide-users"
+                slate
+                sm
+              />
+            </router-link>
             <router-link
               :to="{
                 name: 'settings_teams_edit',

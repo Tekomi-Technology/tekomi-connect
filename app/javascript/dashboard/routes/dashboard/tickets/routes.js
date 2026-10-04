@@ -5,7 +5,7 @@ import TicketShow from './pages/TicketShow.vue';
 
 const commonMeta = {
   featureFlag: FEATURE_FLAGS.CRM_TICKETS,
-  permissions: ['administrator', 'agent'],
+  permissions: ['administrator', 'supervisor', 'agent'],
 };
 
 export const routes = [

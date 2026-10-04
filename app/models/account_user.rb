@@ -31,7 +31,7 @@ class AccountUser < ApplicationRecord
   belongs_to :user
   belongs_to :inviter, class_name: 'User', optional: true
 
-  enum role: { agent: 0, administrator: 1 }
+  enum role: { agent: 0, administrator: 1, supervisor: 2 }
   enum availability: { online: 0, offline: 1, busy: 2 }
 
   accepts_nested_attributes_for :account
@@ -55,8 +55,14 @@ class AccountUser < ApplicationRecord
     ::Agents::DestroyJob.perform_later(account, user)
   end
 
+  # Matches the role names the frontend routes check.
   def permissions
-    administrator? ? ['administrator'] : ['agent']
+    [role]
+  end
+
+  # Administrators and supervisors see and act on every conversation in the account.
+  def full_conversation_access?
+    administrator? || supervisor?
   end
 
   def push_event_data

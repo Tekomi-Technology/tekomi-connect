@@ -178,7 +178,7 @@ class Inbox < ApplicationRecord
   end
 
   def assignable_agents
-    (account.users.where(id: members.select(:user_id)) + account.administrators).uniq
+    (account.users.where(id: members.select(:user_id)) + account.full_conversation_access_users).uniq
   end
 
   def inbox_type
@@ -272,7 +272,7 @@ class Inbox < ApplicationRecord
   def capture_filtered_unread_count_user_ids
     return if account.blank?
 
-    @filtered_unread_count_user_ids = (inbox_members.pluck(:user_id) + account.account_users.administrator.pluck(:user_id)).uniq
+    @filtered_unread_count_user_ids = (inbox_members.pluck(:user_id) + account.full_conversation_access_users.pluck(:id)).uniq
   end
 
   def invalidate_filtered_unread_counts_after_destroy

@@ -7,6 +7,7 @@
     "LEARN_MORE": "Tìm hiểu về vai trò người dùng",
     "AGENT_TYPES": {
       "ADMINISTRATOR": "Quản trị viên",
+      "SUPERVISOR": "Giám sát viên",
       "AGENT": "Nhân viên"
     },
     "COUNT": "{n} nhân viên | {n} nhân viên",

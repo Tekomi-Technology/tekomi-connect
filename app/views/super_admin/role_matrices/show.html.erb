@@ -1,0 +1,54 @@
+<% content_for(:title) do %>
+  <%= t('super_admin.role_matrix.title') %>
+<% end %>
+<%
+  # Green for full access, amber for a limited scope, grey for no access.
+  limited_values = %w[view_only assigned_inboxes own_macros]
+  value_class = lambda do |value|
+    return 'bg-slate-100 text-slate-600' if value == 'deny'
+    return 'bg-amber-100 text-amber-800' if limited_values.include?(value)
+
+    'bg-green-100 text-green-800'
+  end
+  roles = @role_matrix['roles']
+%>
+<header class="main-content__header" role="banner">
+  <h1 class="main-content__page-title" id="page-title">
+    <%= content_for(:title) %>
+  </h1>
+</header>
+<section class="main-content__body">
+  <p class="mb-4 text-sm text-slate-600"><%= t('super_admin.role_matrix.description') %></p>
+  <table>
+    <thead>
+      <tr>
+        <th><%= t('super_admin.role_matrix.feature') %></th>
+        <% roles.each do |role| %>
+          <th><%= t("super_admin.role_matrix.roles.#{role}") %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @role_matrix['groups'].each do |group, rows| %>
+        <tr>
+          <td colspan="<%= roles.size + 1 %>" class="font-semibold text-slate-800 bg-slate-25">
+            <%= t("super_admin.role_matrix.groups.#{group}.title") %>
+          </td>
+        </tr>
+        <% rows.each do |row, values| %>
+          <tr>
+            <td><%= t("super_admin.role_matrix.groups.#{group}.rows.#{row}") %></td>
+            <% roles.each do |role| %>
+              <td>
+                <span class="inline-block px-2 py-0.5 text-xs font-medium rounded-full <%= value_class.call(values[role]) %>">
+                  <%= t("super_admin.role_matrix.values.#{values[role]}") %>
+                </span>
+              </td>
+            <% end %>
+          </tr>
+        <% end %>
+      <% end %>
+    </tbody>
+  </table>
+  <p class="mt-4 text-xs text-slate-500"><%= t('super_admin.role_matrix.source_note') %></p>
+</section>

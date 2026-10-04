@@ -94,8 +94,8 @@ export default {
       accountReport: 'getAccountReports',
       currentRole: 'getCurrentRole',
     }),
-    isAdmin() {
-      return this.currentRole === 'administrator';
+    hasFullConversationAccess() {
+      return ['administrator', 'supervisor'].includes(this.currentRole);
     },
     canDrilldownPrev() {
       return this.findDrillableIndex(this.drilldownIndex - 1, -1) !== null;
@@ -221,7 +221,7 @@ export default {
 
       const dataPoint = event.item;
       if (!this.canOpenDrilldown(metric, dataPoint)) return;
-      if (!this.isAdmin) {
+      if (!this.hasFullConversationAccess) {
         useAlert(this.$t('REPORT.DRILLDOWN.ADMIN_ONLY'));
         return;
       }

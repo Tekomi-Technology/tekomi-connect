@@ -19,7 +19,7 @@ module Tekomi::Copilot::ConversationAccess
   end
 
   def base_accessible_conversations(conversations, account, user, account_user)
-    return conversations if account_user.administrator?
+    return conversations if account_user.full_conversation_access?
 
     inbox_conversations = conversations.where(inbox_id: user.inboxes.where(account_id: account.id).select(:id))
     team_conversations = conversations.where(team_id: user.teams.where(account_id: account.id).select(:id))

@@ -5,7 +5,7 @@ import DealShow from './pages/DealShow.vue';
 
 const commonMeta = {
   featureFlag: FEATURE_FLAGS.CRM_DEALS,
-  permissions: ['administrator', 'agent'],
+  permissions: ['administrator', 'supervisor', 'agent'],
 };
 
 export const routes = [

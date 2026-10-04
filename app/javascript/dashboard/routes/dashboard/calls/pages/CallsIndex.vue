@@ -35,7 +35,7 @@ const isFeatureEnabledonAccount = useMapGetter(
 
 // CallFinder scopes non-admins to their own accepted calls, so the assignee
 // filter is only meaningful for admins; everyone else defaults to themselves.
-const { isAdmin } = useAdmin();
+const { hasFullConversationAccess } = useAdmin();
 
 const voiceInboxes = computed(() => inboxes.value.filter(isVoiceCallEnabled));
 
@@ -60,7 +60,9 @@ const activity = ref(
 );
 
 const assigneeId = ref(
-  isAdmin.value ? Number(route.query.assignee_id) || null : currentUserId.value
+  hasFullConversationAccess.value
+    ? Number(route.query.assignee_id) || null
+    : currentUserId.value
 );
 const inboxId = ref(Number(route.query.inbox_id) || null);
 const currentPage = ref(Number(route.query.page) || 1);
@@ -69,7 +71,7 @@ const syncFiltersToUrl = () => {
   router.replace({
     query: {
       ...(activity.value && { activity: activity.value }),
-      ...(isAdmin.value &&
+      ...(hasFullConversationAccess.value &&
         assigneeId.value && { assignee_id: assigneeId.value }),
       ...(inboxId.value && { inbox_id: inboxId.value }),
       ...(currentPage.value > 1 && { page: currentPage.value }),
@@ -109,7 +111,7 @@ onMounted(async () => {
     ]);
     if (!isVoiceEnabled.value) return;
     // Only admins see the assignee filter, so only they need the agent list.
-    if (isAdmin.value) store.dispatch('agents/get');
+    if (hasFullConversationAccess.value) store.dispatch('agents/get');
     await fetchCalls();
   } finally {
     isInitializing.value = false;
@@ -143,7 +145,7 @@ onMounted(async () => {
         :total-count="isFetching ? null : meta.count"
         :agents="agents"
         :inboxes="voiceInboxes"
-        :show-assignee="isAdmin"
+        :show-assignee="hasFullConversationAccess"
       />
     </header>
     <main class="flex-1 px-6 overflow-y-auto">

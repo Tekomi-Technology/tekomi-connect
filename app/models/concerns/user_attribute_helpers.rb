@@ -39,6 +39,14 @@ module UserAttributeHelpers
     current_account_user&.agent?
   end
 
+  def supervisor?
+    current_account_user&.supervisor?
+  end
+
+  def full_conversation_access?
+    current_account_user&.full_conversation_access?
+  end
+
   def role
     current_account_user&.role
   end

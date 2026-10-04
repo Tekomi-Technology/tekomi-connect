@@ -33,7 +33,7 @@ as defined by the routes in the `admin/` namespace
     <ul class="my-4">
       <%= render partial: "nav_item", locals: { icon: 'icon-grid-line', url: super_admin_root_url, label: t('super_admin.navigation.dashboard') } %>
       <% Administrate::Namespace.new(namespace).resources.each do |resource| %>
-        <% next if ["account_users", "access_tokens", "installation_configs", "dashboard", "devise/sessions", "app_configs", "instance_statuses", "settings", "push_diagnostics", "llm_providers", "llm_feature_models", "llm_prompt_templates"].include?  resource.resource %>
+        <% next if ["account_users", "access_tokens", "installation_configs", "dashboard", "devise/sessions", "app_configs", "instance_statuses", "role_matrices", "settings", "push_diagnostics", "llm_providers", "llm_feature_models", "llm_prompt_templates"].include?  resource.resource %>
         <% next if resource.resource == "platform_banners" && !ChatwootApp.chatwoot_cloud? %>
         <%= render partial: "nav_item", locals: {
             icon: sidebar_icons[resource.resource.to_sym],
@@ -50,6 +50,7 @@ as defined by the routes in the `admin/` namespace
     <ul class="my-4">
       <%= render partial: "nav_item", locals: { icon: 'icon-mist-fill', url: sidekiq_web_url, label: t('super_admin.navigation.sidekiq') } %>
       <%= render partial: "nav_item", locals: { icon: 'icon-health-book-line', url: super_admin_instance_status_url, label: t('super_admin.navigation.instance_health') } %>
+      <%= render partial: "nav_item", locals: { icon: 'icon-lock-line', url: super_admin_role_matrix_url, label: t('super_admin.navigation.role_matrix') } %>
       <%= render partial: "nav_item", locals: { icon: 'icon-mail-send-fill', url: super_admin_push_diagnostics_url, label: t('super_admin.navigation.push_diagnostics') } %>
       <%= render partial: "nav_item", locals: { icon: 'icon-dashboard-line', url: '/', label: t('super_admin.navigation.agent_dashboard') } %>
       <%= render partial: "nav_item", locals: { icon: 'icon-logout-circle-r-line', url: super_admin_logout_url, label: t('super_admin.navigation.logout') } %>

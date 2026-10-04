@@ -8,7 +8,7 @@ class ConversationPolicy < ApplicationPolicy
   end
 
   def show?
-    administrator? || agent_bot? || agent_can_view_conversation?
+    full_conversation_access? || agent_bot? || agent_can_view_conversation?
   end
 
   private
@@ -19,6 +19,10 @@ class ConversationPolicy < ApplicationPolicy
 
   def administrator?
     account_user&.administrator?
+  end
+
+  def full_conversation_access?
+    account_user&.full_conversation_access?
   end
 
   def agent_bot?

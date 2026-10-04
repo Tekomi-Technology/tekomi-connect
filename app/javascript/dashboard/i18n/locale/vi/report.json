@@ -131,7 +131,7 @@
       "RESULT_COUNT_MESSAGE": "{count} tin nhắn | {count} tin nhắn",
       "EMPTY": "Không có bản ghi nào cho cột này.",
       "ERROR": "Không tải được bản ghi. Vui lòng thử lại.",
-      "ADMIN_ONLY": "Chỉ quản trị viên mới xem được chi tiết bản ghi báo cáo.",
+      "ADMIN_ONLY": "Chỉ quản trị viên và giám sát viên mới xem được chi tiết bản ghi báo cáo.",
       "LOAD_MORE": "Tải thêm",
       "PREVIOUS_BUCKET": "Cột trước",
       "NEXT_BUCKET": "Cột sau",

@@ -36,7 +36,8 @@ class Macro < ApplicationRecord
 
   def set_visibility(user, params)
     self.visibility = params[:visibility]
-    self.visibility = :personal if user.agent?
+    # Only administrators manage the macros shared across the account.
+    self.visibility = :personal unless user.administrator?
   end
 
   def self.with_visibility(user, _params)

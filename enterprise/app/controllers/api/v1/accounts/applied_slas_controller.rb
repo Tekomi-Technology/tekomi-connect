@@ -7,7 +7,7 @@ class Api::V1::Accounts::AppliedSlasController < Api::V1::Accounts::EnterpriseAc
   before_action :ensure_sla_feature_enabled
   before_action :set_applied_slas, only: [:index, :metrics, :download]
   before_action :set_current_page, only: [:index]
-  before_action :check_admin_authorization?
+  before_action :check_report_authorization
 
   sort_on :created_at, type: :datetime
 
@@ -30,6 +30,11 @@ class Api::V1::Accounts::AppliedSlasController < Api::V1::Accounts::EnterpriseAc
   end
 
   private
+
+  # Same audience as the other reports: admins, supervisors and report_manage custom roles.
+  def check_report_authorization
+    authorize :report, :view?
+  end
 
   def ensure_sla_feature_enabled
     raise Pundit::NotAuthorizedError unless Current.account.feature_enabled?('sla')

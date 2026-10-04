@@ -26,6 +26,23 @@ RSpec.describe AccountUser do
       account_user.administrator!
       expect(account_user.permissions).to eq(['administrator'])
     end
+
+    it 'returns the right permissions for supervisor' do
+      account_user.supervisor!
+      expect(account_user.permissions).to eq(['supervisor'])
+    end
+  end
+
+  describe '#full_conversation_access?' do
+    it 'is true for administrators and supervisors only' do
+      expect(account_user.full_conversation_access?).to be(false)
+
+      account_user.supervisor!
+      expect(account_user.full_conversation_access?).to be(true)
+
+      account_user.administrator!
+      expect(account_user.full_conversation_access?).to be(true)
+    end
   end
 
   describe 'destroy call agent::destroy service' do

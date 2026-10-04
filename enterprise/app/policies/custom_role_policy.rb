@@ -1,6 +1,7 @@
 class CustomRolePolicy < ApplicationPolicy
+  # Supervisors read the list so the Agents page can name each agent's custom role.
   def index?
-    @account_user.administrator?
+    @account_user.administrator? || @account_user.supervisor?
   end
 
   def update?

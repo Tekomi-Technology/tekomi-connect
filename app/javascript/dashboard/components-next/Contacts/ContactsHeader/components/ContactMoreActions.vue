@@ -18,7 +18,7 @@ const contactMenuItems = computed(() => [
     value: 'add',
     icon: 'i-lucide-plus',
   },
-  ...(checkPermissions(['administrator', 'contact_manage'])
+  ...(checkPermissions(['administrator', 'supervisor', 'contact_manage'])
     ? [
         {
           label: t(

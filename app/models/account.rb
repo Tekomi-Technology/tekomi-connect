@@ -138,6 +138,11 @@ class Account < ApplicationRecord
     users.where(account_users: { role: :administrator })
   end
 
+  # Users who see every inbox without being an inbox member.
+  def full_conversation_access_users
+    users.where(account_users: { role: %i[administrator supervisor] })
+  end
+
   def all_conversation_tags
     # returns array of tags
     conversation_ids = conversations.pluck(:id)

@@ -4,6 +4,7 @@ import { computed, onMounted, ref } from 'vue';
 import Avatar from 'next/avatar/Avatar.vue';
 import { useI18n } from 'vue-i18n';
 import { picoSearch } from '@chatwoot/pico-search';
+import { useAdmin } from 'dashboard/composables/useAdmin';
 import {
   useStoreGetters,
   useStore,
@@ -19,6 +20,8 @@ import Button from 'dashboard/components-next/button/Button.vue';
 const getters = useStoreGetters();
 const store = useStore();
 const { t } = useI18n();
+// Supervisors can open this page but only administrators manage agents.
+const { isAdmin } = useAdmin();
 
 const loading = ref({});
 const showAddPopup = ref(false);
@@ -81,11 +84,11 @@ const verifiedAdministrators = computed(() => {
 });
 
 const showEditAction = agent => {
-  return currentUserId.value !== agent.id;
+  return isAdmin.value && currentUserId.value !== agent.id;
 };
 
 const showDeleteAction = agent => {
-  if (currentUserId.value === agent.id) {
+  if (!isAdmin.value || currentUserId.value === agent.id) {
     return false;
   }
 
@@ -165,7 +168,7 @@ const confirmDeletion = () => {
             {{ $t('AGENT_MGMT.COUNT', { n: agentList.length }) }}
           </span>
         </template>
-        <template #actions>
+        <template v-if="isAdmin" #actions>
           <Button
             :label="$t('AGENT_MGMT.HEADER_BTN_TXT')"
             size="sm"

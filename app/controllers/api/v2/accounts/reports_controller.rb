@@ -52,7 +52,7 @@ class Api::V2::Accounts::ReportsController < Api::V1::Accounts::BaseController
   end
 
   def drilldown
-    return head :unauthorized unless Current.account_user.administrator?
+    return head :unauthorized unless Current.account_user.full_conversation_access?
     return head :unprocessable_entity unless valid_drilldown_params?
 
     render json: V2::Reports::DrilldownBuilder.new(Current.account, drilldown_params).build

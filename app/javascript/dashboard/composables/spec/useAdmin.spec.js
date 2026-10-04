@@ -49,4 +49,15 @@ describe('useAdmin', () => {
     const { isAdmin } = useAdmin();
     expect(isAdmin.value).toBe(false);
   });
+
+  it('gives supervisors full conversation access without admin rights', () => {
+    useStoreGetters.mockReturnValue({
+      getCurrentRole: ref('supervisor'),
+    });
+
+    const { isAdmin, isSupervisor, hasFullConversationAccess } = useAdmin();
+    expect(isAdmin.value).toBe(false);
+    expect(isSupervisor.value).toBe(true);
+    expect(hasFullConversationAccess.value).toBe(true);
+  });
 });

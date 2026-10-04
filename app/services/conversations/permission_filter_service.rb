@@ -9,7 +9,7 @@ class Conversations::PermissionFilterService
   end
 
   def perform
-    return conversations if user_role == 'administrator'
+    return conversations if account_user&.full_conversation_access?
 
     accessible_conversations
   end

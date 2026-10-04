@@ -11,6 +11,7 @@
     "LIST": {
       "404": "There are no teams created on this account.",
       "EDIT_TEAM": "Edit team",
+      "EDIT_MEMBERS": "Edit members",
       "NONE": "None"
     },
     "CREATE_FLOW": {

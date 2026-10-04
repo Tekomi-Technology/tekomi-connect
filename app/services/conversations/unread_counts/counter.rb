@@ -180,7 +180,7 @@ class Conversations::UnreadCounts::Counter
   end
 
   def visible_inbox_ids
-    @visible_inbox_ids ||= if account_user&.administrator?
+    @visible_inbox_ids ||= if account_user&.full_conversation_access?
                              account.inboxes.pluck(:id)
                            else
                              user.inboxes.where(account_id: account.id).pluck(:id)
@@ -192,7 +192,7 @@ class Conversations::UnreadCounts::Counter
   end
 
   def visible_team_ids
-    @visible_team_ids ||= if account_user&.administrator?
+    @visible_team_ids ||= if account_user&.full_conversation_access?
                             account.teams.pluck(:id)
                           else
                             user.teams.where(account_id: account.id).pluck(:id)

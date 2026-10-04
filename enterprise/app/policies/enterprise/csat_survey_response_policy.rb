@@ -12,6 +12,6 @@ module Enterprise::CsatSurveyResponsePolicy
   end
 
   def update?
-    @account_user.administrator? || @account_user.custom_role&.permissions&.include?('report_manage')
+    @account_user.administrator? || @account_user.supervisor? || @account_user.custom_role&.permissions&.include?('report_manage')
   end
 end

@@ -660,6 +660,7 @@ en:
       dashboard: 'Dashboard'
       sidekiq: 'Sidekiq Dashboard'
       instance_health: 'Instance Health'
+      role_matrix: 'Role matrix'
       push_diagnostics: 'Push Diagnostics'
       agent_dashboard: 'Agent Dashboard'
       logout: 'Logout'
@@ -705,6 +706,69 @@ en:
       title: 'Instance Status'
       metric: 'Metric'
       value: 'Value'
+    role_matrix:
+      title: 'Role matrix'
+      description: 'What each built-in role can do inside an account. Custom roles are created per account and are not listed here.'
+      feature: 'Feature'
+      source_note: 'Defined in config/role_matrix.yml. Update that file whenever role permissions change in the code.'
+      roles:
+        administrator: 'Administrator'
+        supervisor: 'Supervisor'
+        agent: 'Agent'
+      values:
+        allow: 'Allowed'
+        deny: 'Not allowed'
+        view_only: 'View only'
+        all_inboxes: 'All inboxes'
+        assigned_inboxes: 'Inboxes and teams they belong to'
+        all_macros: 'All, including shared macros'
+        own_macros: 'Their own macros'
+        account_wide: 'Whole account'
+      groups:
+        conversations:
+          title: 'Conversations'
+          rows:
+            handle: 'View, reply to and work on conversations'
+            reassign: 'Reassign conversations'
+            delete: 'Delete conversations'
+        contacts:
+          title: 'Contacts and companies'
+          rows:
+            manage: 'View, create and edit contacts and companies'
+            export: 'Export contacts'
+            import_delete: 'Import contacts, delete contacts and companies'
+        sales:
+          title: 'Sales and tickets'
+          rows:
+            deals_tickets: 'Deals, sales pipelines and tickets'
+        reports:
+          title: 'Reports'
+          rows:
+            reports: 'View reports, including CSAT, SLA and calls'
+            drilldown: 'Open the conversations behind a chart point'
+            home_dashboard: 'Figures on the home dashboard'
+        people:
+          title: 'Agents and teams'
+          rows:
+            agents_view: 'Open the Agents page'
+            agents_manage: 'Add, edit and remove agents'
+            team_members: 'Add and remove team members'
+            teams_manage: 'Create, rename and delete teams'
+        tools:
+          title: 'Everyday tools'
+          rows:
+            canned_responses: 'Canned responses (create, edit, delete)'
+            macros: 'Macros'
+            workspace_data: 'Labels, attributes, bots, SLA, pipelines, knowledge base'
+        gmo_ai:
+          title: 'GMO AI'
+          rows:
+            use: 'View assistants, use Playground, review FAQ suggestions'
+            manage: 'Create and edit assistants, tools and scenarios'
+        system:
+          title: 'System settings'
+          rows:
+            settings: 'Inboxes, integrations, webhooks, automation, campaigns, assignment, custom roles, SAML, data import, audit logs, account and billing'
     sessions:
       greeting: 'Howdy, admin 👋'
       email: 'Email Address'

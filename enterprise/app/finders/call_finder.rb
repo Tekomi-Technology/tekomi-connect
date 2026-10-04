@@ -35,7 +35,7 @@ class CallFinder
 
   def account_wide_access?
     account_user = Current.account_user
-    account_user&.administrator? || account_user&.custom_role&.permissions&.include?('report_manage')
+    account_user&.full_conversation_access? || account_user&.custom_role&.permissions&.include?('report_manage')
   end
 
   def filter_by_status

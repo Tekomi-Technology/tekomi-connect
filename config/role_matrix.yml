@@ -1,0 +1,41 @@
+# What each built-in role can do inside an account, shown read-only on the Super Admin
+# "Role matrix" page. The rules themselves are hard-coded in frontend route permissions
+# and backend policies; update this file whenever those change.
+#
+# Row and value labels live under super_admin.role_matrix in config/locales.
+# Values: allow, deny, view_only, all_inboxes, assigned_inboxes, all_macros, own_macros, account_wide
+
+roles:
+  - administrator
+  - supervisor
+  - agent
+
+groups:
+  conversations:
+    handle: { administrator: all_inboxes, supervisor: all_inboxes, agent: assigned_inboxes }
+    reassign: { administrator: all_inboxes, supervisor: all_inboxes, agent: assigned_inboxes }
+    delete: { administrator: allow, supervisor: deny, agent: deny }
+  contacts:
+    manage: { administrator: allow, supervisor: allow, agent: allow }
+    export: { administrator: allow, supervisor: allow, agent: deny }
+    import_delete: { administrator: allow, supervisor: deny, agent: deny }
+  sales:
+    deals_tickets: { administrator: allow, supervisor: allow, agent: allow }
+  reports:
+    reports: { administrator: allow, supervisor: allow, agent: deny }
+    drilldown: { administrator: allow, supervisor: allow, agent: deny }
+    home_dashboard: { administrator: account_wide, supervisor: account_wide, agent: account_wide }
+  people:
+    agents_view: { administrator: allow, supervisor: allow, agent: deny }
+    agents_manage: { administrator: allow, supervisor: deny, agent: deny }
+    team_members: { administrator: allow, supervisor: allow, agent: deny }
+    teams_manage: { administrator: allow, supervisor: deny, agent: deny }
+  tools:
+    canned_responses: { administrator: allow, supervisor: allow, agent: allow }
+    macros: { administrator: all_macros, supervisor: own_macros, agent: own_macros }
+    workspace_data: { administrator: allow, supervisor: view_only, agent: view_only }
+  gmo_ai:
+    use: { administrator: allow, supervisor: allow, agent: allow }
+    manage: { administrator: allow, supervisor: deny, agent: deny }
+  system:
+    settings: { administrator: allow, supervisor: deny, agent: deny }
