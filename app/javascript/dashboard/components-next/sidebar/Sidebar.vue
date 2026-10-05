@@ -1057,55 +1057,37 @@ const menuItems = computed(() => {
       :class="isEffectivelyCollapsed ? 'mt-3 mb-6 gap-4' : 'mt-1 mb-4 gap-2'"
     >
       <div
-        class="flex items-center gap-3 min-w-0 py-2"
-        :class="isEffectivelyCollapsed ? 'justify-center px-1' : 'px-2'"
+        class="flex min-w-0 py-2"
+        :class="
+          isEffectivelyCollapsed
+            ? 'justify-center px-1'
+            : 'flex-col items-start gap-1.5 px-2'
+        "
       >
-        <!-- Logo and brand name sit on one row; the name is hidden when the
-             sidebar is collapsed so only the mark shows. -->
-        <!-- On desktop the logo doubles as the collapse toggle: hovering
-             covers the mark with a brand tile and a double chevron. -->
-        <button
-          v-if="!isMobile"
-          v-tooltip.right="
-            isEffectivelyCollapsed ? t('SIDEBAR.EXPAND') : t('SIDEBAR.COLLAPSE')
-          "
-          type="button"
-          class="relative grid shrink-0 rounded-lg place-items-center size-11 group/logo focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-n-brand"
-          :aria-label="
-            isEffectivelyCollapsed ? t('SIDEBAR.EXPAND') : t('SIDEBAR.COLLAPSE')
-          "
-          @click="onResizeHandleDoubleClick"
-        >
-          <Logo dark class="object-contain size-11" />
-          <span
-            class="absolute inset-0 grid transition-opacity duration-150 rounded-lg opacity-0 place-items-center bg-n-brand shadow-md group-hover/logo:opacity-100 group-focus-visible/logo:opacity-100"
-          >
+        <Logo
+          v-if="isEffectivelyCollapsed"
+          dark
+          class="shrink-0 size-11 object-contain"
+        />
+        <template v-else>
+          <Logo
+            dark
+            variant="full"
+            class="h-8 w-auto max-w-full object-contain object-left"
+          />
+          <span class="flex flex-col items-start min-w-0 leading-tight">
             <span
-              class="text-white size-6 rtl:rotate-180"
-              :class="
-                isEffectivelyCollapsed
-                  ? 'i-ph-caret-double-right-bold'
-                  : 'i-ph-caret-double-left-bold'
-              "
-            />
+              class="text-[15px] font-bold tracking-[0.12em] text-n-slate-12 truncate"
+            >
+              {{ t('SIDEBAR_ITEMS.BRAND_NAME') }}
+            </span>
+            <span
+              class="text-[11px] font-medium italic tracking-wide text-n-brand truncate"
+            >
+              {{ t('SIDEBAR_ITEMS.BRAND_TAGLINE') }}
+            </span>
           </span>
-        </button>
-        <Logo v-else dark class="shrink-0 size-11 object-contain" />
-        <span
-          v-if="!isEffectivelyCollapsed"
-          class="flex flex-col items-start min-w-0 leading-tight"
-        >
-          <span
-            class="text-[15px] font-bold tracking-[0.1em] text-n-slate-12 whitespace-nowrap"
-          >
-            {{ t('SIDEBAR_ITEMS.BRAND_NAME') }}
-          </span>
-          <span
-            class="text-[11px] font-medium italic tracking-wide text-n-brand whitespace-nowrap"
-          >
-            {{ t('SIDEBAR_ITEMS.BRAND_TAGLINE') }}
-          </span>
-        </span>
+        </template>
       </div>
       <div
         class="flex gap-2"
@@ -1184,6 +1166,20 @@ const menuItems = computed(() => {
         />
       </div>
     </section>
+    <Button
+      v-tooltip.right="
+        isEffectivelyCollapsed ? $t('SIDEBAR.EXPAND') : $t('SIDEBAR.COLLAPSE')
+      "
+      :icon="
+        isEffectivelyCollapsed
+          ? 'i-lucide-chevron-right'
+          : 'i-lucide-chevron-left'
+      "
+      slate
+      xs
+      class="hidden md:inline-flex absolute top-16 z-50 rounded-full border shadow-sm ltr:-right-3 rtl:-left-3 rtl:rotate-180 bg-n-solid-2 border-n-weak hover:bg-n-alpha-2"
+      @click="onResizeHandleDoubleClick"
+    />
     <!-- Resize Handle (desktop only) -->
     <div
       class="hidden md:block absolute top-0 h-full w-1 cursor-col-resize z-40 ltr:right-0 rtl:left-0 group"
