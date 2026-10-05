@@ -1066,7 +1066,7 @@ const menuItems = computed(() => {
         :class="
           isEffectivelyCollapsed
             ? 'justify-center px-1'
-            : 'flex-col items-start gap-1.5 px-2'
+            : 'items-center gap-2.5 px-2'
         "
       >
         <Logo
@@ -1074,13 +1074,16 @@ const menuItems = computed(() => {
           dark
           class="shrink-0 size-11 object-contain"
         />
+        <!-- Logo on the left, name over tagline on the right, both centred on one row. -->
         <template v-else>
           <Logo
             dark
             variant="full"
-            class="h-8 w-auto max-w-full object-contain object-left"
+            class="h-7 w-auto max-w-[45%] shrink-0 object-contain object-left"
           />
-          <span class="flex flex-col items-start min-w-0 leading-tight">
+          <span
+            class="flex flex-col justify-center items-start min-w-0 gap-0.5 leading-tight"
+          >
             <span
               class="text-[15px] font-bold tracking-[0.12em] text-n-slate-12 truncate"
             >
