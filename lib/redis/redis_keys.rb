@@ -87,6 +87,8 @@ module Redis::RedisKeys
   EMAIL_MESSAGE_MUTEX = 'EMAIL_CHANNEL_LOCK::%<inbox_id>s'.freeze
   WHATSAPP_MESSAGE_MUTEX = 'WHATSAPP_MESSAGE_CREATE_LOCK::%<inbox_id>s::%<sender_id>s'.freeze
   ZALO_OA_MESSAGE_MUTEX = 'ZALO_OA_MESSAGE_CREATE_LOCK::%<inbox_id>s::%<user_id>s'.freeze
+  # Automatic contact merges run one at a time per account, so two jobs cannot merge the same pair.
+  CONTACT_AUTO_MERGE_MUTEX = 'CONTACT_AUTO_MERGE_LOCK::%<account_id>s'.freeze
   ZALO_OA_SENT_MESSAGE = 'ZALO_OA_SENT_MESSAGE::%<inbox_id>s::%<zalo_message_id>s'.freeze
   # Personal Zalo threads are serialized per (inbox, thread) so the first event creates the
   # conversation and the rest append; a thread is a user id or a group id.

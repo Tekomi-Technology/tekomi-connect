@@ -88,6 +88,14 @@ describe ContactIdentifyAction do
         expect { contact.reload }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
+      it 'merges with a contact that stored the same number in local format' do
+        existing_phone_number_contact = create(:contact, account: account, phone_number: '0901000001')
+        params = { phone_number: '+84901000001' }
+        result = described_class.new(contact: contact, params: params).perform
+        expect(result.id).to eq existing_phone_number_contact.id
+        expect { contact.reload }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+
       it 'will not merge the current contact to phone contact if identifier of phone contact is different' do
         existing_phone_number_contact = create(:contact, account: account, identifier: '1', phone_number: '+919999888877')
         params = { identifier: '2', phone_number: '+919999888877' }

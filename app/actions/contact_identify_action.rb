@@ -66,7 +66,9 @@ class ContactIdentifyAction
   def existing_phone_number_contact
     return if params[:phone_number].blank?
 
-    @existing_phone_number_contact ||= account.contacts.find_by(phone_number: params[:phone_number])
+    # Exact match first (indexed), then the normalized form so "0901…" and "+84901…" are one person.
+    @existing_phone_number_contact ||= account.contacts.find_by(phone_number: params[:phone_number]) ||
+                                       account.contacts.with_normalized_phone(params[:phone_number]).where.not(id: @contact.id).order(:id).first
   end
 
   def merge_contacts?(existing_contact, key)

@@ -48,6 +48,7 @@ class Contact < ApplicationRecord
   include AvailabilityStatusable
   include Labelable
   include LlmFormattable
+  include IdentityMergeable
 
   after_commit :enqueue_crm_cache_match, on: :create, if: :phone_number
 
