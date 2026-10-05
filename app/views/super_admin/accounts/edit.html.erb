@@ -1,19 +1,19 @@
 <% content_for(:title) { t("administrate.actions.edit_resource", name: page.page_title) } %>
 
-<header class="main-content__header">
-  <h1 class="main-content__page-title">
-    <%= content_for(:title) %>
-  </h1>
+<div class="flex flex-col gap-6 px-8 pt-8 pb-12 min-h-full bg-slate-25">
+  <header class="flex flex-wrap gap-4 justify-between items-center">
+    <h1 class="text-2xl font-bold text-slate-800">
+      <%= content_for(:title) %>
+    </h1>
 
-  <div>
     <%= link_to(
           t("administrate.actions.show_resource", name: page.page_title),
           [namespace, page.resource],
-          class: "button"
+          class: "inline-flex items-center px-3.5 py-2 text-sm font-medium whitespace-nowrap rounded-lg border bg-white border-slate-75 text-slate-800 hover:text-woot-600"
         ) if accessible_action?(page.resource, :show) %>
-  </div>
-</header>
+  </header>
 
-<section class="main-content__body [&_.field-unit]:border-b [&_.field-unit]:border-n-weak [&_.field-unit]:pb-6">
-  <%= render "form", page: page %>
-</section>
+  <section class="p-6 bg-white rounded-xl border border-slate-75 [&_.field-unit]:border-b [&_.field-unit]:border-slate-50 [&_.field-unit]:pb-6">
+    <%= render "form", page: page %>
+  </section>
+</div>

@@ -1,37 +1,34 @@
 <% content_for(:title) do %><%= t('super_admin.push_diagnostics.title') %><% end %>
 
-<header class="main-content__header" role="banner">
-  <h1 class="main-content__page-title" id="page-title"><%= t('super_admin.push_diagnostics.title') %></h1>
-</header>
+<div class="flex flex-col gap-6 px-8 pt-8 pb-12 min-h-full bg-slate-25">
+  <header class="flex flex-col gap-1" role="banner">
+    <h1 class="text-2xl font-bold text-slate-800" id="page-title"><%= t('super_admin.push_diagnostics.title') %></h1>
+    <p class="max-w-prose text-sm text-slate-600"><%= t('super_admin.push_diagnostics.description') %></p>
+  </header>
 
-<section class="main-content__body">
-  <p class="text-sm text-slate-600 mb-6">
-    <%= t('super_admin.push_diagnostics.description') %>
-  </p>
-
-  <div class="mb-8">
-    <h2 class="text-base font-semibold mb-2"><%= t('super_admin.push_diagnostics.lookup.title') %></h2>
+  <div class="flex flex-col gap-4 p-6 bg-white rounded-xl border border-slate-75">
+    <h2 class="text-base font-semibold text-slate-800"><%= t('super_admin.push_diagnostics.lookup.title') %></h2>
     <%= form_with url: super_admin_push_diagnostics_path, method: :get, local: true, class: 'flex gap-2 items-center' do |f| %>
       <%= f.text_field :user_query,
                        value: @query,
                        placeholder: t('super_admin.push_diagnostics.lookup.placeholder'),
-                       class: 'border border-slate-100 p-1.5 rounded-md w-80' %>
-      <%= f.submit t('super_admin.push_diagnostics.lookup.button'), class: 'border border-slate-200 bg-slate-50 px-3 py-1.5 rounded-md cursor-pointer' %>
+                       class: 'sm:w-80 px-3 py-2 w-full text-sm rounded-lg border border-slate-75 text-slate-800 focus:border-woot-500 focus:outline-none' %>
+      <%= f.submit t('super_admin.push_diagnostics.lookup.button'), class: 'px-3.5 py-2 text-sm font-medium rounded-lg border cursor-pointer border-slate-75 text-slate-800 hover:text-woot-600' %>
     <% end %>
     <% if @query.present? && @user.nil? %>
-      <p class="text-sm text-red-600 mt-2"><%= t('super_admin.push_diagnostics.lookup.not_found', query: @query) %></p>
+      <p class="text-sm text-red-700"><%= t('super_admin.push_diagnostics.lookup.not_found', query: @query) %></p>
     <% end %>
   </div>
 
   <% if @user %>
-    <div class="mb-6 border border-slate-100 rounded-md p-4 bg-slate-25">
+    <div class="flex flex-col gap-4 p-6 bg-white rounded-xl border border-slate-75">
       <p class="text-sm">
         <strong><%= @user.name %></strong>
         &middot; <%= @user.email %>
         &middot; ID <%= @user.id %>
       </p>
       <% if @user.accounts.any? %>
-        <p class="text-xs text-slate-500 mt-1">
+        <p class="text-xs text-slate-600">
           <%= t('super_admin.push_diagnostics.accounts') %>
           <% @user.accounts.each_with_index do |account, index| %>
             <%= ', ' if index.positive? %>
@@ -41,9 +38,9 @@
       <% end %>
     </div>
 
-    <div class="mb-8">
-      <h2 class="text-base font-semibold mb-2"><%= t('super_admin.push_diagnostics.subscriptions.title', count: @subscriptions.count) %></h2>
-      <p class="text-xs text-amber-700 mb-3">
+    <div class="flex flex-col gap-4 p-6 bg-white rounded-xl border border-slate-75">
+      <h2 class="text-base font-semibold text-slate-800"><%= t('super_admin.push_diagnostics.subscriptions.title', count: @subscriptions.count) %></h2>
+      <p class="text-xs text-yellow-700">
         <%= t('super_admin.push_diagnostics.subscriptions.warning') %>
       </p>
 
@@ -57,28 +54,28 @@
               <%= label_tag :push_title, t('super_admin.push_diagnostics.form.title'), class: 'block text-xs font-medium text-slate-600 mb-1' %>
               <%= text_field_tag :push_title,
                                   params[:push_title].presence || Notification::PushTestService.default_title,
-                                  class: 'border border-slate-100 p-1.5 rounded-md w-full text-sm' %>
+                                  class: 'px-3 py-2 w-full text-sm rounded-lg border border-slate-75 text-slate-800 focus:border-woot-500 focus:outline-none' %>
             </div>
             <div>
               <%= label_tag :push_body, t('super_admin.push_diagnostics.form.body'), class: 'block text-xs font-medium text-slate-600 mb-1' %>
               <%= text_area_tag :push_body,
                                  params[:push_body].presence || Notification::PushTestService.default_body,
                                  rows: 2,
-                                 class: 'border border-slate-100 p-1.5 rounded-md w-full text-sm' %>
+                                 class: 'px-3 py-2 w-full text-sm rounded-lg border border-slate-75 text-slate-800 focus:border-woot-500 focus:outline-none' %>
             </div>
-            <p class="text-xs text-slate-400 mt-1"><%= t('super_admin.push_diagnostics.form.hint') %></p>
+            <p class="text-xs text-slate-600"><%= t('super_admin.push_diagnostics.form.hint') %></p>
           </div>
-          <table class="w-full text-sm border border-slate-100 rounded-md">
-            <thead class="text-left text-xs text-slate-500 bg-slate-25">
+          <table class="w-full text-sm border-collapse">
+            <thead class="border-b border-slate-75">
               <tr>
-                <th class="px-3 py-2 align-middle first:!pl-4 last:!pr-4"><input type="checkbox" id="toggle-all"></th>
-                <th class="px-3 py-2 first:!pl-4 last:!pr-4">ID</th>
-                <th class="px-3 py-2 first:!pl-4 last:!pr-4"><%= t('super_admin.push_diagnostics.columns.type') %></th>
-                <th class="px-3 py-2 first:!pl-4 last:!pr-4"><%= t('super_admin.push_diagnostics.columns.device_endpoint') %></th>
-                <th class="px-3 py-2 first:!pl-4 last:!pr-4"><%= t('super_admin.push_diagnostics.columns.push_token') %></th>
-                <th class="px-3 py-2 first:!pl-4 last:!pr-4"><%= t('super_admin.push_diagnostics.columns.device_details') %></th>
-                <th class="px-3 py-2 first:!pl-4 last:!pr-4"><%= t('super_admin.push_diagnostics.columns.created') %></th>
-                <th class="px-3 py-2 first:!pl-4 last:!pr-4"><%= t('super_admin.push_diagnostics.columns.last_updated') %></th>
+                <th class="px-4 py-3 align-middle"><input type="checkbox" id="toggle-all"></th>
+                <th class="px-4 py-3">ID</th>
+                <th class="px-4 py-3"><%= t('super_admin.push_diagnostics.columns.type') %></th>
+                <th class="px-4 py-3"><%= t('super_admin.push_diagnostics.columns.device_endpoint') %></th>
+                <th class="px-4 py-3"><%= t('super_admin.push_diagnostics.columns.push_token') %></th>
+                <th class="px-4 py-3"><%= t('super_admin.push_diagnostics.columns.device_details') %></th>
+                <th class="px-4 py-3"><%= t('super_admin.push_diagnostics.columns.created') %></th>
+                <th class="px-4 py-3"><%= t('super_admin.push_diagnostics.columns.last_updated') %></th>
               </tr>
             </thead>
             <tbody>
@@ -94,27 +91,27 @@
                   <% token_display = attrs['push_token'].present? ? "…#{attrs['push_token'].to_s.last(6)}" : '—' %>
                 <% end %>
                 <% extra_attrs = attrs.except('endpoint', 'p256dh', 'auth', 'push_token', 'device_id') %>
-                <tr class="border-t border-slate-100 align-middle">
-                  <td class="px-3 py-2 first:!pl-4 last:!pr-4">
+                <tr class="border-b border-slate-50 last:border-0 align-middle">
+                  <td class="px-4 py-3">
                     <%= check_box_tag 'subscription_ids[]', sub.id, false, class: 'subscription-checkbox' %>
                   </td>
-                  <td class="px-3 py-2 first:!pl-4 last:!pr-4"><%= sub.id %></td>
-                  <td class="px-3 py-2 first:!pl-4 last:!pr-4"><%= sub.subscription_type %></td>
-                  <td class="px-3 py-2 first:!pl-4 last:!pr-4 font-mono text-xs break-all"><%= device_display %></td>
-                  <td class="px-3 py-2 first:!pl-4 last:!pr-4 font-mono text-xs break-all"><%= token_display %></td>
-                  <td class="px-3 py-2 first:!pl-4 last:!pr-4 text-xs align-top">
+                  <td class="px-4 py-3"><%= sub.id %></td>
+                  <td class="px-4 py-3"><%= sub.subscription_type %></td>
+                  <td class="px-4 py-3 font-mono text-xs break-all"><%= device_display %></td>
+                  <td class="px-4 py-3 font-mono text-xs break-all"><%= token_display %></td>
+                  <td class="px-4 py-3 text-xs align-top">
                     <% if extra_attrs.present? %>
                       <% extra_attrs.each do |k, v| %>
-                        <div><span class="text-slate-500"><%= k %>:</span> <span class="font-mono"><%= v.to_s.truncate(40) %></span></div>
+                        <div><span class="text-slate-600"><%= k %>:</span> <span class="font-mono"><%= v.to_s.truncate(40) %></span></div>
                       <% end %>
                     <% else %>
-                      <span class="text-slate-400">—</span>
+                      <span class="text-slate-600">—</span>
                     <% end %>
                   </td>
-                  <td class="px-3 py-2 first:!pl-4 last:!pr-4 whitespace-nowrap"><%= sub.created_at.strftime('%Y-%m-%d %H:%M') %></td>
-                  <td class="px-3 py-2 first:!pl-4 last:!pr-4 whitespace-nowrap">
+                  <td class="px-4 py-3 whitespace-nowrap"><%= sub.created_at.strftime('%Y-%m-%d %H:%M') %></td>
+                  <td class="px-4 py-3 whitespace-nowrap">
                     <%= sub.updated_at.strftime('%Y-%m-%d %H:%M') %>
-                    <span class="text-xs text-slate-400">(<%= t('super_admin.push_diagnostics.time_ago', time: time_ago_in_words(sub.updated_at)) %>)</span>
+                    <span class="text-xs text-slate-600">(<%= t('super_admin.push_diagnostics.time_ago', time: time_ago_in_words(sub.updated_at)) %>)</span>
                   </td>
                 </tr>
               <% end %>
@@ -122,49 +119,49 @@
           </table>
           <div class="mt-4 flex gap-2">
             <%= f.submit t('super_admin.push_diagnostics.actions.send'),
-                         class: 'border border-slate-200 bg-slate-50 px-3 py-1.5 rounded-md cursor-pointer font-medium' %>
+                         class: 'px-3.5 py-2 text-sm font-semibold text-white rounded-lg cursor-pointer bg-woot-500 hover:bg-woot-600' %>
             <%= submit_tag t('super_admin.push_diagnostics.actions.delete'),
                            formaction: destroy_subscriptions_super_admin_push_diagnostics_path,
                            formmethod: 'post',
                            data: { confirm: t('super_admin.push_diagnostics.actions.delete_confirm') },
-                           class: 'border border-red-200 bg-red-50 text-red-700 px-3 py-1.5 rounded-md cursor-pointer font-medium' %>
+                           class: 'px-3.5 py-2 text-sm font-medium rounded-lg border cursor-pointer border-red-200 text-red-700 hover:bg-red-100' %>
           </div>
         <% end %>
       <% end %>
     </div>
 
     <% if @results.present? %>
-      <div class="mb-8">
-        <h2 class="text-base font-semibold mb-2"><%= t('super_admin.push_diagnostics.results.title') %></h2>
-        <table class="w-full text-sm border border-slate-100 rounded-md">
-          <thead class="text-left text-xs text-slate-500 bg-slate-25">
+      <div class="flex flex-col gap-4 p-6 bg-white rounded-xl border border-slate-75">
+        <h2 class="text-base font-semibold text-slate-800"><%= t('super_admin.push_diagnostics.results.title') %></h2>
+        <table class="w-full text-sm border-collapse">
+          <thead class="border-b border-slate-75">
             <tr>
-              <th class="px-3 py-2 first:!pl-4 last:!pr-4"><%= t('super_admin.push_diagnostics.columns.sub_id') %></th>
-              <th class="px-3 py-2 first:!pl-4 last:!pr-4"><%= t('super_admin.push_diagnostics.columns.type') %></th>
-              <th class="px-3 py-2 first:!pl-4 last:!pr-4"><%= t('super_admin.push_diagnostics.columns.device') %></th>
-              <th class="px-3 py-2 first:!pl-4 last:!pr-4"><%= t('super_admin.push_diagnostics.columns.push_token') %></th>
-              <th class="px-3 py-2 first:!pl-4 last:!pr-4"><%= t('super_admin.push_diagnostics.columns.status') %></th>
-              <th class="px-3 py-2 first:!pl-4 last:!pr-4"><%= t('super_admin.push_diagnostics.columns.details') %></th>
+              <th class="px-4 py-3"><%= t('super_admin.push_diagnostics.columns.sub_id') %></th>
+              <th class="px-4 py-3"><%= t('super_admin.push_diagnostics.columns.type') %></th>
+              <th class="px-4 py-3"><%= t('super_admin.push_diagnostics.columns.device') %></th>
+              <th class="px-4 py-3"><%= t('super_admin.push_diagnostics.columns.push_token') %></th>
+              <th class="px-4 py-3"><%= t('super_admin.push_diagnostics.columns.status') %></th>
+              <th class="px-4 py-3"><%= t('super_admin.push_diagnostics.columns.details') %></th>
             </tr>
           </thead>
           <tbody>
             <% @results.each do |r| %>
-              <tr class="border-t border-slate-100 align-top">
-                <td class="px-3 py-2 first:!pl-4 last:!pr-4"><%= r[:id] %></td>
-                <td class="px-3 py-2 first:!pl-4 last:!pr-4"><%= r[:type] %></td>
-                <td class="px-3 py-2 first:!pl-4 last:!pr-4 font-mono text-xs break-all"><%= r[:device] %></td>
-                <td class="px-3 py-2 first:!pl-4 last:!pr-4 font-mono text-xs break-all"><%= r[:token_tail] %></td>
-                <td class="px-3 py-2 first:!pl-4 last:!pr-4">
+              <tr class="border-b border-slate-50 last:border-0 align-top">
+                <td class="px-4 py-3"><%= r[:id] %></td>
+                <td class="px-4 py-3"><%= r[:type] %></td>
+                <td class="px-4 py-3 font-mono text-xs break-all"><%= r[:device] %></td>
+                <td class="px-4 py-3 font-mono text-xs break-all"><%= r[:token_tail] %></td>
+                <td class="px-4 py-3">
                   <%
                     color = {
-                      success: 'bg-green-100 text-green-800',
-                      failure: 'bg-red-100 text-red-800',
-                      skipped: 'bg-slate-100 text-slate-600'
+                      success: 'bg-green-100 text-green-700',
+                      failure: 'bg-red-100 text-red-700',
+                      skipped: 'bg-slate-50 text-slate-600'
                     }[r[:status]]
                   %>
                   <span class="px-2 py-0.5 rounded-full text-xs <%= color %>"><%= t("super_admin.push_diagnostics.statuses.#{r[:status]}", default: r[:status].to_s) %></span>
                 </td>
-                <td class="px-3 py-2 first:!pl-4 last:!pr-4 font-mono text-xs break-all whitespace-pre-wrap"><%= r[:message] %></td>
+                <td class="px-4 py-3 font-mono text-xs break-all whitespace-pre-wrap"><%= r[:message] %></td>
               </tr>
             <% end %>
           </tbody>
@@ -172,7 +169,7 @@
       </div>
     <% end %>
   <% end %>
-</section>
+</div>
 
 <% content_for :javascript do %>
   <script>

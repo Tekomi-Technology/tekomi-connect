@@ -1,0 +1,33 @@
+<%#
+# Edit
+
+This view is the template for the edit page.
+It renders the form partial, which in turn renders each field.
+
+## Local variables:
+
+- `page`:
+  An instance of [Administrate::Page::Form][1].
+
+[1]: http://www.rubydoc.info/gems/administrate/Administrate/Page/Form
+%>
+
+<% content_for(:title) { t("administrate.actions.edit_resource", name: page.page_title) } %>
+
+<div class="flex flex-col gap-6 px-8 pt-8 pb-12 min-h-full bg-slate-25">
+  <header class="flex flex-wrap gap-4 justify-between items-center">
+    <h1 class="text-2xl font-bold text-slate-800">
+      <%= content_for(:title) %>
+    </h1>
+
+    <%= link_to(
+      t("administrate.actions.show_resource", name: page.page_title),
+      [namespace, page.resource],
+      class: "inline-flex items-center px-3.5 py-2 text-sm font-medium whitespace-nowrap rounded-lg border bg-white border-slate-75 text-slate-800 hover:text-woot-600",
+    ) if accessible_action?(page.resource, :show) %>
+  </header>
+
+  <section class="p-6 bg-white rounded-xl border border-slate-75">
+    <%= render "form", page: page %>
+  </section>
+</div>

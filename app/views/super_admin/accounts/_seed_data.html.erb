@@ -1,15 +1,11 @@
 <% if ENV.fetch('ENABLE_ACCOUNT_SEEDING', !Rails.env.production?)  %>
-<section class="main-content__body">
- <hr/>
-  <%= form_for([:seed, namespace, page.resource], method: :post, html: { class: "form" }) do |f| %>
-
-  <div class="form-actions">
-    <div class="pb-3">
-      <p><%= t('super_admin.accounts.seed.description') %></p>
-      <p class="text-color-red"><%= t('super_admin.accounts.seed.warning') %></p>
+<section class="flex flex-col gap-4 p-6 bg-white rounded-xl border border-slate-75">
+  <%= form_for([:seed, namespace, page.resource], method: :post, html: { class: "flex flex-col gap-4 items-start" }) do |f| %>
+    <div class="flex flex-col gap-1">
+      <p class="text-sm text-slate-800"><%= t('super_admin.accounts.seed.description') %></p>
+      <p class="text-sm text-red-700"><%= t('super_admin.accounts.seed.warning') %></p>
     </div>
-  <%= f.submit t('super_admin.accounts.seed.button') %>
-  </div>
+    <%= f.submit t('super_admin.accounts.seed.button'), class: "px-3.5 py-2 text-sm font-semibold text-white rounded-lg cursor-pointer bg-woot-500 hover:bg-woot-600" %>
   <% end %>
 </section>
 <% end %>

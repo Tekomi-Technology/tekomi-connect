@@ -20,17 +20,25 @@ as defined by the routes in the `admin/` namespace
   }
 %>
 
-<div class="border-slate-100 border-r w-56 flex-shrink-0 justify-between h-full flex flex-col" role="navigation">
+<div class="flex flex-col flex-shrink-0 justify-between h-full bg-white border-r w-60 border-slate-75" role="navigation">
   <div>
-    <div class="flex mx-4 mb-4 border-slate-100 border-b py-6">
-      <%= link_to image_tag('/brand-assets/logo_thumbnail.svg', alt: "#{application_title} #{t('super_admin.navigation.admin_dashboard')}", class: 'h-10'), super_admin_root_url %>
-      <div class="flex flex-col ml-3">
-        <div class="text-sm"><%= application_title %> <%= Chatwoot.config[:version] %></div>
-        <div class="text-xs text-slate-700 mt-0.5"><%= t('super_admin.navigation.console') %></div>
+    <div class="flex flex-col gap-3 px-5 py-6 border-b border-slate-75">
+      <%= link_to super_admin_root_url, class: 'block' do %>
+        <%= image_tag '/brand-assets/logo.svg', alt: "#{application_title} #{t('super_admin.navigation.admin_dashboard')}", class: 'object-contain object-left w-auto max-w-full h-11' %>
+      <% end %>
+      <div class="flex flex-col gap-0.5">
+        <div class="flex gap-2 items-baseline">
+          <span class="text-base font-semibold truncate text-slate-800"><%= application_title %></span>
+          <span class="px-1.5 py-0.5 text-xxs font-semibold rounded-md shrink-0 bg-woot-50 text-woot-600"><%= Chatwoot.config[:version] %></span>
+        </div>
+        <div class="text-xs text-slate-600"><%= t('super_admin.navigation.console') %></div>
       </div>
     </div>
 
-    <ul class="my-4">
+    <ul class="py-4">
+      <li class="px-5 pt-1 pb-2 text-xxs font-semibold tracking-widest uppercase text-slate-500">
+        <%= t('super_admin.navigation.group_core') %>
+      </li>
       <%= render partial: "nav_item", locals: { icon: 'icon-grid-line', url: super_admin_root_url, label: t('super_admin.navigation.dashboard') } %>
       <% Administrate::Namespace.new(namespace).resources.each do |resource| %>
         <% next if ["account_users", "access_tokens", "installation_configs", "dashboard", "devise/sessions", "app_configs", "instance_statuses", "role_matrices", "settings", "push_diagnostics", "llm_providers", "llm_feature_models", "llm_prompt_templates"].include?  resource.resource %>
@@ -47,7 +55,10 @@ as defined by the routes in the `admin/` namespace
     </ul>
   </div>
   <div>
-    <ul class="my-4">
+    <ul class="py-4 border-t border-slate-75">
+      <li class="px-5 pt-1 pb-2 text-xxs font-semibold tracking-widest uppercase text-slate-500">
+        <%= t('super_admin.navigation.group_operations') %>
+      </li>
       <%= render partial: "nav_item", locals: { icon: 'icon-mist-fill', url: sidekiq_web_url, label: t('super_admin.navigation.sidekiq') } %>
       <%= render partial: "nav_item", locals: { icon: 'icon-health-book-line', url: super_admin_instance_status_url, label: t('super_admin.navigation.instance_health') } %>
       <%= render partial: "nav_item", locals: { icon: 'icon-lock-line', url: super_admin_role_matrix_url, label: t('super_admin.navigation.role_matrix') } %>

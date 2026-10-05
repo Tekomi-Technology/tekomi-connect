@@ -1,23 +1,30 @@
 <% content_for(:title) do %>
   <%= t('super_admin.instance_statuses.title') %>
 <% end %>
-<header class="main-content__header" role="banner">
-  <h1 class="main-content__page-title" id="page-title">
-    <%= content_for(:title) %>
-  </h1>
-</header>
-<section class="main-content__body">
-  <table>
-  <tr>
-    <th><%= t('super_admin.instance_statuses.metric') %></th>
-    <th><%= t('super_admin.instance_statuses.value') %></th>
-  </tr>
-  <% @metrics.each do |key,value| %>
-   <tr>
-   <td> <%= t("super_admin.instance_statuses.metrics.#{key.parameterize(separator: '_')}", default: key) %> </td>
-   <td> <%= value %></td>
-  </tr>
-  <% end %>
-</table>
 
-</section>
+<div class="flex flex-col gap-6 px-8 pt-8 pb-12 min-h-full bg-slate-25">
+  <header role="banner">
+    <h1 class="text-2xl font-bold text-slate-800" id="page-title">
+      <%= content_for(:title) %>
+    </h1>
+  </header>
+
+  <section class="overflow-x-auto bg-white rounded-xl border border-slate-75">
+    <table class="w-full border-collapse">
+      <thead>
+        <tr class="border-b border-slate-75">
+          <th class="px-5 py-3 text-xs font-semibold tracking-wide text-left uppercase text-slate-600"><%= t('super_admin.instance_statuses.metric') %></th>
+          <th class="px-5 py-3 text-xs font-semibold tracking-wide text-left uppercase text-slate-600"><%= t('super_admin.instance_statuses.value') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @metrics.each do |key,value| %>
+          <tr class="border-b border-slate-50 last:border-0">
+            <td class="px-5 py-3 text-sm text-slate-600"><%= t("super_admin.instance_statuses.metrics.#{key.parameterize(separator: '_')}", default: key) %></td>
+            <td class="px-5 py-3 text-sm font-medium break-words text-slate-800"><%= value %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </section>
+</div>

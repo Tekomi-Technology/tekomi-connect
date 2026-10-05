@@ -11,12 +11,12 @@ Used by both account and user show pages.
 - `resource_type`: Either 'account' or 'user' to determine hidden field
 %>
 
-<section class="main-content__body">
+<section class="flex flex-col gap-4 p-6 bg-white rounded-xl border border-slate-75">
   <% account_user_page = Administrate::Page::Form.new(AccountUserDashboard.new, AccountUser.new) %>
-  <%= form_for([namespace, account_user_page.resource], html: { class: "form" }) do |f| %>
+  <%= form_for([namespace, account_user_page.resource], html: { class: "flex flex-col gap-4" }) do |f| %>
     <% if account_user_page.resource.errors.any? %>
-      <div id="error_explanation">
-        <h2>
+      <div id="error_explanation" class="flex flex-col gap-2 px-4 py-3 rounded-lg bg-red-100 text-red-700">
+        <h2 class="text-sm font-semibold">
           <%= t(
             "administrate.form.errors",
             pluralized_errors: pluralize(
@@ -27,9 +27,9 @@ Used by both account and user show pages.
           ) %>
         </h2>
 
-        <ul>
+        <ul class="flex flex-col gap-1 pl-4 text-sm list-disc">
           <% account_user_page.resource.errors.full_messages.each do |message| %>
-            <li class="flash-error"><%= message %></li>
+            <li><%= message %></li>
           <% end %>
         </ul>
       </div>
@@ -47,8 +47,8 @@ Used by both account and user show pages.
       <% end %>
     <% end -%>
 
-    <div class="form-actions">
-      <%= f.submit %>
+    <div class="flex items-start">
+      <%= f.submit class: "px-3.5 py-2 text-sm font-semibold text-white rounded-lg cursor-pointer bg-woot-500 hover:bg-woot-600" %>
     </div>
   <% end %>
 </section>

@@ -1,9 +1,6 @@
-<section class="main-content__body">
- <hr/>
-  <%= form_for([:reset_cache, namespace, page.resource], method: :post, html: { class: "form" }) do |f| %>
-    <div class="form-actions">
-      <p class="pb-3"><%= t('super_admin.accounts.reset_cache.description_html') %></p>
-      <%= f.submit t('super_admin.accounts.reset_cache.button') %>
-    </div>
+<section class="flex flex-col gap-4 p-6 bg-white rounded-xl border border-slate-75">
+  <%= form_for([:reset_cache, namespace, page.resource], method: :post, html: { class: "flex flex-col gap-4 items-start" }) do |f| %>
+    <p class="text-sm text-slate-800"><%= t('super_admin.accounts.reset_cache.description_html') %></p>
+    <%= f.submit t('super_admin.accounts.reset_cache.button'), class: "px-3.5 py-2 text-sm font-medium rounded-lg border cursor-pointer border-slate-75 text-slate-800 hover:text-woot-600" %>
   <% end %>
 </section>
