@@ -806,6 +806,70 @@
     },
     "DIRECTION": { "INBOUND": "Inbound", "OUTBOUND": "Outbound" }
   },
+  "CONVERSATION_EMOTION_REPORTS": {
+    "HEADER": "Conversation emotions",
+    "DESCRIPTION": "Automatically classify emotion when a conversation is resolved and reanalyze it after new messages.",
+    "LOADING": "Loading conversations...",
+    "EMPTY": "No conversations match these filters.",
+    "ERROR": "Could not load conversation emotion reports.",
+    "UPDATE_ERROR": "Could not update the follow-up status.",
+    "PREVIOUS": "Previous",
+    "NEXT": "Next",
+    "EMPTY_VALUE": "—",
+    "CONVERSATION_ID": "#{id}",
+    "PAGINATION": "Page {current}/{total} · {count} conversations",
+    "FILTERS": {
+      "ALL": "All",
+      "EMOTION": "Emotion",
+      "STATUS": "Analysis status",
+      "ACTION_STATUS": "Follow-up status",
+      "INBOX": "Inbox",
+      "ASSIGNEE": "Agent",
+      "PERIOD": "Period"
+    },
+    "CARDS": {
+      "TOTAL": "Total conversations",
+      "COMPLETED": "Analyzed",
+      "NEEDS_FOLLOW_UP": "Needs follow-up",
+      "AGGRESSIVE": "Aggressive"
+    },
+    "TABLE": {
+      "TIME": "Resolved at",
+      "CUSTOMER": "Customer",
+      "CHANNEL": "Channel",
+      "ASSIGNEE": "Agent",
+      "EMOTION": "Emotion",
+      "REASON": "Assessment",
+      "ACTION_STATUS": "Follow-up",
+      "CONVERSATION": "Conversation"
+    },
+    "EMOTION": {
+      "VUI": "Happy",
+      "TRUNG TÍNH": "Neutral",
+      "BUỒN": "Sad",
+      "KHÓ CHỊU": "Dissatisfied",
+      "GAY GẮT": "Aggressive"
+    },
+    "REPORT_STATUS": {
+      "PENDING": "Pending",
+      "PROCESSING": "Processing",
+      "COMPLETED": "Analyzed",
+      "FAILED": "Analysis failed",
+      "SKIPPED": "No content"
+    },
+    "ACTION_STATUS": {
+      "NONE": "No action",
+      "NEEDS_FOLLOW_UP": "Needs follow-up",
+      "IN_PROGRESS": "In progress",
+      "RESOLVED": "Resolved"
+    },
+    "PERIOD": {
+      "7": "Last 7 days",
+      "30": "Last 30 days",
+      "90": "Last 90 days",
+      "ALL": "All time"
+    }
+  },
   "SUMMARY_REPORTS": {
     "INBOX": "Inbox",
     "AGENT": "Agent",

@@ -757,6 +757,11 @@ const menuItems = computed(() => {
           label: t('SIDEBAR.REPORTS_PHONE_CALLS'),
           to: accountScopedRoute('phone_call_reports'),
         },
+        {
+          name: 'Reports Conversation Emotions',
+          label: t('SIDEBAR.REPORTS_CONVERSATION_EMOTIONS'),
+          to: accountScopedRoute('conversation_emotion_reports'),
+        },
         ...reportRoutes.value,
         {
           name: 'Reports CSAT',

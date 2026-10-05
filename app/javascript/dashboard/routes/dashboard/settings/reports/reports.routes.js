@@ -24,6 +24,7 @@ import BotReports from './BotReports.vue';
 import LiveReports from './LiveReports.vue';
 import SLAReports from './SLAReports.vue';
 import PhoneCallReports from './PhoneCallReports.vue';
+import ConversationEmotionReports from './ConversationEmotionReports.vue';
 
 const meta = {
   featureFlag: FEATURE_FLAGS.REPORTS,
@@ -146,6 +147,12 @@ export default {
           name: 'phone_call_reports',
           meta,
           component: PhoneCallReports,
+        },
+        {
+          path: 'conversation-emotions',
+          name: 'conversation_emotion_reports',
+          meta,
+          component: ConversationEmotionReports,
         },
         {
           path: 'csat',

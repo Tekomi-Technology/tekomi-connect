@@ -321,6 +321,7 @@ Rails.application.routes.draw do
             get :emotion_report, on: :member
             patch :emotion_report, action: :update_emotion_report, on: :member
           end
+          resources :conversation_emotion_reports, only: %i[index update]
           resources :csat_survey_responses, only: [:index] do
             collection do
               get :metrics

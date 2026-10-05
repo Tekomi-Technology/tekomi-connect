@@ -806,6 +806,70 @@
     },
     "DIRECTION": { "INBOUND": "Gọi vào", "OUTBOUND": "Gọi ra" }
   },
+  "CONVERSATION_EMOTION_REPORTS": {
+    "HEADER": "Cảm xúc hội thoại",
+    "DESCRIPTION": "Tự động đánh giá cảm xúc khi hội thoại được giải quyết và phân tích lại khi có tin nhắn mới.",
+    "LOADING": "Đang tải hội thoại...",
+    "EMPTY": "Không có hội thoại phù hợp bộ lọc.",
+    "ERROR": "Không tải được báo cáo cảm xúc hội thoại.",
+    "UPDATE_ERROR": "Không cập nhật được trạng thái xử lý.",
+    "PREVIOUS": "Trang trước",
+    "NEXT": "Trang sau",
+    "EMPTY_VALUE": "—",
+    "CONVERSATION_ID": "#{id}",
+    "PAGINATION": "Trang {current}/{total} · {count} hội thoại",
+    "FILTERS": {
+      "ALL": "Tất cả",
+      "EMOTION": "Cảm xúc",
+      "STATUS": "Trạng thái phân tích",
+      "ACTION_STATUS": "Trạng thái xử lý",
+      "INBOX": "Kênh",
+      "ASSIGNEE": "Nhân viên",
+      "PERIOD": "Thời gian"
+    },
+    "CARDS": {
+      "TOTAL": "Tổng hội thoại",
+      "COMPLETED": "Đã phân tích",
+      "NEEDS_FOLLOW_UP": "Cần xử lý",
+      "AGGRESSIVE": "Gay gắt"
+    },
+    "TABLE": {
+      "TIME": "Thời gian giải quyết",
+      "CUSTOMER": "Khách hàng",
+      "CHANNEL": "Kênh",
+      "ASSIGNEE": "Nhân viên",
+      "EMOTION": "Cảm xúc",
+      "REASON": "Đánh giá",
+      "ACTION_STATUS": "Xử lý",
+      "CONVERSATION": "Hội thoại"
+    },
+    "EMOTION": {
+      "VUI": "Vui",
+      "TRUNG TÍNH": "Trung tính",
+      "BUỒN": "Buồn",
+      "KHÓ CHỊU": "Khó chịu",
+      "GAY GẮT": "Gay gắt"
+    },
+    "REPORT_STATUS": {
+      "PENDING": "Đang chờ",
+      "PROCESSING": "Đang phân tích",
+      "COMPLETED": "Đã phân tích",
+      "FAILED": "Phân tích lỗi",
+      "SKIPPED": "Không có nội dung"
+    },
+    "ACTION_STATUS": {
+      "NONE": "Chưa cần xử lý",
+      "NEEDS_FOLLOW_UP": "Cần xử lý",
+      "IN_PROGRESS": "Đang xử lý",
+      "RESOLVED": "Đã giải quyết"
+    },
+    "PERIOD": {
+      "7": "7 ngày qua",
+      "30": "30 ngày qua",
+      "90": "90 ngày qua",
+      "ALL": "Toàn bộ"
+    }
+  },
   "SUMMARY_REPORTS": {
     "INBOX": "Hộp thư",
     "AGENT": "Nhân viên",

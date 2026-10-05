@@ -138,6 +138,7 @@ class Conversation < ApplicationRecord
   has_many :deals, through: :deal_conversations
   has_many :ticket_conversations, dependent: :delete_all
   has_many :tickets, through: :ticket_conversations
+  has_one :emotion_report, class_name: 'ConversationEmotionReport', dependent: :destroy
 
   before_save :ensure_snooze_until_reset
   before_save :set_status_changed_at
@@ -402,8 +403,12 @@ class Conversation < ApplicationRecord
   end
 
   def dispatcher_dispatch(event_name, changed_attributes = nil)
+    resolved_message_id = if event_name == CONVERSATION_RESOLVED
+                            messages.where(private: false, message_type: %i[incoming outgoing]).maximum(:id)
+                          end
     Rails.configuration.dispatcher.dispatch(event_name, Time.zone.now, conversation: self, notifiable_assignee_change: notifiable_assignee_change?,
                                                                        changed_attributes: changed_attributes,
+                                                                       resolved_message_id: resolved_message_id,
                                                                        performed_by: Current.executed_by)
   end
 
