@@ -37,6 +37,11 @@ const faqSuggestionsMeta = {
   permissions: [...ROLES, ...CONVERSATION_PERMISSIONS],
 };
 
+const conversationAnalysisMeta = {
+  ...faqSuggestionsMeta,
+  featureFlag: FEATURE_FLAGS.CONVERSATION_ANALYSIS,
+};
+
 const metaCustomTools = {
   permissions: ['administrator', 'supervisor', 'agent'],
   featureFlag: FEATURE_FLAGS.TEKOMI_CUSTOM_TOOLS,
@@ -159,7 +164,7 @@ const assistantRoutes = [
     path: frontendURL('accounts/:accountId/tekomi/conversation-analysis'),
     component: ConversationAnalysisIndex,
     name: 'tekomi_conversation_analysis_index',
-    meta: faqSuggestionsMeta,
+    meta: conversationAnalysisMeta,
   },
   {
     path: frontendURL('accounts/:accountId/tekomi/assistants'),

@@ -4,6 +4,7 @@ class Webhooks::Callytics::CallsController < ActionController::API
   def process_payload
     return head :service_unavailable if webhook_secret.blank?
     return head :not_found unless webhook
+    return head :not_found unless webhook.account.feature_enabled?('callbot_integration')
     return head :unauthorized unless valid_signature?
 
     payload = JSON.parse(request.raw_post)

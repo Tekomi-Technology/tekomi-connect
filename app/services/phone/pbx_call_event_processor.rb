@@ -280,6 +280,7 @@ class Phone::PbxCallEventProcessor
 
   def enqueue_emotion_analysis(phone_call)
     return unless phone_call&.terminal?
+    return unless phone_call.account.feature_enabled?('call_emotion_analysis')
 
     metadata = phone_call.metadata || {}
     return unless metadata['pbx_recording_url'].present? || metadata['callytics_recording_resource'].present?

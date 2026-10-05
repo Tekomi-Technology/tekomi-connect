@@ -1,6 +1,7 @@
 class ConversationEmotionListener < BaseListener
   def conversation_resolved(event)
     conversation = event.data[:conversation]
+    return unless conversation.account.feature_enabled?('conversation_emotion_analysis')
     return if conversation.inbox.channel_type == 'Channel::Phone'
 
     target_message_id = event.data[:resolved_message_id].to_i

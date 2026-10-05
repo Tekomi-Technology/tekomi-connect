@@ -15,6 +15,7 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   before_action :set_current_page, only: [:index, :active, :search, :filter]
   before_action :fetch_contact, only: [:show, :update, :destroy, :avatar, :contactable_inboxes, :destroy_custom_attributes, :match_crm, :unmap_crm]
   before_action :set_include_contact_inboxes, only: [:index, :active, :search, :filter, :show, :update]
+  before_action :ensure_perfex_sync_enabled, only: [:match_crm, :unmap_crm, :crm_force_sync]
 
   def index
     @contacts = fetch_contacts(resolved_contacts)
@@ -153,6 +154,10 @@ class Api::V1::Accounts::ContactsController < Api::V1::Accounts::BaseController
   end
 
   private
+
+  def ensure_perfex_sync_enabled
+    raise Pundit::NotAuthorizedError unless Current.account.feature_enabled?('crm_perfex_sync')
+  end
 
   def cache_age_minutes
     ttl = Redis::Alfred.ttl(Crm::Perfex::DirectoryCacheService::CACHE_KEY)

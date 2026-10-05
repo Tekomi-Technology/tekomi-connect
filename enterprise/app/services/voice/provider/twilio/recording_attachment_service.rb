@@ -22,7 +22,7 @@ class Voice::Provider::Twilio::RecordingAttachmentService
 
     # Duplicate callbacks can both clear the outer already_attached? check, so only
     # the invocation that actually stored the blob pays for transcription.
-    Voice::CallTranscriptionJob.perform_later(call.id) if @persisted
+    Voice::CallTranscriptionJob.perform_later(call.id) if @persisted && call.account.feature_enabled?('call_transcription')
   end
 
   private

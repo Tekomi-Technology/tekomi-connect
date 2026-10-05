@@ -76,6 +76,8 @@ class Api::V1::Accounts::PhoneCallsController < Api::V1::Accounts::BaseControlle
   end
 
   def emotion_analysis
+    raise Pundit::NotAuthorizedError unless Current.account.feature_enabled?('call_emotion_analysis')
+
     result = Phone::CallEmotionAnalysisService.new(@phone_call).perform
     @phone_call.update!(metadata: @phone_call.metadata.merge('emotion_analysis' => result))
     report = PhoneCallEmotionReport.create_or_find_by!(phone_call_id: @phone_call.id) do |record|

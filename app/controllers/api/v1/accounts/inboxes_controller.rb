@@ -120,7 +120,9 @@ class Api::V1::Accounts::InboxesController < Api::V1::Accounts::BaseController
   end
 
   def allowed_channel_types
-    %w[web_widget api email line telegram whatsapp sms phone]
+    types = %w[web_widget api email line telegram whatsapp sms]
+    types << 'phone' if Current.account.feature_enabled?('channel_phone')
+    types
   end
 
   def update_inbox_working_hours

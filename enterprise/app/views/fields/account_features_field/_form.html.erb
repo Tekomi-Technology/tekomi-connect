@@ -3,14 +3,20 @@
 </div>
 <div class="field-unit__field feature-container">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <% SuperAdmin::AccountFeaturesHelper.filtered_features(field.data).each_key do |key_array| %>
-      <% _feature_key, display_name = key_array %>
-      <div class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm outline outline-1 outline-n-container">
+    <% SuperAdmin::AccountFeaturesHelper.filtered_features(field.data).each do |feature_name, display_name| %>
+      <label class="flex items-center justify-between p-3 bg-white rounded-lg shadow-sm outline outline-1 outline-n-container cursor-pointer">
         <span class="text-sm text-slate-700"><%= display_name %></span>
-        <span class="bg-green-400 text-white rounded-full p-1 inline-flex">
-          <svg width="12" height="12"><use xlink:href="#icon-tick-line" /></svg>
-        </span>
-      </div>
+        <%= check_box_tag 'account[selected_feature_flags][]',
+                          "feature_#{feature_name}",
+                          field.enabled?(feature_name),
+                          id: "account_feature_#{feature_name}",
+                          class: 'h-4 w-4 rounded border-slate-300 text-violet-600 focus:ring-violet-600' %>
+      </label>
     <% end %>
   </div>
+
+  <% field.hidden_selected_features.each do |flag| %>
+    <%= hidden_field_tag 'account[selected_feature_flags][]', flag, id: nil %>
+  <% end %>
+  <%= hidden_field_tag 'account[selected_feature_flags][]', '', id: nil %>
 </div>

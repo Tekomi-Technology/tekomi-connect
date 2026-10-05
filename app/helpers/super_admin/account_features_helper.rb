@@ -22,15 +22,14 @@ module SuperAdmin::AccountFeaturesHelper
     features.except(*deprecated_features)
   end
 
-  def self.sort_and_transform_features(features, display_names)
-    features.sort_by { |key, _| display_names[key] || key }
-            .to_h
-            .transform_keys { |key| [key, display_names[key]] }
-  end
-
   def self.filtered_features(features)
     filtered = filter_internal_features(features)
     filtered = filter_deprecated_features(filtered)
-    sort_and_transform_features(filtered.transform_values { true }, feature_display_names)
+    display_names = feature_display_names
+    filtered.keys.map { |name| [name, display_names[name] || name] }.sort_by(&:last)
+  end
+
+  def self.hidden_feature_names(features)
+    features.keys - filtered_features(features).map(&:first)
   end
 end

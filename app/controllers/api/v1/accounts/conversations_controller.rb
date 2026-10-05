@@ -80,6 +80,8 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
   end
 
   def external_ticket
+    raise Pundit::NotAuthorizedError unless Current.account.feature_enabled?('crm_perfex_sync')
+
     contact_id = @conversation.contact.additional_attributes.dig('external', 'perfex_contact_id')
     return render json: { error: 'contact not matched with crm' }, status: :unprocessable_entity if contact_id.blank?
 

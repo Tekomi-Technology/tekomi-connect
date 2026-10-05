@@ -56,6 +56,18 @@ const isActive = computed(() => {
     return props.enabledFeatures.channel_voice;
   }
 
+  if (key === 'zalo_oa') {
+    return props.enabledFeatures.channel_zalo_oa;
+  }
+
+  if (key === 'zalo_personal') {
+    return props.enabledFeatures.channel_zalo_personal;
+  }
+
+  if (key === 'phone') {
+    return props.enabledFeatures.channel_phone;
+  }
+
   return [
     'website',
     'twilio',
@@ -64,9 +76,6 @@ const isActive = computed(() => {
     'sms',
     'telegram',
     'line',
-    'zalo_oa',
-    'zalo_personal',
-    'phone',
     'instagram',
     'tiktok',
     'voice',

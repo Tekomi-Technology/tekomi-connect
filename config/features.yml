@@ -262,3 +262,48 @@
   display_name: CRM Tickets
   enabled: false
   column: feature_flags_ext_1
+- name: channel_zalo_oa
+  display_name: Zalo OA Channel
+  enabled: true
+  column: feature_flags_ext_1
+  tenant_gated: true
+- name: channel_zalo_personal
+  display_name: Zalo Personal Channel
+  enabled: true
+  column: feature_flags_ext_1
+  tenant_gated: true
+- name: channel_phone
+  display_name: Phone Channel
+  enabled: true
+  column: feature_flags_ext_1
+  tenant_gated: true
+- name: crm_perfex_sync
+  display_name: Perfex CRM Sync
+  enabled: true
+  column: feature_flags_ext_1
+  tenant_gated: true
+- name: callbot_integration
+  display_name: Callbot Integration
+  enabled: true
+  column: feature_flags_ext_1
+  tenant_gated: true
+- name: call_transcription
+  display_name: Call Transcription
+  enabled: true
+  column: feature_flags_ext_1
+  tenant_gated: true
+- name: call_emotion_analysis
+  display_name: Call Emotion Analysis
+  enabled: true
+  column: feature_flags_ext_1
+  tenant_gated: true
+- name: conversation_emotion_analysis
+  display_name: Conversation Emotion Analysis
+  enabled: true
+  column: feature_flags_ext_1
+  tenant_gated: true
+- name: conversation_analysis
+  display_name: Conversation Quality Analysis
+  enabled: true
+  column: feature_flags_ext_1
+  tenant_gated: true

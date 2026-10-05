@@ -28,6 +28,8 @@ class Api::V1::Accounts::ZaloPersonal::AuthorizationsController < Api::V1::Accou
   private
 
   def authorize_request
+    raise Pundit::NotAuthorizedError unless Current.account.feature_enabled?('channel_zalo_personal')
+
     authorize ::Inbox, :create?
   end
 

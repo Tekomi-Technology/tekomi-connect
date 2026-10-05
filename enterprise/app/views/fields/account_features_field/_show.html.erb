@@ -1,12 +1,17 @@
 <div class="w-full">
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-    <% SuperAdmin::AccountFeaturesHelper.filtered_features(field.data).each_key do |key_array| %>
-      <% _feature_key, display_name = key_array %>
+    <% SuperAdmin::AccountFeaturesHelper.filtered_features(field.data).each do |feature_name, display_name| %>
       <div class="flex items-center justify-between p-3 bg-white rounded-md outline outline-n-container outline-1 shadow-sm">
         <span class="text-sm text-n-slate-12"><%= display_name %></span>
-        <span class="bg-green-400 text-white rounded-full p-1 inline-flex">
-          <svg width="12" height="12"><use xlink:href="#icon-tick-line" /></svg>
-        </span>
+        <% if field.enabled?(feature_name) %>
+          <span class="bg-green-400 text-white rounded-full p-1 inline-flex">
+            <svg width="12" height="12"><use xlink:href="#icon-tick-line" /></svg>
+          </span>
+        <% else %>
+          <span class="bg-n-slate-4 text-n-slate-10 rounded-full p-1 inline-flex">
+            <svg width="12" height="12"><use xlink:href="#icon-cancel" /></svg>
+          </span>
+        <% end %>
       </div>
     <% end %>
   </div>
