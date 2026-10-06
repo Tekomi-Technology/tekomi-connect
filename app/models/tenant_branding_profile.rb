@@ -3,6 +3,7 @@ require 'ipaddr'
 class TenantBrandingProfile < ApplicationRecord
   PROVISIONING_STATUSES = %w[pending provisioning active failed].freeze
   RESERVED_SUBDOMAINS = %w[api app mail smtp www].freeze
+  HEX_COLOR_FORMAT = /\A#[0-9A-F]{6}\z/i
 
   belongs_to :account
 
@@ -11,10 +12,12 @@ class TenantBrandingProfile < ApplicationRecord
   has_one_attached :favicon
 
   before_validation :normalize_subdomain
+  normalizes :sidebar_color, :sidebar_text_color, with: ->(value) { value.presence }
 
   validates :account_id, uniqueness: true
   validates :brand_name, :origin_ip, :subdomain, presence: true
-  validates :primary_color, format: { with: /\A#[0-9A-F]{6}\z/i }
+  validates :primary_color, format: { with: HEX_COLOR_FORMAT }
+  validates :sidebar_color, :sidebar_text_color, format: { with: HEX_COLOR_FORMAT }, allow_nil: true
   validates :provisioning_status, inclusion: { in: PROVISIONING_STATUSES }
   validates :subdomain,
             format: { with: /\A[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\z/ },
@@ -33,8 +36,9 @@ class TenantBrandingProfile < ApplicationRecord
     "#{subdomain}.#{self.class.base_domain}"
   end
 
-  def primary_color_rgb
-    primary_color.delete_prefix('#').scan(/../).map { |component| component.to_i(16) }.join(' ')
+  # Space-separated "R G B" channels, the format the dashboard's CSS color variables expect.
+  def self.hex_to_rgb(hex)
+    hex.delete_prefix('#').scan(/../).map { |component| component.to_i(16) }.join(' ') if hex
   end
 
   def self.base_domain

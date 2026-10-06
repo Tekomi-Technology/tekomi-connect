@@ -1,0 +1,42 @@
+<div class="field-unit__label self-start pt-2">
+  <%= f.label field.attribute %>
+</div>
+<div class="field-unit__field flex flex-col gap-3"
+     data-color-field
+     data-default-color="<%= field.default_color %>"
+     data-contrast-with="<%= f.field_id(field.contrast_with) if field.contrast_with %>">
+  <div class="flex flex-wrap gap-2">
+    <% field.palette.each do |color| %>
+      <button type="button"
+              title="<%= color %>"
+              aria-label="<%= color %>"
+              aria-pressed="false"
+              data-color-swatch="<%= color %>"
+              class="rounded-full border size-7 border-black/20 aria-pressed:ring-2 aria-pressed:ring-woot-500 aria-pressed:ring-offset-2"
+              style="background-color: <%= color %>"></button>
+    <% end %>
+  </div>
+  <div class="flex flex-wrap gap-2 items-center">
+    <input type="color" data-color-picker aria-label="<%= t('super_admin.color_field.custom') %>"
+           class="p-0.5 w-10 h-9 bg-white rounded border cursor-pointer border-slate-200">
+    <%= f.text_field field.attribute, maxlength: 7, placeholder: field.default_color,
+                                      data: { color_input: true }, class: '!mb-0 !w-28 font-mono uppercase' %>
+    <% if field.default_color %>
+      <button type="button" data-color-reset class="text-sm underline text-woot-600">
+        <%= t('super_admin.color_field.use_default') %>
+      </button>
+    <% end %>
+    <% if field.contrast_with %>
+      <button type="button" data-color-auto class="text-sm underline text-woot-600">
+        <%= t('super_admin.color_field.auto_contrast') %>
+      </button>
+    <% end %>
+  </div>
+  <% if field.contrast_with %>
+    <p data-color-contrast="ok" data-message="<%= t('super_admin.color_field.contrast_ok') %>"
+       class="hidden self-start px-2.5 py-1.5 text-xs rounded bg-n-teal-3 text-n-teal-11"></p>
+    <p data-color-contrast="low" data-message="<%= t('super_admin.color_field.contrast_low') %>"
+       class="hidden self-start px-2.5 py-1.5 text-xs rounded bg-n-amber-3 text-n-amber-11"></p>
+  <% end %>
+  <%= render 'fields/color_field/preview', f: f, field: field if field.preview? %>
+</div>

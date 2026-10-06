@@ -1,0 +1,53 @@
+<%# Live sidebar preview; superadmin.js recolors it from the color inputs as they change. %>
+<% resource = field.resource %>
+<div data-sidebar-preview
+     data-primary-input="<%= f.field_id(:primary_color) %>"
+     data-bg-input="<%= f.field_id(:sidebar_color) %>"
+     data-text-input="<%= f.field_id(:sidebar_text_color) %>"
+     data-name-input="<%= f.field_id(:brand_name) %>"
+     data-tagline-input="<%= f.field_id(:tagline) %>"
+     class="flex flex-col gap-2 mt-2">
+  <span class="text-xs font-semibold tracking-wider uppercase text-slate-500"><%= t('super_admin.color_field.preview') %></span>
+  <div class="flex overflow-hidden h-72 bg-white rounded-lg border border-slate-200">
+    <div class="flex flex-col flex-shrink-0 gap-2.5 px-2 py-2.5 w-52 transition-colors bg-[var(--preview-bg)] text-[var(--preview-text)]">
+      <div class="flex gap-2.5 items-center px-1 py-1 min-w-0">
+        <% if resource.logo.attached? %>
+          <%= image_tag rails_blob_path(resource.logo, only_path: true), class: 'h-7 w-auto max-w-[45%] shrink-0 object-contain object-left' %>
+        <% end %>
+        <span class="flex flex-col gap-0.5 min-w-0 leading-tight">
+          <span data-preview-name class="text-sm font-bold tracking-widest truncate"></span>
+          <span data-preview-tagline class="text-[11px] italic truncate text-[var(--preview-primary)]"></span>
+        </span>
+      </div>
+      <div class="flex gap-2 items-center px-2 h-7 text-xs rounded-lg border opacity-75 border-[color-mix(in_srgb,currentColor_20%,transparent)]">
+        <span class="i-lucide-search size-3.5"></span><%= t('super_admin.color_field.preview_search') %>
+      </div>
+      <div class="flex flex-col gap-0.5 text-[13px]">
+        <span class="flex gap-2 items-center px-2 py-1.5 rounded-lg opacity-90">
+          <span class="i-lucide-house size-4"></span><%= t('super_admin.color_field.preview_overview') %>
+        </span>
+        <span class="flex gap-2 items-center px-2 py-1.5 font-semibold rounded-lg bg-[color-mix(in_srgb,var(--preview-text)_12%,transparent)]">
+          <span class="i-lucide-message-circle size-4 text-[var(--preview-primary)]"></span><%= t('super_admin.color_field.preview_conversations') %>
+          <span class="px-1.5 ms-auto text-[10px] font-bold text-white rounded-full bg-[var(--preview-primary)]">12</span>
+        </span>
+        <span class="flex gap-2 items-center px-2 py-1.5 rounded-lg opacity-90">
+          <span class="i-lucide-users size-4"></span><%= t('super_admin.color_field.preview_contacts') %>
+        </span>
+        <span class="flex gap-2 items-center px-2 py-1.5 rounded-lg opacity-90">
+          <span class="i-lucide-chart-column size-4"></span><%= t('super_admin.color_field.preview_reports') %>
+        </span>
+        <span class="flex gap-2 items-center px-2 py-1.5 rounded-lg opacity-90">
+          <span class="i-lucide-settings size-4"></span><%= t('super_admin.color_field.preview_settings') %>
+        </span>
+      </div>
+    </div>
+    <div class="flex flex-col flex-1 gap-2 p-3 min-w-0">
+      <span class="w-3/5 h-2.5 rounded bg-slate-100"></span>
+      <span class="w-4/5 h-2.5 rounded bg-slate-100"></span>
+      <span class="w-2/5 h-2.5 rounded bg-slate-100"></span>
+      <span class="self-start px-2.5 py-1 mt-1 text-[11px] font-semibold text-white rounded bg-[var(--preview-primary)]">
+        <%= t('super_admin.color_field.preview_button') %>
+      </span>
+    </div>
+  </div>
+</div>

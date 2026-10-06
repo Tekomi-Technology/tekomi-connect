@@ -80,7 +80,9 @@ class DashboardController < ActionController::Base
       'LOGO_DARK' => attachment_path(@tenant_branding_profile.logo_dark),
       'LOGO_THUMBNAIL' => attachment_path(@tenant_branding_profile.favicon),
       'PRIMARY_COLOR' => @tenant_branding_profile.primary_color,
-      'PRIMARY_COLOR_RGB' => @tenant_branding_profile.primary_color_rgb,
+      'PRIMARY_COLOR_RGB' => TenantBrandingProfile.hex_to_rgb(@tenant_branding_profile.primary_color),
+      'SIDEBAR_COLOR_RGB' => TenantBrandingProfile.hex_to_rgb(@tenant_branding_profile.sidebar_color),
+      'SIDEBAR_TEXT_COLOR_RGB' => TenantBrandingProfile.hex_to_rgb(@tenant_branding_profile.sidebar_text_color),
       'TENANT_BRANDING_ACCOUNT_ID' => @tenant_branding_profile.account_id
     }.compact
   end

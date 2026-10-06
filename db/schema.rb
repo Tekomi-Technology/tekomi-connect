@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_10_06_000002) do
+ActiveRecord::Schema[7.2].define(version: 2026_10_06_000003) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -1850,6 +1850,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_06_000002) do
     t.datetime "provisioned_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "sidebar_color"
+    t.string "sidebar_text_color"
     t.index "lower((subdomain)::text)", name: "index_tenant_branding_profiles_on_lower_subdomain", unique: true
     t.index ["account_id"], name: "index_tenant_branding_profiles_on_account_id", unique: true
     t.index ["provisioning_status"], name: "index_tenant_branding_profiles_on_provisioning_status"

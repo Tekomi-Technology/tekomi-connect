@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html<% if @global_config['PRIMARY_COLOR_RGB'].present? %> style="--brand-color: <%= @global_config['PRIMARY_COLOR_RGB'] %>"<% end %>>
+<% brand_css_vars = { '--brand-color' => 'PRIMARY_COLOR_RGB', '--sidebar-color' => 'SIDEBAR_COLOR_RGB', '--sidebar-text-color' => 'SIDEBAR_TEXT_COLOR_RGB' }
+     .filter_map { |var, key| "#{var}: #{@global_config[key]}" if @global_config[key].present? } %>
+<html<% if brand_css_vars.any? %> style="<%= brand_css_vars.join('; ') %>"<% end %>>
   <head>
     <title>
       <%= @global_config['INSTALLATION_NAME'] %>

@@ -1,0 +1,8 @@
+<% if field.data.present? %>
+  <span class="inline-flex gap-2 items-center font-mono">
+    <span class="size-4 rounded-full border border-black/20" style="background-color: <%= field.data %>"></span>
+    <%= field.data %>
+  </span>
+<% else %>
+  <span class="text-slate-500"><%= t('super_admin.color_field.default') %></span>
+<% end %>

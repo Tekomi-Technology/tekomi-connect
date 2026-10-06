@@ -59,6 +59,15 @@ const { t } = useI18n();
 const isRTL = useMapGetter('accounts/isRTL');
 const globalConfig = useMapGetter('globalConfig/get');
 
+// Tenant branding can recolor the sidebar. The colors arrive as CSS variables on
+// <html>; here they replace the dark theme tokens the sidebar's children read.
+const sidebarColorClasses = computed(() => [
+  globalConfig.value.sidebarColorRgb &&
+    '[--solid-3:var(--sidebar-color)] [--background-color:var(--sidebar-color)] [--button-color:var(--sidebar-color)]',
+  globalConfig.value.sidebarTextColorRgb &&
+    '[--slate-9:var(--sidebar-text-color)] [--slate-10:var(--sidebar-text-color)] [--slate-11:var(--sidebar-text-color)] [--slate-12:var(--sidebar-text-color)]',
+]);
+
 const { width: windowWidth } = useWindowSize();
 const isMobile = computed(() => windowWidth.value < 768);
 
@@ -1078,6 +1087,7 @@ const menuItems = computed(() => {
     ]"
     class="dark bg-n-solid-3 flex flex-col text-sm pb-px fixed top-0 ltr:left-0 rtl:right-0 h-full z-40 w-[200px] md:w-auto md:relative md:flex-shrink-0 md:ltr:translate-x-0 md:rtl:translate-x-0 ltr:shadow-[6px_0_24px_-12px_rgba(11,31,58,0.45)] rtl:shadow-[-6px_0_24px_-12px_rgba(11,31,58,0.45)]"
     :class="[
+      sidebarColorClasses,
       {
         'shadow-lg': isMobileSidebarOpen,
         'ltr:-translate-x-full rtl:translate-x-full': !isMobileSidebarOpen,
