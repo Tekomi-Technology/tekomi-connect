@@ -1,6 +1,7 @@
 <script>
 import validations from './helpers/validations';
 import FormInput from 'v3/components/Form/Input.vue';
+import FormSelect from 'v3/components/Form/Select.vue';
 import { reactive, ref, defineAsyncComponent } from 'vue';
 import { useVuelidate } from '@vuelidate/core';
 import { OnClickOutside } from '@vueuse/components';
@@ -18,6 +19,7 @@ export default {
   components: {
     NextButton,
     FormInput,
+    FormSelect,
     OnClickOutside,
     EmojiIcon,
     Icon,
@@ -49,6 +51,7 @@ export default {
       allow_auto_assign: allowAutoAssign = true,
       icon = '',
       icon_color: iconColor = '',
+      supervisor_id: supervisorId = null,
     } = formData;
 
     const state = reactive({
@@ -57,6 +60,7 @@ export default {
       allowAutoAssign,
       icon,
       iconColor,
+      supervisorId: supervisorId ? String(supervisorId) : '',
     });
 
     const isIconPickerOpen = ref(false);
@@ -64,6 +68,16 @@ export default {
     const rules = validations;
     const v$ = useVuelidate(rules, state);
     return { state, v$, isIconPickerOpen };
+  },
+  computed: {
+    supervisorOptions() {
+      return this.$store.getters['agents/getAgents']
+        .filter(agent => agent.role === 'supervisor')
+        .map(agent => ({ value: String(agent.id), label: agent.name }));
+    },
+  },
+  mounted() {
+    this.$store.dispatch('agents/get');
   },
   methods: {
     onSelectIcon({ type, value, color }) {
@@ -90,6 +104,7 @@ export default {
         allow_auto_assign: this.state.allowAutoAssign,
         icon: this.state.icon,
         icon_color: this.state.iconColor,
+        supervisor_id: this.state.supervisorId || null,
       });
     },
   },
@@ -154,6 +169,29 @@ export default {
         "
         @blur="v$.description.$touch"
       />
+      <FormSelect
+        v-model="state.supervisorId"
+        name="supervisor"
+        :label="$t('TEAMS_SETTINGS.FORM.SUPERVISOR.LABEL')"
+        :placeholder="$t('TEAMS_SETTINGS.FORM.SUPERVISOR.PLACEHOLDER')"
+      >
+        <option value="">
+          {{ $t('TEAMS_SETTINGS.FORM.SUPERVISOR.NONE') }}
+        </option>
+        <option
+          v-for="opt in supervisorOptions"
+          :key="opt.value"
+          :value="opt.value"
+        >
+          {{ opt.label }}
+        </option>
+      </FormSelect>
+      <p
+        v-if="!supervisorOptions.length"
+        class="mb-0 -mt-2 text-sm text-n-slate-11"
+      >
+        {{ $t('TEAMS_SETTINGS.FORM.SUPERVISOR.EMPTY') }}
+      </p>
       <div class="w-full flex items-center gap-2">
         <input v-model="state.allowAutoAssign" type="checkbox" :value="true" />
         <label for="conversation_creation">

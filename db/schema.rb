@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_10_06_000001) do
+ActiveRecord::Schema[7.2].define(version: 2026_10_06_000002) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -1685,8 +1685,10 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_06_000001) do
     t.datetime "updated_at", null: false
     t.string "icon", default: ""
     t.string "icon_color", default: ""
+    t.bigint "supervisor_id"
     t.index ["account_id"], name: "index_teams_on_account_id"
     t.index ["name", "account_id"], name: "index_teams_on_name_and_account_id", unique: true
+    t.index ["supervisor_id"], name: "index_teams_on_supervisor_id"
   end
 
   create_table "tekomi_assistant_responses", force: :cascade do |t|
@@ -2046,6 +2048,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_06_000001) do
   add_foreign_key "phone_extensions", "accounts", on_delete: :cascade
   add_foreign_key "phone_extensions", "inboxes", on_delete: :cascade
   add_foreign_key "phone_extensions", "users", on_delete: :cascade
+  add_foreign_key "teams", "users", column: "supervisor_id"
   add_foreign_key "tenant_branding_profiles", "accounts"
   add_foreign_key "ticket_webhooks", "accounts"
   add_foreign_key "ticket_webhooks", "pipelines"

@@ -1,0 +1,41 @@
+{
+  "TEAM_MONITORING": {
+    "HEADER": "Giám sát nhóm",
+    "DESCRIPTION": "Ai đang xử lý hội thoại nào, và từng nhóm đang làm việc ra sao.",
+    "REFRESH": "Làm mới",
+    "LOADING": "Đang tải…",
+    "LOAD_ERROR": "Chưa tải được dữ liệu giám sát. Hãy thử làm mới.",
+    "NO_DATA": "Chưa có dữ liệu",
+    "EMPTY": "Chưa có nhóm nào. Hãy tạo nhóm và chỉ định người giám sát.",
+    "EMPTY_TEAM": "Nhóm này chưa có thành viên.",
+    "SUPERVISED_BY": "Người giám sát: {name}",
+    "NO_SUPERVISOR": "Chưa có người giám sát",
+    "SHOW_CUSTOMERS": "Khách đang chăm",
+    "HIDE_CUSTOMERS": "Ẩn",
+    "NO_CUSTOMERS": "Hiện không chăm khách nào.",
+    "UNKNOWN_CONTACT": "Khách chưa có tên",
+    "UNGROUPED_TITLE": "Nhân viên chưa thuộc nhóm nào",
+    "FOOTNOTE": "Số liệu tính theo nhân viên: người thuộc nhiều nhóm được tính ở mọi nhóm, nên cộng các nhóm lại sẽ lớn hơn số thật của đơn vị.",
+    "ALERTS": {
+      "UNASSIGNED": "Hội thoại chưa ai nhận",
+      "LONGEST_WAIT": "Khách chờ lâu nhất",
+      "NO_SUPERVISOR": "Nhóm chưa có người giám sát",
+      "UNGROUPED": "Nhân viên chưa thuộc nhóm"
+    },
+    "COLUMNS": {
+      "ONLINE": "Đang trực",
+      "OPEN": "Đang mở",
+      "CONTACTS": "Khách",
+      "RESOLVED": "Đã xử lý",
+      "FIRST_RESPONSE": "Trả lời lần đầu",
+      "RESOLUTION_TIME": "Thời gian xử lý",
+      "CSAT": "Khách chấm",
+      "SLA_MISSED": "Tỉ lệ quá hạn"
+    },
+    "STATUS": {
+      "ONLINE": "Đang trực",
+      "BUSY": "Đang bận",
+      "OFFLINE": "Ngoại tuyến"
+    }
+  }
+}

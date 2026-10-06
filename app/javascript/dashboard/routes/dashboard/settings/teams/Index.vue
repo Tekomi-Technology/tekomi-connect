@@ -18,6 +18,11 @@ const { t } = useI18n();
 const getters = useStoreGetters();
 const { isAdmin, isSupervisor } = useAdmin();
 
+const currentUserId = useMapGetter('getCurrentUserID');
+
+const supervisesTeam = team =>
+  isSupervisor.value && team.supervisor_id === currentUserId.value;
+
 const loading = ref({});
 const searchQuery = ref('');
 
@@ -145,12 +150,24 @@ const confirmPlaceHolderText = computed(() =>
               <p class="mb-0 text-n-slate-11 text-body-main">
                 {{ team.description }}
               </p>
+              <span class="text-sm text-n-slate-11">
+                <template v-if="team.supervisor">
+                  {{
+                    $t('TEAMS_SETTINGS.LIST.SUPERVISED_BY', {
+                      name: team.supervisor.name,
+                    })
+                  }}
+                </template>
+                <template v-else>
+                  {{ $t('TEAMS_SETTINGS.LIST.NO_SUPERVISOR') }}
+                </template>
+              </span>
             </div>
           </div>
           <div class="flex justify-end gap-3">
             <!-- Supervisors manage team members but not the team itself -->
             <router-link
-              v-if="isSupervisor"
+              v-if="supervisesTeam(team)"
               :to="{
                 name: 'settings_teams_edit_members',
                 params: { teamId: team.id },

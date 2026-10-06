@@ -18,6 +18,7 @@ import csatMgmt from './csatMgmt.json';
 import customRole from './customRole.json';
 import datePicker from './datePicker.json';
 import deals from './deals.json';
+import teamMonitoring from './teamMonitoring.json';
 import tickets from './tickets.json';
 import emoji from './emoji.json';
 import general from './general.json';
@@ -68,6 +69,7 @@ export default {
   ...customRole,
   ...datePicker,
   ...deals,
+  ...teamMonitoring,
   ...tickets,
   ...emoji,
   ...general,

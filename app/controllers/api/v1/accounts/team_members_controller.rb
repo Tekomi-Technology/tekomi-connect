@@ -43,6 +43,10 @@ class Api::V1::Accounts::TeamMembersController < Api::V1::Accounts::BaseControll
     @current_members_ids ||= @team.members.pluck(:id)
   end
 
+  def check_authorization
+    authorize(@team, policy_class: TeamMemberPolicy)
+  end
+
   def fetch_team
     @team = Current.account.teams.find(params[:team_id])
   end

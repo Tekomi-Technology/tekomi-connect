@@ -4,14 +4,21 @@ class TeamMemberPolicy < ApplicationPolicy
   end
 
   def create?
-    @account_user.administrator? || @account_user.supervisor?
+    @account_user.administrator? || supervises_team?
   end
 
   def destroy?
-    @account_user.administrator? || @account_user.supervisor?
+    create?
   end
 
   def update?
-    @account_user.administrator? || @account_user.supervisor?
+    create?
+  end
+
+  private
+
+  # @record is the team the members belong to; supervisors only manage their own team.
+  def supervises_team?
+    @account_user.supervisor? && @record.is_a?(Team) && @record.supervisor_id == @user.id
   end
 end

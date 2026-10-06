@@ -1,0 +1,41 @@
+{
+  "TEAM_MONITORING": {
+    "HEADER": "Team monitoring",
+    "DESCRIPTION": "Who is handling which conversations right now, and how each team is performing.",
+    "REFRESH": "Refresh",
+    "LOADING": "Loading…",
+    "LOAD_ERROR": "Could not load the monitoring data. Try refreshing.",
+    "NO_DATA": "No data",
+    "EMPTY": "No team to show yet. Create a team and assign a supervisor to it.",
+    "EMPTY_TEAM": "This team has no members yet.",
+    "SUPERVISED_BY": "Supervised by {name}",
+    "NO_SUPERVISOR": "No supervisor assigned",
+    "SHOW_CUSTOMERS": "Customers",
+    "HIDE_CUSTOMERS": "Hide",
+    "NO_CUSTOMERS": "Not handling anyone right now.",
+    "UNKNOWN_CONTACT": "Unnamed contact",
+    "UNGROUPED_TITLE": "Agents not in any team",
+    "FOOTNOTE": "Figures are counted per agent: an agent who belongs to several teams is counted in each of them, so team totals do not add up to the account total.",
+    "ALERTS": {
+      "UNASSIGNED": "Unassigned conversations",
+      "LONGEST_WAIT": "Longest wait",
+      "NO_SUPERVISOR": "Teams without a supervisor",
+      "UNGROUPED": "Agents without a team"
+    },
+    "COLUMNS": {
+      "ONLINE": "Online",
+      "OPEN": "Open",
+      "CONTACTS": "Customers",
+      "RESOLVED": "Resolved",
+      "FIRST_RESPONSE": "First response",
+      "RESOLUTION_TIME": "Resolution time",
+      "CSAT": "CSAT",
+      "SLA_MISSED": "SLA missed"
+    },
+    "STATUS": {
+      "ONLINE": "Online",
+      "BUSY": "Busy",
+      "OFFLINE": "Offline"
+    }
+  }
+}

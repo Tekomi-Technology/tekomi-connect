@@ -12,6 +12,8 @@
       "404": "There are no teams created on this account.",
       "EDIT_TEAM": "Edit team",
       "EDIT_MEMBERS": "Edit members",
+      "SUPERVISED_BY": "Supervisor: {name}",
+      "NO_SUPERVISOR": "No supervisor assigned",
       "NONE": "None"
     },
     "CREATE_FLOW": {
@@ -118,6 +120,12 @@
       },
       "AUTO_ASSIGN": {
         "LABEL": "Allow auto assign for this team."
+      },
+      "SUPERVISOR": {
+        "LABEL": "Supervisor",
+        "PLACEHOLDER": "Pick a supervisor",
+        "NONE": "No supervisor",
+        "EMPTY": "No one in this account has the supervisor role yet."
       },
       "SUBMIT_CREATE": "Create team"
     }

@@ -782,6 +782,13 @@ const menuItems = computed(() => {
       ],
     },
     {
+      name: 'Team Monitoring',
+      label: t('SIDEBAR.TEAM_MONITORING'),
+      icon: 'i-lucide-gauge',
+      iconColor: 'text-n-amber-10',
+      to: accountScopedRoute('team_monitoring_index'),
+    },
+    {
       name: 'Campaigns',
       label: t('SIDEBAR.CAMPAIGNS'),
       icon: 'i-lucide-megaphone',

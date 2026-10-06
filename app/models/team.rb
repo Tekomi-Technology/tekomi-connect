@@ -21,6 +21,7 @@ class Team < ApplicationRecord
   include AccountCacheRevalidator
 
   belongs_to :account
+  belongs_to :supervisor, class_name: 'User', optional: true
   has_many :team_members, dependent: :destroy_async
   has_many :members, through: :team_members, source: :user
   has_many :conversations, dependent: :nullify
@@ -31,6 +32,7 @@ class Team < ApplicationRecord
   validates :name,
             presence: { message: I18n.t('errors.validations.presence') },
             uniqueness: { scope: :account_id }
+  validate :supervisor_holds_supervisor_role
 
   before_validation do
     self.name = name.gsub(/[[:cntrl:]]/, '').strip.downcase if attribute_present?('name')
@@ -74,6 +76,13 @@ class Team < ApplicationRecord
   end
 
   private
+
+  def supervisor_holds_supervisor_role
+    return if supervisor_id.blank?
+
+    account_user = AccountUser.find_by(account_id: account_id, user_id: supervisor_id)
+    errors.add(:supervisor, I18n.t('errors.teams.supervisor.invalid_role')) unless account_user&.supervisor?
+  end
 
   def capture_filtered_unread_count_member_ids
     @filtered_unread_count_member_ids = team_members.pluck(:user_id)

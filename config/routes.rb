@@ -636,6 +636,11 @@ Rails.application.routes.draw do
             end
           end
           resources :ticket_reports, only: [:index]
+          resources :team_monitoring, only: [:index] do
+            collection do
+              get :agent_conversations
+            end
+          end
         end
       end
     end

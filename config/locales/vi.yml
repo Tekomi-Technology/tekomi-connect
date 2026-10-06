@@ -51,6 +51,9 @@ vi:
         invalid: is not a valid email address
     validations:
       presence: không được để trống
+    teams:
+      supervisor:
+        invalid_role: phải là người dùng có vai trò giám sát viên trong đơn vị này
     webhook:
       invalid: Sự kiện không hợp lệ
     signup:
