@@ -8,7 +8,20 @@ class RemovePgvectorRagColumns < ActiveRecord::Migration[7.2]
     remove_column :tekomi_faq_suggestions, :embedding if column_exists?(:tekomi_faq_suggestions, :embedding)
     remove_column :article_embeddings, :embedding if column_exists?(:article_embeddings, :embedding)
 
-    execute 'DROP EXTENSION IF EXISTS vector'
+    # The application role may not own extensions in managed PostgreSQL. The
+    # vector columns/indexes above are safe to remove without dropping the
+    # extension, so keep the migration idempotent when extension ownership is
+    # delegated to the database administrator.
+    execute <<~SQL
+      DO $$
+      BEGIN
+        DROP EXTENSION IF EXISTS vector;
+      EXCEPTION
+        WHEN insufficient_privilege THEN
+          RAISE NOTICE 'Skipping vector extension removal: current role is not the extension owner';
+      END;
+      $$;
+    SQL
   end
 
   def down
