@@ -45,6 +45,32 @@ RSpec.describe 'Api::V1::Accounts::Tekomi::Preferences', type: :request do
         expect(json_response).to have_key(:providers)
         expect(json_response).to have_key(:models)
         expect(json_response).to have_key(:features)
+        expect(json_response).to have_key(:prompts)
+        expect(json_response[:prompts].map { |prompt| prompt[:key] }).to include('reply')
+      end
+
+      it 'saves and restores an account prompt override' do
+        custom_body = 'Answer only with account-specific guidance.'
+
+        put "/api/v1/accounts/#{account.id}/tekomi/preferences",
+            headers: admin.create_new_auth_token,
+            params: { tekomi_prompts: { reply: custom_body } },
+            as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(account.account_llm_prompt_templates.find_by(key: 'reply').body).to eq(custom_body)
+        expect(json_response[:prompts].find { |prompt| prompt[:key] == 'reply' }).to include(
+          body: custom_body,
+          customized: true
+        )
+
+        put "/api/v1/accounts/#{account.id}/tekomi/preferences",
+            headers: admin.create_new_auth_token,
+            params: { tekomi_prompts: { reply: '' } },
+            as: :json
+
+        expect(response).to have_http_status(:success)
+        expect(account.account_llm_prompt_templates.find_by(key: 'reply')).to be_nil
       end
 
       it 'returns effective model provider and source for each feature' do

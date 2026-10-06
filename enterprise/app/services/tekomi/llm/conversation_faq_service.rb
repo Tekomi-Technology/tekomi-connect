@@ -74,7 +74,7 @@ class Tekomi::Llm::ConversationFaqService < Llm::BaseAiService
       candidate: candidate.slice('question', 'answer'),
       existing: { question: existing_record.question, answer: existing_record.answer }
     }
-    prompt = Tekomi::Llm::ConversationFaqPromptsService.same_faq
+    prompt = Tekomi::Llm::ConversationFaqPromptsService.same_faq(account: conversation.account)
     faq_match = Llm::FeatureRouter.resolve(feature: 'conversation_faq_matching', account: conversation.account)
     response = instrument_llm_call(match_instrumentation_params(prompt, comparison, faq_match[:model])) do
       chat(model: faq_match[:model], provider: faq_match[:provider], params: faq_match[:params], context: faq_match[:context])
@@ -176,7 +176,7 @@ class Tekomi::Llm::ConversationFaqService < Llm::BaseAiService
   end
 
   def system_prompt
-    Tekomi::Llm::ConversationFaqPromptsService.generator(language_name(faq_language))
+    Tekomi::Llm::ConversationFaqPromptsService.generator(language_name(faq_language), account: conversation.account)
   end
 
   def faq_language

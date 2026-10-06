@@ -32,6 +32,8 @@ class Tekomi::ConversationCompletionService < Tekomi::BaseTaskService
   private
 
   def prompt_from_file(file_name)
+    return Llm::Prompts.body(file_name, account: account) if Llm::Prompts.key?(file_name)
+
     Rails.root.join('enterprise/lib/tekomi/prompts', "#{file_name}.liquid").read
   end
 

@@ -35,7 +35,7 @@ module Concerns::Agentable
       )
     end
 
-    Tekomi::PromptRenderer.render(prompt_template, enhanced_context.with_indifferent_access)
+    Tekomi::PromptRenderer.render(prompt_template, enhanced_context.with_indifferent_access, account: account)
   end
 
   def agent_llm_route

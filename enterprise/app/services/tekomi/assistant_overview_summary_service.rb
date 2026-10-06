@@ -24,9 +24,12 @@ class Tekomi::AssistantOverviewSummaryService < Tekomi::BaseTaskService
   def system_prompt
     Tekomi::PromptRenderer.render(
       'assistant_overview_summary',
-      assistant_name: assistant.name,
-      language: account.locale_english_name,
-      report_data: JSON.pretty_generate(report_data)
+      {
+        assistant_name: assistant.name,
+        language: account.locale_english_name,
+        report_data: JSON.pretty_generate(report_data)
+      },
+      account: account
     )
   end
 

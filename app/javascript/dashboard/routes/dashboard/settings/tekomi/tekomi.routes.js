@@ -3,6 +3,7 @@ import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import { INSTALLATION_TYPES } from 'dashboard/constants/installationTypes';
 import SettingsWrapper from '../SettingsWrapper.vue';
 import Index from './Index.vue';
+import AiAlerts from './AiAlerts.vue';
 
 export default {
   routes: [
@@ -23,6 +24,19 @@ export default {
           path: '',
           name: 'tekomi_settings_index',
           component: Index,
+          meta: {
+            permissions: ['administrator'],
+            featureFlag: FEATURE_FLAGS.TEKOMI,
+            installationTypes: [
+              INSTALLATION_TYPES.ENTERPRISE,
+              INSTALLATION_TYPES.CLOUD,
+            ],
+          },
+        },
+        {
+          path: 'ai-alerts',
+          name: 'tekomi_ai_alerts',
+          component: AiAlerts,
           meta: {
             permissions: ['administrator'],
             featureFlag: FEATURE_FLAGS.TEKOMI,

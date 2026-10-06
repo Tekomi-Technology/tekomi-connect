@@ -55,7 +55,8 @@ RSpec.describe Tekomi::Llm::FaqGeneratorService do
 
       it 'uses SystemPromptsService with the account language' do
         account_language = document.account.locale_english_name
-        expect(Tekomi::Llm::SystemPromptsService).to receive(:faq_generator).with(account_language).at_least(:once).and_call_original
+        expect(Tekomi::Llm::SystemPromptsService).to receive(:faq_generator)
+          .with(account_language, account: document.account).at_least(:once).and_call_original
         service.generate
       end
     end
@@ -64,7 +65,8 @@ RSpec.describe Tekomi::Llm::FaqGeneratorService do
       before { allow(document.account).to receive(:locale_english_name).and_return('spanish') }
 
       it 'passes the correct language to SystemPromptsService' do
-        expect(Tekomi::Llm::SystemPromptsService).to receive(:faq_generator).with('spanish').at_least(:once).and_call_original
+        expect(Tekomi::Llm::SystemPromptsService).to receive(:faq_generator)
+          .with('spanish', account: document.account).at_least(:once).and_call_original
         service.generate
       end
     end

@@ -525,7 +525,7 @@ RSpec.describe Tekomi::Llm::ConversationFaqService do
 
       it 'uses account language for system prompt' do
         expect(Tekomi::Llm::ConversationFaqPromptsService).to receive(:generator)
-          .with('french')
+          .with('french', account: conversation.account)
           .at_least(:once)
           .and_call_original
 
@@ -547,7 +547,7 @@ RSpec.describe Tekomi::Llm::ConversationFaqService do
 
       it 'uses the conversation language for the system prompt' do
         expect(Tekomi::Llm::ConversationFaqPromptsService).to receive(:generator)
-          .with('portuguese')
+          .with('portuguese', account: conversation.account)
           .at_least(:once)
           .and_call_original
 

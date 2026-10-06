@@ -45,7 +45,8 @@ class Tekomi::Llm::AssistantChatService < Llm::BaseAiService
       content: Tekomi::Llm::SystemPromptsService.assistant_response_generator(
         @assistant.name, @assistant.config['product_name'], @assistant.config.merge('timezone' => inbox_timezone),
         contact: contact_attributes,
-        custom_tools: custom_tools_metadata
+        custom_tools: custom_tools_metadata,
+        account: @assistant.account
       )
     }
   end

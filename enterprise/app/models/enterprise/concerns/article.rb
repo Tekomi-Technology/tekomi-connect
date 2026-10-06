@@ -42,7 +42,7 @@ module Enterprise::Concerns::Article
   end
 
   def article_to_search_terms_prompt
-    Tekomi::PromptRenderer.render('article_search_terms')
+    Tekomi::PromptRenderer.render('article_search_terms', {}, account: account)
   end
 
   def generate_article_search_terms

@@ -1,6 +1,7 @@
 <script setup>
 import { computed, onMounted, reactive } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRoute, useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
 import { useAlert } from 'dashboard/composables';
 import { useAccount } from 'dashboard/composables/useAccount';
@@ -8,25 +9,56 @@ import { useAdmin } from 'dashboard/composables/useAdmin';
 import { useTekomi } from 'dashboard/composables/useTekomi';
 import { useConfig } from 'dashboard/composables/useConfig';
 import { useTekomiConfigStore } from 'dashboard/store/tekomi/preferences';
+import { useAiAlertsStore } from 'dashboard/stores/aiAlerts';
 
 import SettingsLayout from '../SettingsLayout.vue';
 import BaseSettingsHeader from '../components/BaseSettingsHeader.vue';
 import SectionLayout from '../account/components/SectionLayout.vue';
 import FeatureToggle from './components/FeatureToggle.vue';
 import TekomiPaywall from 'next/tekomi/pageComponents/Paywall.vue';
+import TabBar from 'dashboard/components-next/tabbar/TabBar.vue';
 
 const { t } = useI18n();
 const { tekomiEnabled } = useTekomi();
 const { isEnterprise } = useConfig();
-const { isOnChatwootCloud } = useAccount();
+const { isOnChatwootCloud, accountId } = useAccount();
 const { isAdmin } = useAdmin();
+const route = useRoute();
+const router = useRouter();
 
 const tekomiConfigStore = useTekomiConfigStore();
-const { uiFlags, llmProviders } = storeToRefs(tekomiConfigStore);
+const aiAlertsStore = useAiAlertsStore();
+const { uiFlags, llmProviders, llmPrompts } = storeToRefs(tekomiConfigStore);
+const { meta: aiAlertsMeta } = storeToRefs(aiAlertsStore);
 const providerKeys = reactive({});
 const savingProviders = reactive({});
+const savingPrompts = reactive({});
 
 const isLoading = computed(() => uiFlags.value.isFetching);
+
+const tabs = computed(() => [
+  { key: 'settings', label: t('TEKOMI_SETTINGS.TABS.SETTINGS') },
+  {
+    key: 'alerts',
+    label: t('TEKOMI_SETTINGS.TABS.ALERTS'),
+    count: aiAlertsMeta.value.unreadCount,
+  },
+]);
+
+const activeTabIndex = computed(() =>
+  tabs.value.findIndex(tab =>
+    tab.key === 'alerts'
+      ? route.name === 'tekomi_ai_alerts'
+      : route.name === 'tekomi_settings_index'
+  )
+);
+
+const onTabChanged = tab => {
+  router.push({
+    name: tab.key === 'alerts' ? 'tekomi_ai_alerts' : 'tekomi_settings_index',
+    params: { accountId: accountId.value },
+  });
+};
 
 const featureToggles = computed(() => [
   {
@@ -117,8 +149,41 @@ async function removeProvider(provider) {
   }
 }
 
+function promptTitle(prompt) {
+  return prompt.key.replace(/_/g, ' ');
+}
+
+async function savePrompt(prompt) {
+  savingPrompts[prompt.key] = true;
+  try {
+    await tekomiConfigStore.updatePreferences({
+      tekomi_prompts: { [prompt.key]: prompt.body },
+    });
+    useAlert(t('TEKOMI_SETTINGS.PROMPTS.SAVE_SUCCESS'));
+  } catch (error) {
+    useAlert(t('TEKOMI_SETTINGS.PROMPTS.SAVE_ERROR'));
+  } finally {
+    savingPrompts[prompt.key] = false;
+  }
+}
+
+async function restorePrompt(prompt) {
+  savingPrompts[prompt.key] = true;
+  try {
+    await tekomiConfigStore.updatePreferences({
+      tekomi_prompts: { [prompt.key]: '' },
+    });
+    useAlert(t('TEKOMI_SETTINGS.PROMPTS.RESTORE_SUCCESS'));
+  } catch (error) {
+    useAlert(t('TEKOMI_SETTINGS.PROMPTS.SAVE_ERROR'));
+  } finally {
+    savingPrompts[prompt.key] = false;
+  }
+}
+
 onMounted(() => {
   tekomiConfigStore.fetch();
+  if (isAdmin.value) aiAlertsStore.fetch({ limit: 1 });
 });
 </script>
 
@@ -135,7 +200,16 @@ onMounted(() => {
         :link-text="t('TEKOMI_SETTINGS.LINK_TEXT')"
         icon-name="tekomi"
         feature-name="tekomi_billing"
-      />
+      >
+        <template #tabs>
+          <TabBar
+            v-if="isAdmin"
+            :tabs="tabs"
+            :initial-active-tab="activeTabIndex"
+            @tab-changed="onTabChanged"
+          />
+        </template>
+      </BaseSettingsHeader>
     </template>
     <template #body>
       <div v-if="tekomiEnabled" class="flex flex-col gap-1">
@@ -227,6 +301,76 @@ onMounted(() => {
                   {{ t('TEKOMI_SETTINGS.LLM_PROVIDERS.REMOVE') }}
                 </button>
               </div>
+            </div>
+          </div>
+        </SectionLayout>
+
+        <SectionLayout
+          v-if="isAdmin && llmPrompts.length"
+          :title="t('TEKOMI_SETTINGS.PROMPTS.TITLE')"
+          :description="t('TEKOMI_SETTINGS.PROMPTS.DESCRIPTION')"
+        >
+          <div class="grid gap-4">
+            <div
+              v-for="prompt in llmPrompts"
+              :key="prompt.key"
+              class="grid gap-3 p-4 border rounded-xl border-n-weak"
+            >
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <p class="text-sm font-medium text-n-slate-12">
+                    {{ prompt.name || promptTitle(prompt) }}
+                  </p>
+                  <p class="text-xs text-n-slate-10">
+                    {{ prompt.description || prompt.group }}
+                  </p>
+                </div>
+                <span
+                  class="px-2 py-1 text-xs font-medium rounded-lg"
+                  :class="
+                    prompt.customized
+                      ? 'bg-n-teal-3 text-n-teal-11'
+                      : 'bg-n-slate-3 text-n-slate-11'
+                  "
+                >
+                  {{
+                    prompt.customized
+                      ? t('TEKOMI_SETTINGS.PROMPTS.CUSTOMIZED')
+                      : t('TEKOMI_SETTINGS.PROMPTS.DEFAULT')
+                  }}
+                </span>
+              </div>
+              <textarea
+                v-model="prompt.body"
+                rows="12"
+                spellcheck="false"
+                class="w-full px-3 py-2 font-mono text-xs bg-transparent border rounded-lg resize-y border-n-weak text-n-slate-12 placeholder:text-n-slate-9 focus:border-n-brand"
+              />
+              <div class="flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  class="px-4 py-2 text-sm font-medium rounded-lg bg-n-brand text-white disabled:cursor-not-allowed disabled:opacity-50"
+                  :disabled="savingPrompts[prompt.key]"
+                  @click="savePrompt(prompt)"
+                >
+                  {{ t('TEKOMI_SETTINGS.PROMPTS.SAVE') }}
+                </button>
+                <button
+                  v-if="prompt.customized"
+                  type="button"
+                  class="px-4 py-2 text-sm font-medium border rounded-lg border-n-weak text-n-slate-11 disabled:cursor-not-allowed disabled:opacity-50"
+                  :disabled="savingPrompts[prompt.key]"
+                  @click="restorePrompt(prompt)"
+                >
+                  {{ t('TEKOMI_SETTINGS.PROMPTS.RESTORE') }}
+                </button>
+              </div>
+              <details>
+                <summary class="text-xs cursor-pointer text-n-slate-10">
+                  {{ t('TEKOMI_SETTINGS.PROMPTS.SHOW_DEFAULT') }}
+                </summary>
+                <pre class="p-3 mt-2 overflow-x-auto text-xs whitespace-pre-wrap rounded-lg bg-n-slate-2 text-n-slate-11">{{ prompt.default_body }}</pre>
+              </details>
             </div>
           </div>
         </SectionLayout>

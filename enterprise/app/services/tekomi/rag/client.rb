@@ -41,6 +41,10 @@ class Tekomi::Rag::Client
 
   def openrouter_api_key
     @openrouter_api_key ||= @account.account_llm_providers.find_by!(provider_type: 'openrouter').api_key
+  rescue ActiveRecord::RecordNotFound => e
+    alert_error = CustomExceptions::Llm::TenantProviderNotConfigured.new(feature: 'rag', provider: 'openrouter')
+    Llm::AlertRecorder.record(account: @account, error: alert_error, feature: 'rag', provider: 'openrouter')
+    raise
   end
 
   def post(path, body)
@@ -53,9 +57,26 @@ class Tekomi::Rag::Client
     return response.parsed_response if response.success?
 
     detail = response.parsed_response.is_a?(Hash) ? response.parsed_response['detail'] : nil
-    raise Error, "RAG service #{path} failed (HTTP #{response.code}): #{detail || response.body.to_s.truncate(500)}"
+    error = Error.new("RAG service #{path} failed (HTTP #{response.code}): #{detail || response.body.to_s.truncate(500)}")
+    Llm::AlertRecorder.record(
+      account: @account,
+      error: error,
+      feature: 'rag',
+      provider: 'openrouter',
+      status_code: response.code,
+      metadata: { path: path }
+    )
+    raise error
   rescue Net::OpenTimeout, Net::ReadTimeout, SocketError, Errno::ECONNREFUSED => e
-    raise Error, "RAG service #{path} unavailable: #{e.message}"
+    error = Error.new("RAG service #{path} unavailable: #{e.message}")
+    Llm::AlertRecorder.record(
+      account: @account,
+      error: error,
+      feature: 'rag',
+      provider: 'openrouter',
+      metadata: { path: path }
+    )
+    raise error
   end
 
   def headers

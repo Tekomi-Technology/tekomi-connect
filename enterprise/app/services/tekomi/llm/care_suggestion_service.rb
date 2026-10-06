@@ -11,7 +11,7 @@ class Tekomi::Llm::CareSuggestionService < Tekomi::BaseTaskService
 
   def messages
     [
-      { role: 'system', content: Tekomi::PromptRenderer.render('care_suggestion', language: account.locale_english_name) },
+      { role: 'system', content: Tekomi::PromptRenderer.render('care_suggestion', { language: account.locale_english_name }, account: account) },
       { role: 'user', content: analysis_text }
     ]
   end

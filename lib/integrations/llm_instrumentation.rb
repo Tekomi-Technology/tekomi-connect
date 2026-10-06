@@ -8,7 +8,7 @@ module Integrations::LlmInstrumentation
   include Integrations::LlmInstrumentationSpans
 
   def instrument_llm_call(params)
-    return yield unless ChatwootApp.otel_enabled?
+    return yield_with_alert(params) unless ChatwootApp.otel_enabled?
 
     result = nil
     executed = false
@@ -20,12 +20,13 @@ module Integrations::LlmInstrumentation
       result
     end
   rescue StandardError => e
+    record_llm_alert(params, e)
     ChatwootExceptionTracker.new(e, account: resolve_account(params)).capture_exception
     executed ? result : yield
   end
 
   def instrument_agent_session(params)
-    return yield unless ChatwootApp.otel_enabled?
+    return yield_with_alert(params) unless ChatwootApp.otel_enabled?
 
     result = nil
     executed = false
@@ -43,6 +44,7 @@ module Integrations::LlmInstrumentation
       end
     end
   rescue StandardError => e
+    record_llm_alert(params, e)
     ChatwootExceptionTracker.new(e, account: resolve_account(params)).capture_exception
     executed ? result : yield
   end
@@ -64,7 +66,7 @@ module Integrations::LlmInstrumentation
   end
 
   def instrument_embedding_call(params)
-    return yield unless ChatwootApp.otel_enabled?
+    return yield_with_alert(params) unless ChatwootApp.otel_enabled?
 
     instrument_with_span(params[:span_name] || 'llm.embedding', params) do |span, track_result|
       set_embedding_span_attributes(span, params)
@@ -76,7 +78,7 @@ module Integrations::LlmInstrumentation
   end
 
   def instrument_audio_transcription(params)
-    return yield unless ChatwootApp.otel_enabled?
+    return yield_with_alert(params) unless ChatwootApp.otel_enabled?
 
     instrument_with_span(params[:span_name] || 'llm.audio.transcription', params) do |span, track_result|
       set_audio_transcription_span_attributes(span, params)
@@ -88,7 +90,7 @@ module Integrations::LlmInstrumentation
   end
 
   def instrument_moderation_call(params)
-    return yield unless ChatwootApp.otel_enabled?
+    return yield_with_alert(params) unless ChatwootApp.otel_enabled?
 
     instrument_with_span(params[:span_name] || 'llm.moderation', params) do |span, track_result|
       set_moderation_span_attributes(span, params)
@@ -100,6 +102,26 @@ module Integrations::LlmInstrumentation
   end
 
   private
+
+  def yield_with_alert(params)
+    yield
+  rescue StandardError => e
+    record_llm_alert(params, e)
+    raise
+  end
+
+  def record_llm_alert(params, error)
+    metadata = params[:metadata].respond_to?(:to_h) ? params[:metadata].to_h : {}
+    Llm::AlertRecorder.record(
+      account: resolve_account(params),
+      error: error,
+      feature: params[:feature_name],
+      provider: params[:provider],
+      metadata: metadata.merge(model: params[:model]).compact
+    )
+  rescue StandardError => alert_error
+    Rails.logger.warn("[AI_ALERT] Instrumentation alert failed: #{alert_error.class}: #{alert_error.message}")
+  end
 
   def resolve_account(params)
     return params[:account] if params[:account].is_a?(Account)

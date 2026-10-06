@@ -66,6 +66,42 @@ prompts:
   assistant:
     group: assistant
     path: enterprise/lib/tekomi/prompts/assistant.liquid
+  assistant_action_classifier:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/assistant_action_classifier.liquid
+  assistant_false_promise_detector:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/assistant_false_promise_detector.liquid
+  assistant_v1:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/assistant_v1.liquid
+  assistant_overview_summary:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/assistant_overview_summary.liquid
+  instruction_auditor:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/instruction_auditor.liquid
+  instruction_classifier:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/instruction_classifier.liquid
+  campaign:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/snippets/campaign.liquid
+  contact:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/snippets/contact.liquid
+  contact_notes:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/contact_notes.liquid
+  contact_attributes:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/contact_attributes.liquid
+  conversation:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/snippets/conversation.liquid
+  current_time:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/snippets/current_time.liquid
   core_rules:
     group: assistant
     path: enterprise/lib/tekomi/prompts/snippets/core_rules.liquid
@@ -96,6 +132,15 @@ prompts:
   summary:
     group: editor
     path: lib/integrations/openai/openai_prompts/summary.liquid
+  follow_up:
+    group: editor
+    path: lib/integrations/openai/openai_prompts/follow_up.liquid
+  label_suggestion:
+    group: editor
+    path: lib/integrations/openai/openai_prompts/label_suggestion.liquid
+  tekomi_overview_summary:
+    group: editor
+    path: lib/integrations/openai/openai_prompts/tekomi_overview_summary.liquid
   deal_assistant:
     group: deals
     path: enterprise/lib/tekomi/prompts/deal_assistant.liquid
@@ -117,3 +162,51 @@ prompts:
   care_suggestion:
     group: conversation
     path: enterprise/lib/tekomi/prompts/care_suggestion.liquid
+  call_emotion_analysis:
+    group: conversation
+    path: enterprise/lib/tekomi/prompts/call_emotion_analysis.liquid
+  conversation_completion:
+    group: conversation
+    path: enterprise/lib/tekomi/prompts/conversation_completion.liquid
+  csat_utility_analysis:
+    group: conversation
+    path: lib/integrations/openai/openai_prompts/csat_utility_analysis.liquid
+  document_faq:
+    group: faq
+    path: enterprise/lib/tekomi/prompts/document_faq.liquid
+  pdf_faq:
+    group: faq
+    path: enterprise/lib/tekomi/prompts/pdf_faq.liquid
+  conversation_faq:
+    group: faq
+    path: enterprise/lib/tekomi/prompts/conversation_faq.liquid
+  conversation_faq_matching:
+    group: faq
+    path: enterprise/lib/tekomi/prompts/conversation_faq_matching.liquid
+  article_content_translation:
+    group: help_center
+    path: enterprise/lib/tekomi/prompts/article_content_translation.liquid
+  article_search_terms:
+    group: help_center
+    path: enterprise/lib/tekomi/prompts/article_search_terms.liquid
+  article_title_translation:
+    group: help_center
+    path: enterprise/lib/tekomi/prompts/article_title_translation.liquid
+  article_writer:
+    group: help_center
+    path: enterprise/lib/tekomi/prompts/article_writer.liquid
+  help_center_curation:
+    group: help_center
+    path: enterprise/lib/tekomi/prompts/help_center_curation.liquid
+  help_center_query_translation:
+    group: help_center
+    path: enterprise/lib/tekomi/prompts/help_center_query_translation.liquid
+  website_analyzer:
+    group: onboarding
+    path: enterprise/lib/tekomi/prompts/website_analyzer.liquid
+  widget_tagline:
+    group: onboarding
+    path: enterprise/lib/tekomi/prompts/widget_tagline.liquid
+  citations:
+    group: assistant
+    path: enterprise/lib/tekomi/prompts/snippets/citations.liquid

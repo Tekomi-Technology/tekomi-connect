@@ -80,7 +80,8 @@ class Tekomi::Llm::AssistantActionClassifierService < Llm::BaseAiService
 
   def system_prompt
     Tekomi::Llm::SystemPromptsService.assistant_action_classifier(
-      has_custom_instructions: @assistant.config['instructions'].present?
+      has_custom_instructions: @assistant.config['instructions'].present?,
+      account: @conversation.account
     )
   end
 end

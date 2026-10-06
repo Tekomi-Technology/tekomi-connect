@@ -1,18 +1,24 @@
 class Tekomi::Llm::SystemPromptsService
   class << self
-    def faq_generator(language = 'english')
-      Tekomi::PromptRenderer.render('document_faq', language: language)
+    def faq_generator(language = 'english', account: nil)
+      Tekomi::PromptRenderer.render('document_faq', { language: language }, account: account)
     end
 
-    def notes_generator(language = 'english')
-      Tekomi::PromptRenderer.render('contact_notes', language: language)
+    def notes_generator(language = 'english', account: nil)
+      Tekomi::PromptRenderer.render('contact_notes', { language: language }, account: account)
     end
 
-    def attributes_generator
-      Tekomi::PromptRenderer.render('contact_attributes')
+    def attributes_generator(account: nil)
+      Tekomi::PromptRenderer.render('contact_attributes', {}, account: account)
     end
 
-    def assistant_action_classifier(has_custom_instructions: false)
+    def assistant_action_classifier(has_custom_instructions: false, account: nil)
+      return Tekomi::PromptRenderer.render(
+        'assistant_action_classifier',
+        { custom_instructions_policy: has_custom_instructions ? assistant_action_classifier_custom_instructions_policy : '' },
+        account: account
+      ) if Llm::Prompts.key?('assistant_action_classifier')
+
       <<~PROMPT
         You are a routing classifier for a customer-support assistant.
 
@@ -56,7 +62,9 @@ class Tekomi::Llm::SystemPromptsService
       PROMPT
     end
 
-    def assistant_false_promise_detector
+    def assistant_false_promise_detector(account: nil)
+      return Tekomi::PromptRenderer.render('assistant_false_promise_detector', {}, account: account) if Llm::Prompts.key?('assistant_false_promise_detector')
+
       <<~PROMPT
         You are checking one failure mode in a customer-support assistant response: unsupported promises of future work.
 
@@ -115,35 +123,45 @@ class Tekomi::Llm::SystemPromptsService
       PROMPT
     end
 
-    def deal_assistant(available_tools)
-      Tekomi::PromptRenderer.render('deal_assistant', available_tools: available_tools)
+    def deal_assistant(available_tools, account: nil)
+      Tekomi::PromptRenderer.render('deal_assistant', { available_tools: available_tools }, account: account)
     end
 
-    def copilot_response_generator(product_name, available_tools, config = {})
+    def copilot_response_generator(product_name, available_tools, config = {}, account: nil)
       Tekomi::PromptRenderer.render(
         'copilot',
-        product_name: product_name,
-        available_tools: available_tools,
-        citation_enabled: config['feature_citation']
+        {
+          product_name: product_name,
+          available_tools: available_tools,
+          citation_enabled: config['feature_citation']
+        },
+        account: account
       )
     end
 
-    def assistant_response_generator(assistant_name, product_name, config = {}, contact: nil, custom_tools: [])
+    def assistant_response_generator(assistant_name, product_name, config = {}, contact: nil, custom_tools: [], account: nil)
       Tekomi::PromptRenderer.render(
         'assistant_v1',
-        assistant_name: assistant_name,
-        product_name: product_name,
-        general_knowledge_enabled: config['feature_general_knowledge'],
-        citation_enabled: config['feature_citation'],
-        current_time: format_current_time(config['timezone']),
-        contact_context: build_contact_context(contact),
-        custom_instructions: config['instructions'].presence,
-        tools_list: custom_tools.map { |tool| "- #{tool[:name]}: #{tool[:description]}" }.join("\n")
+        {
+          assistant_name: assistant_name,
+          product_name: product_name,
+          general_knowledge_enabled: config['feature_general_knowledge'],
+          citation_enabled: config['feature_citation'],
+          current_time: format_current_time(config['timezone']),
+          contact_context: build_contact_context(contact),
+          custom_instructions: config['instructions'].presence,
+          tools_list: custom_tools.map { |tool| "- #{tool[:name]}: #{tool[:description]}" }.join("\n")
+        },
+        account: account
       )
     end
 
-    def paginated_faq_generator(start_page, end_page, language = 'english')
-      Tekomi::PromptRenderer.render('pdf_faq', start_page: start_page, page_count: end_page - start_page + 1, language: language)
+    def paginated_faq_generator(start_page, end_page, language = 'english', account: nil)
+      Tekomi::PromptRenderer.render(
+        'pdf_faq',
+        { start_page: start_page, page_count: end_page - start_page + 1, language: language },
+        account: account
+      )
     end
 
     private

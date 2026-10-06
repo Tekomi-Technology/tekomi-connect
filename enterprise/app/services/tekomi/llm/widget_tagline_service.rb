@@ -25,7 +25,7 @@ class Tekomi::Llm::WidgetTaglineService < Tekomi::BaseTaskService
   end
 
   def system_prompt
-    Tekomi::PromptRenderer.render('widget_tagline')
+    Tekomi::PromptRenderer.render('widget_tagline', {}, account: account)
   end
 
   def user_prompt

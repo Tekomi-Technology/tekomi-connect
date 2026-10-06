@@ -26,7 +26,7 @@ class Tekomi::AssistantMigration::InstructionAuditor < Tekomi::BaseTaskService
   end
 
   def system_prompt
-    Tekomi::PromptRenderer.render('instruction_auditor')
+    Tekomi::PromptRenderer.render('instruction_auditor', {}, account: account)
   end
 
   def event_name

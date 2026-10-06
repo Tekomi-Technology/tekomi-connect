@@ -74,6 +74,14 @@ module Integrations::LlmInstrumentationSpans
       yield(span, track_result)
     end
   rescue StandardError => e
+    metadata = params[:metadata].respond_to?(:to_h) ? params[:metadata].to_h : {}
+    Llm::AlertRecorder.record(
+      account: resolve_account(params),
+      error: e,
+      feature: params[:feature_name],
+      provider: params[:provider],
+      metadata: metadata.merge(model: params[:model]).compact
+    )
     ChatwootExceptionTracker.new(e, account: resolve_account(params)).capture_exception
     raise unless executed
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_10_06_000004) do
+ActiveRecord::Schema[7.2].define(version: 2026_10_06_000006) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -35,6 +35,37 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_06_000004) do
     t.datetime "updated_at", null: false
     t.index ["account_id", "provider_type"], name: "index_account_llm_providers_on_account_id_and_provider_type", unique: true
     t.index ["account_id"], name: "index_account_llm_providers_on_account_id"
+  end
+
+  create_table "account_llm_prompt_templates", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "key", null: false
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "key"], name: "index_account_llm_prompt_templates_on_account_id_and_key", unique: true
+    t.index ["account_id"], name: "index_account_llm_prompt_templates_on_account_id"
+  end
+
+  create_table "ai_alerts", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "category", null: false
+    t.string "feature"
+    t.string "provider"
+    t.string "title", null: false
+    t.text "message", null: false
+    t.string "fingerprint", null: false
+    t.integer "status_code"
+    t.jsonb "metadata", default: {}, null: false
+    t.integer "occurrences", default: 1, null: false
+    t.datetime "last_seen_at", null: false
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "created_at"], name: "index_ai_alerts_on_account_id_and_created_at"
+    t.index ["account_id", "fingerprint", "last_seen_at"], name: "index_ai_alerts_on_account_fingerprint_last_seen"
+    t.index ["account_id", "read_at"], name: "index_ai_alerts_on_account_id_and_read_at"
+    t.index ["account_id"], name: "index_ai_alerts_on_account_id"
   end
 
   create_table "account_saml_settings", force: :cascade do |t|
@@ -2020,6 +2051,8 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_06_000004) do
   end
 
   add_foreign_key "account_llm_providers", "accounts", on_delete: :cascade
+  add_foreign_key "account_llm_prompt_templates", "accounts", on_delete: :cascade
+  add_foreign_key "ai_alerts", "accounts", on_delete: :cascade
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "callbot_webhooks", "accounts"

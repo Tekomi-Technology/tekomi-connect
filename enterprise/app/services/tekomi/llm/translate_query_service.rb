@@ -42,6 +42,6 @@ class Tekomi::Llm::TranslateQueryService < Tekomi::BaseTaskService
   end
 
   def system_prompt(target_language)
-    Tekomi::PromptRenderer.render('help_center_query_translation', target_language: target_language)
+    Tekomi::PromptRenderer.render('help_center_query_translation', { target_language: target_language }, account: account)
   end
 end

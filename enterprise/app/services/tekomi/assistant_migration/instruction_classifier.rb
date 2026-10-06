@@ -41,7 +41,7 @@ class Tekomi::AssistantMigration::InstructionClassifier < Tekomi::BaseTaskServic
   end
 
   def system_prompt
-    Tekomi::PromptRenderer.render('instruction_classifier')
+    Tekomi::PromptRenderer.render('instruction_classifier', {}, account: account)
   end
 
   def user_prompt

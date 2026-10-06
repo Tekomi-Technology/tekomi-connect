@@ -50,7 +50,7 @@ class Tekomi::Llm::ContactNotesService < Llm::BaseAiService
 
   def system_prompt
     account_language = @conversation.account.locale_english_name
-    Tekomi::Llm::SystemPromptsService.notes_generator(account_language)
+    Tekomi::Llm::SystemPromptsService.notes_generator(account_language, account: @conversation.account)
   end
 
   def parse_response(response)

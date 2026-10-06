@@ -90,7 +90,8 @@ class Tekomi::Copilot::ChatService < Llm::BaseAiService
       content: Tekomi::Llm::SystemPromptsService.copilot_response_generator(
         @assistant.config['product_name'],
         tools_summary,
-        @assistant.config
+        @assistant.config,
+        account: @account
       )
     }
   end

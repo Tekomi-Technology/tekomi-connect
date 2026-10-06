@@ -64,6 +64,8 @@ class Account < ApplicationRecord
   has_many :account_users, dependent: :destroy_async
   has_one :tenant_branding_profile, dependent: :destroy
   has_many :account_llm_providers, dependent: :destroy
+  has_many :account_llm_prompt_templates, dependent: :destroy
+  has_many :ai_alerts, dependent: :destroy_async
   has_many :agent_bot_inboxes, dependent: :destroy_async
   has_many :agent_bots, dependent: :destroy_async
   has_many :api_channels, dependent: :destroy_async, class_name: '::Channel::Api'

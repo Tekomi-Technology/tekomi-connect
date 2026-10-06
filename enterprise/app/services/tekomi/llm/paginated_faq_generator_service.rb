@@ -88,7 +88,7 @@ class Tekomi::Llm::PaginatedFaqGeneratorService < Llm::BaseAiService
   end
 
   def page_chunk_prompt(start_page, end_page)
-    Tekomi::Llm::SystemPromptsService.paginated_faq_generator(start_page, end_page, @language)
+    Tekomi::Llm::SystemPromptsService.paginated_faq_generator(start_page, end_page, @language, account: @document.account)
   end
 
   def parse_chunk_response(content)

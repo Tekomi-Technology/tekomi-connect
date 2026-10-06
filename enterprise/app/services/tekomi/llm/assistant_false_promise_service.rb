@@ -79,6 +79,6 @@ class Tekomi::Llm::AssistantFalsePromiseService < Llm::BaseAiService
   end
 
   def system_prompt
-    Tekomi::Llm::SystemPromptsService.assistant_false_promise_detector
+    Tekomi::Llm::SystemPromptsService.assistant_false_promise_detector(account: @conversation.account)
   end
 end

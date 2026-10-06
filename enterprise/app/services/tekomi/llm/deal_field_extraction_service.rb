@@ -20,7 +20,7 @@ class Tekomi::Llm::DealFieldExtractionService < Tekomi::BaseTaskService
   end
 
   def system_prompt
-    Tekomi::PromptRenderer.render('deal_field_extraction')
+    Tekomi::PromptRenderer.render('deal_field_extraction', {}, account: account)
   end
 
   def user_prompt

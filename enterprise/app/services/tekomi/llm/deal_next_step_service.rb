@@ -18,7 +18,7 @@ class Tekomi::Llm::DealNextStepService < Tekomi::BaseTaskService
   end
 
   def system_prompt
-    Tekomi::PromptRenderer.render('deal_next_step')
+    Tekomi::PromptRenderer.render('deal_next_step', {}, account: account)
   end
 
   def user_prompt

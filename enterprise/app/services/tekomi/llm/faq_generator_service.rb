@@ -28,7 +28,7 @@ class Tekomi::Llm::FaqGeneratorService < Llm::BaseAiService
   attr_reader :content, :language
 
   def system_prompt
-    Tekomi::Llm::SystemPromptsService.faq_generator(language)
+    Tekomi::Llm::SystemPromptsService.faq_generator(language, account: @document.account)
   end
 
   def instrumentation_params

@@ -85,7 +85,7 @@ class Tekomi::Onboarding::WebsiteAnalyzerService < Llm::BaseAiService
   end
 
   def build_analysis_prompt
-    Tekomi::PromptRenderer.render('website_analyzer', website_content: @website_content)
+    Tekomi::PromptRenderer.render('website_analyzer', { website_content: @website_content }, account: @account)
   end
 
   def parse_llm_response(response_text)

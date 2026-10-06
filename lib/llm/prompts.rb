@@ -6,6 +6,13 @@ module Llm::Prompts
     def key?(key) = CONFIG.key?(key.to_s)
     def grouped = keys.group_by { |key| CONFIG.dig(key, 'group') }
     def default_body(key) = Rails.root.join(CONFIG.fetch(key.to_s).fetch('path')).read
-    def body(key) = LlmPromptTemplate.find_by(key: key.to_s)&.body || default_body(key)
+    def body(key, account: nil)
+      account ||= Current.account if defined?(Current)
+      account_body = if account&.respond_to?(:account_llm_prompt_templates)
+                       account.account_llm_prompt_templates.find_by(key: key.to_s)&.body
+                     end
+
+      account_body.presence || LlmPromptTemplate.find_by(key: key.to_s)&.body || default_body(key)
+    end
   end
 end

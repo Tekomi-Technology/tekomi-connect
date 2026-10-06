@@ -19,7 +19,7 @@ class Tekomi::Llm::DealSummaryService < Tekomi::BaseTaskService
   end
 
   def system_prompt
-    Tekomi::PromptRenderer.render('deal_summary')
+    Tekomi::PromptRenderer.render('deal_summary', {}, account: account)
   end
 
   def user_prompt

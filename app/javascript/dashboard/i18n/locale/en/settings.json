@@ -549,6 +549,10 @@
     "DESCRIPTION": "Enable or disable GMO AI features for your account. GMO AI follows a credit based billing, you will be charged credits for every action GMO AI takes.",
     "LOADING": "Loading GMO AI configuration...",
     "LINK_TEXT": "Learn more about GMO AI Credits",
+    "TABS": {
+      "SETTINGS": "Settings",
+      "ALERTS": "AI alerts"
+    },
     "NOT_ENABLED": "GMO AI is not enabled for your account. Please upgrade your plan to access GMO AI features.",
     "FEATURES": {
       "TITLE": "Features",
@@ -578,6 +582,41 @@
       "SAVE_SUCCESS": "The account API key was saved.",
       "REMOVE_SUCCESS": "The account API key was removed. AI features using this provider are now unavailable.",
       "SAVE_ERROR": "Could not update the account API key. Please try again."
+    },
+    "PROMPTS": {
+      "TITLE": "System prompts",
+      "DESCRIPTION": "Customize every AI system prompt for this account. Changes apply to this account only.",
+      "CUSTOMIZED": "Account override",
+      "DEFAULT": "Inherited",
+      "SAVE": "Save prompt",
+      "RESTORE": "Restore inherited prompt",
+      "SHOW_DEFAULT": "Show inherited prompt",
+      "SAVE_SUCCESS": "The system prompt was saved for this account.",
+      "RESTORE_SUCCESS": "The account now uses the inherited system prompt.",
+      "SAVE_ERROR": "Could not update the system prompt. Please try again."
+    },
+    "ALERTS": {
+      "TITLE": "AI alerts",
+      "DESCRIPTION": "Realtime warnings for AI configuration, provider, quota, and availability problems in this account.",
+      "LOADING": "Loading AI alerts...",
+      "EMPTY": "No AI problems have been reported.",
+      "MARK_ALL_READ": "Mark all as read",
+      "MARK_READ": "Mark as read",
+      "MARK_UNREAD": "Mark as unread",
+      "DELETE": "Delete",
+      "READ": "Read",
+      "OCCURRENCES": "{count} occurrences",
+      "CATEGORIES": {
+        "CONFIGURATION": "Configuration",
+        "AUTHENTICATION": "API key",
+        "QUOTA": "Limit / credits",
+        "AVAILABILITY": "Availability",
+        "PROVIDER": "Provider",
+        "UNKNOWN": "Unknown"
+      },
+      "API": {
+        "ERROR": "Could not update AI alerts. Please try again."
+      }
     },
     "API": {
       "SUCCESS": "GMO AI settings updated successfully.",

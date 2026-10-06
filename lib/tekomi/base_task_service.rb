@@ -60,6 +60,13 @@ class Tekomi::BaseTaskService
     build_ruby_llm_response(chat.ask(conversation_messages.last[:content]), messages)
   rescue StandardError => e
     capture_llm_exception(e)
+    Llm::AlertRecorder.record(
+      account: account,
+      error: e,
+      feature: route[:feature] || event_name,
+      provider: route[:provider],
+      metadata: { model: route[:model] }
+    )
     { error: e.message, request_messages: messages }
   end
 
@@ -154,7 +161,7 @@ class Tekomi::BaseTaskService
   end
 
   def prompt_from_file(file_name)
-    return Llm::Prompts.body(file_name) if Llm::Prompts.key?(file_name)
+    return Llm::Prompts.body(file_name, account: account) if Llm::Prompts.key?(file_name)
 
     Rails.root.join('lib/integrations/openai/openai_prompts', "#{file_name}.liquid").read
   end

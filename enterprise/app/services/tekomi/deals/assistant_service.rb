@@ -44,7 +44,7 @@ class Tekomi::Deals::AssistantService < Llm::BaseAiService
   def system_message
     {
       role: 'system',
-      content: Tekomi::Llm::SystemPromptsService.deal_assistant(tools_summary)
+      content: Tekomi::Llm::SystemPromptsService.deal_assistant(tools_summary, account: @account)
     }
   end
 

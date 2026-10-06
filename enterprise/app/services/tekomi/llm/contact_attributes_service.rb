@@ -47,7 +47,7 @@ class Tekomi::Llm::ContactAttributesService < Llm::BaseAiService
   end
 
   def system_prompt
-    Tekomi::Llm::SystemPromptsService.attributes_generator
+    Tekomi::Llm::SystemPromptsService.attributes_generator(account: @conversation.account)
   end
 
   def parse_response(content)

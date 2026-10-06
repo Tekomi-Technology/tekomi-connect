@@ -20,7 +20,7 @@ class Tekomi::Llm::DealSuggestionService < Tekomi::BaseTaskService
   end
 
   def system_prompt
-    Tekomi::PromptRenderer.render('deal_suggestion')
+    Tekomi::PromptRenderer.render('deal_suggestion', {}, account: account)
   end
 
   def user_prompt

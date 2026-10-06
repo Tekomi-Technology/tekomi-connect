@@ -81,7 +81,8 @@ RSpec.describe Concerns::Agentable do
     it 'calls Tekomi::PromptRenderer with base context' do
       expect(Tekomi::PromptRenderer).to receive(:render).with(
         'dummy_class',
-        hash_including(base_key: 'base_value')
+        hash_including(base_key: 'base_value'),
+        account: account
       )
 
       dummy_instance.agent_instructions
@@ -106,7 +107,8 @@ RSpec.describe Concerns::Agentable do
 
       expect(Tekomi::PromptRenderer).to receive(:render).with(
         'dummy_class',
-        hash_including(expected_context)
+        hash_including(expected_context),
+        account: account
       )
 
       dummy_instance.agent_instructions(context_double)
@@ -126,7 +128,8 @@ RSpec.describe Concerns::Agentable do
         'dummy_class',
         hash_including(
           campaign: { id: 10, title: 'Summer Sale', message: 'Check it out' }
-        )
+        ),
+        account: account
       )
 
       dummy_instance.agent_instructions(context_double)
@@ -142,7 +145,8 @@ RSpec.describe Concerns::Agentable do
           conversation: {},
           contact: nil,
           campaign: {}
-        )
+        ),
+        account: account
       )
 
       dummy_instance.agent_instructions(context_double)
@@ -151,7 +155,8 @@ RSpec.describe Concerns::Agentable do
     it 'can render a caller-specific prompt without changing the default prompt' do
       expect(Tekomi::PromptRenderer).to receive(:render).with(
         'copilot_reply_suggestion',
-        hash_including(base_key: 'base_value')
+        hash_including(base_key: 'base_value'),
+        account: account
       )
 
       dummy_instance.agent_instructions(nil, prompt_template: 'copilot_reply_suggestion')

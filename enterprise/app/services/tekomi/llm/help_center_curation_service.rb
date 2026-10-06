@@ -32,7 +32,7 @@ class Tekomi::Llm::HelpCenterCurationService < Tekomi::BaseTaskService
   end
 
   def system_prompt
-    Tekomi::PromptRenderer.render('help_center_curation', locale_name: locale_name)
+    Tekomi::PromptRenderer.render('help_center_curation', { locale_name: locale_name }, account: account)
   end
 
   def user_prompt

@@ -33,7 +33,7 @@ class Tekomi::Llm::ArticleWriterService < Tekomi::BaseTaskService
   end
 
   def system_prompt
-    Tekomi::PromptRenderer.render('article_writer', locale_name: locale_name)
+    Tekomi::PromptRenderer.render('article_writer', { locale_name: locale_name }, account: account)
   end
 
   def user_prompt

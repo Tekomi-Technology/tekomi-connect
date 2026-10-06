@@ -30,10 +30,10 @@ class Tekomi::Llm::ArticleTranslationService < Tekomi::BaseTaskService
   end
 
   def title_system_prompt
-    Tekomi::PromptRenderer.render('article_title_translation', target_language: target_language)
+    Tekomi::PromptRenderer.render('article_title_translation', { target_language: target_language }, account: account)
   end
 
   def content_system_prompt
-    Tekomi::PromptRenderer.render('article_content_translation', target_language: target_language)
+    Tekomi::PromptRenderer.render('article_content_translation', { target_language: target_language }, account: account)
   end
 end

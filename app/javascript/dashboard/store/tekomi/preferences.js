@@ -5,6 +5,7 @@ export const useTekomiConfigStore = defineStore('tekomiConfig', {
   state: () => ({
     features: {},
     llmProviders: [],
+    llmPrompts: [],
     uiFlags: {
       isFetching: false,
     },
@@ -22,6 +23,7 @@ export const useTekomiConfigStore = defineStore('tekomiConfig', {
         const response = await TekomiPreferencesAPI.get();
         this.features = response.data.features || {};
         this.llmProviders = response.data.llm_providers || [];
+        this.llmPrompts = response.data.prompts || [];
       } catch (error) {
         // Ignore error
       } finally {
@@ -33,6 +35,7 @@ export const useTekomiConfigStore = defineStore('tekomiConfig', {
       const response = await TekomiPreferencesAPI.updatePreferences(data);
       this.features = response.data.features || {};
       this.llmProviders = response.data.llm_providers || [];
+      this.llmPrompts = response.data.prompts || [];
     },
   },
 });

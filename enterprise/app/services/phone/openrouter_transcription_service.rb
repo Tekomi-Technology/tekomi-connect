@@ -32,9 +32,25 @@ class Phone::OpenrouterTranscriptionService
       'language' => transcription.language,
       'segments' => transcription.segments
     }.compact
-  rescue TranscriptionFailed
+  rescue CustomExceptions::Llm::FeatureNotConfigured
+    raise
+  rescue TranscriptionFailed => e
+    Llm::AlertRecorder.record(
+      account: @account,
+      error: e,
+      feature: 'call_emotion_analysis',
+      provider: route&.[](:provider),
+      metadata: { model: MODEL, operation: 'transcription' }
+    )
     raise
   rescue StandardError => e
+    Llm::AlertRecorder.record(
+      account: @account,
+      error: e,
+      feature: 'call_emotion_analysis',
+      provider: route&.[](:provider),
+      metadata: { model: MODEL, operation: 'transcription' }
+    )
     Rails.logger.warn("OpenRouter call transcription failed: #{e.class}: #{e.message}")
     raise TranscriptionFailed, "OpenRouter transcription failed: #{e.message}"
   end

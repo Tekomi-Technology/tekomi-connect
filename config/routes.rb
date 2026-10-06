@@ -405,6 +405,11 @@ Rails.application.routes.draw do
               post :unread
             end
           end
+          resources :ai_alerts, only: [:index, :update, :destroy], controller: 'ai_alerts' do
+            collection do
+              post :mark_all_read
+            end
+          end
           resource :notification_settings, only: [:show, :update]
 
           resources :teams do

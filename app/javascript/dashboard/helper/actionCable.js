@@ -7,6 +7,7 @@ import { useImpersonation } from 'dashboard/composables/useImpersonation';
 import { useCallsStore } from 'dashboard/stores/calls';
 import { useDealsStore } from 'dashboard/stores/deals';
 import { useTicketsStore } from 'dashboard/stores/tickets';
+import { useAiAlertsStore } from 'dashboard/stores/aiAlerts';
 import {
   applyOutboundAnswer,
   armOutboundRecorder,
@@ -74,6 +75,10 @@ class ActionCableConnector extends BaseActionCableConnector {
       'voice_call.outbound_connected': this.onVoiceCallOutboundConnected,
       'voice_call.outbound_accepted': this.onVoiceCallOutboundAccepted,
       'voice_call.ended': this.onVoiceCallEnded,
+      'ai_alert.created': this.onAiAlertCreated,
+      'ai_alert.updated': this.onAiAlertUpdated,
+      'ai_alert.deleted': this.onAiAlertDeleted,
+      'ai_alerts.marked_read': this.onAiAlertsMarkedRead,
     };
   }
 
@@ -361,6 +366,22 @@ class ActionCableConnector extends BaseActionCableConnector {
 
   onNotificationUpdated = data => {
     this.app.$store.dispatch('notifications/updateNotification', data);
+  };
+
+  onAiAlertCreated = data => {
+    useAiAlertsStore().onRealtimeCreated(data);
+  };
+
+  onAiAlertUpdated = data => {
+    useAiAlertsStore().onRealtimeUpdated(data);
+  };
+
+  onAiAlertDeleted = data => {
+    useAiAlertsStore().onRealtimeDeleted(data);
+  };
+
+  onAiAlertsMarkedRead = data => {
+    useAiAlertsStore().onRealtimeMarkedRead(data);
   };
 
   onCopilotMessageCreated = data => {

@@ -9,7 +9,7 @@ class Tekomi::Llm::ConversationAnalysisService < Tekomi::BaseTaskService
 
   def messages
     [
-      { role: 'system', content: Tekomi::PromptRenderer.render('conversation_analysis', language: account.locale_english_name) },
+      { role: 'system', content: Tekomi::PromptRenderer.render('conversation_analysis', { language: account.locale_english_name }, account: account) },
       { role: 'user', content: conversation.to_llm_text(include_contact_details: false, token_limit: TOKEN_LIMIT) }
     ]
   end
