@@ -57,6 +57,7 @@ const searchShortcut = useKbd([`$mod`, 'k']);
 const { t } = useI18n();
 
 const isRTL = useMapGetter('accounts/isRTL');
+const globalConfig = useMapGetter('globalConfig/get');
 
 const { width: windowWidth } = useWindowSize();
 const isMobile = computed(() => windowWidth.value < 768);
@@ -1087,12 +1088,14 @@ const menuItems = computed(() => {
             <span
               class="text-[15px] font-bold tracking-[0.12em] text-n-slate-12 truncate"
             >
-              {{ t('SIDEBAR_ITEMS.BRAND_NAME') }}
+              {{ globalConfig.brandName || t('SIDEBAR_ITEMS.BRAND_NAME') }}
             </span>
             <span
               class="text-[11px] font-medium italic tracking-wide text-n-brand truncate"
             >
-              {{ t('SIDEBAR_ITEMS.BRAND_TAGLINE') }}
+              {{
+                globalConfig.brandTagline || t('SIDEBAR_ITEMS.BRAND_TAGLINE')
+              }}
             </span>
           </span>
         </template>

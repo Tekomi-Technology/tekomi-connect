@@ -26,6 +26,9 @@ class DashboardController < ActionController::Base
     DEPLOYMENT_ENV
   ].freeze
 
+  before_action :set_tenant_branding_profile
+  before_action :ensure_tenant_branding_enabled
+  before_action :enforce_tenant_branding_dashboard_account
   before_action :set_application_pack
   before_action :set_global_config
   before_action :set_dashboard_scripts
@@ -44,7 +47,48 @@ class DashboardController < ActionController::Base
   end
 
   def set_global_config
-    @global_config = GlobalConfig.get(*GLOBAL_CONFIG_KEYS).merge(app_config)
+    @global_config = GlobalConfig.get(*GLOBAL_CONFIG_KEYS).merge(app_config).merge(tenant_branding_config)
+  end
+
+  def set_tenant_branding_profile
+    @tenant_branding_profile = TenantBranding::ProfileResolver.resolve(request.host)
+  end
+
+  def ensure_tenant_branding_enabled
+    return unless @tenant_branding_profile && !@tenant_branding_profile.enabled?
+
+    head :not_found
+  end
+
+  def enforce_tenant_branding_dashboard_account
+    return unless @tenant_branding_profile
+
+    requested_account_id = params[:account_id].presence || params[:params].to_s[%r{\Aaccounts/(\d+)}, 1]
+    return if requested_account_id.blank? || requested_account_id.to_i == @tenant_branding_profile.account_id
+
+    head :not_found
+  end
+
+  def tenant_branding_config
+    return {} unless @tenant_branding_profile
+
+    {
+      'INSTALLATION_NAME' => @tenant_branding_profile.brand_name,
+      'BRAND_NAME' => @tenant_branding_profile.brand_name,
+      'BRAND_TAGLINE' => @tenant_branding_profile.tagline,
+      'LOGO' => attachment_path(@tenant_branding_profile.logo),
+      'LOGO_DARK' => attachment_path(@tenant_branding_profile.logo_dark),
+      'LOGO_THUMBNAIL' => attachment_path(@tenant_branding_profile.favicon),
+      'PRIMARY_COLOR' => @tenant_branding_profile.primary_color,
+      'PRIMARY_COLOR_RGB' => @tenant_branding_profile.primary_color_rgb,
+      'TENANT_BRANDING_ACCOUNT_ID' => @tenant_branding_profile.account_id
+    }.compact
+  end
+
+  def attachment_path(attachment)
+    return unless attachment.attached?
+
+    Rails.application.routes.url_helpers.rails_blob_path(attachment, only_path: true)
   end
 
   def set_dashboard_scripts

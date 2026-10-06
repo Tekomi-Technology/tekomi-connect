@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_10_05_000004) do
+ActiveRecord::Schema[7.2].define(version: 2026_10_06_000001) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -1834,6 +1834,25 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_05_000004) do
     t.index ["enabled"], name: "index_tekomi_scenarios_on_enabled"
   end
 
+  create_table "tenant_branding_profiles", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "subdomain", null: false
+    t.string "brand_name", null: false
+    t.string "tagline"
+    t.string "primary_color", default: "#00789B", null: false
+    t.string "origin_ip", null: false
+    t.boolean "enabled", default: true, null: false
+    t.string "provisioning_status", default: "pending", null: false
+    t.string "cloudflare_dns_record_id"
+    t.text "provisioning_error"
+    t.datetime "provisioned_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "lower((subdomain)::text)", name: "index_tenant_branding_profiles_on_lower_subdomain", unique: true
+    t.index ["account_id"], name: "index_tenant_branding_profiles_on_account_id", unique: true
+    t.index ["provisioning_status"], name: "index_tenant_branding_profiles_on_provisioning_status"
+  end
+
   create_table "ticket_activities", force: :cascade do |t|
     t.bigint "ticket_id", null: false
     t.bigint "actor_id"
@@ -2027,6 +2046,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_05_000004) do
   add_foreign_key "phone_extensions", "accounts", on_delete: :cascade
   add_foreign_key "phone_extensions", "inboxes", on_delete: :cascade
   add_foreign_key "phone_extensions", "users", on_delete: :cascade
+  add_foreign_key "tenant_branding_profiles", "accounts"
   add_foreign_key "ticket_webhooks", "accounts"
   add_foreign_key "ticket_webhooks", "pipelines"
   add_foreign_key "user_sessions", "users"

@@ -655,6 +655,10 @@ en:
     ssl_status:
       custom_domain_not_configured: 'Custom domain is not configured'
   super_admin:
+    tenant_branding_profiles:
+      provisioning_started: 'DNS provisioning has been queued.'
+      disable_before_removal: 'Disable the branding profile before removing its DNS record.'
+      provision_now: 'Provision DNS now'
     navigation:
       console: 'Super Admin Console'
       admin_dashboard: 'Admin Dashboard'

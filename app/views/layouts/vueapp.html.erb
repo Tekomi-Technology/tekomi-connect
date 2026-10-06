@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html<% if @global_config['PRIMARY_COLOR_RGB'].present? %> style="--brand-color: <%= @global_config['PRIMARY_COLOR_RGB'] %>"<% end %>>
   <head>
     <title>
       <%= @global_config['INSTALLATION_NAME'] %>
@@ -8,7 +8,7 @@
     <% if @global_config['DISPLAY_MANIFEST'] %>
       <meta name="msapplication-TileColor" content="#2781F6">
       <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-      <meta name="theme-color" content="#2781F6">
+      <meta name="theme-color" content="<%= @global_config['PRIMARY_COLOR'] || '#2781F6' %>">
       <meta name="description" content="<%= @global_config['INSTALLATION_NAME'] %> is a customer support solution that helps companies engage customers over Messenger, Twitter, Telegram, WeChat, Whatsapp. Simply connect your channels and converse with your customers from a single place. Easily add new agents to your system and have them own and resolve conversations with customers. <%= @global_config['INSTALLATION_NAME'] %> also gives you real-time reports to measure your team's performance, canned responses to easily respond to frequently asked questions and private notes for agents to collaborate among themselves.">
       <% if ENV['IOS_APP_IDENTIFIER'].present? %>
         <meta name="apple-itunes-app" content='app-id=<%= ENV['IOS_APP_IDENTIFIER'] %>'>
@@ -32,7 +32,7 @@
     <%= csrf_meta_tags %>
     <script>
       window.chatwootConfig = {
-        hostURL: '<%= ENV.fetch('FRONTEND_URL', '') %>',
+        hostURL: '<%= @tenant_branding_profile ? request.base_url : ENV.fetch('FRONTEND_URL', '') %>',
         helpCenterURL: '<%= ENV.fetch('HELPCENTER_URL', '') %>',
         fbAppId: '<%= @global_config['FB_APP_ID'] %>',
         instagramAppId: '<%= @global_config['INSTAGRAM_APP_ID'] %>',

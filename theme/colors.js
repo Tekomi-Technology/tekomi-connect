@@ -226,7 +226,7 @@ export const colors = {
     },
 
     black: '#000000',
-    brand: 'rgb(var(--teal-9) / <alpha-value>)',
+    brand: 'rgb(var(--brand-color) / <alpha-value>)',
     portal: 'var(--dynamic-portal-color)',
     'portal-soft': 'var(--dynamic-portal-color-soft)',
     'portal-faint': 'var(--dynamic-portal-color-faint)',

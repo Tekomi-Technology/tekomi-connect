@@ -15,6 +15,7 @@ class DeviseOverrides::SessionsController < DeviseTokenAuth::SessionsController
     return handle_sso_authentication if sso_authentication_request?
 
     user = find_user_for_authentication
+    return render_tenant_branding_access_denied if user && !tenant_branding_access_allowed?(user)
     return handle_mfa_required(user) if user&.mfa_enabled?
     return if user && enforce_session_limit_for_password_login(user)
 
@@ -23,11 +24,24 @@ class DeviseOverrides::SessionsController < DeviseTokenAuth::SessionsController
   end
 
   def render_create_success
+    return render_tenant_branding_access_denied unless tenant_branding_access_allowed?(@resource)
+
     track_user_session unless @impersonation
     render partial: 'devise/auth', formats: [:json], locals: { resource: @resource }
   end
 
   private
+
+  def tenant_branding_access_allowed?(user)
+    profile = TenantBranding::ProfileResolver.resolve(request.host)
+    return true unless profile
+
+    profile.enabled? && user.account_users.exists?(account_id: profile.account_id)
+  end
+
+  def render_tenant_branding_access_denied
+    render json: { error: 'This hostname is restricted to another account' }, status: :forbidden
+  end
 
   def render_create_error_not_confirmed
     render_error(
@@ -57,6 +71,7 @@ class DeviseOverrides::SessionsController < DeviseTokenAuth::SessionsController
   end
 
   def handle_sso_authentication
+    return render_tenant_branding_access_denied unless tenant_branding_access_allowed?(@resource)
     return if !@impersonation && enforce_session_limit_for_password_login(@resource)
 
     authenticate_resource_with_sso_token
@@ -109,6 +124,7 @@ class DeviseOverrides::SessionsController < DeviseTokenAuth::SessionsController
   def handle_mfa_verification
     user = Mfa::TokenService.new(token: params[:mfa_token]).verify_token
     return render_mfa_error('errors.mfa.invalid_token', :unauthorized) unless user
+    return render_tenant_branding_access_denied unless tenant_branding_access_allowed?(user)
 
     authenticated = Mfa::AuthenticationService.new(
       user: user,
