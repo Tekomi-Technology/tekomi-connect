@@ -6,7 +6,9 @@ class Tekomi::Tools::FaqLookupTool < Tekomi::Tools::BasePublicTool
     log_tool_usage('searching', { query: query })
 
     # Use existing vector search on approved responses
-    responses = @assistant.responses.approved.search(query).includes(:documentable).to_a
+    responses = Tekomi::Rag::SearchService.new(account: @assistant.account)
+                                      .assistant_responses(assistant: @assistant, query: query)
+                                      .map(&:record)
     record_retrieved_sources(tool_context, responses)
 
     if responses.empty?

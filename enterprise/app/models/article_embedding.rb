@@ -3,7 +3,6 @@
 # Table name: article_embeddings
 #
 #  id         :bigint           not null, primary key
-#  embedding  :vector(1536)
 #  term       :text             not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -11,21 +10,25 @@
 #
 # Indexes
 #
-#  index_article_embeddings_on_embedding  (embedding) USING ivfflat
 #
 class ArticleEmbedding < ApplicationRecord
   belongs_to :article
-  has_neighbors :embedding, normalize: true
-
-  after_commit :update_response_embedding
+  after_commit :sync_rag_document, on: %i[create update], if: :rag_indexable_changed?
+  after_commit :delete_rag_document, on: :destroy
 
   delegate :account_id, to: :article
 
   private
 
-  def update_response_embedding
-    return unless saved_change_to_term? || embedding.nil?
+  def sync_rag_document
+    Tekomi::Rag::IndexJob.perform_later(record_type: 'article_embedding', record_id: id)
+  end
 
-    Tekomi::Llm::UpdateEmbeddingJob.perform_later(self, term)
+  def rag_indexable_changed?
+    previous_changes.keys.intersect?(%w[term article_id])
+  end
+
+  def delete_rag_document
+    Tekomi::Rag::DeleteJob.perform_later(account_id: account_id, record_type: 'article_embedding', record_id: id)
   end
 end

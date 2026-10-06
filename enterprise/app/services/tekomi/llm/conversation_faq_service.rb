@@ -3,7 +3,6 @@ class Tekomi::Llm::ConversationFaqService < Llm::BaseAiService
 
   class SuggestionChangedError < StandardError; end
 
-  DISTANCE_THRESHOLD = 0.3
   MATCH_LIMIT = 5
   LLM_FEATURE = 'conversation_faq_generation'.freeze
 
@@ -23,7 +22,6 @@ class Tekomi::Llm::ConversationFaqService < Llm::BaseAiService
     @assistant = assistant
     @conversation = conversation
     @content = Tekomi::Llm::ConversationFaqContentService.new(assistant, conversation).generate
-    @embedding_service = Tekomi::Llm::EmbeddingService.new(account_id: conversation.account_id)
   end
 
   def generate_suggestions
@@ -34,46 +32,41 @@ class Tekomi::Llm::ConversationFaqService < Llm::BaseAiService
 
   private
 
-  attr_reader :content, :conversation, :assistant, :embedding_service
+  attr_reader :content, :conversation, :assistant
 
   def no_human_interaction?
     conversation.first_reply_created_at.nil?
   end
 
   def route_candidate(faq)
-    embedding = embedding_service.get_embedding(candidate_text(faq))
+    return discard_observation(faq) if matching_assistant_response(faq)
+    return discard_observation(faq) if matching_faq_suggestion(faq, status: 'dismissed')
 
-    return discard_observation(faq) if matching_record(approved_faqs, faq, embedding)
-    return discard_observation(faq) if matching_record(dismissed_suggestions_for_language, faq, embedding)
-
-    suggestion = matching_record(open_suggestions_for_language, faq, embedding)
+    suggestion = matching_faq_suggestion(faq, status: 'open')
     matched_content = suggestion&.slice('question', 'answer')
     suggestion ||= assistant.faq_suggestions.create!(
       question: faq.fetch('question'),
       answer: faq.fetch('answer'),
-      embedding: embedding,
       language: faq_language
     )
 
     attach_observation(suggestion, faq, matched_content)
   end
 
-  def matching_record(relation, faq, embedding)
-    likely_matches(relation, embedding).find { |record| same_faq?(faq, record) }
+  def matching_assistant_response(faq)
+    search_service.assistant_responses(assistant: assistant, query: candidate_text(faq), limit: MATCH_LIMIT)
+                  .map(&:record)
+                  .find { |record| same_faq?(faq, record) }
   end
 
-  def likely_matches(relation, embedding)
-    return [] unless relation.exists?
-
-    ApplicationRecord.transaction do
-      # Force an exact search because IVFFlat can miss matches after relation filters.
-      # SET LOCAL keeps the planner change scoped to this transaction.
-      ApplicationRecord.connection.execute('SET LOCAL enable_indexscan = off')
-      relation
-        .nearest_neighbors(:embedding, embedding, distance: 'cosine')
-        .limit(MATCH_LIMIT)
-        .select { |record| record.neighbor_distance < DISTANCE_THRESHOLD }
-    end
+  def matching_faq_suggestion(faq, status:)
+    search_service.faq_suggestions(
+      assistant: assistant,
+      query: candidate_text(faq),
+      status: status,
+      language: faq_language,
+      limit: MATCH_LIMIT
+    ).map(&:record).find { |record| same_faq?(faq, record) }
   end
 
   def same_faq?(candidate, existing_record)
@@ -129,20 +122,12 @@ class Tekomi::Llm::ConversationFaqService < Llm::BaseAiService
     )
   end
 
-  def open_suggestions_for_language
-    assistant.faq_suggestions.where(account_id: conversation.account_id).open.by_language(faq_language)
-  end
-
-  def dismissed_suggestions_for_language
-    assistant.faq_suggestions.where(account_id: conversation.account_id).dismissed.by_language(faq_language)
-  end
-
-  def approved_faqs
-    assistant.responses.approved
-  end
-
   def candidate_text(faq)
     "#{faq.fetch('question')}: #{faq.fetch('answer')}"
+  end
+
+  def search_service
+    @search_service ||= Tekomi::Rag::SearchService.new(account: conversation.account)
   end
 
   def generate

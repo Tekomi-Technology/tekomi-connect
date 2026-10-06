@@ -11,29 +11,20 @@ module Enterprise::Concerns::Article
     add_article_embedding_association
 
     def self.vector_search(params)
-      embedding = Tekomi::Llm::EmbeddingService.new(account_id: params[:account_id]).get_embedding(params['query'])
-      records = joins(
-        :category
-      ).search_by_category_slug(
-        params[:category_slug]
-      ).search_by_category_locale(params[:locale]).search_by_author(params[:author_id]).search_by_status(params[:status])
-      filtered_article_ids = records.pluck(:id)
-
-      # Fetch nearest neighbors and their distances, then filter directly
-
-      # experimenting with filtering results based on result threshold
-      # distance_threshold = 0.2
-      # if using add the filter block to the below query
-      # .filter { |ae| ae.neighbor_distance <= distance_threshold }
-
       limit = params.key?(:limit) ? params[:limit] : 5
+      filters = {
+        'category_slug' => params[:category_slug],
+        'language' => params[:locale],
+        'author_id' => params[:author_id]&.to_i,
+        'status' => params[:status].presence&.to_s
+      }.compact
+      hits = Tekomi::Rag::SearchService.new(account: Account.find(params[:account_id])).article_embeddings(
+        query: params['query'],
+        filters: filters,
+        limit: limit || 50
+      )
+      article_ids = hits.filter_map { |hit| hit['payload']['article_id']&.to_i }.uniq
 
-      article_embeddings = ArticleEmbedding.where(article_id: filtered_article_ids)
-                                           .nearest_neighbors(:embedding, embedding, distance: 'cosine')
-      article_embeddings = article_embeddings.limit(limit) if limit.present?
-      article_ids = article_embeddings.pluck(:article_id)
-
-      # Fetch the articles by the IDs obtained from the nearest neighbors search
       where(id: article_ids).in_order_of(:id, article_ids)
     end
   end

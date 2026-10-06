@@ -13,7 +13,9 @@ class Tekomi::Tools::SearchDocumentationService < Tekomi::Tools::BaseTool
                        .new(account: assistant.account)
                        .translate(query, target_language: assistant.account.locale_english_name)
 
-    responses = assistant.responses.approved.search(translated_query)
+    responses = Tekomi::Rag::SearchService.new(account: assistant.account)
+                                           .assistant_responses(assistant: assistant, query: translated_query)
+                                           .map(&:record)
 
     return 'No FAQs found for the given query' if responses.empty?
 

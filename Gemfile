@@ -189,10 +189,8 @@ gem 'omniauth-saml'
 gem 'omniauth-google-oauth2', '>= 1.1.3'
 gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.2'
 
-## Gems for reponse bot
-# adds cosine similarity to postgres using vector extension
-gem 'neighbor'
-gem 'pgvector'
+## Gems for response bot
+# Retrieval vectors are stored in the external Qdrant RAG service.
 # Convert Website HTML to Markdown
 gem 'reverse_markdown'
 

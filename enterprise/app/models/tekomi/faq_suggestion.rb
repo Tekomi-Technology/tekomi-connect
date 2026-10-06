@@ -4,7 +4,6 @@
 #
 #  id           :bigint           not null, primary key
 #  answer       :text             not null
-#  embedding    :vector(1536)
 #  language     :string           default("en"), not null
 #  question     :string           not null
 #  source_count :integer          default(0), not null
@@ -19,7 +18,6 @@
 #  idx_cap_faq_suggestions_on_account_assistant_status_language  (account_id,assistant_id,status,language)
 #  index_tekomi_faq_suggestions_on_account_id                    (account_id)
 #  index_tekomi_faq_suggestions_on_assistant_id                  (assistant_id)
-#  vector_idx_tekomi_faq_suggestions_embedding                   (embedding) USING ivfflat
 #
 class Tekomi::FaqSuggestion < ApplicationRecord
   self.table_name = 'tekomi_faq_suggestions'
@@ -30,14 +28,13 @@ class Tekomi::FaqSuggestion < ApplicationRecord
            class_name: 'Tekomi::FaqObservation',
            dependent: :delete_all,
            inverse_of: :faq_suggestion
-  has_neighbors :embedding, normalize: true
-
   enum status: { open: 0, approved: 1, dismissed: 2 }
 
   validates :question, :answer, :language, presence: true
 
   before_validation :ensure_account
-  after_commit :update_embedding, on: [:create, :update]
+  after_commit :sync_rag_document, on: %i[create update], if: :rag_indexable_changed?
+  after_commit :delete_rag_document, on: :destroy
 
   scope :ordered, -> { order(source_count: :desc, updated_at: :desc) }
   scope :by_language, ->(language) { where(language: language) }
@@ -48,11 +45,15 @@ class Tekomi::FaqSuggestion < ApplicationRecord
     self.account = assistant&.account
   end
 
-  def update_embedding
-    return unless open?
-    return unless saved_change_to_question? || saved_change_to_answer? || embedding.nil?
-    return if previously_new_record? && embedding.present?
+  def sync_rag_document
+    Tekomi::Rag::IndexJob.perform_later(record_type: 'faq_suggestion', record_id: id)
+  end
 
-    Tekomi::Llm::UpdateEmbeddingJob.perform_later(self, "#{question}: #{answer}")
+  def rag_indexable_changed?
+    previous_changes.keys.intersect?(%w[question answer status language assistant_id account_id])
+  end
+
+  def delete_rag_document
+    Tekomi::Rag::DeleteJob.perform_later(account_id: account_id, record_type: 'faq_suggestion', record_id: id)
   end
 end

@@ -22,7 +22,7 @@ class Tekomi::Tools::SearchReplyDocumentationService < RubyLLM::Tool
                        .new(account: @account)
                        .translate(query, target_language: @account.locale_english_name)
 
-    responses = search_responses(translated_query)
+    responses = search_responses(translated_query).map(&:record)
     return 'No FAQs found for the given query' if responses.empty?
 
     responses.map { |response| format_response(response) }.join
@@ -31,11 +31,13 @@ class Tekomi::Tools::SearchReplyDocumentationService < RubyLLM::Tool
   private
 
   def search_responses(query)
-    if @assistant.present?
-      @assistant.responses.approved.search(query, account_id: @account.id)
-    else
-      @account.tekomi_assistant_responses.approved.search(query, account_id: @account.id)
-    end
+    assistant = @assistant || @account.tekomi_assistants.first
+    return [] unless assistant
+
+    Tekomi::Rag::SearchService.new(account: @account).assistant_responses(
+      assistant: assistant,
+      query: query
+    )
   end
 
   def format_response(response)

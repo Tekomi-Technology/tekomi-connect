@@ -34,6 +34,7 @@ services:
       - vite
       - mailhog
       - sidekiq
+      - rag
     ports:
       - 3000:3000
     env_file: .env
@@ -41,6 +42,7 @@ services:
       - VITE_DEV_SERVER_HOST=vite
       - NODE_ENV=development
       - RAILS_ENV=development
+      - RAG_SERVICE_URL=${RAG_SERVICE_URL:-http://rag:8080}
     entrypoint: docker/entrypoints/rails.sh
     command: ["bundle", "exec", "rails", "s", "-p", "3000", "-b", "0.0.0.0"]
 
@@ -56,9 +58,11 @@ services:
     depends_on:
       - redis
       - mailhog
+      - rag
     environment:
       - NODE_ENV=development
       - RAILS_ENV=development
+      - RAG_SERVICE_URL=${RAG_SERVICE_URL:-http://rag:8080}
     command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
 
   zalo:
@@ -107,6 +111,32 @@ services:
     ports:
       - '6379:6379'
 
+  qdrant:
+    image: qdrant/qdrant:v1.14.2
+    environment:
+      - QDRANT__SERVICE__API_KEY=${QDRANT_API_KEY:-}
+    ports:
+      - '127.0.0.1:6333:6333'
+    volumes:
+      - qdrant:/qdrant/storage
+
+  rag:
+    build:
+      context: ./rag_service
+      dockerfile: Dockerfile
+    image: chatwoot-rag:development
+    depends_on:
+      - qdrant
+    environment:
+      - QDRANT_URL=http://qdrant:6333
+      - QDRANT_API_KEY=${QDRANT_API_KEY:-}
+      - QDRANT_COLLECTION=${QDRANT_COLLECTION:-tekomi_rag}
+      - RAG_SERVICE_TOKEN=${RAG_SERVICE_TOKEN:-}
+      - RAG_DENSE_MODEL=${RAG_DENSE_MODEL:-baai/bge-m3}
+      - RAG_VOCAB_PATH=/data/vocabulary.sqlite3
+    volumes:
+      - rag_data:/data
+
   mailhog:
     image: mailhog/mailhog
     ports:
@@ -120,3 +150,5 @@ volumes:
   zalo_node_modules:
   cache:
   bundle:
+  qdrant:
+  rag_data:
