@@ -83,7 +83,7 @@ services:
       - '127.0.0.1:6379:6379'
 
   qdrant:
-    image: qdrant/qdrant:v1.14.2
+    image: qdrant/qdrant:v1.14.1
     environment:
       - QDRANT__SERVICE__API_KEY=${QDRANT_API_KEY:-}
     volumes:
