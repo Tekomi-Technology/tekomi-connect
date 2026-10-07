@@ -581,7 +581,64 @@
       "REMOVE": "Remove key",
       "SAVE_SUCCESS": "The account API key was saved.",
       "REMOVE_SUCCESS": "The account API key was removed. AI features using this provider are now unavailable.",
-      "SAVE_ERROR": "Could not update the account API key. Please try again."
+      "SAVE_ERROR": "Could not update the account API key. Please try again.",
+      "API_BASE_PLACEHOLDER": "Endpoint URL, for example https://openrouter.ai/api/v1. Leave empty to use the provider default; required for Ollama."
+    },
+    "LLM_SERVICES": {
+      "TITLE": "Other AI services",
+      "DESCRIPTION": "FireCrawl crawls the websites you add as GMO AI documents and the pages used during onboarding. Without a key, GMO AI falls back to a simpler crawler."
+    },
+    "DEFAULT_MODEL": {
+      "TITLE": "Default model",
+      "DESCRIPTION": "Every AI feature of this account uses this provider and model unless you override the feature below.",
+      "PROVIDER": "Provider",
+      "MODEL": "Model",
+      "SELECT_PROVIDER": "Select a provider",
+      "SELECT_MODEL": "Select a model",
+      "SEARCH_MODEL": "Search models",
+      "NO_MODEL": "No model matches your search.",
+      "MODEL_PLACEHOLDER": "Model name, for example llama3.1",
+      "KEY_MISSING": "This provider has no API key yet. Add the key above, otherwise AI features will fail.",
+      "SAVE": "Save default model",
+      "SAVE_SUCCESS": "The default model was saved for this account.",
+      "SAVE_ERROR": "Could not save the default model. Please try again."
+    },
+    "FEATURE_MODELS": {
+      "TITLE": "Model per feature",
+      "DESCRIPTION": "Optional. Give a single AI feature its own provider and model when the default model is not the right fit.",
+      "TOGGLE": "Configure models per feature",
+      "COUNT": "{count} overridden",
+      "HINT": "Leave a feature empty to keep the default model. The placeholder shows the model we recommend for that feature.",
+      "GROUPS": {
+        "EDITOR": "Editor",
+        "COPILOT": "Copilot",
+        "DEALS": "Deals",
+        "ASSISTANT": "Assistant",
+        "CONVERSATION": "Conversations",
+        "FAQ": "FAQ",
+        "HELP_CENTER": "Help Center",
+        "ONBOARDING": "Onboarding"
+      },
+      "SELECT_PROVIDER": "Default provider",
+      "MODEL_PLACEHOLDER": "Model name",
+      "REASONING": {
+        "DEFAULT": "Reasoning: model default",
+        "OFF": "Reasoning: off",
+        "LOW": "Reasoning: low",
+        "MEDIUM": "Reasoning: medium",
+        "HIGH": "Reasoning: high"
+      },
+      "PARAMS": "Extra params (JSON)",
+      "PARAMS_PLACEHOLDER": "{ \"temperature\": 0.2, \"max_tokens\": 2000 }",
+      "PARAMS_HINT": "Sent with every request of this feature and override the reasoning setting. Leave empty for none.",
+      "PARAMS_INVALID": "Extra params must be valid JSON.",
+      "CUSTOMIZED": "Account override",
+      "INHERITED": "Default model",
+      "SAVE": "Save",
+      "RESTORE": "Use the default model",
+      "SAVE_SUCCESS": "The model was saved for this feature.",
+      "RESTORE_SUCCESS": "This feature now uses the default model.",
+      "SAVE_ERROR": "Could not update the model for this feature. Please try again."
     },
     "PROMPTS": {
       "TITLE": "System prompts",

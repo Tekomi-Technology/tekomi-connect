@@ -2,9 +2,13 @@ require 'rails_helper'
 
 RSpec.describe 'Firecrawl Webhooks', type: :request do
   describe 'POST /enterprise/webhooks/firecrawl?assistant_id=:assistant_id&token=:token' do
-    let!(:api_key) { create(:installation_config, name: 'TEKOMI_FIRECRAWL_API_KEY', value: 'test_api_key_123') }
+    let(:api_key) { 'test_api_key_123' }
     let!(:account) { create(:account) }
     let!(:assistant) { create(:tekomi_assistant, account: account) }
+
+    before do
+      allow(Firecrawl::Configuration).to receive(:api_key).and_return(api_key)
+    end
 
     let(:payload_data) do
       {
@@ -15,7 +19,7 @@ RSpec.describe 'Firecrawl Webhooks', type: :request do
 
     # Generate actual token using the helper
     let(:valid_token) do
-      token_base = "#{api_key.value[-4..]}#{assistant.id}#{assistant.account_id}"
+      token_base = "#{api_key[-4..]}#{assistant.id}#{assistant.account_id}"
       Digest::SHA256.hexdigest(token_base)
     end
 
@@ -104,9 +108,9 @@ RSpec.describe 'Firecrawl Webhooks', type: :request do
       end
     end
 
-    context 'when TEKOMI_FIRECRAWL_API_KEY is not configured' do
+    context 'when the account has no FireCrawl API key' do
       before do
-        api_key.destroy
+        allow(Firecrawl::Configuration).to receive(:api_key).and_return(nil)
       end
 
       it 'returns unauthorized status' do

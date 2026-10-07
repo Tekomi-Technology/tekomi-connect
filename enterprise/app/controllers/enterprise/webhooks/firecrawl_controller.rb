@@ -24,7 +24,7 @@ class Enterprise::Webhooks::FirecrawlController < ActionController::API
   end
 
   def assistant_token
-    generate_firecrawl_token(assistant.id, assistant.account_id)
+    generate_firecrawl_token(assistant.id, assistant.account)
   end
 
   def crawl_page_event?

@@ -1,66 +1,124 @@
+providers:
+  openai:
+    label: OpenAI
+  openrouter:
+    label: OpenRouter
+    supports_reasoning: true
+  deepseek:
+    label: DeepSeek
+  anthropic:
+    label: Anthropic
+  gemini:
+    label: Google Gemini
+  mistral:
+    label: Mistral
+  xai:
+    label: xAI
+  ollama:
+    label: Ollama
+    requires_api_base: true
+
+services:
+  firecrawl:
+    label: FireCrawl
+
 features:
   reply_suggestion:
     group: editor
+    suggested_model: gpt-4.1-mini
   summary:
     group: editor
+    suggested_model: gpt-4.1-mini
   rewrite:
     group: editor
+    suggested_model: gpt-4.1-mini
   follow_up:
     group: editor
+    suggested_model: gpt-4.1-mini
   overview_summary:
     group: editor
+    suggested_model: gpt-4.1-mini
   csat_analysis:
     group: editor
+    suggested_model: gpt-4.1-mini
   copilot:
     group: copilot
+    suggested_model: gpt-4.1
   deal_assistant:
     group: deals
+    suggested_model: gpt-4.1
   deal_suggestion:
     group: deals
+    suggested_model: gpt-4.1-mini
   deal_summary:
     group: deals
+    suggested_model: gpt-4.1-mini
   deal_next_step:
     group: deals
+    suggested_model: gpt-4.1-mini
   deal_field_extraction:
     group: deals
+    suggested_model: gpt-4.1-mini
   assistant:
     group: assistant
+    suggested_model: gpt-5.2
   false_promise_detection:
     group: assistant
+    suggested_model: gpt-5.2
   instruction_migration:
     group: assistant
+    suggested_model: gpt-5.2
   label_suggestion:
     group: conversation
+    suggested_model: gpt-4.1-mini
   conversation_completion:
     group: conversation
+    suggested_model: gpt-4.1
   conversation_analysis:
     group: conversation
+    suggested_model: gpt-4.1-mini
   call_emotion_analysis:
     group: conversation
+    provider_type: openrouter
+    model: typesafe/jev-1.13
   care_suggestion:
     group: conversation
+    suggested_model: gpt-4.1-mini
   document_faq_generation:
     group: faq
+    suggested_model: gpt-4.1-mini
   pdf_faq_generation:
     group: faq
+    suggested_model: gpt-4.1-mini
   conversation_faq_generation:
     group: faq
+    suggested_model: gpt-5.2
   conversation_faq_matching:
     group: faq
+    suggested_model: gpt-4.1-mini
   help_center_article_generation:
     group: help_center
+    suggested_model: gpt-5.2
   help_center_query_translation:
     group: help_center
+    suggested_model: gpt-4.1-nano
   help_center_curation:
     group: help_center
+    suggested_model: gpt-4.1
   article_search_terms:
     group: help_center
+    suggested_model: gpt-4o
   onboarding_content_generation:
     group: onboarding
+    suggested_model: gpt-4.1
   embedding:
     group: embedding
+    provider_type: openai
+    model: text-embedding-3-small
   audio_transcription:
     group: audio
+    provider_type: openai
+    model: gpt-4o-mini-transcribe
 
 prompts:
   assistant:

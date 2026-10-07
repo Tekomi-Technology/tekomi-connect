@@ -56,6 +56,8 @@ class Account < ApplicationRecord
 
   store_accessor :settings, :audio_transcriptions, :auto_resolve_label
   store_accessor :settings, :tekomi_features
+  store_accessor :settings, :llm_default_provider_type, :llm_default_model
+  validates :llm_default_provider_type, inclusion: { in: ->(_record) { Llm::Providers.types } }, allow_blank: true
   store_accessor :settings, :reporting_timezone
   store_accessor :settings, :keep_pending_on_bot_failure
   store_accessor :settings, :tekomi_auto_resolve_mode, :tekomi_false_promise_harness_enabled
@@ -65,6 +67,7 @@ class Account < ApplicationRecord
   has_one :tenant_branding_profile, dependent: :destroy
   has_many :account_llm_providers, dependent: :destroy
   has_many :account_llm_prompt_templates, dependent: :destroy
+  has_many :account_llm_feature_models, dependent: :destroy
   has_many :ai_alerts, dependent: :destroy_async
   has_many :agent_bot_inboxes, dependent: :destroy_async
   has_many :agent_bots, dependent: :destroy_async

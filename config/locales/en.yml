@@ -179,7 +179,8 @@ en:
     send_reply:
       failed: 'Message not sent: the channel did not respond after several attempts. Check the inbox connection and send it again.'
     llm:
-      feature_not_configured: 'The AI feature "%{feature}" has no model configured. Ask a Super Admin to configure it in Super Admin → Settings → GMO AI.'
+      feature_not_configured: 'The AI feature "%{feature}" has no model configured. An account administrator must choose a default model in Settings → GMO AI Settings.'
+      reasoning_unsupported: 'can only be set for providers that support reasoning, such as OpenRouter. Use extra params for other providers.'
       tenant_provider_not_configured: 'The AI provider "%{provider}" has no API key configured for this account. An account administrator must add it in Settings → GMO AI Settings.'
     inboxes:
       imap:
@@ -657,6 +658,260 @@ en:
       subject: 'Finish setting up %{custom_domain}'
     ssl_status:
       custom_domain_not_configured: 'Custom domain is not configured'
+  llm:
+    features:
+      reply_suggestion:
+        name: 'Reply suggestion'
+        description: 'Drafts a reply for the agent in the message editor.'
+      summary:
+        name: 'Conversation summary'
+        description: 'Summarizes the open conversation.'
+      rewrite:
+        name: 'Rewrite'
+        description: 'Improves, changes the tone of, or fixes grammar in the editor text.'
+      follow_up:
+        name: 'Follow-up'
+        description: 'Refines a previous AI result from the agent follow-up instruction.'
+      overview_summary:
+        name: 'Overview summary'
+        description: 'Generates conversation and assistant overview summaries.'
+      csat_analysis:
+        name: 'CSAT analysis'
+        description: 'Analyzes CSAT responses.'
+      copilot:
+        name: 'Copilot'
+        description: 'Answers agent questions in the Copilot panel.'
+      deal_assistant:
+        name: 'Deal assistant'
+        description: 'Answers questions an agent asks about a deal.'
+      deal_suggestion:
+        name: 'Deal suggestion'
+        description: 'Reads recent conversations and suggests which ones are worth a deal.'
+      deal_summary:
+        name: 'Deal summary'
+        description: 'Summarizes where a deal stands from its conversations and history.'
+      deal_next_step:
+        name: 'Deal next step'
+        description: 'Suggests the next action and stage for a deal.'
+      deal_field_extraction:
+        name: 'Deal field extraction'
+        description: 'Proposes values for the custom fields of a deal.'
+      assistant:
+        name: 'Assistant replies'
+        description: 'Replies to customers, writes contact notes and attributes, and classifies assistant actions.'
+      false_promise_detection:
+        name: 'False promise detection'
+        description: 'Checks assistant replies for promises the assistant cannot keep.'
+      instruction_migration:
+        name: 'Instruction migration'
+        description: 'Classifies and audits assistant instructions when migrating to the new assistant.'
+      label_suggestion:
+        name: 'Label suggestion'
+        description: 'Suggests labels for conversations.'
+      conversation_completion:
+        name: 'Conversation completion'
+        description: 'Decides whether an inactive conversation can be resolved.'
+      conversation_analysis:
+        name: 'Conversation analysis'
+        description: 'Scores service quality and extracts customer information, insights and conversation state.'
+      care_suggestion:
+        name: 'Care suggestion'
+        description: 'Suggests how to take care of the customer, from a saved conversation analysis, when an agent asks for it.'
+      document_faq_generation:
+        name: 'Document FAQ generation'
+        description: 'Creates FAQs from crawled documents.'
+      pdf_faq_generation:
+        name: 'PDF FAQ generation'
+        description: 'Creates FAQs from uploaded PDFs.'
+        warning: 'The whole PDF is sent with every page batch. Prefer a model that reads PDFs natively (for example openai/gpt-4.1-mini); on OpenRouter other models are billed for OCR on every request.'
+      conversation_faq_generation:
+        name: 'Conversation FAQ generation'
+        description: 'Creates FAQ suggestions from conversations.'
+      conversation_faq_matching:
+        name: 'Conversation FAQ matching'
+        description: 'Checks whether a suggested FAQ duplicates an existing one.'
+      help_center_article_generation:
+        name: 'Help Center article writing'
+        description: 'Writes and translates Help Center articles.'
+      help_center_query_translation:
+        name: 'Help Center search translation'
+        description: 'Translates Help Center search queries.'
+      help_center_curation:
+        name: 'Help Center curation'
+        description: 'Selects categories and articles from website links during onboarding.'
+      article_search_terms:
+        name: 'Article search terms'
+        description: 'Generates search terms used to index Help Center articles.'
+      onboarding_content_generation:
+        name: 'Onboarding content'
+        description: 'Analyzes the website and writes the widget tagline during onboarding.'
+      embedding:
+        name: 'Embeddings'
+        description: 'Creates vectors for document, FAQ and article search.'
+        warning: 'The model must return 1536-dimension vectors. Switching to a model with a different size requires a migration and regenerating all embeddings.'
+      audio_transcription:
+        name: 'Audio transcription'
+        description: 'Transcribes voice messages and call recordings.'
+        warning: 'The provider must support an OpenAI-style transcription API, for example OpenAI, Gemini or OpenRouter.'
+    groups:
+      editor: 'Editor'
+      copilot: 'Copilot'
+      deals: 'Deals'
+      assistant: 'Assistant'
+      conversation: 'Conversations'
+      faq: 'FAQ'
+      help_center: 'Help Center'
+      onboarding: 'Onboarding'
+      embedding: 'Embeddings'
+      audio: 'Audio'
+    prompts:
+      assistant:
+        name: 'Assistant'
+        description: 'Main instructions for the assistant that replies to customers.'
+      core_rules:
+        name: 'Core rules'
+        description: 'Shared rules for tone, language, forms of address, length and handoff. Used by the assistant, scenarios and reply drafts.'
+      information_sources:
+        name: 'Information sources'
+        description: 'How the assistant uses the knowledge base, general knowledge and sensitive information.'
+      scenario:
+        name: 'Scenario agent'
+        description: 'Instructions for scenario agents the assistant hands conversations to.'
+      copilot:
+        name: 'Copilot'
+        description: 'Answers agent questions in the Copilot panel.'
+      copilot_reply_suggestion:
+        name: 'Assistant reply draft'
+        description: 'Drafts a reply for the agent using the assistant knowledge and tools.'
+      reply:
+        name: 'Reply suggestion'
+        description: 'Drafts a reply for the agent in the message editor.'
+      improve:
+        name: 'Improve writing'
+        description: 'Improves the text in the message editor.'
+      fix_spelling_grammar:
+        name: 'Fix spelling and grammar'
+        description: 'Fixes spelling and grammar in the message editor.'
+      tone_rewrite:
+        name: 'Change tone'
+        description: 'Rewrites the text in the message editor with a different tone.'
+      summary:
+        name: 'Conversation summary'
+        description: 'Summarizes the open conversation.'
+      deal_assistant:
+        name: 'Deal assistant'
+        description: 'Answers sales staff questions about deals, pipelines and stages.'
+      deal_summary:
+        name: 'Deal summary'
+        description: 'Summarizes a deal for the salesperson.'
+      deal_suggestion:
+        name: 'Deal suggestion'
+        description: 'Decides which conversations should become deals.'
+      deal_next_step:
+        name: 'Deal next step'
+        description: 'Suggests the next step for a deal.'
+      deal_field_extraction:
+        name: 'Deal field extraction'
+        description: 'Fills deal custom fields from the conversations.'
+      conversation_analysis:
+        name: 'Conversation analysis'
+        description: 'Scores service quality with evidence and extracts customer information, insights and conversation state.'
+      care_suggestion:
+        name: 'Care suggestion'
+        description: 'Suggests next care actions from a saved conversation analysis when an agent clicks the button.'
+      assistant_action_classifier:
+        name: 'Assistant handoff classifier'
+        description: 'Decides whether the assistant should continue or hand the conversation to a human.'
+      assistant_false_promise_detector:
+        name: 'False promise detector'
+        description: 'Checks assistant replies for unsupported promises of future work.'
+      assistant_v1:
+        name: 'Assistant response'
+        description: 'Generates the assistant response using account context, tools and knowledge.'
+      assistant_overview_summary:
+        name: 'Assistant overview summary'
+        description: 'Summarizes assistant performance metrics for the overview page.'
+      instruction_auditor:
+        name: 'Instruction auditor'
+        description: 'Reviews generated assistant instructions for safety and completeness.'
+      instruction_classifier:
+        name: 'Instruction classifier'
+        description: 'Converts existing assistant instructions into structured configuration.'
+      campaign:
+        name: 'Campaign context'
+        description: 'Shared campaign context included in assistant prompts.'
+      contact:
+        name: 'Contact context'
+        description: 'Shared contact context included in assistant prompts.'
+      contact_notes:
+        name: 'Contact notes'
+        description: 'Generates notes from a contact and conversation.'
+      contact_attributes:
+        name: 'Contact attributes'
+        description: 'Extracts structured attributes from a contact and conversation.'
+      conversation:
+        name: 'Conversation context'
+        description: 'Shared conversation context included in assistant prompts.'
+      current_time:
+        name: 'Current time context'
+        description: 'Shared current-time context included in assistant prompts.'
+      citations:
+        name: 'Citation instructions'
+        description: 'Instructions for formatting knowledge-base citations.'
+      follow_up:
+        name: 'Follow-up action'
+        description: 'Generates a follow-up response from the previous AI action.'
+      label_suggestion:
+        name: 'Label suggestion'
+        description: 'Suggests labels for a conversation.'
+      tekomi_overview_summary:
+        name: 'GMO overview summary'
+        description: 'Summarizes GMO AI overview metrics.'
+      call_emotion_analysis:
+        name: 'Call emotion analysis'
+        description: 'Analyzes caller emotion from a call transcript.'
+      conversation_completion:
+        name: 'Conversation completion'
+        description: 'Determines whether an inactive conversation can be resolved.'
+      csat_utility_analysis:
+        name: 'CSAT utility analysis'
+        description: 'Analyzes customer satisfaction feedback.'
+      document_faq:
+        name: 'Document FAQ generation'
+        description: 'Generates frequently asked questions from a document.'
+      pdf_faq:
+        name: 'PDF FAQ generation'
+        description: 'Generates frequently asked questions from PDF pages.'
+      conversation_faq:
+        name: 'Conversation FAQ generation'
+        description: 'Generates FAQ candidates from resolved conversations.'
+      conversation_faq_matching:
+        name: 'Conversation FAQ matching'
+        description: 'Checks whether a new FAQ matches an existing FAQ.'
+      article_content_translation:
+        name: 'Article content translation'
+        description: 'Translates help center article content.'
+      article_search_terms:
+        name: 'Article search terms'
+        description: 'Extracts search terms used to index an article.'
+      article_title_translation:
+        name: 'Article title translation'
+        description: 'Translates a help center article title.'
+      article_writer:
+        name: 'Article writer'
+        description: 'Writes a help center article from source pages.'
+      help_center_curation:
+        name: 'Help Center curation'
+        description: 'Organizes crawled pages into help center categories and articles.'
+      help_center_query_translation:
+        name: 'Help Center query translation'
+        description: 'Translates a help center search query.'
+      website_analyzer:
+        name: 'Website analyzer'
+        description: 'Extracts business information from a website during onboarding.'
+      widget_tagline:
+        name: 'Widget tagline'
+        description: 'Generates a tagline for the customer-facing widget.'
   super_admin:
     tenant_branding_profiles:
       provisioning_started: 'DNS provisioning has been queued.'
@@ -855,314 +1110,6 @@ en:
         category: 'Category'
         reason: 'Reason'
         empty: 'No suspension history recorded.'
-    llm_config:
-      title: 'GMO AI'
-      tabs:
-        features: 'AI features'
-        providers: 'Providers'
-        prompts: 'Prompts'
-        firecrawl: 'FireCrawl'
-    llm_providers:
-      new: 'Add provider'
-      edit: 'Edit'
-      delete: 'Delete'
-      save: 'Save provider'
-      saved: 'Provider saved.'
-      deleted: 'Provider deleted.'
-      default_api_base: 'Provider default'
-      api_key_keep_hint: 'Leave blank to keep the current API key.'
-      api_base_hint: 'Optional. Enter the full base URL including the version path, for example https://openrouter.ai/api/v1. Required for Ollama. Not supported for Mistral and xAI.'
-      usage:
-        zero: 'Not used'
-        one: 'Used by 1 feature'
-        other: 'Used by %{count} features'
-      fields:
-        name: 'Name'
-        provider_type: 'Type'
-        api_key: 'API key'
-        api_base: 'Endpoint'
-        usage: 'Usage'
-      types:
-        openai: 'OpenAI / OpenAI-compatible'
-        openrouter: 'OpenRouter'
-        deepseek: 'DeepSeek'
-        anthropic: 'Anthropic'
-        gemini: 'Gemini'
-        mistral: 'Mistral'
-        xai: 'xAI'
-        ollama: 'Ollama'
-    llm_prompt_templates:
-      description: 'System prompts used by the AI features. Super Admin changes are inherited by every account, while account administrators can add tenant-specific overrides.'
-      edit: 'Edit'
-      save: 'Save prompt'
-      saved: 'Prompt saved.'
-      restored: 'Default prompt restored.'
-      restore_default: 'Restore default'
-      restore_confirm: 'Discard your changes and use the default prompt?'
-      customized: 'Customized'
-      default: 'Default'
-      show_default: 'Show default prompt'
-      edit_warning: 'Keep the {{ variables }}, {% tags %}, tool names and output format from the default prompt. Removing them can silently break the feature.'
-      prompts:
-        assistant:
-          name: 'Assistant'
-          description: 'Main instructions for the assistant that replies to customers.'
-        core_rules:
-          name: 'Core rules'
-          description: 'Shared rules for tone, language, forms of address, length and handoff. Used by the assistant, scenarios and reply drafts.'
-        information_sources:
-          name: 'Information sources'
-          description: 'How the assistant uses the knowledge base, general knowledge and sensitive information.'
-        scenario:
-          name: 'Scenario agent'
-          description: 'Instructions for scenario agents the assistant hands conversations to.'
-        copilot:
-          name: 'Copilot'
-          description: 'Answers agent questions in the Copilot panel.'
-        copilot_reply_suggestion:
-          name: 'Assistant reply draft'
-          description: 'Drafts a reply for the agent using the assistant knowledge and tools.'
-        reply:
-          name: 'Reply suggestion'
-          description: 'Drafts a reply for the agent in the message editor.'
-        improve:
-          name: 'Improve writing'
-          description: 'Improves the text in the message editor.'
-        fix_spelling_grammar:
-          name: 'Fix spelling and grammar'
-          description: 'Fixes spelling and grammar in the message editor.'
-        tone_rewrite:
-          name: 'Change tone'
-          description: 'Rewrites the text in the message editor with a different tone.'
-        summary:
-          name: 'Conversation summary'
-          description: 'Summarizes the open conversation.'
-        deal_assistant:
-          name: 'Deal assistant'
-          description: 'Answers sales staff questions about deals, pipelines and stages.'
-        deal_summary:
-          name: 'Deal summary'
-          description: 'Summarizes a deal for the salesperson.'
-        deal_suggestion:
-          name: 'Deal suggestion'
-          description: 'Decides which conversations should become deals.'
-        deal_next_step:
-          name: 'Deal next step'
-          description: 'Suggests the next step for a deal.'
-        deal_field_extraction:
-          name: 'Deal field extraction'
-          description: 'Fills deal custom fields from the conversations.'
-        conversation_analysis:
-          name: 'Conversation analysis'
-          description: 'Scores service quality with evidence and extracts customer information, insights and conversation state.'
-        care_suggestion:
-          name: 'Care suggestion'
-          description: 'Suggests next care actions from a saved conversation analysis when an agent clicks the button.'
-        assistant_action_classifier:
-          name: 'Assistant handoff classifier'
-          description: 'Decides whether the assistant should continue or hand the conversation to a human.'
-        assistant_false_promise_detector:
-          name: 'False promise detector'
-          description: 'Checks assistant replies for unsupported promises of future work.'
-        assistant_v1:
-          name: 'Assistant response'
-          description: 'Generates the assistant response using account context, tools and knowledge.'
-        assistant_overview_summary:
-          name: 'Assistant overview summary'
-          description: 'Summarizes assistant performance metrics for the overview page.'
-        instruction_auditor:
-          name: 'Instruction auditor'
-          description: 'Reviews generated assistant instructions for safety and completeness.'
-        instruction_classifier:
-          name: 'Instruction classifier'
-          description: 'Converts existing assistant instructions into structured configuration.'
-        campaign:
-          name: 'Campaign context'
-          description: 'Shared campaign context included in assistant prompts.'
-        contact:
-          name: 'Contact context'
-          description: 'Shared contact context included in assistant prompts.'
-        contact_notes:
-          name: 'Contact notes'
-          description: 'Generates notes from a contact and conversation.'
-        contact_attributes:
-          name: 'Contact attributes'
-          description: 'Extracts structured attributes from a contact and conversation.'
-        conversation:
-          name: 'Conversation context'
-          description: 'Shared conversation context included in assistant prompts.'
-        current_time:
-          name: 'Current time context'
-          description: 'Shared current-time context included in assistant prompts.'
-        citations:
-          name: 'Citation instructions'
-          description: 'Instructions for formatting knowledge-base citations.'
-        follow_up:
-          name: 'Follow-up action'
-          description: 'Generates a follow-up response from the previous AI action.'
-        label_suggestion:
-          name: 'Label suggestion'
-          description: 'Suggests labels for a conversation.'
-        tekomi_overview_summary:
-          name: 'GMO overview summary'
-          description: 'Summarizes GMO AI overview metrics.'
-        call_emotion_analysis:
-          name: 'Call emotion analysis'
-          description: 'Analyzes caller emotion from a call transcript.'
-        conversation_completion:
-          name: 'Conversation completion'
-          description: 'Determines whether an inactive conversation can be resolved.'
-        csat_utility_analysis:
-          name: 'CSAT utility analysis'
-          description: 'Analyzes customer satisfaction feedback.'
-        document_faq:
-          name: 'Document FAQ generation'
-          description: 'Generates frequently asked questions from a document.'
-        pdf_faq:
-          name: 'PDF FAQ generation'
-          description: 'Generates frequently asked questions from PDF pages.'
-        conversation_faq:
-          name: 'Conversation FAQ generation'
-          description: 'Generates FAQ candidates from resolved conversations.'
-        conversation_faq_matching:
-          name: 'Conversation FAQ matching'
-          description: 'Checks whether a new FAQ matches an existing FAQ.'
-        article_content_translation:
-          name: 'Article content translation'
-          description: 'Translates help center article content.'
-        article_search_terms:
-          name: 'Article search terms'
-          description: 'Extracts search terms used to index an article.'
-        article_title_translation:
-          name: 'Article title translation'
-          description: 'Translates a help center article title.'
-        article_writer:
-          name: 'Article writer'
-          description: 'Writes a help center article from source pages.'
-        help_center_curation:
-          name: 'Help Center curation'
-          description: 'Organizes crawled pages into help center categories and articles.'
-        help_center_query_translation:
-          name: 'Help Center query translation'
-          description: 'Translates a help center search query.'
-        website_analyzer:
-          name: 'Website analyzer'
-          description: 'Extracts business information from a website during onboarding.'
-        widget_tagline:
-          name: 'Widget tagline'
-          description: 'Generates a tagline for the customer-facing widget.'
-    llm_feature_models:
-      save: 'Save'
-      saved: 'AI feature models saved.'
-      select_provider: 'Select provider'
-      configured: 'Configured'
-      not_configured: 'Not configured'
-      reasoning_unsupported: 'can only be set for OpenRouter providers. Use extra params for other providers.'
-      reasoning:
-        label: 'Reasoning'
-        default: 'Reasoning: model default'
-        options:
-          'off': 'Reasoning: off'
-          low: 'Reasoning: low'
-          medium: 'Reasoning: medium'
-          high: 'Reasoning: high'
-      params:
-        label: 'Extra params (JSON)'
-        placeholder: '{ "temperature": 0.2, "max_tokens": 2000, "provider": { "sort": "throughput" } }'
-        hint: 'Sent with every request of this feature and override the reasoning setting. Leave empty for none.'
-      unconfigured_summary:
-        one: '1 AI feature is not configured.'
-        other: '%{count} AI features are not configured.'
-      groups:
-        editor: 'Editor'
-        copilot: 'Copilot'
-        deals: 'Deals'
-        assistant: 'Assistant'
-        conversation: 'Conversations'
-        faq: 'FAQ'
-        help_center: 'Help Center'
-        onboarding: 'Onboarding'
-        embedding: 'Embeddings'
-        audio: 'Audio'
-      features:
-        reply_suggestion:
-          name: 'Reply suggestion'
-          description: 'Drafts a reply for the agent in the message editor.'
-        summary:
-          name: 'Conversation summary'
-          description: 'Summarizes the open conversation.'
-        rewrite:
-          name: 'Rewrite'
-          description: 'Improves, changes the tone of, or fixes grammar in the editor text.'
-        follow_up:
-          name: 'Follow-up'
-          description: 'Refines a previous AI result from the agent follow-up instruction.'
-        overview_summary:
-          name: 'Overview summary'
-          description: 'Generates conversation and assistant overview summaries.'
-        csat_analysis:
-          name: 'CSAT analysis'
-          description: 'Analyzes CSAT responses.'
-        copilot:
-          name: 'Copilot'
-          description: 'Answers agent questions in the Copilot panel.'
-        assistant:
-          name: 'Assistant replies'
-          description: 'Replies to customers, writes contact notes and attributes, and classifies assistant actions.'
-        false_promise_detection:
-          name: 'False promise detection'
-          description: 'Checks assistant replies for promises the assistant cannot keep.'
-        instruction_migration:
-          name: 'Instruction migration'
-          description: 'Classifies and audits assistant instructions when migrating to the new assistant.'
-        label_suggestion:
-          name: 'Label suggestion'
-          description: 'Suggests labels for conversations.'
-        conversation_completion:
-          name: 'Conversation completion'
-          description: 'Decides whether an inactive conversation can be resolved.'
-        conversation_analysis:
-          name: 'Conversation analysis'
-          description: 'Scores service quality and extracts customer information, insights and conversation state.'
-        care_suggestion:
-          name: 'Care suggestion'
-          description: 'Suggests how to take care of the customer, from a saved conversation analysis, when an agent asks for it.'
-        document_faq_generation:
-          name: 'Document FAQ generation'
-          description: 'Creates FAQs from crawled documents.'
-        pdf_faq_generation:
-          name: 'PDF FAQ generation'
-          description: 'Creates FAQs from uploaded PDFs.'
-          warning: 'The whole PDF is sent with every page batch. Prefer a model that reads PDFs natively (for example openai/gpt-4.1-mini); on OpenRouter other models are billed for OCR on every request.'
-        conversation_faq_generation:
-          name: 'Conversation FAQ generation'
-          description: 'Creates FAQ suggestions from conversations.'
-        conversation_faq_matching:
-          name: 'Conversation FAQ matching'
-          description: 'Checks whether a suggested FAQ duplicates an existing one.'
-        help_center_article_generation:
-          name: 'Help Center article writing'
-          description: 'Writes and translates Help Center articles.'
-        help_center_query_translation:
-          name: 'Help Center search translation'
-          description: 'Translates Help Center search queries.'
-        help_center_curation:
-          name: 'Help Center curation'
-          description: 'Selects categories and articles from website links during onboarding.'
-        article_search_terms:
-          name: 'Article search terms'
-          description: 'Generates search terms used to index Help Center articles.'
-        onboarding_content_generation:
-          name: 'Onboarding content'
-          description: 'Analyzes the website and writes the widget tagline during onboarding.'
-        embedding:
-          name: 'Embeddings'
-          description: 'Creates vectors for document, FAQ and article search.'
-          warning: 'The model must return 1536-dimension vectors. Switching to a model with a different size requires a migration and regenerating all embeddings.'
-        audio_transcription:
-          name: 'Audio transcription'
-          description: 'Transcribes voice messages and call recordings.'
-          warning: 'The provider must support an OpenAI-style transcription API, for example OpenAI, Gemini or OpenRouter.'
     push_diagnostics:
       title: 'Push Diagnostics'
       description: "Send a test push notification to a specific user's registered devices to diagnose delivery issues. Results show the raw FCM / Web Push / relay response so you can see exactly what failed."

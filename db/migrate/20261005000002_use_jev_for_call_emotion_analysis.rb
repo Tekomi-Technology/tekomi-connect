@@ -1,8 +1,14 @@
 class UseJevForCallEmotionAnalysis < ActiveRecord::Migration[7.2]
   def up
-    openrouter = LlmProvider.find_by!(provider_type: 'openrouter')
-    feature_model = LlmFeatureModel.find_by!(feature_key: 'call_emotion_analysis')
-    feature_model.update!(llm_provider: openrouter, model: 'typesafe/jev-1.13', reasoning: nil, params: {})
+    execute(<<~SQL.squish)
+      UPDATE llm_feature_models
+      SET model = 'typesafe/jev-1.13',
+          reasoning = NULL,
+          params = '{}'::jsonb,
+          llm_provider_id = (SELECT id FROM llm_providers WHERE provider_type = 'openrouter' LIMIT 1)
+      WHERE feature_key = 'call_emotion_analysis'
+        AND EXISTS (SELECT 1 FROM llm_providers WHERE provider_type = 'openrouter')
+    SQL
   end
 
   def down

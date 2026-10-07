@@ -612,6 +612,152 @@ vi:
       subject: 'Finish setting up %{custom_domain}'
     ssl_status:
       custom_domain_not_configured: 'Custom domain is not configured'
+  llm:
+    features:
+      reply_suggestion:
+        name: 'Gợi ý trả lời'
+        description: 'Soạn bản nháp trả lời cho nhân viên trong ô soạn tin.'
+      summary:
+        name: 'Tóm tắt hội thoại'
+        description: 'Tóm tắt hội thoại đang mở.'
+      rewrite:
+        name: 'Viết lại'
+        description: 'Cải thiện, đổi giọng điệu hoặc sửa ngữ pháp nội dung trong ô soạn tin.'
+      follow_up:
+        name: 'Chỉnh tiếp'
+        description: 'Chỉnh lại kết quả AI trước đó theo yêu cầu thêm của nhân viên.'
+      overview_summary:
+        name: 'Tóm tắt tổng quan'
+        description: 'Tạo bản tóm tắt tổng quan cho hội thoại và trợ lý.'
+      csat_analysis:
+        name: 'Phân tích CSAT'
+        description: 'Phân tích các phản hồi đánh giá CSAT.'
+      copilot:
+        name: 'Copilot'
+        description: 'Trả lời câu hỏi của nhân viên trong khung Copilot.'
+      assistant:
+        name: 'Trợ lý trả lời khách'
+        description: 'Trả lời khách hàng, ghi chú và cập nhật thuộc tính liên hệ, phân loại hành động của trợ lý.'
+      false_promise_detection:
+        name: 'Phát hiện hứa suông'
+        description: 'Kiểm tra câu trả lời của trợ lý có hứa những điều không làm được không.'
+      instruction_migration:
+        name: 'Chuyển đổi hướng dẫn'
+        description: 'Phân loại và kiểm tra hướng dẫn của trợ lý khi chuyển sang trợ lý mới.'
+      label_suggestion:
+        name: 'Gợi ý nhãn'
+        description: 'Gợi ý nhãn cho hội thoại.'
+      conversation_completion:
+        name: 'Kết thúc hội thoại'
+        description: 'Quyết định hội thoại không còn hoạt động có thể đánh dấu đã giải quyết không.'
+      conversation_analysis:
+        name: 'Phân tích hội thoại'
+        description: 'Chấm điểm chất lượng phục vụ, trích xuất thông tin khách hàng, nhận định và trạng thái hội thoại.'
+      care_suggestion:
+        name: 'Gợi ý chăm sóc'
+        description: 'Gợi ý cách chăm sóc khách hàng từ kết quả phân tích hội thoại đã lưu, khi nhân viên yêu cầu.'
+      document_faq_generation:
+        name: 'Tạo FAQ từ tài liệu'
+        description: 'Tạo FAQ từ tài liệu đã thu thập.'
+      pdf_faq_generation:
+        name: 'Tạo FAQ từ PDF'
+        description: 'Tạo FAQ từ file PDF đã tải lên.'
+        warning: 'Toàn bộ file PDF được gửi kèm mỗi lượt xử lý trang. Nên dùng model đọc PDF trực tiếp (ví dụ openai/gpt-4.1-mini); trên OpenRouter, các model khác bị tính phí OCR ở mỗi request.'
+      conversation_faq_generation:
+        name: 'Tạo FAQ từ hội thoại'
+        description: 'Tạo gợi ý FAQ từ hội thoại.'
+      conversation_faq_matching:
+        name: 'Đối chiếu FAQ từ hội thoại'
+        description: 'Kiểm tra FAQ được gợi ý có trùng với FAQ đã có không.'
+      help_center_article_generation:
+        name: 'Viết bài Trung tâm trợ giúp'
+        description: 'Viết và dịch bài viết cho Trung tâm trợ giúp.'
+      help_center_query_translation:
+        name: 'Dịch từ khóa tìm kiếm Trung tâm trợ giúp'
+        description: 'Dịch từ khóa tìm kiếm trên Trung tâm trợ giúp.'
+      help_center_curation:
+        name: 'Chọn lọc Trung tâm trợ giúp'
+        description: 'Chọn danh mục và bài viết từ các liên kết website khi khởi tạo tài khoản.'
+      article_search_terms:
+        name: 'Từ khóa tìm kiếm bài viết'
+        description: 'Tạo từ khóa dùng để lập chỉ mục bài viết Trung tâm trợ giúp.'
+      onboarding_content_generation:
+        name: 'Nội dung khởi tạo'
+        description: 'Phân tích website và viết khẩu hiệu cho widget khi khởi tạo tài khoản.'
+      embedding:
+        name: 'Embeddings'
+        description: 'Tạo vector để tìm kiếm tài liệu, FAQ và bài viết.'
+        warning: 'Model phải trả về vector 1536 chiều. Đổi sang model có số chiều khác cần chạy migration và tạo lại toàn bộ embeddings.'
+      audio_transcription:
+        name: 'Chuyển giọng nói thành văn bản'
+        description: 'Chuyển tin nhắn thoại và bản ghi cuộc gọi thành văn bản.'
+        warning: 'Nhà cung cấp phải hỗ trợ API chuyển giọng nói kiểu OpenAI, ví dụ OpenAI, Gemini hoặc OpenRouter.'
+    groups:
+      editor: 'Soạn thảo'
+      copilot: 'Copilot'
+      deals: 'Deal'
+      assistant: 'Trợ lý'
+      conversation: 'Hội thoại'
+      faq: 'FAQ'
+      help_center: 'Trung tâm trợ giúp'
+      onboarding: 'Khởi tạo tài khoản'
+      embedding: 'Embeddings'
+      audio: 'Âm thanh'
+    prompts:
+      assistant:
+        name: 'Trợ lý'
+        description: 'Hướng dẫn chính cho trợ lý trả lời khách hàng.'
+      core_rules:
+        name: 'Quy tắc cốt lõi'
+        description: 'Quy tắc chung về giọng điệu, ngôn ngữ, cách xưng hô, độ dài và chuyển nhân viên. Dùng cho trợ lý, kịch bản và bản nháp trả lời.'
+      information_sources:
+        name: 'Nguồn thông tin'
+        description: 'Cách trợ lý dùng kho kiến thức, kiến thức chung và thông tin nhạy cảm.'
+      scenario:
+        name: 'Agent kịch bản'
+        description: 'Hướng dẫn cho các agent kịch bản mà trợ lý chuyển hội thoại sang.'
+      copilot:
+        name: 'Copilot'
+        description: 'Trả lời câu hỏi của nhân viên trong khung Copilot.'
+      copilot_reply_suggestion:
+        name: 'Bản nháp trả lời của trợ lý'
+        description: 'Soạn bản nháp trả lời cho nhân viên bằng kiến thức và công cụ của trợ lý.'
+      reply:
+        name: 'Gợi ý trả lời'
+        description: 'Soạn bản nháp trả lời cho nhân viên trong ô soạn tin.'
+      improve:
+        name: 'Cải thiện văn bản'
+        description: 'Cải thiện nội dung trong ô soạn tin.'
+      fix_spelling_grammar:
+        name: 'Sửa chính tả và ngữ pháp'
+        description: 'Sửa chính tả và ngữ pháp trong ô soạn tin.'
+      tone_rewrite:
+        name: 'Đổi giọng điệu'
+        description: 'Viết lại nội dung trong ô soạn tin theo giọng điệu khác.'
+      summary:
+        name: 'Tóm tắt hội thoại'
+        description: 'Tóm tắt hội thoại đang mở.'
+      deal_assistant:
+        name: 'Trợ lý Deal'
+        description: 'Trả lời câu hỏi của nhân viên kinh doanh về deal, pipeline và giai đoạn.'
+      deal_summary:
+        name: 'Tóm tắt Deal'
+        description: 'Tóm tắt một deal cho nhân viên kinh doanh.'
+      deal_suggestion:
+        name: 'Gợi ý Deal'
+        description: 'Quyết định hội thoại nào nên trở thành deal.'
+      deal_next_step:
+        name: 'Bước tiếp theo của Deal'
+        description: 'Gợi ý bước tiếp theo cho một deal.'
+      deal_field_extraction:
+        name: 'Trích xuất trường Deal'
+        description: 'Điền các trường tùy chỉnh của deal từ hội thoại.'
+      conversation_analysis:
+        name: 'Phân tích hội thoại'
+        description: 'Chấm điểm chất lượng phục vụ kèm dẫn chứng, trích xuất thông tin khách hàng, nhận định và trạng thái hội thoại.'
+      care_suggestion:
+        name: 'Gợi ý chăm sóc'
+        description: 'Gợi ý bước chăm sóc tiếp theo từ kết quả phân tích hội thoại đã lưu, khi nhân viên bấm nút.'
   super_admin:
     navigation:
       console: 'Bảng quản trị hệ thống'
@@ -840,9 +986,6 @@ vi:
           description: 'Secret key để xác thực Langfuse'
         LANGFUSE_BASE_URL:
           description: 'Địa chỉ Langfuse (US: https://us.cloud.langfuse.com, EU: https://cloud.langfuse.com)'
-        TEKOMI_FIRECRAWL_API_KEY:
-          title: 'FireCrawl API Key (tùy chọn)'
-          description: 'API key FireCrawl cho dịch vụ GMO AI'
         ENABLE_SAML_SSO_LOGIN:
           title: 'Bật đăng nhập SAML SSO'
           description: 'Hiện SAML SSO là một cách đăng nhập. Không thể tắt nếu đang có người dùng đăng nhập bằng SAML.'
@@ -1124,221 +1267,6 @@ vi:
         category: 'Lý do'
         reason: 'Chi tiết'
         empty: 'Chưa có lịch sử tạm khóa.'
-    llm_config:
-      title: 'GMO AI'
-      tabs:
-        features: 'Tính năng AI'
-        providers: 'Nhà cung cấp'
-        prompts: 'Prompt'
-        firecrawl: 'FireCrawl'
-    llm_providers:
-      new: 'Thêm nhà cung cấp'
-      edit: 'Sửa'
-      delete: 'Xóa'
-      save: 'Lưu nhà cung cấp'
-      saved: 'Đã lưu nhà cung cấp.'
-      deleted: 'Đã xóa nhà cung cấp.'
-      default_api_base: 'Mặc định của nhà cung cấp'
-      api_key_keep_hint: 'Để trống nếu muốn giữ API key hiện tại.'
-      api_base_hint: 'Không bắt buộc. Nhập đầy đủ URL gốc, gồm cả đường dẫn phiên bản, ví dụ https://openrouter.ai/api/v1. Bắt buộc với Ollama. Không hỗ trợ với Mistral và xAI.'
-      usage:
-        zero: 'Chưa dùng'
-        one: 'Đang dùng cho 1 tính năng'
-        other: 'Đang dùng cho %{count} tính năng'
-      fields:
-        name: 'Tên'
-        provider_type: 'Loại'
-        api_key: 'API key'
-        api_base: 'Endpoint'
-        usage: 'Sử dụng'
-      types:
-        openai: 'OpenAI / tương thích OpenAI'
-        openrouter: 'OpenRouter'
-        deepseek: 'DeepSeek'
-        anthropic: 'Anthropic'
-        gemini: 'Gemini'
-        mistral: 'Mistral'
-        xai: 'xAI'
-        ollama: 'Ollama'
-    llm_prompt_templates:
-      description: 'Prompt hệ thống dùng cho các tính năng AI. Thay đổi áp dụng ngay cho mọi tài khoản. Cài đặt riêng của từng tài khoản, như hướng dẫn trả lời và giới hạn của trợ lý, vẫn được thêm vào sau.'
-      edit: 'Sửa'
-      save: 'Lưu prompt'
-      saved: 'Đã lưu prompt.'
-      restored: 'Đã khôi phục prompt mặc định.'
-      restore_default: 'Khôi phục mặc định'
-      restore_confirm: 'Bỏ các thay đổi và dùng lại prompt mặc định?'
-      customized: 'Đã chỉnh sửa'
-      default: 'Mặc định'
-      show_default: 'Xem prompt mặc định'
-      edit_warning: 'Giữ nguyên các {{ biến }}, {% thẻ %}, tên công cụ và định dạng đầu ra như prompt mặc định. Xóa chúng có thể làm tính năng hỏng mà không báo lỗi.'
-      prompts:
-        assistant:
-          name: 'Trợ lý'
-          description: 'Hướng dẫn chính cho trợ lý trả lời khách hàng.'
-        core_rules:
-          name: 'Quy tắc cốt lõi'
-          description: 'Quy tắc chung về giọng điệu, ngôn ngữ, cách xưng hô, độ dài và chuyển nhân viên. Dùng cho trợ lý, kịch bản và bản nháp trả lời.'
-        information_sources:
-          name: 'Nguồn thông tin'
-          description: 'Cách trợ lý dùng kho kiến thức, kiến thức chung và thông tin nhạy cảm.'
-        scenario:
-          name: 'Agent kịch bản'
-          description: 'Hướng dẫn cho các agent kịch bản mà trợ lý chuyển hội thoại sang.'
-        copilot:
-          name: 'Copilot'
-          description: 'Trả lời câu hỏi của nhân viên trong khung Copilot.'
-        copilot_reply_suggestion:
-          name: 'Bản nháp trả lời của trợ lý'
-          description: 'Soạn bản nháp trả lời cho nhân viên bằng kiến thức và công cụ của trợ lý.'
-        reply:
-          name: 'Gợi ý trả lời'
-          description: 'Soạn bản nháp trả lời cho nhân viên trong ô soạn tin.'
-        improve:
-          name: 'Cải thiện văn bản'
-          description: 'Cải thiện nội dung trong ô soạn tin.'
-        fix_spelling_grammar:
-          name: 'Sửa chính tả và ngữ pháp'
-          description: 'Sửa chính tả và ngữ pháp trong ô soạn tin.'
-        tone_rewrite:
-          name: 'Đổi giọng điệu'
-          description: 'Viết lại nội dung trong ô soạn tin theo giọng điệu khác.'
-        summary:
-          name: 'Tóm tắt hội thoại'
-          description: 'Tóm tắt hội thoại đang mở.'
-        deal_assistant:
-          name: 'Trợ lý Deal'
-          description: 'Trả lời câu hỏi của nhân viên kinh doanh về deal, pipeline và giai đoạn.'
-        deal_summary:
-          name: 'Tóm tắt Deal'
-          description: 'Tóm tắt một deal cho nhân viên kinh doanh.'
-        deal_suggestion:
-          name: 'Gợi ý Deal'
-          description: 'Quyết định hội thoại nào nên trở thành deal.'
-        deal_next_step:
-          name: 'Bước tiếp theo của Deal'
-          description: 'Gợi ý bước tiếp theo cho một deal.'
-        deal_field_extraction:
-          name: 'Trích xuất trường Deal'
-          description: 'Điền các trường tùy chỉnh của deal từ hội thoại.'
-        conversation_analysis:
-          name: 'Phân tích hội thoại'
-          description: 'Chấm điểm chất lượng phục vụ kèm dẫn chứng, trích xuất thông tin khách hàng, nhận định và trạng thái hội thoại.'
-        care_suggestion:
-          name: 'Gợi ý chăm sóc'
-          description: 'Gợi ý bước chăm sóc tiếp theo từ kết quả phân tích hội thoại đã lưu, khi nhân viên bấm nút.'
-    llm_feature_models:
-      save: 'Lưu'
-      saved: 'Đã lưu model cho các tính năng AI.'
-      select_provider: 'Chọn nhà cung cấp'
-      configured: 'Đã cấu hình'
-      not_configured: 'Chưa cấu hình'
-      reasoning_unsupported: 'chỉ đặt được khi nhà cung cấp là OpenRouter. Với nhà cung cấp khác, hãy dùng tham số thêm.'
-      reasoning:
-        label: 'Suy luận'
-        default: 'Suy luận: mặc định của model'
-        options:
-          'off': 'Suy luận: tắt'
-          low: 'Suy luận: thấp'
-          medium: 'Suy luận: vừa'
-          high: 'Suy luận: cao'
-      params:
-        label: 'Tham số thêm (JSON)'
-        placeholder: '{ "temperature": 0.2, "max_tokens": 2000, "provider": { "sort": "throughput" } }'
-        hint: 'Gửi kèm mọi request của tính năng này và ghi đè cài đặt suy luận. Để trống nếu không dùng.'
-      unconfigured_summary:
-        one: 'Có 1 tính năng AI chưa được cấu hình.'
-        other: 'Có %{count} tính năng AI chưa được cấu hình.'
-      groups:
-        editor: 'Soạn thảo'
-        copilot: 'Copilot'
-        deals: 'Deal'
-        assistant: 'Trợ lý'
-        conversation: 'Hội thoại'
-        faq: 'FAQ'
-        help_center: 'Trung tâm trợ giúp'
-        onboarding: 'Khởi tạo tài khoản'
-        embedding: 'Embeddings'
-        audio: 'Âm thanh'
-      features:
-        reply_suggestion:
-          name: 'Gợi ý trả lời'
-          description: 'Soạn bản nháp trả lời cho nhân viên trong ô soạn tin.'
-        summary:
-          name: 'Tóm tắt hội thoại'
-          description: 'Tóm tắt hội thoại đang mở.'
-        rewrite:
-          name: 'Viết lại'
-          description: 'Cải thiện, đổi giọng điệu hoặc sửa ngữ pháp nội dung trong ô soạn tin.'
-        follow_up:
-          name: 'Chỉnh tiếp'
-          description: 'Chỉnh lại kết quả AI trước đó theo yêu cầu thêm của nhân viên.'
-        overview_summary:
-          name: 'Tóm tắt tổng quan'
-          description: 'Tạo bản tóm tắt tổng quan cho hội thoại và trợ lý.'
-        csat_analysis:
-          name: 'Phân tích CSAT'
-          description: 'Phân tích các phản hồi đánh giá CSAT.'
-        copilot:
-          name: 'Copilot'
-          description: 'Trả lời câu hỏi của nhân viên trong khung Copilot.'
-        assistant:
-          name: 'Trợ lý trả lời khách'
-          description: 'Trả lời khách hàng, ghi chú và cập nhật thuộc tính liên hệ, phân loại hành động của trợ lý.'
-        false_promise_detection:
-          name: 'Phát hiện hứa suông'
-          description: 'Kiểm tra câu trả lời của trợ lý có hứa những điều không làm được không.'
-        instruction_migration:
-          name: 'Chuyển đổi hướng dẫn'
-          description: 'Phân loại và kiểm tra hướng dẫn của trợ lý khi chuyển sang trợ lý mới.'
-        label_suggestion:
-          name: 'Gợi ý nhãn'
-          description: 'Gợi ý nhãn cho hội thoại.'
-        conversation_completion:
-          name: 'Kết thúc hội thoại'
-          description: 'Quyết định hội thoại không còn hoạt động có thể đánh dấu đã giải quyết không.'
-        conversation_analysis:
-          name: 'Phân tích hội thoại'
-          description: 'Chấm điểm chất lượng phục vụ, trích xuất thông tin khách hàng, nhận định và trạng thái hội thoại.'
-        care_suggestion:
-          name: 'Gợi ý chăm sóc'
-          description: 'Gợi ý cách chăm sóc khách hàng từ kết quả phân tích hội thoại đã lưu, khi nhân viên yêu cầu.'
-        document_faq_generation:
-          name: 'Tạo FAQ từ tài liệu'
-          description: 'Tạo FAQ từ tài liệu đã thu thập.'
-        pdf_faq_generation:
-          name: 'Tạo FAQ từ PDF'
-          description: 'Tạo FAQ từ file PDF đã tải lên.'
-          warning: 'Toàn bộ file PDF được gửi kèm mỗi lượt xử lý trang. Nên dùng model đọc PDF trực tiếp (ví dụ openai/gpt-4.1-mini); trên OpenRouter, các model khác bị tính phí OCR ở mỗi request.'
-        conversation_faq_generation:
-          name: 'Tạo FAQ từ hội thoại'
-          description: 'Tạo gợi ý FAQ từ hội thoại.'
-        conversation_faq_matching:
-          name: 'Đối chiếu FAQ từ hội thoại'
-          description: 'Kiểm tra FAQ được gợi ý có trùng với FAQ đã có không.'
-        help_center_article_generation:
-          name: 'Viết bài Trung tâm trợ giúp'
-          description: 'Viết và dịch bài viết cho Trung tâm trợ giúp.'
-        help_center_query_translation:
-          name: 'Dịch từ khóa tìm kiếm Trung tâm trợ giúp'
-          description: 'Dịch từ khóa tìm kiếm trên Trung tâm trợ giúp.'
-        help_center_curation:
-          name: 'Chọn lọc Trung tâm trợ giúp'
-          description: 'Chọn danh mục và bài viết từ các liên kết website khi khởi tạo tài khoản.'
-        article_search_terms:
-          name: 'Từ khóa tìm kiếm bài viết'
-          description: 'Tạo từ khóa dùng để lập chỉ mục bài viết Trung tâm trợ giúp.'
-        onboarding_content_generation:
-          name: 'Nội dung khởi tạo'
-          description: 'Phân tích website và viết khẩu hiệu cho widget khi khởi tạo tài khoản.'
-        embedding:
-          name: 'Embeddings'
-          description: 'Tạo vector để tìm kiếm tài liệu, FAQ và bài viết.'
-          warning: 'Model phải trả về vector 1536 chiều. Đổi sang model có số chiều khác cần chạy migration và tạo lại toàn bộ embeddings.'
-        audio_transcription:
-          name: 'Chuyển giọng nói thành văn bản'
-          description: 'Chuyển tin nhắn thoại và bản ghi cuộc gọi thành văn bản.'
-          warning: 'Nhà cung cấp phải hỗ trợ API chuyển giọng nói kiểu OpenAI, ví dụ OpenAI, Gemini hoặc OpenRouter.'
     push_diagnostics:
       title: 'Chẩn đoán thông báo đẩy'
       description: 'Gửi thử thông báo đẩy đến các thiết bị đã đăng ký của một người dùng để tìm lỗi gửi. Kết quả hiển thị nguyên phản hồi từ FCM / Web Push / relay để biết chính xác lỗi ở đâu.'

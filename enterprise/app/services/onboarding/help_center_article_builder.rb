@@ -34,7 +34,7 @@ class Onboarding::HelpCenterArticleBuilder
   private
 
   def scrape(urls)
-    job = Firecrawl::Configuration.client.batch_scrape(
+    job = Firecrawl::Configuration.client(account: @account).batch_scrape(
       urls,
       Firecrawl::Models::BatchScrapeOptions.new(options: Firecrawl::Configuration.default_scrape_options)
     )

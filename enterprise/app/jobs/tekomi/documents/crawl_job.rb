@@ -4,7 +4,7 @@ class Tekomi::Documents::CrawlJob < ApplicationJob
   def perform(document)
     if document.pdf_document?
       document.update!(status: :available)
-    elsif InstallationConfig.find_by(name: 'TEKOMI_FIRECRAWL_API_KEY')&.value.present?
+    elsif Firecrawl::Configuration.configured?(account: document.account)
       perform_firecrawl_crawl(document)
     else
       perform_simple_crawl(document)
@@ -37,7 +37,7 @@ class Tekomi::Documents::CrawlJob < ApplicationJob
     crawl_limit = [document_limit[:current_available] || 10, 500].min
 
     Tekomi::Tools::FirecrawlService
-      .new
+      .new(document.account)
       .perform(
         document.external_link,
         firecrawl_webhook_url(document),
@@ -48,6 +48,6 @@ class Tekomi::Documents::CrawlJob < ApplicationJob
   def firecrawl_webhook_url(document)
     webhook_url = Rails.application.routes.url_helpers.enterprise_webhooks_firecrawl_url
 
-    "#{webhook_url}?assistant_id=#{document.assistant_id}&token=#{generate_firecrawl_token(document.assistant_id, document.account_id)}"
+    "#{webhook_url}?assistant_id=#{document.assistant_id}&token=#{generate_firecrawl_token(document.assistant_id, document.account)}"
   end
 end

@@ -6,7 +6,7 @@ RSpec.describe Tekomi::Documents::CrawlJob, type: :job do
   let(:webhook_url) { Rails.application.routes.url_helpers.enterprise_webhooks_firecrawl_url }
 
   describe '#perform' do
-    context 'when TEKOMI_FIRECRAWL_API_KEY is configured' do
+    context 'when the account has a FireCrawl API key' do
       let(:firecrawl_service) { instance_double(Tekomi::Tools::FirecrawlService) }
       let(:account) { document.account }
       let(:token) { Digest::SHA256.hexdigest("-key#{document.assistant_id}#{document.account_id}") }
@@ -14,7 +14,7 @@ RSpec.describe Tekomi::Documents::CrawlJob, type: :job do
       before do
         allow(Tekomi::Tools::FirecrawlService).to receive(:new).and_return(firecrawl_service)
         allow(firecrawl_service).to receive(:perform)
-        create(:installation_config, name: 'TEKOMI_FIRECRAWL_API_KEY', value: 'test-key')
+        allow(Firecrawl::Configuration).to receive(:api_key).and_return('test-key')
       end
 
       context 'with account usage limits' do
@@ -66,7 +66,7 @@ RSpec.describe Tekomi::Documents::CrawlJob, type: :job do
       end
     end
 
-    context 'when TEKOMI_FIRECRAWL_API_KEY is not configured' do
+    context 'when the account has no FireCrawl API key' do
       let(:page_links) { ['https://example.com/page1', 'https://example.com/page2'] }
       let(:simple_crawler) { instance_double(Tekomi::Tools::SimplePageCrawlService) }
 

@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, reactive } from 'vue';
+import { computed, onMounted, reactive, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 import { storeToRefs } from 'pinia';
@@ -15,6 +15,9 @@ import SettingsLayout from '../SettingsLayout.vue';
 import BaseSettingsHeader from '../components/BaseSettingsHeader.vue';
 import SectionLayout from '../account/components/SectionLayout.vue';
 import FeatureToggle from './components/FeatureToggle.vue';
+import LlmDefaultModel from './components/LlmDefaultModel.vue';
+import LlmProviderCard from './components/LlmProviderCard.vue';
+import LlmFeatureModels from './components/LlmFeatureModels.vue';
 import TekomiPaywall from 'next/tekomi/pageComponents/Paywall.vue';
 import TabBar from 'dashboard/components-next/tabbar/TabBar.vue';
 
@@ -28,11 +31,20 @@ const router = useRouter();
 
 const tekomiConfigStore = useTekomiConfigStore();
 const aiAlertsStore = useAiAlertsStore();
-const { uiFlags, llmProviders, llmPrompts } = storeToRefs(tekomiConfigStore);
+const {
+  uiFlags,
+  llmProviders,
+  llmPrompts,
+  llmServices,
+  llmDefault,
+  llmFeatureModels,
+  llmModels,
+} = storeToRefs(tekomiConfigStore);
 const { meta: aiAlertsMeta } = storeToRefs(aiAlertsStore);
-const providerKeys = reactive({});
 const savingProviders = reactive({});
 const savingPrompts = reactive({});
+const savingFeatureModels = reactive({});
+const isSavingDefault = ref(false);
 
 const isLoading = computed(() => uiFlags.value.isFetching);
 
@@ -114,22 +126,60 @@ async function handleFeatureToggle({ feature, enabled }) {
   }
 }
 
-async function saveProvider(provider) {
+async function saveProvider({ provider, apiKey, apiBase }) {
   const providerType = provider.provider_type;
-  const apiKey = providerKeys[providerType]?.trim();
-  if (!apiKey) return;
+  const payload = { provider_type: providerType };
+  if (apiKey) payload.api_key = apiKey;
+  if (provider.supports_api_base) payload.api_base = apiBase;
 
   savingProviders[providerType] = true;
   try {
-    await tekomiConfigStore.updatePreferences({
-      llm_provider: { provider_type: providerType, api_key: apiKey },
-    });
-    providerKeys[providerType] = '';
+    await tekomiConfigStore.updatePreferences({ llm_provider: payload });
     useAlert(t('TEKOMI_SETTINGS.LLM_PROVIDERS.SAVE_SUCCESS'));
   } catch (error) {
     useAlert(t('TEKOMI_SETTINGS.LLM_PROVIDERS.SAVE_ERROR'));
   } finally {
     savingProviders[providerType] = false;
+  }
+}
+
+async function saveDefaultModel(payload) {
+  isSavingDefault.value = true;
+  try {
+    await tekomiConfigStore.updatePreferences({ llm_default: payload });
+    useAlert(t('TEKOMI_SETTINGS.DEFAULT_MODEL.SAVE_SUCCESS'));
+  } catch (error) {
+    useAlert(t('TEKOMI_SETTINGS.DEFAULT_MODEL.SAVE_ERROR'));
+  } finally {
+    isSavingDefault.value = false;
+  }
+}
+
+async function saveFeatureModel({ featureKey, payload }) {
+  savingFeatureModels[featureKey] = true;
+  try {
+    await tekomiConfigStore.updatePreferences({
+      llm_feature_models: { [featureKey]: payload },
+    });
+    useAlert(t('TEKOMI_SETTINGS.FEATURE_MODELS.SAVE_SUCCESS'));
+  } catch (error) {
+    useAlert(t('TEKOMI_SETTINGS.FEATURE_MODELS.SAVE_ERROR'));
+  } finally {
+    savingFeatureModels[featureKey] = false;
+  }
+}
+
+async function removeFeatureModel({ featureKey }) {
+  savingFeatureModels[featureKey] = true;
+  try {
+    await tekomiConfigStore.updatePreferences({
+      llm_feature_models: { [featureKey]: { remove: true } },
+    });
+    useAlert(t('TEKOMI_SETTINGS.FEATURE_MODELS.RESTORE_SUCCESS'));
+  } catch (error) {
+    useAlert(t('TEKOMI_SETTINGS.FEATURE_MODELS.SAVE_ERROR'));
+  } finally {
+    savingFeatureModels[featureKey] = false;
   }
 }
 
@@ -140,7 +190,6 @@ async function removeProvider(provider) {
     await tekomiConfigStore.updatePreferences({
       llm_provider: { provider_type: providerType, remove: true },
     });
-    providerKeys[providerType] = '';
     useAlert(t('TEKOMI_SETTINGS.LLM_PROVIDERS.REMOVE_SUCCESS'));
   } catch (error) {
     useAlert(t('TEKOMI_SETTINGS.LLM_PROVIDERS.SAVE_ERROR'));
@@ -236,73 +285,60 @@ onMounted(() => {
           :description="t('TEKOMI_SETTINGS.LLM_PROVIDERS.DESCRIPTION')"
         >
           <div class="grid gap-4">
-            <div
+            <LlmProviderCard
               v-for="provider in llmProviders"
               :key="provider.provider_type"
-              class="grid gap-3 p-4 border rounded-xl border-n-weak"
-            >
-              <div class="flex items-start justify-between gap-4">
-                <div>
-                  <p class="text-sm font-medium text-n-slate-12">
-                    {{ provider.name }}
-                  </p>
-                  <p class="text-xs text-n-slate-10">
-                    {{ provider.provider_type }}
-                  </p>
-                </div>
-                <span
-                  class="px-2 py-1 text-xs font-medium rounded-lg"
-                  :class="
-                    provider.configured
-                      ? 'bg-n-teal-3 text-n-teal-11'
-                      : 'bg-n-slate-3 text-n-slate-11'
-                  "
-                >
-                  {{
-                    provider.configured
-                      ? t('TEKOMI_SETTINGS.LLM_PROVIDERS.TENANT_KEY', {
-                          key: provider.masked_api_key,
-                        })
-                      : t('TEKOMI_SETTINGS.LLM_PROVIDERS.NOT_CONFIGURED')
-                  }}
-                </span>
-              </div>
-              <div class="flex flex-col gap-2 sm:flex-row">
-                <input
-                  v-model="providerKeys[provider.provider_type]"
-                  type="password"
-                  autocomplete="new-password"
-                  :placeholder="
-                    provider.configured
-                      ? t('TEKOMI_SETTINGS.LLM_PROVIDERS.REPLACE_PLACEHOLDER')
-                      : t('TEKOMI_SETTINGS.LLM_PROVIDERS.KEY_PLACEHOLDER')
-                  "
-                  class="w-full px-3 py-2 text-sm bg-transparent border rounded-lg border-n-weak text-n-slate-12 placeholder:text-n-slate-9 focus:border-n-brand"
-                  @keyup.enter="saveProvider(provider)"
-                />
-                <button
-                  type="button"
-                  class="px-4 py-2 text-sm font-medium rounded-lg bg-n-brand text-white disabled:cursor-not-allowed disabled:opacity-50"
-                  :disabled="
-                    savingProviders[provider.provider_type] ||
-                    !providerKeys[provider.provider_type]?.trim()
-                  "
-                  @click="saveProvider(provider)"
-                >
-                  {{ t('TEKOMI_SETTINGS.LLM_PROVIDERS.SAVE') }}
-                </button>
-                <button
-                  v-if="provider.configured"
-                  type="button"
-                  class="px-4 py-2 text-sm font-medium border rounded-lg border-n-weak text-n-slate-11 disabled:cursor-not-allowed disabled:opacity-50"
-                  :disabled="savingProviders[provider.provider_type]"
-                  @click="removeProvider(provider)"
-                >
-                  {{ t('TEKOMI_SETTINGS.LLM_PROVIDERS.REMOVE') }}
-                </button>
-              </div>
-            </div>
+              :provider="provider"
+              :is-saving="savingProviders[provider.provider_type]"
+              @save="saveProvider"
+              @remove="removeProvider"
+            />
           </div>
+        </SectionLayout>
+
+        <SectionLayout
+          v-if="isAdmin && llmServices.length"
+          :title="t('TEKOMI_SETTINGS.LLM_SERVICES.TITLE')"
+          :description="t('TEKOMI_SETTINGS.LLM_SERVICES.DESCRIPTION')"
+        >
+          <div class="grid gap-4">
+            <LlmProviderCard
+              v-for="service in llmServices"
+              :key="service.provider_type"
+              :provider="service"
+              :is-saving="savingProviders[service.provider_type]"
+              @save="saveProvider"
+              @remove="removeProvider"
+            />
+          </div>
+        </SectionLayout>
+
+        <SectionLayout
+          v-if="isAdmin"
+          :title="t('TEKOMI_SETTINGS.DEFAULT_MODEL.TITLE')"
+          :description="t('TEKOMI_SETTINGS.DEFAULT_MODEL.DESCRIPTION')"
+        >
+          <LlmDefaultModel
+            :providers="llmProviders"
+            :models="llmModels"
+            :value="llmDefault"
+            :is-saving="isSavingDefault"
+            @save="saveDefaultModel"
+          />
+        </SectionLayout>
+
+        <SectionLayout
+          v-if="isAdmin && llmFeatureModels.length"
+          :title="t('TEKOMI_SETTINGS.FEATURE_MODELS.TITLE')"
+          :description="t('TEKOMI_SETTINGS.FEATURE_MODELS.DESCRIPTION')"
+        >
+          <LlmFeatureModels
+            :feature-models="llmFeatureModels"
+            :providers="llmProviders"
+            :saving-keys="savingFeatureModels"
+            @save="saveFeatureModel"
+            @remove="removeFeatureModel"
+          />
         </SectionLayout>
 
         <SectionLayout

@@ -2,13 +2,12 @@ class Tekomi::Tools::FirecrawlService
   BASE_URL = 'https://api.firecrawl.dev/v2'.freeze
   FIRECRAWL_EXCLUDE_TAGS = %w[iframe .sidebar .cookie-banner [role=navigation] [role=banner] [role=contentinfo]].freeze
 
-  def self.configured?
-    InstallationConfig.find_by(name: 'TEKOMI_FIRECRAWL_API_KEY')&.value
-                      .present?
+  def self.configured?(account)
+    Firecrawl::Configuration.configured?(account: account)
   end
 
-  def initialize
-    @api_key = InstallationConfig.find_by!(name: 'TEKOMI_FIRECRAWL_API_KEY').value
+  def initialize(account)
+    @api_key = Firecrawl::Configuration.api_key(account: account)
     raise 'Missing API key' if @api_key.blank?
   end
 

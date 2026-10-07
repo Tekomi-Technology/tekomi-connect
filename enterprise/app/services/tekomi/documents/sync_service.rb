@@ -13,7 +13,7 @@ class Tekomi::Documents::SyncService
 
   def perform
     @document.update!(sync_step: 'fetching')
-    result = Tekomi::Documents::SinglePageFetcher.new(@document.external_link).fetch
+    result = Tekomi::Documents::SinglePageFetcher.new(@document.external_link, account: @document.account).fetch
 
     handle_fetch_error(result.error_code) unless result.success
 

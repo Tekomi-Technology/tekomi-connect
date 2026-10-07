@@ -1,55 +1,46 @@
 require 'rails_helper'
 
 RSpec.describe Tekomi::Tools::FirecrawlService do
+  let(:account) { create(:account) }
   let(:api_key) { 'test-api-key' }
   let(:url) { 'https://example.com' }
   let(:webhook_url) { 'https://webhook.example.com/callback' }
   let(:crawl_limit) { 15 }
 
   before do
-    create(:installation_config, name: 'TEKOMI_FIRECRAWL_API_KEY', value: api_key)
+    allow(Firecrawl::Configuration).to receive(:api_key).with(account: account).and_return(api_key)
   end
 
   describe '#initialize' do
-    context 'when API key is configured' do
+    context 'when the account has an API key' do
       it 'initializes successfully' do
-        expect { described_class.new }.not_to raise_error
+        expect { described_class.new(account) }.not_to raise_error
       end
     end
 
-    context 'when API key is missing' do
+    context 'when the account has no API key' do
       before do
-        InstallationConfig.find_by(name: 'TEKOMI_FIRECRAWL_API_KEY').destroy
+        allow(Firecrawl::Configuration).to receive(:api_key).with(account: account).and_return(nil)
       end
 
       it 'raises an error' do
-        expect { described_class.new }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { described_class.new(account) }.to raise_error('Missing API key')
       end
     end
 
-    context 'when API key is nil' do
+    context 'when the account API key is empty' do
       before do
-        InstallationConfig.find_by(name: 'TEKOMI_FIRECRAWL_API_KEY').update(value: nil)
+        allow(Firecrawl::Configuration).to receive(:api_key).with(account: account).and_return('')
       end
 
       it 'raises an error' do
-        expect { described_class.new }.to raise_error('Missing API key')
-      end
-    end
-
-    context 'when API key is empty' do
-      before do
-        InstallationConfig.find_by(name: 'TEKOMI_FIRECRAWL_API_KEY').update(value: '')
-      end
-
-      it 'raises an error' do
-        expect { described_class.new }.to raise_error('Missing API key')
+        expect { described_class.new(account) }.to raise_error('Missing API key')
       end
     end
   end
 
   describe '#perform' do
-    let(:service) { described_class.new }
+    let(:service) { described_class.new(account) }
     let(:expected_payload) do
       {
         url: url,

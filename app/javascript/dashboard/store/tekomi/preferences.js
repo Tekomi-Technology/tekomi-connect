@@ -5,7 +5,11 @@ export const useTekomiConfigStore = defineStore('tekomiConfig', {
   state: () => ({
     features: {},
     llmProviders: [],
+    llmServices: [],
     llmPrompts: [],
+    llmDefault: { provider_type: null, model: null },
+    llmFeatureModels: [],
+    llmModels: {},
     uiFlags: {
       isFetching: false,
     },
@@ -17,13 +21,24 @@ export const useTekomiConfigStore = defineStore('tekomiConfig', {
   },
 
   actions: {
+    setPreferences(data) {
+      this.features = data.features || {};
+      this.llmProviders = data.llm_providers || [];
+      this.llmServices = data.llm_services || [];
+      this.llmPrompts = data.prompts || [];
+      this.llmDefault = data.llm_default || {
+        provider_type: null,
+        model: null,
+      };
+      this.llmFeatureModels = data.llm_feature_models || [];
+      this.llmModels = data.llm_models || {};
+    },
+
     async fetch() {
       this.uiFlags.isFetching = true;
       try {
         const response = await TekomiPreferencesAPI.get();
-        this.features = response.data.features || {};
-        this.llmProviders = response.data.llm_providers || [];
-        this.llmPrompts = response.data.prompts || [];
+        this.setPreferences(response.data);
       } catch (error) {
         // Ignore error
       } finally {
@@ -33,9 +48,7 @@ export const useTekomiConfigStore = defineStore('tekomiConfig', {
 
     async updatePreferences(data) {
       const response = await TekomiPreferencesAPI.updatePreferences(data);
-      this.features = response.data.features || {};
-      this.llmProviders = response.data.llm_providers || [];
-      this.llmPrompts = response.data.prompts || [];
+      this.setPreferences(response.data);
     },
   },
 });

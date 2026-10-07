@@ -154,11 +154,6 @@
   locked: false
   type: secret
 
-- name: TEKOMI_FIRECRAWL_API_KEY
-  display_title: 'FireCrawl API Key (optional)'
-  description: 'The FireCrawl API key for the GMO AI service'
-  locked: false
-  type: secret
 - name: TEKOMI_CLOUD_PLAN_LIMITS
   display_title: 'GMO AI Cloud Plan Limits'
   description: 'The limits for the GMO AI service for different plans'

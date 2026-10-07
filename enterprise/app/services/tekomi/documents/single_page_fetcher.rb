@@ -4,8 +4,9 @@ class Tekomi::Documents::SinglePageFetcher
   CONTENT_MAX_LENGTH = 200_000
   TITLE_MAX_LENGTH = 255 # tekomi_documents.name is a varchar(255)
 
-  def initialize(url)
+  def initialize(url, account:)
     @url = url
+    @account = account
   end
 
   def fetch
@@ -20,11 +21,11 @@ class Tekomi::Documents::SinglePageFetcher
   private
 
   def firecrawl_configured?
-    Tekomi::Tools::FirecrawlService.configured?
+    Tekomi::Tools::FirecrawlService.configured?(@account)
   end
 
   def fetch_with_firecrawl
-    response = Tekomi::Tools::FirecrawlService.new.scrape(@url)
+    response = Tekomi::Tools::FirecrawlService.new(@account).scrape(@url)
     handle_firecrawl_response(response)
   end
 

@@ -16,7 +16,7 @@ class Onboarding::HelpCenterCurator
   end
 
   def perform
-    raise Skipped, 'Firecrawl not configured' unless Firecrawl::Configuration.configured?
+    raise Skipped, 'Firecrawl not configured' unless Firecrawl::Configuration.configured?(account: @account)
     raise Skipped, 'no website url' if website_url.blank?
 
     links = discover_links
@@ -31,7 +31,7 @@ class Onboarding::HelpCenterCurator
   private
 
   def discover_links
-    data = Firecrawl::Configuration.client.map(
+    data = Firecrawl::Configuration.client(account: @account).map(
       website_url,
       Firecrawl::Models::MapOptions.new(limit: MAP_LIMIT, search: MAP_SEARCH)
     )

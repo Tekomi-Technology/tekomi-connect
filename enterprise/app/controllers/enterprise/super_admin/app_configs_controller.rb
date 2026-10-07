@@ -7,8 +7,6 @@ module Enterprise::SuperAdmin::AppConfigsController
       @allowed_configs = custom_branding_options
     when 'internal'
       @allowed_configs = internal_config_options
-    when 'tekomi'
-      @allowed_configs = tekomi_config_options
     when 'saml'
       @allowed_configs = saml_config_options
     else
@@ -36,10 +34,6 @@ module Enterprise::SuperAdmin::AppConfigsController
        INACTIVE_WHATSAPP_NUMBERS SKIP_INCOMING_BCC_PROCESSING TEKOMI_CLOUD_PLAN_LIMITS
        CHATWOOT_INSTANCE_ADMIN_EMAIL OG_IMAGE_CDN_URL OG_IMAGE_CLIENT_REF CLOUDFLARE_API_KEY
        CLOUDFLARE_ZONE_ID BLOCKED_EMAIL_DOMAINS OTEL_PROVIDER LANGFUSE_PUBLIC_KEY LANGFUSE_SECRET_KEY LANGFUSE_BASE_URL]
-  end
-
-  def tekomi_config_options
-    %w[TEKOMI_FIRECRAWL_API_KEY]
   end
 
   def saml_config_options
