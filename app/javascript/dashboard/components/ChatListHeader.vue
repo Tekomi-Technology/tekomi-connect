@@ -14,7 +14,6 @@ const props = defineProps({
   contactFilter: { type: Object, default: null },
   hasAppliedFilters: { type: Boolean, required: true },
   hasActiveFolders: { type: Boolean, required: true },
-  activeStatus: { type: String, required: true },
   isOnExpandedLayout: { type: Boolean, required: true },
   conversationStats: { type: Object, required: true },
   isListLoading: { type: Boolean, required: true },
@@ -24,15 +23,11 @@ const emit = defineEmits([
   'addFolders',
   'deleteFolders',
   'resetFilters',
-  'basicFilterChange',
+  'sortChange',
   'filtersModal',
 ]);
 
 const { uiSettings, updateUISettings } = useUISettings();
-
-const onBasicFilterChange = (value, type) => {
-  emit('basicFilterChange', value, type);
-};
 
 const hasAppliedFiltersOrActiveFolders = computed(() => {
   return props.hasAppliedFilters || props.hasActiveFolders;
@@ -103,12 +98,6 @@ const toggleConversationLayout = () => {
       >
         {{ formattedAllCount }}
       </span>
-      <span
-        v-if="!hasAppliedFiltersOrActiveFolders"
-        class="px-2 py-1 my-0.5 mx-1 rounded-md capitalize bg-n-slate-3 text-xxs text-n-slate-12 shrink-0"
-      >
-        {{ $t(`CHAT_LIST.CHAT_STATUS_FILTER_ITEMS.${activeStatus}.TEXT`) }}
-      </span>
     </div>
     <div class="flex items-center gap-1">
       <template v-if="hasAppliedFilters && !hasActiveFolders">
@@ -174,7 +163,7 @@ const toggleConversationLayout = () => {
       <ConversationBasicFilter
         v-if="!hasAppliedFiltersOrActiveFolders"
         :is-on-expanded-layout="isOnExpandedLayout"
-        @change-filter="onBasicFilterChange"
+        @sort-change="value => emit('sortChange', value)"
       />
       <SwitchLayout
         :is-on-expanded-layout="isOnExpandedLayout"

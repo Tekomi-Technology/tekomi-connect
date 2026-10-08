@@ -17,7 +17,6 @@ const mountHeader = props =>
       pageTitle: 'Conversations',
       hasAppliedFilters: false,
       hasActiveFolders: false,
-      activeStatus: 'open',
       isOnExpandedLayout: false,
       conversationStats: { allCount: 12 },
       isListLoading: false,

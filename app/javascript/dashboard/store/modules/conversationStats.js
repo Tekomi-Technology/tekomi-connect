@@ -7,6 +7,9 @@ const state = {
   vipCount: 0,
   unAssignedCount: 0,
   allCount: 0,
+  openCount: 0,
+  inProgressCount: 0,
+  resolvedCount: 0,
   companyCounts: {},
   companyStarredWaitingIds: [],
   noCompanyCount: 0,
@@ -73,8 +76,14 @@ export const mutations = {
       company_counts: companyCounts = {},
       company_starred_waiting_ids: companyStarredWaitingIds = [],
       no_company_count: noCompanyCount = 0,
+      open_count: openCount = 0,
+      in_progress_count: inProgressCount = 0,
+      resolved_count: resolvedCount = 0,
     } = {}
   ) {
+    $state.openCount = openCount;
+    $state.inProgressCount = inProgressCount;
+    $state.resolvedCount = resolvedCount;
     $state.mineCount = mineCount;
     $state.vipCount = vipCount;
     $state.allCount = allCount;

@@ -1,4 +1,6 @@
 class ConversationFinder
+  include ConversationFinder::Stages
+
   attr_reader :current_user, :current_account, :params
 
   DEFAULT_STATUS = 'open'.freeze
@@ -43,8 +45,10 @@ class ConversationFinder
 
     mine_count, unassigned_count, all_count, vip_count = set_count_for_all_conversations
     assigned_count = all_count - unassigned_count
+    counts_by_stage = stage_counts
 
     filter_by_assignee_type
+    filter_by_stage
 
     {
       conversations: conversations,
@@ -54,7 +58,7 @@ class ConversationFinder
         unassigned_count: unassigned_count,
         all_count: all_count,
         vip_count: vip_count
-      }
+      }.merge(counts_by_stage)
     }
   end
 
@@ -71,7 +75,7 @@ class ConversationFinder
         unassigned_count: unassigned_count,
         all_count: all_count,
         vip_count: vip_count
-      }
+      }.merge(stage_counts)
     }
   end
 
@@ -83,7 +87,7 @@ class ConversationFinder
     set_assignee_type
 
     find_all_conversations
-    filter_by_status unless params[:q]
+    filter_by_status unless params[:q] || stage_requested?
     filter_by_team
     filter_by_labels
     filter_by_query

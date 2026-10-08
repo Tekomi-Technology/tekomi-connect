@@ -58,7 +58,7 @@ const actions = {
         { commit, dispatch },
         params,
         data,
-        params.assigneeType
+        params.stage || params.assigneeType
       );
     } catch (error) {
       // Handle error

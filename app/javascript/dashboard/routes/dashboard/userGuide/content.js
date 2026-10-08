@@ -155,7 +155,7 @@ export default {
         },
         {
           type: 'p',
-          text: 'Nếu hộp thư không gắn trợ lý AI, hội thoại đi thẳng tới bước phân công. Hội thoại do AI đang xử lý nằm ở bộ lọc *Chờ giải quyết*, nhân viên có thể mở ra và nhận thay bất cứ lúc nào.',
+          text: 'Nếu hộp thư không gắn trợ lý AI, hội thoại đi thẳng tới bước phân công. Hội thoại do AI đang xử lý nằm ở tab *Đang xử lý*, nhân viên có thể mở ra và nhận thay bất cứ lúc nào.',
         },
       ],
     },
@@ -177,11 +177,11 @@ export default {
           items: [
             '**Đăng nhập và bật trạng thái Trực tuyến** (ảnh đại diện góc dưới bên trái). Chỉ nhân viên trực tuyến mới được tự động phân công.',
             {
-              text: '**Xem việc của mình** — vào Hội thoại, ba tab trên cùng:',
+              text: '**Xem việc cần làm** — vào Hội thoại, ba tab trên cùng:',
               items: [
-                '*Của tôi*: hội thoại đang giao cho bạn.',
-                '*Chưa được phân công*: hội thoại chưa ai nhận — mở ra và bấm tự nhận.',
-                '*Tất cả*: mọi hội thoại bạn được phép xem.',
+                '*Mở*: hội thoại khách mới nhắn, chưa ai nhận — mở ra và bấm tự nhận.',
+                '*Đang xử lý*: hội thoại đã có người nhận, đang được AI trả lời hoặc đang tạm dừng chờ khách. Muốn xem riêng hội thoại của mình, bấm nút *Lọc* và chọn người phụ trách là bạn.',
+                '*Đã xử lý*: hội thoại đã được giải quyết.',
               ],
             },
             '**Trả lời khách** — gõ vào ô *Trả lời* ở cuối hội thoại. Gõ `/` để chèn thư mẫu phản hồi, đính kèm tệp nếu cần.',
@@ -192,7 +192,7 @@ export default {
         },
         {
           type: 'p',
-          text: 'Khi khách nhắn lại vào một hội thoại đã giải quyết, hội thoại tự chuyển về *Mở* và quay lại danh sách cần xử lý.',
+          text: 'Khi khách nhắn lại vào một hội thoại đã giải quyết, hội thoại tự mở lại và quay về tab *Đang xử lý* (hoặc tab *Mở* nếu chưa có người phụ trách).',
         },
         { type: 'h3', text: 'Giám sát viên' },
         {
@@ -203,7 +203,7 @@ export default {
           type: 'ol',
           items: [
             '**Đầu ca: nắm tình hình** — mở **Giám sát nhóm** để xem ai đang trực tuyến và mỗi người đang giữ bao nhiêu hội thoại.',
-            '**Dọn hội thoại tồn** — trong Hội thoại, xem tab *Chưa được phân công* và mục *Không giám sát* (hội thoại khách đang chờ phản hồi), rồi phân công ngay cho người phù hợp.',
+            '**Dọn hội thoại tồn** — trong Hội thoại, xem tab *Mở* và mục *Không giám sát* (hội thoại khách đang chờ phản hồi), rồi phân công ngay cho người phù hợp.',
             '**Điều phối trong ca** — phân công lại khi một nhân viên quá tải, nghỉ đột xuất hoặc hội thoại cần bộ phận khác; sắp xếp lại thành viên nhóm khi cần.',
             '**Hỗ trợ ca khó** — mở hội thoại, đọc lịch sử và để lại *Lưu ý riêng* (gõ `@tên`) để hướng dẫn nhân viên; khi cần có thể trả lời khách trực tiếp.',
             '**Cuối ngày, cuối tuần: xem Báo cáo** — thời gian phản hồi, số hội thoại đã giải quyết theo nhân viên và nhóm, mức hài lòng của khách; trao đổi với nhân viên có chỉ số thấp.',

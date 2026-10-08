@@ -27,6 +27,11 @@
       "unassigned": "Unassigned",
       "all": "All"
     },
+    "STAGE_TABS": {
+      "open": "Open",
+      "in_progress": "In progress",
+      "resolved": "Resolved"
+    },
     "CHAT_STATUS_FILTER_ITEMS": {
       "open": {
         "TEXT": "Open"

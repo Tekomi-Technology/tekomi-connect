@@ -1746,10 +1746,10 @@
     "semantic_hash": "653eabb70fad05cf7f1461792549bd9b"
   },
   "app/finders/conversation_finder.rb": {
-    "mtime": 1790647043.3161652,
-    "seen": 1791127022.0904233,
-    "ast_hash": "6f7a76d49cc0d9691d8997d9c1c2cc3c",
-    "semantic_hash": "6f7a76d49cc0d9691d8997d9c1c2cc3c"
+    "mtime": 1791443896.1391456,
+    "seen": 1791444626.9917023,
+    "ast_hash": "16ca7ad11126a7aed27dfc6f7adc1c93",
+    "semantic_hash": ""
   },
   "app/finders/data_import_error_finder.rb": {
     "mtime": 1787849882.3270235,
@@ -2340,10 +2340,10 @@
     "semantic_hash": "4f2f45a37ee46b23c68f37260720e9c3"
   },
   "app/javascript/dashboard/api/inbox/conversation.js": {
-    "mtime": 1790647043.3181877,
-    "seen": 1791127022.0914216,
-    "ast_hash": "6f2934f73cab4f8b2ab31a05f9cbff1f",
-    "semantic_hash": "6f2934f73cab4f8b2ab31a05f9cbff1f"
+    "mtime": 1791443916.4300666,
+    "seen": 1791444627.0362403,
+    "ast_hash": "21487aa968121d7385980de4188e3818",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/api/inbox/message.js": {
     "mtime": 1787849882.3890228,
@@ -6516,16 +6516,16 @@
     "semantic_hash": "620192a806403fd44b46bee40bb8c8a8"
   },
   "app/javascript/dashboard/components/ChatList.vue": {
-    "mtime": 1791028375.4134252,
-    "seen": 1791127022.0934293,
-    "ast_hash": "3d37f11b05b16aff5d4fc15b5f84891d",
-    "semantic_hash": "3d37f11b05b16aff5d4fc15b5f84891d"
+    "mtime": 1791444235.7710776,
+    "seen": 1791444627.3802905,
+    "ast_hash": "efed7482fb7dc5ed7eea1c4a6f4b6caf",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components/ChatListHeader.vue": {
-    "mtime": 1791028375.4144251,
-    "seen": 1791127022.0934293,
-    "ast_hash": "5ff796ebfca28e9e72c22aa2c49ca483",
-    "semantic_hash": "5ff796ebfca28e9e72c22aa2c49ca483"
+    "mtime": 1791444071.3428447,
+    "seen": 1791444627.3802905,
+    "ast_hash": "a2987948f8c06ce7b0b83e7e291e0358",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components/Code.vue": {
     "mtime": 1790671503.408077,
@@ -6708,10 +6708,10 @@
     "semantic_hash": "510efdd91908750a0ca9f80dc139cc59"
   },
   "app/javascript/dashboard/components/specs/ChatListHeader.spec.js": {
-    "mtime": 1791028375.416426,
-    "seen": 1791127022.0934293,
-    "ast_hash": "e96b57a43fb14eed64c4c991b971e0c6",
-    "semantic_hash": "e96b57a43fb14eed64c4c991b971e0c6"
+    "mtime": 1791444106.550174,
+    "seen": 1791444627.3924332,
+    "ast_hash": "088eaf9ef03c366538082592ac9df6ca",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components/table/BaseCell.vue": {
     "mtime": 1787849882.8475528,
@@ -7200,10 +7200,10 @@
     "semantic_hash": "8b36900ef9dbb0164665773dfbd797df"
   },
   "app/javascript/dashboard/components/widgets/conversation/ConversationBasicFilter.vue": {
-    "mtime": 1787849882.896553,
-    "seen": 1791127022.0934293,
-    "ast_hash": "0dadb5df98742b49f3953f8a2760bc74",
-    "semantic_hash": "0dadb5df98742b49f3953f8a2760bc74"
+    "mtime": 1791444086.419297,
+    "seen": 1791444627.4347408,
+    "ast_hash": "d501ee8964cacbf2019ec4db41f25e8d",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components/widgets/conversation/ConversationBox.vue": {
     "mtime": 1789100380.361945,
@@ -8292,10 +8292,10 @@
     "semantic_hash": "fab3b4b2b5752218514c0dd3a34fc7b3"
   },
   "app/javascript/dashboard/constants/globals.js": {
-    "mtime": 1791028375.4344265,
-    "seen": 1791127022.0934293,
-    "ast_hash": "04c46c775355410b85b81718d0eb3ac8",
-    "semantic_hash": "04c46c775355410b85b81718d0eb3ac8"
+    "mtime": 1791443914.18677,
+    "seen": 1791444627.5247197,
+    "ast_hash": "aa07bae44865b660b2a5fe9ee5b81591",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/constants/installationTypes.js": {
     "mtime": 1787849882.9986775,
@@ -8310,10 +8310,10 @@
     "semantic_hash": "0132d9c2c2e1ba2b2c853c01b998e0f4"
   },
   "app/javascript/dashboard/constants/permissions.js": {
-    "mtime": 1791119771.2824259,
-    "seen": 1791127022.0934293,
-    "ast_hash": "d9673e3bb8d442aaeeccaf307a28e94c",
-    "semantic_hash": "d9673e3bb8d442aaeeccaf307a28e94c"
+    "mtime": 1791444169.0808785,
+    "seen": 1791444627.5258064,
+    "ast_hash": "9d25afd182384523b69712100e865285",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/constants/sessionStorage.js": {
     "mtime": 1787849882.9996765,
@@ -9018,10 +9018,10 @@
     "semantic_hash": "896e5a8b61ffe1315aaa57246136fbee"
   },
   "app/javascript/dashboard/i18n/locale/en/chatlist.json": {
-    "mtime": 1791028375.4374306,
-    "seen": 1791127022.0944228,
-    "ast_hash": "190680eff03c29474a677182571b3271",
-    "semantic_hash": "190680eff03c29474a677182571b3271"
+    "mtime": 1791444110.0850527,
+    "seen": 1791444627.5828197,
+    "ast_hash": "5f5c96e419c730d5e63185b082672cab",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/i18n/locale/en/companies.json": {
     "mtime": 1791028375.4384181,
@@ -12804,10 +12804,10 @@
     "semantic_hash": "2e903f7583c2e6927cd3f48107de15c6"
   },
   "app/javascript/dashboard/store/modules/conversationPage.js": {
-    "mtime": 1790647043.356425,
-    "seen": 1791127022.0954201,
-    "ast_hash": "96c546711d2fb17a4ac6c1d09c22e302",
-    "semantic_hash": "96c546711d2fb17a4ac6c1d09c22e302"
+    "mtime": 1791443950.6294734,
+    "seen": 1791444627.9113111,
+    "ast_hash": "98c7510abe64a403783b8d64895f6ed0",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/store/modules/conversationSearch.js": {
     "mtime": 1787849885.5197384,
@@ -12816,10 +12816,10 @@
     "semantic_hash": "b0f9634f1e964f3e416d1bd5d53bc854"
   },
   "app/javascript/dashboard/store/modules/conversationStats.js": {
-    "mtime": 1791028375.5329742,
-    "seen": 1791127022.0954201,
-    "ast_hash": "e5ed40e70fb00147dd197356d8dccce8",
-    "semantic_hash": "e5ed40e70fb00147dd197356d8dccce8"
+    "mtime": 1791443931.1773417,
+    "seen": 1791444627.9113111,
+    "ast_hash": "5110cfb6db47b05e6715f8da9860ff7e",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/store/modules/conversationTypingStatus.js": {
     "mtime": 1787849885.5207367,
@@ -12840,10 +12840,10 @@
     "semantic_hash": "9d8eb3595b364bff00af89fdd9813b7c"
   },
   "app/javascript/dashboard/store/modules/conversations/actions.js": {
-    "mtime": 1791028375.5349765,
-    "seen": 1791127022.0954201,
-    "ast_hash": "8be59b78f25059d3e4de478031179fea",
-    "semantic_hash": "8be59b78f25059d3e4de478031179fea"
+    "mtime": 1791443964.1151083,
+    "seen": 1791444627.9133108,
+    "ast_hash": "301885d24d23bd9e7cef042087000c33",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/store/modules/conversations/actions/messageReadActions.js": {
     "mtime": 1787849885.5247366,
@@ -13554,10 +13554,10 @@
     "semantic_hash": "76c44b16fc79b3057c55423d5fc0b1db"
   },
   "app/javascript/dashboard/store/modules/specs/conversationPage/mutations.spec.js": {
-    "mtime": 1787849885.6118262,
-    "seen": 1791127022.0954201,
-    "ast_hash": "d11c1a39d60a26d79c2f456832c69a4a",
-    "semantic_hash": "d11c1a39d60a26d79c2f456832c69a4a"
+    "mtime": 1791444236.5112429,
+    "seen": 1791444627.969749,
+    "ast_hash": "98442f403dd07697e09881bbe34295d3",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/store/modules/specs/conversationSearch/actions.spec.js": {
     "mtime": 1787849885.6138275,
@@ -13590,10 +13590,10 @@
     "semantic_hash": "b3f3cf7ea117abe847d77aa2e0081a39"
   },
   "app/javascript/dashboard/store/modules/specs/conversationStats/mutations.spec.js": {
-    "mtime": 1787849885.6178334,
-    "seen": 1791127022.0954201,
-    "ast_hash": "0c5151305632c80d65c4d68151d3347c",
-    "semantic_hash": "0c5151305632c80d65c4d68151d3347c"
+    "mtime": 1791444236.4626546,
+    "seen": 1791444627.9727244,
+    "ast_hash": "2e7ee70f615f5b5c9aebf0555195fdee",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/store/modules/specs/conversationTypingStatus/actions.spec.js": {
     "mtime": 1787849885.6188316,
@@ -30834,9 +30834,9 @@
     "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/userGuide/content.js": {
-    "mtime": 1791439852.8244536,
-    "seen": 1791440299.380297,
-    "ast_hash": "cd62ba7e4f832e889200edb182f17cd2",
+    "mtime": 1791444199.7025273,
+    "seen": 1791444627.893446,
+    "ast_hash": "68b7ba6d231bc990e9cd4155b1658736",
     "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/userGuide/routes.js": {
@@ -31971,6 +31971,12 @@
     "mtime": 1787849888.1715596,
     "seen": 1791440300.6555064,
     "ast_hash": "16ad38863c96b5b950d258edd0e6c079",
+    "semantic_hash": ""
+  },
+  "app/finders/conversation_finder/stages.rb": {
+    "mtime": 1791443881.3835983,
+    "seen": 1791444626.9917023,
+    "ast_hash": "8a5cf41b6a8ea9c70bf594cbe9c6876c",
     "semantic_hash": ""
   }
 }

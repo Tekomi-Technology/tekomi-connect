@@ -1,11 +1,15 @@
 import * as types from '../mutation-types';
 
+// open / in_progress / resolved are the conversation list tabs (STAGE_TYPE).
 const state = {
   currentPage: {
     me: 0,
     vip: 0,
     unassigned: 0,
     all: 0,
+    open: 0,
+    in_progress: 0,
+    resolved: 0,
     appliedFilters: 0,
   },
   hasEndReached: {
@@ -13,6 +17,9 @@ const state = {
     vip: false,
     unassigned: false,
     all: false,
+    open: false,
+    in_progress: false,
+    resolved: false,
   },
 };
 
@@ -66,6 +73,9 @@ export const mutations = {
       vip: 0,
       unassigned: 0,
       all: 0,
+      open: 0,
+      in_progress: 0,
+      resolved: 0,
       appliedFilters: 0,
     };
 
@@ -74,6 +84,9 @@ export const mutations = {
       vip: false,
       unassigned: false,
       all: false,
+      open: false,
+      in_progress: false,
+      resolved: false,
       appliedFilters: false,
     };
   },

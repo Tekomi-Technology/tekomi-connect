@@ -48,10 +48,7 @@ import {
 import { matchesFilters } from '../store/modules/conversations/helpers/filterHelpers';
 import { isVipAwaitingReply } from '../store/modules/conversations/helpers';
 import { CONVERSATION_EVENTS } from '../helper/AnalyticsHelper/events';
-import {
-  ASSIGNEE_TYPE_TAB_PERMISSIONS,
-  DISPLAY_MODE_PERMISSIONS,
-} from 'dashboard/constants/permissions.js';
+import { DISPLAY_MODE_PERMISSIONS } from 'dashboard/constants/permissions.js';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import ConversationDisplayMode from 'dashboard/components-next/Conversation/ConversationDisplayMode.vue';
 
@@ -76,9 +73,8 @@ const { buildConversationPath, buildConversationListPath } =
 
 const resolveAttributesModalRef = ref(null);
 
-const activeAssigneeTab = ref(wootConstants.ASSIGNEE_TYPE.ME);
+const activeStageTab = ref(wootConstants.STAGE_TYPE.OPEN);
 const activeDisplayMode = ref(wootConstants.DISPLAY_MODE.DEFAULT);
-const activeStatus = ref(wootConstants.STATUS_TYPE.OPEN);
 const activeSortBy = ref(wootConstants.SORT_BY_TYPE.LAST_ACTIVITY_AT_DESC);
 const showAdvancedFilters = ref(false);
 // chatsOnView is to store the chats that are currently visible on the screen,
@@ -97,9 +93,7 @@ const advancedFilterTypes = ref(
 
 const currentUser = useMapGetter('getCurrentUser');
 const chatLists = useMapGetter('getFilteredConversations');
-const mineChatsList = useMapGetter('getMineChats');
 const allChatList = useMapGetter('getAllStatusChats');
-const unAssignedChatsList = useMapGetter('getUnAssignedChats');
 const participatingChatsList = useMapGetter('getParticipatingChats');
 const chatListLoading = useMapGetter('getChatListLoadingStatus');
 const activeInbox = useMapGetter('getSelectedInbox');
@@ -224,44 +218,55 @@ const activeDisplayModeLabel = computed(
     )?.label || ''
 );
 
-const assigneeTabItems = computed(() => {
-  return filterItemsByPermission(
-    ASSIGNEE_TYPE_TAB_PERMISSIONS,
-    userPermissions.value,
-    item => item.permissions
-  ).map(({ key, count: countKey }) => ({
+const STAGE_COUNT_KEYS = {
+  [wootConstants.STAGE_TYPE.OPEN]: 'openCount',
+  [wootConstants.STAGE_TYPE.IN_PROGRESS]: 'inProgressCount',
+  [wootConstants.STAGE_TYPE.RESOLVED]: 'resolvedCount',
+};
+
+const stageTabItems = computed(() =>
+  Object.values(wootConstants.STAGE_TYPE).map(key => ({
     key,
-    name: t(`CHAT_LIST.ASSIGNEE_TYPE_TABS.${key}`),
-    count: conversationStats.value[countKey] || 0,
-  }));
-});
+    name: t(`CHAT_LIST.STAGE_TABS.${key}`),
+    count: conversationStats.value[STAGE_COUNT_KEYS[key]] || 0,
+  }))
+);
 
 const showAssigneeInConversationCard = computed(() => {
   return (
     hasAppliedFiltersOrActiveFolders.value ||
-    activeAssigneeTab.value === wootConstants.ASSIGNEE_TYPE.ALL
+    activeStageTab.value !== wootConstants.STAGE_TYPE.OPEN
   );
 });
 
 const effectiveAssigneeType = computed(() => {
   const { ASSIGNEE_TYPE, DISPLAY_MODE } = wootConstants;
   if (activeDisplayMode.value === DISPLAY_MODE.VIP) return ASSIGNEE_TYPE.VIP;
-  if (activeDisplayMode.value === DISPLAY_MODE.COMPANY) {
-    return ASSIGNEE_TYPE.ALL;
-  }
-  return activeAssigneeTab.value;
+  return ASSIGNEE_TYPE.ALL;
 });
+
+// The stage tabs span every status; the VIP and company views keep listing open conversations.
+const listStatus = computed(() =>
+  isDefaultMode.value
+    ? wootConstants.STATUS_TYPE.ALL
+    : wootConstants.STATUS_TYPE.OPEN
+);
+
+// Pagination is tracked per tab, so each stage keeps its own page.
+const listKey = computed(() =>
+  isDefaultMode.value ? activeStageTab.value : effectiveAssigneeType.value
+);
 
 const currentPageFilterKey = computed(() => {
   return hasAppliedFiltersOrActiveFolders.value
     ? 'appliedFilters'
-    : effectiveAssigneeType.value;
+    : listKey.value;
 });
 
 const inbox = useFunctionGetter('inboxes/getInbox', activeInbox);
 const currentPage = useFunctionGetter(
   'conversationPage/getCurrentPageFilter',
-  effectiveAssigneeType
+  listKey
 );
 const currentFiltersPage = useFunctionGetter(
   'conversationPage/getCurrentPageFilter',
@@ -277,7 +282,7 @@ const conversationCustomAttributes = useFunctionGetter(
   'conversation_attribute'
 );
 
-const activeAssigneeTabCount = computed(() => {
+const activeTabCount = computed(() => {
   if (!isDefaultMode.value) {
     const { vipCount, allCount } = conversationStats.value;
     return activeDisplayMode.value === wootConstants.DISPLAY_MODE.VIP
@@ -285,7 +290,7 @@ const activeAssigneeTabCount = computed(() => {
       : allCount || 0;
   }
   return (
-    assigneeTabItems.value.find(item => item.key === activeAssigneeTab.value)
+    stageTabItems.value.find(item => item.key === activeStageTab.value)
       ?.count || 0
   );
 });
@@ -300,8 +305,8 @@ const conversationListPagination = computed(() => {
     !hasAppliedFiltersOrActiveFolders.value && hasChatsOnView;
   const isUnderPerPage =
     chatsOnView.value.length < conversationsPerPage &&
-    activeAssigneeTabCount.value < conversationsPerPage &&
-    activeAssigneeTabCount.value > chatsOnView.value.length;
+    activeTabCount.value < conversationsPerPage &&
+    activeTabCount.value > chatsOnView.value.length;
 
   if (isNoFiltersOrFoldersAndChatListNotEmpty && isUnderPerPage) {
     return 1;
@@ -314,7 +319,8 @@ const conversationFilters = computed(() => {
   return {
     inboxId: props.conversationInbox ? props.conversationInbox : undefined,
     assigneeType: effectiveAssigneeType.value,
-    status: activeStatus.value,
+    stage: isDefaultMode.value ? activeStageTab.value : undefined,
+    status: listStatus.value,
     sortBy: activeSortBy.value,
     page: conversationListPagination.value,
     labels: props.label ? [props.label] : undefined,
@@ -360,19 +366,27 @@ const pageTitle = computed(() => {
   return t('CHAT_LIST.TAB_HEADING');
 });
 
-function filterByAssigneeTab(conversations) {
-  if (effectiveAssigneeType.value === wootConstants.ASSIGNEE_TYPE.ME) {
-    return conversations.filter(
-      c => c.meta?.assignee?.id === currentUser.value?.id
-    );
+// Mirrors ConversationFinder::Stages so live updates land in the same tab as a refetch would.
+function conversationStage(conversation) {
+  const { STATUS_TYPE, STAGE_TYPE } = wootConstants;
+  if (conversation.status === STATUS_TYPE.RESOLVED) return STAGE_TYPE.RESOLVED;
+  if (
+    conversation.status === STATUS_TYPE.OPEN &&
+    !conversation.meta?.assignee
+  ) {
+    return STAGE_TYPE.OPEN;
   }
-  if (effectiveAssigneeType.value === wootConstants.ASSIGNEE_TYPE.UNASSIGNED) {
-    return conversations.filter(c => !c.meta?.assignee);
-  }
+  return STAGE_TYPE.IN_PROGRESS;
+}
+
+function filterByActiveTab(conversations) {
   if (effectiveAssigneeType.value === wootConstants.ASSIGNEE_TYPE.VIP) {
     return conversations.filter(c => c.meta?.sender?.vip);
   }
-  return [...conversations];
+  if (!isDefaultMode.value) return [...conversations];
+  return conversations.filter(
+    c => conversationStage(c) === activeStageTab.value
+  );
 }
 
 function sortByUnreadStatus(conversations) {
@@ -396,7 +410,7 @@ const conversationList = computed(() => {
     if (
       props.conversationType === wootConstants.CONVERSATION_TYPE.PARTICIPATING
     ) {
-      localConversationList = filterByAssigneeTab(
+      localConversationList = filterByActiveTab(
         participatingChatsList.value(filters)
       );
     } else if (activeDisplayMode.value === wootConstants.DISPLAY_MODE.VIP) {
@@ -407,12 +421,8 @@ const conversationList = computed(() => {
       localConversationList = allChatList
         .value(filters)
         .filter(conversation => conversation.meta?.sender?.company_id);
-    } else if (activeAssigneeTab.value === 'me') {
-      localConversationList = [...mineChatsList.value(filters)];
-    } else if (activeAssigneeTab.value === 'unassigned') {
-      localConversationList = [...unAssignedChatsList.value(filters)];
     } else {
-      localConversationList = [...allChatList.value(filters)];
+      localConversationList = filterByActiveTab(allChatList.value(filters));
     }
   } else {
     localConversationList = [...chatLists.value];
@@ -459,8 +469,7 @@ const uniqueInboxes = computed(() => {
 // ---------------------- Methods -----------------------
 function setFiltersFromUISettings() {
   const { conversations_filter_by: filterBy = {} } = uiSettings.value;
-  const { status, order_by: orderBy } = filterBy;
-  activeStatus.value = status || wootConstants.STATUS_TYPE.OPEN;
+  const { order_by: orderBy } = filterBy;
   activeSortBy.value = Object.values(wootConstants.SORT_BY_TYPE).includes(
     orderBy
   )
@@ -572,9 +581,19 @@ function setParamsForEditFolderModal() {
   };
 }
 
+// Pre-fills the advanced filter with the status the current tab stands for; «In progress» spans
+// several statuses, so it starts without one.
+const STAGE_FILTER_STATUS = {
+  [wootConstants.STAGE_TYPE.OPEN]: wootConstants.STATUS_TYPE.OPEN,
+  [wootConstants.STAGE_TYPE.IN_PROGRESS]: '',
+  [wootConstants.STAGE_TYPE.RESOLVED]: wootConstants.STATUS_TYPE.RESOLVED,
+};
+
 function initializeExistingFilterToModal() {
   const statusFilter = initializeStatusAndAssigneeFilterToModal(
-    activeStatus.value,
+    isDefaultMode.value
+      ? STAGE_FILTER_STATUS[activeStageTab.value]
+      : listStatus.value,
     currentUserDetails.value,
     effectiveAssigneeType.value
   );
@@ -711,23 +730,19 @@ function updateDisplayMode(mode) {
   resetAndFetchData();
 }
 
-function updateAssigneeTab(selectedTab) {
-  if (activeAssigneeTab.value !== selectedTab) {
+function updateStageTab(selectedTab) {
+  if (activeStageTab.value !== selectedTab) {
     resetBulkActions();
     emitter.emit('clearSearchInput');
-    activeAssigneeTab.value = selectedTab;
+    activeStageTab.value = selectedTab;
     if (!currentPage.value) {
       fetchConversations();
     }
   }
 }
 
-function onBasicFilterChange(value, type) {
-  if (type === 'status') {
-    activeStatus.value = value;
-  } else {
-    activeSortBy.value = value;
-  }
+function onSortChange(value) {
+  activeSortBy.value = value;
   resetAndFetchData();
 }
 
@@ -894,7 +909,6 @@ useEmitter('fetch_conversation_stats', () => {
 onMounted(() => {
   store.dispatch('setChatListFilters', conversationFilters.value);
   setFiltersFromUISettings();
-  store.dispatch('setChatStatusFilter', activeStatus.value);
   store.dispatch('setChatSortFilter', activeSortBy.value);
   const savedMode = uiSettings.value.conversation_display_mode;
   if (displayModeOptions.value.some(option => option.value === savedMode)) {
@@ -992,7 +1006,6 @@ watch(appliedFilters, () => resetBulkActions());
       :contact-filter="appliedContactFilter"
       :has-applied-filters="hasAppliedFilters"
       :has-active-folders="hasActiveFolders"
-      :active-status="activeStatus"
       :is-on-expanded-layout="isOnExpandedLayout"
       :conversation-stats="conversationStats"
       :is-list-loading="chatListLoading && !conversationList.length"
@@ -1000,7 +1013,7 @@ watch(appliedFilters, () => resetBulkActions());
       @delete-folders="onClickOpenDeleteFoldersModal"
       @filters-modal="onToggleAdvanceFiltersModal"
       @reset-filters="resetFilters"
-      @basic-filter-change="onBasicFilterChange"
+      @sort-change="onSortChange"
     />
 
     <TeleportWithDirection
@@ -1030,11 +1043,11 @@ watch(appliedFilters, () => resetBulkActions());
     >
       <ChatTypeTabs
         v-if="isDefaultMode"
-        :items="assigneeTabItems"
-        :active-tab="activeAssigneeTab"
+        :items="stageTabItems"
+        :active-tab="activeStageTab"
         is-compact
         class="flex-1 min-w-0 !px-0 !border-b-0"
-        @chat-tab-change="updateAssigneeTab"
+        @chat-tab-change="updateStageTab"
       />
       <h2
         v-else

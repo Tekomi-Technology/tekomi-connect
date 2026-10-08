@@ -1,24 +1,24 @@
 # Graph Report - tekomi-connect  (2026-10-08)
 
 ## Corpus Check
-- 5215 files · ~1,867,895 words
+- 5216 files · ~1,868,118 words
 - Verdict: corpus is large enough that graph structure adds value.
 - Unclassified: 742 file(s) not represented in the graph (top: .jbuilder 379, .erb 109, .liquid 76)
 
 ## Summary
-- 33666 nodes · 53895 edges · 2760 communities (933 shown, 1827 thin omitted)
-- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 2681 edges (avg confidence: 0.85)
+- 33665 nodes · 53900 edges · 2791 communities (948 shown, 1843 thin omitted)
+- Extraction: 95% EXTRACTED · 5% INFERRED · 0% AMBIGUOUS · INFERRED: 2687 edges (avg confidence: 0.85)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `6c6af844`
+- Built from commit: `e9c5ee9a`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
 - Current
 - ApiClient
-- @vuelidate/core
+- vuex
 - .params
 - ref_dashboard
 - vue-router
@@ -46,7 +46,7 @@
 - CategoryForm.vue
 - Integrations::LlmInstrumentation
 - V2::Reports::DashboardBuilder
-- message/provider.js
+- @vue/test-utils
 - ConversationHeader.vue
 - parser.js
 - package.json
@@ -61,7 +61,7 @@
 - Api::V2::Accounts::ReportsController
 - ApplicationController
 - ActivityMessageHandler
-- widget/App.vue
+- configMixin.js
 - ConversationReplyMailer
 - Messages::MarkdownRenderers::PlainTextRenderer
 - Api::V1::Accounts::ConversationsController
@@ -69,23 +69,23 @@
 - mutation-types.js
 - Instagram::BaseMessageText
 - localization.js
-- CompanySelector.vue
+- ConversationCardExpanded.vue
 - DatePicker.vue
 - commandbar/icons.js
 - CollaboratorsPage.vue
-- Api::V1::Accounts::Conversations::DirectUploadsController
+- V2::Reports::ConversationStatusBuilder
 - documents/Index.vue
 - profile/Index.vue
 - DealsTableView.vue
 - sla/Index.vue
 - Cấu hình GMO AI theo từng account
-- BulkActionsJob
+- Contacts::BulkActionService
 - InstallationConfig
 - ContactAPI
 - TicketShow.vue
 - SearchView.vue
 - ConfigurationPage.vue
-- Chatwoot
+- Tekomi::AudienceValidator
 - dashboard/api/auth.js
 - ActionCableConnector
 - ContactsIndex.vue
@@ -96,7 +96,7 @@
 - Api::V1::Widget::BaseController
 - dashboard/store/index.js
 - DealsIndex.vue
-- widget.js
+- NewHook.vue
 - Seeders::DemoAccountSeeder
 - OtherAttribute.vue
 - PhoneCall.vue
@@ -115,22 +115,22 @@
 - automation/Index.vue
 - ConversationChartCard.vue
 - CompanyPanel.vue
-- ContentTemplateParser.vue
+- ContentTemplatesModal.vue
 - Message.vue
 - AssistantAudienceForm.vue
 - DocumentDetails.vue
 - labels/Index.vue
 - CsatFilters.vue
 - CsatTable.vue
-- Avatarable
+- Slack.vue
 - Conversation
 - Inbox
 - Conversations::UnreadCounts::FilteredCountStore
 - Conversations::UnreadCounts::Store
 - Api::V1::Accounts::AutomationRulesController
-- .render
+- .prompt_from_file
 - ConversationRequiredAttributes.vue
-- .account
+- attributes/Index.vue
 - server.py
 - Api::V1::Accounts::DataImportsController
 - Widget::TokenService
@@ -150,7 +150,7 @@
 - teams/actions.spec.js
 - .smtp_config_set_or_development?
 - Tekomi::Llm::ConversationFaqService
-- Enterprise::AutoAssignment::AssignmentService
+- AutoAssignment::AssignmentService
 - DraggableReorderList.vue
 - javascript/dashboard/components-next/emoji-icon-picker/EmojiIconPicker.vue
 - SearchPopover.vue
@@ -161,7 +161,7 @@
 - ArticlesPage.vue
 - AgentAssignmentIndexPage.vue
 - canned/Index.vue
-- WootReports.vue
+- SummaryReports.vue
 - setup_20.04.sh
 - axios
 - AutomationRuleForm.vue
@@ -188,7 +188,7 @@
 - SLAReportFilters.vue
 - FaqSuggestions.vue
 - inboxMixin.js
-- Enterprise::Api::V1::AccountsController
+- .render
 - ActionCableListener
 - Company
 - Messages::Instagram::BaseMessageBuilder
@@ -202,7 +202,7 @@
 - TekomiGenerationDetails.vue
 - contextMenu/Index.vue
 - FullEditor.vue
-- ShowIntegration.vue
+- Integration.vue
 - Hướng dẫn kiểm thử: Zalo cá nhân & Zalo nhóm
 - ChatFooter.vue
 - Tiktok::MessageService
@@ -211,14 +211,14 @@
 - ReportHelper
 - V2::Reports::DrilldownBuilder
 - Api::V1::AccountsController
-- .get
+- .delete
 - Api::V1::Accounts::PhoneCallsController
 - ContactSortMenu.vue
 - date-fns
 - CopilotMenuBar.vue
 - SearchResultMessageItem.vue
 - NeedsAttentionList.vue
-- attributes/Index.vue
+- EditAttribute.vue
 - importStatus.js
 - WeeklyAvailability.vue
 - SamlSettings.vue
@@ -245,7 +245,7 @@
 - Tekomi::Assistant
 - Enterprise::Billing::CreateStripeCustomerService
 - Tekomi::AssistantMigration::DraftApplier
-- Api::V1::Widget::ContactsController
+- WidgetsController
 - ConversationAnalysisPanel.vue
 - chips/Audio.vue
 - commandbar.vue
@@ -278,13 +278,13 @@
 - WhatsAppTemplateParser.vue
 - ConversationAction.vue
 - automationHelper.js
-- LiveChatCampaignsPage.vue
+- WhatsAppCampaignsPage.vue
 - billing/Index.vue
 - customRoles/Index.vue
 - BaseHeatmapContainer.vue
 - templates/Index.vue
 - Form/PhoneInput.vue
-- Contacts::FilterService
+- Deals::FilterService
 - Integrations::Slack::SendOnSlackService
 - .with
 - TekomiChatSession
@@ -296,7 +296,7 @@
 - CompanyConversationList.vue
 - GroupedStackedChangelogCard.vue
 - ContactsSidebar/ContactNotes.vue
-- ConditionRow.vue
+- FilterSelect.vue
 - LiveReports.vue
 - BulkTranslateDialog.vue
 - Media.vue
@@ -317,7 +317,7 @@
 - Enterprise::CloudflareVerificationJob
 - Whatsapp::IncomingCallService
 - Seeders::Reports::ReportDataSeeder
-- .prompt_from_file
+- widget/App.vue
 - playwright/package.json
 - NotificationBuilder
 - Email::SenderNameBuilder
@@ -326,14 +326,14 @@
 - Webhooks::Callytics::CallsController
 - ZaloOa::Client
 - CopilotContainer.vue
-- Deals/constants.js
+- DealsSortMenu.vue
 - ArticleEditorControls.vue
 - ArticleEditorHeader.vue
 - Dashboard.vue
 - AccountHealth.vue
 - AvailabilityContainer.vue
 - DataImportJob
-- Label
+- .title
 - Tekomi::Document
 - Llm::SpeechToTextService
 - Conversations::UnreadCounts::Refresher
@@ -346,7 +346,7 @@
 - Api::V2::AccountsController
 - Instagram::CallbacksController
 - ConversationResolveAttributesModal.vue
-- DealsCalendarView.vue
+- Deals/constants.js
 - CategoryHeaderControls.vue
 - GalleryView.vue
 - CallsIndex.vue
@@ -379,7 +379,7 @@
 - account/Index.vue
 - AgentBotModal.vue
 - AuditLogFilters.vue
-- SummaryReports.vue
+- Api::V1::Accounts::Integrations::ShopifyController
 - Response.vue
 - Signup/Form.vue
 - modules/contacts.js
@@ -396,13 +396,13 @@
 - ArticleList.vue
 - CaretAnchoredPicker.vue
 - conversationBulkActions/Index.vue
-- ReplyBox.spec.js
+- WhatsappTemplates/Modal.vue
 - DashboardAudioNotificationHelper.js
 - automationFixtures.js
-- Zalo::QrCompletionService
+- Zalo::IncomingMessageService
 - .resolve
 - modules/customViews.js
-- vuex
+- ChatInputWrap.vue
 - PreChat/Form.vue
 - Attachment
 - Channel::FacebookPage
@@ -424,7 +424,7 @@
 - PurchaseCreditsModal.vue
 - ConversationApi
 - CreateIssue.vue
-- BotReports.vue
+- BotMetrics.vue
 - Avatar.vue
 - CategoriesPage.vue
 - PortalLayoutContentSettings.vue
@@ -433,7 +433,7 @@
 - ConversationSidebar.vue
 - ResizableEditorWrapper.vue
 - auditlogHelper.js
-- login/Index.vue
+- ConversationFinder
 - Webhooks::WhatsappEventsJob
 - Enterprise::Account::PlanUsageAndLimits
 - Article
@@ -498,9 +498,9 @@
 - EmailChannelFinder
 - Filters::FilterHelper
 - ReportingEvent
-- TwilioVoiceClient
+- useCallSession.js
 - javascript/dashboard/components-next/call/FloatingCallWidget.vue
-- Llm::Providers
+- .credential_name
 - SMSCampaignForm.vue
 - ContactsCard.vue
 - Channel::Sms
@@ -523,7 +523,7 @@
 - AutomationWaitCondition.vue
 - MfaManagementActions.vue
 - whatsapp/Reauthorize.vue
-- inbox/Index.vue
+- @chatwoot/pico-search
 - StageSlaRow.vue
 - HeatmapDateRangeSelector.vue
 - tools/Index.vue
@@ -540,14 +540,14 @@
 - AppliedSla
 - Tekomi::Scenario
 - Onboarding::HelpCenterCreationService
-- Integrations::Slack::IncomingMessageBuilder
+- Integrations::Slack::SlackMessageHelper
 - Seeders::Reports::AssistantConversationCreator
 - eventForwarder.ts
 - ContactIdentifyAction
-- Sms::IncomingMessageService
+- FileTypeHelper
 - Api::V1::Accounts::ArticlesController
 - .get
-- CsatExpandedRow.vue
+- guardrails/Index.vue
 - ReportsAPI
 - CallListItem.vue
 - CompanyProfileCard.vue
@@ -590,7 +590,7 @@
 - Internal::Accounts::InternalAttributesService
 - ReportingEventsRollupTimezoneSetup
 - Webhooks::Trigger
-- Messages::Facebook::MessageBuilder
+- Messages::Messenger::MessageBuilder
 - Ticket
 - ConversationEmotionReports.vue
 - dashboard/Index.vue
@@ -599,32 +599,32 @@
 - CallRecordingPlayer.vue
 - TagMultiSelectComboBox.vue
 - ContactsList.vue
-- TeamTable.vue
+- conversation/helpers.js
 - ContentTemplateSelector.vue
 - Popover.vue
 - Tickets/constants.js
 - BulkLabelActions.vue
 - voice.js
 - contact/ContactNotes.vue
-- Api::V1::InboxesHelper
-- Dependency-ordered implementation plan
+- confirmOnSendReply
+- MacrosTableRow.vue
 - PhoneCallReports.vue
 - v3app.js
 - AutomationRulePendingExecution
 - ApplicationMailbox
-- CustomAttributeDefinition
+- .account
 - AutoAssignment::InboxRoundRobinService
 - Tekomi Development Guidelines
 - ActionService
 - Conversations::UnreadCounts::FilterQueryCounter
 - CsatTemplateManagementService
-- MessageTemplates::HookExecutionService
+- ChatwootExceptionTracker
 - Notification::PushTestService
 - Api::V1::Accounts::CompaniesController
 - Tekomi::Tools::HttpTool
-- AgentBotListener
+- components/SLACardLabel.vue
 - Api::V1::ProfilesController
-- CompanyAPI
+- ContentTemplateParser.vue
 - sort_handler.rb
 - V2::Reports::TeamMonitoringBuilder
 - InboxCapacityLimits.vue
@@ -674,16 +674,16 @@
 - textarea/TextArea.vue
 - DropdownList.vue
 - CannedResponse.vue
-- ConversationBasicFilter.vue
+- AgentMessage.vue
 - CallFinder
 - SlashCommandMenu.vue
-- generatePayload
-- routeHelpers.js
+- Api::V1::Accounts::Integrations::LinearController
+- conversations/getters.js
 - ReconnectService
 - helpcenter.routes.js
 - PortalsArticlesNewPage.vue
 - PipelineStagesEditor.vue
-- V2::Reports::AgentSummaryBuilder
+- agentBots/Index.vue
 - helpCenterArticles/index.js
 - availabilityHelpers.js
 - Inboxes::FetchImapEmailsJob
@@ -715,9 +715,9 @@
 - app.py
 - scripts
 - spec/services/conversations/unread_counts/filtered_counter_spec.rb
-- V2::Reports::InboxSummaryBuilder
+- EditLabel.vue
 - ConversationDrop
-- Api::V1::Accounts::Concerns::WhatsappHealthManagement
+- Api::V1::Profile::MfaController
 - components/Modal.vue
 - ExclusionRules.vue
 - CampaignDeliveryTable.vue
@@ -729,7 +729,7 @@
 - VideoEmbedInput.vue
 - useUISettings.js
 - snoozeHelpers.js
-- AudienceGroup.vue
+- DataManager
 - helper/validations.js
 - HelpCenterPageRouteView.vue
 - automation/constants.js
@@ -753,25 +753,25 @@
 - Api::V1::Accounts::AppliedSlasController
 - Enterprise::ClearbitLookupService
 - Internal::AccountAnalysis::AccountUpdaterService
-- Concerns::Toolable
+- Tekomi::CustomTool
 - LabelSuggestion.vue
 - Tekomi::AssistantPolicy
 - Enterprise::Whatsapp::Providers::WhatsappCloudService
 - Sla::BusinessHoursService
-- Tekomi::OpenAiMessageBuilderService
-- BulkTeamActions.vue
+- Tekomi::Assistant::ResponseParts
+- PortalSwitcher.vue
 - Integrations::Dialogflow::ProcessorService
 - Integrations::Slack::UpdateSlackMessageService
 - ContactMergeAction
-- conversationStats.js
+- ConversationParticipant
 - rag_core.py
 - AutoResolve.vue
 - Api::V1::Accounts::CallbacksController
-- Account::ContactsExportJob
+- EmailHelper
 - Api::V1::Accounts::Conversations::MessagesController
 - Api::V1::Accounts::TicketsController
 - TwitterConcern
-- UserSessionTrackingService
+- ContactIpLookupJob
 - NotificationFinder
 - DealSuggestionsDialog.vue
 - ChannelItem.vue
@@ -788,30 +788,30 @@
 - EmailOptions.vue
 - Files.vue
 - TabBar.vue
-- CalendarMonth.vue
+- CalendarYear.vue
 - ContactConversationLink.vue
 - macros/Index.vue
 - StatsLiveReportsContainer.vue
 - TemplatesPicker.vue
 - commandbar/events.js
 - quotedEmailHelper.js
-- MergeContact.vue
+- @vuelidate/core
 - SearchFilters.vue
 - SearchInboxSelector.vue
 - fetchContactsBasedOnContext
 - Channel::Telegram
-- PreChatForm/Settings.vue
+- List.vue
 - filterHelpers.js
 - Featurable
 - portalThemeHelper.js
 - views/playground/Index.vue
-- HookJob
+- Integrations::GoogleTranslate::DetectLanguageService
 - AutomationRuleListener
 - AccountEmailRateLimitable
 - Crm::Leadsquared::ProcessorService
 - Imap::MicrosoftFetchEmailService
 - PhoneCallEmotionReport
-- DealConversations.vue
+- Inboxes
 - Zalo::SendOnZaloPersonalService
 - CopilotMessage
 - Whatsapp::CallService
@@ -825,15 +825,15 @@
 - AddAgentsForm
 - Api::V1::Accounts::AgentBotsController
 - Api::V1::Accounts::OnboardingsController
-- AutoAssignment::AssignmentService
+- helpCenterPortals/index.js
 - composeConversationHelper.js
 - DealFieldSuggestionsCard.vue
-- emitConversationLoaded
+- CampaignCard.vue
 - Redis::Config
 - PortalGeneralSettings.vue
 - DNSConfigurationDialog.vue
 - Contact.vue
-- Api::V1::Accounts::InboxMembersController
+- Crm::Perfex::Mappers::TicketMessageFormatter
 - PhoneCallDetailsDialog.vue
 - ComposeNewConversationForm.story.vue
 - TicketViewDialog.vue
@@ -842,22 +842,22 @@
 - articleDiffHelper.js
 - customViewsHelper.js
 - SearchInput.vue
-- Notion::CallbacksController
+- Messages::Facebook::MessageBuilder
 - ImportSummaryTiles.vue
 - accounts.js
 - colorpicker/ColorPicker.vue
 - contactConversations.js
 - ResizableTextArea.vue
 - ValidatorsHelper.spec.js
-- v3/api/auth.js
-- verify-email/Index.vue
-- SendReplyJob
+- .get
+- PortalHelper
+- Zalo OA Channel — Design Spec
 - AutomationRule
 - Reauthorizable
 - Conversations::MessageWindowService
 - Tekomi::Tools::Tickets::CreateTicketService
 - DataImportPolicy
-- Facebook::SendOnFacebookService
+- Messages::StatusUpdateService
 - ContactMedia.vue
 - Tiktok::AuthClient
 - Tiktok::Client
@@ -866,7 +866,7 @@
 - Whatsapp::Providers::BaseService
 - .contact
 - Tekomi::Deals::AssistantService
-- Voice::Provider::Twilio::ConferenceService
+- Api::V1::Accounts::ConferenceController
 - SafeFetch::PrivateNetworkRequest
 - tailwind.config.js
 - AddAgentModal
@@ -877,48 +877,48 @@
 - Crm::Perfex::ContactChannelUnmapper
 - Api::V1::Accounts::Contacts::LabelsController
 - Api::V1::Accounts::Conversations::ParticipantsController
-- ContextMenu.vue
+- vuedraggable
 - ReportTekomiMessageDialog.vue
 - LowBackupCodesBanner.vue
-- Channel::Line
+- Webhooks::LineEventsJob
 - MessageFinder
 - ConversationTickets.vue
 - IssuesList.vue
 - SessionLimitOverlay.vue
-- WhatsAppCampaignsPage.vue
+- switchDraftContext
 - ContactExportDialog.vue
 - ContactsListLayout.vue
-- SingleSelect.vue
+- ConditionRow.vue
 - LocalesPage.vue
 - ConversationUsageDrawer.vue
-- WhatsappEmbeddedSignup.vue
+- MacroNodes.vue
 - Pagination.vue
 - AudioAlertEvent.vue
 - ReplyEmailHead.vue
-- Llm::Features
+- Llm::Config
 - ghsa_linear_sync.py
 - LlmDefaultModel.vue
-- UserAttributeHelpers
+- Shopify.vue
 - PortalsCategoriesIndexPage.vue
 - AgentCapacityPolicyForm.vue
 - ImportSkipLogsSection.vue
-- WorkingHour
+- Conversations::PermissionFilterService
 - Api::V1::Accounts::Tekomi::FaqSuggestionsController
 - TekomiListener
 - SidebarThemeToggle.vue
-- password/Index.vue
+- Concerns::Toolable
 - ArticleContainer.vue
 - modules/campaign.js
 - MessageTemplates::Template::AutoResolve
-- SECURITY.md
+- PreChatForm/Settings.vue
 - .perform
 - AccountDeletionService
-- views/routes.js
+- Saml.vue
 - Channel::TwitterProfile
 - AccountPolicy
 - Callbot::CallCompletedProcessor
 - Conversations::UnreadCounts::Notifier
-- Crm::BaseProcessorService
+- SummaryTableCard.vue
 - ReportingEvents::MetricRegistry
 - Whatsapp::IncomingMessageBaseService
 - Whatsapp::IncomingMessageServiceHelpers
@@ -929,7 +929,7 @@
 - Events::Types
 - OpentelemetryConfig
 - Tekomi::AssistantOverviewSummaryService
-- DurationInput.vue
+- AiAlerts.vue
 - Tekomi::Llm::ArticleWriterService
 - Tekomi::Llm::DealFieldExtractionService
 - Tekomi::Llm::DealSummaryService
@@ -943,14 +943,14 @@
 - index.ts
 - TestTool
 - Login
-- CalendarYear.vue
+- softphone.js
 - Tickets::ReportBuilder
 - Api::V1::Accounts::CustomAttributeDefinitionsController
 - Api::V1::Accounts::CustomFiltersController
 - Api::V1::Accounts::DashboardAppsController
 - HybridRagStore
-- TimeAgo.vue
-- Api::V1::Accounts::TeamMembersController
+- Sms::DeliveryStatusService
+- Migration::CompanyAccountBatchJob
 - ContactHelper
 - ConversationAnalysesAPI
 - DealsAiPanel.vue
@@ -960,17 +960,17 @@
 - ConfirmButton.vue
 - EditLiveChatCampaignDialog.vue
 - CreateNewContactDialog.vue
-- .extract_message_and_account
-- CategoryCard.vue
+- HookListener
+- Api::V1::Widget::ConversationsController
 - LocaleContentDialog.vue
-- Labels::DestroyService
+- Api::V1::Widget::ContactsController
 - AddNewScenariosDialog.vue
 - Switch.story.vue
 - BulkSelectBar.vue
 - DocumentBulkActions.vue
 - DocumentFilter.vue
 - AssistantBasicSettingsForm.vue
-- CreateCustomToolDialog.vue
+- Conversations::UpdateMessageStatusJob
 - AssistantSwitcher.vue
 - TicketsSortMenu.vue
 - InboxItemHeader.vue
@@ -978,11 +978,11 @@
 - MacroList.vue
 - commons.js
 - useBulkActions
-- useCallSession.js
+- CampaignDeliveryBreakdown.vue
 - useCopilotReply.js
 - permissions.js
 - conversationHelper.spec.js
-- messages.js
+- EditCategoryDialog.vue
 - ContactsBulkActionBar.vue
 - EditAutomationRule.vue
 - BaseHeatmap.vue
@@ -990,43 +990,43 @@
 - TemplateConstants.js
 - modules/agentBots.js
 - modules/dashboardApps.js
-- portalHelpers.js
+- TableOfContents.vue
 - Conversations::AssignmentService
 - Conversations::UnreadCounts::Builder
 - DataImport::ContactManager
 - DataImports::Intercom::ActivityContentBuilder
-- Api::V1::Accounts::LabelsController
+- Labels::DestroyService
 - Line::SendOnLineService
 - Tiktok::MessagingHelpers
 - Contributor Covenant Code of Conduct
 - Whatsapp::TemplateParameterConverterService
 - Tekomi::AssistantResolutionTrendStatsBuilder
-- Enterprise::Api::V1::Accounts::OnboardingsController
+- EmailQuoteExtractor
 - Messages::MarkdownRenderers::WhatsAppRenderer
 - Tekomi::Tools::SimplePageCrawlParserJob
 - Enterprise::MessageTemplates::HookExecutionService
 - Integrations::Linear::AutoLinkService
-- .api_key
+- Onboarding::HelpCenterArticleBuilder
 - Onboarding::HelpCenterCurator
 - InjectEnterpriseEditionModule
 - Tekomi::Llm::DealNextStepService
 - Integrations::Cloudflare::RealtimeKitCredentialsValidator
-- Api::V1::Widget::ConfigsController
+- WebsiteTokenHelper
 - Tiktok::TokenService
 - Integrations::Slack::SlackLinkUnfurlService
 - SafeFetch
 - Integrations::GoogleTranslate::ProcessorService
 - V2::Reports::FirstResponseTimeDistributionBuilder
 - RoomChannel
-- DeleteObjectJob
+- javascript/dashboard/components/tekomi/phone/SoftphoneWidget.vue
 - Api::V1::Accounts::Conversations::CrmTicketsController
-- AgentBuilder
+- AddAgent.vue
 - Platform::Api::V1::AgentBotsController
 - TicketsAPI
 - Conversations::EventDataPresenter
 - CacheKeys
 - EmailTranscriptModal.vue
-- Platform::Api::V1::UsersController
+- Api::V1::Accounts::Tekomi::CopilotThreadsController
 - conversations/actions.js
 - LinearAPI
 - NotificationsAPI
@@ -1034,45 +1034,45 @@
 - Voice.vue
 - CompanyCreateDialog.vue
 - Messages::MarkdownRenderers::InstagramRenderer
-- DealsKanbanView.vue
+- V2::Reports::BotMetricsBuilder
 - HelpCenterLayout.vue
-- LocaleCard.vue
+- Microsoft::CallbacksController
 - InlineInput.vue
 - InstagramStory.vue
 - WhatsappReferral.vue
 - MoveLlmConfigToAccounts
 - RuleCard.vue
-- ParamRow.vue
+- Api::V1::Widget::MessagesController
 - TicketsKanbanView.vue
 - TicketsViewOptions.vue
 - Tabs.vue
 - advancedFilterItems/index.js
 - conversationCardComponents/CardLabels.vue
 - ZaloSessionBanner.vue
-- Frame.vue
+- Api::V2::Accounts::SummaryReportsController
 - keyboardEmojiSelector.vue
 - useMacroExecution.spec.js
-- Webhooks::InstagramController
+- UserSessionTrackingService
 - Api::V1::AuthController
 - TicketPipelinesAPI
 - ConversationInfo.vue
-- CompanyNotesSidebar.vue
+- emit
 - Phone::JevEmotionAnalysisService
 - PortalsIndexPage.vue
-- ConversationCard/SLACardLabel.vue
+- Facebook.vue
 - DealShow.vue
 - InboxLinkDialog.vue
 - CustomRolePaywall.vue
-- MacrosTableRow.vue
+- MacroForm.vue
 - ActiveSessions.vue
 - EditAgents.vue
 - modules/agents.js
-- ChatwootCaptcha
+- teamMembers.js
 - components/FeatureToggle.vue
 - conversationUnreadCounts.js
 - Conversations::FilterService
-- assistants/Index.vue
-- AssistantsIndexPage.vue
+- Api::V1::Accounts::Whatsapp::AuthorizationsController
+- SLAReportItem.vue
 - PublicSearchInput.vue
 - MultiselectDropdown.vue
 - ConversationWrap.vue
@@ -1083,7 +1083,7 @@
 - Crm::Perfex::ContactMatcherService
 - DataImports::Freshdesk::TicketPage
 - .persist_message_entries
-- Messages::StatusUpdateService
+- Email::SendOnEmailService
 - Instagram::TestEventService
 - Messages::MarkdownRenderers::BaseMarkdownRenderer
 - Onboarding::WebWidgetCreationService
@@ -1093,7 +1093,7 @@
 - Whatsapp::ChannelCreationService
 - Api::V1::Accounts::AgentCapacityPolicies::InboxLimitsController
 - Concerns::Agentable
-- Api::V1::Accounts::Inboxes::AssignmentPoliciesController
+- .faq_stats
 - ActionView::Template::Handlers::Liquid
 - Integrations::Slack::ChannelBuilder
 - Seeders::Reports::ConversationCreator
@@ -1101,11 +1101,11 @@
 - Tekomi::CsatUtilityAnalysisService
 - SlackStubs
 - ref_vitest
-- Saml.vue
-- Api::V1::Accounts::AuditLogsController
+- Enterprise::DeviseOverrides::SessionsController
+- Sla::ProcessAccountAppliedSlasJob
 - Api::V1::Accounts::Contacts::NotesController
-- PortalHomeData
-- message/MessageList.vue
+- Tekomi::Rag::Client
+- Api::V1::Accounts::Inboxes::CallbotWebhooksController
 - SuperAdmin::Devise::SessionsController
 - TekomiAssistant
 - TasksAPI
@@ -1117,9 +1117,10 @@
 - ContactInsights.vue
 - Editor/Editor.vue
 - MessageBubbles.story.vue
-- RangeSelector.vue
+- DealNextStepCard.vue
+- BaseInfo.vue
 - InboxChannelForm.vue
-- InboxChannels.vue
+- ZaloOa.vue
 - modules/bulkActions.js
 - modules/macros.js
 - SnackbarContainer.vue
@@ -1138,18 +1139,18 @@
 - InboxListHeader.vue
 - Dyte.vue
 - DealsFilter.vue
-- SLAReports.vue
+- BotReports.vue
 - TemplatePreviewDrawer.vue
-- DealsListView.vue
+- FairDistribution.vue
 - TicketsFilter.vue
-- MultipleIntegrationHooks.vue
+- ZaloSessionStatus.vue
 - modules/contactNotes.js
 - ConversationEmotionAnalysisJob
-- Form/Input.vue
+- ReplyBox.spec.js
 - ChatForm.vue
 - javascript/shared/components/emoji/EmojiPicker.vue
 - IframeLoader.vue
-- Container.vue
+- CmdBarConversationSnooze.vue
 - Messages::MarkdownRenderers::LineRenderer
 - ArticleBlock.vue
 - Sla::BackfillAppliedSlaCompletedAtService
@@ -1172,7 +1173,7 @@
 - Api::V1::Accounts::Tekomi::InboxesController
 - Tekomi::Llm::CareSuggestionService
 - CompanyPolicy
-- Api::V1::Accounts::CampaignsController
+- DeleteCustomViews.vue
 - Tekomi::Tools::BaseService
 - Api::V1::Accounts::Integrations::HooksController
 - Integrations::BotProcessorService
@@ -1180,17 +1181,17 @@
 - RuboCop::Cop::Style::OneClassPerFile
 - ApiChannelForm
 - Email::FromBuilder
-- ContactCustomAttributeItem.vue
+- conversationSearch.js
 - Api::V1::Accounts::Integrations::SlackController
 - DatePickerButton.vue
-- Webhooks::ZaloOaController
+- modules/customRole.js
 - Api::V1::Accounts::NotificationSettingsController
-- .search
-- Api::V1::Accounts::UploadController
+- draftMessages.js
+- Messages::MentionService
 - Api::V1::Accounts::ZaloOa::AuthorizationsController
 - SuperAdmin::UsersController
 - Instagram::MessageText
-- AddCustomDomainDialog.vue
+- Enterprise::Concerns::Article
 - Tekomi::ConversationOutcomeEventListener
 - IntegrationsAPI
 - TekomiAssistantStats
@@ -1213,13 +1214,13 @@
 - CreateOrLinkIssue.vue
 - Whatsapp::CallPermissionRequestService
 - ChannelLeaf.vue
-- CustomToolCard.vue
+- Tekomi::Tools::UpdatePriorityTool
 - preChat.js
 - assignmentPolicy/constants.js
 - AddAutomationRule.vue
-- ConversationBox.vue
+- classify.ts
 - SenderNameExamplePreview.vue
-- facebook/Reauthorize.vue
+- google/Reauthorize.vue
 - audioConversionUtils.js
 - AddFilterChip.vue
 - notifications/index.js
@@ -1227,7 +1228,7 @@
 - mutationHelpers.js
 - api/conversationLabels.js
 - useFacebookPageConnect.spec.js
-- ChannelName.vue
+- inbox/Index.vue
 - MessageFilterHelpers
 - Pipeline
 - ArticlePolicy
@@ -1241,45 +1242,45 @@
 - DataImports::PlaceholderInboxBuilder
 - Filters::CustomAttributeFilterHelper
 - Instagram::RefreshOauthTokenService
-- DateHelper.js
+- Api::V1::Accounts::Integrations::AppsController
 - Api::V1::Accounts::Channels::TwilioChannelsController
 - Production migration guide: Rails 7.2.3.1
 - Whatsapp::PhoneInfoService
 - Enterprise::Webhooks::FirecrawlController
-- ChannelList.vue
+- TeamsAPI
 - Voice::Provider::Twilio::Adapter
 - CustomExceptions::Inbox::LimitExceeded
 - Enterprise::WebsiteBrandingService
 - Enterprise::ArticlePolicy
 - Enterprise::CategoryPolicy
 - PageCrawlerService
-- Tekomi::Llm::ArticleTranslationService
+- .make_api_call
 - Tekomi::Llm::ConversationFaqContentService
 - Tekomi::Tools::FirecrawlService
-- Conversations::PermissionFilterService
+- Tekomi::Tools::Copilot::SearchConversationsService
 - Twilio::VoiceWebhookSetupService
 - Tekomi::Rag::SearchService
 - Integrations::Tekomi::ProcessorService
 - with_modified_env
 - filtered_count_invalidator_spec.rb
 - incoming_message_whatsapp_cloud_service_spec.rb
-- LlmProviderCard.vue
+- SelectMenu.vue
 - ColorField
 - Api::V1::Accounts::Tekomi::PreferencesController
 - Api::V1::Profile::SessionsController
 - AdministratorNotifications::AccountComplianceMailer
 - Webhooks::TwilioEventsJob
 - Webhooks::Pbx::CallsController
-- Imap::GoogleFetchEmailService
+- AssistantCard.vue
 - AccountStatusField
 - DataImportSkipLogFinder
 - .get
 - Tiktok::ReadStatusService
-- DealSummaryCard.vue
+- CoverageBanner.vue
 - TekomiFaqSuggestions
 - TekomiScenarios
-- Tekomi::AudienceValidator
-- Tekomi::ReplySuggestionService
+- clearMessage
+- reloadState
 - AnalysisFields.vue
 - Webhooks::TiktokController
 - RadioCard.vue
@@ -1298,8 +1299,8 @@
 - dropdown/DropdownMenu.vue
 - MultiselectDropdownItems.vue
 - FileHelper.js
-- Edit.vue
-- ChatwootExceptionTracker
+- modules/attributes.js
+- AutomationRules::ProcessPendingExecutionJob
 - Internal::RemoveOrphanConversationsService
 - TicketStageEvent
 - Notification::EmailNotificationService
@@ -1310,9 +1311,9 @@
 - SavedViewPolicy
 - HtmlParser
 - AutomationRules::ConditionValidationService
-- useFontSize.js
-- Crm::Leadsquared::Api::LeadClient
-- Crm::Leadsquared::Mappers::ContactMapper
+- automations.js
+- Contacts::AutoMergeService
+- Twitter::WebhookSubscribeService
 - DataImports::Intercom::CredentialsValidator
 - LlmFormatter::DealLlmFormatter
 - commandbar/actions.js
@@ -1321,33 +1322,32 @@
 - active_storage.rb
 - Enterprise::ConversationFinder
 - CustomRole
-- Internal::AccountAnalysis::WebsiteScraperService
+- Voice::Provider::Twilio::TokenService
 - Tekomi::CustomToolPolicy
 - Phone::ZipformerTranscriptionService
 - Api::V1::Accounts::Tekomi::CopilotMessagesController
-- Migration::UpdateFirstResponseTimeInReportingEventsJob
+- Tekomi::Llm::ContactNotesService
 - CustomRolePolicy
 - Voice::CallErrors
 - TestData::DatabaseOptimizer
-- Notification::FcmService
+- Đồ thị mã nguồn (graphify)
 - ChannelSelector
 - FinishSetup
 - SettingsInboxPage
 - Api::V1::Accounts::Contacts::ConversationsController
 - RagError
 - Api::V1::Widget::LabelsController
-- .set_contact
+- Telegram::SendOnTelegramService
 - banner/Banner.vue
-- CallbotWebhooks
+- facebook/Reauthorize.vue
 - ZaloPersonalChannel
 - Enterprise::Conversation
-- ContactChannels.vue
-- Phone::IceServerBuilder
+- MacroNode.vue
 - AgentBotsAPI
 - SearchAPI
 - SLAReports.js
 - PhoneExtensionsAPI
-- @vue/test-utils
+- useInbox.spec.js
 - ConfirmDeleteCampaignDialog.vue
 - LiveChatCampaignDialog.vue
 - SMSCampaignDialog.vue
@@ -1365,16 +1365,16 @@
 - Code.vue
 - CampaignList.vue
 - TabsItem.vue
-- BaseActionCableConnector
+- ref_v3
 - TicketsTableView.vue
 - constants/automation.js
 - searchHelper.js
-- EditContact.vue
+- UserLanguageSelect.vue
 - channelMatchers.js
 - templateTypeKey
 - TemplateNormalizer.spec.js
 - suspended/Index.vue
-- tekomi_tools_helpers.rb
+- conversationPage.js
 - helpers/sessionStorage.js
 - AudioAlertTone.vue
 - TenantBrandingProfileDashboard
@@ -1382,7 +1382,7 @@
 - ZaloOa::RequestInfoJob
 - ActiveFilterChip.vue
 - ResponseCard.spec.js
-- Integrations::Slack::LinkUnfurlFormatter
+- conversationTypingStatus.js
 - AssignmentPolicyPolicy
 - CampaignPolicy
 - CustomAttributeDefinitionPolicy
@@ -1405,14 +1405,14 @@
 - Enterprise::SuperAdmin::AppConfigsController
 - ReportsDataHelper.js
 - Enterprise::ActivityMessageHandler
-- .prevent_message_flooding
+- Internal::RemoveStaleContactsJob
 - SlaPolicyPolicy
 - Tekomi::FaqSuggestionPolicy
 - Tekomi::ScenarioPolicy
 - .entries
 - Tekomi::ToolRegistryService
-- Tekomi::Tools::Copilot::SearchArticlesService
-- Agents::DestroyJob
+- Tekomi::Conversation::MessageBuilder
+- Tekomi::OpenAiMessageBuilderService
 - Whatsapp::InboundCallIdentityBuilder
 - ActiveStorage::Migrator
 - UseJevForCallEmotionAnalysis
@@ -1434,23 +1434,23 @@
 - fetchResponses
 - ruby_llm_tenant_credentials.rb
 - ChatTypeTabs.vue
-- calculateScrollTop
+- BaseMarkdownRenderer
 - billing.js
 - editor.js
 - SearchTabs.vue
 - alertError
 - CONTRIBUTING.md
 - rag_service/README.md
-- NotificationCheckBox.vue
+- Api::V1::Widget::ConfigsController
 - AgentBots::WebhookJob
 - freshdesk/README.md
 - Messages::InReplyToMessageBuilder
-- OutOfOffisable
+- ComboBoxDropdown.vue
 - TeamMemberPolicy
-- CustomFilter
+- CompanyHistorySidebar.vue
 - Crm::Perfex::CompanyResolverService
 - Crm::Perfex::ContactSyncService
-- Milestone 3: Remove Rails 8.0 incompatibilities
+- WelcomeCard.vue
 - LlmFormatter::ContactLlmFormatter
 - AgentCapacityPolicyPolicy
 - Whatsapp::InReplyToMessageFinder
@@ -1458,7 +1458,7 @@
 - Enterprise::CsatSurveyResponsePolicy
 - Enterprise::Macros::ExecutionService
 - Tekomi::Copilot::ChatService
-- Twilio::VoiceTeardownService
+- useDropdownPosition.spec.js
 - CustomExceptions::Base
 - filtered_count_store_spec.rb
 - V2::Reports::Timeseries::ReportBuilder
@@ -1471,7 +1471,7 @@
 - languages.js
 - api.js
 - agentHelper.spec.js
-- Api::V1::Accounts::ContactInboxesController
+- templateHelper.spec.js
 - Api::V2::Accounts::TicketReportsController
 - Webhooks::ShopifyController
 - ImportProgress.vue
@@ -1487,11 +1487,11 @@
 - DataImports::Freshdesk::PlaceholderInboxBuilder
 - TekomiDocument
 - DataImports::Intercom::PlaceholderInboxBuilder
-- Instagram::SendOnInstagramService
+- Reports::ReportMetricRegistry::Metric
 - SidebarGroupHeader.vue
 - Mailbox::ConversationFinderStrategies::ReceiverUuidStrategy
 - AutomationRuleRow.vue
-- Dashboard.spec.js
+- Enterprise::V2::Reports::DashboardBuilder
 - Enterprise::PortalPolicy
 - Enterprise::Whatsapp::Providers::BaseService
 - Onboarding::HelpCenterErrors
@@ -1510,11 +1510,11 @@
 - CountField
 - ApplicationHelper
 - Button.story.vue
-- TeamAvailability.vue
+- Tekomi::Conversation::V1ActionClassifier
 - SidebarActionsHeader.vue
-- openDrilldown
-- AuthConfig.vue
-- emit
+- Events::Base
+- Twilio::DeliveryStatusController
+- AiAlertsAPI
 - facebookScopes.js
 - markdownEmbeds.js
 - selectView
@@ -1523,12 +1523,13 @@
 - AutomationActions.vue
 - AutomationRunTypeSelector.vue
 - Tekomi::Tools::BaseTool
-- .agent_bot
-- Api::V1::Accounts::Integrations::NotionController
+- ContactNotes
+- conversations.js
 - WhatsappManualMigrationBanner.vue
 - AudioNotificationHelper.js
 - createEvent
 - emoji.js
+- MfaAPI
 - LlmFormatter::ArticleLlmFormatter
 - LlmFormatter::DefaultLlmFormatter
 - InitSchema
@@ -1543,7 +1544,7 @@
 - Enterprise::Contacts::ContactableInboxesService
 - Enterprise::Conversations::FilterService
 - Tekomi::AssistantMigration::InstructionClassifierSchema
-- DocumentPageEmptyState.vue
+- PhoneCalls
 - CustomCopLocation
 - UseFromEmail
 - enterprise/services/conversations/unread_counts/filtered_counter_spec.rb
@@ -1567,7 +1568,7 @@
 - tekomi/constants.js
 - crmDisplayHelper.js
 - flag.js
-- ResponsePageEmptyState.vue
+- SummaryReportsAPI
 - useAccountEnrichment.spec.js
 - ChannelRow.vue
 - helper/settingsHelper.js
@@ -1619,7 +1620,7 @@
 - Internal::AccountAnalysis::PromptsService
 - Tekomi::AssistantOverviewSummarySchema
 - Tekomi::Llm::ArticleWriterSchema
-- InboxBotStatus
+- DeleteSegmentDialog.vue
 - Tekomi::Llm::CareSuggestionSchema
 - Tekomi::Llm::ConversationAnalysisSchema
 - Tekomi::Llm::DealFieldExtractionSchema
@@ -1688,16 +1689,46 @@
 - constants.rb
 - json_schema_validator_spec.rb
 - test_helper.rb
-- AutoAssignment::RoundRobinSelector
-- DataImports::RetryService
-- .associate_agent_with_custom_role
+- SuggestedRules.vue
+- .retry_import
+- KnowledgeCard.vue
 - DataImportErrorFinder
-- useDetectKeyboardLayout.js
-- CustomRoleTableBody.vue
-- DataImports::Freshdesk::SourceBucket
-- Enterprise::AutoAssignment::BalancedSelector
-- resetSnoozeState
-- Webhooks::Trigger::RetryableError
+- CopilotReplyBottomPanel.vue
+- useReportMetrics.spec.js
+- .list_conversations
+- EditCanned.vue
+- conversationMetadata.js
+- campaignHelper.js
+- ReferencesHeaderBuilder
+- Instagram::Messenger::SendOnInstagramService
+- Messages::AudioTranscriptionJob
+- Messages::ReindexService
+- Tekomi::Llm::EmbeddingService
+- api/account.js
+- fbChannel.js
+- OnboardingAPI
+- TekomiInboxes
+- widget/store/index.js
+- LabelActivityMessageHandler
+- DataImports::Freshdesk::MessageBatchBuilder
+- Api::V2::Accounts::DashboardController
+- assignableAgents.js
+- auditLogs.js
+- WhatsappChannel
+- ConversationEmotionReports
+- DealFieldExtractionsAPI
+- BareArrayClient
+- CopilotMessages
+- onKeydown
+- QualityReport.vue
+- Enterprise::AgentBuilder
+- DocumentCard.spec.js
+- OpportunityList.vue
+- MfaStatusCard.vue
+- DataImports::Freshdesk::ContactsPageJob
+- DataImports::Freshdesk::ImportJob
+- DataImports::Intercom::ContactsPageJob
+- DataImports::Intercom::ImportJob
 
 ## God Nodes (most connected - your core abstractions)
 1. `vue` - 923 edges
@@ -1730,79 +1761,79 @@
 - 5-file cycle: `app/javascript/dashboard/routes/dashboard/dashboard.routes.js -> app/javascript/dashboard/routes/dashboard/settings/settings.routes.js -> app/javascript/dashboard/routes/dashboard/settings/teams/teams.routes.js -> app/javascript/dashboard/routes/dashboard/settings/teams/Create/CreateTeam.vue -> app/javascript/dashboard/routes/index.js -> app/javascript/dashboard/routes/dashboard/dashboard.routes.js`
 - 5-file cycle: `app/javascript/dashboard/routes/dashboard/dashboard.routes.js -> app/javascript/dashboard/routes/dashboard/settings/settings.routes.js -> app/javascript/dashboard/routes/dashboard/settings/teams/teams.routes.js -> app/javascript/dashboard/routes/dashboard/settings/teams/Edit/EditTeam.vue -> app/javascript/dashboard/routes/index.js -> app/javascript/dashboard/routes/dashboard/dashboard.routes.js`
 
-## Communities (2760 total, 1827 thin omitted)
+## Communities (2791 total, 1843 thin omitted)
 
 ### Community 0 - "Current"
 Cohesion: 0.01
-Nodes (38): Api::V1::Accounts::AiAlertsController, Api::V1::Accounts::AssignableAgentsController, Api::V1::Accounts::AssignmentPoliciesController, Api::V1::Accounts::AssignmentPolicies::InboxesController, Api::V1::Accounts::Contacts::AttachmentsController, Api::V1::Accounts::Contacts::BaseController, Api::V1::Accounts::Contacts::DealsController, Api::V1::Accounts::Conversations::BaseController (+30 more)
+Nodes (34): Api::V1::Accounts::AiAlertsController, Api::V1::Accounts::AssignableAgentsController, Api::V1::Accounts::AssignmentPoliciesController, Api::V1::Accounts::AssignmentPolicies::InboxesController, Api::V1::Accounts::ContactInboxesController, Api::V1::Accounts::Contacts::AttachmentsController, Api::V1::Accounts::Contacts::BaseController, Api::V1::Accounts::Conversations::BaseController (+26 more)
 
 ### Community 1 - "ApiClient"
-Cohesion: 0.01
-Nodes (51): AccountAPI, AccountActions, Agents, AiAlertsAPI, ApiClient, AuditLogs, AutomationsAPI, BulkActionsAPI (+43 more)
-
-### Community 2 - "@vuelidate/core"
 Cohesion: 0.02
-Nodes (40): props, addCannedResponse(), resetForm(), channelViewList, emailProviderList, getters, provider, { t } (+32 more)
+Nodes (44): AccountActions, Agents, ApiClient, AttributeAPI, AutomationsAPI, BulkActionsAPI, CallbotWebhooks, CallsAPI (+36 more)
+
+### Community 2 - "vuex"
+Cohesion: 0.02
+Nodes (22): props, channelViewList, emailProviderList, getters, provider, { t }, client, isRequestingAuthorization (+14 more)
 
 ### Community 3 - ".params"
 Cohesion: 0.02
-Nodes (17): V2::ReportBuilder, V2::Reports::Timeseries::BaseTimeseriesBuilder, Api::V1::Accounts::Actions::ContactMergesController, Api::V1::Accounts::Integrations::AppsController, Api::V1::Accounts::Tekomi::TasksController, DeviseOverrides::PasswordsController, WidgetTestsController, ConversationFinder (+9 more)
+Nodes (23): V2::ReportBuilder, V2::Reports::Timeseries::BaseTimeseriesBuilder, Api::V1::Accounts::Actions::ContactMergesController, Api::V1::Accounts::Contacts::ContactInboxesController, Api::V1::Accounts::InboxMembersController, Api::V1::Accounts::TeamMembersController, Api::V1::Accounts::Tekomi::TasksController, Api::V1::WebhooksController (+15 more)
 
 ### Community 4 - "ref_dashboard"
-Cohesion: 0.01
-Nodes (131): emit, ONE_OFF_CAMPAIGN_EMPTY_STATE_CONTENT, ONGOING_CAMPAIGN_EMPTY_STATE_CONTENT, emit, onClick(), modelValue, modelValue, emit (+123 more)
+Cohesion: 0.02
+Nodes (64): emit, ONE_OFF_CAMPAIGN_EMPTY_STATE_CONTENT, ONGOING_CAMPAIGN_EMPTY_STATE_CONTENT, emit, onClick(), modelValue, modelValue, emit (+56 more)
 
 ### Community 5 - "vue-router"
 Cohesion: 0.01
-Nodes (141): route, router, { t }, activeFilterQueryData, activeSegmentId, activeSegmentQuery, appliedFilters, emit (+133 more)
+Nodes (103): route, router, { t }, activeFilterQueryData, activeSegmentId, activeSegmentQuery, appliedFilters, emit (+95 more)
 
 ### Community 6 - "vue"
 Cohesion: 0.01
-Nodes (111): isExpanded, props, description, emit, enabled, isValid, policyName, v$ (+103 more)
+Nodes (98): isExpanded, props, createNewContactDialogRef, emit, isCollapsed, { uiSettings, updateUISettings }, attributeIcon, emit (+90 more)
 
 ### Community 7 - "home/helpers.js"
 Cohesion: 0.02
 Nodes (111): EVENT_STYLES, route, router, { t }, { baseOptions }, options, props, series (+103 more)
 
 ### Community 9 - "vue-i18n"
-Cohesion: 0.01
-Nodes (146): campaignStatus, emit, { formatMessage }, inboxIcon, inboxName, isActive, props, statusTextColor (+138 more)
+Cohesion: 0.02
+Nodes (77): companiesStore, componentMap, CurrentAttributeComponent, props, { t }, description, dialogRef, emit (+69 more)
 
 ### Community 10 - "ReplyBox.vue"
-Cohesion: 0.02
-Nodes (54): addIntoEditor(), clearCopilotAcceptedMessage(), clearEmailField(), clearMessage(), confirmOnSendReply(), conversationIdByRoute(), currentChat(), effectiveReplyMode() (+46 more)
+Cohesion: 0.03
+Nodes (7): addIntoEditor(), EmojiIconPicker, onFocus(), onTypingOff(), onTypingOn(), toggleTyping(), emit
 
 ### Community 11 - "BaseSettingsHeader.vue"
-Cohesion: 0.02
-Nodes (82): FEATURE_HELP_URLS, getHelpUrlForFeature(), accountId, agentAssignments, isFeatureEnabledonAccount, route, router, { t } (+74 more)
+Cohesion: 0.04
+Nodes (36): FEATURE_HELP_URLS, getHelpUrlForFeature(), accountId, agentAssignments, isFeatureEnabledonAccount, route, router, { t } (+28 more)
 
 ### Community 12 - "conversationAnalysis/Index.vue"
-Cohesion: 0.06
-Nodes (29): accountId, activeTab, agentOptions, agents, assigneeId, currentPage, filterParams, inboxes (+21 more)
+Cohesion: 0.08
+Nodes (22): accountId, activeTab, agentOptions, agents, assigneeId, currentPage, filterParams, inboxes (+14 more)
 
 ### Community 13 - "ChatList.vue"
 Cohesion: 0.02
-Nodes (92): activeAssigneeTab, activeAssigneeTabCount, activeDisplayMode, activeDisplayModeLabel, activeFolder, activeFolderName, activeInbox, activeSortBy (+84 more)
+Nodes (108): activeDisplayMode, activeDisplayModeLabel, activeFolder, activeFolderName, activeInbox, activeSortBy, activeStageTab, activeTabCount (+100 more)
 
 ### Community 14 - ".render_could_not_create_error"
-Cohesion: 0.03
-Nodes (8): Api::V1::Accounts::Articles::BulkActionsController, Api::V1::Profile::MfaController, Api::V2::Accounts::SummaryReportsController, Api::V1::Accounts::Tekomi::DealAssistantMessagesController, Api::V1::Accounts::WhatsappCallsController, Enterprise::Api::V1::Accounts::Articles::BulkActionsController, Enterprise::Api::V1::Accounts::ContactsController, Enterprise::Api::V1::Accounts::InboxesController
+Cohesion: 0.04
+Nodes (7): Api::V1::Accounts::Articles::BulkActionsController, Api::V1::Accounts::Tekomi::DealAssistantMessagesController, Api::V1::Accounts::Tekomi::DealSuggestionsController, Api::V1::Accounts::WhatsappCallsController, Enterprise::Api::V1::Accounts::Articles::BulkActionsController, Enterprise::Api::V1::Accounts::ContactsController, Enterprise::Api::V1::Accounts::InboxesController
 
 ### Community 15 - "ref_shared"
 Cohesion: 0.02
-Nodes (47): emit, onToggle(), emit, language, props, sourceLabel, { t }, updatedAt (+39 more)
+Nodes (57): emit, onToggle(), currentUser, { formatMessage }, hasNotes, props, route, router (+49 more)
 
 ### Community 16 - "camelcase-keys"
-Cohesion: 0.02
-Nodes (70): PipelinesAPI, advice, dealsStore, emit, generate(), isLoading, isMoving, moveToSuggestedStage() (+62 more)
+Cohesion: 0.03
+Nodes (40): failedEmail, actions, getters, mutations, state, actions, getters, mutations (+32 more)
 
 ### Community 17 - "ConversationCard/ConversationCard.vue"
-Cohesion: 0.02
-Nodes (76): emit, hovered, props, selectedModel, assignee, lastNonActivityMessage, props, unreadMessagesCount (+68 more)
+Cohesion: 0.04
+Nodes (41): assignee, lastNonActivityMessage, props, unreadMessagesCount, assignee, hasSlaThreshold, lastNonActivityMessage, props (+33 more)
 
 ### Community 18 - "URLHelper.js"
 Cohesion: 0.07
-Nodes (33): CLOUD_PAID_FEATURES, FEATURE_FLAGS, conversationListPageURL(), frontendURL(), getArticleSearchURL(), getHostNameFromURL(), hasValidAvatarUrl(), sanitizeAllowedDomains() (+25 more)
+Nodes (37): CLOUD_PAID_FEATURES, FEATURE_FLAGS, conversationListPageURL(), frontendURL(), getArticleSearchURL(), getHostNameFromURL(), hasValidAvatarUrl(), sanitizeAllowedDomains() (+29 more)
 
 ### Community 19 - "Tiktok::CallbacksController"
 Cohesion: 0.11
@@ -1813,48 +1844,44 @@ Cohesion: 0.03
 Nodes (80): dependencies, activestorage, apexcharts, axios, @breezystack/lamejs, camelcase-keys, @chatwoot/ninja-keys, @chatwoot/pico-search (+72 more)
 
 ### Community 21 - "CacheEnabledApiClient"
-Cohesion: 0.04
-Nodes (13): CacheEnabledApiClient, CannedResponse, Inboxes, LabelsAPI, BareArrayClient, Incomplete, WrappedClient, TeamsAPI (+5 more)
+Cohesion: 0.12
+Nodes (5): CacheEnabledApiClient, CannedResponse, LabelsAPI, Incomplete, WrappedClient
 
 ### Community 22 - "AnalyticsHelper/events.js"
-Cohesion: 0.03
-Nodes (47): WhatsappChannel, SlaAPI, ACCOUNT_EVENTS, CAMPAIGNS_EVENTS, CONTACTS_EVENTS, COPILOT_EVENTS, GENERAL_EVENTS, INBOX_EVENTS (+39 more)
+Cohesion: 0.04
+Nodes (39): ACCOUNT_EVENTS, CAMPAIGNS_EVENTS, CONTACTS_EVENTS, COPILOT_EVENTS, GENERAL_EVENTS, INBOX_EVENTS, LABEL_EVENTS, LINEAR_EVENTS (+31 more)
 
 ### Community 23 - "WootWriter/Editor.vue"
-Cohesion: 0.04
-Nodes (77): hasMeaningfulEditorContent(), addSignature(), allowsInlineImagePaste, cannedSearchKey, caretPosition, checkSelection(), contentFromEditor(), createEditorView() (+69 more)
+Cohesion: 0.05
+Nodes (47): allowsInlineImagePaste, cannedSearchKey, caretPosition, createSuggestionPlugin(), dismissCannedResponses(), dismissEmojiMenu(), dismissMacros(), dismissPicker() (+39 more)
 
 ### Community 24 - "DateRangeHelper"
 Cohesion: 0.03
-Nodes (9): V2::Reports::BotMetricsBuilder, V2::Reports::InboxLabelMatrixBuilder, V2::Reports::OutgoingMessagesCountBuilder, Api::V1::Accounts::CsatSurveyResponsesController, Api::V1::Accounts::NotificationsController, Api::V2::Accounts::TeamMonitoringController, DateRangeHelper, Notification::DeleteNotificationJob (+1 more)
+Nodes (10): V2::Reports::InboxLabelMatrixBuilder, V2::Reports::OutgoingMessagesCountBuilder, Api::V1::Accounts::BulkActionsController, Api::V1::Accounts::CsatSurveyResponsesController, Api::V1::Accounts::NotificationsController, Api::V2::Accounts::TeamMonitoringController, DateRangeHelper, BulkActionsJob (+2 more)
 
 ### Community 25 - ".render"
 Cohesion: 0.02
-Nodes (19): Api::V1::Accounts::CannedResponsesController, Api::V1::Accounts::Conversations::AssignmentsController, Api::V1::Accounts::InboxCsatTemplatesController, Api::V1::Accounts::Inboxes::CallbotWebhooksController, Api::V1::Accounts::Inboxes::PhoneExtensionsController, Api::V1::Accounts::Integrations::LinearController, Api::V1::Accounts::Whatsapp::AuthorizationsController, Api::V2::Accounts::DashboardController (+11 more)
+Nodes (19): Api::V1::Accounts::BaseController, Api::V1::Accounts::CannedResponsesController, Api::V1::Accounts::Concerns::WhatsappHealthManagement, Api::V1::Accounts::ConversationEmotionReportsController, Api::V1::Accounts::Conversations::AssignmentsController, Api::V1::Accounts::InboxCsatTemplatesController, Api::V1::Accounts::Inboxes::PhoneExtensionsController, Api::V1::Accounts::SearchController (+11 more)
 
 ### Community 26 - "ApplicationRecord"
 Cohesion: 0.04
-Nodes (19): AiAlert, ApplicationRecord, AssignmentPolicy, DashboardApp, DataImportItem, DealActivity, Folder, InboxAssignmentPolicy (+11 more)
+Nodes (20): AccessToken, ApplicationRecord, AssignmentPolicy, AccessTokenable, DashboardApp, DataImportItem, DealActivity, Folder (+12 more)
 
 ### Community 27 - "CategoryForm.vue"
-Cohesion: 0.04
-Nodes (34): emit, EmojiIconPicker, getters, handleCancel(), handleSubmit(), isCreating, isEditMode, isEmojiPickerOpen (+26 more)
+Cohesion: 0.06
+Nodes (20): emit, EmojiIconPicker, getters, handleCancel(), handleSubmit(), isCreating, isEditMode, isEmojiPickerOpen (+12 more)
 
 ### Community 28 - "Integrations::LlmInstrumentation"
 Cohesion: 0.06
-Nodes (11): Tekomi::Llm::EmbeddingService, Tekomi::Llm::EmbeddingService::EmbeddingsError, Tekomi::Tools::Instrumentation, Integrations::LlmInstrumentationCompletionHelpers, Integrations::LlmInstrumentationConstants, Integrations::LlmInstrumentationContext, Integrations::LlmInstrumentationHelpers, Integrations::LlmInstrumentation (+3 more)
+Nodes (9): Tekomi::Tools::Instrumentation, Integrations::LlmInstrumentationCompletionHelpers, Integrations::LlmInstrumentationConstants, Integrations::LlmInstrumentationContext, Integrations::LlmInstrumentationHelpers, Integrations::LlmInstrumentation, Integrations::LlmInstrumentationSpans, Integrations::Slack::EmojiFormatter (+1 more)
 
-### Community 29 - "V2::Reports::DashboardBuilder"
-Cohesion: 0.06
-Nodes (5): V2::Reports::ChannelSummaryBuilder, V2::Reports::ConversationStatusBuilder, V2::Reports::Conversations::MetricBuilder, V2::Reports::DashboardBuilder, Enterprise::V2::Reports::DashboardBuilder
-
-### Community 30 - "message/provider.js"
-Cohesion: 0.04
-Nodes (60): { content, createdAt }, readableTime, attachment, { attachments }, emailMetaClass, flexOrientationClass, isTekomiMessage, messageClass (+52 more)
+### Community 30 - "@vue/test-utils"
+Cohesion: 0.03
+Nodes (62): { content, createdAt }, readableTime, attachment, { attachments }, emailMetaClass, flexOrientationClass, isTekomiMessage, messageClass (+54 more)
 
 ### Community 31 - "ConversationHeader.vue"
-Cohesion: 0.03
-Nodes (62): appliedSLA, chat, groupClass, hasSlaThreshold, isSlaMissed, props, showFullStatusText, showSlaPopoverCard (+54 more)
+Cohesion: 0.04
+Nodes (41): callButtonTooltip, callsStore, contactsUiFlags, isCallButtonDisabled, isCallButtonLoading, { isCloudFeatureEnabled }, isVoiceCallInbox, isWhatsappVoiceInbox (+33 more)
 
 ### Community 32 - "parser.js"
 Cohesion: 0.05
@@ -1862,19 +1889,19 @@ Nodes (43): ABSOLUTE_DATE_RE, ABSOLUTE_DATE_REVERSED_RE, COMPOUND_DURATION_RE, D
 
 ### Community 33 - "package.json"
 Cohesion: 0.03
-Nodes (63): hasAnUpdateAvailable(), getActiveCountryCode(), getActiveDialCode(), getTimezone(), engines, node, pnpm, pre-push (+55 more)
+Nodes (62): hasAnUpdateAvailable(), getActiveCountryCode(), getActiveDialCode(), getTimezone(), engines, node, pnpm, pre-push (+54 more)
 
 ### Community 34 - "@vueuse/components"
 Cohesion: 0.08
 Nodes (16): emit, handleButtonClick(), emit, isSidebarOpen, slots, imageError, [isPopupVisible, togglePopup], emit (+8 more)
 
 ### Community 35 - "@vuelidate/validators"
-Cohesion: 0.07
-Nodes (37): onClose(), saveCustomViews(), buildTagMenuItems(), canAddTag(), checkTagTypeValidity(), createNewTagMenuItem(), findMatchingMenuItem(), formatPhoneNumber() (+29 more)
+Cohesion: 0.11
+Nodes (35): buildTagMenuItems(), canAddTag(), checkTagTypeValidity(), createNewTagMenuItem(), findMatchingMenuItem(), formatPhoneNumber(), getValidationRules(), INPUT_TYPES (+27 more)
 
 ### Community 36 - "ApplicationJob"
-Cohesion: 0.03
-Nodes (28): Twilio::DeliveryStatusController, ApplicationJob, Avatar::AvatarFromFaviconJob, Campaigns::TriggerOneoffCampaignJob, Channels::Whatsapp::HealthSyncJob, Channels::Whatsapp::HealthSyncSchedulerJob, Channels::Whatsapp::TemplatesSyncJob, Channels::Whatsapp::TemplatesSyncSchedulerJob (+20 more)
+Cohesion: 0.04
+Nodes (21): ApplicationJob, Avatar::AvatarFromFaviconJob, Campaigns::TriggerOneoffCampaignJob, Channels::Whatsapp::HealthSyncJob, Channels::Whatsapp::HealthSyncSchedulerJob, Channels::Whatsapp::TemplatesSyncJob, Channels::Whatsapp::TemplatesSyncSchedulerJob, Companies::FetchAvatarsJob (+13 more)
 
 ### Community 37 - "IFrameHelper.js"
 Cohesion: 0.07
@@ -1897,48 +1924,44 @@ Cohesion: 0.06
 Nodes (4): Api::V2::Accounts::ReportsController, Api::V2::Accounts::HeatmapHelper, Api::V2::Accounts::ReportsHelper, Reports::TimeFormatPresenter
 
 ### Community 43 - "ApplicationController"
-Cohesion: 0.03
-Nodes (17): AndroidAppController, Api::V1::WebhooksController, AppleAppController, ApplicationController, TrackSessionActivity, SlackUploadsController, SuperAdmin::AccessTokensController, SuperAdmin::AccountUsersController (+9 more)
+Cohesion: 0.04
+Nodes (14): AndroidAppController, Api::V1::Integrations::WebhooksController, AppleAppController, ApplicationController, MicrosoftController, SuperAdmin::AccessTokensController, SuperAdmin::AccountUsersController, SuperAdmin::AgentBotsController (+6 more)
 
 ### Community 44 - "ActivityMessageHandler"
-Cohesion: 0.08
-Nodes (7): Conversations::ActivityMessageJob, ActivityMessageHandler, AssigneeActivityMessageHandler, ConversationMuteHelpers, LabelActivityMessageHandler, PriorityActivityMessageHandler, SlaActivityMessageHandler
+Cohesion: 0.09
+Nodes (6): Conversations::ActivityMessageJob, ActivityMessageHandler, AssigneeActivityMessageHandler, ConversationMuteHelpers, PriorityActivityMessageHandler, SlaActivityMessageHandler
 
-### Community 45 - "widget/App.vue"
+### Community 45 - "configMixin.js"
 Cohesion: 0.05
-Nodes (31): SDK_SET_BUBBLE_VISIBILITY, activeCampaign(), createWidgetEvents(), handleUnreadNotificationDot(), hideMessageBubble(), mounted(), registerCampaignEvents(), registerListeners() (+23 more)
+Nodes (10): agentName(), availabilityStatus(), avatarUrl(), isSenderExist(), ON_AGENT_MESSAGE_RECEIVED, ON_CAMPAIGN_MESSAGE_CLICK, ON_CONVERSATION_CREATED, ON_UNREAD_MESSAGE_CLICK (+2 more)
 
 ### Community 46 - "ConversationReplyMailer"
-Cohesion: 0.07
-Nodes (4): ConversationReplyMailerAttachmentHelper, ConversationReplyMailer, ConversationReplyMailerHelper, ReferencesHeaderBuilder
+Cohesion: 0.08
+Nodes (3): ConversationReplyMailerAttachmentHelper, ConversationReplyMailer, ConversationReplyMailerHelper
 
 ### Community 48 - "Api::V1::Accounts::ConversationsController"
 Cohesion: 0.05
-Nodes (7): ConversationBuilder, Api::V1::Accounts::Contacts::ContactInboxesController, Api::V1::Accounts::ConversationsController, ConversationCustomAttributesConcern, HmacConcern, Conversations::TypingStatusManager, create_conversation()
+Nodes (7): ConversationBuilder, Api::V1::Accounts::ConversationsController, ConversationCustomAttributesConcern, DeleteObjectJob, Conversations::DeleteService, Conversations::TypingStatusManager, create_conversation()
 
 ### Community 49 - "inbox/Settings.vue"
 Cohesion: 0.04
 Nodes (15): fetchHealthData(), fetchSharedData(), goToWhatsAppConfiguration(), handleFeatureFlag(), handler(), mounted(), onTabChange(), openWhatsAppManualMigrationDialog() (+7 more)
 
 ### Community 50 - "mutation-types.js"
-Cohesion: 0.03
-Nodes (56): AttributeAPI, actions, getters, mutations, state, actions, getters, mutations (+48 more)
-
-### Community 51 - "Instagram::BaseMessageText"
-Cohesion: 0.10
-Nodes (3): Messages::Instagram::MessageBuilder, Messages::Instagram::Messenger::MessageBuilder, Instagram::BaseMessageText
+Cohesion: 0.05
+Nodes (33): actions, getters, mutations, state, actions, getters, mutations, state (+25 more)
 
 ### Community 52 - "localization.js"
 Cohesion: 0.11
 Nodes (28): buildReplacementPairs(), buildReplacementPairsUncached(), CACHE_SECTIONS, EN_DEFAULTS, EN_MONTHS_LIST, EN_WEEKDAYS_LIST, ENGLISH_VOCAB, escapeRegex() (+20 more)
 
-### Community 53 - "CompanySelector.vue"
-Cohesion: 0.17
-Nodes (15): comboboxOptions, createCompany(), createDialogRef, createOption, emit, fetchCompanies(), handleOpen(), handleSearch (+7 more)
+### Community 53 - "ConversationCardExpanded.vue"
+Cohesion: 0.05
+Nodes (35): emit, hovered, props, selectedModel, iconName, icons, priorityLabels, props (+27 more)
 
 ### Community 54 - "DatePicker.vue"
-Cohesion: 0.07
-Nodes (37): emit, onClickApply(), onClickClear(), calendarViews, canNavigateNext, closeDatePicker(), currentDate, dateRange (+29 more)
+Cohesion: 0.06
+Nodes (39): emit, onClickApply(), onClickClear(), calendarViews, canNavigateNext, closeDatePicker(), currentDate, dateRange (+31 more)
 
 ### Community 55 - "commandbar/icons.js"
 Cohesion: 0.04
@@ -1948,9 +1971,9 @@ Nodes (53): ICON_ADD_LABEL, ICON_AI_ASSIST, ICON_AI_EXPAND, ICON_AI_GRAMMAR, ICO
 Cohesion: 0.04
 Nodes (41): agentList, agentMenuItems, assignmentDescription, assignmentHeader, assignmentMethodLabel, assignmentOrderLabel, assignmentPolicy, availablePolicies (+33 more)
 
-### Community 57 - "Api::V1::Accounts::Conversations::DirectUploadsController"
+### Community 57 - "V2::Reports::ConversationStatusBuilder"
 Cohesion: 0.08
-Nodes (5): Api::BaseController, Api::V1::Accounts::BaseController, Api::V1::Accounts::Conversations::DirectUploadsController, AccessTokenAuthHelper, EnsureCurrentAccountHelper
+Nodes (5): V2::Reports::ChannelSummaryBuilder, V2::Reports::ConversationStatusBuilder, V2::Reports::Conversations::BaseReportBuilder, V2::Reports::Conversations::MetricBuilder, V2::Reports::Conversations::ReportBuilder
 
 ### Community 58 - "documents/Index.vue"
 Cohesion: 0.05
@@ -1958,31 +1981,31 @@ Nodes (46): buildDocumentFilterParams(), bulkSelectedIds, canManageDocuments, { 
 
 ### Community 59 - "profile/Index.vue"
 Cohesion: 0.05
-Nodes (21): emit, inputType, maskIcon, onClick(), onReset(), props, dispatchUpdate(), initializeUser() (+13 more)
+Nodes (16): emit, inputType, maskIcon, onClick(), onReset(), props, dispatchUpdate(), initializeUser() (+8 more)
 
 ### Community 60 - "DealsTableView.vue"
-Cohesion: 0.05
-Nodes (35): agentOptions, allSelected, bottomSpacerHeight, bulkStageId, collapsedGroups, columns, commitEdit(), deleteSelected() (+27 more)
+Cohesion: 0.04
+Nodes (43): DEFAULT_COLUMN_WIDTH, useDealGroups(), collapsedGroups, emit, groups, props, sentinelRef, stagesById (+35 more)
 
 ### Community 61 - "sla/Index.vue"
 Cohesion: 0.05
 Nodes (15): addSLA(), onClose(), editSLA(), onClose(), closeDeletePopup(), confirmDeletion(), deleteSla(), checkValidationState() (+7 more)
 
 ### Community 62 - "Cấu hình GMO AI theo từng account"
-Cohesion: 0.15
-Nodes (9): AccountLlmFeatureModel, Cấu hình GMO AI theo từng account, FireCrawl, Migrate dữ liệu đang chạy, Mục tiêu, Nguyên tắc, Những chỗ khác bị ảnh hưởng, Thứ tự resolve (+1 more)
+Cohesion: 0.09
+Nodes (12): AccountLlmFeatureModel, Tab Tính năng AI, Cấu hình GMO AI theo từng account, Dữ liệu, FireCrawl, Migrate dữ liệu đang chạy, Mục tiêu, Nguyên tắc (+4 more)
 
-### Community 63 - "BulkActionsJob"
-Cohesion: 0.06
-Nodes (7): Api::V1::Accounts::BulkActionsController, BulkActionsJob, Contacts::BulkActionJob, Contacts::BulkActionService, Contacts::BulkAssignLabelsService, Contacts::BulkDeleteService, Contacts::BulkRemoveLabelsService
+### Community 63 - "Contacts::BulkActionService"
+Cohesion: 0.10
+Nodes (5): Contacts::BulkActionJob, Contacts::BulkActionService, Contacts::BulkAssignLabelsService, Contacts::BulkDeleteService, Contacts::BulkRemoveLabelsService
 
 ### Community 64 - "InstallationConfig"
 Cohesion: 0.07
 Nodes (10): SuperAdmin::AppConfigsController, InstallationConfig, RemoveStaleCaptainFeatureDefaults, MoveTekomiLlmConfigToLlmProviders, MoveTekomiLlmConfigToLlmProviders::MigrationLlmFeatureModel, MoveTekomiLlmConfigToLlmProviders::MigrationLlmProvider, ConfigLoader, set_installation_config() (+2 more)
 
 ### Community 65 - "ContactAPI"
-Cohesion: 0.10
-Nodes (9): buildContactParams(), ContactAPI, fetchChannels(), onContactSearch, searchContacts, searchContacts, createContactSearcher(), searchContacts (+1 more)
+Cohesion: 0.08
+Nodes (13): buildContactParams(), ContactAPI, channels, fetchChannels(), isLoading, props, { t }, onContactSearch (+5 more)
 
 ### Community 66 - "TicketShow.vue"
 Cohesion: 0.06
@@ -1996,13 +2019,17 @@ Nodes (48): activeTabIndex, addTypeToRecords(), articleRecords, articles, buildS
 Cohesion: 0.05
 Nodes (23): inbox(), mounted(), setDefaults(), allowMobileWebview(), handleHmacFlag(), handleMobileWebviewFlag(), hmacMandatory(), inbox() (+15 more)
 
-### Community 69 - "Chatwoot"
-Cohesion: 0.15
-Nodes (4): Chatwoot, Chatwoot::Application, MoveFirecrawlKeyToAccounts, MoveFirecrawlKeyToAccounts::MigrationAccountLlmProvider
+### Community 69 - "Tekomi::AudienceValidator"
+Cohesion: 0.10
+Nodes (5): Chatwoot, Chatwoot::Application, MoveFirecrawlKeyToAccounts, MoveFirecrawlKeyToAccounts::MigrationAccountLlmProvider, Tekomi::AudienceValidator
 
 ### Community 70 - "dashboard/api/auth.js"
 Cohesion: 0.13
 Nodes (17): deleteAvatar(), getAuthData(), hasAuthCookie(), logout(), profilePasswordUpdate(), profileUpdate(), resendConfirmation(), resetAccessToken() (+9 more)
+
+### Community 71 - "ActionCableConnector"
+Cohesion: 0.05
+Nodes (4): ActionCableConnector, getFilteredUnreadCountsRefreshRetryDelay(), init(), { isImpersonating }
 
 ### Community 73 - "ContactsIndex.vue"
 Cohesion: 0.04
@@ -2016,33 +2043,33 @@ Nodes (26): activeNotification, activeNotificationIndex, activeSortOrder, conver
 Cohesion: 0.05
 Nodes (42): activeFields, activeView, agents, alertError(), applyFilters(), applySorts(), deleteView(), deleteViewDialogRef (+34 more)
 
+### Community 76 - "Tekomi::BaseTaskService"
+Cohesion: 0.16
+Nodes (3): Task 5: `Tekomi::BaseTaskService` và các service con, Llm::ExceptionTrackable, Tekomi::BaseTaskService
+
 ### Community 77 - "app.json"
 Cohesion: 0.04
 Nodes (47): addons, buildpacks, description, env, FRONTEND_URL, INSTALLATION_ENV, NODE_OPTIONS, RACK_ENV (+39 more)
 
-### Community 78 - "Api::V1::Widget::BaseController"
-Cohesion: 0.07
-Nodes (4): Api::V1::Widget::BaseController, Api::V1::Widget::ConversationsController, Api::V1::Widget::EventsController, Api::V1::Widget::MessagesController
-
 ### Community 79 - "dashboard/store/index.js"
 Cohesion: 0.05
-Nodes (40): teamMembers(), plugins, actions, getters, mutations, state, CANNED_RESPONSES, commit (+32 more)
+Nodes (33): cleanLabels(), useLabelSuggestions(), plugins, actions, getters, mutations, state, CANNED_RESPONSES (+25 more)
 
 ### Community 80 - "DealsIndex.vue"
 Cohesion: 0.04
 Nodes (36): accountId, activeFields, activeView, agents, calendarRange, { dealAttributes }, dealFormDialogRef, dealPanelRef (+28 more)
 
-### Community 81 - "widget.js"
-Cohesion: 0.08
-Nodes (8): buildHookPayload(), onClose(), submitForm(), app, i18n, CampaignTimer, router, @formkit/vue
+### Community 81 - "NewHook.vue"
+Cohesion: 0.22
+Nodes (3): buildHookPayload(), onClose(), submitForm()
 
 ### Community 82 - "Seeders::DemoAccountSeeder"
 Cohesion: 0.07
 Nodes (6): CsatSurveyResponse, TicketConversation, Api::V1::Accounts::Contacts::ConversationAnalysesController, ConversationAnalysis, Seeders::DemoAccountSeeder, Seeders::DemoAccountSeeder::NullDispatcher
 
 ### Community 83 - "OtherAttribute.vue"
-Cohesion: 0.05
-Nodes (37): attributeValue, emit, handleChange(), props, defaultDateValue, editedValue, emit, formattedDate (+29 more)
+Cohesion: 0.06
+Nodes (31): attributeValue, emit, handleChange(), props, defaultDateValue, editedValue, emit, formattedDate (+23 more)
 
 ### Community 84 - "PhoneCall.vue"
 Cohesion: 0.05
@@ -2069,8 +2096,8 @@ Cohesion: 0.05
 Nodes (36): buildSelectedCountLabel, bulkDeleteDialog, bulkSelectedIds, createDialog, debouncedSearch, deleteDialog, dialogType, fetchResponseAfterBulkAction() (+28 more)
 
 ### Community 90 - "entrypoints/dashboard.js"
-Cohesion: 0.07
-Nodes (24): audience, chartData, count(), deliveryRate, props, segments, { t }, app (+16 more)
+Cohesion: 0.05
+Nodes (26): mutations, app, i18n, pinia, ComponentMapping, app, i18n, app (+18 more)
 
 ### Community 91 - "AssignmentPolicyCard.vue"
 Cohesion: 0.05
@@ -2086,15 +2113,15 @@ Nodes (37): analyzeTemplateUtility(), applyUtilitySuggestion(), buildTemplateCon
 
 ### Community 94 - "Account"
 Cohesion: 0.06
-Nodes (7): AccountDashboard, Account, Category, AccountSettingsSchema, Reportable, TekomiFeaturable, Dọn code
+Nodes (6): AccountDashboard, Account, Category, AccountSettingsSchema, TekomiFeaturable, Dọn code
 
 ### Community 95 - ".chatwoot_cloud?"
 Cohesion: 0.08
-Nodes (4): Enterprise::Account, Tekomi::Llm::ConversationAnalysisService, Enterprise::Tekomi::BaseTaskService, Enterprise::Tekomi::ReplySuggestionService
+Nodes (4): SuperAdmin::PlatformBannersController, Api::V1::Accounts::Tekomi::MessageReportsController, Enterprise::Account, Enterprise::Tekomi::BaseTaskService
 
 ### Community 96 - "MessagesView.vue"
 Cohesion: 0.06
-Nodes (18): addScrollListener(), currentChat(), fetchAllAttachmentsFromCurrentChat(), fetchPreviousMessages(), fetchSuggestions(), handleScroll(), isLabelSuggestionDismissed(), makeMessagesRead() (+10 more)
+Nodes (21): calculateScrollTop(), totalMessageHeight(), DOMElement, addScrollListener(), currentChat(), fetchAllAttachmentsFromCurrentChat(), fetchPreviousMessages(), fetchSuggestions() (+13 more)
 
 ### Community 97 - "automation/Index.vue"
 Cohesion: 0.05
@@ -2102,55 +2129,63 @@ Nodes (37): accountId, activeTab, activeTabIndex, addDialogRef, closeDeletePopup
 
 ### Community 98 - "ConversationChartCard.vue"
 Cohesion: 0.09
-Nodes (24): { colors }, description, props, ranked, statusColors, statusSeries, { t }, view (+16 more)
+Nodes (23): { colors }, description, props, ranked, statusColors, statusSeries, { t }, view (+15 more)
 
 ### Community 99 - "CompanyPanel.vue"
 Cohesion: 0.05
 Nodes (36): companiesStore, isUpdating, props, { t }, accountId, additionalAttributes, companiesStore, company (+28 more)
 
-### Community 100 - "ContentTemplateParser.vue"
-Cohesion: 0.05
-Nodes (35): categoryLabel, emit, goBack(), hasMediaTemplate, hasMediaVariable, hasVariables, isFormInvalid, languageLabel (+27 more)
+### Community 100 - "ContentTemplatesModal.vue"
+Cohesion: 0.10
+Nodes (16): emit, localShow, modalHeaderContent, onClose(), onSendMessage(), props, selectedContentTemplate, { t } (+8 more)
 
 ### Community 101 - "Message.vue"
-Cohesion: 0.04
-Nodes (36): { content, contentAttributes, contentType }, formValues, { isAWebWidgetInbox }, { t }, CONTENT_TYPES, avatarInfo, avatarTooltip, componentToRender (+28 more)
+Cohesion: 0.05
+Nodes (31): avatarInfo, avatarTooltip, componentToRender, contextMenuEnabledOptions, contextMenuPosition, emit, flexOrientationClass, gridClass (+23 more)
 
 ### Community 102 - "AssistantAudienceForm.vue"
-Cohesion: 0.11
-Nodes (23): defaultRoot(), emit, { filterTypes }, findOption(), groupRef, handleSubmit(), hasConditions(), hydrateNode() (+15 more)
+Cohesion: 0.07
+Nodes (36): defaultRoot(), emit, { filterTypes }, findOption(), groupRef, handleSubmit(), hasConditions(), hydrateNode() (+28 more)
 
 ### Community 103 - "DocumentDetails.vue"
 Cohesion: 0.05
 Nodes (36): activeTabIndex, activeTabKey, canManage, { checkPermissions }, contentTabLabel, currentPage, displayLink, displayUrl (+28 more)
 
 ### Community 105 - "labels/Index.vue"
-Cohesion: 0.06
-Nodes (27): addLabel(), labelTitleErrorMessage(), onClose(), editLabel(), labelTitleErrorMessage(), mounted(), onClose(), setFormValues() (+19 more)
+Cohesion: 0.09
+Nodes (17): closeDeletePopup(), confirmDeletion(), deleteLabel(), deleteMessage, filteredRecords, getters, loading, records (+9 more)
 
 ### Community 106 - "CsatFilters.vue"
 Cohesion: 0.08
 Nodes (40): buildFilterList(), buildRatingsList(), getActiveFilter(), getFilterType(), activeFilters, activeFilterType, addFilter(), agents (+32 more)
 
 ### Community 107 - "CsatTable.vue"
-Cohesion: 0.09
-Nodes (16): columnHelper, columns, csatResponses, emit, expandedRows, { isCloudFeatureEnabled, isOnChatwootCloud }, isFeatureEnabled, isLoading (+8 more)
+Cohesion: 0.05
+Nodes (30): { formatMessage }, hasChanges, hasExistingReviewNotes, { isCloudFeatureEnabled, isOnChatwootCloud }, isEditing, isFeatureEnabled, isSaving, props (+22 more)
 
-### Community 110 - "Avatarable"
-Cohesion: 0.08
-Nodes (5): NotificationSubscriptionBuilder, Api::V1::NotificationSubscriptionsController, Avatar::AvatarFromGravatarJob, AgentBot, Avatarable
+### Community 110 - "Slack.vue"
+Cohesion: 0.06
+Nodes (28): areHooksAvailable, hasConnectedAChannel, hook, integration, integrationAction, integrationLoaded, isIntegrationHookEnabled, props (+20 more)
+
+### Community 112 - "Inbox"
+Cohesion: 0.05
+Nodes (4): InboxBotStatus, InboxBrandedEmailLayoutable, OutOfOffisable, Inbox
 
 ### Community 115 - "Api::V1::Accounts::AutomationRulesController"
 Cohesion: 0.07
 Nodes (5): Api::V1::Accounts::AutomationRulesController, Api::V1::Accounts::MacrosController, AttachmentConcern, MacrosExecutionJob, Macro
 
-### Community 116 - ".render"
-Cohesion: 0.02
-Nodes (17): Api::V1::Accounts::Campaigns::AnalyticsController, Api::V1::Accounts::ConferenceController, Api::V1::Accounts::Conversations::AnalysesController, Api::V1::Accounts::SamlSettingsController, Api::V1::Accounts::Tekomi::BulkActionsController, Api::V1::Accounts::Tekomi::DealSuggestionsController, Api::V1::Accounts::Tekomi::MessageReportsController, Enterprise::Api::V1::Accounts::ConversationsController (+9 more)
+### Community 116 - ".prompt_from_file"
+Cohesion: 0.09
+Nodes (5): AccountLlmPromptTemplate, Tekomi::PromptRenderer, Tekomi::PromptRenderer::SnippetFileSystem, Llm::Prompts, Tekomi::RewriteService
 
 ### Community 117 - "ConversationRequiredAttributes.vue"
 Cohesion: 0.09
 Nodes (20): allAttributeOptions, attributeOptions, conversationAttributes, conversationRequiredAttributes, { currentAccount, accountId, isOnChatwootCloud, updateAccount }, currentUser, emit, handleAttributeAction() (+12 more)
+
+### Community 119 - "attributes/Index.vue"
+Cohesion: 0.07
+Nodes (26): attributeModel, attributeModels, attributes, buildBadges(), closeDelete(), confirmDeleteAttribute(), { currentAccount, accountId }, derivedAttributes (+18 more)
 
 ### Community 120 - "server.py"
 Cohesion: 0.09
@@ -2161,8 +2196,8 @@ Cohesion: 0.13
 Nodes (13): handler(), initializeAccount(), initializeColorTheme(), listenToThemeChanges(), mounted(), setLocale(), generateKeys(), getPushSubscriptionPayload() (+5 more)
 
 ### Community 124 - "IntegrationHooks.vue"
-Cohesion: 0.11
-Nodes (7): isEmptyObject(), closeDeletePopup(), confirmDeletion(), showIntegrationHooks(), { integration, hasConnectedHooks }, props, { replaceInstallationName }
+Cohesion: 0.07
+Nodes (15): isEmptyObject(), closeDeletePopup(), confirmDeletion(), showIntegrationHooks(), filteredHooks, globalConfig, hookHeaders, hooks (+7 more)
 
 ### Community 125 - "editorHelper.js"
 Cohesion: 0.10
@@ -2173,8 +2208,8 @@ Cohesion: 0.07
 Nodes (37): activeFilterType, addFilter(), appliedFilters, buildReportFilterList(), businessHoursSelected, closeActiveFilterDropdown(), customDateRange, daysDifference (+29 more)
 
 ### Community 127 - "ref_widget"
-Cohesion: 0.06
-Nodes (30): getAvailableAgents(), getMostReadArticles(), getCampaigns(), triggerCampaign(), getUuid(), actions, getters, mutations (+22 more)
+Cohesion: 0.07
+Nodes (14): getAvailableAgents(), getMostReadArticles(), getCampaigns(), triggerCampaign(), actions, getters, mutations, state (+6 more)
 
 ### Community 128 - "appConfig.js"
 Cohesion: 0.07
@@ -2185,16 +2220,16 @@ Cohesion: 0.09
 Nodes (3): Tekomi::ChatGenerationRecorder, Tekomi::ChatHelper, Tekomi::ChatResponseHelper
 
 ### Community 130 - "types.ts"
-Cohesion: 0.11
-Nodes (19): ClassifiedMessage, NoSessionError, encodeSourceId(), GroupProfile, IncomingMessage, normalizeIncoming(), normalizeReaction(), normalizeUndo() (+11 more)
+Cohesion: 0.10
+Nodes (22): ClassifiedMessage, NoSessionError, encodeSourceId(), GroupProfile, IncomingMessage, normalizeIncoming(), normalizeReaction(), normalizeUndo() (+14 more)
 
 ### Community 131 - "BaseDrop"
-Cohesion: 0.06
-Nodes (7): BaseDrop, ContactDrop, InboxDrop, UserDrop, Whatsapp::LiquidTemplateProcessorService, Whatsapp::LiquidTemplateProcessorService::JsonEscapeFilter, SlaPolicyDrop
+Cohesion: 0.05
+Nodes (9): AccountDrop, BaseDrop, ContactDrop, InboxDrop, UserDrop, Liquid::CampaignTemplateService, Whatsapp::LiquidTemplateProcessorService, Whatsapp::LiquidTemplateProcessorService::JsonEscapeFilter (+1 more)
 
 ### Community 132 - "DatePickerHelper.js"
-Cohesion: 0.11
-Nodes (35): emit, localDateValue, props, validateDate(), dayClasses(), emit, emitHoveredEndDate(), emitSelectDate() (+27 more)
+Cohesion: 0.15
+Nodes (26): dayClasses(), emit, emitHoveredEndDate(), emitSelectDate(), isHoveringInRange(), isInCurrentMonth(), isInRange(), isNextDayInRange() (+18 more)
 
 ### Community 133 - "CompanyDetailView.vue"
 Cohesion: 0.06
@@ -2209,16 +2244,20 @@ Cohesion: 0.10
 Nodes (30): buildFilterList(), getActiveFilter(), getFilterType(), activeFilters, activeFilterType, addFilter(), agents, appliedFilters (+22 more)
 
 ### Community 136 - "teams/actions.spec.js"
-Cohesion: 0.11
-Nodes (23): actions, portalAPIs, getters, defaultPortalFlags, state, mutations, types, commit (+15 more)
+Cohesion: 0.24
+Nodes (13): commit, actions, getters, state, mutations, ADD_AGENTS_TO_TEAM, CLEAR_TEAMS, DELETE_TEAM (+5 more)
 
 ### Community 137 - ".smtp_config_set_or_development?"
-Cohesion: 0.08
-Nodes (6): AgentNotifications::ConversationNotificationsMailer, ApplicationMailer, global_config(), PortalInstructionsMailer, TeamNotifications::AutomationNotificationMailer, Enterprise::AgentNotifications::ConversationNotificationsMailer
+Cohesion: 0.09
+Nodes (5): AgentNotifications::ConversationNotificationsMailer, ApplicationMailer, PortalInstructionsMailer, TeamNotifications::AutomationNotificationMailer, Enterprise::AgentNotifications::ConversationNotificationsMailer
 
 ### Community 138 - "Tekomi::Llm::ConversationFaqService"
-Cohesion: 0.15
-Nodes (3): Tekomi::Llm::ConversationFaqJob, Tekomi::Llm::ConversationFaqService, Tekomi::Llm::ConversationFaqService::SuggestionChangedError
+Cohesion: 0.10
+Nodes (5): Tekomi::Llm::ConversationFaqJob, Llm::BaseAiService, Tekomi::Llm::ConversationFaqPromptsService, Tekomi::Llm::ConversationFaqService, Tekomi::Llm::ConversationFaqService::SuggestionChangedError
+
+### Community 139 - "AutoAssignment::AssignmentService"
+Cohesion: 0.09
+Nodes (4): AutoAssignment::AssignmentService, AutoAssignment::RoundRobinSelector, Enterprise::AutoAssignment::AssignmentService, Enterprise::AutoAssignment::BalancedSelector
 
 ### Community 140 - "DraggableReorderList.vue"
 Cohesion: 0.08
@@ -2237,12 +2276,12 @@ Cohesion: 0.06
 Nodes (34): { accountId, currentAccount, finishOnboarding }, accountName, companyLogo, companySize, currentUser, { enabledLanguages }, enableWebsiteEditing(), handleSubmit() (+26 more)
 
 ### Community 144 - "HeaderActions.vue"
-Cohesion: 0.08
-Nodes (14): createConversation(), sendMessage(), triggerCampaign(), create(), generateEventParams(), containerClasses, { formatMessage }, props (+6 more)
+Cohesion: 0.09
+Nodes (11): createConversation(), sendMessage(), triggerCampaign(), create(), generateEventParams(), closeWindow(), popoutWindow(), popoutChatWindow() (+3 more)
 
 ### Community 145 - "DataImports::BaseJob"
-Cohesion: 0.10
-Nodes (7): DataImports::BaseJob, DataImports::ContactsPageJob, DataImports::Freshdesk::ContactsPageJob, DataImports::Freshdesk::ImportJob, DataImports::ImportJob, DataImports::Intercom::ContactsPageJob, DataImports::Intercom::ImportJob
+Cohesion: 0.21
+Nodes (3): DataImports::BaseJob, DataImports::ContactsPageJob, DataImports::ImportJob
 
 ### Community 146 - "ContactsForm.vue"
 Cohesion: 0.07
@@ -2258,27 +2297,27 @@ Nodes (21): agentAssignmentsPolicies, breadcrumbItems, confirmDeletePolicyDialog
 
 ### Community 149 - "canned/Index.vue"
 Cohesion: 0.06
-Nodes (25): editCannedResponse(), resetForm(), activeResponse, cannedResponseAPI, closeDeletePopup(), confirmDeletion(), deleteCannedResponse(), deleteConfirmText (+17 more)
+Nodes (25): addCannedResponse(), resetForm(), activeResponse, cannedResponseAPI, closeDeletePopup(), confirmDeletion(), deleteCannedResponse(), deleteConfirmText (+17 more)
 
-### Community 150 - "WootReports.vue"
-Cohesion: 0.07
-Nodes (16): agent, route, store, fetchAllData(), fetchChartData(), onFilterChange(), inbox, route (+8 more)
+### Community 150 - "SummaryReports.vue"
+Cohesion: 0.04
+Nodes (38): agent, route, store, props, routeName, businessHours, columnHelper, columns (+30 more)
 
 ### Community 151 - "setup_20.04.sh"
 Cohesion: 0.11
 Nodes (36): configure_db(), configure_rvm(), configure_systemd_services(), convert_deployment(), create_cw_user(), cwctl_message(), cwctl_upgrade_check(), get_console() (+28 more)
 
 ### Community 152 - "axios"
-Cohesion: 0.05
-Nodes (41): CustomRole, backupCode, canSubmit, contactDescKey, emit, errorMessage, focusInput(), handleBackspace() (+33 more)
+Cohesion: 0.07
+Nodes (29): backupCode, canSubmit, contactDescKey, emit, errorMessage, focusInput(), handleBackspace(), handleOtpCodePaste() (+21 more)
 
 ### Community 153 - "AutomationRuleForm.vue"
 Cohesion: 0.06
 Nodes (36): allowsDelayedExecution, automation, automationActionTypes, automationRuleEvents, cancelKey, close(), delayMinutes, delayUnit (+28 more)
 
 ### Community 155 - "Tekomi::Tools::BasePublicTool"
-Cohesion: 0.05
-Nodes (7): Tekomi::Tools::AddContactNoteTool, Tekomi::Tools::AddLabelToConversationTool, Tekomi::Tools::AddPrivateNoteTool, Tekomi::Tools::BasePublicTool, Tekomi::Tools::HandoffTool, Tekomi::Tools::ResolveConversationTool, Tekomi::Tools::UpdatePriorityTool
+Cohesion: 0.07
+Nodes (6): Tekomi::Tools::AddContactNoteTool, Tekomi::Tools::AddLabelToConversationTool, Tekomi::Tools::AddPrivateNoteTool, Tekomi::Tools::BasePublicTool, Tekomi::Tools::HandoffTool, Tekomi::Tools::ResolveConversationTool
 
 ### Community 156 - "devDependencies"
 Cohesion: 0.05
@@ -2287,6 +2326,10 @@ Nodes (37): devDependencies, autoprefixer, @egoist/tailwindcss-icons, eslint, es
 ### Community 157 - "AccountBuilder"
 Cohesion: 0.09
 Nodes (10): AccountBuilder, Account::SignUpEmailValidationService, CustomExceptions::Account, CustomExceptions::Account::EmailLimitExceeded, CustomExceptions::Account::InvalidEmail, CustomExceptions::Account::InvalidParams, CustomExceptions::Account::PlanUpgradeRequired, CustomExceptions::Account::SignupFailed (+2 more)
+
+### Community 158 - "Api::V1::Accounts::ContactsController"
+Cohesion: 0.06
+Nodes (3): Api::V1::Accounts::ContactsController, Account::ContactsExportJob, Contacts::FilterService
 
 ### Community 159 - "OauthCallbackController"
 Cohesion: 0.10
@@ -2301,12 +2344,16 @@ Cohesion: 0.06
 Nodes (25): activeSegmentName, appliedFilter, appliedFilters, clearFilters(), closeAdvanceFiltersModal(), contactAttributes, contactExportDialogRef, contactImportDialogRef (+17 more)
 
 ### Community 162 - "VoiceCall.vue"
-Cohesion: 0.04
-Nodes (47): { content, attachments, contentAttributes, messageType }, { hasTranslations, translationContent }, isEmpty, isTemplate, renderContent, renderOriginal, acceptedByAgentId, audioAttachment (+39 more)
+Cohesion: 0.03
+Nodes (58): { content, contentAttributes, contentType }, formValues, { isAWebWidgetInbox }, { t }, { content, attachments, contentAttributes, messageType }, { hasTranslations, translationContent }, isEmpty, isTemplate (+50 more)
 
 ### Community 163 - "ComposeConversation.vue"
 Cohesion: 0.07
 Nodes (34): activeContact, clearFormState(), clearSelectedContact(), closeCompose(), contactById, contacts, contactsUiFlags, createConversation() (+26 more)
+
+### Community 165 - "Message"
+Cohesion: 0.08
+Nodes (3): Message, TicketActivity, Limits
 
 ### Community 168 - "Show.vue"
 Cohesion: 0.08
@@ -2325,12 +2372,12 @@ Cohesion: 0.25
 Nodes (7): ButtonStub, { checkPermissions }, { dispatch, getDrilldown, getterValues }, PaginationFooterStub, SidePanelStub, TabBarStub, tekomiDocument
 
 ### Community 172 - "FullEditor.spec.js"
-Cohesion: 0.07
+Cohesion: 0.10
 Nodes (12): attachImage, clickToolbar(), pressEscape(), pressInEditor(), selectAll(), selectRange(), store, toolbarItem() (+4 more)
 
 ### Community 173 - "tekomi/Index.vue"
-Cohesion: 0.06
-Nodes (19): activeTabIndex, aiAlertsStore, featureToggles, { isAdmin }, { isEnterprise }, isLoading, { isOnChatwootCloud, accountId }, isSavingDefault (+11 more)
+Cohesion: 0.05
+Nodes (27): apiBase, apiKey, badge, canSave, emit, props, save(), { t } (+19 more)
 
 ### Community 174 - "SLAReportFilters.vue"
 Cohesion: 0.10
@@ -2340,17 +2387,17 @@ Nodes (31): businessHoursSelected, customDateRange, emit, emitChange(), initiali
 Cohesion: 0.07
 Nodes (30): activeSuggestionId, backUrl, clearFilters(), debouncedSearch, fetchSuggestions(), handleApprove(), handleDismiss(), handleResolved() (+22 more)
 
-### Community 177 - "Enterprise::Api::V1::AccountsController"
-Cohesion: 0.06
-Nodes (6): BillingHelper, Inboxes::FetchImapEmailInboxesJob, Enterprise::Api::V1::AccountsController, Enterprise::CreateStripeCustomerJob, Enterprise::Billing::CancelCloudSubscriptionsService, Enterprise::Billing::CreateSessionService
+### Community 177 - ".render"
+Cohesion: 0.05
+Nodes (6): Api::V1::Accounts::SamlSettingsController, Api::V1::Accounts::Tekomi::BulkActionsController, Enterprise::Api::V1::AccountsController, Enterprise::Api::V1::Accounts::ConversationsController, Enterprise::Billing::CancelCloudSubscriptionsService, Enterprise::Billing::CreateSessionService
 
 ### Community 179 - "Company"
-Cohesion: 0.05
-Nodes (11): Migration::BackfillCompaniesContactsCountJob, UserSession, Companies::DeleteJob, Companies::SyncContactNamesJob, Migration::CompanyAccountBatchJob, Migration::CompanyBackfillJob, Company, Enterprise::Concerns::Contact (+3 more)
+Cohesion: 0.07
+Nodes (8): Migration::BackfillCompaniesContactsCountJob, UserSession, Companies::DeleteJob, Companies::SyncContactNamesJob, Company, Enterprise::Concerns::Contact, Contacts::CompanyAssociationService, companies_without_avatars()
 
 ### Community 182 - "Api::V1::Accounts::DealsController"
-Cohesion: 0.06
-Nodes (4): Api::V1::Accounts::DealsController, Api::V1::Accounts::Pipelines::StagesController, PipelineStage, Deals::MoveService
+Cohesion: 0.07
+Nodes (6): Api::V1::Accounts::Contacts::DealsController, Api::V1::Accounts::Conversations::DealsController, Api::V1::Accounts::Deals::ActivitiesController, Api::V1::Accounts::DealsController, CrmDealsFeatureConcern, Api::V1::Accounts::Companies::DealsController
 
 ### Community 183 - "useWhatsappCallSession.js"
 Cohesion: 0.09
@@ -2380,41 +2427,45 @@ Nodes (32): ACRONYMS, citations, currentUser, devDetails, formatArguments(), han
 Cohesion: 0.10
 Nodes (24): checkSelection(), contentFromEditor(), created(), createEditorView(), createSlashPlugin(), createState(), data(), editorId() (+16 more)
 
+### Community 191 - "Integration.vue"
+Cohesion: 0.12
+Nodes (12): accountId, closeDeletePopup(), confirmDeletion(), deleteIntegration(), dialogRef, props, { replaceInstallationName }, router (+4 more)
+
 ### Community 192 - "Hướng dẫn kiểm thử: Zalo cá nhân & Zalo nhóm"
 Cohesion: 0.10
 Nodes (18): 0. Chuẩn bị, 10. Phiên hết hạn, 11. Khởi động lại, 1. Worker sống chưa, 2. Quét QR tạo inbox, 3. Nhận tin 1-1, 4. Gửi tin từ Chatwoot, 6. Chat nhóm (+10 more)
 
 ### Community 193 - "ChatFooter.vue"
-Cohesion: 0.08
-Nodes (8): sendTranscript(), startTranscriptCooldown(), APP_BASE_URL, MESSAGE_STATUS, MESSAGE_TYPE, WOOT_PREFIX, IFrameHelper, RNHelper
+Cohesion: 0.07
+Nodes (13): sendTranscript(), startTranscriptCooldown(), emit, props, startConversation(), widgetColor, CHATWOOT_ON_START_CONVERSATION, APP_BASE_URL (+5 more)
 
 ### Community 196 - "ZaloCredentials"
 Cohesion: 0.13
 Nodes (12): BACKOFF_MS, ChannelState, isZaloAuthError(), MAX_AUTH_FAILURES, ReconnectDeps, ReconnectSupervisor, SessionStatus, SupervisedAdapter (+4 more)
 
-### Community 198 - "V2::Reports::DrilldownBuilder"
-Cohesion: 0.07
-Nodes (5): V2::Reports::Conversations::BaseReportBuilder, V2::Reports::Conversations::ReportBuilder, V2::Reports::DrilldownBuilder, TimezoneHelper, Reports::ReportMetricRegistry
+### Community 197 - "ReportHelper"
+Cohesion: 0.05
+Nodes (6): V2::Reports::AgentSummaryBuilder, V2::Reports::BaseSummaryBuilder, V2::Reports::InboxSummaryBuilder, V2::Reports::TeamSummaryBuilder, ReportHelper, DownloadReportTasks
 
-### Community 200 - ".get"
+### Community 200 - ".delete"
 Cohesion: 0.06
-Nodes (7): Api::V1::Accounts::Conversations::DraftMessagesController, Installation::OnboardingController, ConversationReplyEmailJob, SsoAuthenticatable, Messages::SendEmailNotificationService, ConversationAnalyses::JobState, Redis::LockManager
+Nodes (9): Api::V1::Accounts::Conversations::DraftMessagesController, ConversationReplyEmailJob, Messages::SendEmailNotificationService, Api::V1::Accounts::Conversations::AnalysesController, ConversationAnalyses::AnalyzeJob, ConversationAnalyses::CareSuggestionJob, ConversationAnalyses::JobState, Tekomi::Llm::ConversationAnalysisService (+1 more)
 
 ### Community 202 - "ContactSortMenu.vue"
 Cohesion: 0.07
 Nodes (22): { checkPermissions }, contactMenuItems, emit, handleContactAction(), showActionsDropdown, { t }, activeOrdering, activeOrderingLabel (+14 more)
 
 ### Community 203 - "date-fns"
-Cohesion: 0.08
-Nodes (14): routerMock, storeMock, chooseSnoozeTime(), contextMenuChatId, getters, onCmdSnoozeConversation(), selectedChat, showCustomSnoozeModal (+6 more)
+Cohesion: 0.10
+Nodes (9): routerMock, storeMock, formatDate(), formatUnixDate(), generateRelativeTime(), isTimeAfter(), getDayDifferenceFromNow(), hasOneDayPassed() (+1 more)
 
 ### Community 204 - "CopilotMenuBar.vue"
-Cohesion: 0.07
-Nodes (25): setReplyMode(), CHAR_LENGTH_WARNING, REPLY_EDITOR_MODES, emit, generalMenuItems, handleMenuItemClick(), handleSubMenuItemClick(), { height: menuHeight } (+17 more)
+Cohesion: 0.08
+Nodes (23): CHAR_LENGTH_WARNING, REPLY_EDITOR_MODES, emit, generalMenuItems, handleMenuItemClick(), handleSubMenuItemClick(), { height: menuHeight }, menuItems (+15 more)
 
 ### Community 205 - "SearchResultMessageItem.vue"
-Cohesion: 0.09
-Nodes (19): authorText, { contentElement, showReadMore, showReadLess, toggleExpanded }, escapeHtml(), { getPlainText }, highlightedContent, messageContent, props, { t } (+11 more)
+Cohesion: 0.04
+Nodes (45): authorText, { contentElement, showReadMore, showReadLess, toggleExpanded }, escapeHtml(), { getPlainText }, highlightedContent, messageContent, props, { t } (+37 more)
 
 ### Community 206 - "NeedsAttentionList.vue"
 Cohesion: 0.07
@@ -2425,13 +2476,13 @@ Nodes (23): activeTab, { data, isLoading, hasError, load }, {
   load: loadVip,
 }, filtered, hasListError, isListLoading, isVipTab, listTotal (+15 more)
 
-### Community 207 - "attributes/Index.vue"
-Cohesion: 0.03
-Nodes (33): models(), ATTRIBUTE_MODELS, ATTRIBUTE_TYPES, editAttributes(), mounted(), onClose(), setFormValues(), attributeModel (+25 more)
+### Community 207 - "EditAttribute.vue"
+Cohesion: 0.05
+Nodes (7): models(), ATTRIBUTE_MODELS, ATTRIBUTE_TYPES, editAttributes(), mounted(), onClose(), setFormValues()
 
 ### Community 208 - "importStatus.js"
-Cohesion: 0.10
-Nodes (27): canAbandonImport, hasActiveImport, monitorTitle, props, stageLabels, statusDotClass, { t }, title (+19 more)
+Cohesion: 0.08
+Nodes (29): canAbandonImport, hasActiveImport, monitorTitle, props, stageLabels, statusDotClass, { t }, title (+21 more)
 
 ### Community 209 - "WeeklyAvailability.vue"
 Cohesion: 0.10
@@ -2442,24 +2493,20 @@ Cohesion: 0.07
 Nodes (27): isExpanded, { t }, { accountId }, acsUrl, allInfoItems, props, { t }, visibleInfoItems (+19 more)
 
 ### Community 211 - "conversations/helpers.js"
-Cohesion: 0.13
-Nodes (16): getUserRole(), getSelectedChatConversation(), getters, applyPageFilters(), applyRoleFilter(), filterByInbox(), filterByLabel(), filterByStatus() (+8 more)
-
-### Community 212 - "Api::V1::Accounts::Tekomi::AssistantsController"
-Cohesion: 0.08
-Nodes (4): Api::V1::Accounts::Tekomi::AssistantsController, Tekomi::FaqSuggestionFinder, Tekomi::FaqObservation, get_summary()
+Cohesion: 0.18
+Nodes (13): applyPageFilters(), applyRoleFilter(), filterByInbox(), filterByLabel(), filterByStatus(), filterByTeam(), filterByUnattended(), findPendingMessageIndex() (+5 more)
 
 ### Community 213 - "Tekomi::Conversation::ResponseBuilderJob"
-Cohesion: 0.11
-Nodes (4): Tekomi::Conversation::MessageBuilder, Tekomi::Conversation::ResponseBuilderJob, Tekomi::Conversation::V2LifecycleEvents, Tekomi::Conversation::ResponseLifecycleLogging
+Cohesion: 0.13
+Nodes (3): Tekomi::Conversation::ResponseBuilderJob, Tekomi::Conversation::V2LifecycleEvents, Tekomi::Conversation::ResponseLifecycleLogging
 
 ### Community 214 - "proxyOptions.ts"
-Cohesion: 0.14
+Cohesion: 0.13
 Nodes (13): https-proxy-agent, node-fetch, socks-proxy-agent, proxies, buildProxyOptions(), ProxyOptions, proxyUrl(), parsePort() (+5 more)
 
 ### Community 215 - "ContactInbox"
-Cohesion: 0.06
-Nodes (9): Campaigns::CampaignConversationBuilder, ContactInboxBuilder, Internal::ProcessStaleContactsJob, Internal::RemoveStaleContactInboxesJob, Internal::RemoveStaleContactsJob, ContactInbox, Internal::RemoveStaleContactInboxesService, Internal::RemoveStaleContactsService (+1 more)
+Cohesion: 0.09
+Nodes (6): Campaigns::CampaignConversationBuilder, ContactInboxBuilder, Internal::RemoveStaleContactInboxesJob, ContactInbox, Internal::RemoveStaleContactInboxesService, contact_for()
 
 ### Community 216 - "Phone::CallEmotionAnalysisJob"
 Cohesion: 0.13
@@ -2470,20 +2517,20 @@ Cohesion: 0.11
 Nodes (5): SwitchLocale, SuperAdmin::ApplicationController, SuperAdmin::FeaturesHelper, SuperAdmin::NavigationHelper, account_locale()
 
 ### Community 218 - "ConversationDeals.vue"
-Cohesion: 0.08
-Nodes (21): DealsAPI, loadDeals(), agents, contactDeals, createDeal(), dealFormDialogRef, dealsStore, emit (+13 more)
+Cohesion: 0.05
+Nodes (31): DealsAPI, loadDeals(), agents, contactDeals, createDeal(), dealFormDialogRef, dealsStore, emit (+23 more)
 
 ### Community 219 - "CustomAttribute.vue"
 Cohesion: 0.07
 Nodes (8): focusInput(), hrefURL(), onEdit(), onFocusAttribute(), onUpdate(), onUpdateListValue(), urlValue(), isValidURL()
 
 ### Community 220 - "CsatResponses.vue"
-Cohesion: 0.06
-Nodes (27): LiveReportsAPI, REPORTS_EVENTS, downloadCsvFile(), generateFileName(), slots, downloadReports(), downloadReports(), getAllData() (+19 more)
+Cohesion: 0.09
+Nodes (19): REPORTS_EVENTS, downloadCsvFile(), generateFileName(), downloadReports(), downloadReports(), getAllData(), getResponses(), onFilterChange() (+11 more)
 
 ### Community 221 - "LiveChatCampaignForm.vue"
-Cohesion: 0.09
-Nodes (26): emit, formErrors, formState, getErrorMessage(), handleCancel(), handleSubmit(), inboxOptions, initialState (+18 more)
+Cohesion: 0.11
+Nodes (22): emit, formErrors, formState, getErrorMessage(), handleCancel(), handleSubmit(), inboxOptions, initialState (+14 more)
 
 ### Community 222 - "ref_next"
 Cohesion: 0.06
@@ -2502,40 +2549,52 @@ Cohesion: 0.15
 Nodes (9): disablePushPermissions(), getPushSubscription(), handleEmailInput(), handleInput(), handlePushInput(), mounted(), onRequestPermissions(), toggleInput() (+1 more)
 
 ### Community 227 - "Notification"
-Cohesion: 0.07
-Nodes (6): Migration::RemoveMessageNotifications, Notification::PushNotificationJob, Notification::RemoveDuplicateNotificationJob, Notification::RemoveOldNotificationJob, Notification, Notification::MarkConversationReadService
+Cohesion: 0.09
+Nodes (5): Migration::RemoveMessageNotifications, Notification::PushNotificationJob, Notification::RemoveDuplicateNotificationJob, Notification::RemoveOldNotificationJob, Notification
 
 ### Community 228 - ".send_notification"
 Cohesion: 0.11
 Nodes (4): AdministratorNotifications::AccountNotificationMailer, AdministratorNotifications::BaseMailer, AdministratorNotifications::ChannelNotificationsMailer, AdministratorNotifications::IntegrationsNotificationMailer
 
 ### Community 230 - "MessageMeta.vue"
-Cohesion: 0.06
-Nodes (30): bccEmail, ccEmail, { contentAttributes, status, sender }, fromEmail, hasError, senderName, showMeta, subject (+22 more)
+Cohesion: 0.08
+Nodes (21): MESSAGE_STATUS, ORIENTATION, canRetry, emit, { orientation, status, createdAt, content, attachments }, { t }, {
+  isAFacebookInbox,
+  isALineChannel,
+  isAPIInbox,
+  isASmsInbox,
+  isATelegramChannel,
+  isATwilioChannel,
+  isAWebWidgetInbox,
+  isAWhatsAppChannel,
+  isAnEmailChannel,
+  isAnInstagramChannel,
+  isATiktokChannel,
+}, isDelivered (+13 more)
+
+### Community 231 - "Tekomi::Assistant"
+Cohesion: 0.08
+Nodes (3): Migration::CopyTekomiAutoResolveModeToAssistantsJob, Tekomi::Tools::FirecrawlParserJob, Tekomi::Assistant
 
 ### Community 232 - "Enterprise::Billing::CreateStripeCustomerService"
-Cohesion: 0.12
-Nodes (3): Enterprise::Billing::CreateStripeCustomerService, Enterprise::Billing::Currencies, Enterprise::Billing::PlanConfiguration
-
-### Community 234 - "Api::V1::Widget::ContactsController"
 Cohesion: 0.10
-Nodes (3): Api::V1::Widget::ContactsController, WidgetsController, WidgetHelper
+Nodes (4): BillingHelper, Inboxes::FetchImapEmailInboxesJob, Enterprise::Billing::CreateStripeCustomerService, Enterprise::Billing::Currencies
 
 ### Community 235 - "ConversationAnalysisPanel.vue"
-Cohesion: 0.10
-Nodes (30): analysis, applyResponse(), closeOnSmallScreen(), closePanel(), contactId, currentAccountId, currentChat, EMPTY_JOBS (+22 more)
+Cohesion: 0.09
+Nodes (31): analysis, applyResponse(), closeOnSmallScreen(), closePanel(), contactId, currentAccountId, currentChat, EMPTY_JOBS (+23 more)
 
 ### Community 236 - "chips/Audio.vue"
 Cohesion: 0.07
 Nodes (22): { attachment }, audioPlayer, audioSourceUrl, authenticatedAudioUrl, currentTime, displayedTranscript, downloadAudio(), duration (+14 more)
 
 ### Community 237 - "commandbar.vue"
-Cohesion: 0.08
-Nodes (27): buildDynamicSnoozeActions(), { bulkActionsHotKeys }, { conversationHotKeys }, currentCommandRoot, dynamicSnoozeActions, { goToAppearanceHotKeys }, { goToCommandHotKeys }, hotKeys (+19 more)
+Cohesion: 0.05
+Nodes (36): buildDynamicSnoozeActions(), { bulkActionsHotKeys }, { conversationHotKeys }, currentCommandRoot, dynamicSnoozeActions, { goToAppearanceHotKeys }, { goToCommandHotKeys }, hotKeys (+28 more)
 
 ### Community 238 - "agents/Index.vue"
-Cohesion: 0.05
-Nodes (40): addAgent(), agentEmail, agentName, emit, getCustomRoles, roles, rules, selectedRole (+32 more)
+Cohesion: 0.07
+Nodes (27): agentAPI, agentList, closeDeletePopup(), confirmDeletion(), currentAgent, currentUserId, customRoles, deleteAgent() (+19 more)
 
 ### Community 239 - "AgentAssignmentEditPage.vue"
 Cohesion: 0.08
@@ -2547,7 +2606,11 @@ Nodes (3): Api::V1::Widget::Integrations::DyteController, Dyte, Integrations::Dy
 
 ### Community 245 - "zalo_worker/package.json"
 Cohesion: 0.06
-Nodes (30): tsx, zca-js, dependencies, fastify, @fastify/multipart, https-proxy-agent, node-fetch, socks-proxy-agent (+22 more)
+Nodes (31): fastify, @fastify/multipart, tsx, dependencies, fastify, @fastify/multipart, https-proxy-agent, node-fetch (+23 more)
+
+### Community 246 - "Api::V1::Accounts::InboxesController"
+Cohesion: 0.05
+Nodes (6): Api::V1::Accounts::InboxesController, Api::V1::InboxesHelper, AgentBotInbox, Imap::Authentication, Phone, Phone::IceServerBuilder
 
 ### Community 247 - "NewImportDialog.vue"
 Cohesion: 0.08
@@ -2609,7 +2672,7 @@ Cohesion: 0.18
 Nodes (3): ConversationOutcome, Tekomi::ConversationOutcomeTracker, episodes()
 
 ### Community 258 - "Tekomi::Llm::AssistantActionClassifierService"
-Cohesion: 0.13
+Cohesion: 0.12
 Nodes (3): Tekomi::Llm::AssistantActionClassifierService, Tekomi::Llm::AssistantFalsePromiseService, Tekomi::Llm::AssistantResponseInspectionHelpers
 
 ### Community 260 - "CrmInfoPanel.vue"
@@ -2621,8 +2684,8 @@ Cohesion: 0.11
 Nodes (27): criterionBarClass(), hasValue(), INTEREST_BADGE_CLASSES, PROFILE_FIELDS, QUALITY_CRITERIA, scoreTextClass(), scoreVerdict(), SENTIMENT_BADGE_CLASSES (+19 more)
 
 ### Community 262 - "DocumentCard.vue"
-Cohesion: 0.08
-Nodes (25): canManage, canSync, { checkPermissions }, createdAtLabel, displayLink, emit, handleAction(), handleRetry() (+17 more)
+Cohesion: 0.09
+Nodes (23): canManage, canSync, { checkPermissions }, createdAtLabel, displayLink, emit, handleAction(), handleRetry() (+15 more)
 
 ### Community 263 - "AssistantForm.vue"
 Cohesion: 0.09
@@ -2632,13 +2695,17 @@ Nodes (25): emit, formErrors, formState, getErrorMessage(), handleCancel(), hand
 Cohesion: 0.08
 Nodes (24): template, bodyComponent, bodyText, categoryLabel, emit, formatType, goBack(), hasBodyVariables (+16 more)
 
-### Community 266 - "automationHelper.js"
-Cohesion: 0.11
-Nodes (16): ACTION_ICONS, generateConditionOptions(), generateCustomAttributeTypes(), generateLabelOptions(), generateTeamOptions(), getActionOptions(), getAutomationType(), getConditionOptions() (+8 more)
-
-### Community 267 - "LiveChatCampaignsPage.vue"
+### Community 265 - "ConversationAction.vue"
 Cohesion: 0.07
-Nodes (22): campaignsRoutes, meta, store, confirmDeleteCampaignDialogRef, editLiveChatCampaignDialogRef, getters, hasNoLiveChatCampaigns, isFetchingCampaigns (+14 more)
+Nodes (13): CONVERSATION_EVENTS, ALLOWED_FILE_TYPES, ATTACHMENT_ICONS, AUDIO_FORMATS, CONVERSATION_PRIORITY, CONVERSATION_PRIORITY_ORDER, CONVERSATION_STATUS, CSAT_DISPLAY_TYPES (+5 more)
+
+### Community 266 - "automationHelper.js"
+Cohesion: 0.07
+Nodes (29): allElementsNumbers(), allElementsString(), formatArray(), generatePayload(), generatePayloadForObject(), ACTION_ICONS, generateAutomationPayload(), generateConditionOptions() (+21 more)
+
+### Community 267 - "WhatsAppCampaignsPage.vue"
+Cohesion: 0.05
+Nodes (32): campaignsRoutes, meta, store, confirmDeleteCampaignDialogRef, editLiveChatCampaignDialogRef, getters, hasNoLiveChatCampaigns, isFetchingCampaigns (+24 more)
 
 ### Community 268 - "billing/Index.vue"
 Cohesion: 0.07
@@ -2660,10 +2727,6 @@ Nodes (25): closeFilterMenu(), filterMenus, FUZZY_SEARCH_KEYS, handleFilterActio
 Cohesion: 0.10
 Nodes (28): activeCountry, activeCountryCode, activeDialCode, adjustScroll(), adjustSelection(), closeDropdown(), { context }, countries (+20 more)
 
-### Community 273 - "Contacts::FilterService"
-Cohesion: 0.09
-Nodes (3): Contacts::FilterService, Deals::FilterService, Tickets::FilterService
-
 ### Community 275 - ".with"
 Cohesion: 0.10
 Nodes (3): Redis::Alfred, Redis::RedisKeys, ttl_for()
@@ -2684,13 +2747,13 @@ Nodes (16): emit, handleDismiss(), handlePostClick(), handleReadMore(), isPostDi
 Cohesion: 0.07
 Nodes (20): emit, { formatMessage }, handleDelete(), [isExpanded, toggleExpanded], needsCollapse, noteContentRef, props, { t } (+12 more)
 
-### Community 285 - "ConditionRow.vue"
-Cohesion: 0.02
-Nodes (120): emit, formatOperatorLabel(), appliedFilters, maxVisibleFilters, moreFiltersLabel, asyncOptions, attributeKey, booleanOptions (+112 more)
+### Community 285 - "FilterSelect.vue"
+Cohesion: 0.03
+Nodes (72): emit, formatOperatorLabel(), useContactFilterContext(), { attributeFilterTypes }, conditionsRef, DEFAULT_FILTER, emit, filterModalHeaderTitle (+64 more)
 
 ### Community 286 - "LiveReports.vue"
-Cohesion: 0.06
-Nodes (24): agentConversationMetric, agents, { startRefetching }, store, uiFlags, { t }, { t }, props (+16 more)
+Cohesion: 0.11
+Nodes (15): { t }, { t }, activeMetric, chartView, chartViewModel, download(), DOWNLOADS, exportAll() (+7 more)
 
 ### Community 287 - "BulkTranslateDialog.vue"
 Cohesion: 0.08
@@ -2721,8 +2784,8 @@ Cohesion: 0.10
 Nodes (21): activeTab, activeTabIndex, dataImportRoute(), dataImports, fetchImports(), getters, handleVisibilityChange(), importTypeLabel() (+13 more)
 
 ### Community 294 - "Contact"
-Cohesion: 0.08
-Nodes (5): Crm::Perfex::MatchFromCacheJob, IdentityMergeable, Labelable, Contact, Contacts::SyncAttributes
+Cohesion: 0.05
+Nodes (9): NotificationSubscriptionBuilder, Avatar::AvatarFromGravatarJob, Crm::Perfex::MatchFromCacheJob, AgentBot, Avatarable, IdentityMergeable, Labelable, Contact (+1 more)
 
 ### Community 295 - "ReportContainer.vue"
 Cohesion: 0.10
@@ -2737,12 +2800,16 @@ Cohesion: 0.11
 Nodes (4): Imap::ImapMailbox, MailboxSanitizer, Mailbox::ConversationFinderStrategies::BaseStrategy, Mailbox::ConversationFinderStrategies::InReplyToStrategy
 
 ### Community 298 - "User"
-Cohesion: 0.05
-Nodes (24): AccessToken, AccessTokenable, Pubsubable, PlatformApp, User, Changed interfaces and Chatwoot impact, Current Chatwoot baseline, Defaults Chatwoot has not yet activated (+16 more)
+Cohesion: 0.04
+Nodes (23): Pubsubable, Reportable, UserAttributeHelpers, User, Changed interfaces and Chatwoot impact, Current Chatwoot baseline, Defaults Chatwoot has not yet activated, Executive conclusion (+15 more)
 
 ### Community 299 - "Voice::Provider::Twilio::RecordingAttachmentService"
 Cohesion: 0.13
 Nodes (4): Voice::Provider::Twilio::RecordingAttachmentJob, Voice::Provider::Twilio::RecordingAttachmentService, Voice::RecordingStatusService, perform_service()
+
+### Community 300 - "EmailTemplate"
+Cohesion: 0.07
+Nodes (3): Api::V1::Accounts::BrandedEmailLayoutsController, EmailTemplate, WorkingHour
 
 ### Community 301 - "ApplicationPolicy"
 Cohesion: 0.07
@@ -2752,37 +2819,37 @@ Nodes (5): ApplicationPolicy, HookPolicy, ReportPolicy, TeamMonitoringPolicy, We
 Cohesion: 0.09
 Nodes (10): Enterprise::Api::V1::Accounts::PortalsController, Enterprise::CloudflareVerificationJob, Enterprise::Concerns::Portal, Cloudflare::BaseCloudflareZoneService, Cloudflare::CheckCustomHostnameService, Cloudflare::CreateCustomHostnameService, apps_response_body(), stub_apps_list() (+2 more)
 
-### Community 305 - "Seeders::Reports::ReportDataSeeder"
-Cohesion: 0.13
-Nodes (3): Enterprise::Account::ConversationsResolutionSchedulerJob, TekomiInbox, Seeders::Reports::ReportDataSeeder
+### Community 306 - "widget/App.vue"
+Cohesion: 0.12
+Nodes (23): SDK_SET_BUBBLE_VISIBILITY, activeCampaign(), createWidgetEvents(), handleUnreadNotificationDot(), hideMessageBubble(), mounted(), registerCampaignEvents(), registerListeners() (+15 more)
 
 ### Community 307 - "playwright/package.json"
-Cohesion: 0.08
-Nodes (23): ajv, ajv-formats, dotenv, @eslint/js, eslint-plugin-playwright, @faker-js/faker, genson-js, pg (+15 more)
+Cohesion: 0.09
+Nodes (22): ajv, ajv-formats, @eslint/js, eslint-plugin-playwright, @faker-js/faker, genson-js, pg, playwright (+14 more)
 
 ### Community 308 - "NotificationBuilder"
-Cohesion: 0.11
-Nodes (4): NotificationBuilder, NotificationListener, Messages::MentionService, Messages::NewMessageNotificationService
+Cohesion: 0.16
+Nodes (3): NotificationBuilder, NotificationListener, Messages::NewMessageNotificationService
 
 ### Community 309 - "Email::SenderNameBuilder"
 Cohesion: 0.12
 Nodes (4): Email::BaseBuilder, Email::ReplyToBuilder, Email::SenderNameBuilder, EmailAddressParseable
 
 ### Community 310 - "MetaTokenVerifyConcern"
-Cohesion: 0.07
-Nodes (13): MetaTokenVerifyConcern, Webhooks::WhatsappController, Whatsapp::WebhookChannelFinderService, 10. Open items to confirm during implementation (not blocking spec approval), 11. Phased delivery, 1. Goal, 2. Reference implementation, 3. Non-goals (confirmed out of scope) (+5 more)
+Cohesion: 0.11
+Nodes (4): MetaTokenVerifyConcern, Webhooks::WhatsappController, Whatsapp::WebhookChannelFinderService, 4. Architecture — component mapping
 
 ### Community 313 - "ZaloOa::Client"
-Cohesion: 0.12
-Nodes (4): ZaloOa::CallbacksController, ZaloOa::BackfillJob, ZaloOa::Client, ZaloOa::Client::Error
+Cohesion: 0.11
+Nodes (5): ZaloOa::CallbacksController, ZaloOa::BackfillAllJob, ZaloOa::BackfillJob, ZaloOa::Client, ZaloOa::Client::Error
 
 ### Community 314 - "CopilotContainer.vue"
 Cohesion: 0.07
 Nodes (20): activeAssistant, assistants, canSuggestReply, currentAccountId, currentChat, currentUser, inboxAssistant, { isEnterprise } (+12 more)
 
-### Community 315 - "Deals/constants.js"
-Cohesion: 0.07
-Nodes (33): AGGREGATES, CALENDAR_FIELDS, CUSTOM_FIELD_PREFIX, DEAL_FIELDS, DEFAULT_COLUMN_WIDTH, GROUP_BY_FIELDS, normalizeFields(), SORT_FIELDS (+25 more)
+### Community 315 - "DealsSortMenu.vue"
+Cohesion: 0.18
+Nodes (10): SORT_FIELDS, activeDirection, activeField, directionOptions, emit, fieldOptions, isMenuOpen, props (+2 more)
 
 ### Community 316 - "ArticleEditorControls.vue"
 Cohesion: 0.08
@@ -2793,8 +2860,8 @@ Cohesion: 0.11
 Nodes (25): articleMenuItems, articleUiFlags, blockedWhileSaving(), discardDraftChanges(), emit, getStatusMessage(), hasPendingChanges, isArticlePublishing (+17 more)
 
 ### Community 318 - "Dashboard.vue"
-Cohesion: 0.10
-Nodes (3): CommandBar, FloatingCallWidget, SoftphoneWidget
+Cohesion: 0.07
+Nodes (5): CommandBar, FloatingCallWidget, SoftphoneWidget, RoutedContent, ROUTES
 
 ### Community 319 - "AccountHealth.vue"
 Cohesion: 0.09
@@ -2810,41 +2877,41 @@ Nodes (23): availableMessage, {
   isInWorkingHours,
 }, headerText, isAvailable, props, replyTime, { t }, unavailableMessage (+15 more)
 
-### Community 322 - "Label"
-Cohesion: 0.12
-Nodes (4): Labels::UpdateJob, Label, Labels::UpdateService, RegexHelper
+### Community 322 - ".title"
+Cohesion: 0.07
+Nodes (7): Labels::UpdateJob, AiAlert, Label, Labels::UpdateService, CopilotThread, Tekomi::Tools::HtmlPageParser, RegexHelper
 
 ### Community 323 - "Tekomi::Document"
-Cohesion: 0.10
-Nodes (3): Tekomi::Document, Tekomi::Document::LimitExceededError, Enterprise::Messages::SearchDataPresenter
+Cohesion: 0.08
+Nodes (4): Tekomi::Document, Tekomi::Document::LimitExceededError, Enterprise::Messages::SearchDataPresenter, Internal::AccountAnalysis::WebsiteScraperService
 
 ### Community 324 - "Llm::SpeechToTextService"
-Cohesion: 0.08
-Nodes (7): Messages::AudioTranscriptionJob, Enterprise::Concerns::Attachment, Llm::SpeechToTextService, Messages::AudioTranscriptionService, Messages::ReindexService, Voice::CallTranscriptionService, reindex_account()
+Cohesion: 0.15
+Nodes (3): Llm::SpeechToTextService, Messages::AudioTranscriptionService, Voice::CallTranscriptionService
 
 ### Community 330 - "TekomiAssistantMigrationTask"
 Cohesion: 0.14
 Nodes (5): TekomiAssistantMigrationTask, TekomiAssistantMigrationTask::CsvAccount, TekomiAssistantMigrationTask::CsvAssistant, TekomiAssistantMigrationTask::CsvAssociation, TekomiAssistantMigrationTask::CsvRelation
 
 ### Community 332 - "Campaign"
-Cohesion: 0.08
-Nodes (5): AccountDrop, Campaign, Liquid::CampaignTemplateService, Sms::OneoffSmsCampaignService, Twilio::OneoffSmsCampaignService
+Cohesion: 0.07
+Nodes (4): Api::V1::Accounts::CampaignsController, Campaign, Sms::OneoffSmsCampaignService, Twilio::OneoffSmsCampaignService
 
 ### Community 333 - "Api::V2::AccountsController"
-Cohesion: 0.15
-Nodes (3): Api::V2::AccountsController, AuthHelper, DeviseOverrides::ConfirmationsController
+Cohesion: 0.09
+Nodes (5): Api::V2::AccountsController, Auth::ResendConfirmationsController, AuthHelper, DeviseOverrides::ConfirmationsController, ChatwootCaptcha
 
 ### Community 334 - "Instagram::CallbacksController"
-Cohesion: 0.05
-Nodes (7): Api::V1::Accounts::Instagram::AuthorizationsController, Api::V1::Accounts::Integrations::ShopifyController, InstagramConcern, Instagram::CallbacksController, Shopify::CallbacksController, Instagram::IntegrationHelper, Shopify::IntegrationHelper
+Cohesion: 0.10
+Nodes (4): Api::V1::Accounts::Instagram::AuthorizationsController, InstagramConcern, Instagram::CallbacksController, Instagram::IntegrationHelper
 
 ### Community 335 - "ConversationResolveAttributesModal.vue"
 Cohesion: 0.10
 Nodes (20): ATTRIBUTE_TYPES, attributeIcon, emit, handleDelete(), iconByType, props, close(), comboBoxOptions (+12 more)
 
-### Community 336 - "DealsCalendarView.vue"
-Cohesion: 0.10
-Nodes (25): CALENDAR_MODES, toDate(), cardFields, createOnDay(), cursor, dateField, dayKey(), days (+17 more)
+### Community 336 - "Deals/constants.js"
+Cohesion: 0.05
+Nodes (55): AGGREGATES, CALENDAR_FIELDS, CALENDAR_MODES, CUSTOM_FIELD_PREFIX, customAttributeKey(), DEAL_FIELDS, formatDealDate(), GROUP_BY_FIELDS (+47 more)
 
 ### Community 337 - "CategoryHeaderControls.vue"
 Cohesion: 0.08
@@ -2871,8 +2938,12 @@ Cohesion: 0.10
 Nodes (17): app, cookieTimer, credentials, forward(), forwarder, PORT, proxyEnabled, rails (+9 more)
 
 ### Community 350 - ".load"
-Cohesion: 0.10
-Nodes (4): MicrosoftController, SuperAdmin::BrandingHelper, Whatsapp::BusinessManagementTokenValidationService, GlobalConfigService
+Cohesion: 0.07
+Nodes (5): Linear::IntegrationHelper, SuperAdmin::BrandingHelper, Integrations::App, Whatsapp::BusinessManagementTokenValidationService, GlobalConfigService
+
+### Community 351 - "DashboardController"
+Cohesion: 0.09
+Nodes (3): PortalHomeData, DashboardController, PlatformBanner
 
 ### Community 352 - "Tekomi::AssistantResponse"
 Cohesion: 0.07
@@ -2919,48 +2990,52 @@ Cohesion: 0.10
 Nodes (22): applyCustomRange(), applySelection(), clearFilter(), computeDateRange(), CUSTOM_RANGE_TYPES, customFrom, customTo, DATE_FILTER_ACTIONS (+14 more)
 
 ### Community 363 - "TenantBrandingProfile"
-Cohesion: 0.10
-Nodes (5): DeviseOverrides::TokenValidationsController, SuperAdmin::TenantBrandingProfilesController, TenantBranding::ProvisionDnsJob, TenantBrandingProfile, TenantBranding::ProfileResolver
+Cohesion: 0.08
+Nodes (6): Api::BaseController, DeviseOverrides::TokenValidationsController, SuperAdmin::TenantBrandingProfilesController, TenantBranding::ProvisionDnsJob, TenantBrandingProfile, TenantBranding::ProfileResolver
 
 ### Community 364 - "ContactInfo.vue"
-Cohesion: 0.06
-Nodes (14): findCountryFlag(), location(), onFieldUpdate(), saveNameEdit(), updateContactField(), isOnExpandedLayout, isOnFolderView, route (+6 more)
+Cohesion: 0.05
+Nodes (19): findCountryFlag(), location(), onFieldUpdate(), saveNameEdit(), updateContactField(), emit, onCancel(), props (+11 more)
 
 ### Community 365 - "useDetectedChannels.js"
 Cohesion: 0.15
 Nodes (16): CHANNEL_LIST, channelByType(), DEFAULT_CHANNEL_TYPES, DIALOG_CHANNELS, EMAIL_PROVIDERS, FALLBACK_PREVIEW_CHANNELS, SOCIAL_PLATFORM_TYPES, SOCIAL_PLATFORMS (+8 more)
 
 ### Community 366 - "account/Index.vue"
-Cohesion: 0.06
-Nodes (26): confirmPlaceHolderText, { currentAccount }, formattedDeletionDate, handleDeletionError(), isMarkedForDeletion, markAccountForDeletion(), markedForDeletionDate, markedForDeletionMessage (+18 more)
+Cohesion: 0.05
+Nodes (29): confirmPlaceHolderText, { currentAccount }, formattedDeletionDate, handleDeletionError(), isMarkedForDeletion, markAccountForDeletion(), markedForDeletionDate, markedForDeletionMessage (+21 more)
 
 ### Community 367 - "AgentBotModal.vue"
-Cohesion: 0.04
-Nodes (39): accessToken, botNameError, botSecret, botUrlError, closeModal(), confirmButtonLabel, dialogDescription, dialogRef (+31 more)
+Cohesion: 0.07
+Nodes (23): accessToken, botNameError, botSecret, botUrlError, closeModal(), confirmButtonLabel, dialogDescription, dialogRef (+15 more)
 
 ### Community 368 - "AuditLogFilters.vue"
 Cohesion: 0.09
 Nodes (22): applyDateRange(), closeFilterMenu(), closeMenus(), emit, eventTypeSections, filterMenus, handleFilterAction(), hasDateFilter (+14 more)
 
-### Community 369 - "SummaryReports.vue"
+### Community 369 - "Api::V1::Accounts::Integrations::ShopifyController"
 Cohesion: 0.10
-Nodes (22): props, routeName, businessHours, columnHelper, columns, defaulSpanRender(), fetchAllData(), fetchReportsWithRetry() (+14 more)
+Nodes (3): Api::V1::Accounts::Integrations::ShopifyController, Shopify::CallbacksController, Shopify::IntegrationHelper
 
 ### Community 370 - "Response.vue"
 Cohesion: 0.09
 Nodes (7): updateSurvey(), getSurveyDetails(), mounted(), selectRating(), sendFeedback(), setLocale(), updateSurveyDetails()
 
 ### Community 371 - "Signup/Form.vue"
-Cohesion: 0.09
-Nodes (21): allowedLoginMethods, credentials, globalConfig, hCaptcha, isFormValid, isPasswordFocused, isSignupInProgress, onRecaptchaVerified() (+13 more)
+Cohesion: 0.03
+Nodes (67): wootAPI, login(), register(), resendConfirmation(), resetPassword(), setNewPassword(), verifyPasswordToken(), currentInputType (+59 more)
 
 ### Community 372 - "modules/contacts.js"
 Cohesion: 0.12
 Nodes (16): buildUrl(), deleteCustomAttribute(), get(), setCustomAttributes(), setUser(), update(), SET_USER_ERROR, API (+8 more)
 
 ### Community 373 - "BaseListener"
+Cohesion: 0.10
+Nodes (4): AgentBotListener, BaseListener, WebhookListener, Inbox::EventDataPresenter
+
+### Community 374 - "Enterprise::Billing::HandleStripeEventService"
 Cohesion: 0.13
-Nodes (3): BaseListener, WebhookListener, Inbox::EventDataPresenter
+Nodes (3): Enterprise::Webhooks::StripeController, Enterprise::Billing::HandleStripeEventService, Enterprise::Billing::PlanConfiguration
 
 ### Community 375 - "Voice::CallMessageBuilder"
 Cohesion: 0.13
@@ -2987,8 +3062,8 @@ Cohesion: 0.09
 Nodes (21): VIEW_TYPE_ICONS, VIEW_TYPES, close(), dialogRef, emit, handleConfirm(), isRename, name (+13 more)
 
 ### Community 381 - "DealDetail.vue"
-Cohesion: 0.10
-Nodes (23): accountId, { accountScopedRoute }, activeTab, agentOptions, agents, applyChanges(), changeStage(), commitName() (+15 more)
+Cohesion: 0.07
+Nodes (29): generate(), highlights, isLoading, props, summary, { t }, accountId, { accountScopedRoute } (+21 more)
 
 ### Community 382 - "Dialog.vue"
 Cohesion: 0.10
@@ -3003,12 +3078,12 @@ Cohesion: 0.09
 Nodes (21): caretAnchor, caretAnchorRef, caretAnchorStyle, emit, hasPreview, inlineStart, isRTL, items (+13 more)
 
 ### Community 385 - "conversationBulkActions/Index.vue"
-Cohesion: 0.09
-Nodes (17): containerRef, emit, handleUpdate(), props, [showDropdown, toggleDropdown], { t }, updateMenuItems, allSelected (+9 more)
+Cohesion: 0.07
+Nodes (21): bulkActionsUiFlags, containerRef, emit, handleAssign(), isUpdating, props, selectedTeam, [showDropdown, toggleDropdown] (+13 more)
 
-### Community 386 - "ReplyBox.spec.js"
-Cohesion: 0.09
-Nodes (9): inbox(), message(), buildStore(), CHANNELS, mountWith(), REPLIABLE, emit, handleResetTemplate() (+1 more)
+### Community 386 - "WhatsappTemplates/Modal.vue"
+Cohesion: 0.18
+Nodes (3): emit, handleResetTemplate(), handleSendMessage()
 
 ### Community 387 - "DashboardAudioNotificationHelper.js"
 Cohesion: 0.10
@@ -3018,29 +3093,29 @@ Nodes (10): getAssignee(), isConversationAssignedToMe(), isConversationUnassigne
 Cohesion: 0.11
 Nodes (22): agents, automation, automationToSubmit, booleanFilterOptions, campaigns, contactAttrs, contacts, conversationAttrs (+14 more)
 
-### Community 389 - "Zalo::QrCompletionService"
-Cohesion: 0.06
-Nodes (12): Internal::ZaloPersonal::SessionsController, Webhooks::ZaloPersonalController, Webhooks::ZaloPersonalEventsJob, Channel::ZaloPersonal, Zalo::QrCompletionService, Zalo::QrCompletionService::Mismatch, Zalo::ReactionService, Zalo::UndoService (+4 more)
+### Community 389 - "Zalo::IncomingMessageService"
+Cohesion: 0.05
+Nodes (13): Internal::ZaloPersonal::SessionsController, Webhooks::ZaloPersonalController, Webhooks::ZaloPersonalEventsJob, Channel::ZaloPersonal, Zalo::IncomingMessageService, Zalo::QrCompletionService, Zalo::QrCompletionService::Mismatch, Zalo::ReactionService (+5 more)
 
 ### Community 390 - ".resolve"
-Cohesion: 0.05
-Nodes (13): Llm::BaseAiService, Phone::OpenrouterTranscriptionService, Phone::OpenrouterTranscriptionService::TranscriptionFailed, Tekomi::Rag::Client, Tekomi::Rag::Client::Error, CustomExceptions::Llm, CustomExceptions::Llm::FeatureNotConfigured, CustomExceptions::Llm::TenantProviderNotConfigured (+5 more)
+Cohesion: 0.08
+Nodes (9): Phone::OpenrouterTranscriptionService, Phone::OpenrouterTranscriptionService::TranscriptionFailed, CustomExceptions::Llm, CustomExceptions::Llm::FeatureNotConfigured, CustomExceptions::Llm::TenantProviderNotConfigured, Llm, Llm::AlertRecorder, Llm::FeatureRouter (+1 more)
 
 ### Community 391 - "modules/customViews.js"
-Cohesion: 0.11
-Nodes (18): CustomViewsAPI, actions, dispatchConversationUnreadCounts(), FILTER_KEYS, getFilteredUnreadCountsRefreshRetryDelay(), getters, hasFeatureEnabled(), mutations (+10 more)
+Cohesion: 0.14
+Nodes (17): actions, dispatchConversationUnreadCounts(), FILTER_KEYS, getFilteredUnreadCountsRefreshRetryDelay(), getters, hasFeatureEnabled(), mutations, refreshConversationUnreadCounts() (+9 more)
 
-### Community 392 - "vuex"
-Cohesion: 0.04
-Nodes (37): props, proxyEnabled, store, { t }, availableChannels, errorDescription, { formatMessage }, formattedErrorMessage (+29 more)
+### Community 392 - "ChatInputWrap.vue"
+Cohesion: 0.08
+Nodes (22): getFileType(), getLocalFileAttributes(), onDirectFileUpload(), onFileUpload(), onIndirectFileUpload(), setup(), emojiOnClick(), EmojiPicker (+14 more)
 
 ### Community 393 - "PreChat/Form.vue"
 Cohesion: 0.10
 Nodes (7): contactCustomAttributes(), conversationCustomAttributes(), enabledPreChatFields(), findFieldType(), getValidation(), getValue(), isContactFieldRequired()
 
 ### Community 395 - "Channel::FacebookPage"
-Cohesion: 0.09
-Nodes (5): Conversations::UpdateMessageStatusJob, Webhooks::FacebookDeliveryJob, Channel::FacebookPage, Integrations::Facebook::DeliveryStatus, Integrations::Facebook::MessageCreator
+Cohesion: 0.11
+Nodes (3): Webhooks::InstagramController, Channel::FacebookPage, Integrations::Facebook::MessageCreator
 
 ### Community 396 - "OnlineStatusTracker"
 Cohesion: 0.14
@@ -3062,17 +3137,13 @@ Nodes (6): Enterprise::DeleteObjectJob, Enterprise::Audit::InboxMember, Enterpri
 Cohesion: 0.14
 Nodes (3): Tekomi::Copilot::ReplySuggestionJob, Tekomi::Copilot::ReplySuggestionService, Tekomi::Copilot::ReplySuggestionService::GenerationError
 
-### Community 406 - "Avatar::AvatarFromUrlJob"
-Cohesion: 0.09
-Nodes (3): PortalHelper, Avatar::AvatarFromUrlJob, UrlHelper
+### Community 407 - "Api::V1::Accounts::PortalsController"
+Cohesion: 0.04
+Nodes (8): Api::V1::Accounts::Conversations::DirectUploadsController, Api::V1::Accounts::Inboxes::AssignmentPoliciesController, Api::V1::Accounts::PortalsController, AccessTokenAuthHelper, DomainHelper, EnsureCurrentAccountHelper, RequestExceptionHandler, PublicController
 
 ### Community 408 - "Tekomi Connect"
-Cohesion: 0.10
-Nodes (20): 1. Lấy mã nguồn và tạo file môi trường, 2a. Chạy bằng Docker, 2b. Chạy trực tiếp trên máy, 3. Dữ liệu mẫu, Bảo mật, Bật cho Claude Code, Cài trên máy mới, Cài đặt (+12 more)
-
-### Community 410 - "Seeders::Reports::MessageCreator"
-Cohesion: 0.13
-Nodes (3): Events::Base, Seeders::Reports::MessageCreator, create_reply_event()
+Cohesion: 0.08
+Nodes (21): Claude Code, Zalo Personal proxy pool, 1. Lấy mã nguồn và tạo file môi trường, 2a. Chạy bằng Docker, 2b. Chạy trực tiếp trên máy, 3. Dữ liệu mẫu, Bảo mật, Cài đặt (+13 more)
 
 ### Community 411 - "PurchaseCreditsModal.vue"
 Cohesion: 0.06
@@ -3082,9 +3153,9 @@ Nodes (23): EnterpriseAccountAPI, emit, close(), currentStep, dialogDescription,
 Cohesion: 0.09
 Nodes (20): assignees, createIssue(), dropdowns, emit, formState, inputStyles, isCreating, isSubmitDisabled (+12 more)
 
-### Community 414 - "BotReports.vue"
-Cohesion: 0.15
-Nodes (10): fetchAllData(), fetchBotSummary(), fetchChartData(), getRequestPayload(), onFilterChange(), conversationCount, handoffRate, messageCount (+2 more)
+### Community 414 - "BotMetrics.vue"
+Cohesion: 0.18
+Nodes (6): conversationCount, fetchMetrics(), handoffRate, messageCount, props, resolutionRate
 
 ### Community 415 - "Avatar.vue"
 Cohesion: 0.10
@@ -3118,10 +3189,6 @@ Nodes (22): appliedHeight, clamp(), clampToBounds(), clearDragStyles(), editorHe
 Cohesion: 0.16
 Nodes (21): auditLogFiltersFromQuery(), availabilityMapping, buildAuditLogRouteQuery(), EVENT_TYPE_GROUPS, extractAttrChange(), extractChangedAccountUserValues(), generateLogActionKey(), generateTranslationPayload() (+13 more)
 
-### Community 423 - "login/Index.vue"
-Cohesion: 0.13
-Nodes (13): login(), created(), ERROR_MESSAGES, getTranslatedMessage(), handleImpersonation(), handleMfaVerified(), handleSessionRevoke(), handleSessionRevokeAll() (+5 more)
-
 ### Community 424 - "Webhooks::WhatsappEventsJob"
 Cohesion: 0.15
 Nodes (3): Webhooks::WhatsappEventsJob, Whatsapp::IncomingMessageService, Whatsapp::IncomingMessageWhatsappCloudService
@@ -3131,12 +3198,16 @@ Cohesion: 0.12
 Nodes (4): InboxAgentAvailability, Enterprise::InboxAgentAvailability, Enterprise::Inbox, Enterprise::AutoAssignment::CapacityService
 
 ### Community 430 - "DataImports::Freshdesk::Client"
-Cohesion: 0.13
+Cohesion: 0.15
 Nodes (5): DataImports::Freshdesk::Client, DataImports::Freshdesk::Client::AuthenticationError, DataImports::Freshdesk::Client::Error, DataImports::Freshdesk::Client::Page, DataImports::Freshdesk::Client::RateLimitError
 
 ### Community 432 - "DataImports::MessageBatchBuilder"
 Cohesion: 0.13
 Nodes (3): DataImports::MessageBatchBuilder, DataImports::MessageBatchBuilder::Batch, DataImports::MessageBatchBuilder::Entry
+
+### Community 434 - "Notification::PushNotificationService"
+Cohesion: 0.11
+Nodes (3): Notification::FcmService, Notification::MarkConversationReadService, Notification::PushNotificationService
 
 ### Community 438 - "Onboarding::HelpCenterArticleGenerationJob"
 Cohesion: 0.15
@@ -3146,29 +3217,25 @@ Nodes (4): Onboarding::HelpCenterArticleGenerationJob, Onboarding::HelpCenterArt
 Cohesion: 0.26
 Nodes (3): Tekomi::Documents::SyncService, Tekomi::Documents::SyncService::PermanentSyncError, Tekomi::Documents::SyncService::TransientSyncError
 
-### Community 441 - "Tekomi::AssistantMigration::InstructionClassifier"
-Cohesion: 0.08
-Nodes (3): Tekomi::AssistantMigration::InstructionAuditorSchema, Tekomi::AssistantMigration::InstructionAuditor, Tekomi::AssistantMigration::InstructionClassifier
-
 ### Community 442 - ".call"
-Cohesion: 0.08
-Nodes (7): TestData::AccountCreator, TestData::CleanupService, TestData::DisplayIdTracker, TestData::InboxCreator, TestData::Orchestrator, TestData::Orchestrator::DataGenerationParams, TestData
+Cohesion: 0.09
+Nodes (6): TestData::AccountCreator, TestData::CleanupService, TestData::DisplayIdTracker, TestData::Orchestrator, TestData::Orchestrator::DataGenerationParams, TestData
 
 ### Community 443 - "routes.ts"
-Cohesion: 0.11
-Nodes (25): fastify, @fastify/multipart, done, Entry, inFlight, once(), sweep(), Log (+17 more)
+Cohesion: 0.13
+Nodes (21): zca-js, done, Entry, inFlight, once(), sweep(), Log, QrFailureReason (+13 more)
 
 ### Community 445 - "SessionManager"
 Cohesion: 0.13
 Nodes (4): credentialsWithProxy(), supervisor, SessionManager, ZaloApi
 
 ### Community 447 - "@vueuse/core"
-Cohesion: 0.09
-Nodes (15): emit, observedElement, { options }, confirmDeleteContactDialogRef, [showDeleteSection, toggleDeleteSection], { t }, [isOpen, toggle], props (+7 more)
+Cohesion: 0.02
+Nodes (92): emit, observedElement, { options }, confirmDeleteContactDialogRef, [showDeleteSection, toggleDeleteSection], { t }, attributeListMenuItems, emit (+84 more)
 
 ### Community 450 - "DealActivities.vue"
-Cohesion: 0.10
-Nodes (19): formatVND(), deals, isLoading, pipelinesStore, props, stagesById, { t }, activities (+11 more)
+Cohesion: 0.07
+Nodes (29): formatVND(), positionBetween(), deals, isLoading, pipelinesStore, props, stagesById, { t } (+21 more)
 
 ### Community 451 - "button/Button.vue"
 Cohesion: 0.11
@@ -3183,8 +3250,8 @@ Cohesion: 0.11
 Nodes (21): attrs, callsStore, contactsUiFlags, dialogRef, hasVoiceInboxes, inboxesList, isCallButtonDisabled, isInitiatingCall (+13 more)
 
 ### Community 454 - "DealCustomAttributes.vue"
-Cohesion: 0.14
-Nodes (18): customAttributeKey(), formatDealDate(), FIELD_ICONS, { fieldLabel }, customValue, { findAttribute }, props, attributes (+10 more)
+Cohesion: 0.24
+Nodes (10): attributes, COMPONENTS, { dealAttributes }, dealsStore, emit, props, removeAttribute(), saveCustomAttributes() (+2 more)
 
 ### Community 455 - "DealFormDialog.vue"
 Cohesion: 0.10
@@ -3192,7 +3259,7 @@ Nodes (18): agentOptions, close(), contactLabel, contactOptions, createInitialFo
 
 ### Community 456 - "InboxChannelsDialog.vue"
 Cohesion: 0.11
-Nodes (17): CARD_CLASS, channelAvailability(), channelCards, close(), { connectViaOAuth, connectWhatsapp }, dialogDescription, dialogRef, dialogTitle (+9 more)
+Nodes (16): CARD_CLASS, channelAvailability(), channelCards, close(), { connectViaOAuth, connectWhatsapp }, dialogDescription, dialogRef, dialogTitle (+8 more)
 
 ### Community 457 - "ArticleCard.vue"
 Cohesion: 0.10
@@ -3258,13 +3325,17 @@ Nodes (18): formatValue, assistantId, canDrilldown, { checkPermissions }, drilld
 Cohesion: 0.11
 Nodes (15): bucketValue, conversationCount, emit, isStatConversationCount, messageCount, navigate(), onKeydown(), panelRef (+7 more)
 
+### Community 472 - "Integrations::Hook"
+Cohesion: 0.11
+Nodes (3): Api::V1::Accounts::Integrations::NotionController, Crm::SetupJob, Integrations::Hook
+
 ### Community 475 - ".update!"
-Cohesion: 0.13
-Nodes (5): Whatsapp::BusinessManagementTokenService, Campaigns::UpdateRecipientStatusJob, Campaigns::UpdateRecipientStatusJob::RecipientNotFoundError, CampaignRecipient, Enterprise::Whatsapp::IncomingMessageBaseService
+Cohesion: 0.08
+Nodes (6): Whatsapp::BusinessManagementTokenService, Api::V1::Accounts::Campaigns::AnalyticsController, Campaigns::UpdateRecipientStatusJob, Campaigns::UpdateRecipientStatusJob::RecipientNotFoundError, CampaignRecipient, Enterprise::Whatsapp::IncomingMessageBaseService
 
 ### Community 477 - "InboxSetup.vue"
-Cohesion: 0.10
-Nodes (15): {
+Cohesion: 0.09
+Nodes (17): OAUTH_CLIENTS, useChannelConnect(), {
   accountId,
   currentAccount,
   finishOnboarding,
@@ -3274,19 +3345,11 @@ Nodes (15): {
   remainingChannels,
   connectedInbox,
   hasDetectedChannels,
-}, handleContinue(), handleSkip(), helpCenterGenerationId (+7 more)
+}, handleContinue() (+9 more)
 
 ### Community 478 - "Enterprise::Billing::TopupCheckoutService"
-Cohesion: 0.15
-Nodes (3): Enterprise::Billing::TopupCheckoutService, Enterprise::Billing::TopupCheckoutService::Error, Enterprise::Billing::TopupFulfillmentService
-
-### Community 479 - "Tekomi::Llm::SystemPromptsService"
-Cohesion: 0.07
-Nodes (4): Tekomi::Llm::ContactAttributesService, Tekomi::Llm::ContactNotesService, Tekomi::Llm::FaqGeneratorService, Tekomi::Llm::SystemPromptsService
-
-### Community 480 - "Tekomi::Llm::AssistantChatService"
 Cohesion: 0.11
-Nodes (3): Tekomi::Llm::AssistantChatService, Tekomi::Llm::TranslateQueryService, Tekomi::Tools::SearchDocumentationService
+Nodes (4): Enterprise::Billing::ReconcilePlanFeaturesService, Enterprise::Billing::TopupCheckoutService, Enterprise::Billing::TopupCheckoutService::Error, Enterprise::Billing::TopupFulfillmentService
 
 ### Community 481 - "Linear"
 Cohesion: 0.06
@@ -3298,23 +3361,19 @@ Nodes (21): compilerOptions, baseUrl, esModuleInterop, forceConsistentCasingInFi
 
 ### Community 483 - "Api::V1::Accounts::OauthAuthorizationController"
 Cohesion: 0.09
-Nodes (6): Api::V1::Accounts::Google::AuthorizationsController, Api::V1::Accounts::Microsoft::AuthorizationsController, Api::V1::Accounts::OauthAuthorizationController, MicrosoftConcern, Microsoft::CallbacksController, Task 4: OAuth connect and callback
-
-### Community 485 - "EmailChannelFinder"
-Cohesion: 0.10
-Nodes (3): EmailChannelFinder, EmailHelper, Mailbox::ConversationFinderStrategies::ReferencesStrategy
+Nodes (6): Api::V1::Accounts::Google::AuthorizationsController, Api::V1::Accounts::Notion::AuthorizationsController, Api::V1::Accounts::OauthAuthorizationController, NotionConcern, Notion::CallbacksController, Task 4: OAuth connect and callback
 
 ### Community 486 - "Filters::FilterHelper"
 Cohesion: 0.15
 Nodes (4): Filters::FilterHelper, CustomExceptions::CustomFilter::InvalidAttribute, CustomExceptions::CustomFilter::InvalidOperator, CustomExceptions::CustomFilter::InvalidQueryOperator
 
 ### Community 487 - "ReportingEvent"
-Cohesion: 0.22
-Nodes (3): ReportingEventHelper, ReportingEventListener, ReportingEvent
+Cohesion: 0.15
+Nodes (4): ReportingEventHelper, Migration::UpdateFirstResponseTimeInReportingEventsJob, ReportingEventListener, ReportingEvent
 
-### Community 488 - "TwilioVoiceClient"
-Cohesion: 0.13
-Nodes (7): createCallDisconnectedEvent(), TwilioVoiceClient, VoiceAPI, buildCallActions(), isWhatsappCall(), teardownByProvider(), @twilio/voice-sdk
+### Community 488 - "useCallSession.js"
+Cohesion: 0.09
+Nodes (18): createCallDisconnectedEvent(), TwilioVoiceClient, VoiceAPI, attachGlobalsOnFirstMount(), buildCallActions(), buildReactiveSurface(), detachGlobalsOnLastUnmount(), globalCallDuration (+10 more)
 
 ### Community 489 - "javascript/dashboard/components-next/call/FloatingCallWidget.vue"
 Cohesion: 0.11
@@ -3329,10 +3388,6 @@ Nodes (16): {
   dismissCall,
   formattedCallDuration,
 }, countryCodeToFlag(), getCallInfo(), handleEndCall(), handleJoinCall(), isMuted, isWhatsappActive, mainCardState (+8 more)
-
-### Community 490 - "Llm::Providers"
-Cohesion: 0.14
-Nodes (3): DataImports::Source, Llm::ModelCatalog, Llm::Providers
 
 ### Community 491 - "SMSCampaignForm.vue"
 Cohesion: 0.14
@@ -3371,15 +3426,15 @@ Cohesion: 0.10
 Nodes (20): ageInHours, canRetry, emit, ERROR_CODE_LABELS, errorLabel, fullLabel, hasBeenSynced, hasStaleThreshold (+12 more)
 
 ### Community 500 - "CustomToolForm.vue"
-Cohesion: 0.10
-Nodes (17): authTypeOptions, DEFAULT_PARAM, formErrors, formState, getErrorMessage(), httpMethodOptions, initialState, isLoading (+9 more)
+Cohesion: 0.04
+Nodes (43): authConfig, props, { t }, createTool(), dialogRef, emit, handleClose(), handleSubmit() (+35 more)
 
 ### Community 501 - "AgentTable.vue"
-Cohesion: 0.10
-Nodes (14): sortIconMap, headerClass, isRelaxed, props, isRTL, { agents, agentMetrics }, columnHelper, columns (+6 more)
+Cohesion: 0.05
+Nodes (27): sortIconMap, headerClass, isRelaxed, props, isRTL, { agents, agentMetrics }, columnHelper, columns (+19 more)
 
 ### Community 502 - "MessageContextMenu.vue"
-Cohesion: 0.14
+Cohesion: 0.13
 Nodes (10): conversationUrl(), confirmDeletion(), copyLinkToMessage(), handleClose(), handleCopy(), handleReplyTo(), handleTranslate(), hideCannedResponseModal() (+2 more)
 
 ### Community 503 - "ReplyBoxBanner.vue"
@@ -3391,12 +3446,12 @@ Cohesion: 0.10
 Nodes (16): message, props, showForwardingAddress, { t }, currentInbox, generateQRCode(), generateQRCodes(), hasDuplicateInstagramInbox (+8 more)
 
 ### Community 505 - "guidelines/Index.vue"
-Cohesion: 0.09
-Nodes (22): addAllExample(), addGuideline(), { assistantId, assistant }, buildSelectedCountLabel, bulkDeleteGuidelines(), bulkSelectedIds, deleteGuideline(), displayGuidelines (+14 more)
+Cohesion: 0.03
+Nodes (65): addAllExample(), addGuideline(), { assistantId, assistant }, buildSelectedCountLabel, bulkDeleteGuidelines(), bulkSelectedIds, deleteGuideline(), displayGuidelines (+57 more)
 
 ### Community 506 - "HelpCenterCreationStatus.vue"
-Cohesion: 0.10
-Nodes (16): articlesCount, articlesText, categoriesCount, generatingPhases, generation, isCompleted, isNotStarted, isSkipped (+8 more)
+Cohesion: 0.08
+Nodes (20): articlesCount, articlesText, categoriesCount, generatingPhases, generation, isCompleted, isNotStarted, isSkipped (+12 more)
 
 ### Community 507 - "InboxFacebookForm.vue"
 Cohesion: 0.10
@@ -3422,9 +3477,9 @@ Nodes (13): backupCodesDialogRef, disableBackupCode, disableDialogRef, disableOt
 Cohesion: 0.16
 Nodes (19): actionLabel, description, handleEmbeddedSignupEvents(), handleLoginAndReauthorize(), isLoadingFacebook, isRequestingAuthorization, props, reauthorizeWhatsApp() (+11 more)
 
-### Community 513 - "inbox/Index.vue"
-Cohesion: 0.05
-Nodes (30): closeDelete(), confirmDeleteMessage, confirmDeletion(), confirmPlaceHolderText, deleteConfirmText, deleteInbox(), deleteRejectText, filteredInboxesList (+22 more)
+### Community 513 - "@chatwoot/pico-search"
+Cohesion: 0.07
+Nodes (17): closeDeletePopup(), confirmDeletion(), deleteApp(), filteredIntegrationList, getters, integrationList, { replaceInstallationName }, searchQuery (+9 more)
 
 ### Community 514 - "StageSlaRow.vue"
 Cohesion: 0.16
@@ -3443,12 +3498,12 @@ Cohesion: 0.15
 Nodes (11): useMessageFormatter(), buildMentionTokens(), mentionPlugin(), renderMentions(), createMarkdownInstance(), imgResizeManager(), MessageFormatter, processInlineToken() (+3 more)
 
 ### Community 518 - "AgentMessageBubble.vue"
-Cohesion: 0.08
+Cohesion: 0.10
 Nodes (3): onFormSubmit(), onOptionSelect(), onResponse()
 
 ### Community 519 - "MutexApplicationJob"
-Cohesion: 0.12
-Nodes (7): Contacts::AutoMergeJob, MutexApplicationJob, MutexApplicationJob::LockAcquisitionError, SendOnSlackJob, UpdateSlackMessageJob, Webhooks::FacebookEventsJob, facebook_receive()
+Cohesion: 0.09
+Nodes (8): Contacts::AutoMergeJob, HookJob, MutexApplicationJob, MutexApplicationJob::LockAcquisitionError, SendOnSlackJob, UpdateSlackMessageJob, Webhooks::FacebookEventsJob, facebook_receive()
 
 ### Community 520 - "Tickets::EvaluateStageSlaService"
 Cohesion: 0.21
@@ -3458,25 +3513,29 @@ Nodes (3): Tickets::ProcessAccountStageSlasJob, Tickets::TriggerStageSlasJob, Ti
 Cohesion: 0.15
 Nodes (3): Tekomi::InboxPendingConversationsResolutionJob, Tekomi::ConversationEvents, Tekomi::ConversationEvents::Sources
 
-### Community 530 - "Integrations::Slack::IncomingMessageBuilder"
-Cohesion: 0.08
-Nodes (7): Api::V1::Integrations::WebhooksController, Integrations::Slack::IncomingMessageBuilder, Integrations::Slack::SlackMessageHelper, build_sample_template_params(), build_template_params(), stub_sample_template_request(), stub_template_request()
+### Community 528 - "Tekomi::Scenario"
+Cohesion: 0.15
+Nodes (5): built_in_agent_tools(), Concerns::TekomiToolsHelpers, load_agent_tools(), resolve_tool_class(), Tekomi::Scenario
+
+### Community 530 - "Integrations::Slack::SlackMessageHelper"
+Cohesion: 0.16
+Nodes (5): Integrations::Slack::SlackMessageHelper, build_sample_template_params(), build_template_params(), stub_sample_template_request(), stub_template_request()
 
 ### Community 532 - "eventForwarder.ts"
 Cohesion: 0.15
 Nodes (13): EventForwarder, ForwarderDeps, ForwarderLog, isRetryable(), MAX_PENDING_EVENTS, Payload, RETRY_BASE_MS, RETRY_MAX_DELAY_MS (+5 more)
 
 ### Community 536 - ".get"
-Cohesion: 0.08
-Nodes (4): Survey::ResponsesController, Crm::Perfex::Mappers::TicketMessageFormatter, GlobalConfig, toggle_feature()
+Cohesion: 0.11
+Nodes (4): Survey::ResponsesController, global_config(), GlobalConfig, toggle_feature()
 
-### Community 537 - "CsatExpandedRow.vue"
-Cohesion: 0.10
-Nodes (14): { formatMessage }, hasChanges, hasExistingReviewNotes, { isCloudFeatureEnabled, isOnChatwootCloud }, isEditing, isFeatureEnabled, isSaving, props (+6 more)
+### Community 537 - "guardrails/Index.vue"
+Cohesion: 0.09
+Nodes (22): addAllExample(), addGuardrail(), { assistantId, assistant }, buildSelectedCountLabel, bulkDeleteGuardrails(), bulkSelectedIds, deleteGuardrail(), displayGuardrails (+14 more)
 
 ### Community 538 - "ReportsAPI"
 Cohesion: 0.13
-Nodes (4): getTimeOffset(), ReportsAPI, fetchMetrics(), useReportsOverview()
+Nodes (3): getTimeOffset(), ReportsAPI, useReportsOverview()
 
 ### Community 539 - "CallListItem.vue"
 Cohesion: 0.13
@@ -3494,13 +3553,9 @@ Nodes (24): applyTimeWithRollover(), buildDateWithOptionalTime(), matchDuration(
 Cohesion: 0.10
 Nodes (17): adLabel, body, hasImage, hasVideo, headline, mediaLoadError, mediaThumbnail, props (+9 more)
 
-### Community 543 - "Telegram::IncomingMessageService"
-Cohesion: 0.17
-Nodes (3): Telegram::IncomingMessageService, 5. Gửi tệp — bài test dễ lộ lỗi nhất, 7. Outbound flow
-
 ### Community 544 - "Email/Index.vue"
-Cohesion: 0.08
-Nodes (24): { content, contentAttributes, attachments, messageType }, contentContainer, fullHTML, hasEmailContent, hasQuotedMessage, { hasTranslations, translationContent }, isExpandable, isExpanded (+16 more)
+Cohesion: 0.07
+Nodes (27): bccEmail, ccEmail, { contentAttributes, status, sender }, fromEmail, hasError, senderName, showMeta, subject (+19 more)
 
 ### Community 545 - "PaginationFooter.vue"
 Cohesion: 0.11
@@ -3559,28 +3614,28 @@ Cohesion: 0.11
 Nodes (18): agentAvailability, agentCredentials, agentName, availabilityStatuses, editAgent(), emit, getCustomRoles, pageTitle (+10 more)
 
 ### Community 560 - "AgentAssignmentPolicyForm.vue"
-Cohesion: 0.06
-Nodes (31): CATEGORY_SUB_ROUTES, currentPortalSlug, emit, fetchPortalAndItsCategories(), handlePortalChange(), isPortalActive(), openCreatePortalDialog(), portalLink (+23 more)
+Cohesion: 0.12
+Nodes (17): accountId, assignmentOrderOptions, assignmentPriorityOptions, buttonLabel, createOption(), emit, excludeOlderThanMinutes, exclusionUnit (+9 more)
 
 ### Community 561 - "CustomRoleModal.vue"
 Cohesion: 0.13
 Nodes (18): addCustomRole, description, emit, getTranslationKey(), handleCustomRole(), isSubmitDisabled, modalDescription, modalTitle (+10 more)
 
 ### Community 562 - "Whatsapp.vue"
-Cohesion: 0.11
-Nodes (17): availableProviders, handleManualLinkClick(), hasWhatsappAppId, {
+Cohesion: 0.07
+Nodes (29): availableProviders, handleManualLinkClick(), hasWhatsappAppId, {
   isCloudFeatureEnabled,
   isOnChatwootCloud,
   isMetaInboxCreationDisabled,
-}, isWhatsappEmbeddedSignupDisabled, isWhatsappEmbeddedSignupFeatureEnabled, PROVIDER_TYPES, providerSelectionDescription (+9 more)
+}, isWhatsappEmbeddedSignupDisabled, isWhatsappEmbeddedSignupFeatureEnabled, PROVIDER_TYPES, providerSelectionDescription (+21 more)
 
 ### Community 563 - "MacroEditor.vue"
-Cohesion: 0.04
-Nodes (38): agents, files, labels, teams, MACRO_ACTION_TYPES, fetchDropdownData(), fetchMacro(), formatMacro() (+30 more)
+Cohesion: 0.12
+Nodes (17): fetchDropdownData(), fetchMacro(), formatMacro(), { getMacroDropdownValues }, getters, { isAdmin }, isPublicMacroReadOnly, macro (+9 more)
 
 ### Community 564 - "MfaSettings.vue"
-Cohesion: 0.10
-Nodes (15): backupCodes, backupCodesGenerated, managementActionsRef, mfaEnabled, provisioningUri, qrCodeUrl, regenerateBackupCodes(), route (+7 more)
+Cohesion: 0.11
+Nodes (13): backupCodes, backupCodesGenerated, managementActionsRef, mfaEnabled, provisioningUri, qrCodeUrl, regenerateBackupCodes(), route (+5 more)
 
 ### Community 565 - "CsatMetrics.vue"
 Cohesion: 0.10
@@ -3591,28 +3646,28 @@ Cohesion: 0.10
 Nodes (19): closeDelete(), confirmDeleteTitle, confirmDeletion(), confirmPlaceHolderText, currentUserId, deleteConfirmText, deleteRejectText, deleteTeam() (+11 more)
 
 ### Community 567 - "contacts/index.js"
-Cohesion: 0.11
-Nodes (10): actions, getters, state, mutations, commit, filterQueryData, filterApiResponse, DuplicateContactException (+2 more)
+Cohesion: 0.14
+Nodes (7): getters, state, commit, filterQueryData, filterApiResponse, DuplicateContactException, ExceptionWithMessage
 
 ### Community 568 - "ViewWithHeader.vue"
-Cohesion: 0.09
-Nodes (4): availableAgents, { isOnline }, props, router
+Cohesion: 0.08
+Nodes (7): availableAgents, { isOnline }, props, router, containerClasses, { formatMessage }, props
 
 ### Community 570 - "multichannel_conversation_flow_spec.rb"
 Cohesion: 0.13
 Nodes (7): Webhooks::ZaloOaEventsJob, ZaloOa::SharedInfoService, phone_event(), telegram_receive(), widget_start(), zalo_oa_event(), zalo_oa_receive()
 
 ### Community 572 - "Crm::Leadsquared::Api::BaseClient"
-Cohesion: 0.15
-Nodes (3): Crm::Leadsquared::Api::ActivityClient, Crm::Leadsquared::Api::BaseClient, Crm::Leadsquared::Api::BaseClient::ApiError
+Cohesion: 0.11
+Nodes (4): Crm::Leadsquared::Api::ActivityClient, Crm::Leadsquared::Api::BaseClient, Crm::Leadsquared::Api::BaseClient::ApiError, Crm::Leadsquared::Api::LeadClient
 
 ### Community 574 - ".handles_country?"
 Cohesion: 0.11
 Nodes (4): Whatsapp::PhoneNormalizers::ArgentinaPhoneNormalizer, Whatsapp::PhoneNormalizers::BasePhoneNormalizer, Whatsapp::PhoneNormalizers::BrazilPhoneNormalizer, Whatsapp::PhoneNormalizers::MexicoPhoneNormalizer
 
 ### Community 577 - "Internal::Accounts::InternalAttributesService"
-Cohesion: 0.07
-Nodes (6): SuperAdmin::AccountFeaturesHelper, Enterprise::SuperAdmin::AccountsController, AccountFeaturesField, ManuallyManagedFeaturesField, Enterprise::Billing::ReconcilePlanFeaturesService, Internal::Accounts::InternalAttributesService
+Cohesion: 0.08
+Nodes (5): SuperAdmin::AccountFeaturesHelper, Enterprise::SuperAdmin::AccountsController, AccountFeaturesField, ManuallyManagedFeaturesField, Internal::Accounts::InternalAttributesService
 
 ### Community 582 - "ConversationEmotionReports.vue"
 Cohesion: 0.10
@@ -3642,9 +3697,9 @@ Nodes (16): comboboxRef, dropdownRef, emit, filteredOptions, open, props, remove
 Cohesion: 0.12
 Nodes (14): emit, expandedCardId, handleSelect(), hoveredAvatarId, isSelected(), isUpdating, props, route (+6 more)
 
-### Community 589 - "TeamTable.vue"
-Cohesion: 0.11
-Nodes (13): columnHelper, columns, getTeamMetrics(), { t }, table, tableData, { teams, teamMetrics }, { uiSettings, updateUISettings } (+5 more)
+### Community 589 - "conversation/helpers.js"
+Cohesion: 0.14
+Nodes (16): getUuid(), actions, getters, createTemporaryMessage(), findUndeliveredMessage(), getNonDeletedMessages(), getSenderName(), groupConversationBySender() (+8 more)
 
 ### Community 590 - "ContentTemplateSelector.vue"
 Cohesion: 0.12
@@ -3670,45 +3725,57 @@ Nodes (14): dismissedCallSids, extractAssigneeId(), extractCallData(), extractCa
 Cohesion: 0.11
 Nodes (15): closeCreateModal(), contactId, currentUser, isCreatingNote, isFetchingNotes, keyboardEvents, noteContent, notes (+7 more)
 
-### Community 597 - "Dependency-ordered implementation plan"
+### Community 596 - "confirmOnSendReply"
 Cohesion: 0.10
-Nodes (21): Dependency-ordered implementation plan, Milestone 0: Guardrails and dependency unblockers, Milestone 1: Reach Rails 7.2 safely, Milestone 2: Catch up Rails 7.1 and 7.2 defaults, Milestone 4: Reach Rails 8.1, Milestone 5: Activate Rails 8 defaults and close the migration, R0.1 — Establish the upgrade CI lane (S), R0.2 — Move `devise-secure_password` to upstream 2.2.1 (S) (+13 more)
+Nodes (25): clearEmailField(), confirmOnSendReply(), getCopilotAcceptedMessage(), getDraftKey(), getKeyboardEvents(), getMessagePayload(), getMessageWithQuotedEmailText(), getMultipleMessagesPayload() (+17 more)
+
+### Community 597 - "MacrosTableRow.vue"
+Cohesion: 0.05
+Nodes (38): canManageMacro, createdByName, editTooltip, props, { t }, updatedByName, visibilityLabel, macro() (+30 more)
 
 ### Community 598 - "PhoneCallReports.vue"
 Cohesion: 0.09
 Nodes (13): changePage(), counts, emotionClasses, fetchReports(), filters, isLoading, meta, options (+5 more)
 
 ### Community 599 - "v3app.js"
-Cohesion: 0.18
-Nodes (12): app, i18n, hasAuthCookie(), replaceRouteWithReload(), userInitial(), isOnOnboardingView(), validateRouteAccess(), validateSSOLoginParams() (+4 more)
-
-### Community 600 - "AutomationRulePendingExecution"
-Cohesion: 0.08
-Nodes (5): AutomationRules::TriggerPendingExecutionsJob, AutomationRulePendingExecution, ConversationParticipant, DealConversation, Enterprise::Conversations::PermissionFilterService
+Cohesion: 0.10
+Nodes (14): app, i18n, mounted(), setLocale(), hasAuthCookie(), replaceRouteWithReload(), userInitial(), isOnOnboardingView() (+6 more)
 
 ### Community 601 - "ApplicationMailbox"
 Cohesion: 0.12
 Nodes (4): ApplicationMailbox, DefaultMailbox, ReplyMailbox, Mailbox::ConversationFinder
 
-### Community 602 - "CustomAttributeDefinition"
-Cohesion: 0.13
-Nodes (3): Inboxes::SyncWidgetPreChatCustomFieldsJob, Inboxes::UpdateWidgetPreChatCustomFieldsJob, CustomAttributeDefinition
+### Community 602 - ".account"
+Cohesion: 0.06
+Nodes (6): Agents::DestroyJob, Inboxes::SyncWidgetPreChatCustomFieldsJob, Inboxes::UpdateWidgetPreChatCustomFieldsJob, AccountUser, CustomAttributeDefinition, CustomFilter
 
 ### Community 604 - "Tekomi Development Guidelines"
-Cohesion: 0.14
-Nodes (14): Branding / White-labeling note, Build / Test / Lint, Code Style, Codex Worktree Workflow, Commit Messages, Knowledge Graph (graphify), PR Description Format, Project Overview (+6 more)
+Cohesion: 0.18
+Nodes (11): Branding / White-labeling note, Build / Test / Lint, Code Style, Codex Worktree Workflow, Commit Messages, PR Description Format, Project Overview, Project-Specific (+3 more)
 
 ### Community 605 - "ActionService"
 Cohesion: 0.07
 Nodes (3): ActionService, AutomationRules::ActionService, Macros::ExecutionService
 
-### Community 608 - "MessageTemplates::HookExecutionService"
-Cohesion: 0.12
-Nodes (4): MessageTemplates::HookExecutionService, MessageTemplates::Template::EmailCollect, MessageTemplates::Template::Greeting, MessageTemplates::Template::OutOfOffice
+### Community 608 - "ChatwootExceptionTracker"
+Cohesion: 0.08
+Nodes (6): Messages::Instagram::Messenger::MessageBuilder, MessageTemplates::HookExecutionService, MessageTemplates::Template::EmailCollect, MessageTemplates::Template::Greeting, MessageTemplates::Template::OutOfOffice, ChatwootExceptionTracker
+
+### Community 612 - "components/SLACardLabel.vue"
+Cohesion: 0.08
+Nodes (21): appliedSLA, chat, groupClass, hasSlaThreshold, isSlaMissed, props, showFullStatusText, showSlaPopoverCard (+13 more)
+
+### Community 613 - "Api::V1::ProfilesController"
+Cohesion: 0.10
+Nodes (3): AgentBuilder, AgentBuilder::LimitExceededError, Api::V1::ProfilesController
+
+### Community 614 - "ContentTemplateParser.vue"
+Cohesion: 0.11
+Nodes (19): categoryLabel, emit, goBack(), hasMediaTemplate, hasMediaVariable, hasVariables, isFormInvalid, languageLabel (+11 more)
 
 ### Community 615 - "sort_handler.rb"
-Cohesion: 0.16
-Nodes (10): Conversations::UserMentionJob, generate_sql_query(), sort_on_created_at(), sort_on_last_activity_at(), sort_on_last_user_message_at(), sort_on_priority(), sort_on_priority_created_at(), sort_on_waiting_since() (+2 more)
+Cohesion: 0.38
+Nodes (7): generate_sql_query(), sort_on_created_at(), sort_on_last_activity_at(), sort_on_last_user_message_at(), sort_on_priority(), sort_on_priority_created_at(), sort_on_waiting_since()
 
 ### Community 617 - "InboxCapacityLimits.vue"
 Cohesion: 0.14
@@ -3735,8 +3802,8 @@ Cohesion: 0.16
 Nodes (14): brandIcon, channelIcon, icon, inboxRef, props, brandInboxes, inboxes, channelTypeBrandIconMap (+6 more)
 
 ### Community 623 - "CrmDirectory/Index.vue"
-Cohesion: 0.12
-Nodes (16): companies, companyContacts, expandedIds, fetchCompanies(), fetchUngrouped(), isLoading, isSyncing, loadAll() (+8 more)
+Cohesion: 0.06
+Nodes (33): buildParams(), CompanyAPI, comboboxOptions, createCompany(), createDialogRef, createOption, emit, fetchCompanies() (+25 more)
 
 ### Community 624 - "PageLayout.vue"
 Cohesion: 0.12
@@ -3751,8 +3818,8 @@ Cohesion: 0.13
 Nodes (17): AUDIO_EXTENSION_MAP, emit, formatTimeProgress(), getRecordPluginOptions(), hasRecording, initWaveSurfer(), isPlaying, isRecording (+9 more)
 
 ### Community 628 - "ActionCableConnector"
-Cohesion: 0.12
-Nodes (5): emitter, ActionCableConnector, isMessageInActiveConversation(), shouldTriggerMessageUpdateEvent(), mitt
+Cohesion: 0.09
+Nodes (7): BaseActionCableConnector, emitter, ActionCableConnector, isMessageInActiveConversation(), shouldTriggerMessageUpdateEvent(), mitt, @rails/actioncable
 
 ### Community 629 - "inbox.js"
 Cohesion: 0.18
@@ -3799,8 +3866,8 @@ Cohesion: 0.18
 Nodes (3): Crm::Perfex::TicketDeliveryJob, Crm::Perfex::Api::ContactClient, Crm::Perfex::Config
 
 ### Community 650 - "inboxAssignableAgents.js"
-Cohesion: 0.17
-Nodes (7): AssignableAgents, actions, getters, mutations, state, types, commit
+Cohesion: 0.27
+Nodes (6): actions, getters, mutations, state, types, commit
 
 ### Community 651 - "LinkIssue.vue"
 Cohesion: 0.14
@@ -3846,21 +3913,13 @@ Nodes (11): debouncedEmit, emit, filteredListItems, isDropdownListEmpty, onSearc
 Cohesion: 0.15
 Nodes (16): buildSnippet(), cannedResponses, emit, filteredRecords, { getPlainText, formatMessage, highlightContent }, highlightMatches(), items, onSelect() (+8 more)
 
-### Community 664 - "ConversationBasicFilter.vue"
-Cohesion: 0.15
-Nodes (16): activeChatSortLabel, activeChatStatusLabel, chatSortFilter, chatSortOptions, chatStatusFilter, chatStatusOptions, currentSortBy, currentStatusFilter (+8 more)
-
 ### Community 666 - "SlashCommandMenu.vue"
 Cohesion: 0.14
 Nodes (14): adjustScroll(), EDITOR_ACTIONS, emit, hasItems, items, KEY_ACTIONS, listContainerRef, menuStyle (+6 more)
 
-### Community 667 - "generatePayload"
-Cohesion: 0.18
-Nodes (13): allElementsNumbers(), allElementsString(), formatArray(), generatePayload(), generatePayloadForObject(), generateAutomationPayload(), generatePayload(), generateValues() (+5 more)
-
-### Community 668 - "routeHelpers.js"
-Cohesion: 0.32
-Nodes (11): filterItemsByPermission(), getCurrentAccount(), getUserPermissions(), hasPermissions(), defaultRedirectPage(), getConversationDashboardRoute(), isAConversationRoute(), isAInboxViewRoute() (+3 more)
+### Community 668 - "conversations/getters.js"
+Cohesion: 0.19
+Nodes (14): filterItemsByPermission(), getCurrentAccount(), getUserPermissions(), getUserRole(), hasPermissions(), defaultRedirectPage(), getConversationDashboardRoute(), isAConversationRoute() (+6 more)
 
 ### Community 670 - "helpcenter.routes.js"
 Cohesion: 0.14
@@ -3874,6 +3933,10 @@ Nodes (13): article, categories, categoryId, currentUserId, isCategoryArticles, 
 Cohesion: 0.15
 Nodes (15): addStage(), deleteDialogRef, deleteStage(), moveTargetOptions, moveToStageId, pipelinesStore, props, renameStage() (+7 more)
 
+### Community 673 - "agentBots/Index.vue"
+Cohesion: 0.11
+Nodes (16): agentBotDeleteDialogRef, agentBotModalRef, agentBots, confirmDeletion(), deleteAgentBot(), filteredAgentBots, loading, MODAL_TYPES (+8 more)
+
 ### Community 674 - "helpCenterArticles/index.js"
 Cohesion: 0.17
 Nodes (9): actions, getters, defaultHelpCenterFlags, state, mutations, articleList, camelCasedArticle, commit (+1 more)
@@ -3883,12 +3946,20 @@ Cohesion: 0.31
 Nodes (15): checkTodayAvailability(), convertSlotToUserTimezone(), findNextAvailableSlotDetails(), findNextAvailableSlotDiff(), findNextSlot(), getDateInTimezone(), getOpenDaysMap(), getTodayConfig() (+7 more)
 
 ### Community 678 - "Channelable"
-Cohesion: 0.08
-Nodes (14): Channel::Instagram, Channel::Phone, Channel::ZaloOa, Channelable, Deferred follow-ups (not in this plan), End-to-end verification, Global Constraints, Task 1: Database table and channel model (+6 more)
+Cohesion: 0.07
+Nodes (15): Channel::Instagram, Channel::Line, Channel::Phone, Channel::ZaloOa, Channelable, Deferred follow-ups (not in this plan), End-to-end verification, Global Constraints (+7 more)
 
 ### Community 680 - "Deal"
 Cohesion: 0.12
 Nodes (3): LlmFormattable, Deal, LlmFormatter::LlmTextFormatterService
+
+### Community 681 - "Enterprise::Message"
+Cohesion: 0.15
+Nodes (3): Enterprise::Account::ConversationsResolutionSchedulerJob, Enterprise::Message, TekomiInbox
+
+### Community 684 - "BaseRefreshOauthTokenService"
+Cohesion: 0.19
+Nodes (3): BaseRefreshOauthTokenService, Google::RefreshOauthTokenService, Imap::GoogleFetchEmailService
 
 ### Community 685 - "Chatwoot E2E Testing - Documentation"
 Cohesion: 0.10
@@ -3903,8 +3974,8 @@ Cohesion: 0.15
 Nodes (14): alertIfUnreadConversationExist, alertTone, audioAlert, audioAlertConditions, currentUser, getters, handAudioAlertChange(), handleAudioAlertConditions() (+6 more)
 
 ### Community 701 - "File Structure"
-Cohesion: 0.12
-Nodes (15): Cấu hình Provider & Model AI từ Super Admin — Kế hoạch triển khai, File Structure, Global Constraints, Sau khi triển khai (người dùng), Task 10: Bỏ chọn model theo account, Task 11: Bỏ Integration OpenAI, Task 12: Dọn hằng số & kiểm tra tĩnh, Task 1: Dữ liệu, danh sách tính năng, exception (+7 more)
+Cohesion: 0.13
+Nodes (14): Cấu hình Provider & Model AI từ Super Admin — Kế hoạch triển khai, File Structure, Global Constraints, Sau khi triển khai (người dùng), Task 10: Bỏ chọn model theo account, Task 11: Bỏ Integration OpenAI, Task 12: Dọn hằng số & kiểm tra tĩnh, Task 1: Dữ liệu, danh sách tính năng, exception (+6 more)
 
 ### Community 702 - "app.py"
 Cohesion: 0.21
@@ -3918,9 +3989,13 @@ Nodes (17): scripts, build:sdk, dev, eslint, eslint:fix, prepare, ruby:prettier,
 Cohesion: 0.15
 Nodes (10): create_resolved_unread_conversation(), redis_set_members(), create_visible_unread_conversation(), filter_lock_and_throttle_keys(), lock_and_throttle_keys(), redis_keys(), snapshot_keys(), user_lock_and_throttle_keys() (+2 more)
 
+### Community 705 - "EditLabel.vue"
+Cohesion: 0.15
+Nodes (10): addLabel(), labelTitleErrorMessage(), onClose(), editLabel(), labelTitleErrorMessage(), mounted(), onClose(), setFormValues() (+2 more)
+
 ### Community 706 - "ConversationDrop"
-Cohesion: 0.10
-Nodes (4): ConversationDrop, MessageDrop, MessageFormatHelper, ChatwootMarkdownRenderer
+Cohesion: 0.17
+Nodes (3): ConversationDrop, MessageDrop, MessageFormatHelper
 
 ### Community 708 - "components/Modal.vue"
 Cohesion: 0.15
@@ -3955,8 +4030,8 @@ Cohesion: 0.12
 Nodes (5): currentUser, getters, globalConfig, greetingMessage, { t }
 
 ### Community 716 - "VideoEmbedInput.vue"
-Cohesion: 0.22
-Nodes (8): emit, isSupported(), menuStyle, onSubmit(), props, showError, { t }, url
+Cohesion: 0.10
+Nodes (18): emit, localDateValue, props, validateDate(), formatDateRange, getIntlDateFormatForLocale(), emit, isSupported() (+10 more)
 
 ### Community 717 - "useUISettings.js"
 Cohesion: 0.14
@@ -3966,9 +4041,9 @@ Nodes (22): mountParams, setup(), store, useFunctionGetter(), useMapGetter(), us
 Cohesion: 0.23
 Nodes (14): capitalizeLabel(), expandUnit(), findNextDay(), findSnoozeTime(), findStartOfNextMonth(), findStartOfNextWeek(), formatSnoozeDate(), generateSnoozeSuggestions() (+6 more)
 
-### Community 719 - "AudienceGroup.vue"
-Cohesion: 0.18
-Nodes (13): addCondition(), addGroup(), DEFAULT_LEAF(), emit, groupRefs, leafRefs, nextId(), node (+5 more)
+### Community 719 - "DataManager"
+Cohesion: 0.16
+Nodes (5): DialogStub, { dispatch, push, show, uiFlags }, DataManager, DATA_VERSION, idb
 
 ### Community 720 - "helper/validations.js"
 Cohesion: 0.18
@@ -4002,29 +4077,21 @@ Nodes (3): onSubmit(), selectRating(), selectStarRating()
 Cohesion: 0.17
 Nodes (3): Internal::AccountAnalysisJob, Internal::AccountAnalysis::AccountUpdaterService, Internal::AccountAnalysis::ThreatAnalyserService
 
-### Community 743 - "Concerns::Toolable"
-Cohesion: 0.09
-Nodes (5): Concerns::SafeEndpointValidatable, Concerns::Toolable, Concerns::Toolable::CustomTools, Tekomi::CustomTool, Tekomi::CustomTool::LimitExceededError
+### Community 743 - "Tekomi::CustomTool"
+Cohesion: 0.18
+Nodes (3): Concerns::SafeEndpointValidatable, Tekomi::CustomTool, Tekomi::CustomTool::LimitExceededError
 
 ### Community 744 - "LabelSuggestion.vue"
 Cohesion: 0.17
 Nodes (7): addAllLabels(), dismissSuggestions(), handler(), isConversationDismissed(), pushOrAddLabel(), trackLabelEvent(), TEKOMI_EVENTS
 
-### Community 748 - "Tekomi::OpenAiMessageBuilderService"
-Cohesion: 0.12
-Nodes (3): Tekomi::Assistant::ResponseParts, Tekomi::Conversation::MessageHistoryBuilderService, Tekomi::OpenAiMessageBuilderService
+### Community 749 - "PortalSwitcher.vue"
+Cohesion: 0.13
+Nodes (14): CATEGORY_SUB_ROUTES, currentPortalSlug, emit, fetchPortalAndItsCategories(), handlePortalChange(), isPortalActive(), openCreatePortalDialog(), portalLink (+6 more)
 
-### Community 749 - "BulkTeamActions.vue"
-Cohesion: 0.14
-Nodes (11): bulkActionsUiFlags, containerRef, emit, handleAssign(), isUpdating, props, selectedTeam, [showDropdown, toggleDropdown] (+3 more)
-
-### Community 752 - "ContactMergeAction"
+### Community 753 - "ConversationParticipant"
 Cohesion: 0.11
-Nodes (3): ContactMergeAction, Note, Contacts::AutoMergeService
-
-### Community 753 - "conversationStats.js"
-Cohesion: 0.16
-Nodes (9): actions, debouncedFetchMetaData, getters, longDebouncedFetchMetaData, metaDebouncers, mutations, state, superLongDebouncedFetchMetaData (+1 more)
+Nodes (5): Conversations::UserMentionJob, SortHandler, ConversationParticipant, DealConversation, Mention
 
 ### Community 754 - "rag_core.py"
 Cohesion: 0.14
@@ -4035,16 +4102,16 @@ Cohesion: 0.14
 Nodes (16): { currentAccount, updateAccount }, duration, handleDisable(), handleSubmit(), ignoreWaiting, isEnabled, isSubmitting, labelOptions (+8 more)
 
 ### Community 759 - "Api::V1::Accounts::TicketsController"
-Cohesion: 0.07
-Nodes (5): Api::V1::Accounts::Contacts::TicketsController, Api::V1::Accounts::Conversations::TicketsController, Api::V1::Accounts::Tickets::ActivitiesController, Api::V1::Accounts::TicketsController, CrmTicketsFeatureConcern
+Cohesion: 0.04
+Nodes (8): Api::V1::Accounts::Contacts::TicketsController, Api::V1::Accounts::Conversations::TicketsController, Api::V1::Accounts::Pipelines::StagesController, Api::V1::Accounts::Tickets::ActivitiesController, Api::V1::Accounts::TicketsController, CrmTicketsFeatureConcern, PipelineStage, Deals::MoveService
 
 ### Community 760 - "TwitterConcern"
 Cohesion: 0.17
 Nodes (3): Api::V1::Accounts::Twitter::AuthorizationsController, TwitterConcern, Twitter::BaseController
 
-### Community 761 - "UserSessionTrackingService"
-Cohesion: 0.10
-Nodes (5): ContactIpLookupJob, UserSessionIpLookupJob, IpLookupService, UserSessionTrackingService, Enterprise::WidgetsController
+### Community 761 - "ContactIpLookupJob"
+Cohesion: 0.15
+Nodes (4): ContactIpLookupJob, UserSessionIpLookupJob, IpLookupService, Enterprise::WidgetsController
 
 ### Community 763 - "DealSuggestionsDialog.vue"
 Cohesion: 0.15
@@ -4056,7 +4123,7 @@ Nodes (12): { t }, emit, hasFbConfigured, hasInstagramConfigured, hasTiktokConfi
 
 ### Community 765 - "ChatListHeader.vue"
 Cohesion: 0.14
-Nodes (11): allCount, emit, formattedAllCount, hasAppliedFiltersOrActiveFolders, isContactScoped, onBasicFilterChange(), props, showFilterScope (+3 more)
+Nodes (10): allCount, emit, formattedAllCount, hasAppliedFiltersOrActiveFolders, isContactScoped, props, showFilterScope, title (+2 more)
 
 ### Community 766 - "CompanyCustomAttributes.vue"
 Cohesion: 0.15
@@ -4083,8 +4150,8 @@ Cohesion: 0.14
 Nodes (14): addedLocales, dialogRef, draftedLocales, isUpdating, locales, localeStatus, onCreate(), props (+6 more)
 
 ### Community 772 - "input/Input.vue"
-Cohesion: 0.17
-Nodes (13): emit, handleBlur(), handleEnter(), handleFocus(), handleInput(), inputOutlineClass, inputRef, isFocused (+5 more)
+Cohesion: 0.09
+Nodes (19): DURATION_UNITS, duration, props, { t }, transformedValue, unit, emit, handleBlur() (+11 more)
 
 ### Community 773 - "label/AddLabel.vue"
 Cohesion: 0.17
@@ -4106,13 +4173,13 @@ Nodes (11): displayName(), downloadingId, emit, fileAttachments, fileNameFromUrl
 Cohesion: 0.14
 Nodes (10): activeElement, activeTab, emit, enableTransition, indicatorStyle, props, selectTab(), customTabs (+2 more)
 
-### Community 778 - "CalendarMonth.vue"
-Cohesion: 0.21
-Nodes (13): emit, onClickNext(), onClickPrev(), onClickSetView(), activeMonthIndex, emit, months, onClickNext() (+5 more)
+### Community 778 - "CalendarYear.vue"
+Cohesion: 0.10
+Nodes (22): emit, onClickNext(), onClickPrev(), onClickSetView(), activeMonthIndex, emit, months, onClickNext() (+14 more)
 
 ### Community 779 - "ContactConversationLink.vue"
-Cohesion: 0.15
-Nodes (13): dateFormat, createdAt(), lastActivity(), emit, isOlder, label, lastMessage, props (+5 more)
+Cohesion: 0.06
+Nodes (17): dateFormat, conversationId(), createdAt(), createTimer(), lastActivity(), mounted(), refreshTime(), emit (+9 more)
 
 ### Community 780 - "macros/Index.vue"
 Cohesion: 0.13
@@ -4134,9 +4201,9 @@ Nodes (14): CMD_AI_ASSIST, CMD_BULK_ACTION_REOPEN_CONVERSATION, CMD_BULK_ACTION_
 Cohesion: 0.36
 Nodes (13): appendQuotedTextToMessage(), buildQuotedEmailHeader(), buildQuotedEmailHeaderFromContact(), buildQuotedEmailHeaderFromInbox(), extractPlainTextFromHtml(), extractQuotedEmailText(), formatQuotedEmailDate(), formatQuotedTextAsBlockquote() (+5 more)
 
-### Community 785 - "MergeContact.vue"
-Cohesion: 0.16
-Nodes (14): emit, hasValidationError, onCancel(), onSearch(), onSubmit(), parentContact, parentContactId, parentContactName (+6 more)
+### Community 785 - "@vuelidate/core"
+Cohesion: 0.04
+Nodes (27): onClose(), saveCustomViews(), dialogRef, emit, formState, handleDialogConfirm(), props, rules (+19 more)
 
 ### Community 786 - "SearchFilters.vue"
 Cohesion: 0.17
@@ -4150,9 +4217,14 @@ Nodes (13): emit, handleAction(), inboxesList, inboxesSection, MENU_ACTIONS, MEN
 Cohesion: 0.31
 Nodes (15): assignLabels(), buildSortAttr(), clearSelection(), deleteContacts(), fetchActiveContacts(), fetchContacts(), fetchContactsBasedOnContext(), fetchSavedOrAppliedFilteredContact() (+7 more)
 
-### Community 790 - "PreChatForm/Settings.vue"
-Cohesion: 0.04
-Nodes (36): dragEnabled, emit, handleAction(), handleClick(), localCategories, onDragEnd(), props, { accountScopedUrl } (+28 more)
+### Community 790 - "List.vue"
+Cohesion: 0.10
+Nodes (13): { accountScopedUrl }, dragging, {
+  executingMacroId,
+  execute,
+  submitPendingAttributes,
+  dismissPendingAttributes,
+}, macros, { orderedMacros }, props, resolveAttributesModalRef, store (+5 more)
 
 ### Community 791 - "filterHelpers.js"
 Cohesion: 0.27
@@ -4167,40 +4239,36 @@ Cohesion: 0.19
 Nodes (6): addMessageToData(), focusInput(), mounted(), onMessageSend(), scrollToLastMessage(), sendMessageToServer()
 
 ### Community 799 - "Imap::MicrosoftFetchEmailService"
-Cohesion: 0.14
+Cohesion: 0.13
 Nodes (3): Imap::MicrosoftFetchEmailService, Microsoft::RefreshOauthTokenService, MicrosoftGraphAuth
-
-### Community 800 - "PhoneCallEmotionReport"
-Cohesion: 0.12
-Nodes (3): Api::V1::Accounts::ConversationEmotionReportsController, ConversationEmotionReport, PhoneCallEmotionReport
-
-### Community 801 - "DealConversations.vue"
-Cohesion: 0.15
-Nodes (10): contactConversations, conversations, isLoading, linkConversation(), linkOptions, loadConversations(), props, route (+2 more)
 
 ### Community 803 - "CopilotMessage"
 Cohesion: 0.14
 Nodes (4): Task 8: Xử lý lỗi Trợ thủ, Enterprise::Messages::MessageBuilder, Tekomi::Copilot::ResponseJob, CopilotMessage
 
 ### Community 805 - "sidebar/provider.js"
-Cohesion: 0.18
-Nodes (11): activePopover, provideSidebarContext(), SidebarControl, usePopoverState(), useSidebarContext(), useSidebarResize(), props, { resolvePermissions, resolveFeatureFlag } (+3 more)
+Cohesion: 0.13
+Nodes (13): activePopover, provideSidebarContext(), SidebarControl, usePopoverState(), useSidebarContext(), useSidebarResize(), props, { resolvePermissions, resolveFeatureFlag } (+5 more)
 
 ### Community 806 - "Tekomi::AssistantMigration::FaqApplier"
 Cohesion: 0.16
 Nodes (3): Enterprise::Concerns::Conversation, Enterprise::Conversations::EventDataPresenter, Tekomi::AssistantMigration::FaqApplier
+
+### Community 815 - "helpCenterPortals/index.js"
+Cohesion: 0.21
+Nodes (10): actions, portalAPIs, getters, defaultPortalFlags, state, mutations, types, commit (+2 more)
 
 ### Community 816 - "composeConversationHelper.js"
 Cohesion: 0.17
 Nodes (11): buildContactableInboxesList(), CHANNEL_PRIORITY, compareInboxes(), createNewContact(), fetchContactableInboxes(), generateLabelForContactableInboxesList(), getCapitalizedNameFromEmail(), prepareAttachmentPayload() (+3 more)
 
 ### Community 817 - "DealFieldSuggestionsCard.vue"
-Cohesion: 0.18
-Nodes (12): apply(), applyingKey, castValue(), dealsStore, emit, extract(), fields, hasScanned (+4 more)
+Cohesion: 0.21
+Nodes (11): apply(), applyingKey, castValue(), dealsStore, emit, fields, hasScanned, isLoading (+3 more)
 
-### Community 818 - "emitConversationLoaded"
-Cohesion: 0.20
-Nodes (14): emit, emitConversationLoaded(), fetchConversations(), fetchFilteredConversations(), fetchSavedFilteredConversations(), loadMoreConversations(), onApplyFilter(), onBasicFilterChange() (+6 more)
+### Community 818 - "CampaignCard.vue"
+Cohesion: 0.12
+Nodes (14): campaignStatus, emit, { formatMessage }, inboxIcon, inboxName, isActive, props, statusTextColor (+6 more)
 
 ### Community 820 - "PortalGeneralSettings.vue"
 Cohesion: 0.18
@@ -4246,17 +4314,13 @@ Nodes (12): generateCustomAttributesInputType(), generateValuesForEditCustomView
 Cohesion: 0.18
 Nodes (9): debouncedEmit, emit, isInputFocused, onInput(), onSelectRecentSearch(), recentSearchesRef, searchInput, searchQuery (+1 more)
 
-### Community 832 - "Notion::CallbacksController"
-Cohesion: 0.18
-Nodes (3): Api::V1::Accounts::Notion::AuthorizationsController, NotionConcern, Notion::CallbacksController
-
 ### Community 833 - "ImportSummaryTiles.vue"
 Cohesion: 0.23
 Nodes (11): importTypeLabel(), importTypesLabel, items, props, { t }, DEFAULT_IMPORT_SOURCE, IMPORT_SOURCES, importSourceConfigFor() (+3 more)
 
 ### Community 834 - "accounts.js"
-Cohesion: 0.14
-Nodes (10): OnboardingAPI, actions, getters, mutations, state, accountData, commit, newAccountInfo (+2 more)
+Cohesion: 0.19
+Nodes (9): actions, getters, mutations, state, accountData, commit, newAccountInfo, accountData (+1 more)
 
 ### Community 835 - "colorpicker/ColorPicker.vue"
 Cohesion: 0.19
@@ -4274,13 +4338,9 @@ Nodes (8): focus(), modelValue(), mounted(), onInput(), resizeTextarea(), sendWi
 Cohesion: 0.29
 Nodes (12): getRegexp(), isDomain(), isNumber(), isPhoneE164(), isPhoneE164OrEmpty(), isPhoneNumberValid(), isPhoneNumberValidWithDialCode(), isValidPassword() (+4 more)
 
-### Community 839 - "v3/api/auth.js"
-Cohesion: 0.26
-Nodes (9): wootAPI, register(), verifyPasswordToken(), capitalize(), getCredentialsFromEmail(), getLoginRedirectURL(), getSSOAccountPath(), confirmToken() (+1 more)
-
-### Community 840 - "verify-email/Index.vue"
-Cohesion: 0.18
-Nodes (12): resendConfirmation(), globalConfig, handleResendEmail(), hCaptcha, isResendingEmail, onCaptchaVerified(), performResend(), props (+4 more)
+### Community 841 - "Zalo OA Channel — Design Spec"
+Cohesion: 0.12
+Nodes (11): SendReplyJob, 10. Open items to confirm during implementation (not blocking spec approval), 11. Phased delivery, 1. Goal, 2. Reference implementation, 3. Non-goals (confirmed out of scope), 6. Inbound flow, 7. Outbound flow (+3 more)
 
 ### Community 848 - "ContactMedia.vue"
 Cohesion: 0.12
@@ -4289,6 +4349,10 @@ Nodes (12): attachments, attachmentsByContact, hasContent, isFetching, mediaAtta
 ### Community 856 - "Tekomi::Deals::AssistantService"
 Cohesion: 0.08
 Nodes (3): Tekomi::Deals::AssistantService, Tekomi::Tools::Deals::DealStatsService, Tekomi::Tools::Deals::SearchDealsService
+
+### Community 857 - "Api::V1::Accounts::ConferenceController"
+Cohesion: 0.12
+Nodes (3): Api::V1::Accounts::ConferenceController, Voice::Provider::Twilio::ConferenceService, CustomExceptions::CallAlreadyAccepted
 
 ### Community 859 - "tailwind.config.js"
 Cohesion: 0.18
@@ -4313,9 +4377,9 @@ Nodes (4): Crm, Crm::Perfex, Crm::Perfex::ContactChannelUnmapper, Crm::Perfex::C
 Cohesion: 0.15
 Nodes (3): Api::V1::Accounts::Contacts::LabelsController, Api::V1::Accounts::Conversations::LabelsController, LabelConcern
 
-### Community 868 - "ContextMenu.vue"
-Cohesion: 0.19
-Nodes (12): calculatePosition(), elementToLock, emit, handleClose(), handleFocusOut(), isLocked, menuRef, position (+4 more)
+### Community 868 - "vuedraggable"
+Cohesion: 0.17
+Nodes (13): dragEnabled, emit, handleAction(), handleClick(), localCategories, onDragEnd(), props, emit (+5 more)
 
 ### Community 869 - "ReportTekomiMessageDialog.vue"
 Cohesion: 0.18
@@ -4325,13 +4389,9 @@ Nodes (12): close(), dialogRef, form, handleConfirm(), isFormInvalid, isLoading,
 Cohesion: 0.13
 Nodes (11): bannerMessage, currentAccountId, dismissed, mfaEnabled, remainingBackupCodes, router, severity, SEVERITY_CLASSES (+3 more)
 
-### Community 871 - "Channel::Line"
-Cohesion: 0.18
-Nodes (3): Webhooks::LineController, Webhooks::LineEventsJob, Channel::Line
-
 ### Community 873 - "ConversationTickets.vue"
-Cohesion: 0.22
-Nodes (8): currentChat, emit, isLoading, loadTickets(), props, { t }, ticketRefs, tickets
+Cohesion: 0.17
+Nodes (9): CrmTicketsAPI, currentChat, emit, isLoading, loadTickets(), props, { t }, ticketRefs (+1 more)
 
 ### Community 874 - "IssuesList.vue"
 Cohesion: 0.17
@@ -4341,9 +4401,9 @@ Nodes (10): closeCreateModal(), conversation, getters, hasIssues, isLoading, lin
 Cohesion: 0.19
 Nodes (10): emit, handleRevoke(), handleRevokeAll(), isUnknown(), props, revokingAll, revokingId, sessionLabel() (+2 more)
 
-### Community 876 - "WhatsAppCampaignsPage.vue"
-Cohesion: 0.15
-Nodes (10): confirmDeleteCampaignDialogRef, getters, hasNoWhatsAppCampaigns, isFetchingCampaigns, router, selectedCampaign, [showWhatsAppCampaignDialog, toggleWhatsAppCampaignDialog], { t } (+2 more)
+### Community 876 - "switchDraftContext"
+Cohesion: 0.14
+Nodes (16): currentChat(), effectiveReplyMode(), fetchAndSetReplyTo(), getFromDraft(), handler(), hasMeaningfulEditorContent(), mounted(), onBlur() (+8 more)
 
 ### Community 877 - "ContactExportDialog.vue"
 Cohesion: 0.18
@@ -4353,20 +4413,9 @@ Nodes (12): activeSegment, activeSegmentId, appliedFilters, dialogRef, emit, exp
 Cohesion: 0.17
 Nodes (11): contactListHeaderWrapper, emit, isActiveView, isLabelView, isNotSegmentView, props, route, showActiveFiltersPreview (+3 more)
 
-### Community 879 - "SingleSelect.vue"
-Cohesion: 0.15
-Nodes (10): emit, {
-  options,
-  asyncSearch,
-  isSearching,
-  disableSearch,
-  disableDeselect,
-  placeholderIcon,
-  placeholder,
-  placeholderTrailingIcon,
-  searchPlaceholder,
-  dropdownMaxHeight,
-}, searchResults, searchTerm, selected, selectedItem, options, selected (+2 more)
+### Community 879 - "ConditionRow.vue"
+Cohesion: 0.03
+Nodes (58): appliedFilters, maxVisibleFilters, moreFiltersLabel, asyncOptions, attributeKey, booleanOptions, currentFilter, currentOperator (+50 more)
 
 ### Community 880 - "LocalesPage.vue"
 Cohesion: 0.15
@@ -4387,9 +4436,9 @@ Nodes (9): emit, panelRef, props, {
   loadMore,
 }, resolvedConversationCount, payload, SidePanelStub, subtitle (+1 more)
 
-### Community 882 - "WhatsappEmbeddedSignup.vue"
+### Community 882 - "MacroNodes.vue"
 Cohesion: 0.18
-Nodes (12): benefits, enableCallingForInbox(), handleSignupSuccess(), { isAuthenticating, runEmbeddedSignup }, isProcessing, launchEmbeddedSignup(), processingMessage, props (+4 more)
+Nodes (9): agents, files, labels, teams, MACRO_ACTION_TYPES, emptyMacro, getFileName(), resolveActionName() (+1 more)
 
 ### Community 883 - "Pagination.vue"
 Cohesion: 0.17
@@ -4399,9 +4448,9 @@ Nodes (12): currentPage, currentPageSize, emit, end, getFormattedPages(), pageSi
 Cohesion: 0.19
 Nodes (10): alertDescription, alertEventValues, emit, props, selectedValue, ALERT_EVENTS, EVENT_TYPES, NOTIFICATION_TYPES (+2 more)
 
-### Community 886 - "Llm::Features"
-Cohesion: 0.15
-Nodes (5): AccountLlmProvider, Tab Tính năng AI, Dữ liệu, Endpoint tuỳ chỉnh, Llm::Features
+### Community 886 - "Llm::Config"
+Cohesion: 0.21
+Nodes (3): AccountLlmProvider, Endpoint tuỳ chỉnh, Llm::Config
 
 ### Community 887 - "ghsa_linear_sync.py"
 Cohesion: 0.30
@@ -4410,6 +4459,10 @@ Nodes (10): build_description(), cvss_score(), fetch_triage_advisories(), linear
 ### Community 888 - "LlmDefaultModel.vue"
 Cohesion: 0.17
 Nodes (11): emit, hasCatalog, isDirty, isKeyMissing, model, modelOptions, props, providerType (+3 more)
+
+### Community 889 - "Shopify.vue"
+Cohesion: 0.13
+Nodes (12): dialogRef, handleStoreUrlSubmit(), integration, integrationAction, integrationLoaded, isSubmitting, store, storeUrl (+4 more)
 
 ### Community 890 - "PortalsCategoriesIndexPage.vue"
 Cohesion: 0.18
@@ -4431,10 +4484,6 @@ Nodes (3): Enterprise::AsyncDispatcher, TekomiListener, Tekomi::ReportingEventLi
 Cohesion: 0.21
 Nodes (7): applyTheme(), data(), mounted(), onSystemChange(), OPTION_DEFS, readLabels(), select()
 
-### Community 898 - "password/Index.vue"
-Cohesion: 0.38
-Nodes (3): resetPassword(), showAlertMessage(), submit()
-
 ### Community 899 - "ArticleContainer.vue"
 Cohesion: 0.17
 Nodes (11): articleUiFlags, hasArticles, i18n, locale, openArticleInArticleViewer(), popularArticles, portal, { prefersDarkMode } (+3 more)
@@ -4447,57 +4496,61 @@ Nodes (7): actions, getters, mutations, state, commit, dispatch, campaigns
 Cohesion: 0.21
 Nodes (3): Account::ConversationsResolutionSchedulerJob, Conversations::ResolutionJob, MessageTemplates::Template::AutoResolve
 
-### Community 902 - "SECURITY.md"
-Cohesion: 0.17
-Nodes (7): Claude Code, Zalo Personal proxy pool, Non-Qualifying Vulnerabilities, Reporting a Vulnerability, Supported versions, Thanks, Vulnerabilities we care about 🫣
+### Community 902 - "PreChatForm/Settings.vue"
+Cohesion: 0.13
+Nodes (10): customAttributes, preChatFieldOptions, preChatFields, preChatFormEnabled, preChatMessage, props, store, { t } (+2 more)
 
-### Community 905 - "views/routes.js"
-Cohesion: 0.14
-Nodes (6): MARKERS, props, segments, globalConfig, isAChatwootInstance, store
+### Community 905 - "Saml.vue"
+Cohesion: 0.08
+Nodes (15): MARKERS, props, segments, globalConfig, isAChatwootInstance, store, credentials, csrfToken (+7 more)
+
+### Community 910 - "SummaryTableCard.vue"
+Cohesion: 0.13
+Nodes (9): agentConversationMetric, agents, { startRefetching }, store, uiFlags, props, ranked, { t } (+1 more)
 
 ### Community 918 - "Events::Types"
 Cohesion: 0.18
 Nodes (4): ActionCableBroadcastJob, ParticipationListener, Enterprise::ActionCableListener, Events::Types
 
-### Community 921 - "DurationInput.vue"
-Cohesion: 0.18
-Nodes (6): DURATION_UNITS, duration, props, { t }, transformedValue, unit
+### Community 921 - "AiAlerts.vue"
+Cohesion: 0.13
+Nodes (11): { accountId }, activeTabIndex, aiAlertsStore, markAllRead(), markRead(), { records, meta, uiFlags }, remove(), route (+3 more)
 
 ### Community 926 - "SidePanel.vue"
 Cohesion: 0.20
 Nodes (9): close(), emit, isOpen, isScrollLocked, MAX_WIDTH_CLASSES, maxWidthClass, onOverlayClick(), panelRef (+1 more)
 
 ### Community 928 - "Channel::WebWidget"
-Cohesion: 0.09
-Nodes (5): Channel::Api, Channel::WebWidget, WebhookSecretable, Webhook, Seeders::InboxSeeder
+Cohesion: 0.08
+Nodes (6): Channel::Api, Channel::WebWidget, WebhookSecretable, Webhook, Seeders::InboxSeeder, TestData::InboxCreator
 
 ### Community 931 - "vite.config.ts"
-Cohesion: 0.36
-Nodes (6): @rollup/plugin-yaml, vite, vite-plugin-ruby, @vitejs/plugin-vue, aliases, vueOptions
+Cohesion: 0.28
+Nodes (7): dotenv, @rollup/plugin-yaml, vite, vite-plugin-ruby, @vitejs/plugin-vue, aliases, vueOptions
 
 ### Community 932 - "index.ts"
 Cohesion: 0.15
 Nodes (3): @playwright/test, AgentPage, DashboardApi
 
-### Community 935 - "CalendarYear.vue"
-Cohesion: 0.18
-Nodes (8): activeYear, emit, firstYear, lastYear, props, selectYear(), startYear, years
+### Community 935 - "softphone.js"
+Cohesion: 0.16
+Nodes (7): finishIceGatheringOnRelay(), isRelayCandidate(), MEDIA_CONSTRAINTS, useSoftphoneStore, mockUa, uaHandlers, jssip
 
-### Community 941 - "TimeAgo.vue"
-Cohesion: 0.21
-Nodes (4): conversationId(), createTimer(), mounted(), refreshTime()
+### Community 942 - "Migration::CompanyAccountBatchJob"
+Cohesion: 0.19
+Nodes (3): Migration::CompanyAccountBatchJob, Migration::CompanyBackfillJob, Companies::BusinessEmailDetectorService
 
 ### Community 944 - "ConversationAnalysesAPI"
-Cohesion: 0.23
-Nodes (4): ConversationAnalysesAPI, loadAnalyses(), generateCare(), fetchData()
+Cohesion: 0.29
+Nodes (3): ConversationAnalysesAPI, loadAnalyses(), fetchData()
 
 ### Community 945 - "DealsAiPanel.vue"
 Cohesion: 0.18
 Nodes (10): ask(), emit, history, isAsking, messagesRef, outsideClickHandler, props, question (+2 more)
 
 ### Community 946 - "ShopifyOrderItem.vue"
-Cohesion: 0.12
-Nodes (12): financialStatus, fulfillmentStatus, getStatusI18nKey(), props, { t }, contact, error, fetchOrders() (+4 more)
+Cohesion: 0.10
+Nodes (13): ShopifyAPI, financialStatus, fulfillmentStatus, getStatusI18nKey(), props, { t }, contact, error (+5 more)
 
 ### Community 947 - "ConversationList.vue"
 Cohesion: 0.18
@@ -4514,10 +4567,6 @@ Nodes (11): dialogRef, handleSubmit(), isInvalidForm, isUpdatingCampaign, liveCh
 ### Community 951 - "CreateNewContactDialog.vue"
 Cohesion: 0.18
 Nodes (8): contact, contactsFormRef, dialogRef, emit, handleDialogConfirm(), isCreatingContact, { t }, uiFlags
-
-### Community 953 - "CategoryCard.vue"
-Cohesion: 0.20
-Nodes (10): categoryMenuItems, description, emit, handleAction(), handleClick(), hasDescription, props, [showActionsDropdown, toggleDropdown] (+2 more)
 
 ### Community 954 - "LocaleContentDialog.vue"
 Cohesion: 0.17
@@ -4547,9 +4596,9 @@ Nodes (9): emit, emitChange(), handleSortSelect(), handleSourceSelect(), handleS
 Cohesion: 0.20
 Nodes (10): emit, formErrors, getErrorMessage(), handleBasicInfoUpdate(), initialState, props, state, { t } (+2 more)
 
-### Community 962 - "CreateCustomToolDialog.vue"
-Cohesion: 0.21
-Nodes (10): createTool(), dialogRef, emit, handleClose(), handleSubmit(), i18nKey, props, store (+2 more)
+### Community 962 - "Conversations::UpdateMessageStatusJob"
+Cohesion: 0.19
+Nodes (3): Conversations::UpdateMessageStatusJob, Webhooks::FacebookDeliveryJob, Integrations::Facebook::DeliveryStatus
 
 ### Community 963 - "AssistantSwitcher.vue"
 Cohesion: 0.23
@@ -4579,25 +4628,25 @@ Nodes (8): typingUserNames(), convertToAttributeSlug(), convertToCategorySlug(),
 Cohesion: 0.18
 Nodes (3): useBulkActions(), resetBulkActions(), selectAllConversations()
 
-### Community 970 - "useCallSession.js"
-Cohesion: 0.32
-Nodes (11): attachGlobalsOnFirstMount(), buildReactiveSurface(), detachGlobalsOnLastUnmount(), globalCallDuration, globalIsJoining, globalIsJoiningReadonly, handleBeforeUnloadGlobal(), handlePageHideGlobal() (+3 more)
+### Community 970 - "CampaignDeliveryBreakdown.vue"
+Cohesion: 0.19
+Nodes (11): audience, chartData, count(), deliveryRate, props, segments, { t }, emit (+3 more)
 
 ### Community 971 - "useCopilotReply.js"
 Cohesion: 0.32
 Nodes (9): buildPayload(), getEventPrefix(), REWRITE_ACTIONS, trackGenerationFailure(), useCopilotReply(), accept(), execute(), reset() (+1 more)
 
 ### Community 972 - "permissions.js"
-Cohesion: 0.17
-Nodes (11): ASSIGNEE_TYPE_TAB_PERMISSIONS, AVAILABLE_CUSTOM_ROLE_PERMISSIONS, CONTACT_PERMISSIONS, CONVERSATION_PARTICIPATING_PERMISSIONS, CONVERSATION_PERMISSIONS, CONVERSATION_UNASSIGNED_PERMISSIONS, DISPLAY_MODE_PERMISSIONS, MANAGE_ALL_CONVERSATION_PERMISSIONS (+3 more)
+Cohesion: 0.18
+Nodes (10): AVAILABLE_CUSTOM_ROLE_PERMISSIONS, CONTACT_PERMISSIONS, CONVERSATION_PARTICIPATING_PERMISSIONS, CONVERSATION_PERMISSIONS, CONVERSATION_UNASSIGNED_PERMISSIONS, DISPLAY_MODE_PERMISSIONS, MANAGE_ALL_CONVERSATION_PERMISSIONS, PORTAL_PERMISSIONS (+2 more)
 
 ### Community 973 - "conversationHelper.spec.js"
 Cohesion: 0.30
 Nodes (9): filterDuplicateSourceMessages(), getLastMessage(), getLastNonActivityMessage(), getReadMessages(), getUnreadMessages(), conversationData, lastMessageData, readMessagesData (+1 more)
 
-### Community 974 - "messages.js"
-Cohesion: 0.15
-Nodes (12): ALLOWED_FILE_TYPES, ATTACHMENT_ICONS, AUDIO_FORMATS, CONVERSATION_PRIORITY, CONVERSATION_PRIORITY_ORDER, CONVERSATION_STATUS, CSAT_DISPLAY_TYPES, CSAT_RATINGS (+4 more)
+### Community 974 - "EditCategoryDialog.vue"
+Cohesion: 0.14
+Nodes (12): activeLocale, activeLocaleCode, activeLocaleName, categoryFormRef, dialogRef, getters, isInvalidForm, isUpdatingCategory (+4 more)
 
 ### Community 975 - "ContactsBulkActionBar.vue"
 Cohesion: 0.21
@@ -4635,29 +4684,47 @@ Nodes (7): actions, getters, mutations, state, commit, agentBotData, agentBotRec
 Cohesion: 0.27
 Nodes (7): actions, getters, mutations, state, commit, automationsList, payload
 
-### Community 982 - "portalHelpers.js"
-Cohesion: 0.08
-Nodes (13): app, i18n, elementBorderStyles(), elementTextStyles(), initializeIntersectionObserver(), isElementActive(), mounted(), InitializationHelpers (+5 more)
+### Community 982 - "TableOfContents.vue"
+Cohesion: 0.21
+Nodes (5): elementBorderStyles(), elementTextStyles(), initializeIntersectionObserver(), isElementActive(), mounted()
+
+### Community 987 - "Labels::DestroyService"
+Cohesion: 0.12
+Nodes (3): Api::V1::Accounts::LabelsController, Labels::RemoveAssociationsJob, Labels::DestroyService
 
 ### Community 990 - "Contributor Covenant Code of Conduct"
 Cohesion: 0.15
 Nodes (12): 1. Correction, 2. Warning, 3. Temporary Ban, 4. Permanent Ban, Attribution, Contributor Covenant Code of Conduct, Enforcement, Enforcement Guidelines (+4 more)
 
+### Community 994 - "EmailQuoteExtractor"
+Cohesion: 0.24
+Nodes (6): hasQuotedMessage, unquotedHTML, EmailQuoteExtractor, QUOTE_INDICATORS, QUOTE_PATTERNS, dompurify
+
 ### Community 1003 - "Integrations::Cloudflare::RealtimeKitCredentialsValidator"
 Cohesion: 0.24
 Nodes (3): Integrations::Cloudflare::RealtimeKitCredentialsValidator, Integrations::Cloudflare::RealtimeKitCredentialsValidator::Result, cloudflare_validator_result()
-
-### Community 1004 - "Api::V1::Widget::ConfigsController"
-Cohesion: 0.11
-Nodes (3): Api::V1::Widget::ConfigsController, Api::V1::Widget::DirectUploadsController, WebsiteTokenHelper
 
 ### Community 1007 - "SafeFetch"
 Cohesion: 0.26
 Nodes (9): SafeFetch, SafeFetch::Error, SafeFetch::FetchError, SafeFetch::FileTooLargeError, SafeFetch::HttpError, SafeFetch::InvalidUrlError, SafeFetch::UnsafeUrlError, SafeFetch::UnsupportedContentTypeError (+1 more)
 
-### Community 1011 - "DeleteObjectJob"
-Cohesion: 0.11
-Nodes (3): DeleteObjectJob, Conversations::DeleteService, Api::V1::Accounts::SlaPoliciesController
+### Community 1011 - "javascript/dashboard/components/tekomi/phone/SoftphoneWidget.vue"
+Cohesion: 0.14
+Nodes (10): destination, dialpad, {
+  error,
+  isActive,
+  isIncoming,
+  micPermission,
+  muted,
+  registered,
+  remoteNumber,
+  remoteStream,
+  status,
+}, inboxes, isOpen, phoneInbox, remoteAudio, softphone (+2 more)
+
+### Community 1013 - "AddAgent.vue"
+Cohesion: 0.15
+Nodes (13): addAgent(), agentEmail, agentName, emit, getCustomRoles, roles, rules, selectedRole (+5 more)
 
 ### Community 1020 - "conversations/actions.js"
 Cohesion: 0.10
@@ -4679,17 +4746,13 @@ Nodes (11): createChannel(), formErrors, getProviderConfig(), isSubmitDisabled, 
 Cohesion: 0.24
 Nodes (9): closeDialog(), dialogRef, emit, form, handleConfirm(), isFormInvalid, onSuccess(), resetForm() (+1 more)
 
-### Community 1027 - "DealsKanbanView.vue"
-Cohesion: 0.24
-Nodes (10): positionBetween(), aggregate, cardFields, columns, dealsInStage(), emit, onColumnChange(), props (+2 more)
-
 ### Community 1028 - "HelpCenterLayout.vue"
 Cohesion: 0.20
 Nodes (9): activePortal, activePortalName, createPortalDialogRef, currentPortalSlug, emit, portals, route, showPortalSwitcher (+1 more)
 
-### Community 1029 - "LocaleCard.vue"
-Cohesion: 0.20
-Nodes (9): emit, handleAction(), localeLabel, localeMenuItems, localeMenuLabels, props, [showDropdownMenu, toggleDropdown], locales (+1 more)
+### Community 1029 - "Microsoft::CallbacksController"
+Cohesion: 0.17
+Nodes (3): Api::V1::Accounts::Microsoft::AuthorizationsController, MicrosoftConcern, Microsoft::CallbacksController
 
 ### Community 1030 - "InlineInput.vue"
 Cohesion: 0.27
@@ -4706,10 +4769,6 @@ Nodes (9): hasMediaError, isVideo, mediaUrl, props, renderVideo, safeUrl(), show
 ### Community 1034 - "RuleCard.vue"
 Cohesion: 0.22
 Nodes (8): editedContent, emit, isEditing, localContent, modelValue, props, saveEdit(), sampleRules
-
-### Community 1035 - "ParamRow.vue"
-Cohesion: 0.18
-Nodes (9): description, emit, name, paramTypeOptions, required, showErrors, { t }, type (+1 more)
 
 ### Community 1036 - "TicketsKanbanView.vue"
 Cohesion: 0.24
@@ -4732,21 +4791,8 @@ Cohesion: 0.20
 Nodes (10): accountLabels, activeLabels, computeVisibleLabelPosition(), labelContainer, labelPosition, onShowLabels(), props, showAllLabels (+2 more)
 
 ### Community 1041 - "ZaloSessionBanner.vue"
-Cohesion: 0.18
-Nodes (9): bannerMessage, dialogRef, { inbox, isAZaloPersonalChannel }, { isAdmin }, isSessionExpired, props, {
-  qrImage,
-  isStarting,
-  isExpired,
-  errorCode,
-  isWaitingForScan,
-  errorMessage,
-  connect,
-  reset,
-}, store (+1 more)
-
-### Community 1042 - "Frame.vue"
-Cohesion: 0.22
-Nodes (3): getFrameId(), onIframeLoad(), triggerEvent()
+Cohesion: 0.07
+Nodes (15): 'currentChat.id'(), fetchLabels(), mounted(), bannerMessage, dialogRef, { inbox, isAZaloPersonalChannel }, { isAdmin }, isSessionExpired (+7 more)
 
 ### Community 1043 - "keyboardEmojiSelector.vue"
 Cohesion: 0.22
@@ -4756,21 +4802,21 @@ Nodes (10): allEmojis, emit, items, normalizedTerm, onSelect(), props, searchQue
 Cohesion: 0.22
 Nodes (7): addLabel, checkMissingAttributes, dispatch, resolveConversation, RESOLVED_STATUSES, resolvesConversation(), useMacroExecution()
 
+### Community 1047 - "TicketPipelinesAPI"
+Cohesion: 0.13
+Nodes (5): PipelinesAPI, TicketPipelinesAPI, camelize(), usePipelinesStore, useTicketPipelinesStore
+
 ### Community 1048 - "ConversationInfo.vue"
 Cohesion: 0.18
 Nodes (9): browserInfo, browserLanguage, browserName, createdAtIp, initiatedAt, platformName, props, referer (+1 more)
 
-### Community 1049 - "CompanyNotesSidebar.vue"
-Cohesion: 0.18
-Nodes (7): currentUser, { formatMessage }, hasNotes, props, route, router, { t }
+### Community 1049 - "emit"
+Cohesion: 0.17
+Nodes (13): checkSelection(), contentFromEditor(), createEditorView(), emit, emitOnChange(), handleCopilotAction(), insertContentIntoEditor(), insertNodeIntoEditor() (+5 more)
 
 ### Community 1051 - "PortalsIndexPage.vue"
 Cohesion: 0.25
 Nodes (10): generateRouterParams(), isPortalPresent(), performRouting(), portals, route, router, routeToLastActivePortal(), routeToView() (+2 more)
-
-### Community 1052 - "ConversationCard/SLACardLabel.vue"
-Cohesion: 0.18
-Nodes (10): appliedSLA, conversation, hasSlaThreshold, isSlaMissed, props, slaEvents, { slaStatus }, slaStatusText (+2 more)
 
 ### Community 1053 - "DealShow.vue"
 Cohesion: 0.20
@@ -4781,12 +4827,12 @@ Cohesion: 0.22
 Nodes (8): dialogRef, emit, handleClose(), handleConfirm(), inboxIcon, inboxName, props, { t }
 
 ### Community 1055 - "CustomRolePaywall.vue"
-Cohesion: 0.18
-Nodes (9): currentAccountId, currentUser, dummyCustomRolesData, i18nKey, isOnChatwootCloud, isSuperAdmin, router, { t } (+1 more)
+Cohesion: 0.13
+Nodes (11): currentAccountId, currentUser, dummyCustomRolesData, i18nKey, isOnChatwootCloud, isSuperAdmin, router, { t } (+3 more)
 
-### Community 1056 - "MacrosTableRow.vue"
-Cohesion: 0.18
-Nodes (10): canManageMacro, createdByName, editTooltip, props, { t }, updatedByName, visibilityLabel, macro() (+2 more)
+### Community 1056 - "MacroForm.vue"
+Cohesion: 0.19
+Nodes (5): deleteNode(), handler(), removeObjectProperty(), resetNode(), resetValidation()
 
 ### Community 1057 - "ActiveSessions.vue"
 Cohesion: 0.20
@@ -4800,6 +4846,10 @@ Nodes (11): allAgentsSelected, disableSubmitButton, handleSelectAgent(), headers
 Cohesion: 0.24
 Nodes (6): actions, getters, mutations, state, commit, dispatch
 
+### Community 1060 - "teamMembers.js"
+Cohesion: 0.26
+Nodes (8): teamMembers(), commit, actions, ADD_AGENTS_TO_TEAM, getters, mutations, SET_TEAM_MEMBERS_UI_FLAG, state
+
 ### Community 1061 - "components/FeatureToggle.vue"
 Cohesion: 0.20
 Nodes (10): description, emit, featureConfig, { features }, isEnabled, props, { t }, tekomiConfigStore (+2 more)
@@ -4808,13 +4858,9 @@ Nodes (10): description, emit, featureConfig, { features }, isEnabled, props, { 
 Cohesion: 0.25
 Nodes (7): actions, getters, mutations, normalizeCount(), normalizeCounts(), state, commit
 
-### Community 1064 - "assistants/Index.vue"
-Cohesion: 0.18
-Nodes (7): createAssistantDialog, dialogType, isFetching, { isOnChatwootCloud }, router, selectedAssistant, uiFlags
-
-### Community 1065 - "AssistantsIndexPage.vue"
-Cohesion: 0.25
-Nodes (10): assistants, generateRouterParams(), isAssistantPresent(), performRouting(), route, router, routeToLastActiveAssistant(), routeToView() (+2 more)
+### Community 1065 - "SLAReportItem.vue"
+Cohesion: 0.17
+Nodes (3): conversationLabels, props, routerParams
 
 ### Community 1066 - "PublicSearchInput.vue"
 Cohesion: 0.24
@@ -4838,15 +4884,15 @@ Nodes (20): Onboarding::WebWidgetCreationService, File Structure, Global Constra
 
 ### Community 1094 - "ref_vitest"
 Cohesion: 0.11
-Nodes (10): Timer, asObject(), classifyMessage(), ensureExt(), fetchable(), media(), MEDIA_LABEL, MediaKind (+2 more)
+Nodes (8): Timer, useLocale(), useNumberFormatter(), calculatePrefersDarkMode(), getSystemPreference(), isDarkMode(), isDarkModeAuto(), useDarkMode()
 
-### Community 1095 - "Saml.vue"
-Cohesion: 0.18
-Nodes (9): credentials, csrfToken, globalConfig, loginApi, props, store, { t }, v$ (+1 more)
+### Community 1095 - "Enterprise::DeviseOverrides::SessionsController"
+Cohesion: 0.24
+Nodes (3): Enterprise::DeviseOverrides::PasswordsController, Enterprise::DeviseOverrides::SessionsController, SamlAuthenticationHelper
 
-### Community 1099 - "message/MessageList.vue"
-Cohesion: 0.22
-Nodes (7): allMessages, currentChat, emit, fetchedReplyMessages, fetchReplyMessage(), getInReplyToMessage(), props
+### Community 1096 - "Sla::ProcessAccountAppliedSlasJob"
+Cohesion: 0.17
+Nodes (4): Enterprise::TriggerScheduledItemsJob, Sla::ProcessAccountAppliedSlasJob, Sla::ProcessAppliedSlaJob, Sla::TriggerSlasForAccountsJob
 
 ### Community 1103 - "StatusBanner.vue"
 Cohesion: 0.24
@@ -4880,17 +4926,21 @@ Nodes (7): characterCount, emit, handleInput(), isFocused, messageClass, props, 
 Cohesion: 0.31
 Nodes (9): activityMessage, baseSenderData, currentUserId, email, getAttachment(), getMessage(), privateText, simpleText (+1 more)
 
-### Community 1111 - "RangeSelector.vue"
-Cohesion: 0.22
-Nodes (8): DAY_RANGES, decorate(), menuItems, menuSections, modelValue, selectedLabel, [showDropdown, toggleDropdown], { t }
+### Community 1111 - "DealNextStepCard.vue"
+Cohesion: 0.20
+Nodes (9): advice, dealsStore, emit, generate(), isLoading, isMoving, moveToSuggestedStage(), props (+1 more)
+
+### Community 1112 - "BaseInfo.vue"
+Cohesion: 0.18
+Nodes (9): description, emit, enabled, isValid, policyName, v$, validationRules, description (+1 more)
 
 ### Community 1113 - "InboxChannelForm.vue"
 Cohesion: 0.22
 Nodes (9): emit, FORMS, isCreating, isValid, props, store, submit(), { t } (+1 more)
 
-### Community 1114 - "InboxChannels.vue"
-Cohesion: 0.20
-Nodes (9): createFlowSteps, globalConfig, isFinishStep, isFirstStep, items, pageTitle, { replaceInstallationName }, route (+1 more)
+### Community 1114 - "ZaloOa.vue"
+Cohesion: 0.07
+Nodes (23): appId, appSecret, connect(), isConnecting, isSubmitDisabled, oaSecretKey, rules, { t } (+15 more)
 
 ### Community 1115 - "modules/bulkActions.js"
 Cohesion: 0.27
@@ -4956,33 +5006,33 @@ Nodes (7): action, { content, sender, id }, dyteAuthToken, isLoading, joinTheCal
 Cohesion: 0.27
 Nodes (9): addFilter(), applyFilters(), clearFilters(), conditionsRef, DEFAULT_FILTER, emit, filters, outsideClickHandler (+1 more)
 
-### Community 1133 - "SLAReports.vue"
-Cohesion: 0.31
-Nodes (5): fetchSLAMetrics(), fetchSLAReports(), mounted(), onFilterChange(), onPageChange()
+### Community 1133 - "BotReports.vue"
+Cohesion: 0.10
+Nodes (18): fetchAllData(), fetchBotSummary(), fetchChartData(), getRequestPayload(), onFilterChange(), slots, GROUP_BY_FILTER, fetchAccountSummary() (+10 more)
 
 ### Community 1134 - "TemplatePreviewDrawer.vue"
 Cohesion: 0.20
 Nodes (8): close(), managementLabel, managementUrl, panelRef, platform, props, { t }, variables
 
-### Community 1135 - "DealsListView.vue"
-Cohesion: 0.22
-Nodes (7): useDealGroups(), collapsedGroups, emit, groups, props, sentinelRef, stagesById
+### Community 1135 - "FairDistribution.vue"
+Cohesion: 0.18
+Nodes (8): fairDistributionLimit, fairDistributionWindow, { t }, windowInMinutes, windowUnit, fairDistributionLimit, fairDistributionWindow, windowUnit
 
 ### Community 1136 - "TicketsFilter.vue"
 Cohesion: 0.27
 Nodes (9): addFilter(), applyFilters(), clearFilters(), conditionsRef, DEFAULT_FILTER, emit, filters, outsideClickHandler (+1 more)
 
-### Community 1137 - "MultipleIntegrationHooks.vue"
-Cohesion: 0.20
-Nodes (8): filteredHooks, globalConfig, hookHeaders, hooks, { integration, isHookTypeInbox, hasConnectedHooks }, props, searchQuery, { t }
+### Community 1137 - "ZaloSessionStatus.vue"
+Cohesion: 0.18
+Nodes (9): detail, DOT_COLORS, dotColor, needsRescan, props, router, status, statusLabel (+1 more)
 
 ### Community 1138 - "modules/contactNotes.js"
-Cohesion: 0.15
-Nodes (6): ContactNotes, actions, getters, mutations, state, commit
+Cohesion: 0.31
+Nodes (5): actions, getters, mutations, state, commit
 
-### Community 1140 - "Form/Input.vue"
+### Community 1140 - "ReplyBox.spec.js"
 Cohesion: 0.20
-Nodes (6): currentInputType, FIELDS, isPasswordField, [isPasswordVisible, togglePasswordVisibility], model, props
+Nodes (6): inbox(), message(), buildStore(), CHANNELS, mountWith(), REPLIABLE
 
 ### Community 1141 - "ChatForm.vue"
 Cohesion: 0.29
@@ -4996,21 +5046,37 @@ Nodes (8): emit, emojiSearch, emojiSections, recentEmojis, searchInput, selectEm
 Cohesion: 0.22
 Nodes (8): applyDirection(), direction, handleIframeLoad(), iframe, isLoading, props, showEmptyState, { t }
 
+### Community 1144 - "CmdBarConversationSnooze.vue"
+Cohesion: 0.22
+Nodes (9): chooseSnoozeTime(), contextMenuChatId, getters, onCmdSnoozeConversation(), selectedChat, showCustomSnoozeModal, store, { t } (+1 more)
+
 ### Community 1146 - "ArticleBlock.vue"
 Cohesion: 0.24
 Nodes (8): articlesToDisplay, emit, onArticleClick(), props, widgetColor, emit, onClick(), props
 
-### Community 1175 - "ContactCustomAttributeItem.vue"
-Cohesion: 0.22
-Nodes (6): componentMap, CurrentAttributeComponent, props, route, store, { t }
+### Community 1175 - "conversationSearch.js"
+Cohesion: 0.24
+Nodes (6): actions, getters, initialState, mutations, commit, dispatch
 
 ### Community 1177 - "DatePickerButton.vue"
-Cohesion: 0.24
-Nodes (8): emit, setDateRange(), activeDateRange, emit, formatDateRange, openDatePicker(), props, dateRanges
+Cohesion: 0.28
+Nodes (7): emit, setDateRange(), activeDateRange, emit, openDatePicker(), props, dateRanges
 
-### Community 1185 - "AddCustomDomainDialog.vue"
+### Community 1178 - "modules/customRole.js"
+Cohesion: 0.33
+Nodes (6): actions, getters, mutations, state, commit, customRoleList
+
+### Community 1180 - "draftMessages.js"
 Cohesion: 0.25
-Nodes (8): dialogRef, emit, formState, handleDialogConfirm(), props, rules, { t }, v$
+Nodes (6): actions, getters, mutations, state, commit, data
+
+### Community 1184 - "Instagram::MessageText"
+Cohesion: 0.12
+Nodes (3): Instagram::MessageText, Instagram::Messenger::MessageText, Instagram::WebhooksBaseService
+
+### Community 1185 - "Enterprise::Concerns::Article"
+Cohesion: 0.22
+Nodes (3): Portal::ArticleIndexingJob, Enterprise::Concerns::Article, vector_search()
 
 ### Community 1190 - "PaymentPendingBanner.vue"
 Cohesion: 0.28
@@ -5053,8 +5119,8 @@ Cohesion: 0.28
 Nodes (8): deleteDialogRef, deleteEntity(), emit, handleDialogConfirm(), i18nKey, props, store, { t }
 
 ### Community 1202 - "AssistantDrilldownDrawer.vue"
-Cohesion: 0.22
-Nodes (7): emit, panelRef, props, {
+Cohesion: 0.15
+Nodes (11): fetchDrilldown(), emit, fetchDrilldown(), panelRef, props, {
   records,
   meta,
   isFetching,
@@ -5065,7 +5131,7 @@ Nodes (7): emit, panelRef, props, {
   open: openDrilldown,
   close,
   loadMore,
-}, subtitle, { t }, title
+}, subtitle, { t } (+3 more)
 
 ### Community 1203 - "AttachmentsPreview.vue"
 Cohesion: 0.25
@@ -5078,10 +5144,6 @@ Nodes (7): emit, onClose(), props, selectedTabIndex, { t }, tabs, title
 ### Community 1207 - "ChannelLeaf.vue"
 Cohesion: 0.22
 Nodes (5): props, reauthorizationRequired, displayCount, normalizedCount, props
-
-### Community 1208 - "CustomToolCard.vue"
-Cohesion: 0.25
-Nodes (8): authTypeLabel, emit, handleAction(), menuItems, props, [showActionsDropdown, toggleDropdown], { t }, timestamp
 
 ### Community 1209 - "preChat.js"
 Cohesion: 0.42
@@ -5107,17 +5169,17 @@ Nodes (7): {
   manifestCustomAttributes,
 }, close(), emit, formRef, onSave(), START_VALUE, store
 
-### Community 1212 - "ConversationBox.vue"
-Cohesion: 0.28
-Nodes (3): 'currentChat.id'(), fetchLabels(), mounted()
+### Community 1212 - "classify.ts"
+Cohesion: 0.31
+Nodes (9): asObject(), classifyMessage(), ensureExt(), fetchable(), media(), MEDIA_LABEL, MediaKind, nameFromUrl() (+1 more)
 
 ### Community 1213 - "SenderNameExamplePreview.vue"
 Cohesion: 0.28
 Nodes (8): emit, isKeyOptionFriendly(), props, { replaceInstallationName }, senderNameKeyOptions, { t }, toggleSenderNameType(), userName()
 
-### Community 1214 - "facebook/Reauthorize.vue"
-Cohesion: 0.08
-Nodes (17): inboxEmail, isRequestingAuthorization, props, { t }, isRequestingAuthorization, { t }, isRequestingAuthorization, props (+9 more)
+### Community 1214 - "google/Reauthorize.vue"
+Cohesion: 0.10
+Nodes (12): inboxEmail, isRequestingAuthorization, props, { t }, isRequestingAuthorization, { t }, isRequestingAuthorization, props (+4 more)
 
 ### Community 1216 - "audioConversionUtils.js"
 Cohesion: 0.42
@@ -5143,25 +5205,21 @@ Nodes (7): buildUrl(), create(), destroy(), actions, getters, mutations, state
 Cohesion: 0.25
 Nodes (4): connected, PAGES, pagesResponse, useFacebookPageConnect()
 
-### Community 1223 - "ChannelName.vue"
-Cohesion: 0.29
-Nodes (7): getters, globalConfig, i18nMap, props, readableChannelName, { t }, twilioChannelName()
-
-### Community 1237 - "DateHelper.js"
-Cohesion: 0.39
-Nodes (4): formatDate(), formatUnixDate(), generateRelativeTime(), isTimeAfter()
+### Community 1223 - "inbox/Index.vue"
+Cohesion: 0.08
+Nodes (25): getters, globalConfig, i18nMap, props, readableChannelName, { t }, twilioChannelName(), closeDelete() (+17 more)
 
 ### Community 1239 - "Production migration guide: Rails 7.2.3.1"
 Cohesion: 0.25
 Nodes (7): Application-level changes, Azure configuration, Before deployment, Deployment order, Post-deployment checks, Production migration guide: Rails 7.2.3.1, Rollback
 
-### Community 1242 - "ChannelList.vue"
-Cohesion: 0.22
-Nodes (7): { accountId, currentAccount }, channelList, enabledFeatures, globalConfig, hasTiktokConfigured, router, { t }
+### Community 1249 - ".make_api_call"
+Cohesion: 0.09
+Nodes (4): Tekomi::Llm::ArticleTranslationService, Tekomi::Llm::TranslateQueryService, Tekomi::Tools::SearchReplyDocumentationService, Enterprise::Tekomi::ReplySuggestionService
 
 ### Community 1254 - "Tekomi::Rag::SearchService"
-Cohesion: 0.07
-Nodes (7): Portal::ArticleIndexingJob, Enterprise::Concerns::Article, vector_search(), Tekomi::Rag::SearchService, Tekomi::Rag::SearchService::Hit, Tekomi::Tools::SearchReplyDocumentationService, Tekomi::Tools::FaqLookupTool
+Cohesion: 0.16
+Nodes (3): Tekomi::Rag::SearchService, Tekomi::Rag::SearchService::Hit, Tekomi::Tools::FaqLookupTool
 
 ### Community 1256 - "with_modified_env"
 Cohesion: 0.22
@@ -5171,21 +5229,33 @@ Nodes (5): General Guidelines, post_instagram_webhook(), post_unsigned_whatsapp_
 Cohesion: 0.31
 Nodes (4): base_redis_keys(), built_in_filter_version_keys(), custom_filter_version_keys(), redis_keys()
 
-### Community 1259 - "LlmProviderCard.vue"
-Cohesion: 0.25
-Nodes (8): apiBase, apiKey, badge, canSave, emit, props, save(), { t }
+### Community 1259 - "SelectMenu.vue"
+Cohesion: 0.22
+Nodes (7): emit, handleSelect(), isOpen, labelValue, props, sampleOptions, selectedValue
 
 ### Community 1261 - "Api::V1::Accounts::Tekomi::PreferencesController"
-Cohesion: 0.11
-Nodes (4): Api::V1::Accounts::Tekomi::PreferencesController, AccountLlmPromptTemplate, Llm::Prompts, Llm::Services
+Cohesion: 0.09
+Nodes (4): Api::V1::Accounts::Tekomi::PreferencesController, Llm::ModelCatalog, Llm::Providers, Llm::Services
+
+### Community 1266 - "AssistantCard.vue"
+Cohesion: 0.22
+Nodes (8): { checkPermissions }, emit, handleAction(), lastUpdatedAt, menuItems, props, [showActionsDropdown, toggleDropdown], { t }
 
 ### Community 1269 - ".get"
 Cohesion: 0.38
 Nodes (3): getTimeOffset(), TeamMonitoringAPI, toggleAgentConversations()
 
-### Community 1271 - "DealSummaryCard.vue"
-Cohesion: 0.25
-Nodes (6): generate(), highlights, isLoading, props, summary, { t }
+### Community 1271 - "CoverageBanner.vue"
+Cohesion: 0.20
+Nodes (7): accountId, assistantId, dismissed, props, route, router, showBanner
+
+### Community 1274 - "clearMessage"
+Cohesion: 0.20
+Nodes (10): clearCopilotAcceptedMessage(), clearMessage(), conversationIdByRoute(), onRecordError(), resetAudioRecorderInput(), resetRecorderAndClearAttachments(), resetReplyToMessage(), setReplyMode() (+2 more)
+
+### Community 1275 - "reloadState"
+Cohesion: 0.27
+Nodes (10): addSignature(), createState(), focusEditor(), focusEditorInputField(), handleCopilotClick(), handleEmptyBodyWithSignature(), isBodyEmpty(), openFileBrowser() (+2 more)
 
 ### Community 1276 - "AnalysisFields.vue"
 Cohesion: 0.29
@@ -5239,17 +5309,13 @@ Nodes (6): dropdownMenuRef, focusButton(), focusNextButton(), focusPreviousButto
 Cohesion: 0.50
 Nodes (6): checkFileSizeLimit(), DEFAULT_MAXIMUM_FILE_UPLOAD_SIZE, fileSizeInMegaBytes(), formatBytes(), isFileTypeAllowedForChannel(), resolveMaximumFileUploadSize()
 
-### Community 1296 - "Edit.vue"
-Cohesion: 0.32
-Nodes (3): setNewPassword(), showAlertMessage(), submitForm()
+### Community 1296 - "modules/attributes.js"
+Cohesion: 0.31
+Nodes (5): actions, getters, mutations, state, commit
 
-### Community 1297 - "ChatwootExceptionTracker"
-Cohesion: 0.15
-Nodes (3): AutomationRules::ProcessPendingExecutionJob, Instagram::Messenger::MessageText, ChatwootExceptionTracker
-
-### Community 1308 - "useFontSize.js"
-Cohesion: 0.39
-Nodes (6): applyFontSizeToDOM(), createFontSizeOption(), FONT_SIZE_NAMES, FONT_SIZE_OPTIONS, getFontSizeLabelKey(), useFontSize()
+### Community 1308 - "automations.js"
+Cohesion: 0.31
+Nodes (5): actions, getters, mutations, state, commit
 
 ### Community 1313 - "commandbar/actions.js"
 Cohesion: 0.25
@@ -5267,21 +5333,29 @@ Nodes (3): ActiveStorageBareDirectUploadGuard, ActiveStorageDirectUploadMetadata
 Cohesion: 0.39
 Nodes (6): Voice::CallErrors, Voice::CallErrors::AlreadyAccepted, Voice::CallErrors::CallAlreadyEnded, Voice::CallErrors::CallFailed, Voice::CallErrors::NoCallPermission, Voice::CallErrors::NotRinging
 
+### Community 1327 - "Đồ thị mã nguồn (graphify)"
+Cohesion: 0.22
+Nodes (9): Knowledge Graph (graphify), authorize(), Bật cho Claude Code, Cài trên máy mới, Cập nhật, Giới hạn, Tra cứu, Xem bằng hình (+1 more)
+
 ### Community 1335 - "banner/Banner.vue"
 Cohesion: 0.40
 Nodes (5): bannerClass, buttonClass, emit, props, triggerAction()
 
-### Community 1339 - "ContactChannels.vue"
+### Community 1336 - "facebook/Reauthorize.vue"
 Cohesion: 0.33
-Nodes (4): channels, isLoading, props, { t }
+Nodes (5): loadFBsdk(), reauthorizeFBPage(), runFBInit(), startLogin(), tryFBlogin()
+
+### Community 1339 - "MacroNode.vue"
+Cohesion: 0.22
+Nodes (7): actionData, errorMessage, { getMacroDropdownValues }, macroActionTypes, props, showActionInput, { t }
 
 ### Community 1343 - "SLAReports.js"
-Cohesion: 0.19
-Nodes (6): SLAReportsAPI, actions, getters, mutations, state, commit
+Cohesion: 0.31
+Nodes (5): actions, getters, mutations, state, commit
 
-### Community 1345 - "@vue/test-utils"
-Cohesion: 0.04
-Nodes (22): PolicyStub, RouterLinkStub, ButtonStub, InputStub, SUPPORTED_URLS, mockStore, setup(), INBOX_FEATURE_MAP (+14 more)
+### Community 1345 - "useInbox.spec.js"
+Cohesion: 0.32
+Nodes (5): mockStore, setup(), INBOX_FEATURE_MAP, INBOX_FEATURES, useInbox()
 
 ### Community 1346 - "ConfirmDeleteCampaignDialog.vue"
 Cohesion: 0.33
@@ -5343,9 +5417,9 @@ Nodes (6): ANALYTICS_CAMPAIGN_STATUSES, emit, handleAnalytics(), handleDelete(),
 Cohesion: 0.33
 Nodes (6): active, activeIndex, getItemCount, onTabClick(), props, updateActiveIndex
 
-### Community 1363 - "BaseActionCableConnector"
-Cohesion: 0.17
-Nodes (4): init(), { isImpersonating }, BaseActionCableConnector, @rails/actioncable
+### Community 1363 - "ref_v3"
+Cohesion: 0.28
+Nodes (6): emit, onChange(), emit, { fontSizeOptions }, props, selectedValue
 
 ### Community 1364 - "TicketsTableView.vue"
 Cohesion: 0.29
@@ -5359,9 +5433,9 @@ Nodes (6): DEFAULT_ACTIONS, DEFAULT_CONVERSATION_CONDITION, DEFAULT_MESSAGE_CREA
 Cohesion: 0.48
 Nodes (5): resolveContactName(), DATE_RANGE_TYPES, fetchContactDetails(), generateURLParams(), parseURLParams()
 
-### Community 1367 - "EditContact.vue"
-Cohesion: 0.33
-Nodes (5): emit, onCancel(), props, store, uiFlags
+### Community 1367 - "UserLanguageSelect.vue"
+Cohesion: 0.25
+Nodes (8): { currentAccount }, currentLanguage, { enabledLanguages }, languageOptions, selectedValue, { t, locale }, updateLanguage(), { updateUISettings, uiSettings }
 
 ### Community 1368 - "channelMatchers.js"
 Cohesion: 0.43
@@ -5375,9 +5449,9 @@ Nodes (4): filteredTemplates, typeOptions, templateTypeKey(), TemplateTypeDetect
 Cohesion: 0.33
 Nodes (5): { isAdmin }, isOnChatwootCloud, setupListenerForWidgetEvent(), showBillingLink, toggleSupportWidgetVisibility()
 
-### Community 1373 - "tekomi_tools_helpers.rb"
-Cohesion: 0.60
-Nodes (3): built_in_agent_tools(), load_agent_tools(), resolve_tool_class()
+### Community 1373 - "conversationPage.js"
+Cohesion: 0.31
+Nodes (5): actions, getters, mutations, state, commit
 
 ### Community 1375 - "AudioAlertTone.vue"
 Cohesion: 0.33
@@ -5386,6 +5460,10 @@ Nodes (5): alertTones, audio, emit, props, selectedValue
 ### Community 1379 - "ActiveFilterChip.vue"
 Cohesion: 0.48
 Nodes (6): addFilter(), closeDropdown(), emit, props, removeFilter(), toggleDropdown()
+
+### Community 1381 - "conversationTypingStatus.js"
+Cohesion: 0.31
+Nodes (5): actions, getters, mutations, state, commit
 
 ### Community 1399 - "Slack"
 Cohesion: 0.29
@@ -5399,6 +5477,10 @@ Nodes (4): ActiveRecord, ActiveRecord::ConnectionAdapters, ActiveRecord::Connect
 Cohesion: 0.57
 Nodes (5): clampDataBetweenTimeline(), flattenHeatmapData(), generateEmptyHeatmapData(), groupHeatmapByDay(), reconcileHeatmapData()
 
+### Community 1405 - "Internal::RemoveStaleContactsJob"
+Cohesion: 0.22
+Nodes (3): Internal::ProcessStaleContactsJob, Internal::RemoveStaleContactsJob, Internal::RemoveStaleContactsService
+
 ### Community 1419 - "overrides"
 Cohesion: 0.29
 Nodes (7): minimatch@<4, minimatch@>=9.0.0 <9.0.7, rollup, vite, vitest, pnpm, overrides
@@ -5410,10 +5492,6 @@ Nodes (5): cache, httpUrl(), resolveStickerImage(), StickerApi, StickerImage
 ### Community 1433 - "ChatTypeTabs.vue"
 Cohesion: 0.40
 Nodes (5): activeTabIndex, emit, keyboardEvents, onTabChange(), props
-
-### Community 1434 - "calculateScrollTop"
-Cohesion: 0.47
-Nodes (3): calculateScrollTop(), totalMessageHeight(), DOMElement
 
 ### Community 1435 - "billing.js"
 Cohesion: 0.40
@@ -5431,17 +5509,25 @@ Nodes (5): activeTab, emit, onTabChange(), props, tabBarTabs
 Cohesion: 0.33
 Nodes (6): alertError(), fetchDeals(), loadMoreDeals(), loadMoreInStage(), moveDeal(), updateDeal()
 
-### Community 1441 - "NotificationCheckBox.vue"
-Cohesion: 0.40
-Nodes (5): emit, handleInput(), localFlags, localValue, props
-
-### Community 1451 - "Milestone 3: Remove Rails 8.0 incompatibilities"
+### Community 1446 - "ComboBoxDropdown.vue"
 Cohesion: 0.29
-Nodes (7): Milestone 3: Remove Rails 8.0 incompatibilities, R3.1a — Conversation and messaging enums (S), R3.1b — Accounts, channels, bots, and integrations enums (S), R3.1d — Enterprise enums (S), R3.2 — Upgrade Administrate and own the asset pipeline (M), R3.3 — Replace removed/internal Rails APIs (S), R3.4 — Upgrade to Rails 8.0.5 (M)
+Nodes (6): emit, onInputSearch(), props, searchInput, searchValue, { t }
+
+### Community 1448 - "CompanyHistorySidebar.vue"
+Cohesion: 0.25
+Nodes (5): accountLabels, accountLabelsValue, contactsById, stateInbox, { t }
+
+### Community 1451 - "WelcomeCard.vue"
+Cohesion: 0.25
+Nodes (6): assistantId, formattedSummary, isLoading, props, route, welcomeMarkdown
 
 ### Community 1460 - "Tekomi::Copilot::ChatService"
 Cohesion: 0.05
-Nodes (7): Tekomi::Copilot::ChatService, Tekomi::Copilot::ConversationAccess, Tekomi::Tools::Copilot::GetArticleService, Tekomi::Tools::Copilot::GetContactService, Tekomi::Tools::Copilot::GetConversationService, Tekomi::Tools::Copilot::SearchContactsService, Tekomi::Tools::Copilot::SearchConversationsService
+Nodes (7): Tekomi::Copilot::ChatService, Tekomi::Copilot::ConversationAccess, Tekomi::Tools::Copilot::GetArticleService, Tekomi::Tools::Copilot::GetContactService, Tekomi::Tools::Copilot::GetConversationService, Tekomi::Tools::Copilot::SearchArticlesService, Tekomi::Tools::Copilot::SearchContactsService
+
+### Community 1464 - "useDropdownPosition.spec.js"
+Cohesion: 0.25
+Nodes (4): dropdownBounds, triggerBounds, winHeight, winWidth
 
 ### Community 1466 - "filtered_count_store_spec.rb"
 Cohesion: 0.53
@@ -5468,12 +5554,16 @@ Cohesion: 0.60
 Nodes (3): getLanguageDirection(), getLanguageName(), languages
 
 ### Community 1484 - "api.js"
-Cohesion: 0.12
-Nodes (21): USER_SESSION_READY, initializeAudioAlerts(), initializeUserSessionEvents(), actions, getters, initialState, mutations, commit (+13 more)
+Cohesion: 0.11
+Nodes (22): USER_SESSION_READY, initializeAudioAlerts(), initializeUserSessionEvents(), actions, getters, initialState, mutations, commit (+14 more)
 
 ### Community 1485 - "agentHelper.spec.js"
 Cohesion: 0.80
 Nodes (3): getAgentsByAvailability(), getAgentsByUpdatedPresence(), getSortedAgentsByAvailability()
+
+### Community 1486 - "templateHelper.spec.js"
+Cohesion: 0.36
+Nodes (5): allKeysRequired(), buildTemplateParameters(), DEFAULT_CATEGORY, DEFAULT_LANGUAGE, replaceTemplateVariables()
 
 ### Community 1490 - "ImportProgress.vue"
 Cohesion: 0.40
@@ -5511,22 +5601,6 @@ Nodes (3): Onboarding::HelpCenterErrors, Onboarding::HelpCenterErrors::ArticleBu
 Cohesion: 0.50
 Nodes (3): COLORS, SIZES, VARIANTS
 
-### Community 1529 - "TeamAvailability.vue"
-Cohesion: 0.40
-Nodes (5): emit, props, startConversation(), widgetColor, CHATWOOT_ON_START_CONVERSATION
-
-### Community 1531 - "openDrilldown"
-Cohesion: 0.50
-Nodes (4): fetchDrilldown(), fetchDrilldown(), fetchDrilldown(), openDrilldown()
-
-### Community 1532 - "AuthConfig.vue"
-Cohesion: 0.50
-Nodes (3): authConfig, props, { t }
-
-### Community 1533 - "emit"
-Cohesion: 0.50
-Nodes (4): emit, handleCancel(), handleSubmit(), isParamsValid()
-
 ### Community 1536 - "selectView"
 Cohesion: 0.50
 Nodes (4): deleteView(), duplicateView(), saveView(), selectView()
@@ -5543,10 +5617,6 @@ Nodes (3): copy, emit, { t }
 Cohesion: 0.67
 Nodes (3): getAlertAudio(), getAudioContext(), initOnEvents
 
-### Community 1564 - "DocumentPageEmptyState.vue"
-Cohesion: 0.50
-Nodes (4): emit, { isOnChatwootCloud }, onClick(), { replaceInstallationName }
-
 ### Community 1567 - "enterprise/services/conversations/unread_counts/filtered_counter_spec.rb"
 Cohesion: 0.83
 Nodes (3): built_in_filter_keys(), folder_index_keys(), redis_keys()
@@ -5558,10 +5628,6 @@ Nodes (4): contrastRatio(), effectiveColor(), initializeColorFields(), relativeL
 ### Community 1587 - "getEmptyStateText"
 Cohesion: 0.67
 Nodes (3): getEmptyStateSubtitle, getEmptyStateText(), getEmptyStateTitle
-
-### Community 1594 - "ResponsePageEmptyState.vue"
-Cohesion: 0.50
-Nodes (4): emit, { isOnChatwootCloud }, onClick(), { replaceInstallationName }
 
 ### Community 1595 - "useAccountEnrichment.spec.js"
 Cohesion: 0.60
@@ -5575,37 +5641,69 @@ Nodes (4): connected, connectedName, props, { t }
 Cohesion: 0.50
 Nodes (4): dialogRef, emit, handleDialogConfirm(), { t }
 
+### Community 1648 - "DeleteSegmentDialog.vue"
+Cohesion: 0.33
+Nodes (6): dialogRef, emit, handleDialogConfirm(), isDeleting, { t }, uiFlags
+
 ### Community 1730 - "Cấu hình Provider & Model AI từ Super Admin — Thiết kế"
 Cohesion: 0.08
 Nodes (22): 1. Bối cảnh & mục tiêu, 2. Dữ liệu, 3. Giao diện Super Admin, 4. Luồng gọi AI, 5. Chuyển dữ liệu & dọn code, 6. Xử lý lỗi, Bảng `llm_feature_models`, Bảng `llm_providers` (+14 more)
 
-### Community 2754 - "useDetectKeyboardLayout.js"
-Cohesion: 0.83
-Nodes (3): detect(), detectLegacy(), useDetectKeyboardLayout()
+### Community 2240 - "SuggestedRules.vue"
+Cohesion: 0.38
+Nodes (5): emit, onAddClick(), onClickClose(), guidelinesExample, { t }
 
-### Community 2758 - "resetSnoozeState"
-Cohesion: 0.67
-Nodes (3): onClosed(), patchNinjaKeysOpenClose(), resetSnoozeState()
+### Community 2752 - "KnowledgeCard.vue"
+Cohesion: 0.33
+Nodes (6): approvedPct, linkTo(), props, route, stats, { t }
+
+### Community 2754 - "CopilotReplyBottomPanel.vue"
+Cohesion: 0.38
+Nodes (6): acceptLabel, emit, handleCancel(), handleSubmit(), shortcutKey, { t }
+
+### Community 2755 - "useReportMetrics.spec.js"
+Cohesion: 0.43
+Nodes (4): botSummary, report, summary, useReportMetrics()
+
+### Community 2758 - "conversationMetadata.js"
+Cohesion: 0.38
+Nodes (4): actions, getters, mutations, state
+
+### Community 2759 - "campaignHelper.js"
+Cohesion: 0.48
+Nodes (4): filterCampaigns(), formatCampaigns(), isPatternMatchingWithURL(), urlpattern-polyfill
+
+### Community 2781 - "onKeydown"
+Cohesion: 0.60
+Nodes (5): handleLineBreakWhenCmdAndEnterToSendEnabled(), handleLineBreakWhenEnterToSendEnabled(), isCmdPlusEnterToSendEnabled(), isEnterToSendEnabled(), onKeydown()
+
+### Community 2782 - "QualityReport.vue"
+Cohesion: 0.40
+Nodes (4): criteria, emit, props, { t }
+
+### Community 2785 - "OpportunityList.vue"
+Cohesion: 0.50
+Nodes (3): DETAIL_FIELDS, emit, { t }
 
 ## Knowledge Gaps
-- **8122 isolated node(s):** `setup.sh script`, `name`, `description`, `website`, `repository` (+8117 more)
-  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 16217 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
-- **1827 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **8118 isolated node(s):** `setup.sh script`, `name`, `description`, `website`, `repository` (+8113 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 16214 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **1843 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `Danh sách tính năng (trong code)` connect `.params` to `Cấu hình Provider & Model AI từ Super Admin — Thiết kế`, `Llm::Features`, `attributes/Index.vue`?**
-  _High betweenness centrality (0.273) - this node is a cross-community bridge._
-- **Why does `models()` connect `attributes/Index.vue` to `.params`?**
-  _High betweenness centrality (0.271) - this node is a cross-community bridge._
-- **Why does `ApplicationRecord` connect `ApplicationRecord` to `.agent_bot`, `AppliedSla`, `Tekomi::Scenario`, `Tiktok::CallbacksController`, `ReportingEventsRollupBackfill`, `Channel::Whatsapp`, `Cấu hình GMO AI theo từng account`, `InstallationConfig`, `Ticket`, `Chatwoot`, `Seeders::DemoAccountSeeder`, `AutomationRulePendingExecution`, `CustomAttributeDefinition`, `AutoAssignment::InboxRoundRobinService`, `Account`, `sort_handler.rb`, `Team`, `Avatarable`, `Conversation`, `Inbox`, `Api::V1::Accounts::AutomationRulesController`, `.account`, `Api::V1::Accounts::DataImportsController`, `DataImport`, `SuperAdmin::DashboardController`, `OauthCallbackController`, `Message`, `Channelable`, `Deal`, `PhoneCall`, `Company`, `AccountSamlSettings`, `Api::V1::Accounts::DealsController`, `Pipeline`, `Api::V1::Accounts::Tekomi::AssistantsController`, `ContactInbox`, `Notification`, `Tekomi::Assistant`, `Concerns::Toolable`, `Api::V1::Accounts::Tekomi::PreferencesController`, `ContactMergeAction`, `Conversations::UnreadCounts::FilteredCountInvalidator`, `V2::Reports::TeamMonitoringMetrics`, `Tekomi::ConversationOutcomeTracker`, `TicketStageEvent`, `Channel::Telegram`, `Twilio::DeliveryStatusService`, `PhoneCallEmotionReport`, `CopilotMessage`, `Contact`, `CustomRole`, `User`, `EmailTemplate`, `Seeders::Reports::ReportDataSeeder`, `Webhooks::Callytics::CallsController`, `Label`, `Tekomi::Document`, `Tekomi::ConversationUsageBuilder`, `AutomationRule`, `Campaign`, `Tekomi::Tools::Tickets::CreateTicketService`, `Portal`, `Call`, `DashboardController`, `Tekomi::AssistantResponse`, `Channel::Line`, `TenantBrandingProfile`, `Llm::Features`, `WorkingHour`, `Zalo::QrCompletionService`, `Attachment`, `Channel::FacebookPage`, `Channel::TwitterProfile`, `Events::Types`, `Channel::WebWidget`, `CustomFilter`, `Article`, `.import_conversation_item`, `Sla::EvaluateAppliedSlaService`, `Integrations::Hook`, `.update!`, `ReportingEvent`, `Channel::Sms`?**
-  _High betweenness centrality (0.160) - this node is a cross-community bridge._
+- **Why does `Danh sách tính năng (trong code)` connect `.params` to `Cấu hình Provider & Model AI từ Super Admin — Thiết kế`, `Cấu hình GMO AI theo từng account`, `EditAttribute.vue`?**
+  _High betweenness centrality (0.269) - this node is a cross-community bridge._
+- **Why does `models()` connect `EditAttribute.vue` to `.params`?**
+  _High betweenness centrality (0.267) - this node is a cross-community bridge._
+- **Why does `ApplicationRecord` connect `ApplicationRecord` to `AppliedSla`, `Tekomi::Scenario`, `Tiktok::CallbacksController`, `ReportingEventsRollupBackfill`, `Channel::Whatsapp`, `Cấu hình GMO AI theo từng account`, `.faq_stats`, `InstallationConfig`, `Ticket`, `Tekomi::AudienceValidator`, `Seeders::DemoAccountSeeder`, `AutomationRulePendingExecution`, `.account`, `AutoAssignment::InboxRoundRobinService`, `Account`, `Team`, `Conversation`, `Inbox`, `Api::V1::Accounts::AutomationRulesController`, `.prompt_from_file`, `Api::V1::Accounts::DataImportsController`, `DataImport`, `SuperAdmin::DashboardController`, `OauthCallbackController`, `Message`, `Channelable`, `Deal`, `Enterprise::Message`, `PhoneCall`, `Company`, `AccountSamlSettings`, `Pipeline`, `ContactInbox`, `Notification`, `Tekomi::Assistant`, `Tekomi::CustomTool`, `ContactMergeAction`, `ConversationParticipant`, `Api::V1::Accounts::InboxesController`, `Api::V1::Accounts::TicketsController`, `V2::Reports::TeamMonitoringMetrics`, `Tekomi::ConversationOutcomeTracker`, `TicketStageEvent`, `Channel::Telegram`, `Twilio::DeliveryStatusService`, `PhoneCallEmotionReport`, `CopilotMessage`, `Contact`, `CustomRole`, `User`, `EmailTemplate`, `Webhooks::Callytics::CallsController`, `.title`, `Tekomi::Document`, `Tekomi::ConversationUsageBuilder`, `AutomationRule`, `Campaign`, `Tekomi::Tools::Tickets::CreateTicketService`, `Portal`, `Call`, `DashboardController`, `Tekomi::AssistantResponse`, `TenantBrandingProfile`, `Llm::Config`, `Zalo::IncomingMessageService`, `Attachment`, `Channel::FacebookPage`, `Channel::TwitterProfile`, `Events::Types`, `Channel::WebWidget`, `Article`, `.import_conversation_item`, `Sla::EvaluateAppliedSlaService`, `Integrations::Hook`, `.update!`, `ReportingEvent`, `Channel::Sms`?**
+  _High betweenness centrality (0.158) - this node is a cross-community bridge._
 - **What connects `setup.sh script`, `name`, `description` to the rest of the system?**
-  _8122 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _8118 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Current` be split into smaller, more focused modules?**
-  _Cohesion score 0.011208893006021306 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.011720158672917418 - nodes in this community are weakly interconnected._
 - **Should `ApiClient` be split into smaller, more focused modules?**
-  _Cohesion score 0.01324859292986783 - nodes in this community are weakly interconnected._
-- **Should `@vuelidate/core` be split into smaller, more focused modules?**
-  _Cohesion score 0.01882396794334172 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.01735952489721334 - nodes in this community are weakly interconnected._
+- **Should `vuex` be split into smaller, more focused modules?**
+  _Cohesion score 0.023785785500640935 - nodes in this community are weakly interconnected._

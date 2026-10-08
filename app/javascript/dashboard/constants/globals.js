@@ -7,6 +7,12 @@ export default {
     UNASSIGNED: 'unassigned',
     ALL: 'all',
   },
+  // Conversation list tabs: Mở / Đang xử lý / Đã xử lý (ConversationFinder::Stages).
+  STAGE_TYPE: {
+    OPEN: 'open',
+    IN_PROGRESS: 'in_progress',
+    RESOLVED: 'resolved',
+  },
   DISPLAY_MODE: {
     DEFAULT: 'default',
     COMPANY: 'company',

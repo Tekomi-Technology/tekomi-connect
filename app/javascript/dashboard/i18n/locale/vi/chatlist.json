@@ -29,6 +29,11 @@
       "unassigned": "Chưa được phân công",
       "all": "Tất cả"
     },
+    "STAGE_TABS": {
+      "open": "Mở",
+      "in_progress": "Đang xử lý",
+      "resolved": "Đã xử lý"
+    },
     "CHAT_STATUS_FILTER_ITEMS": {
       "open": {
         "TEXT": "Mở"

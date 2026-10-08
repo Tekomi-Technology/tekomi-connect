@@ -23,11 +23,24 @@ describe('#mutations', () => {
       };
       mutations[types.default.CLEAR_CONVERSATION_PAGE](state);
       expect(state).toEqual({
-        currentPage: { me: 0, unassigned: 0, all: 0, appliedFilters: 0 },
+        currentPage: {
+          me: 0,
+          vip: 0,
+          unassigned: 0,
+          all: 0,
+          open: 0,
+          in_progress: 0,
+          resolved: 0,
+          appliedFilters: 0,
+        },
         hasEndReached: {
           me: false,
+          vip: false,
           unassigned: false,
           all: false,
+          open: false,
+          in_progress: false,
+          resolved: false,
           appliedFilters: false,
         },
       });
