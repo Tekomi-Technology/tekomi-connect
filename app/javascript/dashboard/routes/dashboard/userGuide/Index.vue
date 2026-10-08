@@ -14,7 +14,7 @@ const scrollToSection = id => {
 <template>
   <!-- Not a flex container: the inner row must grow with the content, or the sticky contents column
        is clamped to one screen height and scrolls away. -->
-  <section class="w-full h-full overflow-y-auto">
+  <section class="w-full h-full overflow-y-auto no-scrollbar">
     <div class="flex w-full max-w-6xl gap-10 px-6 py-6 mx-auto">
       <nav class="sticky self-start hidden w-60 top-6 shrink-0 lg:block">
         <p

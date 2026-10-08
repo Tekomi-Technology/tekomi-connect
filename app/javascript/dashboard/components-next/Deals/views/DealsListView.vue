@@ -44,7 +44,7 @@ useIntersectionObserver(sentinelRef, ([entry]) => {
 </script>
 
 <template>
-  <div class="flex flex-col h-full px-6 pb-6 overflow-y-auto">
+  <div class="flex flex-col h-full px-6 pb-6 overflow-y-auto no-scrollbar">
     <div v-if="isFetching" class="flex justify-center py-10">
       <Spinner />
     </div>

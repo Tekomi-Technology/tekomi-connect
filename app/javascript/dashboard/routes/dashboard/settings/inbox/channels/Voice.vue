@@ -93,7 +93,7 @@ async function createChannel() {
 </script>
 
 <template>
-  <div class="overflow-auto col-span-6 p-6 w-full h-full">
+  <div class="overflow-auto no-scrollbar col-span-6 p-6 w-full h-full">
     <PageHeader
       :header-title="t('INBOX_MGMT.ADD.VOICE.TITLE')"
       :header-content="t('INBOX_MGMT.ADD.VOICE.DESC')"

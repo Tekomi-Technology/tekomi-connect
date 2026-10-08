@@ -127,7 +127,7 @@ onMounted(loadAll);
 
 <template>
   <div
-    class="flex flex-col flex-1 overflow-y-auto px-6 py-6 w-full mx-auto max-w-5xl"
+    class="flex flex-col flex-1 overflow-y-auto no-scrollbar px-6 py-6 w-full mx-auto max-w-5xl"
   >
     <header class="flex items-center justify-between mb-4">
       <h1 class="text-xl font-medium text-n-slate-12">

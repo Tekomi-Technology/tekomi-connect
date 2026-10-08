@@ -403,7 +403,7 @@ onUnmounted(() => {
           />
         </div>
       </div>
-      <div class="flex-grow w-full h-full overflow-y-auto">
+      <div class="flex-grow w-full h-full overflow-y-auto no-scrollbar">
         <div class="w-full max-w-5xl mx-auto px-4 pb-6">
           <div v-if="showResultsSection">
             <Policy

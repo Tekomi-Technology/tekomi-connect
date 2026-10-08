@@ -38,7 +38,7 @@ const updateCurrentPage = page => {
         @update:sort="emit('update:sort', $event)"
         @create="emit('create')"
       />
-      <main class="flex-1 px-6 overflow-y-auto">
+      <main class="flex-1 px-6 overflow-y-auto no-scrollbar">
         <div class="w-full mx-auto max-w-5xl py-4">
           <slot name="default" />
         </div>

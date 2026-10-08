@@ -275,7 +275,9 @@ onMounted(fetchReport);
 </script>
 
 <template>
-  <section class="flex flex-col w-full h-full gap-6 px-6 py-6 overflow-y-auto">
+  <section
+    class="flex flex-col w-full h-full gap-6 px-6 py-6 overflow-y-auto no-scrollbar"
+  >
     <header class="flex flex-wrap items-start justify-between gap-4">
       <div class="flex flex-col gap-1">
         <h1 class="text-xl font-medium text-n-slate-12">

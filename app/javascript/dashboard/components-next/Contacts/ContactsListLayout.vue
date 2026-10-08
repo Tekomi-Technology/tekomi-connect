@@ -98,7 +98,7 @@ const showPagination = computed(() => {
         @apply-filter="emit('applyFilter', $event)"
         @clear-filters="emit('clearFilters')"
       />
-      <main class="flex-1 overflow-y-auto px-6">
+      <main class="flex-1 overflow-y-auto no-scrollbar px-6">
         <div class="w-full mx-auto max-w-5xl">
           <ContactsActiveFiltersPreview
             v-if="showActiveFiltersPreview"

@@ -118,7 +118,7 @@ const closeMobileSidebar = () => {
           </div>
         </div>
       </header>
-      <main class="flex-1 px-6 overflow-y-auto 3xl:px-px">
+      <main class="flex-1 px-6 overflow-y-auto no-scrollbar 3xl:px-px">
         <div class="w-full py-4 mx-auto max-w-[40.625rem]">
           <slot name="default" />
         </div>

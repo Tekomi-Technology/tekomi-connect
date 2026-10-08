@@ -93,32 +93,41 @@ const allowedMenuItems = computed(() => {
   >
     <template #trigger="{ toggle, isOpen }">
       <button
-        class="flex gap-2 items-center p-1 text-left rounded-lg cursor-pointer hover:bg-n-alpha-1"
+        class="flex gap-2.5 items-center text-left cursor-pointer transition-colors"
         :class="[
-          { 'bg-n-alpha-1': isOpen },
-          isCollapsed ? 'justify-center' : 'w-full',
+          isCollapsed
+            ? 'justify-center p-1 rounded-lg hover:bg-n-alpha-2'
+            : 'w-full p-2 rounded-xl bg-n-alpha-2 outline outline-1 outline-n-weak hover:bg-n-alpha-3',
+          { '!bg-n-alpha-3': isOpen },
         ]"
         :title="isCollapsed ? currentUser.available_name : undefined"
         @click="toggle"
       >
         <Avatar
-          :size="32"
+          :size="isCollapsed ? 32 : 36"
           :name="currentUser.available_name"
           :src="currentUser.avatar_url"
           :status="currentUserAvailability"
           class="flex-shrink-0"
         />
-        <div v-if="!isCollapsed" class="min-w-0">
-          <div class="text-sm font-medium leading-4 truncate text-n-slate-12">
-            {{ currentUser.available_name }}
+        <template v-if="!isCollapsed">
+          <div class="flex-1 min-w-0">
+            <div
+              class="text-sm font-semibold leading-5 truncate text-n-slate-12"
+            >
+              {{ currentUser.available_name }}
+            </div>
+            <div class="text-xs truncate text-n-slate-11">
+              {{ currentUser.email }}
+            </div>
           </div>
-          <div class="text-xs truncate text-n-slate-11">
-            {{ currentUser.email }}
-          </div>
-        </div>
+          <span
+            class="flex-shrink-0 i-lucide-chevrons-up-down size-4 text-n-slate-10"
+          />
+        </template>
       </button>
     </template>
-    <DropdownBody class="bottom-12 z-50 mb-2 w-80 ltr:left-0 rtl:right-0">
+    <DropdownBody class="top-full z-50 mt-2 w-80 ltr:left-0 rtl:right-0">
       <SidebarProfileMenuStatus />
       <SidebarProfileMenuAccountSwitch
         @show-create-account-modal="emit('showCreateAccountModal')"

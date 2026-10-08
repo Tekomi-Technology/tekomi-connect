@@ -154,6 +154,8 @@ class ConversationFinder
       @conversations = @conversations.where(id: participant_conversation_ids)
     when 'unattended'
       @conversations = @conversations.unattended
+    when 'mine'
+      @conversations = @conversations.assigned_to(current_user)
     end
     @conversations
   end

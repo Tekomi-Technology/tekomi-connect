@@ -20,7 +20,7 @@ const routeKey = computed(() =>
 
 <template>
   <div
-    class="flex flex-col w-full h-full p-6 m-0 overflow-auto bg-n-background"
+    class="flex flex-col w-full h-full p-6 m-0 overflow-auto no-scrollbar bg-n-background"
   >
     <div class="flex items-start w-full">
       <router-view v-slot="{ Component }">

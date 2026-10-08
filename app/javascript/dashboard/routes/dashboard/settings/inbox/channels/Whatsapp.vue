@@ -126,7 +126,7 @@ const requestEmbeddedSignupAccess = () => {
 </script>
 
 <template>
-  <div class="overflow-auto col-span-6 p-6 w-full h-full">
+  <div class="overflow-auto no-scrollbar col-span-6 p-6 w-full h-full">
     <div v-if="showProviderSelection">
       <div class="mb-10 text-left">
         <h1 class="mb-2 text-lg font-medium text-n-slate-12">

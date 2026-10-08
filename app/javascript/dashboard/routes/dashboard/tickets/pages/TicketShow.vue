@@ -207,7 +207,9 @@ onUnmounted(() => ticketsStore.unwatchTicket());
 </script>
 
 <template>
-  <section class="flex flex-col w-full h-full overflow-y-auto bg-n-surface-1">
+  <section
+    class="flex flex-col w-full h-full overflow-y-auto no-scrollbar bg-n-surface-1"
+  >
     <div v-if="isFetching" class="flex justify-center py-16">
       <Spinner />
     </div>

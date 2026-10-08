@@ -40,7 +40,7 @@ const GO_TO_COMMANDS = [
     title: 'COMMAND_BAR.COMMANDS.GO_TO_MY_INBOX',
     section: SECTION_GENERAL,
     icon: ICON_INBOX,
-    routeName: 'inbox_view',
+    routeName: 'conversation_mine',
   },
   {
     id: 'goto_conversation_dashboard',

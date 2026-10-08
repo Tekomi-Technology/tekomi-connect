@@ -27,7 +27,7 @@ const count = computed(() =>
 <template>
   <component
     :is="to ? 'router-link' : 'div'"
-    class="flex items-center gap-2 px-1.5 py-1 rounded-lg h-8 min-w-0"
+    class="relative flex items-center gap-2 px-2 py-1 rounded-lg h-9 min-w-0"
     role="button"
     draggable="false"
     :to="to"
@@ -39,6 +39,10 @@ const count = computed(() =>
     }"
     @click.stop="emit('toggle')"
   >
+    <span
+      v-if="isActive && !hasActiveChild"
+      class="absolute inset-y-2 start-0 w-[3px] rounded-full bg-n-brand"
+    />
     <div v-if="icon" class="relative flex items-center gap-2">
       <Icon
         v-if="icon"

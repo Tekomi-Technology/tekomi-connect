@@ -11,11 +11,14 @@ module ConversationFinder::Stages
 
   # open: nobody has picked it up yet; in_progress: an agent has it, the AI is answering (pending) or it is
   # snoozed; resolved: closed.
+  # «My inbox» (conversation_type mine) only lists the agent's own conversations, so there open means
+  # no agent has replied yet.
   def stage_conditions
     statuses = Conversation.statuses
+    open_split = params[:conversation_type] == 'mine' ? 'conversations.first_reply_created_at' : 'conversations.assignee_id'
     {
-      'open' => "conversations.status = #{statuses[:open]} AND conversations.assignee_id IS NULL",
-      'in_progress' => "(conversations.status = #{statuses[:open]} AND conversations.assignee_id IS NOT NULL) " \
+      'open' => "conversations.status = #{statuses[:open]} AND #{open_split} IS NULL",
+      'in_progress' => "(conversations.status = #{statuses[:open]} AND #{open_split} IS NOT NULL) " \
                        "OR conversations.status IN (#{statuses[:pending]}, #{statuses[:snoozed]})",
       'resolved' => "conversations.status = #{statuses[:resolved]}"
     }

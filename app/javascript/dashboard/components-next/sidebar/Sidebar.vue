@@ -3,7 +3,6 @@ import { h, ref, computed, onMounted, watch } from 'vue';
 import { provideSidebarContext, useSidebarResize } from './provider';
 import { useAccount } from 'dashboard/composables/useAccount';
 import { useConfig } from 'dashboard/composables/useConfig';
-import { useKbd } from 'dashboard/composables/utils/useKbd';
 import { useMapGetter } from 'dashboard/composables/store';
 import { useStore } from 'vuex';
 import { useI18n } from 'vue-i18n';
@@ -19,7 +18,6 @@ import SidebarProfileMenu from './SidebarProfileMenu.vue';
 import ChannelLeaf from './ChannelLeaf.vue';
 import ChannelIcon from 'next/icon/ChannelIcon.vue';
 import Logo from 'next/icon/Logo.vue';
-import ComposeConversation from 'dashboard/components-next/NewConversation/ComposeConversation.vue';
 import {
   SIDEBAR_SORT_SECTIONS,
   getSidebarSortOptions,
@@ -53,11 +51,27 @@ const isCallsAvailable = computed(
 );
 
 const SHOW_TEKOMI_MENU = true;
-const searchShortcut = useKbd([`$mod`, 'k']);
 const { t } = useI18n();
 
 const isRTL = useMapGetter('accounts/isRTL');
 const globalConfig = useMapGetter('globalConfig/get');
+const currentUserAvailability = useMapGetter('getCurrentUserAvailability');
+
+const AVAILABILITY_COLORS = {
+  online: 'bg-n-teal-9 animate-pulse',
+  busy: 'bg-n-amber-9',
+  offline: 'bg-n-slate-9',
+};
+
+const availabilityColor = computed(
+  () => AVAILABILITY_COLORS[currentUserAvailability.value]
+);
+
+const availabilityLabel = computed(() =>
+  t(
+    `PROFILE_SETTINGS.FORM.AVAILABILITY.STATUS.${currentUserAvailability.value.toUpperCase()}`
+  )
+);
 
 // Tenant branding can recolor the sidebar. The colors arrive as CSS variables on
 // <html>; here they replace the dark theme tokens the sidebar's children read.
@@ -263,7 +277,6 @@ const getSidebarSectionSort = useMapGetter(
 onMounted(() => {
   store.dispatch('labels/get');
   store.dispatch('inboxes/get');
-  store.dispatch('notifications/unReadCount');
   store.dispatch('teams/get');
   store.dispatch('attributes/get');
   store.dispatch('customViews/get', 'conversation');
@@ -397,11 +410,8 @@ const menuItems = computed(() => {
       label: t('SIDEBAR.INBOX'),
       icon: 'i-lucide-inbox',
       iconColor: 'text-n-teal-10',
-      to: accountScopedRoute('inbox_view'),
-      activeOn: ['inbox_view', 'inbox_view_conversation'],
-      getterKeys: {
-        count: 'notifications/getUnreadCount',
-      },
+      to: accountScopedRoute('conversation_mine'),
+      activeOn: ['conversation_mine', 'conversation_through_mine'],
     },
     {
       name: 'Conversation',
@@ -1104,17 +1114,11 @@ const menuItems = computed(() => {
     ]"
     :style="isMobile ? undefined : { width: `${sidebarWidth}px` }"
   >
-    <section
-      class="grid"
-      :class="isEffectivelyCollapsed ? 'mt-3 mb-6 gap-4' : 'mt-1 mb-4 gap-2'"
-    >
+    <section class="relative z-50 flex flex-col flex-shrink-0">
+      <!-- Same height as the dashboard header, so the two bottom borders line up. -->
       <div
-        class="flex min-w-0 py-2"
-        :class="
-          isEffectivelyCollapsed
-            ? 'justify-center px-1'
-            : 'items-center gap-2.5 px-2'
-        "
+        class="flex items-center min-w-0 h-14 border-b border-n-weak"
+        :class="isEffectivelyCollapsed ? 'justify-center px-1' : 'gap-2.5 px-3'"
       >
         <Logo
           v-if="isEffectivelyCollapsed"
@@ -1147,48 +1151,14 @@ const menuItems = computed(() => {
         </template>
       </div>
       <div
-        class="flex gap-2"
-        :class="isEffectivelyCollapsed ? 'flex-col items-center' : 'px-2'"
+        class="flex"
+        :class="isEffectivelyCollapsed ? 'justify-center py-3' : 'px-2 py-3'"
       >
-        <RouterLink
-          v-if="!isEffectivelyCollapsed"
-          :to="{ name: 'search' }"
-          class="flex gap-2 items-center px-2 py-1 w-full h-7 rounded-lg outline outline-1 outline-n-weak bg-n-button-color transition-all duration-100 ease-out"
-        >
-          <span class="flex-shrink-0 i-lucide-search size-4 text-n-slate-10" />
-          <span class="flex-grow text-start text-n-slate-10">
-            {{ t('COMBOBOX.SEARCH_PLACEHOLDER') }}
-          </span>
-          <span
-            class="hidden tracking-wide pointer-events-none select-none text-n-slate-10"
-          >
-            {{ searchShortcut }}
-          </span>
-        </RouterLink>
-        <RouterLink
-          v-else
-          :to="{ name: 'search' }"
-          class="flex items-center justify-center size-8 rounded-lg outline outline-1 outline-n-weak bg-n-button-color transition-all duration-100 ease-out hover:bg-n-alpha-2 dark:hover:bg-n-slate-9/30"
-          :title="t('COMBOBOX.SEARCH_PLACEHOLDER')"
-        >
-          <span class="i-lucide-search size-4 text-n-slate-11" />
-        </RouterLink>
-        <ComposeConversation align="start">
-          <template #trigger="{ isOpen }">
-            <Button
-              icon="i-lucide-pen-line"
-              color="slate"
-              size="sm"
-              class="dark:hover:!bg-n-slate-9/30"
-              :class="[
-                isEffectivelyCollapsed
-                  ? '!size-8 !outline-n-weak !text-n-slate-11'
-                  : '!h-7 !outline-n-weak !text-n-slate-11',
-                { '!bg-n-alpha-2 dark:!bg-n-slate-9/30': isOpen },
-              ]"
-            />
-          </template>
-        </ComposeConversation>
+        <SidebarProfileMenu
+          :is-collapsed="isEffectivelyCollapsed"
+          @open-key-shortcut-modal="emit('openKeyShortcutModal')"
+          @show-create-account-modal="emit('showCreateAccountModal')"
+        />
       </div>
     </section>
     <nav
@@ -1206,21 +1176,33 @@ const menuItems = computed(() => {
         />
       </ul>
     </nav>
-    <section
-      class="flex relative flex-col flex-shrink-0 gap-1 justify-between items-center"
-    >
+    <section class="relative flex-shrink-0">
       <div
-        class="pointer-events-none absolute inset-x-0 -top-[1.938rem] h-8 bg-gradient-to-t from-n-background to-transparent"
+        class="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-gradient-to-t from-n-background to-transparent"
       />
       <div
-        class="px-1 py-1.5 flex-shrink-0 flex w-full z-50 gap-2 items-center border-t border-n-weak shadow-[0px_-2px_4px_0px_rgba(27,28,29,0.02)]"
+        class="flex items-center gap-2 px-3 py-2.5 border-t border-n-weak"
         :class="isEffectivelyCollapsed ? 'justify-center' : 'justify-between'"
+        :title="isEffectivelyCollapsed ? availabilityLabel : undefined"
       >
-        <SidebarProfileMenu
-          :is-collapsed="isEffectivelyCollapsed"
-          @open-key-shortcut-modal="emit('openKeyShortcutModal')"
-          @show-create-account-modal="emit('showCreateAccountModal')"
-        />
+        <span class="flex items-center min-w-0 gap-2">
+          <span
+            class="flex-shrink-0 rounded-full size-2"
+            :class="availabilityColor"
+          />
+          <span
+            v-if="!isEffectivelyCollapsed"
+            class="text-xs font-medium truncate text-n-slate-11"
+          >
+            {{ availabilityLabel }}
+          </span>
+        </span>
+        <span
+          v-if="!isEffectivelyCollapsed && globalConfig.appVersion"
+          class="flex-shrink-0 font-mono text-xxs text-n-slate-10"
+        >
+          {{ `v${globalConfig.appVersion}` }}
+        </span>
       </div>
     </section>
     <Button
@@ -1234,7 +1216,7 @@ const menuItems = computed(() => {
       "
       slate
       xs
-      class="hidden md:inline-flex absolute top-16 z-50 rounded-full border shadow-sm ltr:-right-3 rtl:-left-3 rtl:rotate-180 bg-n-solid-2 border-n-weak hover:bg-n-alpha-2"
+      class="hidden md:inline-flex absolute top-11 z-50 rounded-full border shadow-sm ltr:-right-3 rtl:-left-3 rtl:rotate-180 bg-n-solid-2 border-n-weak hover:bg-n-alpha-2"
       @click="onResizeHandleDoubleClick"
     />
     <!-- Resize Handle (desktop only) -->

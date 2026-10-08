@@ -167,7 +167,7 @@ export default {
 </script>
 
 <template>
-  <div class="w-full h-full col-span-6 p-6 overflow-auto">
+  <div class="w-full h-full col-span-6 p-6 overflow-auto no-scrollbar">
     <div
       v-if="!hasLoginStarted"
       class="flex flex-col items-center justify-center h-full text-center"

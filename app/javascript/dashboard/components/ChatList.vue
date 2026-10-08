@@ -232,10 +232,15 @@ const stageTabItems = computed(() =>
   }))
 );
 
+// «My inbox» lists only the conversations assigned to the current agent.
+const isMineView = computed(
+  () => props.conversationType === wootConstants.CONVERSATION_TYPE.MINE
+);
+
 const showAssigneeInConversationCard = computed(() => {
+  if (hasAppliedFiltersOrActiveFolders.value) return true;
   return (
-    hasAppliedFiltersOrActiveFolders.value ||
-    activeStageTab.value !== wootConstants.STAGE_TYPE.OPEN
+    !isMineView.value && activeStageTab.value !== wootConstants.STAGE_TYPE.OPEN
   );
 });
 
@@ -360,6 +365,9 @@ const pageTitle = computed(() => {
   if (props.conversationType === wootConstants.CONVERSATION_TYPE.UNATTENDED) {
     return t('CHAT_LIST.UNATTENDED_HEADING');
   }
+  if (isMineView.value) {
+    return t('SIDEBAR.INBOX');
+  }
   if (hasActiveFolders.value) {
     return activeFolder.value.name;
   }
@@ -367,13 +375,14 @@ const pageTitle = computed(() => {
 });
 
 // Mirrors ConversationFinder::Stages so live updates land in the same tab as a refetch would.
+// In «My inbox» every conversation has an assignee, so open means no agent has replied yet.
 function conversationStage(conversation) {
   const { STATUS_TYPE, STAGE_TYPE } = wootConstants;
   if (conversation.status === STATUS_TYPE.RESOLVED) return STAGE_TYPE.RESOLVED;
-  if (
-    conversation.status === STATUS_TYPE.OPEN &&
-    !conversation.meta?.assignee
-  ) {
+  const isPickedUp = isMineView.value
+    ? conversation.first_reply_created_at
+    : conversation.meta?.assignee;
+  if (conversation.status === STATUS_TYPE.OPEN && !isPickedUp) {
     return STAGE_TYPE.OPEN;
   }
   return STAGE_TYPE.IN_PROGRESS;
@@ -423,6 +432,12 @@ const conversationList = computed(() => {
         .filter(conversation => conversation.meta?.sender?.company_id);
     } else {
       localConversationList = filterByActiveTab(allChatList.value(filters));
+    }
+    // Live updates bring in everyone's conversations; the server only ever returns the agent's own.
+    if (isMineView.value) {
+      localConversationList = localConversationList.filter(
+        c => c.meta?.assignee?.id === currentUser.value?.id
+      );
     }
   } else {
     localConversationList = [...chatLists.value];
@@ -595,7 +610,9 @@ function initializeExistingFilterToModal() {
       ? STAGE_FILTER_STATUS[activeStageTab.value]
       : listStatus.value,
     currentUserDetails.value,
-    effectiveAssigneeType.value
+    isMineView.value
+      ? wootConstants.ASSIGNEE_TYPE.ME
+      : effectiveAssigneeType.value
   );
   // TODO: Remove the usage of useCamelCase after migrating useFilter to camelcase
   if (statusFilter) {

@@ -1746,9 +1746,9 @@
     "semantic_hash": "653eabb70fad05cf7f1461792549bd9b"
   },
   "app/finders/conversation_finder.rb": {
-    "mtime": 1791443896.1391456,
-    "seen": 1791444626.9917023,
-    "ast_hash": "16ca7ad11126a7aed27dfc6f7adc1c93",
+    "mtime": 1791484438.9991765,
+    "seen": 1791485275.209353,
+    "ast_hash": "892eb9cad3d128fdc3afddf31eca58cd",
     "semantic_hash": ""
   },
   "app/finders/data_import_error_finder.rb": {
@@ -3036,10 +3036,10 @@
     "semantic_hash": "1686d8e0b8e178159fefe22356a0598e"
   },
   "app/javascript/dashboard/components-next/Campaigns/CampaignAnalyticsLayout.vue": {
-    "mtime": 1787849882.463232,
-    "seen": 1791127022.0914216,
-    "ast_hash": "853be4e22813d1193a092b926346a224",
-    "semantic_hash": "853be4e22813d1193a092b926346a224"
+    "mtime": 1791452325.6821585,
+    "seen": 1791485275.34338,
+    "ast_hash": "02a8d1da89644ea6a15764defddbb82c",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/Campaigns/CampaignCard/CampaignCard.vue": {
     "mtime": 1787849882.4642284,
@@ -3060,10 +3060,10 @@
     "semantic_hash": "189fd6033796e155affc52de38472611"
   },
   "app/javascript/dashboard/components-next/Campaigns/CampaignLayout.vue": {
-    "mtime": 1787849882.4662318,
-    "seen": 1791127022.0914216,
-    "ast_hash": "45c5aae81fc27d17d2211b5859977f69",
-    "semantic_hash": "45c5aae81fc27d17d2211b5859977f69"
+    "mtime": 1791452325.6831574,
+    "seen": 1791485275.344379,
+    "ast_hash": "6cabbdb5a890fb586c4de80165cf774c",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/Campaigns/EmptyState/CampaignEmptyStateContent.js": {
     "mtime": 1790671503.4039862,
@@ -3180,10 +3180,10 @@
     "semantic_hash": "d35d54acfc7e8f6b51fbca177c98701b"
   },
   "app/javascript/dashboard/components-next/Companies/CompaniesDetailsLayout.vue": {
-    "mtime": 1787849882.4822254,
-    "seen": 1791127022.0914216,
-    "ast_hash": "63e3f0f6f34fdca6ec90c40a86f0be4d",
-    "semantic_hash": "63e3f0f6f34fdca6ec90c40a86f0be4d"
+    "mtime": 1791452325.6851583,
+    "seen": 1791485275.35816,
+    "ast_hash": "dcbc488fc102f3295dec5e6eaf5a15f7",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/Companies/CompaniesHeader/CompanyHeader.vue": {
     "mtime": 1787849882.4832292,
@@ -3204,10 +3204,10 @@
     "semantic_hash": "6179dbe6387c3cd1d671c73ef43e54ac"
   },
   "app/javascript/dashboard/components-next/Companies/CompaniesListLayout.vue": {
-    "mtime": 1787849882.4852319,
-    "seen": 1791127022.0914216,
-    "ast_hash": "232041ef922fde5ee3e7b003315c6220",
-    "semantic_hash": "232041ef922fde5ee3e7b003315c6220"
+    "mtime": 1791452325.6871586,
+    "seen": 1791485275.359166,
+    "ast_hash": "e737b62c168c84674ec3493bcc2d2b01",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/Companies/CompanyCreateDialog.vue": {
     "mtime": 1787849882.4852319,
@@ -3312,10 +3312,10 @@
     "semantic_hash": "a26be80c69f4c6c827a1e88bc826ebd9"
   },
   "app/javascript/dashboard/components-next/Contacts/ContactsDetailsLayout.vue": {
-    "mtime": 1787849882.4962325,
-    "seen": 1791127022.0914216,
-    "ast_hash": "0de6dd2ace1cd53904cf9af241ef226d",
-    "semantic_hash": "0de6dd2ace1cd53904cf9af241ef226d"
+    "mtime": 1791452325.688521,
+    "seen": 1791485275.3682716,
+    "ast_hash": "a882c97eb0f8741e31ba799175408fb1",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/Contacts/ContactsForm/ConfirmContactDeleteDialog.vue": {
     "mtime": 1787849882.4972298,
@@ -3420,10 +3420,10 @@
     "semantic_hash": "b94643dd6d8158e32faf4e3c74c7fc99"
   },
   "app/javascript/dashboard/components-next/Contacts/ContactsListLayout.vue": {
-    "mtime": 1787849882.5092387,
-    "seen": 1791127022.0914216,
-    "ast_hash": "894bf5fefc11e8708f7ec6400331c325",
-    "semantic_hash": "894bf5fefc11e8708f7ec6400331c325"
+    "mtime": 1791452325.690555,
+    "seen": 1791485275.3762841,
+    "ast_hash": "4ebbf7f3614e20b03786751a831ae784",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/Contacts/ContactsLoadMore.vue": {
     "mtime": 1787849882.5092387,
@@ -3492,10 +3492,10 @@
     "semantic_hash": "4667a19146a9bef4df19124603d517e5"
   },
   "app/javascript/dashboard/components-next/Contacts/CrmDirectory/Index.vue": {
-    "mtime": 1789100380.1570728,
-    "seen": 1791127022.0914216,
-    "ast_hash": "5f5704fbd89e302bd7cf5890c519d53e",
-    "semantic_hash": "5f5704fbd89e302bd7cf5890c519d53e"
+    "mtime": 1791452325.6941342,
+    "seen": 1791485275.3814037,
+    "ast_hash": "d6bad41eda13913186e1cbb88570a193",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/Contacts/EmptyState/ContactEmptyState.story.vue": {
     "mtime": 1787849882.5162392,
@@ -3942,10 +3942,10 @@
     "semantic_hash": "fecb80ca4f67e5525eee9247e8007ad1"
   },
   "app/javascript/dashboard/components-next/Deals/views/DealsListView.vue": {
-    "mtime": 1789956159.9788785,
-    "seen": 1791127022.0914216,
-    "ast_hash": "eb733536db1d809acb76117dd299abe3",
-    "semantic_hash": "eb733536db1d809acb76117dd299abe3"
+    "mtime": 1791452325.698194,
+    "seen": 1791485275.4296165,
+    "ast_hash": "051ac9d4e0a240ba5e49686436e927e8",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/Deals/views/DealsTableView.vue": {
     "mtime": 1789956159.9808826,
@@ -4044,10 +4044,10 @@
     "semantic_hash": "732542be95bd79861af094db7ee0ab0d"
   },
   "app/javascript/dashboard/components-next/HelpCenter/HelpCenterLayout.vue": {
-    "mtime": 1787849882.552371,
-    "seen": 1791127022.0914216,
-    "ast_hash": "32b06851afb56f406d371b46eaa07372",
-    "semantic_hash": "32b06851afb56f406d371b46eaa07372"
+    "mtime": 1791452325.7000027,
+    "seen": 1791485275.4381788,
+    "ast_hash": "10096b52c20c4a6b43382caf0042475f",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/HelpCenter/LocaleCard/LocaleCard.story.vue": {
     "mtime": 1787849882.5533705,
@@ -4770,10 +4770,10 @@
     "semantic_hash": "9b55f5f5872f0db415137f55261e745c"
   },
   "app/javascript/dashboard/components-next/copilot/CopilotLauncher.vue": {
-    "mtime": 1790334079.984374,
-    "seen": 1791127022.0924237,
-    "ast_hash": "f359cb23435b285cfae9817c0ef6ee8a",
-    "semantic_hash": "f359cb23435b285cfae9817c0ef6ee8a"
+    "mtime": 1791484477.4170365,
+    "seen": 1791485275.4952176,
+    "ast_hash": "76482de702ec468675dd5d7dc1f08ee6",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/copilot/CopilotLoader.story.vue": {
     "mtime": 1789100380.188015,
@@ -5646,15 +5646,15 @@
     "semantic_hash": "2b9e70607b5603c244f8fbf0f2dd4e75"
   },
   "app/javascript/dashboard/components-next/sidebar/MobileSidebarLauncher.vue": {
-    "mtime": 1787849882.7854097,
-    "seen": 1791127022.0924237,
-    "ast_hash": "292d2ef5dd96ceb56d396503df82d1be",
-    "semantic_hash": "292d2ef5dd96ceb56d396503df82d1be"
+    "mtime": 1791484795.4767087,
+    "seen": 1791485275.571171,
+    "ast_hash": "5b8143600155d70db9b7b6841d39607a",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/sidebar/Sidebar.vue": {
-    "mtime": 1791439760.1591687,
-    "seen": 1791440298.889757,
-    "ast_hash": "5bfa8d3157f473490043bbc43cf67610",
+    "mtime": 1791484790.5977943,
+    "seen": 1791485275.571171,
+    "ast_hash": "64a6f3237a8bb640b8d3487250a8cfbb",
     "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/sidebar/SidebarCollapsedPopover.vue": {
@@ -5676,10 +5676,10 @@
     "semantic_hash": "10691babc4b80c023c969f735f7f9b48"
   },
   "app/javascript/dashboard/components-next/sidebar/SidebarGroupHeader.vue": {
-    "mtime": 1791028375.409423,
-    "seen": 1791127022.0924237,
-    "ast_hash": "b74342e6663e330de86bb129738a9345",
-    "semantic_hash": "b74342e6663e330de86bb129738a9345"
+    "mtime": 1791484740.4809453,
+    "seen": 1791485275.5721753,
+    "ast_hash": "876e2102a27fd5cae05ea59e201b440f",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/sidebar/SidebarGroupLeaf.vue": {
     "mtime": 1791028375.4104228,
@@ -5694,10 +5694,10 @@
     "semantic_hash": "bd2e657902bd891a3db4b3ec99102bf1"
   },
   "app/javascript/dashboard/components-next/sidebar/SidebarProfileMenu.vue": {
-    "mtime": 1788537185.391359,
-    "seen": 1791127022.0924237,
-    "ast_hash": "c485569ff0eb6cad2ff576b87acdb87b",
-    "semantic_hash": "c485569ff0eb6cad2ff576b87acdb87b"
+    "mtime": 1791484740.478948,
+    "seen": 1791485275.5731711,
+    "ast_hash": "5e4398071b5e881bfa455171e972cb27",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/sidebar/SidebarProfileMenuAccountSwitch.vue": {
     "mtime": 1788537185.4024887,
@@ -5874,10 +5874,10 @@
     "semantic_hash": "119ccd7a4c4665a4d70bc197ba300023"
   },
   "app/javascript/dashboard/components-next/tekomi/PageLayout.vue": {
-    "mtime": 1791044307.9658587,
-    "seen": 1791127022.0924237,
-    "ast_hash": "0e9b9fa76e32eb1d3b9509c2abcb02f6",
-    "semantic_hash": "0e9b9fa76e32eb1d3b9509c2abcb02f6"
+    "mtime": 1791452325.7020164,
+    "seen": 1791485275.5867546,
+    "ast_hash": "ea370def9f27cd655e87359618cf6772",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components-next/tekomi/assistant/AddNewRulesDialog.story.vue": {
     "mtime": 1789100380.228067,
@@ -6516,9 +6516,9 @@
     "semantic_hash": "620192a806403fd44b46bee40bb8c8a8"
   },
   "app/javascript/dashboard/components/ChatList.vue": {
-    "mtime": 1791444235.7710776,
-    "seen": 1791444627.3802905,
-    "ast_hash": "efed7482fb7dc5ed7eea1c4a6f4b6caf",
+    "mtime": 1791484495.6793122,
+    "seen": 1791485275.6409242,
+    "ast_hash": "f570d1afc9c4731da812cfeacfb7b666",
     "semantic_hash": ""
   },
   "app/javascript/dashboard/components/ChatListHeader.vue": {
@@ -7224,10 +7224,10 @@
     "semantic_hash": "d0e7814c3cf9f06b0a78b4d48b13665f"
   },
   "app/javascript/dashboard/components/widgets/conversation/ConversationHeader.vue": {
-    "mtime": 1790529677.0447052,
-    "seen": 1791127022.0934293,
-    "ast_hash": "a6a6045b84013edc528fb00897c754e4",
-    "semantic_hash": "a6a6045b84013edc528fb00897c754e4"
+    "mtime": 1791484477.4124815,
+    "seen": 1791485275.7073424,
+    "ast_hash": "2363641c987a0143c75288e3c22af5ec",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/components/widgets/conversation/ConversationSidebar.vue": {
     "mtime": 1791028375.4214237,
@@ -7752,10 +7752,10 @@
     "semantic_hash": "e7a69c740d9740facf89c86c6d78a006"
   },
   "app/javascript/dashboard/composables/commands/useGoToCommandHotKeys.js": {
-    "mtime": 1789100380.3801253,
-    "seen": 1791127022.0934293,
-    "ast_hash": "5b742b307bbfb14c8d6108418c5aa98d",
-    "semantic_hash": "5b742b307bbfb14c8d6108418c5aa98d"
+    "mtime": 1791484477.4234881,
+    "seen": 1791485275.7500994,
+    "ast_hash": "4ebd205c7861f859b499e788205ccdfb",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/composables/commands/useInboxHotKeys.js": {
     "mtime": 1787849882.9536748,
@@ -8082,10 +8082,10 @@
     "semantic_hash": "cf2cb58e64ec5f3bf83b4cb3619d67bb"
   },
   "app/javascript/dashboard/composables/useConversationRoutePath.js": {
-    "mtime": 1791028375.431424,
-    "seen": 1791127022.0934293,
-    "ast_hash": "0252947ae5634e6fd2b4f94cf5baa9c9",
-    "semantic_hash": "0252947ae5634e6fd2b4f94cf5baa9c9"
+    "mtime": 1791484807.1973426,
+    "seen": 1791485275.7729342,
+    "ast_hash": "266719ae83c16cdbaff5cd718d7216c1",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/composables/useConversationSidePanel.js": {
     "mtime": 1791028375.432423,
@@ -8292,9 +8292,9 @@
     "semantic_hash": "fab3b4b2b5752218514c0dd3a34fc7b3"
   },
   "app/javascript/dashboard/constants/globals.js": {
-    "mtime": 1791443914.18677,
-    "seen": 1791444627.5247197,
-    "ast_hash": "aa07bae44865b660b2a5fe9ee5b81591",
+    "mtime": 1791484477.4003475,
+    "seen": 1791485275.792883,
+    "ast_hash": "cad294db7650c4c67e7ebf7605fc7525",
     "semantic_hash": ""
   },
   "app/javascript/dashboard/constants/installationTypes.js": {
@@ -8430,10 +8430,10 @@
     "semantic_hash": "e7fe4a70d5dc22787d8497b7242e1254"
   },
   "app/javascript/dashboard/helper/URLHelper.js": {
-    "mtime": 1787853333.7795205,
-    "seen": 1791127022.0934293,
-    "ast_hash": "558ef1a8e4ce7342107f2fc83b9dfe38",
-    "semantic_hash": "558ef1a8e4ce7342107f2fc83b9dfe38"
+    "mtime": 1791484477.40236,
+    "seen": 1791485275.8023279,
+    "ast_hash": "9a7d48a4e4813d85eedbbe5083608d61",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/helper/actionCable.js": {
     "mtime": 1791341388.0364306,
@@ -8610,10 +8610,10 @@
     "semantic_hash": "1c614b9a2c07ccc0977660be885930b6"
   },
   "app/javascript/dashboard/helper/routeHelpers.js": {
-    "mtime": 1788537185.489573,
-    "seen": 1791127022.0934293,
-    "ast_hash": "e021babb4ad974e12eb59116bbacc7ee",
-    "semantic_hash": "e021babb4ad974e12eb59116bbacc7ee"
+    "mtime": 1791484477.4144883,
+    "seen": 1791485275.8156598,
+    "ast_hash": "ec9ee7f1837c6da863a9ffef3a3efd6d",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/helper/scriptHelpers.js": {
     "mtime": 1787853333.783517,
@@ -9414,10 +9414,10 @@
     "semantic_hash": "b4ceba70f2716d6102b6aab5ba5bc622"
   },
   "app/javascript/dashboard/modules/search/components/SearchView.vue": {
-    "mtime": 1787849885.069031,
-    "seen": 1791127022.0944228,
-    "ast_hash": "4fc6ee3eb76691931a0dff6fbeecf2a6",
-    "semantic_hash": "4fc6ee3eb76691931a0dff6fbeecf2a6"
+    "mtime": 1791452325.7040336,
+    "seen": 1791485275.8791063,
+    "ast_hash": "0643082c27fd0c260bfaa355f011264f",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/modules/search/components/TranscribedText.vue": {
     "mtime": 1787849885.0700297,
@@ -9468,16 +9468,16 @@
     "semantic_hash": "c8bd9d10c6f39d115c87082672905f83"
   },
   "app/javascript/dashboard/routes/dashboard/Dashboard.vue": {
-    "mtime": 1787853333.8457625,
-    "seen": 1791127022.0944228,
-    "ast_hash": "e51230a8f5468021efe8fdd60c362d8f",
-    "semantic_hash": "e51230a8f5468021efe8fdd60c362d8f"
+    "mtime": 1791484672.6045084,
+    "seen": 1791485275.8831453,
+    "ast_hash": "0e85da456f3fa28a752ce5821b4f214e",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/calls/pages/CallsIndex.vue": {
-    "mtime": 1791119795.2431717,
-    "seen": 1791127022.0944228,
-    "ast_hash": "70542b9a288fe4c88afe8998ae2536f7",
-    "semantic_hash": "70542b9a288fe4c88afe8998ae2536f7"
+    "mtime": 1791452325.706558,
+    "seen": 1791485275.8831453,
+    "ast_hash": "8880c20c98b1ba4a2e231e28e40f8785",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/calls/routes.js": {
     "mtime": 1787849885.0810275,
@@ -9492,10 +9492,10 @@
     "semantic_hash": "30b20da6224d2e20b23092b201124409"
   },
   "app/javascript/dashboard/routes/dashboard/campaigns/pages/CampaignsPageRouteView.vue": {
-    "mtime": 1787849885.0830307,
-    "seen": 1791127022.0944228,
-    "ast_hash": "a09728cd5b2a5386d25641011af0cc55",
-    "semantic_hash": "a09728cd5b2a5386d25641011af0cc55"
+    "mtime": 1791452325.70862,
+    "seen": 1791485275.885133,
+    "ast_hash": "f2a6cc9583ad30e28416b8bbf7d4caff",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/campaigns/pages/LiveChatCampaignsPage.vue": {
     "mtime": 1787849885.08403,
@@ -9570,16 +9570,16 @@
     "semantic_hash": "e3b8270cd188eefbb95eb07b7db97f72"
   },
   "app/javascript/dashboard/routes/dashboard/contacts/pages/ContactManageView.vue": {
-    "mtime": 1791028375.471421,
-    "seen": 1791127022.0944228,
-    "ast_hash": "1d915622d1308f852c0d7d8b0803af3d",
-    "semantic_hash": "1d915622d1308f852c0d7d8b0803af3d"
+    "mtime": 1791452325.7106333,
+    "seen": 1791485275.891725,
+    "ast_hash": "cb514ef5149c4555723ce3859cc3dca4",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/contacts/pages/ContactsIndex.vue": {
-    "mtime": 1787849885.117411,
-    "seen": 1791127022.0944228,
-    "ast_hash": "3c75b9f55cc8906fb2a4020821268e14",
-    "semantic_hash": "3c75b9f55cc8906fb2a4020821268e14"
+    "mtime": 1791452325.7126522,
+    "seen": 1791485275.891725,
+    "ast_hash": "08eb9ab58f00288dd371043f4b8f248e",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/contacts/routes.js": {
     "mtime": 1791119945.6141706,
@@ -9702,9 +9702,9 @@
     "semantic_hash": "fab15d8048c60d9122ec54029d4ac47e"
   },
   "app/javascript/dashboard/routes/dashboard/conversation/conversation.routes.js": {
-    "mtime": 1791432250.0562677,
-    "seen": 1791440299.1774938,
-    "ast_hash": "385eb90c59b0c5448854c33760763d5a",
+    "mtime": 1791484795.8763895,
+    "seen": 1791485275.9007084,
+    "ast_hash": "f6450c6fb065db23cfb7f4d55c5df97d",
     "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/conversation/customAttributes/CustomAttributes.vue": {
@@ -9738,10 +9738,10 @@
     "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/deals/pages/DealShow.vue": {
-    "mtime": 1789956160.7795112,
-    "seen": 1791127022.0944228,
-    "ast_hash": "c54ea8515525faaf9503801a158cc246",
-    "semantic_hash": "c54ea8515525faaf9503801a158cc246"
+    "mtime": 1791452325.714651,
+    "seen": 1791485275.9030876,
+    "ast_hash": "b3be3b81451ef95e8405da2c74cda679",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/deals/pages/DealsIndex.vue": {
     "mtime": 1789956160.7815027,
@@ -9786,10 +9786,10 @@
     "semantic_hash": "d4d8a7a527d6b2349c6856d3100b424a"
   },
   "app/javascript/dashboard/routes/dashboard/helpcenter/components/UpgradePage.vue": {
-    "mtime": 1787853333.8564963,
-    "seen": 1791127022.0944228,
-    "ast_hash": "91262b2cc2584aea294e19ed082c21f0",
-    "semantic_hash": "91262b2cc2584aea294e19ed082c21f0"
+    "mtime": 1791452325.715632,
+    "seen": 1791485275.9060905,
+    "ast_hash": "89e58fd107fbe654464c6b019791d6a9",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/helpcenter/helpcenter.routes.js": {
     "mtime": 1791119945.6202009,
@@ -10284,10 +10284,10 @@
     "semantic_hash": "cc70f9092b3f8d7e16680179b1cbb6c6"
   },
   "app/javascript/dashboard/routes/dashboard/settings/SettingsWrapper.vue": {
-    "mtime": 1791046782.9496577,
-    "seen": 1791127022.0944228,
-    "ast_hash": "050d1e65d0f6e31f0fc9ff6097a18bdd",
-    "semantic_hash": "050d1e65d0f6e31f0fc9ff6097a18bdd"
+    "mtime": 1791452325.7181566,
+    "seen": 1791485275.945476,
+    "ast_hash": "45e68ab7d02ea50993b7f99fe2f4ae7d",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/settings/Wrapper.vue": {
     "mtime": 1791046810.36738,
@@ -10866,10 +10866,10 @@
     "semantic_hash": "ea1f3151f0a91b34ec8cbeaff7c3c05f"
   },
   "app/javascript/dashboard/routes/dashboard/settings/inbox/FinishSetup.vue": {
-    "mtime": 1787849885.2858016,
-    "seen": 1791127022.0944228,
-    "ast_hash": "190e0efb9bcd4e31be269ecad6170e17",
-    "semantic_hash": "190e0efb9bcd4e31be269ecad6170e17"
+    "mtime": 1791452325.719924,
+    "seen": 1791485275.9964147,
+    "ast_hash": "f18e1351f4c5df4a25588a7b6934c193",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/settings/inbox/ImapSettings.vue": {
     "mtime": 1787849885.2868035,
@@ -10944,10 +10944,10 @@
     "semantic_hash": "47b73dd10b3057ee0037b1cae02c89e2"
   },
   "app/javascript/dashboard/routes/dashboard/settings/inbox/channels/Facebook.vue": {
-    "mtime": 1787853333.8797176,
-    "seen": 1791127022.0944228,
-    "ast_hash": "2c48c074833eab34f356bd5da0f5aad8",
-    "semantic_hash": "2c48c074833eab34f356bd5da0f5aad8"
+    "mtime": 1791452325.721941,
+    "seen": 1791485276.0024545,
+    "ast_hash": "69899ec449b55d94ed1cc3e0bca3352f",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/settings/inbox/channels/Instagram.vue": {
     "mtime": 1787853333.8843334,
@@ -10998,10 +10998,10 @@
     "semantic_hash": "bbbe3e79295eaafe99ae437c0a95565e"
   },
   "app/javascript/dashboard/routes/dashboard/settings/inbox/channels/Voice.vue": {
-    "mtime": 1787849885.3058028,
-    "seen": 1791127022.0944228,
-    "ast_hash": "a67964d3abc5706f3eb90a86664fa684",
-    "semantic_hash": "a67964d3abc5706f3eb90a86664fa684"
+    "mtime": 1791452325.7239394,
+    "seen": 1791485276.0064592,
+    "ast_hash": "cce4719706f62b956af7765cc9dbd605",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/settings/inbox/channels/Website.vue": {
     "mtime": 1787849885.3058028,
@@ -11010,16 +11010,16 @@
     "semantic_hash": "e4e1641b83f5f03ed73ec4b3ba6474d9"
   },
   "app/javascript/dashboard/routes/dashboard/settings/inbox/channels/Whatsapp.vue": {
-    "mtime": 1787853333.9151595,
-    "seen": 1791127022.0944228,
-    "ast_hash": "851fba7cbf855ccd770cd1a8d83b1450",
-    "semantic_hash": "851fba7cbf855ccd770cd1a8d83b1450"
+    "mtime": 1791452325.725951,
+    "seen": 1791485276.0074604,
+    "ast_hash": "f8055fde4ed0d49c03ce4a07ddcf4297",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/settings/inbox/channels/WhatsappCall.vue": {
-    "mtime": 1787849885.307811,
-    "seen": 1791127022.0944228,
-    "ast_hash": "d2af15cfb05f558af60fb63271571a19",
-    "semantic_hash": "d2af15cfb05f558af60fb63271571a19"
+    "mtime": 1791452325.727993,
+    "seen": 1791485276.0074604,
+    "ast_hash": "86b603effde64f0cfee16c21e9a6639e",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/settings/inbox/channels/WhatsappEmbeddedSignup.vue": {
     "mtime": 1787853333.9232378,
@@ -11688,10 +11688,10 @@
     "semantic_hash": "c7d34bd748942f2e5d55c17d29aa703a"
   },
   "app/javascript/dashboard/routes/dashboard/settings/profile/Wrapper.vue": {
-    "mtime": 1787849885.4079595,
-    "seen": 1791127022.0944228,
-    "ast_hash": "06906450d916b6fee901a4d641f29ac9",
-    "semantic_hash": "06906450d916b6fee901a4d641f29ac9"
+    "mtime": 1791452325.729008,
+    "seen": 1791485276.0679917,
+    "ast_hash": "d67cacf040ffcdd14eb00ec648129669",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/settings/profile/constants.js": {
     "mtime": 1790140106.1432273,
@@ -12300,16 +12300,16 @@
     "semantic_hash": "14077a927b21359c0c94633c206b778e"
   },
   "app/javascript/dashboard/routes/dashboard/settings/teams/Create/AddAgents.vue": {
-    "mtime": 1787849885.4766343,
-    "seen": 1791127022.0954201,
-    "ast_hash": "357d2d508da818e5cdf604d4b135064b",
-    "semantic_hash": "357d2d508da818e5cdf604d4b135064b"
+    "mtime": 1791452325.7310047,
+    "seen": 1791485276.1244423,
+    "ast_hash": "36918b3fc3edf4fbf164ea77623d5330",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/settings/teams/Create/CreateTeam.vue": {
-    "mtime": 1787849885.4776359,
-    "seen": 1791127022.0954201,
-    "ast_hash": "f6050f63b13488dc2582ef6f6b816bab",
-    "semantic_hash": "f6050f63b13488dc2582ef6f6b816bab"
+    "mtime": 1791452325.7320051,
+    "seen": 1791485276.1244423,
+    "ast_hash": "8a262399b3614b889212142a4110cd6a",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/settings/teams/Create/Index.vue": {
     "mtime": 1787849885.4776359,
@@ -12318,16 +12318,16 @@
     "semantic_hash": "3349fb76eee1823f6afcba03eb6faff4"
   },
   "app/javascript/dashboard/routes/dashboard/settings/teams/Edit/EditAgents.vue": {
-    "mtime": 1787849885.4786382,
-    "seen": 1791127022.0954201,
-    "ast_hash": "e79cddc74934e3d24d5f303bccf9f6ca",
-    "semantic_hash": "e79cddc74934e3d24d5f303bccf9f6ca"
+    "mtime": 1791452325.7340052,
+    "seen": 1791485276.1244423,
+    "ast_hash": "30c2876d6785ba498dab38b6ade2f8e9",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/settings/teams/Edit/EditTeam.vue": {
-    "mtime": 1787849885.4796333,
-    "seen": 1791127022.0954201,
-    "ast_hash": "5cec6a4b737ce6e1c4aa12e5bb232f19",
-    "semantic_hash": "5cec6a4b737ce6e1c4aa12e5bb232f19"
+    "mtime": 1791452325.7360258,
+    "seen": 1791485276.1244423,
+    "ast_hash": "d20eed591dd70ce4df2682173772b6a2",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/settings/teams/Edit/Index.vue": {
     "mtime": 1787849885.4796333,
@@ -12594,10 +12594,10 @@
     "semantic_hash": "b0c368cdb70fe26b49c6d71a0f2bad3c"
   },
   "app/javascript/dashboard/routes/dashboard/tickets/pages/TicketShow.vue": {
-    "mtime": 1790140106.1661978,
-    "seen": 1791127022.0954201,
-    "ast_hash": "96bfc1583b434bcf3afc6e2056f99ed7",
-    "semantic_hash": "96bfc1583b434bcf3afc6e2056f99ed7"
+    "mtime": 1791452325.7408335,
+    "seen": 1791485276.1498535,
+    "ast_hash": "2bc664967477427e654f0fe8abc290af",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/tickets/pages/TicketsIndex.vue": {
     "mtime": 1790140106.1671927,
@@ -12870,10 +12870,10 @@
     "semantic_hash": "c497bba58a95f9355e5670eaef32bd36"
   },
   "app/javascript/dashboard/store/modules/conversations/helpers/actionHelpers.js": {
-    "mtime": 1787849885.5269165,
-    "seen": 1791127022.0954201,
-    "ast_hash": "a668ada61a44684a464bbbd3ad0e1b04",
-    "semantic_hash": "a668ada61a44684a464bbbd3ad0e1b04"
+    "mtime": 1791484796.0171244,
+    "seen": 1791485276.174727,
+    "ast_hash": "fdaaf2dd7dad43f4321bcfcc532585e7",
+    "semantic_hash": ""
   },
   "app/javascript/dashboard/store/modules/conversations/helpers/filterHelpers.js": {
     "mtime": 1790647043.364403,
@@ -30810,9 +30810,9 @@
     "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/teamMonitoring/Index.vue": {
-    "mtime": 1791440739.7225983,
-    "seen": 1791441055.6521823,
-    "ast_hash": "09b9413541db5b96c8dc7be603e3971b",
+    "mtime": 1791452325.7380457,
+    "seen": 1791485276.1373813,
+    "ast_hash": "a0eca342d1c49726d941ebb502c39a7d",
     "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/teamMonitoring/routes.js": {
@@ -30822,9 +30822,9 @@
     "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/userGuide/Index.vue": {
-    "mtime": 1791439853.177225,
-    "seen": 1791440299.380297,
-    "ast_hash": "c238a35be9f892897e6fab9dbfa187ff",
+    "mtime": 1791452325.7418299,
+    "seen": 1791485276.1528327,
+    "ast_hash": "f05f8327e0bcf5bcb3e81ae98bf03595",
     "semantic_hash": ""
   },
   "app/javascript/dashboard/routes/dashboard/userGuide/RichText.vue": {
@@ -31974,9 +31974,39 @@
     "semantic_hash": ""
   },
   "app/finders/conversation_finder/stages.rb": {
-    "mtime": 1791443881.3835983,
-    "seen": 1791444626.9917023,
-    "ast_hash": "8a5cf41b6a8ea9c70bf594cbe9c6876c",
+    "mtime": 1791484438.9971776,
+    "seen": 1791485275.209353,
+    "ast_hash": "c8e486865283dec78985fb1185c56951",
+    "semantic_hash": ""
+  },
+  "app/javascript/dashboard/components-next/header/DashboardHeader.vue": {
+    "mtime": 1791484672.5754523,
+    "seen": 1791485275.5225117,
+    "ast_hash": "0ae8cb5648d5e6753d51058a88cfe8a7",
+    "semantic_hash": ""
+  },
+  "app/javascript/dashboard/components-next/header/HeaderNotifications.vue": {
+    "mtime": 1791484631.7764459,
+    "seen": 1791485275.5225117,
+    "ast_hash": "2830581ccfa4a03d7cc2226c60ddd055",
+    "semantic_hash": ""
+  },
+  "stitch_harmonious_dashboard_layout/DESIGN.md": {
+    "mtime": 1791483876.7629712,
+    "seen": 1791485277.740473,
+    "ast_hash": "19db7e8e5dce5108caa3f5825bd8d0bb",
+    "semantic_hash": ""
+  },
+  "stitch_harmonious_dashboard_layout/code.html": {
+    "mtime": 1791483876.7049088,
+    "seen": 1791485277.740473,
+    "ast_hash": "ca5c2c700876075d3c8f12bb4ae1071b",
+    "semantic_hash": ""
+  },
+  "stitch_harmonious_dashboard_layout/screen.png": {
+    "mtime": 1791483876.746499,
+    "seen": 1791485277.7719896,
+    "ast_hash": "3cf461f88143f53dec3d9059814ef135",
     "semantic_hash": ""
   }
 }

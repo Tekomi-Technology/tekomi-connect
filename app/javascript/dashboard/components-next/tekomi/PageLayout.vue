@@ -215,7 +215,7 @@ const handleCreateAssistant = () => {
         <slot v-if="!showPaywall" name="controls" />
       </header>
     </div>
-    <main class="flex-1 px-6 overflow-y-auto">
+    <main class="flex-1 px-6 overflow-y-auto no-scrollbar">
       <div class="w-full h-full py-5">
         <div
           v-if="isFetching"

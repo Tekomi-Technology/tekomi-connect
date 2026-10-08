@@ -234,5 +234,28 @@ export default {
         conversationType: 'participating',
       }),
     },
+    {
+      path: frontendURL('accounts/:accountId/mine/conversations'),
+      name: 'conversation_mine',
+      meta: {
+        permissions: CONVERSATION_PERMISSIONS,
+      },
+      component: ConversationView,
+      props: () => ({ conversationType: 'mine' }),
+    },
+    {
+      path: frontendURL(
+        'accounts/:accountId/mine/conversations/:conversationId'
+      ),
+      name: 'conversation_through_mine',
+      meta: {
+        permissions: CONVERSATION_PERMISSIONS,
+      },
+      component: ConversationView,
+      props: route => ({
+        conversationId: route.params.conversationId,
+        conversationType: 'mine',
+      }),
+    },
   ],
 };

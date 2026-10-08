@@ -173,7 +173,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="overflow-auto col-span-6 p-6 w-full h-full">
+  <div class="overflow-auto no-scrollbar col-span-6 p-6 w-full h-full">
     <DuplicateInboxBanner
       v-if="hasDuplicateInstagramInbox"
       :content="$t('INBOX_MGMT.ADD.INSTAGRAM.NEW_INBOX_SUGGESTION')"

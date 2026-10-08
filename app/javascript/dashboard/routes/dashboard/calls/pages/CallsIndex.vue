@@ -148,7 +148,7 @@ onMounted(async () => {
         :show-assignee="hasFullConversationAccess"
       />
     </header>
-    <main class="flex-1 px-6 overflow-y-auto">
+    <main class="flex-1 px-6 overflow-y-auto no-scrollbar">
       <div class="w-full">
         <div v-if="isFetching" class="flex items-center justify-center py-16">
           <Spinner :size="24" />
