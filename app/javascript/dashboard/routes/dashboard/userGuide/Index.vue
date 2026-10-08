@@ -12,15 +12,17 @@ const scrollToSection = id => {
 </script>
 
 <template>
-  <section class="flex w-full h-full overflow-y-auto">
+  <!-- Not a flex container: the inner row must grow with the content, or the sticky contents column
+       is clamped to one screen height and scrolls away. -->
+  <section class="w-full h-full overflow-y-auto">
     <div class="flex w-full max-w-6xl gap-10 px-6 py-6 mx-auto">
-      <nav class="sticky self-start hidden w-60 top-0 shrink-0 lg:block">
+      <nav class="sticky self-start hidden w-60 top-6 shrink-0 lg:block">
         <p
           class="mb-3 text-xs font-medium tracking-wide uppercase text-n-slate-10"
         >
           {{ $t('USER_GUIDE.CONTENTS') }}
         </p>
-        <ul class="flex flex-col gap-1">
+        <ul class="flex flex-col gap-1 m-0 list-none ps-0">
           <li v-for="(section, index) in guide.sections" :key="section.id">
             <button
               type="button"
