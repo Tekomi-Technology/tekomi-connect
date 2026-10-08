@@ -378,6 +378,7 @@
     "WHATSAPP": "WhatsApp",
     "CAMPAIGNS": "Campaigns",
     "TEAM_MONITORING": "Team monitoring",
+    "USER_GUIDE": "User guide",
     "ONGOING": "Ongoing",
     "ONE_OFF": "One off",
     "REPORTS_SLA": "SLA",
@@ -1193,5 +1194,9 @@
     "LOADING": "Loading directory...",
     "NO_CONTACTS": "No contacts in this company yet",
     "UNGROUPED": "Ungrouped contacts"
+  },
+  "USER_GUIDE": {
+    "HEADER": "User guide",
+    "CONTENTS": "Contents"
   }
 }

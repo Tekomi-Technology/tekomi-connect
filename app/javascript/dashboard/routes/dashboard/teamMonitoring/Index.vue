@@ -21,6 +21,7 @@ const isLoading = ref(false);
 const errorMessage = ref('');
 const report = ref({ alerts: {}, teams: [], ungroupedAgents: [] });
 const expandedTeamIds = ref([]);
+const selectedTeamId = ref(null);
 const expandedAgentId = ref(null);
 const agentConversations = ref([]);
 const isLoadingConversations = ref(false);
@@ -28,6 +29,10 @@ const dateRange = ref([startOfMonth(new Date()), new Date()]);
 const rangeType = ref(DATE_RANGE_TYPES.MONTH_TO_DATE);
 
 const accountId = computed(() => store.getters.getCurrentAccountId);
+const selectedTeam = computed(
+  () =>
+    report.value.teams.find(team => team.id === selectedTeamId.value) ?? null
+);
 
 const fetchReport = async () => {
   isLoading.value = true;
@@ -56,12 +61,21 @@ const onDateRangeChange = value => {
   fetchReport();
 };
 
-const toggleTeam = teamId => {
-  if (expandedTeamIds.value.includes(teamId)) {
+// Clicking a team scopes the alert cards to it and opens its member list; clicking it again goes back to all teams.
+const selectTeam = teamId => {
+  if (selectedTeamId.value === teamId) {
+    selectedTeamId.value = null;
     expandedTeamIds.value = expandedTeamIds.value.filter(id => id !== teamId);
-  } else {
+    return;
+  }
+  selectedTeamId.value = teamId;
+  if (!expandedTeamIds.value.includes(teamId)) {
     expandedTeamIds.value = [...expandedTeamIds.value, teamId];
   }
+};
+
+const clearTeamSelection = () => {
+  selectedTeamId.value = null;
 };
 
 const toggleAgentConversations = async agentId => {
@@ -100,10 +114,11 @@ const slaMissRate = row => {
   return `${Math.round((row.sla_missed_count / row.sla_applied_count) * 100)}%`;
 };
 
+const hasCsat = row =>
+  Boolean(row.csat_responses_count) && row.csat_score !== null;
+
 const csatLabel = row => {
-  if (!row.csat_responses_count || row.csat_score === null) {
-    return t('TEAM_MONITORING.NO_DATA');
-  }
+  if (!hasCsat(row)) return t('TEAM_MONITORING.NO_DATA');
   return `${row.csat_score} (${row.csat_responses_count})`;
 };
 
@@ -124,6 +139,137 @@ const statusDotClass = status => {
   if (status === 'busy') return 'bg-n-amber-10';
   return 'bg-n-slate-8';
 };
+
+const statusTextClass = status => {
+  if (status === 'online') return 'text-n-teal-11';
+  if (status === 'busy') return 'text-n-amber-11';
+  return 'text-n-slate-10';
+};
+
+// Real figures stand out; «No data» recedes so the eye lands on what was measured.
+const VALUE_CLASS = 'font-medium text-n-slate-12';
+const NO_DATA_CLASS = 'text-n-slate-10';
+
+const durationClass = seconds =>
+  duration(seconds) === null ? NO_DATA_CLASS : VALUE_CLASS;
+
+const csatClass = row => (hasCsat(row) ? VALUE_CLASS : NO_DATA_CLASS);
+
+const slaClass = row => {
+  if (!row.sla_applied_count) return NO_DATA_CLASS;
+  return row.sla_missed_count
+    ? 'font-medium text-n-ruby-11'
+    : 'font-medium text-n-teal-11';
+};
+
+const TONES = {
+  ok: {
+    card: 'border-n-teal-6 bg-n-teal-2',
+    icon: 'bg-n-teal-4 text-n-teal-11',
+    value: 'text-n-slate-12',
+  },
+  warn: {
+    card: 'border-n-amber-6 bg-n-amber-2',
+    icon: 'bg-n-amber-4 text-n-amber-11',
+    value: 'text-n-amber-11',
+  },
+  danger: {
+    card: 'border-n-ruby-6 bg-n-ruby-2',
+    icon: 'bg-n-ruby-4 text-n-ruby-11',
+    value: 'text-n-ruby-11',
+  },
+};
+
+const countCard = (key, icon, label, count, tone = 'warn') => ({
+  key,
+  icon,
+  label,
+  value: count ?? 0,
+  tone: count ? tone : 'ok',
+});
+
+const waitCard = (label, seconds) => ({
+  key: 'wait',
+  icon: 'i-lucide-hourglass',
+  label,
+  value: duration(seconds) ?? '—',
+  tone: seconds ? 'warn' : 'ok',
+});
+
+const accountCards = alerts => [
+  countCard(
+    'unassigned',
+    'i-lucide-inbox',
+    t('TEAM_MONITORING.ALERTS.UNASSIGNED'),
+    alerts.unassigned_conversations
+  ),
+  waitCard(
+    t('TEAM_MONITORING.ALERTS.LONGEST_WAIT'),
+    alerts.longest_waiting_seconds
+  ),
+  countCard(
+    'supervisor',
+    'i-lucide-shield-alert',
+    t('TEAM_MONITORING.ALERTS.NO_SUPERVISOR'),
+    alerts.teams_without_supervisor,
+    'danger'
+  ),
+  countCard(
+    'ungrouped',
+    'i-lucide-user-x',
+    t('TEAM_MONITORING.ALERTS.UNGROUPED'),
+    alerts.ungrouped_agents
+  ),
+];
+
+const overloadedCard = team => {
+  const label = t('TEAM_MONITORING.TEAM_ALERTS.OVERLOADED');
+  if (!team.agents.some(agent => agent.capacity_limit)) {
+    return {
+      key: 'overloaded',
+      icon: 'i-lucide-gauge',
+      label,
+      value: t('TEAM_MONITORING.TEAM_ALERTS.NO_LIMIT'),
+      tone: 'ok',
+      muted: true,
+    };
+  }
+  return countCard(
+    'overloaded',
+    'i-lucide-gauge',
+    label,
+    team.agents.filter(isOverloaded).length
+  );
+};
+
+const teamCards = team => {
+  const alerts = team.alerts ?? {};
+  return [
+    countCard(
+      'unassigned',
+      'i-lucide-inbox',
+      t('TEAM_MONITORING.TEAM_ALERTS.UNASSIGNED'),
+      alerts.unassigned_conversations
+    ),
+    waitCard(
+      t('TEAM_MONITORING.TEAM_ALERTS.LONGEST_WAIT'),
+      alerts.longest_waiting_seconds
+    ),
+    countCard(
+      'waiting',
+      'i-lucide-message-circle-more',
+      t('TEAM_MONITORING.TEAM_ALERTS.WAITING'),
+      alerts.waiting_conversations
+    ),
+    overloadedCard(team),
+  ];
+};
+
+const alertCards = computed(() =>
+  selectedTeam.value
+    ? teamCards(selectedTeam.value)
+    : accountCards(report.value.alerts)
+);
 
 onMounted(fetchReport);
 </script>
@@ -163,38 +309,63 @@ onMounted(fetchReport);
       {{ errorMessage }}
     </div>
 
-    <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-      <div class="flex flex-col gap-1 p-4 border rounded-xl border-n-weak">
-        <span class="text-sm text-n-slate-11">
-          {{ $t('TEAM_MONITORING.ALERTS.UNASSIGNED') }}
+    <div class="flex flex-col gap-3">
+      <div class="flex flex-wrap items-center gap-2 text-sm">
+        <span class="text-n-slate-11">
+          {{ $t('TEAM_MONITORING.SCOPE.LABEL') }}
         </span>
-        <span class="text-2xl font-medium text-n-slate-12">
-          {{ report.alerts.unassigned_conversations ?? 0 }}
+        <span
+          class="px-2 py-0.5 font-medium rounded-md"
+          :class="
+            selectedTeam
+              ? 'bg-n-teal-3 text-n-teal-11'
+              : 'bg-n-alpha-2 text-n-slate-12'
+          "
+        >
+          {{
+            selectedTeam ? selectedTeam.name : $t('TEAM_MONITORING.SCOPE.ALL')
+          }}
+        </span>
+        <Button
+          v-if="selectedTeam"
+          icon="i-lucide-x"
+          slate
+          xs
+          faded
+          :label="$t('TEAM_MONITORING.SCOPE.CLEAR')"
+          @click="clearTeamSelection"
+        />
+        <span v-else class="text-xs text-n-slate-10">
+          {{ $t('TEAM_MONITORING.SCOPE.HINT') }}
         </span>
       </div>
-      <div class="flex flex-col gap-1 p-4 border rounded-xl border-n-weak">
-        <span class="text-sm text-n-slate-11">
-          {{ $t('TEAM_MONITORING.ALERTS.LONGEST_WAIT') }}
-        </span>
-        <span class="text-2xl font-medium text-n-slate-12">
-          {{ duration(report.alerts.longest_waiting_seconds) ?? '—' }}
-        </span>
-      </div>
-      <div class="flex flex-col gap-1 p-4 border rounded-xl border-n-weak">
-        <span class="text-sm text-n-slate-11">
-          {{ $t('TEAM_MONITORING.ALERTS.NO_SUPERVISOR') }}
-        </span>
-        <span class="text-2xl font-medium text-n-slate-12">
-          {{ report.alerts.teams_without_supervisor ?? 0 }}
-        </span>
-      </div>
-      <div class="flex flex-col gap-1 p-4 border rounded-xl border-n-weak">
-        <span class="text-sm text-n-slate-11">
-          {{ $t('TEAM_MONITORING.ALERTS.UNGROUPED') }}
-        </span>
-        <span class="text-2xl font-medium text-n-slate-12">
-          {{ report.alerts.ungrouped_agents ?? 0 }}
-        </span>
+
+      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div
+          v-for="card in alertCards"
+          :key="card.key"
+          class="flex items-start gap-3 p-4 border rounded-xl"
+          :class="TONES[card.tone].card"
+        >
+          <span
+            class="flex items-center justify-center rounded-lg size-9 shrink-0"
+            :class="TONES[card.tone].icon"
+          >
+            <Icon :icon="card.icon" class="size-5" />
+          </span>
+          <div class="flex flex-col min-w-0 gap-1">
+            <span class="text-sm text-n-slate-11">{{ card.label }}</span>
+            <span
+              :class="
+                card.muted
+                  ? 'text-base text-n-slate-10'
+                  : ['text-2xl font-semibold', TONES[card.tone].value]
+              "
+            >
+              {{ card.value }}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -202,11 +373,19 @@ onMounted(fetchReport);
       <div
         v-for="team in report.teams"
         :key="team.id"
-        class="border rounded-xl border-n-weak"
+        class="border rounded-xl"
+        :class="
+          selectedTeamId === team.id
+            ? 'border-n-teal-8 ring-1 ring-n-teal-8'
+            : 'border-n-weak'
+        "
       >
         <button
-          class="flex flex-wrap items-center w-full gap-4 px-4 py-3 text-left"
-          @click="toggleTeam(team.id)"
+          class="flex flex-wrap items-center w-full gap-4 px-4 py-3 text-left rounded-xl"
+          :class="
+            selectedTeamId === team.id ? 'bg-n-teal-2' : 'hover:bg-n-alpha-1'
+          "
+          @click="selectTeam(team.id)"
         >
           <Icon
             :icon="
@@ -220,17 +399,15 @@ onMounted(fetchReport);
             <span class="font-medium capitalize text-n-slate-12">
               {{ team.name }}
             </span>
-            <span class="text-sm text-n-slate-11">
-              <template v-if="team.supervisor">
-                {{
-                  $t('TEAM_MONITORING.SUPERVISED_BY', {
-                    name: team.supervisor.name,
-                  })
-                }}
-              </template>
-              <template v-else>
-                {{ $t('TEAM_MONITORING.NO_SUPERVISOR') }}
-              </template>
+            <span v-if="team.supervisor" class="text-sm text-n-slate-11">
+              {{
+                $t('TEAM_MONITORING.SUPERVISED_BY', {
+                  name: team.supervisor.name,
+                })
+              }}
+            </span>
+            <span v-else class="text-sm font-medium text-n-ruby-11">
+              {{ $t('TEAM_MONITORING.NO_SUPERVISOR') }}
             </span>
           </div>
           <div class="flex flex-wrap gap-6">
@@ -238,7 +415,14 @@ onMounted(fetchReport);
               <span class="text-xs text-n-slate-11">
                 {{ $t('TEAM_MONITORING.COLUMNS.ONLINE') }}
               </span>
-              <span class="text-sm text-n-slate-12">
+              <span
+                class="text-sm"
+                :class="
+                  team.online_members_count
+                    ? 'font-medium text-n-teal-11'
+                    : NO_DATA_CLASS
+                "
+              >
                 {{ team.online_members_count }}/{{ team.members_count }}
               </span>
             </div>
@@ -246,7 +430,7 @@ onMounted(fetchReport);
               <span class="text-xs text-n-slate-11">
                 {{ $t('TEAM_MONITORING.COLUMNS.OPEN') }}
               </span>
-              <span class="text-sm text-n-slate-12">
+              <span class="text-sm" :class="VALUE_CLASS">
                 {{ team.open_conversations }}
               </span>
             </div>
@@ -254,7 +438,7 @@ onMounted(fetchReport);
               <span class="text-xs text-n-slate-11">
                 {{ $t('TEAM_MONITORING.COLUMNS.RESOLVED') }}
               </span>
-              <span class="text-sm text-n-slate-12">
+              <span class="text-sm" :class="VALUE_CLASS">
                 {{ team.resolved_conversations_count }}
               </span>
             </div>
@@ -262,7 +446,10 @@ onMounted(fetchReport);
               <span class="text-xs text-n-slate-11">
                 {{ $t('TEAM_MONITORING.COLUMNS.FIRST_RESPONSE') }}
               </span>
-              <span class="text-sm text-n-slate-12">
+              <span
+                class="text-sm"
+                :class="durationClass(team.avg_first_response_time)"
+              >
                 {{ metricOrEmpty(duration(team.avg_first_response_time)) }}
               </span>
             </div>
@@ -270,7 +457,10 @@ onMounted(fetchReport);
               <span class="text-xs text-n-slate-11">
                 {{ $t('TEAM_MONITORING.COLUMNS.RESOLUTION_TIME') }}
               </span>
-              <span class="text-sm text-n-slate-12">
+              <span
+                class="text-sm"
+                :class="durationClass(team.avg_resolution_time)"
+              >
                 {{ metricOrEmpty(duration(team.avg_resolution_time)) }}
               </span>
             </div>
@@ -278,13 +468,15 @@ onMounted(fetchReport);
               <span class="text-xs text-n-slate-11">
                 {{ $t('TEAM_MONITORING.COLUMNS.CSAT') }}
               </span>
-              <span class="text-sm text-n-slate-12">{{ csatLabel(team) }}</span>
+              <span class="text-sm" :class="csatClass(team)">
+                {{ csatLabel(team) }}
+              </span>
             </div>
             <div class="flex flex-col">
               <span class="text-xs text-n-slate-11">
                 {{ $t('TEAM_MONITORING.COLUMNS.SLA_MISSED') }}
               </span>
-              <span class="text-sm text-n-slate-12">
+              <span class="text-sm" :class="slaClass(team)">
                 {{ slaMissRate(team) }}
               </span>
             </div>
@@ -316,7 +508,10 @@ onMounted(fetchReport);
               />
               <div class="flex flex-col flex-1 min-w-32">
                 <span class="text-sm text-n-slate-12">{{ agent.name }}</span>
-                <span class="text-xs text-n-slate-11">
+                <span
+                  class="text-xs"
+                  :class="statusTextClass(agent.availability_status)"
+                >
                   {{ statusLabel(agent.availability_status) }}
                 </span>
               </div>
@@ -328,7 +523,9 @@ onMounted(fetchReport);
                   <span
                     class="text-sm"
                     :class="
-                      isOverloaded(agent) ? 'text-n-ruby-11' : 'text-n-slate-12'
+                      isOverloaded(agent)
+                        ? 'font-medium text-n-ruby-11'
+                        : VALUE_CLASS
                     "
                   >
                     {{ capacityLabel(agent) }}
@@ -338,7 +535,7 @@ onMounted(fetchReport);
                   <span class="text-xs text-n-slate-11">
                     {{ $t('TEAM_MONITORING.COLUMNS.CONTACTS') }}
                   </span>
-                  <span class="text-sm text-n-slate-12">
+                  <span class="text-sm" :class="VALUE_CLASS">
                     {{ agent.open_contacts }}
                   </span>
                 </div>
@@ -346,7 +543,7 @@ onMounted(fetchReport);
                   <span class="text-xs text-n-slate-11">
                     {{ $t('TEAM_MONITORING.COLUMNS.RESOLVED') }}
                   </span>
-                  <span class="text-sm text-n-slate-12">
+                  <span class="text-sm" :class="VALUE_CLASS">
                     {{ agent.resolved_conversations_count }}
                   </span>
                 </div>
@@ -354,7 +551,10 @@ onMounted(fetchReport);
                   <span class="text-xs text-n-slate-11">
                     {{ $t('TEAM_MONITORING.COLUMNS.FIRST_RESPONSE') }}
                   </span>
-                  <span class="text-sm text-n-slate-12">
+                  <span
+                    class="text-sm"
+                    :class="durationClass(agent.avg_first_response_time)"
+                  >
                     {{ metricOrEmpty(duration(agent.avg_first_response_time)) }}
                   </span>
                 </div>
@@ -362,7 +562,10 @@ onMounted(fetchReport);
                   <span class="text-xs text-n-slate-11">
                     {{ $t('TEAM_MONITORING.COLUMNS.RESOLUTION_TIME') }}
                   </span>
-                  <span class="text-sm text-n-slate-12">
+                  <span
+                    class="text-sm"
+                    :class="durationClass(agent.avg_resolution_time)"
+                  >
                     {{ metricOrEmpty(duration(agent.avg_resolution_time)) }}
                   </span>
                 </div>
@@ -370,7 +573,7 @@ onMounted(fetchReport);
                   <span class="text-xs text-n-slate-11">
                     {{ $t('TEAM_MONITORING.COLUMNS.CSAT') }}
                   </span>
-                  <span class="text-sm text-n-slate-12">
+                  <span class="text-sm" :class="csatClass(agent)">
                     {{ csatLabel(agent) }}
                   </span>
                 </div>
@@ -378,7 +581,7 @@ onMounted(fetchReport);
                   <span class="text-xs text-n-slate-11">
                     {{ $t('TEAM_MONITORING.COLUMNS.SLA_MISSED') }}
                   </span>
-                  <span class="text-sm text-n-slate-12">
+                  <span class="text-sm" :class="slaClass(agent)">
                     {{ slaMissRate(agent) }}
                   </span>
                 </div>

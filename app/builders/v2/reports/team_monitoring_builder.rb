@@ -19,7 +19,7 @@ class V2::Reports::TeamMonitoringBuilder
 
     {
       unassigned_conversations: unassigned_conversations.count,
-      longest_waiting_seconds: waiting_since && (Time.current - waiting_since).to_i,
+      longest_waiting_seconds: seconds_since(waiting_since),
       teams_without_supervisor: teams.count { |team| team.supervisor_id.blank? },
       ungrouped_agents: ungrouped_agent_ids.size
     }
@@ -27,6 +27,35 @@ class V2::Reports::TeamMonitoringBuilder
 
   def unassigned_conversations
     @unassigned_conversations ||= account.conversations.open.unassigned
+  end
+
+  # The team view of the alert cards: open conversations routed to the team (team_id), not the members' workload.
+  def team_alerts(team)
+    {
+      unassigned_conversations: team_unassigned_counts[team.id] || 0,
+      waiting_conversations: team_waiting_counts[team.id] || 0,
+      longest_waiting_seconds: seconds_since(team_oldest_waiting[team.id])
+    }
+  end
+
+  def team_conversations
+    @team_conversations ||= account.conversations.open.where(team_id: teams.map(&:id))
+  end
+
+  def team_unassigned_counts
+    @team_unassigned_counts ||= team_conversations.unassigned.group(:team_id).count
+  end
+
+  def team_waiting_counts
+    @team_waiting_counts ||= team_conversations.where.not(waiting_since: nil).group(:team_id).count
+  end
+
+  def team_oldest_waiting
+    @team_oldest_waiting ||= team_conversations.where.not(waiting_since: nil).group(:team_id).minimum(:waiting_since)
+  end
+
+  def seconds_since(time)
+    time && (Time.current - time).to_i
   end
 
   def team_row(team)
@@ -40,6 +69,7 @@ class V2::Reports::TeamMonitoringBuilder
       supervisor: supervisor_payload(team),
       members_count: member_ids.size,
       online_members_count: member_ids.count { |user_id| metrics.online_statuses[user_id.to_s] == 'online' },
+      alerts: team_alerts(team),
       agents: agents
     }.merge(aggregate(agents))
   end

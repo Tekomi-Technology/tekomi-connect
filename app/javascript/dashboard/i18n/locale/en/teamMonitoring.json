@@ -36,6 +36,19 @@
       "ONLINE": "Online",
       "BUSY": "Busy",
       "OFFLINE": "Offline"
+    },
+    "SCOPE": {
+      "LABEL": "Showing",
+      "ALL": "All teams",
+      "CLEAR": "Show all teams",
+      "HINT": "Click a team to see its own figures in these cards."
+    },
+    "TEAM_ALERTS": {
+      "UNASSIGNED": "Unassigned conversations",
+      "LONGEST_WAIT": "Longest wait",
+      "WAITING": "Customers awaiting reply",
+      "OVERLOADED": "Agents at capacity",
+      "NO_LIMIT": "No limit set"
     }
   }
 }

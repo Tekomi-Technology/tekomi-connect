@@ -36,6 +36,19 @@
       "ONLINE": "Đang trực",
       "BUSY": "Đang bận",
       "OFFLINE": "Ngoại tuyến"
+    },
+    "SCOPE": {
+      "LABEL": "Đang xem",
+      "ALL": "Tất cả nhóm",
+      "CLEAR": "Xem tất cả nhóm",
+      "HINT": "Bấm vào một nhóm để xem số liệu riêng của nhóm ở các ô này."
+    },
+    "TEAM_ALERTS": {
+      "UNASSIGNED": "Hội thoại chưa ai nhận",
+      "LONGEST_WAIT": "Khách chờ lâu nhất",
+      "WAITING": "Khách đang chờ phản hồi",
+      "OVERLOADED": "Nhân viên quá tải",
+      "NO_LIMIT": "Chưa đặt giới hạn"
     }
   }
 }

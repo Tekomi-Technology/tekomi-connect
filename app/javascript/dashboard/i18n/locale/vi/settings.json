@@ -373,6 +373,7 @@
     "WHATSAPP": "WhatsApp",
     "CAMPAIGNS": "Chiến dịch",
     "TEAM_MONITORING": "Giám sát nhóm",
+    "USER_GUIDE": "Hướng dẫn sử dụng",
     "ONGOING": "Đang diễn ra",
     "ONE_OFF": "Một lần",
     "REPORTS_SLA": "SLA",
@@ -1105,5 +1106,9 @@
     "LOADING": "Đang tải danh bạ...",
     "NO_CONTACTS": "Doanh nghiệp này chưa có liên hệ nào",
     "UNGROUPED": "Liên hệ chưa phân nhóm"
+  },
+  "USER_GUIDE": {
+    "HEADER": "Hướng dẫn sử dụng",
+    "CONTENTS": "Nội dung"
   }
 }

@@ -869,6 +869,13 @@ const menuItems = computed(() => {
       ],
     },
     {
+      name: 'User Guide',
+      label: t('SIDEBAR.USER_GUIDE'),
+      icon: 'i-lucide-circle-help',
+      iconColor: 'text-n-teal-10',
+      to: accountScopedRoute('user_guide_index'),
+    },
+    {
       name: 'Settings',
       label: t('SIDEBAR.SETTINGS'),
       icon: 'i-lucide-bolt',

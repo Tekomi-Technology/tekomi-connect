@@ -12,6 +12,7 @@ import helpcenterRoutes from './helpcenter/helpcenter.routes';
 import campaignsRoutes from './campaigns/campaigns.routes';
 import { routes as tekomiRoutes } from './tekomi/tekomi.routes';
 import { routes as teamMonitoringRoutes } from './teamMonitoring/routes';
+import { routes as userGuideRoutes } from './userGuide/routes';
 import AppContainer from './Dashboard.vue';
 import Suspended from './suspended/Index.vue';
 import NoAccounts from './noAccounts/Index.vue';
@@ -34,6 +35,7 @@ export default {
         ...companyRoutes,
         ...dealRoutes,
         ...teamMonitoringRoutes,
+        ...userGuideRoutes,
         ...searchRoutes,
         ...helpcenterRoutes.routes,
         ...campaignsRoutes.routes,
