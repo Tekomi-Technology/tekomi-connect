@@ -26,11 +26,19 @@ trigger_hourly_scheduled_items_job:
   class: 'Internal::TriggerHourlyScheduledItemsJob'
   queue: scheduled_jobs
 
-# executed hourly — matches unmatched Chatwoot contacts against the Perfex CRM contact list
+# executed hourly — creates only the Perfex CRM contacts newer than the last synced id and matches unmatched Chatwoot contacts
 crm_perfex_sync_contacts_job:
   cron: '15 * * * *'
   class: 'Crm::Perfex::SyncContactsJob'
   queue: scheduled_jobs
+  args: ['incremental']
+
+# executed daily — full re-sync so changes to existing CRM contacts reach Chatwoot
+crm_perfex_full_sync_contacts_job:
+  cron: '30 0 * * *'
+  class: 'Crm::Perfex::SyncContactsJob'
+  queue: scheduled_jobs
+  args: ['full']
 
 # executed At every minute..
 trigger_imap_email_inboxes_job:

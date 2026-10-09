@@ -3,8 +3,11 @@ class Crm::Perfex::SyncContactsJob < ApplicationJob
 
   LOCK_KEY = 'crm:perfex:directory-sync:lock'.freeze
   LOCK_TTL = 15.minutes
+  WATERMARK_KEY = 'crm:perfex:contact-watermark:%<account_id>s'.freeze
 
-  def perform
+  # `full` re-syncs every CRM contact (updates existing ones too); `incremental` only
+  # creates contacts whose CRM id is above the per-account watermark.
+  def perform(mode = 'full')
     return unless Crm::Perfex::Config.configured?
 
     acquired = Redis::Alfred.set(LOCK_KEY, '1', nx: true, ex: LOCK_TTL)
@@ -25,7 +28,7 @@ class Crm::Perfex::SyncContactsJob < ApplicationJob
     customers_cache.refresh!
 
     sync_companies(customers_cache)
-    sync_contacts(contacts_cache)
+    sync_contacts(contacts_cache, mode.to_s == 'incremental')
 
     contacts = Contact.where("additional_attributes -> 'external' ->> 'perfex_contact_id' IS NULL")
     return if contacts.none?
@@ -46,10 +49,17 @@ class Crm::Perfex::SyncContactsJob < ApplicationJob
     end
   end
 
-  def sync_contacts(contacts_cache)
+  def sync_contacts(contacts_cache, incremental)
     perfex_contacts = contacts_cache.fetch_all
+    max_id = perfex_contacts.map { |contact| contact['id'].to_i }.max
     Account.find_each do |account|
-      Crm::Perfex::ContactSyncService.new(account).sync(perfex_contacts)
+      batch = incremental ? perfex_contacts.select { |contact| contact['id'].to_i > watermark(account) } : perfex_contacts
+      Crm::Perfex::ContactSyncService.new(account).sync(batch)
+      Redis::Alfred.set(format(WATERMARK_KEY, account_id: account.id), max_id) if max_id
     end
+  end
+
+  def watermark(account)
+    Redis::Alfred.get(format(WATERMARK_KEY, account_id: account.id)).to_i
   end
 end
