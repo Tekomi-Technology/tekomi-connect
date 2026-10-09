@@ -78,12 +78,12 @@ const loadAll = async () => {
 
 const toggleCompany = async company => {
   const id = company.id;
+  ungroupedExpanded.value = false;
   if (expandedIds.value.has(id)) {
-    expandedIds.value.delete(id);
-    expandedIds.value = new Set(expandedIds.value);
+    expandedIds.value = new Set();
     return;
   }
-  expandedIds.value = new Set([...expandedIds.value, id]);
+  expandedIds.value = new Set([id]);
   if (!companyContacts.value[id]) {
     try {
       const { data } = await CompanyAPI.listContacts(id);
@@ -95,6 +95,11 @@ const toggleCompany = async company => {
       useAlert(error.message);
     }
   }
+};
+
+const toggleUngrouped = () => {
+  expandedIds.value = new Set();
+  ungroupedExpanded.value = !ungroupedExpanded.value;
 };
 
 const openContact = contact => {
@@ -152,7 +157,7 @@ onMounted(loadAll);
       <div
         v-for="company in companies"
         :key="company.id"
-        class="border border-n-weak rounded-lg mb-2 overflow-hidden bg-n-solid-1"
+        class="border border-n-weak rounded-lg mb-2 overflow-hidden bg-n-solid-1 shrink-0"
       >
         <button
           class="flex w-full items-center gap-2 px-4 py-3 text-left hover:bg-n-alpha-1"
@@ -207,11 +212,11 @@ onMounted(loadAll);
       </div>
 
       <div
-        class="border border-n-weak rounded-lg mb-2 overflow-hidden bg-n-solid-1"
+        class="border border-n-weak rounded-lg mb-2 overflow-hidden bg-n-solid-1 shrink-0"
       >
         <button
           class="flex w-full items-center gap-2 px-4 py-3 text-left hover:bg-n-alpha-1"
-          @click="ungroupedExpanded = !ungroupedExpanded"
+          @click="toggleUngrouped"
         >
           <Icon
             :icon="
