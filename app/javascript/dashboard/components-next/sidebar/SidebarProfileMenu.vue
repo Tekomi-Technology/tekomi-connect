@@ -127,7 +127,7 @@ const allowedMenuItems = computed(() => {
         </template>
       </button>
     </template>
-    <DropdownBody class="top-full z-50 mt-2 w-80 ltr:left-0 rtl:right-0">
+    <DropdownBody class="bottom-full z-50 mb-2 w-80 ltr:left-0 rtl:right-0">
       <SidebarProfileMenuStatus />
       <SidebarProfileMenuAccountSwitch
         @show-create-account-modal="emit('showCreateAccountModal')"

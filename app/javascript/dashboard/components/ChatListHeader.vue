@@ -17,6 +17,7 @@ const props = defineProps({
   isOnExpandedLayout: { type: Boolean, required: true },
   conversationStats: { type: Object, required: true },
   isListLoading: { type: Boolean, required: true },
+  hideFilters: { type: Boolean, default: false },
 });
 
 const emit = defineEmits([
@@ -144,7 +145,7 @@ const toggleConversationLayout = () => {
           @click="emit('deleteFolders')"
         />
       </template>
-      <div v-else-if="!isContactScoped" class="relative">
+      <div v-else-if="!isContactScoped && !hideFilters" class="relative">
         <NextButton
           id="toggleConversationFilterButton"
           v-tooltip.right="$t('FILTER.TOOLTIP_LABEL')"
@@ -161,7 +162,7 @@ const toggleConversationLayout = () => {
         />
       </div>
       <ConversationBasicFilter
-        v-if="!hasAppliedFiltersOrActiveFolders"
+        v-if="!hasAppliedFiltersOrActiveFolders && !hideFilters"
         :is-on-expanded-layout="isOnExpandedLayout"
         @sort-change="value => emit('sortChange', value)"
       />

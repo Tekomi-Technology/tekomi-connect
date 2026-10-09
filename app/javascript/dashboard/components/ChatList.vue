@@ -482,14 +482,23 @@ const uniqueInboxes = computed(() => {
 });
 
 // ---------------------- Methods -----------------------
-function setFiltersFromUISettings() {
-  const { conversations_filter_by: filterBy = {} } = uiSettings.value;
-  const { order_by: orderBy } = filterBy;
-  activeSortBy.value = Object.values(wootConstants.SORT_BY_TYPE).includes(
-    orderBy
-  )
-    ? orderBy
-    : wootConstants.SORT_BY_TYPE.LAST_ACTIVITY_AT_DESC;
+function applyViewDefaults() {
+  const { SORT_BY_TYPE, DISPLAY_MODE } = wootConstants;
+  if (isMineView.value) {
+    activeSortBy.value = SORT_BY_TYPE.LAST_ACTIVITY_AT_DESC;
+    activeDisplayMode.value = DISPLAY_MODE.DEFAULT;
+  } else {
+    const { conversations_filter_by: filterBy = {} } = uiSettings.value;
+    const { order_by: orderBy } = filterBy;
+    activeSortBy.value = Object.values(SORT_BY_TYPE).includes(orderBy)
+      ? orderBy
+      : SORT_BY_TYPE.LAST_ACTIVITY_AT_DESC;
+    const savedMode = uiSettings.value.conversation_display_mode;
+    if (displayModeOptions.value.some(option => option.value === savedMode)) {
+      activeDisplayMode.value = savedMode;
+    }
+  }
+  store.dispatch('setChatSortFilter', activeSortBy.value);
 }
 
 function emitConversationLoaded() {
@@ -610,9 +619,7 @@ function initializeExistingFilterToModal() {
       ? STAGE_FILTER_STATUS[activeStageTab.value]
       : listStatus.value,
     currentUserDetails.value,
-    isMineView.value
-      ? wootConstants.ASSIGNEE_TYPE.ME
-      : effectiveAssigneeType.value
+    effectiveAssigneeType.value
   );
   // TODO: Remove the usage of useCamelCase after migrating useFilter to camelcase
   if (statusFilter) {
@@ -925,12 +932,7 @@ useEmitter('fetch_conversation_stats', () => {
 
 onMounted(() => {
   store.dispatch('setChatListFilters', conversationFilters.value);
-  setFiltersFromUISettings();
-  store.dispatch('setChatSortFilter', activeSortBy.value);
-  const savedMode = uiSettings.value.conversation_display_mode;
-  if (displayModeOptions.value.some(option => option.value === savedMode)) {
-    activeDisplayMode.value = savedMode;
-  }
+  applyViewDefaults();
   if (route.query.tab === wootConstants.ASSIGNEE_TYPE.VIP) {
     activeDisplayMode.value = wootConstants.DISPLAY_MODE.VIP;
   }
@@ -985,7 +987,10 @@ watch(
 );
 watch(
   computed(() => props.conversationType),
-  () => resetAndFetchData()
+  () => {
+    applyViewDefaults();
+    resetAndFetchData();
+  }
 );
 
 watch(activeFolder, (newVal, oldVal) => {
@@ -1026,6 +1031,7 @@ watch(appliedFilters, () => resetBulkActions());
       :is-on-expanded-layout="isOnExpandedLayout"
       :conversation-stats="conversationStats"
       :is-list-loading="chatListLoading && !conversationList.length"
+      :hide-filters="isMineView"
       @add-folders="onClickOpenAddFoldersModal"
       @delete-folders="onClickOpenDeleteFoldersModal"
       @filters-modal="onToggleAdvanceFiltersModal"
@@ -1073,6 +1079,7 @@ watch(appliedFilters, () => resetBulkActions());
         {{ activeDisplayModeLabel }}
       </h2>
       <ConversationDisplayMode
+        v-if="!isMineView"
         :model-value="activeDisplayMode"
         :options="displayModeOptions"
         class="mb-1.5"

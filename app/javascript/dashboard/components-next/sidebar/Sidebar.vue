@@ -1150,16 +1150,6 @@ const menuItems = computed(() => {
           </span>
         </template>
       </div>
-      <div
-        class="flex"
-        :class="isEffectivelyCollapsed ? 'justify-center py-3' : 'px-2 py-3'"
-      >
-        <SidebarProfileMenu
-          :is-collapsed="isEffectivelyCollapsed"
-          @open-key-shortcut-modal="emit('openKeyShortcutModal')"
-          @show-create-account-modal="emit('showCreateAccountModal')"
-        />
-      </div>
     </section>
     <nav
       class="grid overflow-y-scroll flex-grow gap-2 pb-5 no-scrollbar min-w-0"
@@ -1176,10 +1166,20 @@ const menuItems = computed(() => {
         />
       </ul>
     </nav>
-    <section class="relative flex-shrink-0">
+    <section class="relative z-50 flex-shrink-0">
       <div
         class="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-gradient-to-t from-n-background to-transparent"
       />
+      <div
+        class="flex border-t border-n-weak"
+        :class="isEffectivelyCollapsed ? 'justify-center px-1 py-2' : 'px-2 py-2'"
+      >
+        <SidebarProfileMenu
+          :is-collapsed="isEffectivelyCollapsed"
+          @open-key-shortcut-modal="emit('openKeyShortcutModal')"
+          @show-create-account-modal="emit('showCreateAccountModal')"
+        />
+      </div>
       <div
         class="flex items-center gap-2 px-3 py-2.5 border-t border-n-weak"
         :class="isEffectivelyCollapsed ? 'justify-center' : 'justify-between'"

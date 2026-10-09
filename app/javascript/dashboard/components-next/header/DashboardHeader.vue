@@ -41,19 +41,19 @@ const onSearch = () => {
         :placeholder="t('COMBOBOX.SEARCH_PLACEHOLDER')"
       />
     </form>
-    <ComposeConversation align="start">
-      <template #trigger="{ isOpen }">
-        <button
-          type="button"
-          class="grid flex-shrink-0 text-white transition-all duration-150 ease-out rounded-full shadow-sm size-9 place-items-center bg-n-brand hover:brightness-110 active:scale-95"
-          :class="{ 'brightness-110 ring-4 ring-n-brand/20': isOpen }"
-          :title="t('NEW_CONVERSATION.TITLE')"
-        >
-          <span class="i-lucide-plus size-5" />
-        </button>
-      </template>
-    </ComposeConversation>
-    <div class="flex items-center gap-1 ltr:ml-auto rtl:mr-auto">
+    <div class="flex items-center gap-2 ltr:ml-auto rtl:mr-auto">
+      <ComposeConversation>
+        <template #trigger="{ isOpen }">
+          <button
+            type="button"
+            class="grid flex-shrink-0 text-white transition-all duration-150 ease-out rounded-full shadow-sm size-9 place-items-center bg-n-brand hover:brightness-110 active:scale-95"
+            :class="{ 'brightness-110 ring-4 ring-n-brand/20': isOpen }"
+            :title="t('NEW_CONVERSATION.TITLE')"
+          >
+            <span class="i-lucide-plus size-5" />
+          </button>
+        </template>
+      </ComposeConversation>
       <HeaderNotifications />
     </div>
   </header>
