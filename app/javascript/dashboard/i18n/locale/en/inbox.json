@@ -34,6 +34,8 @@
       "SLA_MISSED_FIRST_RESPONSE": "SLA breach",
       "SLA_MISSED_NEXT_RESPONSE": "SLA breach",
       "SLA_MISSED_RESOLUTION": "SLA breach",
+      "TICKET_SLA_WARNING": "Ticket SLA at risk",
+      "TICKET_SLA_MISSED": "Ticket SLA breach",
       "PARTICIPATING_CONVERSATION_NEW_MESSAGE": "New message",
       "ASSIGNED_CONVERSATION_NEW_MESSAGE": "New message",
       "SNOOZED_UNTIL": "Snoozed for {time}",

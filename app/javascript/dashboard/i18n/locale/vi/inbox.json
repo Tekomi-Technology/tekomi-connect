@@ -34,6 +34,8 @@
       "SLA_MISSED_FIRST_RESPONSE": "Vi phạm SLA",
       "SLA_MISSED_NEXT_RESPONSE": "Vi phạm SLA",
       "SLA_MISSED_RESOLUTION": "Vi phạm SLA",
+      "TICKET_SLA_WARNING": "Ticket sắp vi phạm SLA",
+      "TICKET_SLA_MISSED": "Ticket vi phạm SLA",
       "PARTICIPATING_CONVERSATION_NEW_MESSAGE": "Tin nhắn mới",
       "ASSIGNED_CONVERSATION_NEW_MESSAGE": "Tin nhắn mới",
       "SNOOZED_UNTIL": "Tạm ẩn trong {time}",

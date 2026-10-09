@@ -71,7 +71,7 @@ const markAllRead = async () => {
   useAlert(t('INBOX.ALERTS.MARK_ALL_READ'));
 };
 
-const openConversation = async notification => {
+const openNotification = async notification => {
   const { id, primaryActorId, primaryActorType, primaryActor } = notification;
 
   if (!notification.readAt) {
@@ -85,10 +85,14 @@ const openConversation = async notification => {
   }
 
   popoverRef.value.hide();
-  router.push({
-    name: 'inbox_conversation',
-    params: { conversation_id: primaryActor.id },
-  });
+  router.push(
+    primaryActorType === 'Ticket'
+      ? { name: 'tickets_show', params: { ticketId: primaryActor.id } }
+      : {
+          name: 'inbox_conversation',
+          params: { conversation_id: primaryActor.id },
+        }
+  );
 };
 
 onMounted(() => store.dispatch('notifications/unReadCount'));
@@ -150,7 +154,7 @@ onMounted(() => store.dispatch('notifications/unReadCount'));
             :inbox-item="notification"
             :state-inbox="inboxById(notification.primaryActor?.inboxId)"
             class="rounded-lg hover:bg-n-alpha-1 dark:hover:bg-n-alpha-3"
-            @click="openConversation(notification)"
+            @click="openNotification(notification)"
           />
           <div v-if="uiFlags.isFetching" class="flex justify-center py-4">
             <Spinner class="text-n-brand" />

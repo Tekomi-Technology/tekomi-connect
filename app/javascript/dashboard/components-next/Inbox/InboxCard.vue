@@ -44,7 +44,9 @@ const getMessageClasses = {
 
 const primaryActor = computed(() => props.inboxItem?.primaryActor);
 const meta = computed(() => primaryActor.value?.meta);
-const assigneeMeta = computed(() => meta.value?.sender);
+const assigneeMeta = computed(
+  () => meta.value?.sender ?? primaryActor.value?.contact ?? { name: '' }
+);
 const isUnread = computed(() => !props.inboxItem?.readAt);
 const inbox = computed(() => props.stateInbox);
 
