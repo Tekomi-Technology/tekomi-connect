@@ -13,6 +13,7 @@ import {
   DropdownSeparator,
   DropdownItem,
 } from 'next/dropdown-menu/base';
+import { provideDropdownTeleport } from 'dashboard/components-next/dropdown-menu/base/provider';
 import CustomBrandPolicyWrapper from '../../components/CustomBrandPolicyWrapper.vue';
 
 defineProps({
@@ -30,6 +31,8 @@ defineOptions({
 });
 
 const { t } = useI18n();
+
+provideDropdownTeleport();
 
 const currentUser = useMapGetter('getCurrentUser');
 const currentUserAvailability = useMapGetter('getCurrentUserAvailability');
@@ -127,7 +130,7 @@ const allowedMenuItems = computed(() => {
         </template>
       </button>
     </template>
-    <DropdownBody class="bottom-full z-50 mb-2 w-80 ltr:left-0 rtl:right-0">
+    <DropdownBody class="w-80">
       <SidebarProfileMenuStatus />
       <SidebarProfileMenuAccountSwitch
         @show-create-account-modal="emit('showCreateAccountModal')"
