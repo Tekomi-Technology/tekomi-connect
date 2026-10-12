@@ -692,6 +692,21 @@ vi:
         name: 'Chuyển giọng nói thành văn bản'
         description: 'Chuyển tin nhắn thoại và bản ghi cuộc gọi thành văn bản.'
         warning: 'Nhà cung cấp phải hỗ trợ API chuyển giọng nói kiểu OpenAI, ví dụ OpenAI, Gemini hoặc OpenRouter.'
+      deal_assistant:
+        name: 'Trợ lý Deal'
+        description: 'Trả lời câu hỏi của nhân viên về một deal.'
+      deal_suggestion:
+        name: 'Gợi ý Deal'
+        description: 'Đọc các hội thoại gần đây và gợi ý hội thoại nào đáng mở deal.'
+      deal_summary:
+        name: 'Tóm tắt Deal'
+        description: 'Tóm tắt tình trạng của deal từ hội thoại và lịch sử.'
+      deal_next_step:
+        name: 'Bước tiếp theo của Deal'
+        description: 'Gợi ý hành động và giai đoạn tiếp theo cho một deal.'
+      deal_field_extraction:
+        name: 'Trích xuất trường Deal'
+        description: 'Đề xuất giá trị cho các trường tuỳ chỉnh của deal.'
     groups:
       editor: 'Soạn thảo'
       copilot: 'Copilot'
@@ -758,6 +773,99 @@ vi:
       care_suggestion:
         name: 'Gợi ý chăm sóc'
         description: 'Gợi ý bước chăm sóc tiếp theo từ kết quả phân tích hội thoại đã lưu, khi nhân viên bấm nút.'
+      assistant_v1:
+        name: 'Trả lời của trợ lý'
+        description: 'Sinh câu trả lời của trợ lý từ ngữ cảnh tài khoản, công cụ và kho kiến thức.'
+      assistant_action_classifier:
+        name: 'Phân loại chuyển tiếp của trợ lý'
+        description: 'Quyết định trợ lý tiếp tục trả lời hay chuyển hội thoại cho nhân viên.'
+      assistant_false_promise_detector:
+        name: 'Phát hiện hứa hẹn sai'
+        description: 'Kiểm tra câu trả lời của trợ lý xem có hứa hẹn việc không thực hiện được không.'
+      assistant_overview_summary:
+        name: 'Tóm tắt tổng quan trợ lý'
+        description: 'Tóm tắt các chỉ số hiệu quả của trợ lý cho trang tổng quan.'
+      instruction_auditor:
+        name: 'Rà soát hướng dẫn'
+        description: 'Rà soát hướng dẫn sinh tự động cho trợ lý về mức an toàn và đầy đủ.'
+      instruction_classifier:
+        name: 'Phân loại hướng dẫn'
+        description: 'Chuyển hướng dẫn hiện có của trợ lý thành cấu hình có cấu trúc.'
+      citations:
+        name: 'Hướng dẫn trích dẫn'
+        description: 'Quy ước trình bày trích dẫn từ kho kiến thức.'
+      campaign:
+        name: 'Ngữ cảnh chiến dịch'
+        description: 'Ngữ cảnh chiến dịch dùng chung, chèn vào câu lệnh của trợ lý.'
+      contact:
+        name: 'Ngữ cảnh liên hệ'
+        description: 'Ngữ cảnh liên hệ dùng chung, chèn vào câu lệnh của trợ lý.'
+      conversation:
+        name: 'Ngữ cảnh hội thoại'
+        description: 'Ngữ cảnh hội thoại dùng chung, chèn vào câu lệnh của trợ lý.'
+      current_time:
+        name: 'Ngữ cảnh thời gian'
+        description: 'Ngữ cảnh thời gian hiện tại dùng chung, chèn vào câu lệnh của trợ lý.'
+      contact_notes:
+        name: 'Ghi chú liên hệ'
+        description: 'Sinh ghi chú từ thông tin liên hệ và hội thoại.'
+      contact_attributes:
+        name: 'Thuộc tính liên hệ'
+        description: 'Trích xuất thuộc tính có cấu trúc từ liên hệ và hội thoại.'
+      follow_up:
+        name: 'Yêu cầu bổ sung'
+        description: 'Sinh câu trả lời tiếp theo từ kết quả AI trước đó.'
+      label_suggestion:
+        name: 'Gợi ý nhãn'
+        description: 'Gợi ý nhãn cho một hội thoại.'
+      conversation_completion:
+        name: 'Kết thúc hội thoại'
+        description: 'Xác định một hội thoại không còn hoạt động có thể đóng được chưa.'
+      csat_utility_analysis:
+        name: 'Phân tích CSAT'
+        description: 'Phân tích phản hồi hài lòng của khách hàng.'
+      call_emotion_analysis:
+        name: 'Phân tích cảm xúc cuộc gọi'
+        description: 'Phân tích cảm xúc người gọi từ bản bóc băng cuộc gọi.'
+      document_faq:
+        name: 'Tạo FAQ từ tài liệu'
+        description: 'Tạo câu hỏi thường gặp từ một tài liệu.'
+      pdf_faq:
+        name: 'Tạo FAQ từ PDF'
+        description: 'Tạo câu hỏi thường gặp từ các trang PDF.'
+      conversation_faq:
+        name: 'Tạo FAQ từ hội thoại'
+        description: 'Tạo gợi ý FAQ từ các hội thoại đã đóng.'
+      conversation_faq_matching:
+        name: 'Đối chiếu FAQ từ hội thoại'
+        description: 'Kiểm tra FAQ mới có trùng với FAQ đã có không.'
+      article_writer:
+        name: 'Viết bài Trung tâm trợ giúp'
+        description: 'Viết bài Trung tâm trợ giúp từ các trang nguồn.'
+      article_title_translation:
+        name: 'Dịch tiêu đề bài viết'
+        description: 'Dịch tiêu đề bài viết Trung tâm trợ giúp.'
+      article_content_translation:
+        name: 'Dịch nội dung bài viết'
+        description: 'Dịch nội dung bài viết Trung tâm trợ giúp.'
+      article_search_terms:
+        name: 'Từ khoá tìm kiếm bài viết'
+        description: 'Trích xuất từ khoá dùng để lập chỉ mục bài viết.'
+      help_center_query_translation:
+        name: 'Dịch từ khoá tìm kiếm Trung tâm trợ giúp'
+        description: 'Dịch từ khoá tìm kiếm trên Trung tâm trợ giúp.'
+      help_center_curation:
+        name: 'Chọn lọc Trung tâm trợ giúp'
+        description: 'Sắp xếp các trang đã thu thập thành danh mục và bài viết của Trung tâm trợ giúp.'
+      website_analyzer:
+        name: 'Phân tích website'
+        description: 'Trích xuất thông tin doanh nghiệp từ website khi khởi tạo tài khoản.'
+      widget_tagline:
+        name: 'Khẩu hiệu widget'
+        description: 'Sinh khẩu hiệu cho widget hiển thị với khách hàng.'
+      tekomi_overview_summary:
+        name: 'Tóm tắt tổng quan GMO'
+        description: 'Tóm tắt các chỉ số tổng quan của GMO AI.'
   super_admin:
     navigation:
       console: 'Bảng quản trị hệ thống'

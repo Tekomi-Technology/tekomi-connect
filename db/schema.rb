@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_10_06_000006) do
+ActiveRecord::Schema[7.2].define(version: 2026_10_07_000002) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -27,12 +27,26 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_06_000006) do
     t.index ["token"], name: "index_access_tokens_on_token", unique: true
   end
 
+  create_table "account_llm_feature_models", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "feature_key", null: false
+    t.string "provider_type", null: false
+    t.string "model", null: false
+    t.string "reasoning"
+    t.jsonb "params", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "feature_key"], name: "index_account_llm_feature_models_on_account_id_and_feature_key", unique: true
+    t.index ["account_id"], name: "index_account_llm_feature_models_on_account_id"
+  end
+
   create_table "account_llm_providers", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.string "provider_type", null: false
-    t.text "api_key", null: false
+    t.text "api_key"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "api_base"
     t.index ["account_id", "provider_type"], name: "index_account_llm_providers_on_account_id_and_provider_type", unique: true
     t.index ["account_id"], name: "index_account_llm_providers_on_account_id"
   end
@@ -1262,37 +1276,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_06_000006) do
     t.index ["user_id"], name: "index_leaves_on_user_id"
   end
 
-  create_table "llm_feature_models", force: :cascade do |t|
-    t.string "feature_key", null: false
-    t.bigint "llm_provider_id", null: false
-    t.string "model", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "reasoning"
-    t.jsonb "params", default: {}, null: false
-    t.index ["feature_key"], name: "index_llm_feature_models_on_feature_key", unique: true
-    t.index ["llm_provider_id"], name: "index_llm_feature_models_on_llm_provider_id"
-  end
-
-  create_table "llm_prompt_templates", force: :cascade do |t|
-    t.string "key", null: false
-    t.text "body", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["key"], name: "index_llm_prompt_templates_on_key", unique: true
-  end
-
-  create_table "llm_providers", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "provider_type", null: false
-    t.text "api_key"
-    t.string "api_base"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["name"], name: "index_llm_providers_on_name", unique: true
-    t.index ["provider_type"], name: "index_llm_providers_on_provider_type", unique: true
-  end
-
   create_table "macros", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.string "name", null: false
@@ -2050,6 +2033,7 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_06_000006) do
     t.index ["inbox_id"], name: "index_working_hours_on_inbox_id"
   end
 
+  add_foreign_key "account_llm_feature_models", "accounts", on_delete: :cascade
   add_foreign_key "account_llm_providers", "accounts", on_delete: :cascade
   add_foreign_key "account_llm_prompt_templates", "accounts", on_delete: :cascade
   add_foreign_key "ai_alerts", "accounts", on_delete: :cascade
@@ -2067,7 +2051,6 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_06_000006) do
   add_foreign_key "conversation_emotion_reports", "inboxes"
   add_foreign_key "conversation_emotion_reports", "users", column: "assignee_id"
   add_foreign_key "inboxes", "portals"
-  add_foreign_key "llm_feature_models", "llm_providers", on_delete: :restrict
   add_foreign_key "pbx_call_events", "phone_calls", on_delete: :cascade
   add_foreign_key "phone_call_emotion_reports", "accounts"
   add_foreign_key "phone_call_emotion_reports", "conversations"

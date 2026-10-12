@@ -6,7 +6,6 @@ export const useTekomiConfigStore = defineStore('tekomiConfig', {
     features: {},
     llmProviders: [],
     llmServices: [],
-    llmPrompts: [],
     llmDefault: { provider_type: null, model: null },
     llmFeatureModels: [],
     llmModels: {},
@@ -25,7 +24,6 @@ export const useTekomiConfigStore = defineStore('tekomiConfig', {
       this.features = data.features || {};
       this.llmProviders = data.llm_providers || [];
       this.llmServices = data.llm_services || [];
-      this.llmPrompts = data.prompts || [];
       this.llmDefault = data.llm_default || {
         provider_type: null,
         model: null,

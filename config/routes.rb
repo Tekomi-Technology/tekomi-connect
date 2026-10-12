@@ -64,6 +64,7 @@ Rails.application.routes.draw do
           end
           namespace :tekomi do
             resource :preferences, only: [:show, :update]
+            resources :prompts, only: [:index, :show, :update, :destroy], param: :key
             resources :assistants do
               member do
                 post :playground

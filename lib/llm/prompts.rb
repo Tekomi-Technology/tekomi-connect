@@ -5,6 +5,7 @@ module Llm::Prompts
     def keys = CONFIG.keys
     def key?(key) = CONFIG.key?(key.to_s)
     def grouped = keys.group_by { |key| CONFIG.dig(key, 'group') }
+    def group(key) = CONFIG.fetch(key.to_s).fetch('group')
     def default_body(key) = Rails.root.join(CONFIG.fetch(key.to_s).fetch('path')).read
 
     def body(key, account: nil)

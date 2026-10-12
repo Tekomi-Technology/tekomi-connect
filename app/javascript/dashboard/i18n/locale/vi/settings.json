@@ -548,6 +548,38 @@
     "DESCRIPTION": "Cấu hình các mô hình AI và tính năng cho GMO AI. GMO AI tính phí theo tín dụng, mỗi thao tác của GMO AI sẽ trừ tín dụng tuỳ theo mô hình bạn chọn.",
     "LOADING": "Đang tải cấu hình GMO AI...",
     "LINK_TEXT": "Tìm hiểu thêm về tín dụng GMO AI",
+    "TABS": {
+      "SETUP": "Thiết lập",
+      "MODELS": "Mô hình",
+      "PROMPTS": "Câu lệnh hệ thống",
+      "ALERTS": "Cảnh báo AI"
+    },
+    "GROUPS": {
+      "EDITOR": "Soạn thảo",
+      "COPILOT": "Trợ thủ",
+      "DEALS": "Bán hàng",
+      "ASSISTANT": "Trợ lý",
+      "CONVERSATION": "Hội thoại",
+      "FAQ": "FAQ",
+      "HELP_CENTER": "Trung tâm trợ giúp",
+      "ONBOARDING": "Khởi tạo"
+    },
+    "RESOLUTION": {
+      "TITLE": "Một tính năng dùng mô hình nào?",
+      "DESCRIPTION": "Hệ thống xét ba mức dưới đây từ trái sang phải, gặp mức nào có cấu hình thì dừng.",
+      "OVERRIDE": {
+        "TITLE": "Đặt riêng cho tính năng",
+        "DESCRIPTION": "Tính năng nào có nhà cung cấp và mô hình riêng trong bảng bên dưới thì luôn dùng đúng cặp đó."
+      },
+      "FIXED": {
+        "TITLE": "Tuyến cố định",
+        "DESCRIPTION": "Ba tính năng hạ tầng được ghim sẵn mô hình trong mã nguồn và không đổi được."
+      },
+      "DEFAULT": {
+        "TITLE": "Mô hình mặc định",
+        "DESCRIPTION": "Mọi tính năng còn lại dùng nhà cung cấp và mô hình đặt ở mục ngay dưới."
+      }
+    },
     "NOT_ENABLED": "GMO AI chưa được bật cho tài khoản của bạn. Vui lòng nâng cấp gói để dùng các tính năng GMO AI.",
     "MODEL_CONFIG": {
       "TITLE": "Cấu hình mô hình",
@@ -586,6 +618,139 @@
         "DESCRIPTION": "Tự động gợi ý nhãn phù hợp cho hội thoại dựa trên nội dung và ngữ cảnh.",
         "MODEL_TITLE": "Mô hình gợi ý nhãn",
         "MODEL_DESCRIPTION": "Chọn mô hình AI dùng để phân tích hội thoại và gợi ý nhãn phù hợp"
+      }
+    },
+    "LLM_PROVIDERS": {
+      "TITLE": "Khoá API",
+      "DESCRIPTION": "Khai báo khoá API cho từng nhà cung cấp mà tài khoản này dùng. Chưa có khoá thì tính năng AI tương ứng sẽ không chạy.",
+      "TENANT_KEY": "Khoá của tài khoản {key}",
+      "NOT_CONFIGURED": "Chưa cấu hình",
+      "COL_PROVIDER": "Nhà cung cấp",
+      "COL_STATUS": "Trạng thái",
+      "COL_USAGE": "Đang dùng cho",
+      "USAGE_DEFAULT": "Mô hình mặc định + {count} tính năng",
+      "USAGE_FEATURES": "{count} tính năng",
+      "EDIT": "Sửa",
+      "ADD": "Thêm khoá",
+      "CANCEL": "Huỷ",
+      "KEY_LABEL": "Khoá API",
+      "API_BASE_LABEL": "Endpoint",
+      "KEY_PLACEHOLDER": "Nhập khoá API của tài khoản này",
+      "REPLACE_PLACEHOLDER": "Nhập khoá mới để thay khoá hiện tại",
+      "SAVE": "Lưu khoá",
+      "REMOVE": "Xoá khoá",
+      "SAVE_SUCCESS": "Đã lưu khoá API của tài khoản.",
+      "REMOVE_SUCCESS": "Đã xoá khoá API của tài khoản. Các tính năng AI dùng nhà cung cấp này sẽ ngừng hoạt động.",
+      "SAVE_ERROR": "Không cập nhật được khoá API của tài khoản. Vui lòng thử lại.",
+      "API_BASE_PLACEHOLDER": "Địa chỉ endpoint, ví dụ https://openrouter.ai/api/v1. Bỏ trống để dùng mặc định của nhà cung cấp; bắt buộc với Ollama."
+    },
+    "LLM_SERVICES": {
+      "TITLE": "Dịch vụ AI khác",
+      "DESCRIPTION": "FireCrawl thu thập nội dung các website bạn thêm làm tài liệu cho GMO AI và các trang dùng khi khởi tạo. Không có khoá thì GMO AI dùng bộ thu thập đơn giản hơn."
+    },
+    "DEFAULT_MODEL": {
+      "TITLE": "Mô hình mặc định",
+      "DESCRIPTION": "Mọi tính năng AI của tài khoản này đều dùng nhà cung cấp và mô hình bên dưới, trừ những tính năng bạn đặt riêng.",
+      "PROVIDER": "Nhà cung cấp",
+      "MODEL": "Mô hình",
+      "SELECT_PROVIDER": "Chọn nhà cung cấp",
+      "SELECT_MODEL": "Chọn mô hình",
+      "SEARCH_MODEL": "Tìm mô hình",
+      "NO_MODEL": "Không có mô hình nào khớp với từ khoá.",
+      "MODEL_PLACEHOLDER": "Tên mô hình, ví dụ llama3.1",
+      "KEY_MISSING": "Nhà cung cấp này chưa có khoá API. Hãy thêm khoá ở trên, nếu không các tính năng AI sẽ lỗi.",
+      "SAVE": "Lưu mô hình mặc định",
+      "SAVE_SUCCESS": "Đã lưu mô hình mặc định cho tài khoản này.",
+      "SAVE_ERROR": "Không lưu được mô hình mặc định. Vui lòng thử lại."
+    },
+    "FEATURE_MODELS": {
+      "TITLE": "Mô hình theo từng tính năng",
+      "DESCRIPTION": "Không bắt buộc. Đặt riêng nhà cung cấp và mô hình cho một tính năng khi mô hình mặc định không phù hợp.",
+      "HINT": "Tính năng nào không đặt riêng thì dùng theo mô hình mặc định.",
+      "COL_FEATURE": "Tính năng",
+      "COL_GROUP": "Nhóm",
+      "COL_MODEL": "Mô hình",
+      "CONFIGURE": "Cấu hình",
+      "CLOSE": "Đóng",
+      "FILTER_ALL": "Tất cả {count}",
+      "FILTER_CUSTOMIZED": "Đặt riêng {count}",
+      "FILTER_INHERITED": "Theo mặc định {count}",
+      "FIXED_NOTE": "Ba tính năng không đổi được mô hình vì gắn với hạ tầng: vector hoá tài liệu và bóc băng ghi âm bắt buộc dùng OpenAI, phân tích cảm xúc cuộc gọi bắt buộc dùng OpenRouter. Thiếu các khoá đó thì những tính năng này ngừng hoạt động.",
+      "SELECT_PROVIDER": "Theo nhà cung cấp mặc định",
+      "SELECT_MODEL": "Chọn mô hình",
+      "SEARCH_MODEL": "Tìm mô hình",
+      "NO_MODEL": "Không có mô hình nào khớp với từ khoá.",
+      "MODEL_PLACEHOLDER": "Tên mô hình",
+      "KEY_MISSING": "Nhà cung cấp này chưa có khoá API. Hãy thêm khoá ở tab Thiết lập, nếu không tính năng này sẽ lỗi.",
+      "REASONING": {
+        "DEFAULT": "Suy luận: theo mặc định của mô hình",
+        "OFF": "Suy luận: tắt",
+        "LOW": "Suy luận: thấp",
+        "MEDIUM": "Suy luận: trung bình",
+        "HIGH": "Suy luận: cao"
+      },
+      "PARAMS": "Tham số bổ sung (JSON)",
+      "PARAMS_PLACEHOLDER": "{'{'} \"temperature\": 0.2, \"max_tokens\": 2000 {'}'}",
+      "PARAMS_HINT": "Được gửi kèm mọi yêu cầu của tính năng này và ghi đè thiết lập suy luận. Bỏ trống nếu không cần.",
+      "PARAMS_INVALID": "Tham số bổ sung phải là JSON hợp lệ.",
+      "CUSTOMIZED": "Đặt riêng",
+      "INHERITED": "Theo mặc định",
+      "SAVE": "Lưu",
+      "RESTORE": "Dùng mô hình mặc định",
+      "SAVE_SUCCESS": "Đã lưu mô hình cho tính năng này.",
+      "RESTORE_SUCCESS": "Tính năng này đã quay về mô hình mặc định.",
+      "SAVE_ERROR": "Không cập nhật được mô hình cho tính năng này. Vui lòng thử lại."
+    },
+    "PROMPTS": {
+      "TITLE": "Câu lệnh hệ thống",
+      "DESCRIPTION": "Tuỳ chỉnh mọi câu lệnh hệ thống của AI cho tài khoản này. Thay đổi chỉ áp dụng cho tài khoản này.",
+      "CUSTOMIZED": "Đã chỉnh sửa",
+      "DEFAULT": "Theo bản gốc",
+      "SEARCH_LABEL": "Tìm câu lệnh",
+      "SEARCH_PLACEHOLDER": "Tên hoặc mô tả…",
+      "ALL_GROUPS": "Tất cả {count}",
+      "LINE_COUNT": "{count} dòng",
+      "NO_MATCH": "Không có câu lệnh nào khớp với từ khoá.",
+      "LIST_SUMMARY": "Hiện {shown} / {total} câu lệnh · {customized} đã chỉnh sửa",
+      "UNSAVED": "Có thay đổi chưa lưu",
+      "SAVED": "Đã lưu",
+      "LIQUID_HINT": "Cú pháp Liquid. Biến khả dụng tuỳ theo câu lệnh, ví dụ assistant_name, product_name, conversation, contact và current_time.",
+      "DIFF": {
+        "SHOW": "So sánh với bản gốc",
+        "HIDE": "Quay lại trình soạn",
+        "LEFT_TITLE": "Bản gốc của hệ thống",
+        "RIGHT_TITLE": "Bản của tài khoản này",
+        "ADDED": "{count} dòng thêm",
+        "REMOVED": "{count} dòng bỏ",
+        "KEPT": "{count} dòng giữ nguyên"
+      },
+      "SAVE": "Lưu câu lệnh",
+      "RESTORE": "Khôi phục bản gốc",
+      "SAVE_SUCCESS": "Đã lưu câu lệnh hệ thống cho tài khoản này.",
+      "RESTORE_SUCCESS": "Tài khoản này đã quay về câu lệnh hệ thống gốc.",
+      "SAVE_ERROR": "Không cập nhật được câu lệnh hệ thống. Vui lòng thử lại."
+    },
+    "ALERTS": {
+      "TITLE": "Cảnh báo AI",
+      "DESCRIPTION": "Cảnh báo theo thời gian thực về lỗi cấu hình, nhà cung cấp, hạn mức và khả dụng của AI trong tài khoản này.",
+      "LOADING": "Đang tải cảnh báo AI...",
+      "EMPTY": "Chưa ghi nhận sự cố AI nào.",
+      "MARK_ALL_READ": "Đánh dấu đã đọc tất cả",
+      "MARK_READ": "Đánh dấu đã đọc",
+      "MARK_UNREAD": "Đánh dấu chưa đọc",
+      "DELETE": "Xoá",
+      "READ": "Đã đọc",
+      "OCCURRENCES": "{count} lần",
+      "CATEGORIES": {
+        "CONFIGURATION": "Cấu hình",
+        "AUTHENTICATION": "Khoá API",
+        "QUOTA": "Hạn mức / tín dụng",
+        "AVAILABILITY": "Khả dụng",
+        "PROVIDER": "Nhà cung cấp",
+        "UNKNOWN": "Không xác định"
+      },
+      "API": {
+        "ERROR": "Không cập nhật được cảnh báo AI. Vui lòng thử lại."
       }
     },
     "API": {

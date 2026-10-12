@@ -10,7 +10,6 @@ class Api::V1::Accounts::Tekomi::PreferencesController < Api::V1::Accounts::Base
     update_llm_provider if params[:llm_provider]
     update_llm_default if params[:llm_default]
     update_feature_models if params[:llm_feature_models]
-    update_prompts if params[:tekomi_prompts]
 
     render json: preferences_payload
   end
@@ -71,25 +70,6 @@ class Api::V1::Accounts::Tekomi::PreferencesController < Api::V1::Accounts::Base
           .stringify_keys
   end
 
-  def update_prompts
-    permitted_prompts.each do |key, body|
-      prompt = @current_account.account_llm_prompt_templates.find_or_initialize_by(key: key)
-      normalized_body = body.to_s.gsub("\r\n", "\n")
-
-      if normalized_body.blank? || normalized_body == Llm::Prompts.default_body(key)
-        prompt.destroy! if prompt.persisted?
-        next
-      end
-
-      prompt.body = normalized_body
-      prompt.save!
-    end
-  end
-
-  def permitted_prompts
-    params.require(:tekomi_prompts).permit(Llm::Prompts.keys).to_h.stringify_keys
-  end
-
   def preferences_payload
     payload = { features: @current_account.tekomi_preferences[:features].transform_values { |enabled| { enabled: enabled } } }
     return payload unless policy(@current_account).update?
@@ -99,8 +79,7 @@ class Api::V1::Accounts::Tekomi::PreferencesController < Api::V1::Accounts::Base
       llm_services: llm_services_payload,
       llm_default: { provider_type: @current_account.llm_default_provider_type, model: @current_account.llm_default_model },
       llm_feature_models: feature_models_payload,
-      llm_models: Llm::ModelCatalog.grouped_by_provider,
-      prompts: prompts_payload
+      llm_models: Llm::ModelCatalog.grouped_by_provider
     )
   end
 
@@ -158,22 +137,4 @@ class Api::V1::Accounts::Tekomi::PreferencesController < Api::V1::Accounts::Base
     end
   end
 
-  def prompts_payload
-    overrides = @current_account.account_llm_prompt_templates.index_by(&:key)
-
-    Llm::Prompts.grouped.flat_map do |group, prompt_keys|
-      prompt_keys.map do |key|
-        override = overrides[key]
-        {
-          key: key,
-          group: group,
-          name: I18n.t("llm.prompts.#{key}.name", default: key.humanize),
-          description: I18n.t("llm.prompts.#{key}.description", default: ''),
-          body: override&.body || Llm::Prompts.body(key, account: @current_account),
-          default_body: Llm::Prompts.default_body(key),
-          customized: override.present?
-        }
-      end
-    end
-  end
 end

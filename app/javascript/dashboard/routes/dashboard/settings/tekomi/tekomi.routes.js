@@ -2,8 +2,16 @@ import { frontendURL } from '../../../../helper/URLHelper';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
 import { INSTALLATION_TYPES } from 'dashboard/constants/installationTypes';
 import SettingsWrapper from '../SettingsWrapper.vue';
-import Index from './Index.vue';
+import Setup from './Setup.vue';
+import Models from './Models.vue';
+import Prompts from './Prompts.vue';
 import AiAlerts from './AiAlerts.vue';
+
+const childMeta = {
+  permissions: ['administrator'],
+  featureFlag: FEATURE_FLAGS.TEKOMI,
+  installationTypes: [INSTALLATION_TYPES.ENTERPRISE, INSTALLATION_TYPES.CLOUD],
+};
 
 export default {
   routes: [
@@ -23,28 +31,32 @@ export default {
         {
           path: '',
           name: 'tekomi_settings_index',
-          component: Index,
-          meta: {
-            permissions: ['administrator'],
-            featureFlag: FEATURE_FLAGS.TEKOMI,
-            installationTypes: [
-              INSTALLATION_TYPES.ENTERPRISE,
-              INSTALLATION_TYPES.CLOUD,
-            ],
-          },
+          component: Setup,
+          meta: childMeta,
+        },
+        {
+          path: 'models',
+          name: 'tekomi_settings_models',
+          component: Models,
+          meta: childMeta,
+        },
+        {
+          path: 'prompts',
+          name: 'tekomi_settings_prompts',
+          component: Prompts,
+          meta: childMeta,
+        },
+        {
+          path: 'prompts/:promptKey',
+          name: 'tekomi_settings_prompt',
+          component: Prompts,
+          meta: childMeta,
         },
         {
           path: 'ai-alerts',
           name: 'tekomi_ai_alerts',
           component: AiAlerts,
-          meta: {
-            permissions: ['administrator'],
-            featureFlag: FEATURE_FLAGS.TEKOMI,
-            installationTypes: [
-              INSTALLATION_TYPES.ENTERPRISE,
-              INSTALLATION_TYPES.CLOUD,
-            ],
-          },
+          meta: childMeta,
         },
       ],
     },
