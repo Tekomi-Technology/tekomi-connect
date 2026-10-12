@@ -630,7 +630,7 @@
         "HIGH": "Reasoning: high"
       },
       "PARAMS": "Extra params (JSON)",
-      "PARAMS_PLACEHOLDER": "{ \"temperature\": 0.2, \"max_tokens\": 2000 }",
+      "PARAMS_PLACEHOLDER": "{'{'} \"temperature\": 0.2, \"max_tokens\": 2000 {'}'}",
       "PARAMS_HINT": "Sent with every request of this feature and override the reasoning setting. Leave empty for none.",
       "PARAMS_INVALID": "Extra params must be valid JSON.",
       "CUSTOMIZED": "Account override",
