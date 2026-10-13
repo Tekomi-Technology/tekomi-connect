@@ -1,22 +1,7 @@
 providers:
-  openai:
-    label: OpenAI
   openrouter:
     label: OpenRouter
     supports_reasoning: true
-  deepseek:
-    label: DeepSeek
-  anthropic:
-    label: Anthropic
-  gemini:
-    label: Google Gemini
-  mistral:
-    label: Mistral
-  xai:
-    label: xAI
-  ollama:
-    label: Ollama
-    requires_api_base: true
 
 services:
   firecrawl:
@@ -111,14 +96,10 @@ features:
   onboarding_content_generation:
     group: onboarding
     suggested_model: gpt-4.1
-  embedding:
-    group: embedding
-    provider_type: openai
-    model: text-embedding-3-small
   audio_transcription:
     group: audio
-    provider_type: openai
-    model: gpt-4o-mini-transcribe
+    provider_type: openrouter
+    model: openai/gpt-4o-mini-transcribe
 
 prompts:
   assistant:

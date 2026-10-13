@@ -16,8 +16,8 @@ class Messages::AudioTranscriptionService
     Rails.logger.info "Audio transcription successful: #{transcriptions}"
     { success: true, transcriptions: transcriptions }
   rescue Faraday::UnauthorizedError
-    Rails.logger.warn('Skipping audio transcription: OpenAI configuration is invalid or disabled (401 Unauthorized).')
-    { error: 'OpenAI configuration is invalid or disabled (401)' }
+    Rails.logger.warn('Skipping audio transcription: the provider rejected the API key (401 Unauthorized).')
+    { error: 'Transcription provider rejected the API key (401)' }
   end
 
   private
