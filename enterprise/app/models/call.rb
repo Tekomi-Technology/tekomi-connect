@@ -30,6 +30,8 @@
 #  index_calls_on_provider_and_provider_call_id   (provider,provider_call_id) UNIQUE
 #
 class Call < ApplicationRecord
+  include Licensing::MeteredCall
+
   STATUSES = %w[ringing in_progress completed no_answer failed rejected].freeze
   TERMINAL_STATUSES = %w[completed no_answer failed rejected].freeze
 

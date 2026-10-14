@@ -59,6 +59,8 @@ end %>
 
   <%= render 'super_admin/shared/account_user_form', page: page, namespace: namespace, resource_type: 'account' %>
 
+  <%= render partial: "license", locals: { page: page } %>
+
   <%= render partial: "seed_data", locals: { page: page } %>
 
   <%= render partial: "reset_cache", locals: { page: page } %>

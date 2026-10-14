@@ -23,6 +23,9 @@ module Enterprise::Concerns::Account
     has_many :companies, dependent: :destroy_async
     has_many :calls, dependent: :destroy_async
 
+    has_one :account_license, dependent: :destroy
+    has_many :account_usage_counters, dependent: :delete_all
+
     has_one :saml_settings, dependent: :destroy_async, class_name: 'AccountSamlSettings'
   end
 end

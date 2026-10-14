@@ -7,8 +7,8 @@ module Enterprise::Account::PlanUsageAndLimits # rubocop:disable Metrics/ModuleL
   def usage_limits
     unless ChatwootApp.chatwoot_cloud?
       return {
-        agents: ChatwootApp.max_limit,
-        inboxes: ChatwootApp.max_limit,
+        agents: licensed_count_limit('agents'),
+        inboxes: licensed_count_limit('inboxes'),
         tekomi: {
           documents: unrestricted_tekomi_limit,
           responses: unrestricted_tekomi_limit
@@ -70,6 +70,11 @@ module Enterprise::Account::PlanUsageAndLimits # rubocop:disable Metrics/ModuleL
   end
 
   private
+
+  # Self-hosted installs have no plan, so the account license is the only source of agent/inbox caps.
+  def licensed_count_limit(key)
+    account_license&.quota(key) || ChatwootApp.max_limit
+  end
 
   def unrestricted_tekomi_limit
     {

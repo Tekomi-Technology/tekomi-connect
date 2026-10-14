@@ -37,6 +37,8 @@
 #  index_phone_calls_on_pbx_id_and_linked_id            (pbx_id,linked_id) UNIQUE
 #
 class PhoneCall < ApplicationRecord
+  include Licensing::MeteredCall
+
   DIRECTIONS = %w[inbound outbound].freeze
   TERMINAL_STATUSES = %w[completed missed busy no_answer rejected cancelled failed].freeze
 

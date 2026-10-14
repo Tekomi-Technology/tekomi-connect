@@ -56,6 +56,34 @@ class SuperAdmin::AccountsController < SuperAdmin::ApplicationController
     redirect_back(fallback_location: [namespace, requested_resource], notice: I18n.t('super_admin.accounts.seed.triggered'))
   end
 
+  def assign_license
+    license = Licensing::PlanAssigner.new(
+      account: requested_resource,
+      plan_key: params.require(:plan_key),
+      enforce: ActiveModel::Type::Boolean.new.cast(params[:enforce]),
+      duration_days: params[:duration_days].presence
+    ).perform
+    redirect_back(fallback_location: [namespace, requested_resource], notice: "License #{license.plan_key} assigned")
+  rescue Licensing::PlanAssigner::UnknownPlan => e
+    redirect_back(fallback_location: [namespace, requested_resource], alert: "Unknown plan: #{e.message}")
+  end
+
+  def update_license
+    license = requested_resource.account_license
+    return redirect_back(fallback_location: [namespace, requested_resource], alert: 'No license assigned') if license.blank?
+
+    lifecycle = Licensing::Lifecycle.new(license, actor: current_user)
+    case params[:license_action]
+    when 'extend' then lifecycle.extend_days!(params[:days].to_i)
+    when 'suspend' then lifecycle.suspend!
+    when 'resume' then lifecycle.resume!
+    when 'enforce_on' then lifecycle.enforce!(true)
+    when 'enforce_off' then lifecycle.enforce!(false)
+    else return redirect_back(fallback_location: [namespace, requested_resource], alert: 'Unknown action')
+    end
+    redirect_back(fallback_location: [namespace, requested_resource], notice: 'License updated')
+  end
+
   def reset_cache
     requested_resource.reset_cache_keys
     redirect_back(fallback_location: [namespace, requested_resource], notice: I18n.t('super_admin.accounts.reset_cache.cleared'))

@@ -15,5 +15,7 @@ module Enterprise::Concerns::Inbox
 
   def ensure_create_permitted
     raise CustomExceptions::Inbox::LimitExceeded.new({}) if account.inboxes.count >= account.usage_limits[:inboxes]
+
+    Licensing::Guard.new(account).check!(:create_inbox, channel_type: channel_type)
   end
 end

@@ -266,5 +266,13 @@
   "COMMON": {
     "OR": "Hoặc",
     "CLICK_HERE": "click vào đây"
+  },
+  "LICENSE": {
+    "TRIAL": "Dùng thử: còn {days} ngày.",
+    "TRIAL_ENDING": "Bản dùng thử còn {days} ngày. Liên hệ để tiếp tục sử dụng dịch vụ.",
+    "EXPIRING": "Giấy phép sử dụng còn {days} ngày.",
+    "GRACE": "Giấy phép đã hết hạn. Vui lòng gia hạn để tài khoản không chuyển sang chế độ chỉ đọc.",
+    "RESTRICTED": "Giấy phép đã hết hạn. Tài khoản đang ở chế độ chỉ đọc: tạm khóa gửi tin nhắn và gọi điện cho đến khi gia hạn.",
+    "SUSPENDED": "Tài khoản đang bị tạm ngưng. Vui lòng liên hệ hỗ trợ."
   }
 }

@@ -1,0 +1,44 @@
+<% account = page.resource %>
+<% license = account.account_license %>
+<% summary = Licensing::Summary.new(account).as_json %>
+<section class="flex flex-col gap-4 p-6 bg-white rounded-xl border border-slate-75">
+  <h2 class="text-base font-semibold text-slate-800">License</h2>
+
+  <% if license.present? %>
+    <dl class="grid gap-x-6 gap-y-2 text-sm sm:grid-cols-[minmax(0,14rem)_minmax(0,1fr)]">
+      <dt class="font-medium text-slate-600">Plan / state</dt>
+      <dd class="text-slate-800"><%= license.plan_key %> / <strong><%= summary[:state] %></strong><%= ' (trial)' if license.trial? %></dd>
+      <dt class="font-medium text-slate-600">Expires</dt>
+      <dd class="text-slate-800"><%= license.expires_at&.to_fs(:long) || 'never' %> <%= "(#{summary[:days_left]} days left)" if summary[:days_left] %></dd>
+      <dt class="font-medium text-slate-600">Enforcement</dt>
+      <dd class="text-slate-800"><%= license.enforce? ? 'ON (blocking)' : 'OFF (shadow mode: log only)' %></dd>
+      <% summary[:usage].each do |metric, row| %>
+        <% next if metric == 'inboxes_by_channel' %>
+        <dt class="font-medium text-slate-600"><%= metric %></dt>
+        <dd class="text-slate-800"><%= row[:used] %> / <%= row[:limit] || 'unlimited' %></dd>
+      <% end %>
+      <% summary[:usage]['inboxes_by_channel'].each do |channel, row| %>
+        <dt class="font-medium text-slate-600">inbox: <%= channel %></dt>
+        <dd class="text-slate-800"><%= row[:used] %> / <%= row[:limit] %></dd>
+      <% end %>
+    </dl>
+
+    <%= form_with url: update_license_super_admin_account_path(account), method: :post, class: "flex flex-wrap gap-2 items-center" do %>
+      <input type="number" name="days" value="14" min="1" class="w-20 rounded-lg border border-slate-75 px-2 py-1 text-sm">
+      <button name="license_action" value="extend" class="px-3 py-2 text-sm rounded-lg border border-slate-75 hover:text-woot-600">Extend days</button>
+      <button name="license_action" value="<%= license.suspended? ? 'resume' : 'suspend' %>" class="px-3 py-2 text-sm rounded-lg border border-slate-75 hover:text-woot-600"><%= license.suspended? ? 'Resume' : 'Suspend' %></button>
+      <button name="license_action" value="<%= license.enforce? ? 'enforce_off' : 'enforce_on' %>" class="px-3 py-2 text-sm rounded-lg border border-slate-75 hover:text-woot-600"><%= license.enforce? ? 'Switch to shadow mode' : 'Turn enforcement on' %></button>
+    <% end %>
+  <% else %>
+    <p class="text-sm text-slate-600">No license: this account is unrestricted.</p>
+  <% end %>
+
+  <%= form_with url: assign_license_super_admin_account_path(account), method: :post, class: "flex flex-wrap gap-2 items-center" do %>
+    <select name="plan_key" class="rounded-lg border border-slate-75 px-2 py-1 text-sm">
+      <% Licensing::PlanAssigner.plans.each_key do |key| %><option value="<%= key %>"><%= key %></option><% end %>
+    </select>
+    <input type="number" name="duration_days" placeholder="days (preset)" min="1" class="w-32 rounded-lg border border-slate-75 px-2 py-1 text-sm">
+    <label class="text-sm text-slate-800"><input type="checkbox" name="enforce" value="true"> enforce now</label>
+    <button class="px-3 py-2 text-sm font-medium rounded-lg text-white bg-woot-500 hover:bg-woot-600">Assign plan (resets features and quotas)</button>
+  <% end %>
+</section>

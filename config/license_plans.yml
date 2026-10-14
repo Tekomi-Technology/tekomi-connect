@@ -1,0 +1,40 @@
+# Preset license plans. Assigning a plan snapshots these values onto the account
+# (features + quotas), so editing a preset never changes existing tenants.
+# `nil`/missing quota = unlimited. `inboxes_by_channel` keys are channel class names, underscored.
+trial:
+  trial: true
+  duration_days: 14
+  grace_days: 0
+  overage_policy: block
+  features: [channel_website, channel_email, channel_zalo_oa, help_center, reports]
+  quotas:
+    agents: 3
+    inboxes: 3
+    messages: 500
+    calls: 20
+    call_minutes: 30
+    inboxes_by_channel: { zalo_oa: 1, zalo_personal: 0, phone: 0 }
+starter:
+  duration_days: 30
+  grace_days: 3
+  overage_policy: block
+  features: [channel_website, channel_email, channel_facebook, channel_instagram, channel_zalo_oa, help_center, campaigns, automations, macros, reports, crm, api_and_webhooks]
+  quotas:
+    agents: 3
+    inboxes: 8
+    messages: 5000
+    calls: 0
+    call_minutes: 0
+    inboxes_by_channel: { zalo_oa: 1, zalo_personal: 1, phone: 0 }
+pro:
+  duration_days: 30
+  grace_days: 7
+  overage_policy: allow
+  features: [channel_website, channel_email, channel_facebook, channel_instagram, channel_tiktok, channel_zalo_oa, channel_zalo_personal, channel_phone, channel_voice, help_center, campaigns, automations, macros, reports, crm, crm_integration, crm_deals, sla, api_and_webhooks, call_transcription, tekomi_integration, tekomi_integration_v2]
+  quotas:
+    agents: 10
+    inboxes: 20
+    messages: 30000
+    calls: 2000
+    call_minutes: 1000
+    inboxes_by_channel: { zalo_oa: 3, zalo_personal: 2, phone: 2 }

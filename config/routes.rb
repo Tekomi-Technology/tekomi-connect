@@ -315,6 +315,7 @@ Rails.application.routes.draw do
               get :skip_logs
             end
           end
+          resource :license, only: [:show]
           resources :phone_calls, only: [:show] do
             get :emotion_reports, on: :collection
             get :recording, on: :member
@@ -831,6 +832,8 @@ Rails.application.routes.draw do
       resources :accounts, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
         post :seed, on: :member
         post :reset_cache, on: :member
+        post :assign_license, on: :member
+        post :update_license, on: :member
       end
       resources :tenant_branding_profiles, except: [:destroy] do
         post :provision, on: :member

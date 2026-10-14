@@ -4,6 +4,7 @@ import LoadingState from './components/widgets/LoadingState.vue';
 import NetworkNotification from './components/NetworkNotification.vue';
 import StatusBanner from './components/app/StatusBanner.vue';
 import PaymentPendingBanner from './components/app/PaymentPendingBanner.vue';
+import LicenseBanner from 'dashboard/components/app/LicenseBanner.vue';
 import PendingEmailVerificationBanner from './components/app/PendingEmailVerificationBanner.vue';
 import LowBackupCodesBanner from './components/app/LowBackupCodesBanner.vue';
 import vueActionCable from './helper/actionCable';
@@ -29,6 +30,7 @@ export default {
     NetworkNotification,
     StatusBanner,
     PaymentPendingBanner,
+    LicenseBanner,
     WootSnackbarBox,
     PendingEmailVerificationBanner,
     LowBackupCodesBanner,
@@ -139,6 +141,7 @@ export default {
     <template v-if="currentAccountId">
       <PendingEmailVerificationBanner v-if="hideOnOnboardingView" />
       <PaymentPendingBanner v-if="hideOnOnboardingView" />
+      <LicenseBanner v-if="hideOnOnboardingView" />
       <LowBackupCodesBanner v-if="hideOnOnboardingView" />
     </template>
     <router-view v-slot="{ Component }">

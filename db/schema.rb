@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_10_07_000002) do
+ActiveRecord::Schema[7.2].define(version: 2026_10_14_000001) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -25,6 +25,25 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_07_000002) do
     t.datetime "updated_at", null: false
     t.index ["owner_type", "owner_id"], name: "index_access_tokens_on_owner_type_and_owner_id"
     t.index ["token"], name: "index_access_tokens_on_token", unique: true
+  end
+
+  create_table "account_licenses", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "plan_key", default: "custom", null: false
+    t.boolean "trial", default: false, null: false
+    t.boolean "suspended", default: false, null: false
+    t.boolean "enforce", default: false, null: false
+    t.string "state", default: "active", null: false
+    t.string "overage_policy", default: "block", null: false
+    t.datetime "starts_at", null: false
+    t.datetime "expires_at"
+    t.integer "grace_days", default: 3, null: false
+    t.jsonb "quotas", default: {}, null: false
+    t.jsonb "notified", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_licenses_on_account_id", unique: true
+    t.index ["state"], name: "index_account_licenses_on_state"
   end
 
   create_table "account_llm_feature_models", force: :cascade do |t|
@@ -59,6 +78,17 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_07_000002) do
     t.datetime "updated_at", null: false
     t.index ["account_id", "key"], name: "index_account_llm_prompt_templates_on_account_id_and_key", unique: true
     t.index ["account_id"], name: "index_account_llm_prompt_templates_on_account_id"
+  end
+
+  create_table "account_usage_counters", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "metric", null: false
+    t.date "period_start", null: false
+    t.bigint "used", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "metric", "period_start"], name: "index_usage_counters_on_account_metric_period", unique: true
+    t.index ["account_id"], name: "index_account_usage_counters_on_account_id"
   end
 
   create_table "ai_alerts", force: :cascade do |t|

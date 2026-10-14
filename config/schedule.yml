@@ -100,3 +100,9 @@ remove_orphan_conversations_job:
   cron: '0 */12 * * *'
   class: 'Internal::RemoveOrphanConversationsJob'
   queue: housekeeping
+
+# executed hourly to refresh cached account license states
+refresh_license_states_job:
+  cron: '5 * * * *'
+  class: 'Licensing::RefreshStatesJob'
+  queue: scheduled_jobs

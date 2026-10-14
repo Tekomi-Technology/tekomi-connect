@@ -234,5 +234,13 @@
   "COMMON": {
     "OR": "Or",
     "CLICK_HERE": "click here"
+  },
+  "LICENSE": {
+    "TRIAL": "Trial: {days} days left.",
+    "TRIAL_ENDING": "Your trial ends in {days} days. Contact us to keep using the service.",
+    "EXPIRING": "Your license expires in {days} days.",
+    "GRACE": "Your license has expired. Please renew now to avoid the account becoming read-only.",
+    "RESTRICTED": "Your license has expired. The account is read-only: sending messages and calls are disabled until renewal.",
+    "SUSPENDED": "This account is suspended. Please contact support."
   }
 }
