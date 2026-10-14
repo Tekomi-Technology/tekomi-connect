@@ -32,6 +32,7 @@ class AccountDashboard < Administrate::BaseDashboard
     users: CountField,
     conversations: CountField,
     locale: Field::Select.with_options(collection: LANGUAGES_CONFIG.map { |_x, y| y[:iso_639_1_code] }),
+    account_license: LicenseField,
     status: AccountStatusField.with_options(collection: [%w[Active active], %w[Suspended suspended]]),
     suspension_history: SuspensionHistoryField,
     account_users: Field::HasMany,
@@ -49,6 +50,7 @@ class AccountDashboard < Administrate::BaseDashboard
     locale
     users
     conversations
+    account_license
     status
   ].freeze
 

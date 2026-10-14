@@ -68,6 +68,15 @@ class SuperAdmin::AccountsController < SuperAdmin::ApplicationController
     redirect_back(fallback_location: [namespace, requested_resource], alert: "Unknown plan: #{e.message}")
   end
 
+  def save_license
+    Licensing::CustomPlan.new(account: requested_resource, params: params.require(:license).permit(
+      :expires_on, :grace_days, :overage_policy, :trial, *Licensing::CustomPlan::COUNT_KEYS, channels: {}
+    )).perform
+    redirect_back(fallback_location: [namespace, requested_resource], notice: 'License limits saved')
+  rescue Licensing::CustomPlan::InvalidInput => e
+    redirect_back(fallback_location: [namespace, requested_resource], alert: "Invalid license values: #{e.message}")
+  end
+
   def update_license
     license = requested_resource.account_license
     return redirect_back(fallback_location: [namespace, requested_resource], alert: 'No license assigned') if license.blank?

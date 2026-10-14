@@ -41,4 +41,43 @@
     <label class="text-sm text-slate-800"><input type="checkbox" name="enforce" value="true"> enforce now</label>
     <button class="px-3 py-2 text-sm font-medium rounded-lg text-white bg-woot-500 hover:bg-woot-600">Assign plan (resets features and quotas)</button>
   <% end %>
+
+  <%= form_with url: save_license_super_admin_account_path(account), scope: :license, method: :post, class: "flex flex-col gap-4 pt-4 border-t border-slate-75" do |f| %>
+    <h3 class="text-sm font-semibold text-slate-800">Custom limits <span class="font-normal text-slate-600">(leave a box empty = unlimited)</span></h3>
+    <% q = license&.quotas || {} %>
+    <div class="grid gap-3 sm:grid-cols-3">
+      <label class="text-sm text-slate-800">Expires on
+        <input type="date" name="license[expires_on]" value="<%= license&.expires_at&.to_date %>" class="block w-full rounded-lg border border-slate-75 px-2 py-1">
+      </label>
+      <label class="text-sm text-slate-800">Grace days
+        <input type="number" min="0" name="license[grace_days]" value="<%= license&.grace_days || 3 %>" class="block w-full rounded-lg border border-slate-75 px-2 py-1">
+      </label>
+      <label class="text-sm text-slate-800">When quota is exceeded
+        <select name="license[overage_policy]" class="block w-full rounded-lg border border-slate-75 px-2 py-1">
+          <% { 'block' => 'Block', 'allow' => 'Allow (just record usage)' }.each do |value, label| %>
+            <option value="<%= value %>" <%= 'selected' if (license&.overage_policy || 'block') == value %>><%= label %></option>
+          <% end %>
+        </select>
+      </label>
+    </div>
+    <div class="grid gap-3 sm:grid-cols-5">
+      <% { 'agents' => 'Agents', 'inboxes' => 'Inboxes', 'messages' => 'Messages (sent)', 'calls' => 'Calls', 'call_minutes' => 'Call minutes' }.each do |key, label| %>
+        <label class="text-sm text-slate-800"><%= label %>
+          <input type="number" min="0" name="license[<%= key %>]" value="<%= q[key] %>" placeholder="unlimited" class="block w-full rounded-lg border border-slate-75 px-2 py-1">
+        </label>
+      <% end %>
+    </div>
+    <div>
+      <p class="mb-2 text-sm text-slate-800">Max inboxes per channel type <span class="text-slate-600">(0 = channel not allowed)</span></p>
+      <div class="grid gap-3 sm:grid-cols-5">
+        <% Licensing::CustomPlan::CHANNEL_KEYS.each do |key| %>
+          <label class="text-xs text-slate-600"><%= key %>
+            <input type="number" min="0" name="license[channels][<%= key %>]" value="<%= (q['inboxes_by_channel'] || {})[key] %>" placeholder="unlimited" class="block w-full rounded-lg border border-slate-75 px-2 py-1 text-sm">
+          </label>
+        <% end %>
+      </div>
+    </div>
+    <label class="text-sm text-slate-800"><input type="checkbox" name="license[trial]" value="true" <%= 'checked' if license&.trial? %>> Trial (usage counted over the whole trial instead of per month)</label>
+    <div><button class="px-3 py-2 text-sm font-medium rounded-lg text-white bg-woot-500 hover:bg-woot-600"><%= license ? 'Save limits' : 'Create custom license' %></button></div>
+  <% end %>
 </section>

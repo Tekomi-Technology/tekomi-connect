@@ -16,4 +16,6 @@
   <section class="p-6 bg-white rounded-xl border border-slate-75 [&_.field-unit]:border-b [&_.field-unit]:border-slate-50 [&_.field-unit]:pb-6">
     <%= render "form", page: page %>
   </section>
+
+  <%= render partial: "license", locals: { page: page } %>
 </div>

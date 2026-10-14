@@ -834,6 +834,7 @@ Rails.application.routes.draw do
         post :reset_cache, on: :member
         post :assign_license, on: :member
         post :update_license, on: :member
+        post :save_license, on: :member
       end
       resources :tenant_branding_profiles, except: [:destroy] do
         post :provision, on: :member
