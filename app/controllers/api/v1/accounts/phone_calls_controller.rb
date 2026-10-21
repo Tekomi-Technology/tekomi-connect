@@ -38,7 +38,7 @@ class Api::V1::Accounts::PhoneCallsController < Api::V1::Accounts::BaseControlle
     total = phone_calls.count
     page = [params.fetch(:page, 1).to_i, 1].max
     limit = params.fetch(:limit, 50).to_i.clamp(1, 100)
-    phone_calls = phone_calls.includes(:emotion_report)
+    phone_calls = phone_calls.includes(:conversation, emotion_report: :conversation)
                              .order(Arel.sql('COALESCE(phone_calls.started_at, phone_calls.created_at) DESC'))
                              .offset((page - 1) * limit)
                              .limit(limit)
@@ -160,7 +160,9 @@ class Api::V1::Accounts::PhoneCallsController < Api::V1::Accounts::BaseControlle
     {
       phone_call_id: phone_call.id,
       account_id: phone_call.account_id,
-      conversation_id: phone_call.conversation_id,
+      conversation_id: phone_call.conversation&.display_id,
+      conversation_record_id: phone_call.conversation_id,
+      message_id: phone_call.message_id,
       inbox_id: phone_call.inbox_id,
       direction: phone_call.direction,
       customer_number: phone_call.customer_number,

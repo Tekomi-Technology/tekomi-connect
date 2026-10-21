@@ -111,8 +111,10 @@ const formatDate = value =>
       }).format(new Date(value))
     : t('CONVERSATION_EMOTION_REPORTS.EMPTY_VALUE');
 
-const conversationPath = conversationId =>
-  `/app/accounts/${route.params.accountId}/conversations/${conversationId}`;
+const conversationPath = (conversationId, messageId) => ({
+  path: `/app/accounts/${route.params.accountId}/conversations/${conversationId}`,
+  query: messageId ? { messageId } : {},
+});
 
 const conversationLabel = conversationId =>
   t('CONVERSATION_EMOTION_REPORTS.CONVERSATION_ID', { id: conversationId });
@@ -358,7 +360,7 @@ onMounted(() => {
             </td>
             <td class="p-3">
               <router-link
-                :to="conversationPath(row.conversation_id)"
+                :to="conversationPath(row.conversation_id, row.message_id)"
                 class="font-medium text-n-brand hover:underline"
               >
                 {{ conversationLabel(row.conversation_id) }}

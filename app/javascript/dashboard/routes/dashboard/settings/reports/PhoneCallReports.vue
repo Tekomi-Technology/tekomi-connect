@@ -119,8 +119,10 @@ const formatDuration = value => {
   return `${minutes}:${String(seconds).padStart(2, '0')}`;
 };
 
-const conversationPath = conversationId =>
-  `/app/accounts/${route.params.accountId}/conversations/${conversationId}`;
+const conversationPath = (conversationId, messageId) => ({
+  path: `/app/accounts/${route.params.accountId}/conversations/${conversationId}`,
+  query: messageId ? { messageId } : {},
+});
 
 const conversationLabel = conversationId =>
   t('PHONE_CALL_REPORTS.CONVERSATION_ID', { id: conversationId });
@@ -329,7 +331,7 @@ onMounted(fetchReports);
             </td>
             <td class="p-3">
               <router-link
-                :to="conversationPath(row.conversation_id)"
+                :to="conversationPath(row.conversation_id, row.message_id)"
                 class="font-medium text-n-brand hover:underline"
               >
                 {{ conversationLabel(row.conversation_id) }}
