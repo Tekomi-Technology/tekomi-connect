@@ -1,8 +1,8 @@
 class Api::V1::Accounts::TicketSourceConnectionsController < Api::V1::Accounts::BaseController
   include CrmTicketsFeatureConcern
 
-  before_action :check_admin_authorization?
-  before_action :fetch_connection, only: [:show, :update, :destroy, :test, :sync_statuses, :sync]
+  before_action :check_authorization
+  before_action :fetch_connection, only: [:show, :update, :destroy, :test, :sync_statuses, :sync, :register_webhook, :unregister_webhook]
 
   rescue_from CustomExceptions::TicketSource::ApiError do |error|
     render_could_not_create_error(error.message)
@@ -47,6 +47,7 @@ class Api::V1::Accounts::TicketSourceConnectionsController < Api::V1::Accounts::
   end
 
   def destroy
+    unregister_webhook_quietly
     @connection.destroy!
     head :ok
   end
@@ -65,7 +66,32 @@ class Api::V1::Accounts::TicketSourceConnectionsController < Api::V1::Accounts::
     head :accepted
   end
 
+  # Subscribes the source to this installation, so changes arrive without waiting for the periodic reconcile.
+  def register_webhook
+    unregister_webhook_quietly
+    reference = @connection.adapter.register_webhook(@connection.webhook_url, @connection.webhook_secret)
+    @connection.update!(settings: @connection.settings.merge('webhook_reference' => reference))
+    render json: serialize(@connection)
+  end
+
+  def unregister_webhook
+    @connection.adapter.unregister_webhook(@connection.settings.fetch('webhook_reference'))
+    @connection.update!(settings: @connection.settings.except('webhook_reference'))
+    render json: serialize(@connection)
+  end
+
   private
+
+  def check_authorization
+    authorize TicketSourceConnection
+  end
+
+  def unregister_webhook_quietly
+    reference = @connection.settings['webhook_reference']
+    @connection.adapter.unregister_webhook(reference) if reference
+  rescue CustomExceptions::TicketSource::ApiError => e
+    Rails.logger.warn("[TicketSources] could not remove webhook #{reference} of connection #{@connection.id}: #{e.message}")
+  end
 
   def fetch_connection
     @connection = Current.account.ticket_source_connections.find(params[:id])
@@ -104,7 +130,7 @@ class Api::V1::Accounts::TicketSourceConnectionsController < Api::V1::Accounts::
     {
       id: connection.id, provider: connection.provider, name: connection.name, enabled: connection.enabled, pipeline_id: connection.pipeline_id,
       credentials: connection.credential_values.except(*secret_keys), settings: connection.settings, webhook_url: connection.webhook_url,
-      last_synced_at: connection.last_synced_at, last_error: connection.last_error, linked_tickets: connection.external_links.count
+      webhook_registered: connection.settings['webhook_reference'].present?, last_synced_at: connection.last_synced_at, last_error: connection.last_error, linked_tickets: connection.external_links.count
     }
   end
 end

@@ -18,7 +18,6 @@ class Ticket < ApplicationRecord
 
   validates :title, presence: true
   validate :associations_belong_to_account
-  validate :stage_is_managed_by_external_source, on: :update
 
   before_validation :sync_pipeline_from_stage
   before_create :append_to_stage
@@ -29,6 +28,7 @@ class Ticket < ApplicationRecord
   after_destroy_commit :dispatch_destroy_event
   after_create_commit :push_to_external_source_on_create
   after_update_commit :push_to_external_source_on_update, if: -> { previous_changes.key?('title') || previous_changes.key?('description') }
+  after_update_commit :push_status_to_external_source, if: -> { previous_changes.key?('stage_id') }
   after_create_commit :auto_advance_stage
   after_update_commit :auto_advance_stage, if: :auto_advance_inputs_changed?
 
@@ -73,17 +73,15 @@ class Ticket < ApplicationRecord
     errors.add(:assignee, :invalid) if assignee && !account.users.exists?(assignee.id)
   end
 
-  def stage_is_managed_by_external_source
-    return unless stage_id_changed? && external_link && !TicketSources::SyncContext.active?
-
-    errors.add(:stage, 'is managed by the external source')
-  end
-
   def push_to_external_source_on_create
     return if TicketSources::SyncContext.active?
 
     connection = account.ticket_source_connections.enabled.find_by(pipeline_id: pipeline_id)
     TicketSources::PushNewTicketJob.perform_later(connection.id, id) if connection&.settings&.dig('push_new_tickets')
+  end
+
+  def push_status_to_external_source
+    TicketSources::PushStatusJob.perform_later(id) if external_link && !TicketSources::SyncContext.active?
   end
 
   def push_to_external_source_on_update

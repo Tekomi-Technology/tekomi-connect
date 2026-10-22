@@ -51,6 +51,20 @@ class TicketSources::BaseAdapter
     raise NotImplementedError
   end
 
+  # Moves the ticket to the first of `status_ids` reachable from its current status; false when no path exists.
+  def transition_to(_external_id, _status_ids)
+    raise NotImplementedError
+  end
+
+  # Subscribes the source to push changes to `url`; returns a reference to hand back to unregister_webhook.
+  def register_webhook(_url, _secret)
+    raise NotImplementedError
+  end
+
+  def unregister_webhook(_reference)
+    raise NotImplementedError
+  end
+
   def add_comment(_external_id, _text)
     raise NotImplementedError
   end

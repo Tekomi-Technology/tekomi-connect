@@ -25,6 +25,12 @@ class TicketsAPI extends ApiClient {
     return axios.post(`${this.url}/${id}/activities`, { content });
   }
 
+  uploadAttachment(id, file) {
+    const data = new FormData();
+    data.append('file', file);
+    return axios.post(`${this.url}/${id}/attachments`, data);
+  }
+
   getConversations(id) {
     return axios.get(`${this.url}/${id}/conversations`);
   }

@@ -307,6 +307,8 @@ Rails.application.routes.draw do
               post :test
               post :sync_statuses
               post :sync
+              post :register_webhook
+              post :unregister_webhook
             end
           end
           resources :saved_views, only: [:index, :show, :create, :update, :destroy] do
@@ -651,7 +653,9 @@ Rails.application.routes.draw do
               get :grouped_conversation_metrics
             end
           end
-          resources :ticket_reports, only: [:index]
+          resources :ticket_reports, only: [:index] do
+            get :board, on: :collection
+          end
           resources :team_monitoring, only: [:index] do
             collection do
               get :agent_conversations

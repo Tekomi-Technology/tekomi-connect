@@ -429,6 +429,8 @@
     "DEALS": "Bán hàng",
     "TICKETS": "Ticket",
     "PIPELINES": "Pipeline",
+    "TICKET_SOURCES": "Nguồn ticket",
+    "REPORTS_TICKET_BOARD": "Bảng ticket",
     "COLLAPSE": "Thu gọn thanh bên",
     "EXPAND": "Mở thanh bên"
   },

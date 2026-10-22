@@ -38,7 +38,8 @@
       "CONVERSATION_PARTICIPATING_MANAGE": "Quản lý hội thoại đang tham gia và hội thoại được giao cho mình",
       "CONTACT_MANAGE": "Quản lý liên hệ",
       "REPORT_MANAGE": "Quản lý báo cáo",
-      "KNOWLEDGE_BASE_MANAGE": "Quản lý cơ sở tri thức"
+      "KNOWLEDGE_BASE_MANAGE": "Quản lý cơ sở tri thức",
+      "TICKET_SOURCE_MANAGE": "Quản lý nguồn ticket (Jira, ...)"
     },
     "FORM": {
       "NAME": {

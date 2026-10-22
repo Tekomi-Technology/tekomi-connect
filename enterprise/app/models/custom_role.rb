@@ -23,6 +23,7 @@
 # - 'contact_manage': Can manage contacts.
 # - 'report_manage': Can manage reports.
 # - 'knowledge_base_manage': Can manage knowledge base portals.
+# - 'ticket_source_manage': Can connect and configure external ticket sources (Jira, ...).
 
 class CustomRole < ApplicationRecord
   belongs_to :account
@@ -39,6 +40,7 @@ class CustomRole < ApplicationRecord
     contact_manage
     report_manage
     knowledge_base_manage
+    ticket_source_manage
   ].freeze
 
   validates :name, presence: true

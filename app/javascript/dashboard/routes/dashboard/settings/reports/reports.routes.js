@@ -25,6 +25,7 @@ import LiveReports from './LiveReports.vue';
 import SLAReports from './SLAReports.vue';
 import PhoneCallReports from './PhoneCallReports.vue';
 import ConversationEmotionReports from './ConversationEmotionReports.vue';
+import TicketBoardReport from './TicketBoardReport.vue';
 
 const meta = {
   featureFlag: FEATURE_FLAGS.REPORTS,
@@ -141,6 +142,12 @@ export default {
           name: 'sla_reports',
           meta,
           component: SLAReports,
+        },
+        {
+          path: 'ticket-board',
+          name: 'ticket_board_reports',
+          meta: { ...meta, featureFlag: FEATURE_FLAGS.CRM_TICKETS },
+          component: TicketBoardReport,
         },
         {
           path: 'phone-calls',

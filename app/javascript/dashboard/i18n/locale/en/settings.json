@@ -431,6 +431,8 @@
     "TEKOMI_AI": "GMO AI",
     "CONVERSATION_WORKFLOW": "Conversation Workflow",
     "PIPELINES": "Pipelines",
+    "TICKET_SOURCES": "Ticket sources",
+    "REPORTS_TICKET_BOARD": "Ticket board",
     "COLLAPSE": "Collapse sidebar",
     "EXPAND": "Expand sidebar"
   },

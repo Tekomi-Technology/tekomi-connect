@@ -11,6 +11,10 @@ class Api::V2::Accounts::TicketReportsController < Api::V1::Accounts::BaseContro
     ).perform
   end
 
+  def board
+    render json: Tickets::BoardBuilder.new(account: Current.account, pipeline_id: params[:pipeline_id]).perform
+  end
+
   private
 
   def check_authorization

@@ -27,6 +27,7 @@ import profile from './profile/profile.routes';
 import security from './security/security.routes';
 import conversationWorkflow from './conversationWorkflow/conversationWorkflow.routes';
 import pipelines from './pipelines/pipelines.routes';
+import ticketSources from './ticketSources/ticketSources.routes';
 import tekomi from './tekomi/tekomi.routes';
 import data from './data/data.routes';
 
@@ -72,6 +73,7 @@ export default {
     ...security.routes,
     ...conversationWorkflow.routes,
     ...pipelines.routes,
+    ...ticketSources.routes,
     ...tekomi.routes,
   ],
 };

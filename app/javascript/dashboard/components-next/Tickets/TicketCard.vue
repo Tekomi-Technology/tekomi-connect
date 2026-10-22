@@ -30,6 +30,9 @@ const FIELD_ICONS = {
     :class="style?.card || 'border-n-weak'"
   >
     <span class="font-medium truncate text-n-slate-12">{{ ticket.title }}</span>
+    <span v-if="ticket.external" class="text-xs text-n-blue-11">
+      {{ ticket.external.key }}
+    </span>
     <div
       v-for="field in fields"
       :key="field"

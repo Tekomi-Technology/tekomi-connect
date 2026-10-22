@@ -60,12 +60,30 @@ class TicketSources::SyncService
     end
   end
 
+  # A stage change is turned into a status transition at the source. When the source has moved the ticket in
+  # the meantime, or refuses the transition, the source's status wins and the ticket goes back to it.
+  def push_status(ticket)
+    link = ticket.external_link
+    return unless link
+
+    locked(link.external_id) do
+      remote = adapter.fetch_ticket(link.external_id)
+      next apply(remote) if remote.status[:id] != link.external_data.dig('status', 'id')
+
+      status_ids = connection.settings.fetch('status_map', {}).select { |_status_id, stage_id| stage_id == ticket.stage_id }.keys
+      next if status_ids.include?(remote.status[:id])
+
+      adapter.transition_to(link.external_id, status_ids) ? store(link, adapter.fetch_ticket(link.external_id)) : revert_status(ticket, remote)
+    end
+  end
+
   def push_new_ticket(ticket)
     locked('create') do
       next if ticket.external_link
 
       external = adapter.create_ticket(ticket)
       store(ticket.build_external_link(connection: connection, external_id: external.id), external)
+      TicketSources::PushStatusJob.perform_later(ticket.id)
     end
   end
 
@@ -138,6 +156,12 @@ class TicketSources::SyncService
       external_data: { 'status' => external.status, 'assignee' => external.assignee }
     )
     link
+  end
+
+  def revert_status(ticket, remote)
+    attempted = ticket.stage.name
+    TicketSources::SyncContext.run { ::Tickets::MoveService.new(ticket: ticket, stage: stage_for(remote.status)).perform }
+    ticket.activities.create!(action: 'external_status_rejected', metadata: { attempted: attempted, current: remote.status[:name] })
   end
 
   def local_fingerprint(ticket)

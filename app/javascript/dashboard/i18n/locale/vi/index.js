@@ -20,6 +20,7 @@ import datePicker from './datePicker.json';
 import deals from './deals.json';
 import teamMonitoring from './teamMonitoring.json';
 import tickets from './tickets.json';
+import ticketSources from './ticketSources.json';
 import emoji from './emoji.json';
 import general from './general.json';
 import generalSettings from './generalSettings.json';
@@ -69,6 +70,7 @@ export default {
   ...deals,
   ...teamMonitoring,
   ...tickets,
+  ...ticketSources,
   ...emoji,
   ...general,
   ...generalSettings,

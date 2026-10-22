@@ -21,6 +21,10 @@ class TicketSources::Jira::Client
     request(:put, path, payload: body.to_json, headers: JSON_HEADERS)
   end
 
+  def delete(path)
+    request(:delete, path, headers: JSON_HEADERS)
+  end
+
   def post_file(path, filename, io)
     Dir.mktmpdir do |dir|
       file_path = File.join(dir, File.basename(filename))
@@ -60,7 +64,7 @@ class TicketSources::Jira::Client
     when 401, 403 then CustomExceptions::TicketSource::AuthError.new("Jira rejected the credentials (#{error.http_code})")
     when 429 then CustomExceptions::TicketSource::RateLimited.new(retry_after: error.response.headers[:retry_after]&.to_i)
     when 500.. then CustomExceptions::TicketSource::TransientError.new("Jira error #{error.http_code}")
-    else CustomExceptions::TicketSource::ApiError.new("Jira error #{error.http_code}: #{error.response.body.to_s.truncate(500)}")
+    else CustomExceptions::TicketSource::RejectedError.new("Jira error #{error.http_code}: #{error.response.body.to_s.truncate(500)}")
     end
   end
 end

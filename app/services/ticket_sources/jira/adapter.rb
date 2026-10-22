@@ -3,6 +3,8 @@ class TicketSources::Jira::Adapter < TicketSources::BaseAdapter
   COMMENT_PAGE_SIZE = 100
   SEARCH_PAGE_SIZE = 50
   WEBHOOK_CHANGE_EVENTS = %w[jira:issue_created jira:issue_updated comment_created comment_updated comment_deleted].freeze
+  WEBHOOK_EVENTS = (WEBHOOK_CHANGE_EVENTS + ['jira:issue_deleted']).freeze
+  WEBHOOK_PATH = '/rest/webhooks/1.0/webhook'.freeze
 
   def self.credential_fields
     [
@@ -83,6 +85,27 @@ class TicketSources::Jira::Adapter < TicketSources::BaseAdapter
     fields[:summary] = title unless title.nil?
     fields[:description] = description.empty? ? nil : to_adf(description) unless description.nil?
     client.put("/rest/api/3/issue/#{external_id}", fields: fields)
+  end
+
+  def transition_to(external_id, status_ids)
+    transition = client.get("/rest/api/3/issue/#{external_id}/transitions")['transitions'].find { |item| status_ids.include?(item.dig('to', 'id')) }
+    return false unless transition
+
+    client.post("/rest/api/3/issue/#{external_id}/transitions", transition: { id: transition['id'] })
+    true
+  rescue CustomExceptions::TicketSource::RejectedError
+    false
+  end
+
+  # Admin webhook, signed with the connection's secret, limited to the mirrored project.
+  def register_webhook(url, secret)
+    response = client.post(WEBHOOK_PATH, name: "Ticket sync - #{connection.name}", url: url, events: WEBHOOK_EVENTS, excludeBody: false, secret: secret,
+                                         filters: { 'issue-related-events-section' => "project = \"#{project_key}\"" })
+    response['self'].split('/').last
+  end
+
+  def unregister_webhook(reference)
+    client.delete("#{WEBHOOK_PATH}/#{reference}")
   end
 
   def add_comment(external_id, text)

@@ -1345,6 +1345,10 @@ vi:
             canned_responses: 'Mẫu trả lời (tạo, sửa, xoá)'
             macros: 'Macro'
             workspace_data: 'Nhãn, thuộc tính, bot, SLA, pipeline, kho kiến thức'
+        ticket_sources:
+          title: 'Nguồn ticket'
+          rows:
+            manage: 'Kết nối và cấu hình nguồn ticket bên ngoài như Jira (có thể cấp cho vai trò tùy chỉnh)'
         gmo_ai:
           title: 'GMO AI'
           rows:

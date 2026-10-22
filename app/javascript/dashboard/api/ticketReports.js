@@ -11,6 +11,12 @@ class TicketReportsAPI extends ApiClient {
       params: { since, until, pipeline_id: pipelineId },
     });
   }
+
+  board(pipelineId) {
+    return axios.get(`${this.url}/board`, {
+      params: { pipeline_id: pipelineId },
+    });
+  }
 }
 
 export default new TicketReportsAPI();

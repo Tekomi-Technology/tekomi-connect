@@ -3,6 +3,9 @@ module CustomExceptions::TicketSource
 
   class AuthError < ApiError; end
 
+  # The source understood the request and refused it (validation, workflow rules, missing resource, ...).
+  class RejectedError < ApiError; end
+
   class TransientError < ApiError; end
 
   class RateLimited < TransientError

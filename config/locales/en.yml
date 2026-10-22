@@ -1080,6 +1080,10 @@ en:
             canned_responses: 'Canned responses (create, edit, delete)'
             macros: 'Macros'
             workspace_data: 'Labels, attributes, bots, SLA, pipelines, knowledge base'
+        ticket_sources:
+          title: 'Ticket sources'
+          rows:
+            manage: 'Connect and configure external ticket sources such as Jira (can be granted to a custom role)'
         gmo_ai:
           title: 'GMO AI'
           rows:

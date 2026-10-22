@@ -1,0 +1,77 @@
+{
+  "TICKET_SOURCES_SETTINGS": {
+    "HEADER": {
+      "TITLE": "Ticket sources",
+      "DESCRIPTION": "Mirror tickets with external tools such as Jira. The external tool is the master: when both sides change the same ticket, its version wins."
+    },
+    "LOADING": "Loading ticket sources...",
+    "EMPTY": "No ticket source is connected yet.",
+    "ADD": "Add connection",
+    "STATUS": {
+      "LINKED": "{count} linked tickets",
+      "LAST_SYNCED": "Last synced {time}",
+      "NEVER": "Never synced",
+      "WEBHOOK_ON": "Webhook active",
+      "WEBHOOK_OFF": "Webhook not registered"
+    },
+    "ACTIONS": {
+      "TEST": "Test connection",
+      "SYNC_STATUSES": "Sync statuses",
+      "SYNC": "Sync now",
+      "REGISTER_WEBHOOK": "Register webhook",
+      "UNREGISTER_WEBHOOK": "Remove webhook",
+      "EDIT": "Edit",
+      "DELETE": "Delete"
+    },
+    "FORM": {
+      "CREATE_TITLE": "Add ticket source",
+      "EDIT_TITLE": "Edit ticket source",
+      "PROVIDER": "Provider",
+      "NAME": "Connection name",
+      "NAME_PLACEHOLDER": "e.g. Support Jira",
+      "PIPELINE": "Pipeline",
+      "NEW_PIPELINE": "Create a new pipeline for this source",
+      "SECRET_UNCHANGED": "Leave empty to keep the saved value",
+      "SAVE": "Save"
+    },
+    "CREATED": {
+      "TITLE": "Connection created",
+      "DESCRIPTION": "Statuses were imported as pipeline stages. Register the webhook so changes arrive instantly; it will call:",
+      "REGISTER": "Register webhook",
+      "LATER": "Later"
+    },
+    "DELETE": {
+      "TITLE": "Delete {name}?",
+      "DESCRIPTION": "Tickets stay in Chatwoot but stop syncing. The webhook is removed from the source.",
+      "CONFIRM": "Delete"
+    },
+    "MESSAGES": {
+      "SAVED": "Connection saved",
+      "DELETED": "Connection deleted",
+      "TEST_OK": "Connected as {user} to project {project}",
+      "STATUSES_SYNCED": "Statuses synced",
+      "SYNC_STARTED": "Sync started",
+      "WEBHOOK_UPDATED": "Webhook updated"
+    }
+  },
+  "TICKET_BOARD_REPORT": {
+    "HEADER": "Ticket board",
+    "DESCRIPTION": "Tickets of a pipeline grouped by status. Read-only; open a ticket to work on it.",
+    "PIPELINE": "Pipeline",
+    "EMPTY": "There are no ticket pipelines yet.",
+    "EMPTY_COLUMN": "No tickets",
+    "MORE": "+{count} more tickets",
+    "UNASSIGNED": "Unassigned",
+    "SOURCE": "Source: {name} ({provider})",
+    "LAST_SYNCED": "last synced {time}",
+    "NEVER_SYNCED": "never synced",
+    "TOTAL": "{count} tickets",
+    "SLA": {
+      "on_track": "On track",
+      "at_risk": "At risk",
+      "breached": "Breached",
+      "no_sla": "No SLA"
+    },
+    "UPDATED": "Updated {time}"
+  }
+}

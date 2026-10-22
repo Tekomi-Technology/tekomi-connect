@@ -95,6 +95,11 @@ const saveDescription = () => {
   save({ description });
 };
 
+const refreshActivities = async () => {
+  const { data } = await TicketsAPI.getActivities(ticketId.value);
+  activities.value = data.payload;
+};
+
 const moveToStage = async stageId => {
   if (!stageId || stageId === ticket.value.stageId) return;
   try {
@@ -125,13 +130,11 @@ const assignContact = contactId => {
 
 const saveCustomAttribute = (key, value) => {
   save({
-    customAttributes: { ...(ticket.value.customAttributes || {}), [key]: value },
+    customAttributes: {
+      ...(ticket.value.customAttributes || {}),
+      [key]: value,
+    },
   });
-};
-
-const refreshActivities = async () => {
-  const { data } = await TicketsAPI.getActivities(ticketId.value);
-  activities.value = data.payload;
 };
 
 const addNote = async () => {
@@ -167,7 +170,29 @@ const deleteTicket = async () => {
 const activityText = activity =>
   activity.action === 'note'
     ? activity.content
-    : t(`TICKETS.ACTIVITY.ACTIONS.${activity.action.toUpperCase()}`);
+    : t(`TICKETS.ACTIVITY.ACTIONS.${activity.action.toUpperCase()}`, {
+        ...activity.metadata,
+      });
+
+const attachmentInput = ref(null);
+const attachments = ref([]);
+
+const refreshAttachments = async () => {
+  const { data } = await TicketsAPI.show(ticketId.value);
+  attachments.value = data.attachments || [];
+};
+
+const uploadAttachment = async event => {
+  const [file] = event.target.files;
+  event.target.value = '';
+  if (!file) return;
+  try {
+    await TicketsAPI.uploadAttachment(ticketId.value, file);
+    await refreshAttachments();
+  } catch (error) {
+    alertError(error);
+  }
+};
 
 const details = computed(() => {
   if (!ticket.value) return [];
@@ -196,6 +221,7 @@ onMounted(async () => {
     draftTitle.value = record.title;
     draftDescription.value = record.description || '';
     await refreshActivities();
+    await refreshAttachments();
   } catch (error) {
     alertError(error);
   } finally {
@@ -213,7 +239,10 @@ onUnmounted(() => ticketsStore.unwatchTicket());
     <div v-if="isFetching" class="flex justify-center py-16">
       <Spinner />
     </div>
-    <div v-else-if="ticket" class="flex flex-col w-full max-w-3xl gap-6 px-6 py-6">
+    <div
+      v-else-if="ticket"
+      class="flex flex-col w-full max-w-3xl gap-6 px-6 py-6"
+    >
       <div class="flex items-start gap-3">
         <Button
           icon="i-lucide-arrow-left"
@@ -229,6 +258,19 @@ onUnmounted(() => ticketsStore.unwatchTicket());
             @blur="saveTitle"
             @keyup.enter="saveTitle"
           />
+          <a
+            v-if="ticket.external"
+            :href="ticket.external.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center gap-1.5 text-sm w-fit text-n-blue-11"
+          >
+            <Icon icon="i-lucide-external-link" class="size-4" />
+            {{ ticket.external.key }}
+            <span v-if="ticket.external.status" class="text-n-slate-11">
+              · {{ ticket.external.status.name }}
+            </span>
+          </a>
           <span v-if="hasSla" class="flex items-center gap-1.5 text-sm">
             <Icon
               v-if="style"
@@ -376,6 +418,43 @@ onUnmounted(() => ticketsStore.unwatchTicket());
           </dd>
         </div>
       </dl>
+
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xs font-medium uppercase text-n-slate-11">
+            {{ t('TICKETS.ATTACHMENTS.TITLE') }}
+          </h2>
+          <Button
+            :label="t('TICKETS.ATTACHMENTS.ADD')"
+            icon="i-lucide-paperclip"
+            size="sm"
+            variant="faded"
+            color="slate"
+            @click="attachmentInput?.click()"
+          />
+          <input
+            ref="attachmentInput"
+            type="file"
+            class="hidden"
+            @change="uploadAttachment"
+          />
+        </div>
+        <p v-if="!attachments.length" class="text-sm text-n-slate-11">
+          {{ t('TICKETS.ATTACHMENTS.EMPTY') }}
+        </p>
+        <ul v-else class="flex flex-col gap-1">
+          <li v-for="attachment in attachments" :key="attachment.id">
+            <a
+              :href="attachment.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sm text-n-blue-11"
+            >
+              {{ attachment.filename }}
+            </a>
+          </li>
+        </ul>
+      </div>
 
       <div class="flex flex-col gap-3">
         <h2 class="text-xs font-medium uppercase text-n-slate-11">

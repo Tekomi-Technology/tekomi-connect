@@ -34,6 +34,8 @@ groups:
     canned_responses: { administrator: allow, supervisor: allow, agent: allow }
     macros: { administrator: all_macros, supervisor: own_macros, agent: own_macros }
     workspace_data: { administrator: allow, supervisor: view_only, agent: view_only }
+  ticket_sources:
+    manage: { administrator: allow, supervisor: deny, agent: deny }
   gmo_ai:
     use: { administrator: allow, supervisor: allow, agent: allow }
     manage: { administrator: allow, supervisor: deny, agent: deny }

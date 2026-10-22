@@ -794,6 +794,11 @@ const menuItems = computed(() => {
           to: accountScopedRoute('sla_reports'),
         },
         {
+          name: 'Reports Ticket Board',
+          label: t('SIDEBAR.REPORTS_TICKET_BOARD'),
+          to: accountScopedRoute('ticket_board_reports'),
+        },
+        {
           name: 'Reports Bot',
           label: t('SIDEBAR.REPORTS_BOT'),
           to: accountScopedRoute('bot_reports'),
@@ -1067,6 +1072,13 @@ const menuItems = computed(() => {
           to: accountScopedRoute('settings_pipelines_index'),
         },
         {
+          name: 'Settings Ticket Sources',
+          label: t('SIDEBAR.TICKET_SOURCES'),
+          icon: 'i-lucide-plug-zap',
+          iconColor: 'text-n-teal-10',
+          to: accountScopedRoute('settings_ticket_sources_index'),
+        },
+        {
           name: 'Settings Security',
           label: t('SIDEBAR.SECURITY'),
           icon: 'i-lucide-shield',
@@ -1172,7 +1184,9 @@ const menuItems = computed(() => {
       />
       <div
         class="flex border-t border-n-weak"
-        :class="isEffectivelyCollapsed ? 'justify-center px-1 py-2' : 'px-2 py-2'"
+        :class="
+          isEffectivelyCollapsed ? 'justify-center px-1 py-2' : 'px-2 py-2'
+        "
       >
         <SidebarProfileMenu
           :is-collapsed="isEffectivelyCollapsed"

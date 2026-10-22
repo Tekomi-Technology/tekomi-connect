@@ -78,7 +78,9 @@
       "ACTIONS": {
         "CREATED": "đã tạo ticket này",
         "STAGE_CHANGED": "đã chuyển sang khâu khác",
-        "ASSIGNEE_CHANGED": "đã đổi người phụ trách"
+        "ASSIGNEE_CHANGED": "đã đổi người phụ trách",
+        "EXTERNAL_DELETED": "Ticket liên kết {key} đã bị xoá ở nguồn; đã ngừng đồng bộ",
+        "EXTERNAL_STATUS_REJECTED": "Nguồn từ chối chuyển ticket sang \"{attempted}\"; ticket vẫn ở \"{current}\""
       }
     },
     "FILTER": {
@@ -144,6 +146,14 @@
     },
     "CONTACT": {
       "EMPTY": "Khách này chưa có ticket nào"
+    },
+    "ATTACHMENTS": {
+      "TITLE": "Tệp đính kèm",
+      "ADD": "Thêm tệp",
+      "EMPTY": "Chưa có tệp đính kèm"
+    },
+    "EXTERNAL": {
+      "OPEN": "Mở trên {provider}"
     }
   },
   "TICKET_SLA": {

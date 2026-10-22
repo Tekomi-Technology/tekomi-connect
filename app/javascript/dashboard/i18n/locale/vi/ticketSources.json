@@ -1,0 +1,77 @@
+{
+  "TICKET_SOURCES_SETTINGS": {
+    "HEADER": {
+      "TITLE": "Nguồn ticket",
+      "DESCRIPTION": "Đồng bộ ticket với công cụ bên ngoài như Jira. Công cụ bên ngoài là nguồn chuẩn: khi hai bên cùng sửa một ticket thì bản bên ngoài được giữ."
+    },
+    "LOADING": "Đang tải nguồn ticket...",
+    "EMPTY": "Chưa kết nối nguồn ticket nào.",
+    "ADD": "Thêm kết nối",
+    "STATUS": {
+      "LINKED": "{count} ticket đã liên kết",
+      "LAST_SYNCED": "Đồng bộ lần cuối {time}",
+      "NEVER": "Chưa đồng bộ",
+      "WEBHOOK_ON": "Webhook đang bật",
+      "WEBHOOK_OFF": "Chưa đăng ký webhook"
+    },
+    "ACTIONS": {
+      "TEST": "Kiểm tra kết nối",
+      "SYNC_STATUSES": "Đồng bộ trạng thái",
+      "SYNC": "Đồng bộ ngay",
+      "REGISTER_WEBHOOK": "Đăng ký webhook",
+      "UNREGISTER_WEBHOOK": "Gỡ webhook",
+      "EDIT": "Sửa",
+      "DELETE": "Xoá"
+    },
+    "FORM": {
+      "CREATE_TITLE": "Thêm nguồn ticket",
+      "EDIT_TITLE": "Sửa nguồn ticket",
+      "PROVIDER": "Nhà cung cấp",
+      "NAME": "Tên kết nối",
+      "NAME_PLACEHOLDER": "VD: Jira hỗ trợ",
+      "PIPELINE": "Pipeline",
+      "NEW_PIPELINE": "Tạo pipeline mới cho nguồn này",
+      "SECRET_UNCHANGED": "Để trống để giữ giá trị đã lưu",
+      "SAVE": "Lưu"
+    },
+    "CREATED": {
+      "TITLE": "Đã tạo kết nối",
+      "DESCRIPTION": "Các trạng thái đã được nhập thành cột của pipeline. Hãy đăng ký webhook để thay đổi được cập nhật ngay; webhook sẽ gọi về:",
+      "REGISTER": "Đăng ký webhook",
+      "LATER": "Để sau"
+    },
+    "DELETE": {
+      "TITLE": "Xoá {name}?",
+      "DESCRIPTION": "Ticket vẫn còn trong hệ thống nhưng không đồng bộ nữa. Webhook sẽ được gỡ khỏi nguồn.",
+      "CONFIRM": "Xoá"
+    },
+    "MESSAGES": {
+      "SAVED": "Đã lưu kết nối",
+      "DELETED": "Đã xoá kết nối",
+      "TEST_OK": "Đã kết nối với tài khoản {user}, dự án {project}",
+      "STATUSES_SYNCED": "Đã đồng bộ trạng thái",
+      "SYNC_STARTED": "Đã bắt đầu đồng bộ",
+      "WEBHOOK_UPDATED": "Đã cập nhật webhook"
+    }
+  },
+  "TICKET_BOARD_REPORT": {
+    "HEADER": "Bảng ticket",
+    "DESCRIPTION": "Ticket của một pipeline được nhóm theo trạng thái. Chỉ xem; mở ticket để xử lý.",
+    "PIPELINE": "Pipeline",
+    "EMPTY": "Chưa có pipeline ticket nào.",
+    "EMPTY_COLUMN": "Không có ticket",
+    "MORE": "+{count} ticket nữa",
+    "UNASSIGNED": "Chưa gán",
+    "SOURCE": "Nguồn: {name} ({provider})",
+    "LAST_SYNCED": "đồng bộ lần cuối {time}",
+    "NEVER_SYNCED": "chưa đồng bộ",
+    "TOTAL": "{count} ticket",
+    "SLA": {
+      "on_track": "Đúng hạn",
+      "at_risk": "Có nguy cơ",
+      "breached": "Quá hạn",
+      "no_sla": "Không SLA"
+    },
+    "UPDATED": "Cập nhật {time}"
+  }
+}
