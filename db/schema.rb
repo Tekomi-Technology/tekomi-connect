@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2026_10_14_000001) do
+ActiveRecord::Schema[7.2].define(version: 2026_10_22_000001) do
   # These extensions should be enabled to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -1913,6 +1913,43 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_14_000001) do
     t.index ["ticket_id", "conversation_id"], name: "index_ticket_conversations_on_ticket_id_and_conversation_id", unique: true
   end
 
+  create_table "ticket_external_links", force: :cascade do |t|
+    t.bigint "ticket_id", null: false
+    t.bigint "connection_id", null: false
+    t.string "external_id", null: false
+    t.string "external_key"
+    t.string "external_url"
+    t.string "external_hash"
+    t.string "local_hash"
+    t.datetime "external_updated_at"
+    t.jsonb "external_data", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["connection_id", "external_id"], name: "index_ticket_external_links_on_connection_id_and_external_id", unique: true
+    t.index ["connection_id"], name: "index_ticket_external_links_on_connection_id"
+    t.index ["ticket_id"], name: "index_ticket_external_links_on_ticket_id", unique: true
+  end
+
+  create_table "ticket_source_connections", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "pipeline_id", null: false
+    t.string "provider", null: false
+    t.string "name", null: false
+    t.boolean "enabled", default: true, null: false
+    t.text "credentials"
+    t.text "webhook_secret"
+    t.string "webhook_token", null: false
+    t.jsonb "settings", default: {}, null: false
+    t.datetime "last_synced_at"
+    t.text "last_error"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "name"], name: "index_ticket_source_connections_on_account_id_and_name", unique: true
+    t.index ["account_id"], name: "index_ticket_source_connections_on_account_id"
+    t.index ["pipeline_id"], name: "index_ticket_source_connections_on_pipeline_id"
+    t.index ["webhook_token"], name: "index_ticket_source_connections_on_webhook_token", unique: true
+  end
+
   create_table "ticket_stage_events", force: :cascade do |t|
     t.bigint "ticket_id", null: false
     t.bigint "pipeline_stage_id", null: false
@@ -2091,6 +2128,10 @@ ActiveRecord::Schema[7.2].define(version: 2026_10_14_000001) do
   add_foreign_key "phone_extensions", "users", on_delete: :cascade
   add_foreign_key "teams", "users", column: "supervisor_id"
   add_foreign_key "tenant_branding_profiles", "accounts"
+  add_foreign_key "ticket_external_links", "ticket_source_connections", column: "connection_id", on_delete: :cascade
+  add_foreign_key "ticket_external_links", "tickets", on_delete: :cascade
+  add_foreign_key "ticket_source_connections", "accounts", on_delete: :cascade
+  add_foreign_key "ticket_source_connections", "pipelines", on_delete: :cascade
   add_foreign_key "ticket_webhooks", "accounts"
   add_foreign_key "ticket_webhooks", "pipelines"
   add_foreign_key "user_sessions", "users"

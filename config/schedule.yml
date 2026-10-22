@@ -52,6 +52,12 @@ trigger_ticket_stage_slas_job:
   class: 'Tickets::TriggerStageSlasJob'
   queue: scheduled_jobs
 
+# executed every 5 minutes — re-reads what changed in connected ticket sources (Jira, ...) in case a webhook was missed
+ticket_sources_reconcile_job:
+  cron: '*/5 * * * *'
+  class: 'TicketSources::ReconcileJob'
+  queue: scheduled_jobs
+
 # executed daily at 2230 UTC
 # which is our lowest traffic time
 remove_stale_contact_inboxes_job.rb:

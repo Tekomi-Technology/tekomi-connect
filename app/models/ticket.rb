@@ -10,12 +10,15 @@ class Ticket < ApplicationRecord
   has_many :stage_events, -> { order(entered_at: :desc) }, class_name: 'TicketStageEvent', dependent: :delete_all, inverse_of: :ticket
   has_many :ticket_conversations, dependent: :delete_all
   has_many :conversations, through: :ticket_conversations
+  has_one :external_link, class_name: 'TicketExternalLink', dependent: :destroy, inverse_of: :ticket
+  has_many_attached :attachments
 
   enum :created_by, { staff: 0, ai_chatbot: 1, ai_callbot: 2, webhook: 3 }, prefix: true, validate: true
   enum :sla_status, { on_track: 0, at_risk: 1, breached: 2, no_sla: 3 }, prefix: true, validate: true
 
   validates :title, presence: true
   validate :associations_belong_to_account
+  validate :stage_is_managed_by_external_source, on: :update
 
   before_validation :sync_pipeline_from_stage
   before_create :append_to_stage
@@ -24,6 +27,8 @@ class Ticket < ApplicationRecord
   after_create_commit :dispatch_create_event
   after_update_commit :dispatch_update_event
   after_destroy_commit :dispatch_destroy_event
+  after_create_commit :push_to_external_source_on_create
+  after_update_commit :push_to_external_source_on_update, if: -> { previous_changes.key?('title') || previous_changes.key?('description') }
   after_create_commit :auto_advance_stage
   after_update_commit :auto_advance_stage, if: :auto_advance_inputs_changed?
 
@@ -45,6 +50,7 @@ class Ticket < ApplicationRecord
       sla_status: sla_status,
       contact: contact&.push_event_data,
       assignee: assignee&.push_event_data,
+      external: external_link&.push_event_data,
       sla: current_stage_event&.push_event_data,
       created_at: created_at.to_i,
       updated_at: updated_at.to_i
@@ -65,6 +71,23 @@ class Ticket < ApplicationRecord
     errors.add(:stage, :invalid) if stage && stage.pipeline.account_id != account_id
     errors.add(:contact, :invalid) if contact && contact.account_id != account_id
     errors.add(:assignee, :invalid) if assignee && !account.users.exists?(assignee.id)
+  end
+
+  def stage_is_managed_by_external_source
+    return unless stage_id_changed? && external_link && !TicketSources::SyncContext.active?
+
+    errors.add(:stage, 'is managed by the external source')
+  end
+
+  def push_to_external_source_on_create
+    return if TicketSources::SyncContext.active?
+
+    connection = account.ticket_source_connections.enabled.find_by(pipeline_id: pipeline_id)
+    TicketSources::PushNewTicketJob.perform_later(connection.id, id) if connection&.settings&.dig('push_new_tickets')
+  end
+
+  def push_to_external_source_on_update
+    TicketSources::PushTicketJob.perform_later(id) if external_link && !TicketSources::SyncContext.active?
   end
 
   def open_stage_event

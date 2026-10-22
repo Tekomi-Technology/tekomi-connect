@@ -50,7 +50,7 @@ class Api::V1::Accounts::TicketsController < Api::V1::Accounts::BaseController
   end
 
   def ticket_preloads
-    [:contact, :assignee, :stage_events]
+    [:contact, :assignee, :stage_events, :external_link]
   end
 
   def ticket_params

@@ -298,6 +298,15 @@ Rails.application.routes.draw do
             scope module: :tickets do
               resources :conversations, only: [:index, :create, :destroy]
               resources :activities, only: [:index, :create]
+              resources :attachments, only: [:create]
+            end
+          end
+          resources :ticket_source_connections, only: [:index, :show, :create, :update, :destroy] do
+            get :providers, on: :collection
+            member do
+              post :test
+              post :sync_statuses
+              post :sync
             end
           end
           resources :saved_views, only: [:index, :show, :create, :update, :destroy] do
@@ -763,6 +772,7 @@ Rails.application.routes.draw do
   post 'webhooks/instagram', to: 'webhooks/instagram#events'
   post 'webhooks/tiktok', to: 'webhooks/tiktok#events'
   post 'webhooks/shopify', to: 'webhooks/shopify#events'
+  post 'webhooks/ticket_sources/:token', to: 'webhooks/ticket_sources#process_payload'
   post 'webhooks/zalo_oa', to: 'webhooks/zalo_oa#process_payload'
   post 'webhooks/zalo_personal', to: 'webhooks/zalo_personal#process_payload'
   post 'webhooks/pbx/calls', to: 'webhooks/pbx/calls#process_payload'
