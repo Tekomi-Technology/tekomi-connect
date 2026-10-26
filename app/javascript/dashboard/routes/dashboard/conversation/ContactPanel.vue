@@ -23,6 +23,7 @@ import LinearIssuesList from 'dashboard/components/widgets/conversation/linear/I
 import LinearSetupCTA from 'dashboard/components/widgets/conversation/linear/LinearSetupCTA.vue';
 import ConversationDeals from 'dashboard/components-next/Deals/ConversationDeals.vue';
 import ConversationTickets from 'dashboard/components-next/Tickets/ConversationTickets.vue';
+import ConversationInternalTickets from 'dashboard/components-next/Tickets/ConversationInternalTickets.vue';
 
 const props = defineProps({
   conversationId: {
@@ -168,7 +169,7 @@ const sectionHasData = computed(() => ({
   contact_notes: (notesByContact.value(contactId.value) || []).length > 0,
   shared_files: attachments.value.length > 0,
   deals: loadedCounts.value.deals > 0,
-  tickets: loadedCounts.value.tickets > 0,
+  tickets: loadedCounts.value.tickets > 0 || loadedCounts.value.crm_tickets > 0,
   shopify_orders: true,
   linear_issues: true,
 }));
@@ -377,9 +378,14 @@ const toggleSection = name => {
               compact
               @toggle="toggleSection(element.name)"
             >
+              <ConversationInternalTickets
+                :conversation-id="conversationId"
+                :contact="contact.id ? contact : null"
+                @loaded="count => setLoadedCount('tickets', count)"
+              />
               <ConversationTickets
                 :conversation-id="conversationId"
-                @loaded="count => setLoadedCount('tickets', count)"
+                @loaded="count => setLoadedCount('crm_tickets', count)"
               />
             </AccordionItem>
           </div>

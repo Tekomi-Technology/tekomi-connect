@@ -45,6 +45,10 @@ class TicketsAPI extends ApiClient {
     return axios.delete(`${this.url}/${id}/conversations/${conversationId}`);
   }
 
+  createFromConversation(ticket, conversationId) {
+    return axios.post(this.url, { ticket, conversation_id: conversationId });
+  }
+
   getByContact(contactId) {
     return axios.get(`${this.baseUrl()}/contacts/${contactId}/tickets`);
   }

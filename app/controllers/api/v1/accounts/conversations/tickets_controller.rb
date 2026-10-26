@@ -3,6 +3,6 @@ class Api::V1::Accounts::Conversations::TicketsController < Api::V1::Accounts::C
 
   def index
     authorize Ticket, :index?
-    @tickets = @conversation.tickets.includes(:contact, :assignee, :stage_events).order(created_at: :desc)
+    @tickets = @conversation.tickets.includes(:contact, :assignee, :stage_events, external_link: :connection).order(created_at: :desc)
   end
 end

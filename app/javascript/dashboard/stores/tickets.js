@@ -43,6 +43,7 @@ export const useTicketsStore = defineStore('tickets', {
     stageMeta: {},
     baseParams: null,
     watchedTicket: null,
+    realtimeVersion: 0,
     pipelineId: null,
     requestToken: 0,
     uiFlags: {
@@ -273,10 +274,12 @@ export const useTicketsStore = defineStore('tickets', {
     },
 
     onRealtimeUpsert(data) {
+      this.realtimeVersion += 1;
       this.upsert(camelizeTicket(data));
     },
 
     onRealtimeDelete({ id }) {
+      this.realtimeVersion += 1;
       this.discard(id);
     },
 

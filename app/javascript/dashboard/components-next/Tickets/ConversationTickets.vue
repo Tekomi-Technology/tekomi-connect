@@ -51,14 +51,14 @@ watch([() => props.conversationId, ticketRefs], loadTickets, {
 </script>
 
 <template>
-  <div class="flex flex-col gap-3 px-2 pb-2">
+  <div v-if="isLoading || tickets.length" class="flex flex-col gap-3 px-2 pb-2">
     <div v-if="isLoading" class="flex justify-center py-3">
       <Spinner :size="20" />
     </div>
-    <p v-else-if="!tickets.length" class="mb-0 text-sm text-n-slate-11">
-      {{ t('TICKETS.CONVERSATION.EMPTY') }}
-    </p>
     <div v-else class="flex flex-col gap-2">
+      <span class="text-xs font-medium uppercase text-n-slate-11">
+        {{ t('TICKETS.CONVERSATION.CRM') }}
+      </span>
       <div
         v-for="ticket in tickets"
         :key="ticket.ticketid"

@@ -24,8 +24,13 @@ class Api::V1::Accounts::TicketsController < Api::V1::Accounts::BaseController
 
   def show; end
 
+  # A ticket opened from a conversation is linked to it in the same transaction, so whatever reacts to the new
+  # ticket (pushing it to an external source, for one) already sees the conversation.
   def create
-    @ticket = Current.account.tickets.create!(ticket_params.merge(params.require(:ticket).permit(:stage_id)))
+    Ticket.transaction do
+      @ticket = Current.account.tickets.create!(ticket_params.merge(params.require(:ticket).permit(:stage_id)))
+      link_conversation if params[:conversation_id].present?
+    end
   end
 
   def update
@@ -47,6 +52,12 @@ class Api::V1::Accounts::TicketsController < Api::V1::Accounts::BaseController
 
   def fetch_ticket
     @ticket = Current.account.tickets.find(params[:id])
+  end
+
+  def link_conversation
+    conversation = Current.account.conversations.find_by!(display_id: params[:conversation_id])
+    authorize conversation, :show?
+    @ticket.ticket_conversations.create!(conversation: conversation)
   end
 
   def ticket_preloads

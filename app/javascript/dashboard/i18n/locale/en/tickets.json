@@ -142,7 +142,10 @@
       "CONTACT": "Other tickets of this customer",
       "LOAD_ERROR": "Could not load tickets",
       "LINK_ERROR": "Could not link the ticket",
-      "UNLINK_ERROR": "Could not unlink the ticket"
+      "UNLINK_ERROR": "Could not unlink the ticket",
+      "DEFAULT_TITLE": "{name} - conversation #{id}",
+      "DEFAULT_DESCRIPTION": "[Conversation #{id}]({url})",
+      "CRM": "Sent to the CRM"
     },
     "CONTACT": {
       "EMPTY": "This customer has no tickets yet"

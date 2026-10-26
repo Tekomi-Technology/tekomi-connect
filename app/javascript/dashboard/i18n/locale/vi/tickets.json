@@ -142,7 +142,10 @@
       "CONTACT": "Ticket khác của khách này",
       "LOAD_ERROR": "Không tải được danh sách ticket",
       "LINK_ERROR": "Không gắn được ticket",
-      "UNLINK_ERROR": "Không gỡ được ticket"
+      "UNLINK_ERROR": "Không gỡ được ticket",
+      "DEFAULT_TITLE": "{name} - hội thoại #{id}",
+      "DEFAULT_DESCRIPTION": "[Hội thoại #{id}]({url})",
+      "CRM": "Đã gửi sang CRM"
     },
     "CONTACT": {
       "EMPTY": "Khách này chưa có ticket nào"
