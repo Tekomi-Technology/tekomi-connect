@@ -34,7 +34,6 @@ const isTekomiMessage = computed(
 
 const metaColorClass = computed(() => {
   if (variant.value === MESSAGE_VARIANTS.PRIVATE) return 'text-n-amber-12/50';
-  if (variant.value === MESSAGE_VARIANTS.AGENT) return 'text-white/70';
   return 'text-n-slate-11';
 });
 
@@ -44,16 +43,15 @@ const emailMetaClass = computed(() =>
 
 const varaintBaseMap = {
   [MESSAGE_VARIANTS.AGENT]:
-    'bg-n-brand text-white shadow-[0_1px_2px_rgba(0,120,155,0.3)] [&_.prose]:text-white [&_.prose_*]:!text-white [&_a]:underline',
+    'bg-n-brand/10 border border-n-brand/15 text-n-slate-12 dark:bg-n-brand/20 dark:border-transparent [&_a]:underline',
   [MESSAGE_VARIANTS.PRIVATE]:
     'bg-n-solid-amber border border-n-amber-6 text-n-amber-12 shadow-sm [&_.prosemirror-mention-node]:font-semibold',
-  [MESSAGE_VARIANTS.USER]:
-    'bg-white border border-n-weak text-n-slate-12 shadow-[0_1px_2px_rgba(16,24,40,0.06)] dark:bg-n-slate-4 dark:border-transparent',
+  [MESSAGE_VARIANTS.USER]: 'bg-n-slate-3 text-n-slate-12 dark:bg-n-slate-4',
   [MESSAGE_VARIANTS.ACTIVITY]: 'bg-n-alpha-1 text-n-slate-11 text-sm',
   [MESSAGE_VARIANTS.BOT]:
-    'bg-white border border-n-weak text-n-slate-12 shadow-[0_1px_2px_rgba(16,24,40,0.06)]',
+    'bg-n-brand/10 border border-n-brand/15 text-n-slate-12 dark:bg-n-brand/20 dark:border-transparent',
   [MESSAGE_VARIANTS.TEMPLATE]:
-    'bg-white border border-n-weak text-n-slate-12 shadow-[0_1px_2px_rgba(16,24,40,0.06)]',
+    'bg-white border border-n-weak text-n-slate-12 shadow-[0_1px_2px_rgba(16,24,40,0.06)] dark:bg-n-solid-3',
   [MESSAGE_VARIANTS.ERROR]: 'bg-n-ruby-4 text-n-ruby-12',
   [MESSAGE_VARIANTS.EMAIL]: 'w-full',
   [MESSAGE_VARIANTS.UNSUPPORTED]:

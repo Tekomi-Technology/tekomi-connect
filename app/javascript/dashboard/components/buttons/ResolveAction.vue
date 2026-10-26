@@ -177,15 +177,14 @@ useEmitter(CMD_RESOLVE_CONVERSATION, onCmdResolveConversation);
 
 <template>
   <div class="flex relative justify-end items-center resolve-actions">
-    <ButtonGroup
-      class="flex-shrink-0 rounded-lg shadow outline-1 outline"
-      :class="!showOpenButton ? 'outline-n-container' : 'outline-transparent'"
-    >
+    <ButtonGroup class="flex-shrink-0 rounded-lg">
       <Button
         v-if="isOpen"
         :label="t('CONVERSATION.HEADER.RESOLVE_ACTION')"
+        icon="i-lucide-check-check"
         size="sm"
-        color="slate"
+        color="teal"
+        variant="faded"
         no-animation
         class="ltr:rounded-r-none rtl:rounded-l-none !outline-0"
         :is-loading="isLoading"
@@ -217,8 +216,9 @@ useEmitter(CMD_RESOLVE_CONVERSATION, onCmdResolveConversation);
         :disabled="isLoading"
         size="sm"
         no-animation
-        class="ltr:rounded-l-none rtl:rounded-r-none !outline-0"
-        color="slate"
+        class="ltr:rounded-l-none rtl:rounded-r-none !outline-0 ltr:border-l rtl:border-r border-n-teal-9/20"
+        :color="isOpen ? 'teal' : 'slate'"
+        :variant="isOpen ? 'faded' : 'solid'"
         trailing-icon
         @click="openDropdown"
       />

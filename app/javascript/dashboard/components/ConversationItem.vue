@@ -1,6 +1,8 @@
 <script setup>
 import { computed, ref, watch, inject } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+import { useAlert } from 'dashboard/composables';
 import { useStore, useMapGetter } from 'dashboard/composables/store';
 import { frontendURL, conversationUrl } from 'dashboard/helper/URLHelper';
 import ConversationCard from './widgets/conversation/ConversationCard.vue';
@@ -18,8 +20,12 @@ const props = defineProps({
   showExpanded: { type: Boolean, default: false },
 });
 
+const { t } = useI18n();
+const route = useRoute();
 const router = useRouter();
 const store = useStore();
+
+const LIST_QUERY_KEYS = ['filter', 'inbox_id', 'label'];
 
 const selectConversation = inject('selectConversation');
 const deSelectConversation = inject('deSelectConversation');
@@ -108,7 +114,13 @@ const onCardClick = e => {
   }
 
   if (isActiveChat.value) return;
-  router.push({ path });
+  const query = Object.fromEntries(
+    LIST_QUERY_KEYS.filter(key => route.query[key]).map(key => [
+      key,
+      route.query[key],
+    ])
+  );
+  router.push({ path, query });
 };
 
 const onExpandedSelect = checked => {
@@ -165,6 +177,18 @@ const onMarkAsUnread = () => {
 const onMarkAsRead = () => {
   markAsRead(props.source.id);
   closeContextMenu();
+};
+
+const onTogglePin = async () => {
+  closeContextMenu();
+  try {
+    await store.dispatch('toggleConversationPin', {
+      conversationId: props.source.id,
+      pinned: !props.source.pinned,
+    });
+  } catch (error) {
+    useAlert(t('CONVERSATION.PIN_ERROR'));
+  }
 };
 
 const onAssignPriority = priority => {
@@ -227,6 +251,7 @@ const onDeleteConversation = () => {
       :priority="source.priority"
       :chat-id="source.id"
       :has-unread-messages="source.unread_count > 0"
+      :pinned="!!source.pinned"
       :conversation-labels="source.labels"
       :conversation-url="conversationPath"
       @update-conversation="onUpdateConversation"
@@ -236,6 +261,7 @@ const onDeleteConversation = () => {
       @assign-team="onAssignTeam"
       @mark-as-unread="onMarkAsUnread"
       @mark-as-read="onMarkAsRead"
+      @toggle-pin="onTogglePin"
       @assign-priority="onAssignPriority"
       @delete-conversation="onDeleteConversation"
       @close="closeContextMenu"

@@ -8,6 +8,9 @@ import ConversationBasicFilter from './widgets/conversation/ConversationBasicFil
 import SwitchLayout from 'dashboard/routes/dashboard/conversation/search/SwitchLayout.vue';
 import ConversationListToggle from 'dashboard/components-next/Conversation/ConversationListToggle.vue';
 import NextButton from 'dashboard/components-next/button/Button.vue';
+import ComposeConversation from 'dashboard/components-next/NewConversation/ComposeConversation.vue';
+import ConversationFilterMenu from 'dashboard/components-next/Conversation/ConversationFilterMenu.vue';
+import { useConversationFilterCountsStore } from 'dashboard/stores/conversationFilterCounts';
 
 const props = defineProps({
   pageTitle: { type: String, required: true },
@@ -18,6 +21,7 @@ const props = defineProps({
   conversationStats: { type: Object, required: true },
   isListLoading: { type: Boolean, required: true },
   hideFilters: { type: Boolean, default: false },
+  isMineView: { type: Boolean, default: false },
 });
 
 const emit = defineEmits([
@@ -29,6 +33,9 @@ const emit = defineEmits([
 ]);
 
 const { uiSettings, updateUISettings } = useUISettings();
+const filterCountsStore = useConversationFilterCountsStore();
+
+const unreadCount = computed(() => filterCountsStore.filters.unread || 0);
 
 const hasAppliedFiltersOrActiveFolders = computed(() => {
   return props.hasAppliedFilters || props.hasActiveFolders;
@@ -87,9 +94,24 @@ const toggleConversationLayout = () => {
         ghost
         @click="emit('resetFilters')"
       />
-      <h1 class="text-base font-medium truncate text-n-slate-12" :title="title">
+      <h1
+        v-if="showFilterScope"
+        class="text-base font-medium truncate text-n-slate-12"
+        :title="title"
+      >
         {{ title }}
       </h1>
+      <ConversationFilterMenu
+        v-else
+        :title="title"
+        :is-mine-view="isMineView"
+      />
+      <span
+        v-if="unreadCount && !showFilterScope"
+        class="px-2 py-0.5 mx-1 rounded-full text-xxs font-semibold bg-n-brand/10 text-n-brand shrink-0 whitespace-nowrap"
+      >
+        {{ $t('CHAT_LIST.FILTER_MENU.UNREAD_COUNT', { count: unreadCount }) }}
+      </span>
       <span
         v-if="
           allCount > 0 && hasAppliedFiltersOrActiveFolders && !isListLoading
@@ -101,6 +123,19 @@ const toggleConversationLayout = () => {
       </span>
     </div>
     <div class="flex items-center gap-1">
+      <ComposeConversation align="start">
+        <template #trigger="{ isOpen }">
+          <NextButton
+            v-tooltip.top-end="$t('NEW_CONVERSATION.TITLE')"
+            :aria-label="$t('NEW_CONVERSATION.TITLE')"
+            icon="i-lucide-square-pen"
+            slate
+            xs
+            faded
+            :class="{ 'bg-n-alpha-2': isOpen }"
+          />
+        </template>
+      </ComposeConversation>
       <template v-if="hasAppliedFilters && !hasActiveFolders">
         <div class="relative">
           <NextButton

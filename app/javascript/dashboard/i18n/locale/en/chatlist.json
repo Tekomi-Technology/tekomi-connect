@@ -32,6 +32,29 @@
       "in_progress": "In progress",
       "resolved": "Resolved"
     },
+    "FILTER_MENU": {
+      "TRIGGER": "Choose filter, channel or label",
+      "SEARCH": "Search channels, folders, teams, labels",
+      "FILTERS": "Filters",
+      "CHANNELS": "Channels",
+      "ALL_CHANNELS": "All channels",
+      "FOLDERS": "Folders",
+      "TEAMS": "Teams",
+      "LABELS": "Labels",
+      "UNREAD_COUNT": "{count} unread",
+      "QUICK": {
+        "ALL": "All",
+        "UNREAD": "Unread",
+        "UNANSWERED": "Unanswered",
+        "UNASSIGNED": "Unassigned",
+        "AI": "AI agent",
+        "PINNED": "Pinned",
+        "DIRECT": "Direct messages",
+        "GROUP": "Group chats",
+        "MENTION": "Mentions",
+        "PARTICIPATING": "Participating"
+      }
+    },
     "CHAT_STATUS_FILTER_ITEMS": {
       "open": {
         "TEXT": "Open"

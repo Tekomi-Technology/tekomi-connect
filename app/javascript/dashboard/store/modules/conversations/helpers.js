@@ -35,8 +35,35 @@ export const filterByUnattended = (
     : shouldFilter;
 };
 
+export const QUICK_FILTER_MATCHERS = {
+  unread: conversation => conversation.unread_count > 0,
+  unanswered: conversation =>
+    !conversation.first_reply_created_at || !!conversation.waiting_since,
+  unassigned: conversation =>
+    !conversation.meta?.assignee ||
+    conversation.meta?.assignee_type === 'AgentBot',
+  ai: conversation => conversation.status === 'pending',
+  pinned: conversation => !!conversation.pinned,
+  direct: conversation => !conversation.group_thread,
+  group: conversation => !!conversation.group_thread,
+};
+
+export const QUICK_FILTERS = Object.keys(QUICK_FILTER_MATCHERS);
+
+export const filterByQuickFilter = (shouldFilter, filter, conversation) => {
+  const matcher = QUICK_FILTER_MATCHERS[filter];
+  return matcher ? matcher(conversation) && shouldFilter : shouldFilter;
+};
+
 export const applyPageFilters = (conversation, filters) => {
-  const { inboxId, status, labels = [], teamId, conversationType } = filters;
+  const {
+    inboxId,
+    status,
+    labels = [],
+    teamId,
+    conversationType,
+    filter,
+  } = filters;
   const {
     status: chatStatus,
     inbox_id: chatInboxId,
@@ -58,6 +85,7 @@ export const applyPageFilters = (conversation, filters) => {
     firstReplyOn,
     waitingSince
   );
+  shouldFilter = filterByQuickFilter(shouldFilter, filter, conversation);
 
   return shouldFilter;
 };

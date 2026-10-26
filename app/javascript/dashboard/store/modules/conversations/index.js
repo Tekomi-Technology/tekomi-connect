@@ -138,6 +138,11 @@ export const mutations = {
     chat.priority = priority;
   },
 
+  [types.SET_CONVERSATION_PINNED](_state, { conversationId, pinned }) {
+    const chat = _state.allConversations.find(c => c.id === conversationId);
+    if (chat) chat.pinned = pinned;
+  },
+
   [types.UPDATE_CONVERSATION_CUSTOM_ATTRIBUTES](
     _state,
     { conversationId, customAttributes }

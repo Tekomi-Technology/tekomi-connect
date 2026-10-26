@@ -22,6 +22,11 @@ defineProps({
       size="14"
       class="flex-shrink-0"
     />
+    <Icon
+      v-else-if="variant === 'icon' && option.iconClass"
+      :icon="option.iconClass"
+      class="size-3.5 flex-shrink-0"
+    />
     <span
       v-if="
         (variant === 'label' || variant === 'label-assigned') && option.color

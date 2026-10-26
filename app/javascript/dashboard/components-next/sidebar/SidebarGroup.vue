@@ -298,7 +298,6 @@ watch(
     <template v-else>
       <SidebarGroupHeader
         :icon
-        :icon-color="iconColor"
         :name
         :label
         :to

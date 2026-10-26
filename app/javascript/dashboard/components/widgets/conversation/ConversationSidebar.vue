@@ -35,7 +35,7 @@ const { activePanel } = useConversationSidePanel();
 const { width: windowWidth } = useWindowSize();
 
 const isSmallScreen = computed(
-  () => windowWidth.value < wootConstants.SMALL_SCREEN_BREAKPOINT
+  () => windowWidth.value < wootConstants.SIDE_PANEL_OVERLAY_BREAKPOINT
 );
 
 const currentAccountId = useMapGetter('getCurrentAccountId');
@@ -141,7 +141,7 @@ const closeOnSmallScreen = () => {
         slate
         xs
         faded
-        class="self-center flex-shrink-0 hidden mb-1 !rounded-full md:inline-flex rtl:rotate-180"
+        class="self-center flex-shrink-0 hidden mb-1 !rounded-full xl:inline-flex rtl:rotate-180"
         @click="closePanel"
       />
       <Button
@@ -150,7 +150,7 @@ const closeOnSmallScreen = () => {
         slate
         ghost
         xs
-        class="self-center md:hidden"
+        class="self-center xl:hidden"
         @click="closePanel"
       />
     </div>

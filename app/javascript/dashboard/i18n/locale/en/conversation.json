@@ -1,5 +1,6 @@
 {
   "CONVERSATION": {
+    "PIN_ERROR": "Could not update the pin, please try again",
     "REFERRAL": {
       "AD_LABEL": "Ad",
       "POST_LABEL": "Post",
@@ -208,6 +209,27 @@
       "VOICE_CALL_FAILED": "Could not start the call.",
       "WHATSAPP_CALL_PERMISSION_REQUESTED": "Sent a call permission request to the contact. Try again once they accept.",
       "WHATSAPP_CALL_PERMISSION_PENDING": "Call permission request already sent recently. Try again once the contact accepts.",
+      "SELF_ASSIGN": "Take",
+      "TICKETS": "Support tickets",
+      "ASSIGN": {
+        "TRIGGER": "Assign",
+        "SEARCH": "Search",
+        "EMPTY": "Nothing to show",
+        "TEKOMI_AI": "Tekomi AI",
+        "TEKOMI_AI_HINT": "Let the AI assistant reply to this conversation",
+        "TABS": {
+          "AGENTS": "Agents",
+          "TEAMS": "Teams",
+          "AI": "Tekomi AI"
+        }
+      },
+      "STATUS_PILL": {
+        "UNASSIGNED": "Unassigned",
+        "MINE": "You're handling this",
+        "ASSIGNED": "{name} is handling this",
+        "AI": "Tekomi AI is handling this",
+        "RESOLVED": "Resolved"
+      },
       "SLA_STATUS": {
         "FRT": "FRT {status}",
         "NRT": "NRT {status}",
@@ -290,6 +312,8 @@
       "RESOLVED": "Mark as resolved",
       "MARK_AS_UNREAD": "Mark as unread",
       "MARK_AS_READ": "Mark as read",
+      "PIN": "Pin conversation",
+      "UNPIN": "Unpin conversation",
       "REOPEN": "Reopen conversation",
       "SNOOZE": {
         "TITLE": "Snooze",
@@ -344,6 +368,8 @@
       "REPLY": "Reply",
       "PRIVATE_NOTE": "Private Note",
       "SEND": "Send",
+      "SEND_TO_CUSTOMER": "Send to customer",
+      "AI_SUGGEST": "AI suggest",
       "CREATE": "Add Note",
       "INSERT_READ_MORE": "Read more",
       "DISMISS_REPLY": "Dismiss reply",
@@ -391,6 +417,16 @@
     },
     "VISIBLE_TO_AGENTS": "Private Note: Only visible to you and your team",
     "CHANGE_STATUS": "Conversation status changed",
+    "SENDER_FILTER": {
+      "ALL": "All",
+      "CUSTOMER": "Customer",
+      "AI": "AI",
+      "AGENT": "Agents",
+      "AUTO": "Automated & other",
+      "LOAD_MORE": "Load older messages",
+      "EMPTY": "No messages of this kind yet",
+      "ERROR": "Couldn't load messages. Please try again."
+    },
     "CHANGE_STATUS_FAILED": "Conversation status change failed",
     "CHANGE_AGENT": "Conversation Assignee changed",
     "CHANGE_AGENT_FAILED": "Assignee change failed",

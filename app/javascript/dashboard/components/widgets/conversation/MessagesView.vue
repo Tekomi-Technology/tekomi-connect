@@ -18,6 +18,8 @@ import Spinner from 'dashboard/components-next/spinner/Spinner.vue';
 import OlderConversationBar from './OlderConversationBar.vue';
 import ResizableEditorWrapper from './ResizableEditorWrapper.vue';
 import ReferralBubble from 'dashboard/components-next/Conversation/ReferralBubble.vue';
+import MessageSenderFilter from 'dashboard/components-next/Conversation/MessageSenderFilter.vue';
+import FilteredMessageList from 'dashboard/components-next/Conversation/FilteredMessageList.vue';
 
 // stores and apis
 import { mapGetters } from 'vuex';
@@ -47,6 +49,8 @@ import { INBOX_TYPES } from 'dashboard/helper/inbox';
 export default {
   components: {
     MessageList,
+    MessageSenderFilter,
+    FilteredMessageList,
     ReplyBox,
     Banner,
     ZaloSessionBanner,
@@ -132,6 +136,7 @@ export default {
       isProgrammaticScroll: false,
       messageSentSinceOpened: false,
       labelSuggestions: [],
+      senderKind: 'all',
     };
   },
 
@@ -308,6 +313,7 @@ export default {
       this.fetchAllAttachmentsFromCurrentChat();
       this.fetchSuggestions();
       this.messageSentSinceOpened = false;
+      this.senderKind = 'all';
       this.resetReplyEditorHeight();
     },
     // The link is appended once the neighbours arrive, below an already scrolled list.
@@ -528,8 +534,19 @@ export default {
         class="mx-2 mt-2 overflow-hidden rounded-lg"
         :banner-message="$t('CONVERSATION.OLD_INSTAGRAM_INBOX_REPLY_BANNER')"
       />
+      <MessageSenderFilter v-model="senderKind" />
     </div>
+    <FilteredMessageList
+      v-if="senderKind !== 'all'"
+      :key="`${currentChat.id}-${senderKind}`"
+      :conversation-id="currentChat.id"
+      :sender-kind="senderKind"
+      :current-user-id="currentUserId"
+      :is-an-email-channel="isAnEmailChannel"
+      :inbox-supports-reply-to="inboxSupportsReplyTo"
+    />
     <MessageList
+      v-show="senderKind === 'all'"
       ref="conversationPanelRef"
       class="conversation-panel flex-shrink flex-grow basis-px flex flex-col overflow-y-auto relative h-full m-0"
       :class="isReadingHistory ? 'pb-16' : 'pb-4'"

@@ -7,14 +7,12 @@ import { vOnClickOutside } from '@vueuse/components';
 import { REPLY_EDITOR_MODES, CHAR_LENGTH_WARNING } from './constants';
 import { TEKOMI_EVENTS } from 'dashboard/helper/AnalyticsHelper/events';
 import NextButton from 'dashboard/components-next/button/Button.vue';
-import EditorModeToggle from './EditorModeToggle.vue';
 import CopilotMenuBar from './CopilotMenuBar.vue';
 
 export default {
   name: 'ReplyTopPanel',
   components: {
     NextButton,
-    EditorModeToggle,
     CopilotMenuBar,
   },
   directives: {
@@ -70,13 +68,6 @@ export default {
     const handleNoteClick = () => {
       setReplyMode(REPLY_EDITOR_MODES.NOTE);
     };
-    const handleModeToggle = () => {
-      const newMode =
-        props.mode === REPLY_EDITOR_MODES.REPLY
-          ? REPLY_EDITOR_MODES.NOTE
-          : REPLY_EDITOR_MODES.REPLY;
-      setReplyMode(newMode);
-    };
 
     const { tekomiTasksEnabled } = useTekomi();
     const showCopilotMenu = ref(false);
@@ -115,7 +106,6 @@ export default {
     useKeyboardEvents(keyboardEvents);
 
     return {
-      handleModeToggle,
       handleReplyClick,
       handleNoteClick,
       REPLY_EDITOR_MODES,
@@ -128,15 +118,28 @@ export default {
     };
   },
   computed: {
-    replyButtonClass() {
-      return {
-        'is-active': this.mode === REPLY_EDITOR_MODES.REPLY,
-      };
+    isNoteMode() {
+      return this.isReplyRestricted || this.mode === REPLY_EDITOR_MODES.NOTE;
     },
-    noteButtonClass() {
-      return {
-        'is-active': this.mode === REPLY_EDITOR_MODES.NOTE,
-      };
+    modeTabs() {
+      return [
+        {
+          key: 'reply',
+          label: this.$t('CONVERSATION.REPLYBOX.REPLY'),
+          isActive: !this.isNoteMode,
+          disabled: this.disabled || this.isReplyRestricted,
+          activeClass: 'text-n-brand border-n-brand',
+          onClick: this.handleReplyClick,
+        },
+        {
+          key: 'note',
+          label: this.$t('CONVERSATION.REPLYBOX.PRIVATE_NOTE'),
+          isActive: this.isNoteMode,
+          disabled: this.disabled,
+          activeClass: 'text-n-amber-11 border-n-amber-9',
+          onClick: this.handleNoteClick,
+        },
+      ];
     },
     charLengthClass() {
       return this.charactersRemaining < 0 ? 'text-n-ruby-9' : 'text-n-slate-11';
@@ -154,12 +157,23 @@ export default {
   <div
     class="flex justify-between gap-2 h-[3.25rem] items-center ltr:pl-3 ltr:pr-2 rtl:pr-3 rtl:pl-2"
   >
-    <EditorModeToggle
-      :mode="mode"
-      :disabled="disabled"
-      :is-reply-restricted="isReplyRestricted"
-      @toggle-mode="handleModeToggle"
-    />
+    <div class="flex items-end self-stretch gap-4">
+      <button
+        v-for="tab in modeTabs"
+        :key="tab.key"
+        type="button"
+        class="h-full px-0.5 text-sm border-b-2 -mb-px transition-colors disabled:cursor-not-allowed disabled:opacity-60"
+        :class="
+          tab.isActive
+            ? `font-semibold ${tab.activeClass}`
+            : 'font-medium text-n-slate-11 border-transparent hover:enabled:text-n-slate-12'
+        "
+        :disabled="tab.disabled"
+        @click="tab.onClick"
+      >
+        {{ tab.label }}
+      </button>
+    </div>
     <div class="flex items-center mx-4 my-0">
       <div v-if="isMessageLengthReachingThreshold" class="text-xs">
         <span :class="charLengthClass">
@@ -179,6 +193,7 @@ export default {
           }"
           sm
           icon="i-woot-tekomi"
+          :label="$t('CONVERSATION.REPLYBOX.AI_SUGGEST')"
           @click="toggleCopilotMenu"
         />
         <CopilotMenuBar
