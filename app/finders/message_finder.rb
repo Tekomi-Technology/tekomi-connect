@@ -1,6 +1,5 @@
 class MessageFinder
   MESSAGE_ID_MAX = 2_147_483_647
-  AI_SENDER_TYPES = %w[AgentBot Tekomi::Assistant].freeze
 
   def initialize(conversation, params)
     @conversation = conversation
@@ -18,24 +17,9 @@ class MessageFinder
   end
 
   def messages
-    scope = conversation_messages
-    scope = scope.where.not('private = ? OR message_type = ?', true, 2) if @params[:filter_internal_messages].present?
-    filter_by_sender_kind(scope)
-  end
+    return conversation_messages if @params[:filter_internal_messages].blank?
 
-  def filter_by_sender_kind(scope)
-    case @params[:sender_kind]
-    when 'customer'
-      scope.incoming
-    when 'ai'
-      scope.where(message_type: %i[outgoing template], sender_type: AI_SENDER_TYPES)
-    when 'agent'
-      scope.where(private: true).or(scope.where(message_type: :outgoing, sender_type: ['User', nil]))
-    when 'auto'
-      scope.activity.or(scope.where(message_type: :template, sender_type: nil))
-    else
-      scope
-    end
+    conversation_messages.where.not('private = ? OR message_type = ?', true, 2)
   end
 
   def current_messages

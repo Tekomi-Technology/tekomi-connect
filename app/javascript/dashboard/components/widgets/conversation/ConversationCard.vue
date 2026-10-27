@@ -162,9 +162,9 @@ watch(
             {{ currentContact.name }}
           </h4>
           <span
-            v-if="chat.pinned"
-            class="i-lucide-pin size-3 shrink-0 text-n-slate-10"
-            :title="t('CONVERSATION.CARD_CONTEXT_MENU.PIN')"
+            v-if="hasUnread"
+            class="rounded-full bg-n-brand size-2 shrink-0"
+            :title="String(unreadCount)"
           />
         </div>
         <div class="flex items-center gap-1.5 shrink-0">
@@ -174,12 +174,7 @@ watch(
           >
             {{ inbox.name }}
           </span>
-          <span
-            class="text-xs"
-            :class="
-              hasUnread ? 'font-semibold text-n-brand' : 'text-n-slate-11'
-            "
-          >
+          <span class="text-xs font-normal text-n-slate-11">
             <TimeAgo
               :last-activity-timestamp="chat.timestamp"
               :created-at-timestamp="chat.created_at"
@@ -192,12 +187,6 @@ watch(
             use-brand-icon
             class="size-4 shrink-0"
           />
-          <span
-            v-if="hasUnread"
-            class="inline-grid h-5 min-w-5 place-items-center rounded-full bg-n-brand px-1 text-xxs font-semibold text-white"
-          >
-            {{ unreadCount > 99 ? '99+' : unreadCount }}
-          </span>
         </div>
       </div>
       <VoiceCallStatus

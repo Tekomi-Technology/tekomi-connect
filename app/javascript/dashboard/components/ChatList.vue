@@ -46,12 +46,7 @@ import {
   filterItemsByPermission,
 } from 'dashboard/helper/permissionsHelper.js';
 import { matchesFilters } from '../store/modules/conversations/helpers/filterHelpers';
-import {
-  isVipAwaitingReply,
-  QUICK_FILTERS,
-} from '../store/modules/conversations/helpers';
-import { useConversationFilterCountsStore } from 'dashboard/stores/conversationFilterCounts';
-import { debounce } from '@chatwoot/utils';
+import { isVipAwaitingReply } from '../store/modules/conversations/helpers';
 import { CONVERSATION_EVENTS } from '../helper/AnalyticsHelper/events';
 import { DISPLAY_MODE_PERMISSIONS } from 'dashboard/constants/permissions.js';
 import { FEATURE_FLAGS } from 'dashboard/featureFlags';
@@ -75,13 +70,6 @@ const route = useRoute();
 const store = useStore();
 const { buildConversationPath, buildConversationListPath } =
   useConversationRoutePath();
-const filterCountsStore = useConversationFilterCountsStore();
-
-const quickFilter = computed(() =>
-  QUICK_FILTERS.includes(route.query.filter) ? route.query.filter : undefined
-);
-const queryInboxId = computed(() => route.query.inbox_id);
-const queryLabel = computed(() => route.query.label);
 
 const resolveAttributesModalRef = ref(null);
 
@@ -333,18 +321,16 @@ const conversationListPagination = computed(() => {
 });
 
 const conversationFilters = computed(() => {
-  const label = props.label || queryLabel.value;
   return {
-    inboxId: props.conversationInbox || queryInboxId.value || undefined,
+    inboxId: props.conversationInbox ? props.conversationInbox : undefined,
     assigneeType: effectiveAssigneeType.value,
     stage: isDefaultMode.value ? activeStageTab.value : undefined,
     status: listStatus.value,
     sortBy: activeSortBy.value,
     page: conversationListPagination.value,
-    labels: label ? [label] : undefined,
+    labels: props.label ? [props.label] : undefined,
     teamId: props.teamId || undefined,
     conversationType: props.conversationType || undefined,
-    filter: quickFilter.value,
   };
 });
 
@@ -358,12 +344,6 @@ const activeTeam = computed(() => {
 const pageTitle = computed(() => {
   if (hasAppliedFilters.value) {
     return t('CHAT_LIST.TAB_HEADING');
-  }
-  if (quickFilter.value) {
-    return t(`CHAT_LIST.FILTER_MENU.QUICK.${quickFilter.value.toUpperCase()}`);
-  }
-  if (queryLabel.value) {
-    return `#${queryLabel.value}`;
   }
   if (inbox.value.name) {
     return inbox.value.name;
@@ -722,21 +702,7 @@ function fetchConversations() {
   store.dispatch('fetchAllConversations').then(emitConversationLoaded);
 }
 
-const refreshFilterCounts = debounce(
-  () =>
-    filterCountsStore.fetch({
-      inboxId: conversationFilters.value.inboxId,
-      conversationType: isMineView.value
-        ? wootConstants.CONVERSATION_TYPE.MINE
-        : undefined,
-    }),
-  1000,
-  false,
-  5000
-);
-
 function resetAndFetchData() {
-  refreshFilterCounts();
   appliedFilter.value = [];
   resetBulkActions();
   store.dispatch('conversationPage/reset');
@@ -960,7 +926,6 @@ function toggleSelectAll(check) {
 }
 
 useEmitter('fetch_conversation_stats', () => {
-  refreshFilterCounts();
   if (hasAppliedFiltersOrActiveFolders.value) return;
   store.dispatch('conversationStats/get', conversationFilters.value);
 });
@@ -1020,7 +985,6 @@ watch(
   computed(() => props.label),
   () => resetAndFetchData()
 );
-watch([quickFilter, queryInboxId, queryLabel], () => resetAndFetchData());
 watch(
   computed(() => props.conversationType),
   () => {
@@ -1068,7 +1032,6 @@ watch(appliedFilters, () => resetBulkActions());
       :conversation-stats="conversationStats"
       :is-list-loading="chatListLoading && !conversationList.length"
       :hide-filters="isMineView"
-      :is-mine-view="isMineView"
       @add-folders="onClickOpenAddFoldersModal"
       @delete-folders="onClickOpenDeleteFoldersModal"
       @filters-modal="onToggleAdvanceFiltersModal"

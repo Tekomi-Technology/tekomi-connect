@@ -7,6 +7,7 @@ const props = defineProps({
   to: { type: [Object, String], default: '' },
   label: { type: String, default: '' },
   icon: { type: [String, Object], default: '' },
+  iconColor: { type: String, default: '' },
   expandable: { type: Boolean, default: false },
   isExpanded: { type: Boolean, default: false },
   isActive: { type: Boolean, default: false },
@@ -26,29 +27,28 @@ const count = computed(() =>
 <template>
   <component
     :is="to ? 'router-link' : 'div'"
-    class="relative flex items-center gap-3 px-3 py-1 rounded-xl h-10 min-w-0 transition-colors"
+    class="relative flex items-center gap-2 px-2 py-1 rounded-lg h-9 min-w-0"
     role="button"
     draggable="false"
     :to="to"
     :title="label"
     :class="{
-      'text-white bg-n-brand font-semibold shadow-sm':
-        isActive && !hasActiveChild,
+      'text-n-slate-12 bg-n-alpha-2 font-medium': isActive && !hasActiveChild,
       'text-n-slate-12 font-medium': hasActiveChild,
-      'text-n-slate-11 hover:bg-n-alpha-2 hover:text-n-slate-12':
-        !isActive && !hasActiveChild,
+      'text-n-slate-11 hover:bg-n-alpha-2': !isActive && !hasActiveChild,
     }"
     @click.stop="emit('toggle')"
   >
+    <span
+      v-if="isActive && !hasActiveChild"
+      class="absolute inset-y-2 start-0 w-[3px] rounded-full bg-n-brand"
+    />
     <div v-if="icon" class="relative flex items-center gap-2">
       <Icon
         v-if="icon"
         :icon="icon"
         class="size-4"
-        :class="{
-          'text-white': isActive && !hasActiveChild,
-          'text-n-brand': hasActiveChild,
-        }"
+        :class="iconColor || ((isActive || hasActiveChild) && 'text-n-teal-10')"
       />
       <span
         v-if="showBadge"
@@ -69,12 +69,7 @@ const count = computed(() =>
       </span>
       <span
         v-if="dynamicCount && !expandable"
-        class="inline-grid h-5 min-w-5 place-items-center rounded-full px-1 text-xxs font-semibold leading-3 flex-shrink-0"
-        :class="
-          isActive && !hasActiveChild
-            ? 'bg-white text-n-brand'
-            : 'bg-n-alpha-2 text-n-slate-12'
-        "
+        class="inline-grid h-5 min-w-5 place-items-center rounded-full bg-n-slate-4 px-1 text-xxs font-medium leading-3 text-n-slate-12 dark:bg-n-slate-5 flex-shrink-0"
       >
         {{ count }}
       </span>

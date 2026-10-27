@@ -209,9 +209,7 @@ const closePanel = () => {
 };
 
 const closeOnSmallScreen = () => {
-  if (windowWidth.value < wootConstants.SIDE_PANEL_OVERLAY_BREAKPOINT) {
-    closePanel();
-  }
+  if (windowWidth.value < wootConstants.SMALL_SCREEN_BREAKPOINT) closePanel();
 };
 
 const onHeaderClick = key => {

@@ -50,10 +50,6 @@ export default {
       type: Boolean,
       default: false,
     },
-    pinned: {
-      type: Boolean,
-      default: false,
-    },
     inboxId: {
       type: Number,
       default: null,
@@ -80,7 +76,6 @@ export default {
     'assignPriority',
     'markAsUnread',
     'markAsRead',
-    'togglePin',
     'assignAgent',
     'assignTeam',
     'assignLabel',
@@ -189,17 +184,6 @@ export default {
     };
   },
   computed: {
-    pinOption() {
-      return this.pinned
-        ? {
-            label: this.$t('CONVERSATION.CARD_CONTEXT_MENU.UNPIN'),
-            iconClass: 'i-lucide-pin-off',
-          }
-        : {
-            label: this.$t('CONVERSATION.CARD_CONTEXT_MENU.PIN'),
-            iconClass: 'i-lucide-pin',
-          };
-    },
     ...mapGetters({
       labels: 'labels/getLabels',
       teams: 'teams/getTeams',
@@ -325,11 +309,6 @@ export default {
         :option="readOption"
         variant="icon"
         @click.stop="$emit('markAsRead')"
-      />
-      <MenuItem
-        :option="pinOption"
-        variant="icon"
-        @click.stop="$emit('togglePin')"
       />
       <hr class="m-1 rounded border-b border-n-weak dark:border-n-weak" />
     </template>

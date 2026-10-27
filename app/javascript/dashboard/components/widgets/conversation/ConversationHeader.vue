@@ -10,8 +10,6 @@ import Avatar from 'next/avatar/Avatar.vue';
 import VipBadge from 'dashboard/components-next/Contacts/VipBadge.vue';
 import SLACardLabel from './components/SLACardLabel.vue';
 import ConversationCallButton from './ConversationCallButton.vue';
-import ConversationAssignPopover from 'dashboard/components-next/Conversation/ConversationAssignPopover.vue';
-import Button from 'dashboard/components-next/button/Button.vue';
 import wootConstants from 'dashboard/constants/globals';
 import { conversationListPageURL } from 'dashboard/helper/URLHelper';
 import { getSenderDisplayName } from 'dashboard/helper/crmDisplayHelper';
@@ -41,7 +39,6 @@ const { isAWebWidgetInbox } = useInbox();
 
 const currentChat = computed(() => store.getters.getSelectedChat);
 const accountId = computed(() => store.getters.getCurrentAccountId);
-const currentUser = computed(() => store.getters.getCurrentUser);
 
 const chatMetadata = computed(() => props.chat.meta);
 
@@ -106,97 +103,6 @@ const hasSlaPolicyId = computed(
   () => props.chat?.applied_sla?.id && !currentContact.value?.blocked
 );
 
-const assignee = computed(() => props.chat.meta?.assignee);
-const isAssignedToMe = computed(
-  () =>
-    assignee.value?.id === currentUser.value.id &&
-    (props.chat.meta?.assignee_type || 'User') === 'User'
-);
-
-const isResolved = computed(
-  () => props.chat.status === wootConstants.STATUS_TYPE.RESOLVED
-);
-
-const statusPill = computed(() => {
-  if (isResolved.value) {
-    return {
-      label: t('CONVERSATION.HEADER.STATUS_PILL.RESOLVED'),
-      icon: 'i-lucide-check-check',
-      class: 'bg-n-teal-3 text-n-teal-11',
-    };
-  }
-  if (
-    props.chat.status === wootConstants.STATUS_TYPE.PENDING ||
-    props.chat.meta?.assignee_type === 'AgentBot'
-  ) {
-    return {
-      label: t('CONVERSATION.HEADER.STATUS_PILL.AI'),
-      icon: 'i-lucide-sparkles',
-      class: 'bg-n-violet-3 text-n-violet-11',
-    };
-  }
-  if (!assignee.value) {
-    return {
-      label: t('CONVERSATION.HEADER.STATUS_PILL.UNASSIGNED'),
-      icon: 'i-lucide-user-round-x',
-      class: 'bg-n-amber-3 text-n-amber-11',
-    };
-  }
-  if (isAssignedToMe.value) {
-    return {
-      label: t('CONVERSATION.HEADER.STATUS_PILL.MINE'),
-      icon: 'i-lucide-user-round-check',
-      class: 'bg-n-brand/10 text-n-brand',
-    };
-  }
-  return {
-    label: t('CONVERSATION.HEADER.STATUS_PILL.ASSIGNED', {
-      name: assignee.value.available_name || assignee.value.name,
-    }),
-    icon: 'i-lucide-user-round',
-    class: 'bg-n-slate-3 text-n-slate-11',
-  };
-});
-
-const showSelfAssign = computed(
-  () => !isAssignedToMe.value && !isResolved.value
-);
-
-const selfAssign = () => {
-  const {
-    account_id,
-    availability_status,
-    available_name,
-    email,
-    id,
-    name,
-    role,
-    avatar_url,
-  } = currentUser.value;
-  const me = {
-    account_id,
-    availability_status,
-    available_name,
-    email,
-    id,
-    name,
-    role,
-    thumbnail: avatar_url,
-  };
-  store.dispatch('setCurrentChatAssignee', {
-    conversationId: props.chat.id,
-    assignee: me,
-    assigneeType: 'User',
-  });
-  store
-    .dispatch('assignAgent', {
-      conversationId: props.chat.id,
-      agentId: id,
-      assigneeType: 'User',
-    })
-    .then(() => useAlert(t('CONVERSATION.CHANGE_AGENT')));
-};
-
 const copyConversationId = async () => {
   try {
     await copyTextToClipboard(String(props.chat.id));
@@ -235,13 +141,6 @@ const copyConversationId = async () => {
             {{ currentContactDisplayName }}
           </span>
           <VipBadge v-if="currentContact.vip" />
-          <span
-            class="inline-flex items-center gap-1 px-2 py-0.5 ms-1 rounded-full text-[11px] font-semibold whitespace-nowrap shrink-0"
-            :class="statusPill.class"
-          >
-            <span class="size-3" :class="statusPill.icon" />
-            {{ statusPill.label }}
-          </span>
           <fluent-icon
             v-if="!isHMACVerified"
             v-tooltip="$t('CONVERSATION.UNVERIFIED_SESSION')"
@@ -280,16 +179,8 @@ const copyConversationId = async () => {
         :parent-width="width"
         class="hidden md:flex"
       />
-      <Button
-        v-if="showSelfAssign"
-        :label="$t('CONVERSATION.HEADER.SELF_ASSIGN')"
-        icon="i-lucide-hand"
-        size="sm"
-        @click="selfAssign"
-      />
-      <ConversationAssignPopover :chat="chat" />
       <ConversationCallButton :inbox="inbox" :chat="currentChat" />
-      <MoreActions :list-url="backButtonUrl" />
+      <MoreActions :conversation-id="currentChat.id" />
     </div>
   </div>
 </template>

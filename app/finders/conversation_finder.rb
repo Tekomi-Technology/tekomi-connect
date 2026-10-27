@@ -1,6 +1,5 @@
 class ConversationFinder
   include ConversationFinder::Stages
-  include ConversationFinder::QuickFilters
 
   attr_reader :current_user, :current_account, :params
 
@@ -93,7 +92,6 @@ class ConversationFinder
     filter_by_labels
     filter_by_query
     filter_by_source_id
-    filter_by_quick_filter
   end
 
   def set_inboxes
@@ -232,8 +230,7 @@ class ConversationFinder
 
   def conversations_base_query
     @conversations.includes(
-      :taggings, :inbox, { assignee: { avatar_attachment: [:blob] } }, { contact: { avatar_attachment: [:blob] } }, :team, :contact_inbox,
-      :conversation_pins
+      :taggings, :inbox, { assignee: { avatar_attachment: [:blob] } }, { contact: { avatar_attachment: [:blob] } }, :team, :contact_inbox
     )
   end
 

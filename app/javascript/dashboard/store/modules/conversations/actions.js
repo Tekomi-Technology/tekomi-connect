@@ -581,16 +581,6 @@ const actions = {
     commit(types.ASSIGN_PRIORITY, { priority, conversationId });
   },
 
-  toggleConversationPin: async ({ commit }, { conversationId, pinned }) => {
-    const { data } = pinned
-      ? await ConversationApi.pin(conversationId)
-      : await ConversationApi.unpin(conversationId);
-    commit(types.SET_CONVERSATION_PINNED, {
-      conversationId,
-      pinned: data.pinned,
-    });
-  },
-
   setContextMenuChatId({ commit }, chatId) {
     commit(types.SET_CONTEXT_MENU_CHAT_ID, chatId);
   },

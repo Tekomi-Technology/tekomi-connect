@@ -41,7 +41,7 @@ const handleButtonClick = button => {
           slate
           xs
           faded
-          class="hidden ms-1 !rounded-full xl:inline-flex rtl:rotate-180"
+          class="hidden ms-1 !rounded-full md:inline-flex rtl:rotate-180"
           @click="$emit('close')"
         />
         <Button
@@ -49,7 +49,7 @@ const handleButtonClick = button => {
           icon="i-lucide-x"
           ghost
           sm
-          class="xl:hidden"
+          class="md:hidden"
           @click="$emit('close')"
         />
       </div>

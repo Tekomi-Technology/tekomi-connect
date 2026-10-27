@@ -38,7 +38,7 @@ const canSuggestReply = computed(
 );
 
 const isSmallScreen = computed(
-  () => windowWidth.value < wootConstants.SIDE_PANEL_OVERLAY_BREAKPOINT
+  () => windowWidth.value < wootConstants.SMALL_SCREEN_BREAKPOINT
 );
 
 const selectedCopilotThreadId = ref(null);

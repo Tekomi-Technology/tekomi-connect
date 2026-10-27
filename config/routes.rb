@@ -177,7 +177,6 @@ Rails.application.routes.draw do
               get :meta
               get :search
               get :unread_counts, to: 'conversations/unread_counts#index'
-              get :filter_counts
               post :filter
             end
             scope module: :conversations do
@@ -190,7 +189,6 @@ Rails.application.routes.draw do
               resources :assignments, only: [:create]
               resources :labels, only: [:create, :index]
               resource :participants, only: [:show, :create, :update, :destroy]
-              resource :pin, only: [:create, :destroy]
               resource :direct_uploads, only: [:create]
               resource :draft_messages, only: [:show, :update, :destroy]
               resources :deals, only: [:index]

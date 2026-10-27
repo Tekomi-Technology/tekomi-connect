@@ -351,7 +351,7 @@ export default {
       );
     },
     replyButtonLabel() {
-      let sendMessageText = this.$t('CONVERSATION.REPLYBOX.SEND_TO_CUSTOMER');
+      let sendMessageText = this.$t('CONVERSATION.REPLYBOX.SEND');
       if (this.isPrivate) {
         sendMessageText = this.$t('CONVERSATION.REPLYBOX.CREATE');
       }

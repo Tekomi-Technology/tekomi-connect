@@ -4,7 +4,7 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
   include HmacConcern
   include ConversationCustomAttributesConcern
 
-  before_action :conversation, except: [:index, :meta, :filter_counts, :search, :create, :filter]
+  before_action :conversation, except: [:index, :meta, :search, :create, :filter]
   before_action :inbox, :contact, :contact_inbox, only: [:create]
 
   ATTACHMENT_RESULTS_PER_PAGE = 100
@@ -18,10 +18,6 @@ class Api::V1::Accounts::ConversationsController < Api::V1::Accounts::BaseContro
   def meta
     result = conversation_finder.perform_meta_only
     @conversations_count = result[:count]
-  end
-
-  def filter_counts
-    render json: ConversationFinder.new(Current.user, params.merge(status: 'all')).perform_filter_counts
   end
 
   def search
