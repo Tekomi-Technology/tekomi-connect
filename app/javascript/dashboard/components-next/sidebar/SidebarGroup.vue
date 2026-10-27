@@ -1,6 +1,6 @@
 <script setup>
 import { computed, onMounted, onUnmounted, watch, nextTick, ref } from 'vue';
-import { useSidebarContext, usePopoverState } from './provider';
+import { useSidebarContext, usePopoverState, leafBindings } from './provider';
 import { useRoute, useRouter } from 'vue-router';
 import Policy from 'dashboard/components/policy.vue';
 import Icon from 'next/icon/Icon.vue';
@@ -17,6 +17,7 @@ const props = defineProps({
   iconColor: { type: String, default: '' },
   to: { type: Object, default: null },
   activeOn: { type: Array, default: () => [] },
+  matchRoute: { type: Function, default: null },
   children: { type: Array, default: undefined },
   getterKeys: { type: Object, default: () => ({}) },
 });
@@ -143,6 +144,7 @@ const isLastVisibleChild = child => {
 };
 
 const isActive = computed(() => {
+  if (props.matchRoute) return props.matchRoute(route);
   if (props.to) {
     if (route.path === resolvePath(props.to)) return true;
 
@@ -156,7 +158,15 @@ const isActive = computed(() => {
 // nested correctly, so we need to check the active state ourselves
 // TODO: Audit the routes and fix the nesting and remove this
 const activeChild = computed(() => {
-  const pathSame = navigableChildren.value.find(
+  const matchedChild = navigableChildren.value.find(child =>
+    child.matchRoute?.(route)
+  );
+  if (matchedChild) return matchedChild;
+
+  const routeChildren = navigableChildren.value.filter(
+    child => !child.matchRoute
+  );
+  const pathSame = routeChildren.find(
     child => child.to && route.path === resolvePath(child.to)
   );
   if (pathSame) return pathSame;
@@ -166,7 +176,7 @@ const activeChild = computed(() => {
   // So we need to rank them based on the params
   // For example, contacts segment list in the sidebar effectively has the same name
   // But the params are different
-  const activeOnPages = navigableChildren.value.filter(child =>
+  const activeOnPages = routeChildren.filter(child =>
     child.activeOn?.includes(route.name)
   );
 
@@ -187,7 +197,7 @@ const activeChild = computed(() => {
     return rankedPage ?? activeOnPages[0];
   }
 
-  return navigableChildren.value.find(child => {
+  return routeChildren.find(child => {
     if (!child.to) return false;
     const childPath = resolvePath(child.to);
     return route.path === childPath || route.path.startsWith(`${childPath}/`);
@@ -264,10 +274,12 @@ watch(
           ref="triggerRef"
           :to="to && !hasChildren ? to : undefined"
           type="button"
-          class="flex items-center justify-center size-10 rounded-lg"
+          class="flex items-center justify-center size-10 rounded-[10px] transition-colors duration-150"
           :class="{
-            'text-n-slate-12 bg-n-alpha-2': isActive || hasActiveChild,
-            'text-n-slate-11 hover:bg-n-alpha-2': !isActive && !hasActiveChild,
+            'text-white bg-gradient-to-r from-[#0e7490] to-[#0891b2] shadow-[0_8px_18px_-8px_rgba(6,182,212,0.65)]':
+              isActive || hasActiveChild,
+            'text-n-slate-12 hover:bg-white/[0.08] hover:text-white':
+              !isActive && !hasActiveChild,
           }"
           :title="label"
           @click="hasChildren ? handleCollapsedClick() : undefined"
@@ -276,9 +288,7 @@ watch(
             v-if="icon"
             :icon="icon"
             class="size-4"
-            :class="
-              iconColor || ((isActive || hasActiveChild) && 'text-n-teal-10')
-            "
+            :class="isActive || hasActiveChild ? 'text-white' : iconColor"
           />
         </component>
         <SidebarCollapsedPopover
@@ -333,7 +343,7 @@ watch(
           <SidebarGroupLeaf
             v-else-if="isAllowed(child.to)"
             v-show="isExpanded || activeChild?.name === child.name"
-            v-bind="child"
+            v-bind="leafBindings(child)"
             :icon-color="child.iconColor || iconColor"
             :active="activeChild?.name === child.name"
           />

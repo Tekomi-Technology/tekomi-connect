@@ -18,20 +18,20 @@ describe('#URL Helpers', () => {
         '/app/accounts/1/dashboard'
       );
     });
-    it('should return url to inbox', () => {
+    it('should return url to dashboard scoped to an inbox', () => {
       expect(conversationListPageURL({ accountId: 1, inboxId: 1 })).toBe(
-        '/app/accounts/1/inbox/1'
+        '/app/accounts/1/dashboard?inbox_id=1'
       );
     });
-    it('should return url to label', () => {
+    it('should return url to dashboard scoped to a label', () => {
       expect(conversationListPageURL({ accountId: 1, label: 'support' })).toBe(
-        '/app/accounts/1/label/support'
+        '/app/accounts/1/dashboard?label=support'
       );
     });
 
-    it('should return url to team', () => {
+    it('should return url to dashboard scoped to a team', () => {
       expect(conversationListPageURL({ accountId: 1, teamId: 1 })).toBe(
-        '/app/accounts/1/team/1'
+        '/app/accounts/1/dashboard?team_id=1'
       );
     });
 
@@ -41,13 +41,13 @@ describe('#URL Helpers', () => {
       );
     });
 
-    it('should return url to participating conversations', () => {
+    it('should return url to dashboard filtered to participating conversations', () => {
       expect(
         conversationListPageURL({
           accountId: 1,
           conversationType: 'participating',
         })
-      ).toBe('/app/accounts/1/participating/conversations');
+      ).toBe('/app/accounts/1/dashboard?filter=participating');
     });
   });
   describe('conversationUrl', () => {
@@ -56,19 +56,19 @@ describe('#URL Helpers', () => {
         'accounts/1/conversations/1'
       );
     });
-    it('should return inbox conversation URL if activeInbox is not nil', () => {
+    it('should keep the inbox scope in the query if activeInbox is not nil', () => {
       expect(conversationUrl({ accountId: 1, id: 1, activeInbox: 2 })).toBe(
-        'accounts/1/inbox/2/conversations/1'
+        'accounts/1/conversations/1?inbox_id=2'
       );
     });
     it('should return correct conversation URL if label is active', () => {
       expect(
         conversationUrl({ accountId: 1, label: 'customer-support', id: 1 })
-      ).toBe('accounts/1/label/customer-support/conversations/1');
+      ).toBe('accounts/1/conversations/1?label=customer-support');
     });
     it('should return correct conversation URL if team Id is available', () => {
       expect(conversationUrl({ accountId: 1, teamId: 1, id: 1 })).toBe(
-        'accounts/1/team/1/conversations/1'
+        'accounts/1/conversations/1?team_id=1'
       );
     });
   });

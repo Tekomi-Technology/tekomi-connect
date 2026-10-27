@@ -11,6 +11,7 @@ import { useI18n } from 'vue-i18n';
 import MessageFormatter from 'shared/helpers/MessageFormatter.js';
 import { BUS_EVENTS } from 'shared/constants/busEvents';
 import { MESSAGE_VARIANTS, ORIENTATION, SENDER_TYPES } from '../constants';
+import { SENDER_KINDS } from '../helpers/senderKind';
 
 const props = defineProps({
   hideMeta: { type: Boolean, default: false },
@@ -24,6 +25,7 @@ const {
   id,
   sender,
   senderType,
+  senderKind,
 } = useMessageContext();
 const { t } = useI18n();
 
@@ -34,7 +36,6 @@ const isTekomiMessage = computed(
 
 const metaColorClass = computed(() => {
   if (variant.value === MESSAGE_VARIANTS.PRIVATE) return 'text-n-amber-12/50';
-  if (variant.value === MESSAGE_VARIANTS.AGENT) return 'text-white/70';
   return 'text-n-slate-11';
 });
 
@@ -44,11 +45,10 @@ const emailMetaClass = computed(() =>
 
 const varaintBaseMap = {
   [MESSAGE_VARIANTS.AGENT]:
-    'bg-n-brand text-white shadow-[0_1px_2px_rgba(0,120,155,0.3)] [&_.prose]:text-white [&_.prose_*]:!text-white [&_a]:underline',
+    'bg-n-blue-3 text-n-blue-12 shadow-[0_1px_2px_rgba(15,23,42,0.06)] [&_a]:underline',
   [MESSAGE_VARIANTS.PRIVATE]:
     'bg-n-solid-amber border border-n-amber-6 text-n-amber-12 shadow-sm [&_.prosemirror-mention-node]:font-semibold',
-  [MESSAGE_VARIANTS.USER]:
-    'bg-white border border-n-weak text-n-slate-12 shadow-[0_1px_2px_rgba(16,24,40,0.06)] dark:bg-n-slate-4 dark:border-transparent',
+  [MESSAGE_VARIANTS.USER]: 'bg-n-slate-3 text-n-slate-12',
   [MESSAGE_VARIANTS.ACTIVITY]: 'bg-n-alpha-1 text-n-slate-11 text-sm',
   [MESSAGE_VARIANTS.BOT]:
     'bg-white border border-n-weak text-n-slate-12 shadow-[0_1px_2px_rgba(16,24,40,0.06)]',
@@ -79,7 +79,12 @@ const flexOrientationClass = computed(() => {
 });
 
 const messageClass = computed(() => {
-  const classToApply = [varaintBaseMap[variant.value]];
+  const isAiReply =
+    variant.value === MESSAGE_VARIANTS.BOT &&
+    senderKind.value === SENDER_KINDS.AI;
+  const classToApply = [
+    varaintBaseMap[isAiReply ? MESSAGE_VARIANTS.AGENT : variant.value],
+  ];
 
   if (variant.value !== MESSAGE_VARIANTS.ACTIVITY) {
     classToApply.push(orientationMap[orientation.value]);

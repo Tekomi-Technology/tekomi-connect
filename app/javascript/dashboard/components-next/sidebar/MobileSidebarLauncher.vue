@@ -3,6 +3,10 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import Button from 'dashboard/components-next/button/Button.vue';
 import ButtonGroup from 'dashboard/components-next/buttonGroup/ButtonGroup.vue';
+import {
+  isAConversationRoute,
+  isAInboxViewRoute,
+} from 'dashboard/helper/routeHelpers';
 
 defineProps({
   isMobileSidebarOpen: {
@@ -15,21 +19,9 @@ const emit = defineEmits(['toggle']);
 
 const route = useRoute();
 
-const isConversationRoute = computed(() => {
-  const CONVERSATION_ROUTES = [
-    'inbox_conversation',
-    'conversation_through_inbox',
-    'conversations_through_label',
-    'team_conversations_through_label',
-    'conversations_through_folders',
-    'conversation_through_mentions',
-    'conversation_through_unattended',
-    'conversation_through_participating',
-    'conversation_through_mine',
-    'inbox_view_conversation',
-  ];
-  return CONVERSATION_ROUTES.includes(route.name);
-});
+const isConversationRoute = computed(
+  () => isAConversationRoute(route.name) || isAInboxViewRoute(route.name)
+);
 
 const toggleSidebar = () => {
   emit('toggle');

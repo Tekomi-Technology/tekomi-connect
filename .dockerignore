@@ -15,3 +15,13 @@ vendor/bundle
 .DS_Store
 *.swp
 *~
+
+# Local artifacts not needed in the image
+graphify-out
+docs
+coverage
+public/vite
+public/vite-dev
+public/vite-test
+zalo_worker/node_modules
+zalo_worker/dist

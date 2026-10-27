@@ -70,13 +70,6 @@ export default {
     const handleNoteClick = () => {
       setReplyMode(REPLY_EDITOR_MODES.NOTE);
     };
-    const handleModeToggle = () => {
-      const newMode =
-        props.mode === REPLY_EDITOR_MODES.REPLY
-          ? REPLY_EDITOR_MODES.NOTE
-          : REPLY_EDITOR_MODES.REPLY;
-      setReplyMode(newMode);
-    };
 
     const { tekomiTasksEnabled } = useTekomi();
     const showCopilotMenu = ref(false);
@@ -115,7 +108,7 @@ export default {
     useKeyboardEvents(keyboardEvents);
 
     return {
-      handleModeToggle,
+      setReplyMode,
       handleReplyClick,
       handleNoteClick,
       REPLY_EDITOR_MODES,
@@ -158,7 +151,7 @@ export default {
       :mode="mode"
       :disabled="disabled"
       :is-reply-restricted="isReplyRestricted"
-      @toggle-mode="handleModeToggle"
+      @set-mode="setReplyMode"
     />
     <div class="flex items-center mx-4 my-0">
       <div v-if="isMessageLengthReachingThreshold" class="text-xs">
@@ -171,14 +164,14 @@ export default {
       <div class="relative">
         <NextButton
           ref="copilotToggleRef"
-          ghost
+          :label="$t('CONVERSATION.REPLYBOX.AI_SUGGEST')"
+          icon="i-lucide-sparkles"
+          teal
+          faded
+          xs
           :disabled="disabled || isEditorDisabled"
-          :class="{
-            'text-n-violet-9 hover:enabled:!bg-n-violet-3': !showCopilotMenu,
-            'text-n-violet-9 bg-n-violet-3': showCopilotMenu,
-          }"
-          sm
-          icon="i-woot-tekomi"
+          class="!text-xs !font-semibold outline outline-1 outline-n-teal-6"
+          :class="{ '!bg-n-teal-4': showCopilotMenu }"
           @click="toggleCopilotMenu"
         />
         <CopilotMenuBar

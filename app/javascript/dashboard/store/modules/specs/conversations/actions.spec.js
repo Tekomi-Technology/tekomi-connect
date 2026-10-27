@@ -171,9 +171,13 @@ describe('#actions', () => {
       actions.addConversation(
         {
           commit,
-          rootState: { route: { name: 'conversation_mentions' } },
+          rootState: { route: { name: 'home' } },
           dispatch,
-          state: { currentInbox: 1, appliedFilters: [{ id: 'random-filter' }] },
+          state: {
+            currentInbox: 1,
+            appliedFilters: [],
+            conversationFilters: { filter: 'mention' },
+          },
         },
         conversation
       );
@@ -588,7 +592,7 @@ describe('#deleteMessage', () => {
 describe('#addMentions', () => {
   it('does not send mutations if the view is not mentions', () => {
     actions.addMentions(
-      { commit, dispatch, rootState: { route: { name: 'home' } } },
+      { commit, dispatch, state: { conversationFilters: {} } },
       { id: 1 }
     );
     expect(commit.mock.calls).toEqual([]);
@@ -599,7 +603,7 @@ describe('#addMentions', () => {
     actions.addMentions(
       {
         dispatch,
-        rootState: { route: { name: 'conversation_mentions' } },
+        state: { conversationFilters: { filter: 'mention' } },
       },
       { id: 1, meta: { sender: { id: 1 } } }
     );

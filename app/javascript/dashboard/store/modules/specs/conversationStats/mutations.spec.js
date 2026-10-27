@@ -20,9 +20,6 @@ describe('#mutations', () => {
         openCount: 3,
         inProgressCount: 4,
         resolvedCount: 5,
-        companyCounts: {},
-        companyStarredWaitingIds: [],
-        noCompanyCount: 0,
         updatedOn: expect.any(Date),
       });
     });

@@ -163,7 +163,7 @@
       }
     },
     "HEADER": {
-      "RESOLVE_ACTION": "Giải quyết",
+      "RESOLVE_ACTION": "Hoàn tất",
       "REOPEN_ACTION": "Mở lại",
       "OPEN_ACTION": "Mở",
       "MORE_ACTIONS": "Thao tác khác",
@@ -187,7 +187,27 @@
         "RT": "RT {status}",
         "MISSED": "đã lỡ",
         "DUE": "quá hạn"
-      }
+      },
+      "CLAIM": "Nhận",
+      "ASSIGN": "Giao",
+      "REASSIGN": "Chuyển giao",
+      "ASSIGNEE": "Phụ trách: {name}",
+      "NO_ASSIGNEE": "Chưa có người phụ trách",
+      "INFO_PANEL": "Thông tin khách hàng (Alt+O)",
+      "ASSIGN_MENU": {
+        "AGENTS": "Nhân viên",
+        "AI": "AI",
+        "TEAMS": "Nhóm",
+        "ME": "{name} (Bạn)"
+      },
+      "STATUS_PILL": {
+        "RESOLVED": "Đã hoàn tất",
+        "AI": "AI đang trả lời",
+        "MINE": "Bạn đang phụ trách",
+        "ASSIGNED": "Đã phân công",
+        "UNASSIGNED": "Chưa phân công"
+      },
+      "AI_PANEL": "Trợ lý AI"
     },
     "RESOLVE_DROPDOWN": {
       "MARK_PENDING": "Đánh dấu chưa giải quyết",
@@ -235,6 +255,8 @@
       "RESOLVED": "Đánh dấu là đã giải quyết",
       "MARK_AS_UNREAD": "Đánh dấu là chưa đọc",
       "MARK_AS_READ": "Đánh dấu đã đọc",
+      "PIN": "Ghim hội thoại",
+      "UNPIN": "Bỏ ghim hội thoại",
       "REOPEN": "Mở lại hội thoại",
       "SNOOZE": {
         "TITLE": "Báo lại",
@@ -287,9 +309,9 @@
     },
     "REPLYBOX": {
       "REPLY": "Trả lời",
-      "PRIVATE_NOTE": "Lưu ý riêng",
-      "SEND": "Gửi",
-      "CREATE": "Thêm ghi chú",
+      "PRIVATE_NOTE": "Ghi chú nội bộ",
+      "SEND": "Gửi khách hàng",
+      "CREATE": "Lưu ghi chú",
       "INSERT_READ_MORE": "Đọc thêm",
       "DISMISS_REPLY": "Bỏ trả lời",
       "REPLYING_TO": "Đang trả lời:",
@@ -332,10 +354,12 @@
         "REMOVE_PREVIEW": "Bỏ nội dung email được trích dẫn",
         "COLLAPSE": "Thu gọn xem trước",
         "EXPAND": "Mở rộng xem trước"
-      }
+      },
+      "AI_SUGGEST": "AI gợi ý"
     },
     "VISIBLE_TO_AGENTS": "Lưu ý riêng: Chỉ hiển thị với bạn và nhóm của bạn",
     "CHANGE_STATUS": "Trạng thái hội thoại đã thay đổi",
+    "PIN_ERROR": "Không cập nhật được ghim. Vui lòng thử lại.",
     "CHANGE_STATUS_FAILED": "Thay đổi trạng thái hội thoại không thành công",
     "CHANGE_AGENT": "Người Được Chỉ Định Cuộc Hội Thoại đã thay đổi",
     "CHANGE_AGENT_FAILED": "Thay đổi người được gán không thành công",
@@ -394,16 +418,13 @@
     },
     "SIDEBAR": {
       "CONTACT": "Liên hệ",
-      "CONTACT_INFO": "Thông tin khách hàng",
-      "ACTIONS": "Xử lý hội thoại",
-      "HISTORY": "Lịch sử & ghi chú",
+      "ACTIONS": "Thao tác",
+      "HISTORY": "Lịch sử",
       "SALES": "Bán hàng",
-      "COPILOT": "GMO",
-      "ANALYSIS": "Phân tích hội thoại",
       "COMPANY": "Doanh nghiệp",
       "NO_COMPANY": "Liên hệ này chưa thuộc doanh nghiệp nào.",
       "COLLAPSE_PANEL": "Thu gọn bảng thông tin (Alt+O)",
-      "EXPAND_PANEL": "Mở bảng thông tin (Alt+O)"
+      "PERSON": "Cá nhân"
     },
     "VOICE_WIDGET": {
       "INCOMING_CALL": "Cuộc gọi đến",
@@ -466,6 +487,20 @@
       "DIALOG_DESCRIPTION": "Mỗi tài khoản Zalo chỉ có một phiên web, nên khi tài khoản đó đăng nhập Zalo Web ở nơi khác thì phiên này sẽ kết thúc.",
       "CLOSE": "Đóng",
       "RECONNECTED": "Đã kết nối lại phiên Zalo"
+    },
+    "MESSAGE_FILTER": {
+      "LABEL": "Lọc tin nhắn",
+      "ALL": "Tất cả",
+      "CUSTOMER": "Khách",
+      "AI": "AI",
+      "AGENT": "Nhân viên",
+      "AUTO": "Tự động & khác",
+      "EMPTY": "Không có tin nhắn thuộc loại này."
+    },
+    "SENDER_KIND": {
+      "AI": "AI",
+      "NOTE": "Ghi chú nội bộ · chỉ nhân viên thấy",
+      "AUTO": "Tự động"
     }
   },
   "EMAIL_TRANSCRIPT": {
@@ -662,7 +697,6 @@
     "TRY_THESE_PROMPTS": "Thử các câu gợi ý sau"
   },
   "CONVERSATION_ANALYSIS": {
-    "TITLE": "Phân tích hội thoại",
     "ANALYZE": "Phân tích",
     "REANALYZE": "Phân tích lại",
     "ANALYZING": "Đang phân tích hội thoại, có thể mất khoảng một phút. Bạn có thể rời đi và quay lại sau…",

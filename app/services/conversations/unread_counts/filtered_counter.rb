@@ -4,8 +4,20 @@ class Conversations::UnreadCounts::FilteredCounter
     mentions_count: 0,
     participating_count: 0,
     unattended_count: 0,
+    unassigned_count: 0,
+    pinned_count: 0,
+    direct_count: 0,
+    group_count: 0,
+    mine_all_count: 0,
+    mine_unattended_count: 0,
+    mine_pinned_count: 0,
+    mine_direct_count: 0,
+    mine_group_count: 0,
+    mine_mentions_count: 0,
+    mine_participating_count: 0,
     folders: {}
   }.freeze
+  BUILT_IN_COUNT_KEYS = (EMPTY_COUNTS.keys - [:folders]).freeze
 
   attr_reader :account, :user, :now
 
@@ -33,7 +45,7 @@ class Conversations::UnreadCounts::FilteredCounter
     ) { build_built_in_counts!(versions) }
   end
 
-  def counts_from_built_in_snapshot(snapshot) = snapshot&.fetch(:counts, nil)&.slice(:mentions_count, :participating_count, :unattended_count)
+  def counts_from_built_in_snapshot(snapshot) = snapshot&.fetch(:counts, nil)&.slice(*BUILT_IN_COUNT_KEYS)
 
   def folder_counts
     folder_index = folder_index_snapshot
@@ -100,6 +112,32 @@ class Conversations::UnreadCounts::FilteredCounter
       mentions_count: count_relation(mentioned_unread_conversations),
       participating_count: count_relation(participating_unread_conversations),
       unattended_count: count_relation(unread_open_accessible_conversations.unattended)
+    }.merge(quick_filter_counts)
+  end
+
+  def quick_filter_counts
+    conditions = quick_filter_count_conditions
+    values = unread_open_accessible_conversations.unscope(:order).pick(
+      *conditions.values.map { |condition| Arel.sql("COUNT(DISTINCT conversations.id) FILTER (WHERE #{condition})") }
+    )
+    conditions.keys.zip(values).to_h
+  end
+
+  def quick_filter_count_conditions
+    conditions = Conversations::QuickFilterConditions
+    mine = conditions.assigned_to(user.id)
+    {
+      unassigned_count: conditions.unassigned,
+      pinned_count: conditions.pinned_by(user.id),
+      direct_count: conditions.direct_thread,
+      group_count: conditions.group_thread,
+      mine_all_count: mine,
+      mine_unattended_count: "#{mine} AND #{conditions.unattended}",
+      mine_pinned_count: "#{mine} AND #{conditions.pinned_by(user.id)}",
+      mine_direct_count: "#{mine} AND #{conditions.direct_thread}",
+      mine_group_count: "#{mine} AND #{conditions.group_thread}",
+      mine_mentions_count: "#{mine} AND #{conditions.mentioning(user.id)}",
+      mine_participating_count: "#{mine} AND #{conditions.participated_by(user.id)}"
     }
   end
 

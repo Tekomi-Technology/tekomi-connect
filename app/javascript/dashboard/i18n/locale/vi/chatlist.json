@@ -4,13 +4,36 @@
     "LOAD_MORE_CONVERSATIONS": "Tải thêm các hội thoại",
     "EOF": "Tất cả các hội thoại đã được tải 🎉",
     "LIST": {
-      "404": "Không có bất kì hoạt động trò chuyện nào trong nhóm."
+      "404": "Không có bất kì hoạt động trò chuyện nào trong nhóm.",
+      "CLEAR_FILTERS": "Bỏ bộ lọc"
     },
     "FAILED_TO_SEND": "Gửi thất bại",
     "FETCH_ERROR": "Không tải được danh sách hội thoại. Vui lòng thử lại.",
     "TAB_HEADING": "Các cuộc hội thoại",
-    "MENTION_HEADING": "Nhắn đến",
-    "UNATTENDED_HEADING": "Không giám sát",
+    "MENTION_HEADING": "Được nhắc đến",
+    "UNATTENDED_HEADING": "Chưa trả lời",
+    "AI_HANDLING": "AI đang trả lời",
+    "FILTER_PANEL": {
+      "TITLE": "Nhắn tin",
+      "ALL": "Tất cả",
+      "ALL_CHANNELS": "Tất cả kênh",
+      "SEARCH_CHANNELS": "Tìm kênh",
+      "RELATED": "Liên quan đến bạn",
+      "COLLAPSE": "Thu gọn cột",
+      "EXPAND": "Mở cột bộ lọc",
+      "SORT": "Sắp xếp"
+    },
+    "QUICK_FILTERS": {
+      "UNREAD": "Chưa đọc",
+      "UNATTENDED": "Chưa trả lời",
+      "UNASSIGNED": "Chưa phân công",
+      "PINNED": "Đã ghim",
+      "DIRECT": "Tin nhắn 1-1",
+      "GROUP": "Trò chuyện nhóm",
+      "MENTION": "Được nhắc đến",
+      "PARTICIPATING": "Đang tham gia",
+      "VIP": "Khách VIP"
+    },
     "SEARCH": {
       "INPUT": "Tìm kiếm cho người, đoạn chat, lưu trữ trả lời .."
     },
@@ -30,9 +53,10 @@
       "all": "Tất cả"
     },
     "STAGE_TABS": {
-      "open": "Mở",
+      "open": "Đang mở",
       "in_progress": "Đang xử lý",
-      "resolved": "Đã xử lý"
+      "resolved": "Đã xong",
+      "awaiting_reply": "Chưa phản hồi"
     },
     "CHAT_STATUS_FILTER_ITEMS": {
       "open": {
@@ -159,14 +183,6 @@
     "SHOW_QUOTED_TEXT": "Hiện Văn bản được trích dẫn",
     "MESSAGE_READ": "\bĐọc",
     "SENDING": "Đang gửi",
-    "UNREAD_COUNT_OVERFLOW": "9+",
-    "DISPLAY_MODE": {
-      "LABEL": "Chế độ hiển thị",
-      "OPTIONS": {
-        "default": "Mặc định",
-        "company": "Hiển thị theo doanh nghiệp",
-        "vip": "Hiển thị khách gắn sao"
-      }
-    }
+    "UNREAD_COUNT_OVERFLOW": "9+"
   }
 }

@@ -5,15 +5,40 @@ import { useRoute, useRouter } from 'vue-router';
 
 import ComposeConversation from 'dashboard/components-next/NewConversation/ComposeConversation.vue';
 import HeaderNotifications from './HeaderNotifications.vue';
+import { useUISettings } from 'dashboard/composables/useUISettings';
+import { useAiPanel } from 'dashboard/composables/useAiPanel';
+import {
+  isAConversationRoute,
+  isAInboxViewRoute,
+} from 'dashboard/helper/routeHelpers';
 
 const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
 
+const { uiSettings, updateUISettings } = useUISettings();
+const { isAiAvailable } = useAiPanel();
+
 const searchQuery = ref('');
 
 // The search page has its own search box with filters and recent searches.
 const isOnSearchPage = computed(() => route.name === 'search');
+
+const showAiButton = computed(
+  () =>
+    isAiAvailable.value &&
+    !isAConversationRoute(route.name) &&
+    !isAInboxViewRoute(route.name)
+);
+const isAiPanelOpen = computed(() =>
+  Boolean(uiSettings.value.is_copilot_panel_open)
+);
+const toggleAiPanel = () => {
+  updateUISettings({
+    is_copilot_panel_open: !isAiPanelOpen.value,
+    is_contact_sidebar_open: false,
+  });
+};
 
 const onSearch = () => {
   const q = searchQuery.value.trim();
@@ -54,6 +79,18 @@ const onSearch = () => {
           </button>
         </template>
       </ComposeConversation>
+      <button
+        v-if="showAiButton"
+        type="button"
+        class="grid flex-shrink-0 transition-colors rounded-full size-9 place-items-center text-n-teal-11 hover:bg-n-alpha-2"
+        :class="{ 'bg-n-teal-3': isAiPanelOpen }"
+        :title="t('TEKOMI.COPILOT.TAB_COPILOT')"
+        :aria-pressed="isAiPanelOpen"
+        data-side-panel-toggle
+        @click="toggleAiPanel"
+      >
+        <span class="i-lucide-sparkles size-5" />
+      </button>
       <HeaderNotifications />
     </div>
   </header>

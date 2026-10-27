@@ -24,26 +24,31 @@ export const filterByLabel = (shouldFilter, labels, chatLabels) => {
   const isOnLabel = labels.every(label => chatLabels.includes(label));
   return labels.length ? isOnLabel && shouldFilter : shouldFilter;
 };
-export const filterByUnattended = (
-  shouldFilter,
-  conversationType,
-  firstReplyOn,
-  waitingSince
-) => {
-  return conversationType === 'unattended'
-    ? (!firstReplyOn || !!waitingSince) && shouldFilter
-    : shouldFilter;
+const QUICK_FILTER_MATCHERS = {
+  unread: conversation => conversation.unread_count > 0,
+  unattended: conversation =>
+    !conversation.first_reply_created_at || !!conversation.waiting_since,
+  unassigned: conversation => !conversation.meta?.assignee,
+  pinned: conversation => !!conversation.pinned,
+  direct: conversation => !conversation.group_thread,
+  group: conversation => !!conversation.group_thread,
+  vip: conversation => !!conversation.meta?.sender?.vip,
+};
+
+export const SERVER_ONLY_QUICK_FILTERS = ['mention', 'participating'];
+
+export const matchesQuickFilter = (conversation, filter) => {
+  const matcher = QUICK_FILTER_MATCHERS[filter];
+  return matcher ? matcher(conversation) : true;
 };
 
 export const applyPageFilters = (conversation, filters) => {
-  const { inboxId, status, labels = [], teamId, conversationType } = filters;
+  const { inboxId, status, labels = [], teamId, filter } = filters;
   const {
     status: chatStatus,
     inbox_id: chatInboxId,
     labels: chatLabels = [],
     meta = {},
-    first_reply_created_at: firstReplyOn,
-    waiting_since: waitingSince,
   } = conversation;
   const team = meta.team || {};
   const { id: chatTeamId } = team;
@@ -52,14 +57,8 @@ export const applyPageFilters = (conversation, filters) => {
   shouldFilter = filterByInbox(shouldFilter, inboxId, chatInboxId);
   shouldFilter = filterByTeam(shouldFilter, teamId, chatTeamId);
   shouldFilter = filterByLabel(shouldFilter, labels, chatLabels);
-  shouldFilter = filterByUnattended(
-    shouldFilter,
-    conversationType,
-    firstReplyOn,
-    waitingSince
-  );
 
-  return shouldFilter;
+  return shouldFilter && matchesQuickFilter(conversation, filter);
 };
 
 /**

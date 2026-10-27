@@ -11,7 +11,6 @@ import {
 import { BUS_EVENTS } from 'shared/constants/busEvents';
 import { INBOX_EVENTS } from 'dashboard/helper/AnalyticsHelper/events';
 import { emitter } from 'shared/helpers/mitt';
-import SidepanelSwitch from 'dashboard/components-next/Conversation/SidepanelSwitch.vue';
 
 import InboxItemHeader from './components/InboxItemHeader.vue';
 import ConversationBox from 'dashboard/components/widgets/conversation/ConversationBox.vue';
@@ -19,7 +18,6 @@ import InboxEmptyState from './InboxEmptyState.vue';
 import Spinner from 'dashboard/components-next/spinner/Spinner.vue';
 import ConversationSidebar from 'dashboard/components/widgets/conversation/ConversationSidebar.vue';
 import SidePanelTransition from 'dashboard/components-next/Conversation/SidePanelTransition.vue';
-import ConversationAnalysisPanel from 'dashboard/components-next/ConversationAnalysis/ConversationAnalysisPanel.vue';
 
 const route = useRoute();
 const router = useRouter();
@@ -218,19 +216,13 @@ onMounted(async () => {
           is-inbox-view
           :inbox-id="inboxId"
           :is-on-expanded-layout="false"
-        >
-          <SidepanelSwitch v-if="currentChat.id" />
-        </ConversationBox>
+        />
         <SidePanelTransition>
           <ConversationSidebar
             v-if="isContactPanelOpen"
             :current-chat="currentChat"
           />
         </SidePanelTransition>
-        <ConversationAnalysisPanel
-          v-if="currentChat.id"
-          :conversation-id="currentChat.id"
-        />
       </div>
     </div>
   </div>

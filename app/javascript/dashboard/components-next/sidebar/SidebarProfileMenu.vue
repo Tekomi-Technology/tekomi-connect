@@ -100,8 +100,8 @@ const allowedMenuItems = computed(() => {
         :class="[
           isCollapsed
             ? 'justify-center p-1 rounded-lg hover:bg-n-alpha-2'
-            : 'w-full p-2 rounded-xl bg-n-alpha-2 outline outline-1 outline-n-weak hover:bg-n-alpha-3',
-          { '!bg-n-alpha-3': isOpen },
+            : 'w-full p-2.5 rounded-xl bg-white/[0.06] hover:bg-white/[0.1]',
+          { '!bg-white/[0.1]': isOpen },
         ]"
         :title="isCollapsed ? currentUser.available_name : undefined"
         @click="toggle"

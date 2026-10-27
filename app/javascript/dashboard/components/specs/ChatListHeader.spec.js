@@ -11,6 +11,17 @@ vi.mock('dashboard/composables/useUISettings', async () => {
   };
 });
 
+vi.mock('dashboard/composables/useConversationFilterPanel', async () => {
+  const { ref } = await import('vue');
+  return {
+    useConversationFilterPanel: () => ({
+      isDocked: ref(true),
+      isOverlayOpen: ref(false),
+      openPanel: vi.fn(),
+    }),
+  };
+});
+
 const mountHeader = props =>
   shallowMount(ChatListHeader, {
     props: {

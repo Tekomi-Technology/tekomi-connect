@@ -7,28 +7,27 @@ import {
   useContactConversationNavigation,
 } from 'dashboard/composables/useContactConversationNavigation';
 import { useAccount } from 'dashboard/composables/useAccount';
+import { useConversationFilterPanel } from 'dashboard/composables/useConversationFilterPanel';
 import ChatList from '../../../components/ChatList.vue';
 import ConversationBox from '../../../components/widgets/conversation/ConversationBox.vue';
 import wootConstants from 'dashboard/constants/globals';
 import { BUS_EVENTS } from 'shared/constants/busEvents';
 import CmdBarConversationSnooze from 'dashboard/routes/dashboard/commands/CmdBarConversationSnooze.vue';
 import { emitter } from 'shared/helpers/mitt';
-import SidepanelSwitch from 'dashboard/components-next/Conversation/SidepanelSwitch.vue';
 import SidePanelTransition from 'dashboard/components-next/Conversation/SidePanelTransition.vue';
 import ConversationListToggle from 'dashboard/components-next/Conversation/ConversationListToggle.vue';
+import ConversationFilterPanel from 'dashboard/components-next/Conversation/ConversationFilterPanel.vue';
 import ConversationSidebar from 'dashboard/components/widgets/conversation/ConversationSidebar.vue';
-import ConversationAnalysisPanel from 'dashboard/components-next/ConversationAnalysis/ConversationAnalysisPanel.vue';
 
 export default {
   components: {
     ChatList,
     ConversationBox,
     CmdBarConversationSnooze,
-    SidepanelSwitch,
     SidePanelTransition,
     ConversationListToggle,
+    ConversationFilterPanel,
     ConversationSidebar,
-    ConversationAnalysisPanel,
   },
   beforeRouteLeave(to, from, next) {
     // Clear selected state if navigating away from a conversation to a route without a conversationId to prevent stale data issues
@@ -59,6 +58,10 @@ export default {
       type: String,
       default: '',
     },
+    quickFilter: {
+      type: String,
+      default: '',
+    },
     foldersId: {
       type: [String, Number],
       default: 0,
@@ -68,6 +71,10 @@ export default {
     const { uiSettings, updateUISettings, isOnExpandedLayout } =
       useUISettings();
     const { accountId } = useAccount();
+    const {
+      isDocked: isFilterPanelDocked,
+      isOverlayOpen: isFilterOverlayOpen,
+    } = useConversationFilterPanel();
     provide(
       CONTACT_CONVERSATION_NAVIGATION,
       useContactConversationNavigation()
@@ -78,6 +85,8 @@ export default {
       updateUISettings,
       isOnExpandedLayout,
       accountId,
+      isFilterPanelDocked,
+      isFilterOverlayOpen,
     };
   },
   data() {
@@ -102,6 +111,12 @@ export default {
       if (this.isListExpanded) return true;
       return !this.isConversationListCollapsed;
     },
+    showFilterPanel() {
+      return (
+        this.showConversationList &&
+        (this.isFilterPanelDocked || this.isFilterOverlayOpen)
+      );
+    },
     showMessageView() {
       return this.conversationId ? true : !this.isOnExpandedLayout;
     },
@@ -117,6 +132,9 @@ export default {
   watch: {
     conversationId() {
       this.fetchConversationIfUnavailable();
+    },
+    '$route.fullPath'() {
+      this.isFilterOverlayOpen = false;
     },
   },
 
@@ -217,12 +235,18 @@ export default {
       v-if="isConversationListCollapsed && !isListExpanded"
       floating
     />
+    <ConversationFilterPanel
+      v-if="showFilterPanel"
+      :folders-id="foldersId"
+      :overlay="!isFilterPanelDocked"
+    />
     <ChatList
       :show-conversation-list="showConversationList"
       :conversation-inbox="inboxId"
       :label="label"
       :team-id="teamId"
       :conversation-type="conversationType"
+      :quick-filter="quickFilter"
       :folders-id="foldersId"
       :is-on-expanded-layout="isListExpanded"
       @conversation-load="onConversationLoad"
@@ -231,19 +255,13 @@ export default {
       v-if="showMessageView"
       :inbox-id="inboxId"
       :is-on-expanded-layout="isListExpanded"
-    >
-      <SidepanelSwitch v-if="currentChat.id" />
-    </ConversationBox>
+    />
     <SidePanelTransition>
       <ConversationSidebar
         v-if="shouldShowSidebar"
         :current-chat="currentChat"
       />
     </SidePanelTransition>
-    <ConversationAnalysisPanel
-      v-if="currentChat.id"
-      :conversation-id="currentChat.id"
-    />
     <CmdBarConversationSnooze />
   </section>
 </template>

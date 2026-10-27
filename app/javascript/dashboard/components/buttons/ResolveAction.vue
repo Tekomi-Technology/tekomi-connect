@@ -20,6 +20,10 @@ import ButtonGroup from 'dashboard/components-next/buttonGroup/ButtonGroup.vue';
 import Button from 'dashboard/components-next/button/Button.vue';
 import ConversationResolveAttributesModal from 'dashboard/components-next/ConversationWorkflow/ConversationResolveAttributesModal.vue';
 
+const props = defineProps({
+  compact: { type: Boolean, default: false },
+});
+
 const store = useStore();
 const getters = useStoreGetters();
 const { t } = useI18n();
@@ -178,35 +182,51 @@ useEmitter(CMD_RESOLVE_CONVERSATION, onCmdResolveConversation);
 <template>
   <div class="flex relative justify-end items-center resolve-actions">
     <ButtonGroup
-      class="flex-shrink-0 rounded-lg shadow outline-1 outline"
-      :class="!showOpenButton ? 'outline-n-container' : 'outline-transparent'"
+      class="flex flex-shrink-0 rounded-lg outline outline-1"
+      :class="isOpen ? 'outline-n-teal-7' : 'outline-n-weak'"
     >
       <Button
         v-if="isOpen"
-        :label="t('CONVERSATION.HEADER.RESOLVE_ACTION')"
+        v-tooltip.bottom="
+          props.compact ? t('CONVERSATION.HEADER.RESOLVE_ACTION') : ''
+        "
+        :label="props.compact ? '' : t('CONVERSATION.HEADER.RESOLVE_ACTION')"
+        icon="i-lucide-check"
         size="sm"
-        color="slate"
+        color="teal"
+        variant="faded"
         no-animation
-        class="ltr:rounded-r-none rtl:rounded-l-none !outline-0"
+        class="!text-xs !font-semibold ltr:rounded-r-none rtl:rounded-l-none !outline-0"
         :is-loading="isLoading"
         @click="onCmdResolveConversation"
       />
       <Button
         v-else-if="isResolved"
-        :label="t('CONVERSATION.HEADER.REOPEN_ACTION')"
+        v-tooltip.bottom="
+          props.compact ? t('CONVERSATION.HEADER.REOPEN_ACTION') : ''
+        "
+        :label="props.compact ? '' : t('CONVERSATION.HEADER.REOPEN_ACTION')"
+        icon="i-lucide-rotate-ccw"
         size="sm"
         color="slate"
+        variant="ghost"
         no-animation
-        class="ltr:rounded-r-none rtl:rounded-l-none !outline-0"
+        class="!text-xs !font-semibold ltr:rounded-r-none rtl:rounded-l-none !outline-0"
         :is-loading="isLoading"
         @click="onCmdOpenConversation"
       />
       <Button
         v-else-if="showOpenButton"
-        :label="t('CONVERSATION.HEADER.OPEN_ACTION')"
+        v-tooltip.bottom="
+          props.compact ? t('CONVERSATION.HEADER.OPEN_ACTION') : ''
+        "
+        :label="props.compact ? '' : t('CONVERSATION.HEADER.OPEN_ACTION')"
+        icon="i-lucide-message-circle"
         size="sm"
         color="slate"
+        variant="ghost"
         no-animation
+        class="!text-xs !font-semibold !outline-0"
         :is-loading="isLoading"
         @click="onCmdOpenConversation"
       />
@@ -216,9 +236,10 @@ useEmitter(CMD_RESOLVE_CONVERSATION, onCmdResolveConversation);
         icon="i-lucide-chevron-down"
         :disabled="isLoading"
         size="sm"
+        :color="isOpen ? 'teal' : 'slate'"
+        :variant="isOpen ? 'faded' : 'ghost'"
         no-animation
-        class="ltr:rounded-l-none rtl:rounded-r-none !outline-0"
-        color="slate"
+        class="ltr:rounded-l-none rtl:rounded-r-none !outline-0 !px-2"
         trailing-icon
         @click="openDropdown"
       />

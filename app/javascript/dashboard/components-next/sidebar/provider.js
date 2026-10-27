@@ -160,3 +160,5 @@ export function useSidebarContext() {
 export function provideSidebarContext(context) {
   provide(SidebarControl, context);
 }
+
+export const leafBindings = ({ matchRoute, ...bindings }) => bindings;

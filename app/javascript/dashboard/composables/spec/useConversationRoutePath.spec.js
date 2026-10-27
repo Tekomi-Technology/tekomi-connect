@@ -1,6 +1,6 @@
 import { useConversationRoutePath } from 'dashboard/composables/useConversationRoutePath';
 
-const mockRoute = { name: '', params: {} };
+const mockRoute = { name: '', params: {}, query: {} };
 
 vi.mock('vue-router', () => ({
   useRoute: () => mockRoute,
@@ -10,6 +10,7 @@ describe('useConversationRoutePath', () => {
   beforeEach(() => {
     mockRoute.name = 'inbox_conversation';
     mockRoute.params = { accountId: '1' };
+    mockRoute.query = {};
   });
 
   describe('buildConversationPath', () => {
@@ -18,27 +19,25 @@ describe('useConversationRoutePath', () => {
       expect(buildConversationPath(5)).toBe('/app/accounts/1/conversations/5');
     });
 
-    it('keeps the inbox context', () => {
-      mockRoute.params = { accountId: '1', inbox_id: '3' };
+    it('keeps the list scope from the query', () => {
+      mockRoute.query = {
+        inbox_id: '3',
+        label: 'bug',
+        team_id: '2',
+        scope: 'mine',
+        filter: 'unread',
+      };
       const { buildConversationPath } = useConversationRoutePath();
       expect(buildConversationPath(5)).toBe(
-        '/app/accounts/1/inbox/3/conversations/5'
+        '/app/accounts/1/conversations/5?inbox_id=3&label=bug&team_id=2&scope=mine&filter=unread'
       );
     });
 
-    it('keeps the label context', () => {
-      mockRoute.params = { accountId: '1', label: 'bug' };
+    it('ignores query keys that are not part of the list scope', () => {
+      mockRoute.query = { filter: 'mention', messageId: '9' };
       const { buildConversationPath } = useConversationRoutePath();
       expect(buildConversationPath(5)).toBe(
-        '/app/accounts/1/label/bug/conversations/5'
-      );
-    });
-
-    it('keeps the team context', () => {
-      mockRoute.params = { accountId: '1', teamId: '2' };
-      const { buildConversationPath } = useConversationRoutePath();
-      expect(buildConversationPath(5)).toBe(
-        '/app/accounts/1/team/2/conversations/5'
+        '/app/accounts/1/conversations/5?filter=mention'
       );
     });
 
@@ -59,110 +58,27 @@ describe('useConversationRoutePath', () => {
         '/app/accounts/1/conversations/5'
       );
     });
-
-    it('keeps the mentions context', () => {
-      mockRoute.name = 'conversation_through_mentions';
-      const { buildConversationPath } = useConversationRoutePath();
-      expect(buildConversationPath(5)).toBe(
-        '/app/accounts/1/mentions/conversations/5'
-      );
-    });
-
-    it('keeps the participating context', () => {
-      mockRoute.name = 'conversation_through_participating';
-      const { buildConversationPath } = useConversationRoutePath();
-      expect(buildConversationPath(5)).toBe(
-        '/app/accounts/1/participating/conversations/5'
-      );
-    });
-
-    it('keeps the unattended context', () => {
-      mockRoute.name = 'conversation_through_unattended';
-      const { buildConversationPath } = useConversationRoutePath();
-      expect(buildConversationPath(5)).toBe(
-        '/app/accounts/1/unattended/conversations/5'
-      );
-    });
   });
 
   describe('buildConversationListPath', () => {
-    it('builds the dashboard path by default', () => {
+    it('builds the plain list path', () => {
       const { buildConversationListPath } = useConversationRoutePath();
       expect(buildConversationListPath()).toBe('/app/accounts/1/dashboard');
     });
 
-    it('keeps the inbox context', () => {
-      mockRoute.params = { accountId: '1', inbox_id: '3' };
+    it('keeps the list scope from the query', () => {
+      mockRoute.query = { inbox_id: '3', scope: 'mine', filter: 'pinned' };
       const { buildConversationListPath } = useConversationRoutePath();
-      expect(buildConversationListPath()).toBe('/app/accounts/1/inbox/3');
-    });
-
-    it('keeps the label context', () => {
-      mockRoute.params = { accountId: '1', label: 'bug' };
-      const { buildConversationListPath } = useConversationRoutePath();
-      expect(buildConversationListPath()).toBe('/app/accounts/1/label/bug');
-    });
-
-    it('keeps the team context', () => {
-      mockRoute.params = { accountId: '1', teamId: '2' };
-      const { buildConversationListPath } = useConversationRoutePath();
-      expect(buildConversationListPath()).toBe('/app/accounts/1/team/2');
+      expect(buildConversationListPath()).toBe(
+        '/app/accounts/1/dashboard?inbox_id=3&scope=mine&filter=pinned'
+      );
     });
 
     it('keeps the custom view context on folder routes', () => {
-      mockRoute.name = 'folder_conversations';
+      mockRoute.name = 'conversations_through_folders';
       mockRoute.params = { accountId: '1', id: '7' };
       const { buildConversationListPath } = useConversationRoutePath();
       expect(buildConversationListPath()).toBe('/app/accounts/1/custom_view/7');
-    });
-
-    it('drops the custom view context when the folder scope is not kept', () => {
-      mockRoute.name = 'folder_conversations';
-      mockRoute.params = { accountId: '1', id: '7' };
-      const { buildConversationListPath } = useConversationRoutePath();
-      expect(buildConversationListPath({ keepFolderScope: false })).toBe(
-        '/app/accounts/1/dashboard'
-      );
-    });
-
-    it('keeps the mentions context', () => {
-      mockRoute.name = 'conversation_mentions';
-      const { buildConversationListPath } = useConversationRoutePath();
-      expect(buildConversationListPath()).toBe(
-        '/app/accounts/1/mentions/conversations'
-      );
-    });
-
-    it('keeps the participating context', () => {
-      mockRoute.name = 'conversation_participating';
-      const { buildConversationListPath } = useConversationRoutePath();
-      expect(buildConversationListPath()).toBe(
-        '/app/accounts/1/participating/conversations'
-      );
-    });
-
-    it('keeps the unattended context', () => {
-      mockRoute.name = 'conversation_unattended';
-      const { buildConversationListPath } = useConversationRoutePath();
-      expect(buildConversationListPath()).toBe(
-        '/app/accounts/1/unattended/conversations'
-      );
-    });
-  });
-
-  describe('isOnFolderView', () => {
-    it.each(['folder_conversations', 'conversations_through_folders'])(
-      'is true on %s',
-      routeName => {
-        mockRoute.name = routeName;
-        const { isOnFolderView } = useConversationRoutePath();
-        expect(isOnFolderView.value).toBe(true);
-      }
-    );
-
-    it('is false outside folder routes', () => {
-      const { isOnFolderView } = useConversationRoutePath();
-      expect(isOnFolderView.value).toBe(false);
     });
   });
 });

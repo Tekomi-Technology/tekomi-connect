@@ -399,11 +399,12 @@ export default {
     <div class="right-wrap">
       <NextButton
         :label="sendButtonText"
+        :icon="isNote ? 'i-lucide-lock' : 'i-lucide-send'"
         type="submit"
         sm
-        :color="isNote ? 'amber' : 'blue'"
+        :color="isNote ? 'amber' : 'teal'"
         :disabled="isSendDisabled"
-        class="flex-shrink-0"
+        class="flex-shrink-0 !font-semibold"
         @click="onSend"
       />
     </div>

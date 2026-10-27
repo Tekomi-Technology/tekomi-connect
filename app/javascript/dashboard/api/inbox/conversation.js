@@ -15,9 +15,9 @@ class ConversationApi extends ApiClient {
     labels,
     teamId,
     conversationType,
+    filter,
     sortBy,
     updatedWithin,
-    companyId,
   }) {
     return axios.get(this.url, {
       params: {
@@ -29,11 +29,19 @@ class ConversationApi extends ApiClient {
         page,
         labels,
         conversation_type: conversationType,
+        filter,
         sort_by: sortBy,
         updated_within: updatedWithin,
-        company_id: companyId,
       },
     });
+  }
+
+  pin(conversationId) {
+    return axios.post(`${this.url}/${conversationId}/pin`);
+  }
+
+  unpin(conversationId) {
+    return axios.delete(`${this.url}/${conversationId}/pin`);
   }
 
   filter(payload) {
@@ -109,6 +117,7 @@ class ConversationApi extends ApiClient {
     labels,
     teamId,
     conversationType,
+    filter,
   }) {
     return axios.get(`${this.url}/meta`, {
       params: {
@@ -119,6 +128,7 @@ class ConversationApi extends ApiClient {
         labels,
         team_id: teamId,
         conversation_type: conversationType,
+        filter,
       },
     });
   }

@@ -848,7 +848,7 @@ describe('#mutations', () => {
     it('should not add conversation if not found on participating view', () => {
       const state = {
         allConversations: [],
-        conversationFilters: { conversationType: 'participating' },
+        conversationFilters: { filter: 'participating' },
       };
 
       const conversation = {
@@ -863,7 +863,7 @@ describe('#mutations', () => {
     it('should not add conversation if not found on mention view', () => {
       const state = {
         allConversations: [],
-        conversationFilters: { conversationType: 'mention' },
+        conversationFilters: { filter: 'mention' },
       };
 
       const conversation = {
@@ -878,7 +878,7 @@ describe('#mutations', () => {
     it('should add conversation if not found on unattended view', () => {
       const state = {
         allConversations: [],
-        conversationFilters: { conversationType: 'unattended' },
+        conversationFilters: { filter: 'unattended' },
       };
 
       const conversation = {

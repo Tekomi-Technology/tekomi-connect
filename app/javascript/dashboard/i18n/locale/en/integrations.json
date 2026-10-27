@@ -189,9 +189,7 @@
         },
         "GRAMMAR": "Fix grammar & spelling",
         "SUGGESTION": "Suggest a reply",
-        "SUMMARIZE": "Summarize the conversation",
-        "ANALYZE_CONVERSATION": "Analyze conversation",
-        "ASK_COPILOT": "Ask GMO"
+        "EMPTY": "Type a message first so AI can help you rewrite it."
       },
       "ASSISTANCE_MODAL": {
         "DRAFT_TITLE": "Draft content",
@@ -492,6 +490,8 @@
       "YOU": "You",
       "USE": "Use this",
       "RESET": "Reset",
+      "TAB_COPILOT": "Ask GMO",
+      "TAB_ANALYSIS": "Summary & analysis",
       "SHOW_STEPS": "Show steps",
       "SELECT_ASSISTANT": "Select Assistant",
       "PROMPTS": {

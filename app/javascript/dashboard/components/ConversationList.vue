@@ -13,10 +13,6 @@ const props = defineProps({
   conversationList: { type: Array, default: () => [] },
   isLoading: { type: Boolean, default: false },
   showEndOfListMessage: { type: Boolean, default: false },
-  label: { type: String, default: '' },
-  teamId: { type: [String, Number], default: 0 },
-  foldersId: { type: [String, Number], default: 0 },
-  conversationType: { type: String, default: '' },
   showAssignee: { type: Boolean, default: false },
   isOnExpandedLayout: { type: Boolean, default: false },
 });
@@ -71,10 +67,6 @@ defineExpose({ conversationListRef });
     >
       <ConversationItem
         :source="item"
-        :label="label"
-        :team-id="teamId"
-        :folders-id="foldersId"
-        :conversation-type="conversationType"
         :show-assignee="showAssignee"
         :show-expanded="showExpandedCards"
       />

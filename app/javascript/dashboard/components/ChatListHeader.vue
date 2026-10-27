@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useUISettings } from 'dashboard/composables/useUISettings';
+import { useConversationFilterPanel } from 'dashboard/composables/useConversationFilterPanel';
 import { formatNumber } from '@chatwoot/utils';
 import wootConstants from 'dashboard/constants/globals';
 
@@ -51,6 +52,12 @@ const title = computed(
   () => (isContactScoped.value && props.contactFilter.name) || props.pageTitle
 );
 
+const {
+  isDocked: isFilterPanelDocked,
+  isOverlayOpen: isFilterOverlayOpen,
+  openPanel: openFilterPanel,
+} = useConversationFilterPanel();
+
 const toggleConversationLayout = () => {
   const { LAYOUT_TYPES } = wootConstants;
   const {
@@ -77,6 +84,19 @@ const toggleConversationLayout = () => {
     <div class="flex items-center justify-center min-w-0">
       <ConversationListToggle v-if="!isOnExpandedLayout" />
       <NextButton
+        v-if="!isFilterPanelDocked"
+        v-tooltip.right="$t('CHAT_LIST.FILTER_PANEL.EXPAND')"
+        :aria-label="$t('CHAT_LIST.FILTER_PANEL.EXPAND')"
+        :aria-expanded="isFilterOverlayOpen"
+        data-filter-panel-toggle
+        icon="i-lucide-panel-left-open"
+        class="shrink-0 me-1"
+        slate
+        xs
+        faded
+        @click="openFilterPanel"
+      />
+      <NextButton
         v-if="showFilterScope"
         v-tooltip.right="$t('FILTER.CLEAR_BUTTON_LABEL')"
         :aria-label="$t('FILTER.CLEAR_BUTTON_LABEL')"
@@ -87,7 +107,7 @@ const toggleConversationLayout = () => {
         ghost
         @click="emit('resetFilters')"
       />
-      <h1 class="text-base font-medium truncate text-n-slate-12" :title="title">
+      <h1 class="text-base font-bold truncate text-n-slate-12" :title="title">
         {{ title }}
       </h1>
       <span

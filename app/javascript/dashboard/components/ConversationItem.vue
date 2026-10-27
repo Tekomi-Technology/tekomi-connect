@@ -2,7 +2,9 @@
 import { computed, ref, watch, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { useStore, useMapGetter } from 'dashboard/composables/store';
-import { frontendURL, conversationUrl } from 'dashboard/helper/URLHelper';
+import { useI18n } from 'vue-i18n';
+import { useAlert } from 'dashboard/composables';
+import { useConversationRoutePath } from 'dashboard/composables/useConversationRoutePath';
 import ConversationCard from './widgets/conversation/ConversationCard.vue';
 import ConversationCardExpanded from 'dashboard/components-next/Conversation/ConversationCard/ConversationCardExpanded.vue';
 import ContextMenu from 'dashboard/components/ui/ContextMenu.vue';
@@ -10,16 +12,13 @@ import ConversationContextMenu from './widgets/conversation/contextMenu/Index.vu
 
 const props = defineProps({
   source: { type: Object, required: true },
-  teamId: { type: [String, Number], default: 0 },
-  label: { type: String, default: '' },
-  conversationType: { type: String, default: '' },
-  foldersId: { type: [String, Number], default: 0 },
   showAssignee: { type: Boolean, default: false },
   showExpanded: { type: Boolean, default: false },
 });
 
 const router = useRouter();
 const store = useStore();
+const { t } = useI18n();
 
 const selectConversation = inject('selectConversation');
 const deSelectConversation = inject('deSelectConversation');
@@ -54,7 +53,6 @@ watch(
 const currentChat = useMapGetter('getSelectedChat');
 const inboxesList = useMapGetter('inboxes/getInboxes');
 const activeInbox = useMapGetter('getSelectedInbox');
-const accountId = useMapGetter('getCurrentAccountId');
 
 const chatMetadata = computed(() => props.source.meta || {});
 const assignee = computed(() => chatMetadata.value.assignee || {});
@@ -79,19 +77,9 @@ const showAssigneeForExpandedCard = computed(
   () => props.showExpanded || props.showAssignee
 );
 
-const conversationPath = computed(() =>
-  frontendURL(
-    conversationUrl({
-      accountId: accountId.value,
-      activeInbox: activeInbox.value,
-      id: props.source.id,
-      label: props.label,
-      teamId: props.teamId,
-      conversationType: props.conversationType,
-      foldersId: props.foldersId,
-    })
-  )
-);
+const { buildConversationPath } = useConversationRoutePath();
+
+const conversationPath = computed(() => buildConversationPath(props.source.id));
 
 const onCardClick = e => {
   const path = conversationPath.value;
@@ -155,6 +143,18 @@ const onRemoveLabel = label => {
 const onAssignTeam = team => {
   assignTeam(team, props.source.id);
   closeContextMenu();
+};
+
+const onTogglePin = async () => {
+  closeContextMenu();
+  try {
+    await store.dispatch('toggleConversationPin', {
+      conversationId: props.source.id,
+      pinned: !props.source.pinned,
+    });
+  } catch (error) {
+    useAlert(t('CONVERSATION.PIN_ERROR'));
+  }
 };
 
 const onMarkAsUnread = () => {
@@ -227,6 +227,7 @@ const onDeleteConversation = () => {
       :priority="source.priority"
       :chat-id="source.id"
       :has-unread-messages="source.unread_count > 0"
+      :pinned="!!source.pinned"
       :conversation-labels="source.labels"
       :conversation-url="conversationPath"
       @update-conversation="onUpdateConversation"
@@ -236,6 +237,7 @@ const onDeleteConversation = () => {
       @assign-team="onAssignTeam"
       @mark-as-unread="onMarkAsUnread"
       @mark-as-read="onMarkAsRead"
+      @toggle-pin="onTogglePin"
       @assign-priority="onAssignPriority"
       @delete-conversation="onDeleteConversation"
       @close="closeContextMenu"

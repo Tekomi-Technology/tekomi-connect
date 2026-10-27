@@ -116,43 +116,16 @@ const menuItems = computed(() => {
 });
 
 const generalMenuItems = computed(() => {
-  const items = [];
   if (props.conversationId && replyMode.value === REPLY_EDITOR_MODES.REPLY) {
-    items.push({
-      label: t('INTEGRATION_SETTINGS.OPEN_AI.REPLY_OPTIONS.SUGGESTION'),
-      key: 'reply_suggestion',
-      icon: 'i-fluent-chat-sparkle-16-regular',
-    });
+    return [
+      {
+        label: t('INTEGRATION_SETTINGS.OPEN_AI.REPLY_OPTIONS.SUGGESTION'),
+        key: 'reply_suggestion',
+        icon: 'i-fluent-chat-sparkle-16-regular',
+      },
+    ];
   }
-
-  if (
-    props.conversationId &&
-    (replyMode.value === REPLY_EDITOR_MODES.NOTE || true)
-  ) {
-    items.push({
-      label: t('INTEGRATION_SETTINGS.OPEN_AI.REPLY_OPTIONS.SUMMARIZE'),
-      key: 'summarize',
-      icon: 'i-fluent-text-bullet-list-square-sparkle-32-regular',
-    });
-  }
-
-  if (props.conversationId) {
-    items.push({
-      label: t(
-        'INTEGRATION_SETTINGS.OPEN_AI.REPLY_OPTIONS.ANALYZE_CONVERSATION'
-      ),
-      key: 'conversation_analysis',
-      icon: 'i-lucide-scan-search',
-    });
-  }
-
-  items.push({
-    label: t('INTEGRATION_SETTINGS.OPEN_AI.REPLY_OPTIONS.ASK_COPILOT'),
-    key: 'ask_copilot',
-    icon: 'i-woot-tekomi',
-  });
-
-  return items;
+  return [];
 });
 
 const menuRef = useTemplateRef('menuRef');
@@ -204,6 +177,28 @@ const handleSubMenuItemClick = (parentItem, subItem) => {
     :class="{ 'selection-menu': hasSelection && isEditorMenuPopover }"
     :style="hasSelection && isEditorMenuPopover ? selectionMenuStyle : {}"
   >
+    <div
+      v-if="generalMenuItems.length > 0"
+      class="flex flex-col items-start gap-3"
+    >
+      <Button
+        v-for="item in generalMenuItems"
+        :key="item.key"
+        :label="item.label"
+        :icon="item.icon"
+        slate
+        link
+        sm
+        class="hover:!no-underline text-n-slate-12 font-normal text-xs w-full !justify-start"
+        @click="handleMenuItemClick(item)"
+      />
+    </div>
+
+    <div
+      v-if="generalMenuItems.length > 0 && menuItems.length > 0"
+      class="h-px w-full bg-n-strong"
+    />
+
     <div v-if="menuItems.length > 0" class="flex flex-col items-start gap-2.5">
       <div
         v-for="item in menuItems"
@@ -250,21 +245,12 @@ const handleSubMenuItemClick = (parentItem, subItem) => {
       </div>
     </div>
 
-    <div v-if="menuItems.length > 0" class="h-px w-full bg-n-strong" />
-
-    <div class="flex flex-col items-start gap-3">
-      <Button
-        v-for="(item, index) in generalMenuItems"
-        :key="index"
-        :label="item.label"
-        :icon="item.icon"
-        slate
-        link
-        sm
-        class="hover:!no-underline text-n-slate-12 font-normal text-xs w-full !justify-start"
-        @click="handleMenuItemClick(item)"
-      />
-    </div>
+    <p
+      v-if="!generalMenuItems.length && !menuItems.length"
+      class="m-0 text-xs text-n-slate-11"
+    >
+      {{ t('INTEGRATION_SETTINGS.OPEN_AI.REPLY_OPTIONS.EMPTY') }}
+    </p>
   </DropdownBody>
 </template>
 

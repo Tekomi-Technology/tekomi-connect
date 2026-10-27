@@ -4,12 +4,10 @@ import MessageApi from '../../../api/inbox/message';
 import { MESSAGE_STATUS, MESSAGE_TYPE } from 'shared/constants/messages';
 import { createPendingMessage } from 'dashboard/helper/commons';
 import filterQueryGenerator from 'dashboard/helper/filterQueryGenerator';
+import { SERVER_ONLY_QUICK_FILTERS } from './helpers';
 import {
   buildConversationList,
   setContacts,
-  isOnMentionsView,
-  isOnParticipatingView,
-  isOnUnattendedView,
   isOnFoldersView,
 } from './helpers/actionHelpers';
 import messageReadActions from './actions/messageReadActions';
@@ -397,7 +395,7 @@ const actions = {
   },
 
   addConversation({ commit, state, dispatch, rootState }, conversation) {
-    const { currentInbox, appliedFilters } = state;
+    const { currentInbox, appliedFilters, conversationFilters } = state;
     const {
       inbox_id: inboxId,
       meta: { sender },
@@ -408,9 +406,7 @@ const actions = {
     if (
       !hasAppliedFilters &&
       !isOnFoldersView(rootState) &&
-      !isOnMentionsView(rootState) &&
-      !isOnParticipatingView(rootState) &&
-      !isOnUnattendedView(rootState) &&
+      !SERVER_ONLY_QUICK_FILTERS.includes(conversationFilters?.filter) &&
       isMatchingInboxFilter
     ) {
       commit(types.ADD_CONVERSATION, conversation);
@@ -418,14 +414,14 @@ const actions = {
     }
   },
 
-  addMentions({ dispatch, rootState }, conversation) {
-    if (isOnMentionsView(rootState)) {
+  addMentions({ dispatch, state }, conversation) {
+    if (state.conversationFilters?.filter === 'mention') {
       dispatch('updateConversation', conversation);
     }
   },
 
-  addUnattended({ dispatch, rootState }, conversation) {
-    if (isOnUnattendedView(rootState)) {
+  addUnattended({ dispatch, state }, conversation) {
+    if (state.conversationFilters?.filter === 'unattended') {
       dispatch('updateConversation', conversation);
     }
   },
@@ -575,6 +571,16 @@ const actions = {
     } catch (error) {
       // Handle error
     }
+  },
+
+  toggleConversationPin: async ({ commit }, { conversationId, pinned }) => {
+    const { data } = pinned
+      ? await ConversationApi.pin(conversationId)
+      : await ConversationApi.unpin(conversationId);
+    commit(types.SET_CONVERSATION_PINNED, {
+      conversationId,
+      pinned: data.pinned,
+    });
   },
 
   setCurrentChatPriority({ commit }, { priority, conversationId }) {

@@ -68,6 +68,7 @@ class Conversation < ApplicationRecord
 
   CONVERSATION_UPDATED_ADDITIONAL_ATTRIBUTE_KEYS = %w[conversation_language].freeze
   FILTERED_UNREAD_COUNT_ADDITIONAL_ATTRIBUTE_KEYS = %w[browser_language conversation_language mail_subject referer].freeze
+  GROUP_THREAD_SOURCE_PREFIX = 'group:'.freeze
   FILTERED_UNREAD_COUNT_UPDATE_KEYS = %w[
     cached_label_list campaign_id custom_attributes first_reply_created_at label_list last_activity_at priority snoozed_until waiting_since
   ].freeze
@@ -130,6 +131,7 @@ class Conversation < ApplicationRecord
   has_many :messages, dependent: :destroy_async, autosave: true
   has_one :csat_survey_response, dependent: :destroy_async
   has_many :conversation_participants, dependent: :destroy_async
+  has_many :conversation_pins, dependent: :delete_all
   has_many :notifications, as: :primary_actor, dependent: :destroy_async
   has_many :attachments, through: :messages
   has_many :reporting_events, dependent: :destroy_async
@@ -155,6 +157,10 @@ class Conversation < ApplicationRecord
 
   def can_reply?
     Conversations::MessageWindowService.new(self).can_reply?
+  end
+
+  def group_thread?
+    contact_inbox&.source_id.to_s.start_with?(GROUP_THREAD_SOURCE_PREFIX)
   end
 
   def language

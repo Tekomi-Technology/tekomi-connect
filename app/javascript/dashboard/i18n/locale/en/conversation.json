@@ -214,7 +214,27 @@
         "RT": "RT {status}",
         "MISSED": "missed",
         "DUE": "due"
-      }
+      },
+      "CLAIM": "Claim",
+      "ASSIGN": "Assign",
+      "REASSIGN": "Reassign",
+      "ASSIGNEE": "Assignee: {name}",
+      "NO_ASSIGNEE": "No assignee yet",
+      "INFO_PANEL": "Customer info (Alt+O)",
+      "ASSIGN_MENU": {
+        "AGENTS": "Agents",
+        "AI": "AI",
+        "TEAMS": "Teams",
+        "ME": "{name} (You)"
+      },
+      "STATUS_PILL": {
+        "RESOLVED": "Resolved",
+        "AI": "AI is replying",
+        "MINE": "Assigned to you",
+        "ASSIGNED": "Assigned",
+        "UNASSIGNED": "Unassigned"
+      },
+      "AI_PANEL": "AI assistant"
     },
     "RESOLVE_DROPDOWN": {
       "MARK_PENDING": "Mark as pending",
@@ -290,6 +310,8 @@
       "RESOLVED": "Mark as resolved",
       "MARK_AS_UNREAD": "Mark as unread",
       "MARK_AS_READ": "Mark as read",
+      "PIN": "Pin conversation",
+      "UNPIN": "Unpin conversation",
       "REOPEN": "Reopen conversation",
       "SNOOZE": {
         "TITLE": "Snooze",
@@ -342,9 +364,9 @@
     },
     "REPLYBOX": {
       "REPLY": "Reply",
-      "PRIVATE_NOTE": "Private Note",
-      "SEND": "Send",
-      "CREATE": "Add Note",
+      "PRIVATE_NOTE": "Internal note",
+      "SEND": "Send to customer",
+      "CREATE": "Save note",
       "INSERT_READ_MORE": "Read more",
       "DISMISS_REPLY": "Dismiss reply",
       "REPLYING_TO": "Replying to:",
@@ -387,10 +409,12 @@
         "REMOVE_PREVIEW": "Remove quoted email thread",
         "COLLAPSE": "Collapse preview",
         "EXPAND": "Expand preview"
-      }
+      },
+      "AI_SUGGEST": "AI assist"
     },
     "VISIBLE_TO_AGENTS": "Private Note: Only visible to you and your team",
     "CHANGE_STATUS": "Conversation status changed",
+    "PIN_ERROR": "Couldn't update the pin. Please try again.",
     "CHANGE_STATUS_FAILED": "Conversation status change failed",
     "CHANGE_AGENT": "Conversation Assignee changed",
     "CHANGE_AGENT_FAILED": "Assignee change failed",
@@ -449,16 +473,13 @@
     },
     "SIDEBAR": {
       "CONTACT": "Contact",
-      "CONTACT_INFO": "Customer info",
-      "ACTIONS": "Conversation handling",
-      "HISTORY": "History & notes",
+      "ACTIONS": "Actions",
+      "HISTORY": "History",
       "SALES": "Sales",
-      "COPILOT": "GMO",
-      "ANALYSIS": "Conversation analysis",
       "COMPANY": "Company",
       "NO_COMPANY": "This contact is not linked to a company yet.",
       "COLLAPSE_PANEL": "Collapse panel (Alt+O)",
-      "EXPAND_PANEL": "Expand panel (Alt+O)"
+      "PERSON": "Person"
     },
     "VOICE_WIDGET": {
       "INCOMING_CALL": "Incoming call",
@@ -483,6 +504,20 @@
       "DIALOG_DESCRIPTION": "Zalo keeps one web session per account, so signing that account in to Zalo Web elsewhere ends this one.",
       "CLOSE": "Close",
       "RECONNECTED": "Zalo session reconnected"
+    },
+    "MESSAGE_FILTER": {
+      "LABEL": "Filter messages",
+      "ALL": "All",
+      "CUSTOMER": "Customer",
+      "AI": "AI",
+      "AGENT": "Agents",
+      "AUTO": "Automated & other",
+      "EMPTY": "No messages of this type."
+    },
+    "SENDER_KIND": {
+      "AI": "AI",
+      "NOTE": "Internal note · only agents can see this",
+      "AUTO": "Automated"
     }
   },
   "EMAIL_TRANSCRIPT": {
@@ -679,7 +714,6 @@
     "TRY_THESE_PROMPTS": "Try these prompts"
   },
   "CONVERSATION_ANALYSIS": {
-    "TITLE": "Conversation analysis",
     "ANALYZE": "Analyze",
     "REANALYZE": "Analyze again",
     "ANALYZING": "Analyzing the conversation, this can take a minute. You can leave and come back later…",

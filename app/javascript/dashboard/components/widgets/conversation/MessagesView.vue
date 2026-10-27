@@ -3,6 +3,7 @@ import { ref, provide, inject, nextTick, useTemplateRef } from 'vue';
 import { useElementSize, useEventListener } from '@vueuse/core';
 // composable
 import { useLabelSuggestions } from 'dashboard/composables/useLabelSuggestions';
+import { useMessageFilter } from 'dashboard/composables/useMessageFilter';
 import { useKeyboardEvents } from 'dashboard/composables/useKeyboardEvents';
 import { useSnakeCase } from 'dashboard/composables/useTransformKeys';
 import { CONTACT_CONVERSATION_NAVIGATION } from 'dashboard/composables/useContactConversationNavigation';
@@ -101,6 +102,8 @@ export default {
       if (e.clipboardData?.files.length) revealReplyBox();
     });
 
+    const { senderKindFilter } = useMessageFilter();
+
     return {
       tekomiTasksEnabled,
       getLabelSuggestions,
@@ -121,6 +124,7 @@ export default {
       topBannerRef,
       containerHeight,
       topBannerHeight,
+      senderKindFilter,
     };
   },
   data() {
@@ -538,6 +542,7 @@ export default {
       :is-an-email-channel="isAnEmailChannel"
       :inbox-supports-reply-to="inboxSupportsReplyTo"
       :messages="getMessages"
+      :sender-kind-filter="senderKindFilter"
       @retry="handleMessageRetry"
     >
       <template #beforeAll>

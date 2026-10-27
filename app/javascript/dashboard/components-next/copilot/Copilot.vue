@@ -2,7 +2,6 @@
 import { nextTick, ref, watch, computed } from 'vue';
 import { useTrack } from 'dashboard/composables';
 import { COPILOT_EVENTS } from 'dashboard/helper/AnalyticsHelper/events';
-import { useUISettings } from 'dashboard/composables/useUISettings';
 
 import CopilotInput from './CopilotInput.vue';
 import CopilotLoader from './CopilotLoader.vue';
@@ -11,8 +10,6 @@ import CopilotAssistantMessage from './CopilotAssistantMessage.vue';
 import CopilotThinkingGroup from './CopilotThinkingGroup.vue';
 import ToggleCopilotAssistant from './ToggleCopilotAssistant.vue';
 import CopilotEmptyState from './CopilotEmptyState.vue';
-import SidebarActionsHeader from 'dashboard/components-next/SidebarActionsHeader.vue';
-import { useI18n } from 'vue-i18n';
 
 const props = defineProps({
   messages: {
@@ -37,9 +34,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['sendMessage', 'reset', 'setAssistant']);
-
-const { t } = useI18n();
+const emit = defineEmits(['sendMessage', 'setAssistant']);
 
 const sendMessage = message => {
   emit('sendMessage', message);
@@ -90,35 +85,8 @@ const isLastMessageFromAssistant = computed(() => {
   );
 });
 
-const { updateUISettings } = useUISettings();
-
-const closeCopilotPanel = () => {
-  updateUISettings({
-    is_copilot_panel_open: false,
-    is_contact_sidebar_open: false,
-  });
-};
-
-const handleSidebarAction = action => {
-  if (action === 'reset') {
-    emit('reset');
-  }
-};
-
 const hasAssistants = computed(() => props.assistants.length > 0);
 const hasMessages = computed(() => props.messages.length > 0);
-const copilotButtons = computed(() => {
-  if (hasMessages.value) {
-    return [
-      {
-        key: 'reset',
-        icon: 'i-lucide-refresh-ccw',
-        tooltip: t('TEKOMI.COPILOT.RESET'),
-      },
-    ];
-  }
-  return [];
-});
 watch(
   [() => props.messages],
   () => {
@@ -130,12 +98,6 @@ watch(
 
 <template>
   <div class="flex flex-col h-full text-sm leading-6 tracking-tight w-full">
-    <SidebarActionsHeader
-      :title="$t('TEKOMI.COPILOT.TITLE')"
-      :buttons="copilotButtons"
-      @click="handleSidebarAction"
-      @close="closeCopilotPanel"
-    />
     <div
       ref="chatContainer"
       class="flex-1 flex px-4 py-4 overflow-y-auto items-start"

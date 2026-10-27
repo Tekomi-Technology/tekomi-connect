@@ -21,8 +21,10 @@ import {
   MESSAGE_STATUS,
   CONTENT_TYPES,
 } from './constants';
+import { SENDER_KINDS, getSenderKind } from './helpers/senderKind';
 
 import Avatar from 'next/avatar/Avatar.vue';
+import Icon from 'next/icon/Icon.vue';
 
 import TextBubble from './bubbles/Text/Index.vue';
 import ActivityBubble from './bubbles/Activity.vue';
@@ -129,6 +131,7 @@ const props = defineProps({
   createdAt: { type: Number, required: true }, // eslint-disable-line vue/no-unused-properties
   currentUserId: { type: Number, required: true }, // eslint-disable-line vue/no-unused-properties
   groupWithNext: { type: Boolean, default: false },
+  groupWithPrevious: { type: Boolean, default: false },
   inboxId: { type: Number, default: null }, // eslint-disable-line vue/no-unused-properties
   inboxSupportsReplyTo: { type: Object, default: () => ({}) },
   inReplyTo: { type: Object, default: null }, // eslint-disable-line vue/no-unused-properties
@@ -362,6 +365,37 @@ const componentToRender = computed(() => {
   return TextBubble;
 });
 
+const senderKind = computed(() => getSenderKind(props));
+
+const senderLabel = computed(() => {
+  if (props.groupWithPrevious || orientation.value !== ORIENTATION.RIGHT) {
+    return null;
+  }
+  if (props.private) {
+    return {
+      icon: 'i-lucide-lock',
+      text: t('CONVERSATION.SENDER_KIND.NOTE'),
+      class: 'text-n-amber-11',
+    };
+  }
+  if (senderKind.value === SENDER_KINDS.AI) {
+    return {
+      icon: 'i-lucide-sparkles',
+      text: props.sender?.name || t('CONVERSATION.SENDER_KIND.AI'),
+      class: 'text-n-teal-11',
+    };
+  }
+  if (senderKind.value === SENDER_KINDS.AUTO) {
+    return {
+      icon: 'i-lucide-zap',
+      text: t('CONVERSATION.SENDER_KIND.AUTO'),
+      class: 'text-n-slate-11',
+    };
+  }
+  const name = props.sender?.name || props.additionalAttributes?.senderName;
+  return name ? { text: name, class: 'text-n-slate-11' } : null;
+});
+
 const shouldShowContextMenu = computed(() => {
   return !props.contentAttributes?.isUnsupported;
 });
@@ -544,6 +578,7 @@ provideMessageContext({
   orientation,
   isBotOrAgentMessage,
   shouldGroupWithNext,
+  senderKind,
 });
 </script>
 
@@ -587,14 +622,26 @@ provideMessageContext({
         <Avatar v-bind="avatarInfo" :size="24" />
       </div>
       <div
-        class="[grid-area:bubble] flex min-w-0"
+        class="[grid-area:bubble] flex flex-col min-w-0"
         :class="{
-          'ltr:ml-8 rtl:mr-8 justify-end': orientation === ORIENTATION.RIGHT,
-          'ltr:mr-8 rtl:ml-8': orientation === ORIENTATION.LEFT,
-          'flex-col items-start gap-2': shouldShowWhatsappReferral,
+          'ltr:ml-8 rtl:mr-8 items-end': orientation === ORIENTATION.RIGHT,
+          'ltr:mr-8 rtl:ml-8 items-start': orientation === ORIENTATION.LEFT,
+          'gap-2': shouldShowWhatsappReferral,
         }"
         @contextmenu="openContextMenu($event)"
       >
+        <span
+          v-if="senderLabel"
+          class="flex items-center gap-1 mb-1 text-[11px] font-semibold"
+          :class="senderLabel.class"
+        >
+          <Icon
+            v-if="senderLabel.icon"
+            :icon="senderLabel.icon"
+            class="size-3"
+          />
+          {{ senderLabel.text }}
+        </span>
         <WhatsappReferral
           v-if="shouldShowWhatsappReferral"
           :referral="contentAttributes.referral"

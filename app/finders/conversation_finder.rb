@@ -1,5 +1,6 @@
 class ConversationFinder
   include ConversationFinder::Stages
+  include ConversationFinder::QuickFilters
 
   attr_reader :current_user, :current_account, :params
 
@@ -92,6 +93,7 @@ class ConversationFinder
     filter_by_labels
     filter_by_query
     filter_by_source_id
+    filter_by_quick_filter
   end
 
   def set_inboxes
@@ -145,19 +147,22 @@ class ConversationFinder
   end
 
   def filter_by_conversation_type
-    case @params[:conversation_type]
+    @conversations = scoped_by_conversation_type(@conversations, @params[:conversation_type])
+  end
+
+  def scoped_by_conversation_type(scope, conversation_type)
+    case conversation_type
     when 'mention'
-      conversation_ids = current_account.mentions.where(user: current_user).pluck(:conversation_id)
-      @conversations = @conversations.where(id: conversation_ids)
+      scope.where(id: current_account.mentions.where(user: current_user).pluck(:conversation_id))
     when 'participating'
-      participant_conversation_ids = ConversationParticipant.where(account_id: current_account.id, user_id: current_user.id).select(:conversation_id)
-      @conversations = @conversations.where(id: participant_conversation_ids)
+      scope.where(id: ConversationParticipant.where(account_id: current_account.id, user_id: current_user.id).select(:conversation_id))
     when 'unattended'
-      @conversations = @conversations.unattended
+      scope.unattended
     when 'mine'
-      @conversations = @conversations.assigned_to(current_user)
+      scope.assigned_to(current_user)
+    else
+      scope
     end
-    @conversations
   end
 
   def filter_by_query
@@ -230,7 +235,8 @@ class ConversationFinder
 
   def conversations_base_query
     @conversations.includes(
-      :taggings, :inbox, { assignee: { avatar_attachment: [:blob] } }, { contact: { avatar_attachment: [:blob] } }, :team, :contact_inbox
+      :taggings, :inbox, { assignee: { avatar_attachment: [:blob] } }, { contact: { avatar_attachment: [:blob] } }, :team, :contact_inbox,
+      :conversation_pins
     )
   end
 

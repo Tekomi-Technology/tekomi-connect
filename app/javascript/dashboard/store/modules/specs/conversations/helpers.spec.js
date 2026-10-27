@@ -4,7 +4,6 @@ import {
   filterByInbox,
   filterByTeam,
   filterByLabel,
-  filterByUnattended,
 } from '../../conversations/helpers';
 
 const conversationList = [
@@ -158,17 +157,5 @@ describe('#filterByLabel', () => {
     const labels = ['dev', 'cs', 'sales'];
     const chatLabels = ['cs', 'sales'];
     expect(filterByLabel(true, labels, chatLabels)).toEqual(false);
-  });
-});
-
-describe('#filterByUnattended', () => {
-  it('returns true if conversation type is unattended and has no first reply', () => {
-    expect(filterByUnattended(true, 'unattended', undefined)).toEqual(true);
-  });
-  it('returns false if conversation type is not unattended and has no first reply', () => {
-    expect(filterByUnattended(false, 'mentions', undefined)).toEqual(false);
-  });
-  it('returns true if conversation type is unattended and has first reply', () => {
-    expect(filterByUnattended(true, 'mentions', 123)).toEqual(true);
   });
 });

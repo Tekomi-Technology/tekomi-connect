@@ -3,6 +3,48 @@ export const frontendURL = (path, params) => {
   return `/app/${path}${stringifiedParams}`;
 };
 
+export const CONVERSATION_LIST_QUERY_KEYS = [
+  'inbox_id',
+  'label',
+  'team_id',
+  'scope',
+  'filter',
+];
+
+const SCOPE_FILTER_TYPES = ['mention', 'participating', 'unattended'];
+
+export const conversationListQuery = ({
+  inboxId,
+  label,
+  teamId,
+  conversationType = '',
+  filter,
+}) => {
+  const query = {};
+  if (inboxId) query.inbox_id = String(inboxId);
+  if (label) query.label = label;
+  if (teamId) query.team_id = String(teamId);
+  if (conversationType === 'mine') query.scope = 'mine';
+  if (SCOPE_FILTER_TYPES.includes(conversationType)) {
+    query.filter = conversationType;
+  }
+  if (filter) query.filter = filter;
+  return query;
+};
+
+export const pickConversationListQuery = query =>
+  Object.fromEntries(
+    CONVERSATION_LIST_QUERY_KEYS.filter(key => query?.[key]).map(key => [
+      key,
+      query[key],
+    ])
+  );
+
+const withQuery = (path, query) => {
+  const search = new URLSearchParams(query).toString();
+  return search ? `${path}?${search}` : path;
+};
+
 export const conversationUrl = ({
   accountId,
   activeInbox,
@@ -11,26 +53,21 @@ export const conversationUrl = ({
   teamId,
   conversationType = '',
   foldersId,
+  filter,
 }) => {
-  let url = `accounts/${accountId}/conversations/${id}`;
-  if (activeInbox) {
-    url = `accounts/${accountId}/inbox/${activeInbox}/conversations/${id}`;
-  } else if (label) {
-    url = `accounts/${accountId}/label/${label}/conversations/${id}`;
-  } else if (teamId) {
-    url = `accounts/${accountId}/team/${teamId}/conversations/${id}`;
-  } else if (foldersId && foldersId !== 0) {
-    url = `accounts/${accountId}/custom_view/${foldersId}/conversations/${id}`;
-  } else if (conversationType === 'mention') {
-    url = `accounts/${accountId}/mentions/conversations/${id}`;
-  } else if (conversationType === 'participating') {
-    url = `accounts/${accountId}/participating/conversations/${id}`;
-  } else if (conversationType === 'unattended') {
-    url = `accounts/${accountId}/unattended/conversations/${id}`;
-  } else if (conversationType === 'mine') {
-    url = `accounts/${accountId}/mine/conversations/${id}`;
+  if (foldersId && foldersId !== 0) {
+    return `accounts/${accountId}/custom_view/${foldersId}/conversations/${id}`;
   }
-  return url;
+  return withQuery(
+    `accounts/${accountId}/conversations/${id}`,
+    conversationListQuery({
+      inboxId: activeInbox,
+      label,
+      teamId,
+      conversationType,
+      filter,
+    })
+  );
 };
 
 export const conversationListPageURL = ({
@@ -40,26 +77,23 @@ export const conversationListPageURL = ({
   label,
   teamId,
   customViewId,
+  filter,
 }) => {
-  let url = `accounts/${accountId}/dashboard`;
-  if (label) {
-    url = `accounts/${accountId}/label/${label}`;
-  } else if (teamId) {
-    url = `accounts/${accountId}/team/${teamId}`;
-  } else if (inboxId) {
-    url = `accounts/${accountId}/inbox/${inboxId}`;
-  } else if (customViewId) {
-    url = `accounts/${accountId}/custom_view/${customViewId}`;
-  } else if (conversationType) {
-    const urlMap = {
-      mention: 'mentions/conversations',
-      participating: 'participating/conversations',
-      unattended: 'unattended/conversations',
-      mine: 'mine/conversations',
-    };
-    url = `accounts/${accountId}/${urlMap[conversationType]}`;
+  if (customViewId) {
+    return frontendURL(`accounts/${accountId}/custom_view/${customViewId}`);
   }
-  return frontendURL(url);
+  return frontendURL(
+    withQuery(
+      `accounts/${accountId}/dashboard`,
+      conversationListQuery({
+        inboxId,
+        label,
+        teamId,
+        conversationType,
+        filter,
+      })
+    )
+  );
 };
 
 export const isValidURL = value => {

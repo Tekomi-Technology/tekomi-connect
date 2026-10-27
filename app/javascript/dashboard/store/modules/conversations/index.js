@@ -1,7 +1,7 @@
 import types from '../../mutation-types';
 import getters, { getSelectedChatConversation } from './getters';
 import actions from './actions';
-import { findPendingMessageIndex } from './helpers';
+import { findPendingMessageIndex, SERVER_ONLY_QUICK_FILTERS } from './helpers';
 import { MESSAGE_STATUS } from 'shared/constants/messages';
 import wootConstants from 'dashboard/constants/globals';
 import { BUS_EVENTS } from '../../../../shared/constants/busEvents';
@@ -133,6 +133,11 @@ export const mutations = {
       chat.last_activity_at = lastActivityAt;
     }
   },
+  [types.SET_CONVERSATION_PINNED](_state, { conversationId, pinned }) {
+    const chat = _state.allConversations.find(c => c.id === conversationId);
+    if (chat) chat.pinned = pinned;
+  },
+
   [types.ASSIGN_PRIORITY](_state, { priority, conversationId }) {
     const [chat] = _state.allConversations.filter(c => c.id === conversationId);
     chat.priority = priority;
@@ -262,9 +267,8 @@ export const mutations = {
         emitter.emit(BUS_EVENTS.SCROLL_TO_MESSAGE);
       }
     } else {
-      const { conversationType } = _state.conversationFilters || {};
-      const { MENTION, PARTICIPATING } = wootConstants.CONVERSATION_TYPE;
-      if (![MENTION, PARTICIPATING].includes(conversationType)) {
+      const { filter } = _state.conversationFilters || {};
+      if (!SERVER_ONLY_QUICK_FILTERS.includes(filter)) {
         _state.allConversations.push(conversation);
       }
     }

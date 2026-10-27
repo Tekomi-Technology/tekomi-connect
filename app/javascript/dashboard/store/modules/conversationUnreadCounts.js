@@ -10,7 +10,22 @@ export const state = {
   participatingCount: 0,
   unattendedCount: 0,
   folders: {},
+  quickFilters: {},
 };
+
+const QUICK_FILTER_COUNT_KEYS = [
+  'unassigned_count',
+  'pinned_count',
+  'direct_count',
+  'group_count',
+  'mine_all_count',
+  'mine_unattended_count',
+  'mine_pinned_count',
+  'mine_direct_count',
+  'mine_group_count',
+  'mine_mentions_count',
+  'mine_participating_count',
+];
 
 const normalizeCount = count => {
   const parsedCount = Number(count);
@@ -65,6 +80,12 @@ export const getters = {
   getFolderUnreadCounts($state) {
     return $state.folders;
   },
+  getQuickFilterCounts($state) {
+    return $state.quickFilters;
+  },
+  getMineUnreadCount($state) {
+    return $state.quickFilters.mine_all_count || 0;
+  },
 };
 
 export const actions = {
@@ -91,6 +112,9 @@ export const mutations = {
     $state.participatingCount = normalizeCount(payload.participating_count);
     $state.unattendedCount = normalizeCount(payload.unattended_count);
     $state.folders = normalizeCounts(payload.folders);
+    $state.quickFilters = Object.fromEntries(
+      QUICK_FILTER_COUNT_KEYS.map(key => [key, normalizeCount(payload[key])])
+    );
   },
 };
 

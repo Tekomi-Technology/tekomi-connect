@@ -19,7 +19,7 @@ RSpec.describe Conversations::UnreadCounts::FilteredCountStore do
         'UNREAD_CONVERSATIONS::V2::ACCOUNT::1::USER::2::BUILT_IN_FILTER_VERSION'
       )
       expect(described_class.built_in_filter_counts_key(account_id, user_id)).to eq(
-        'UNREAD_CONVERSATIONS::V2::ACCOUNT::1::USER::2::BUILT_IN_FILTER_COUNTS'
+        'UNREAD_CONVERSATIONS::V2::ACCOUNT::1::USER::2::BUILT_IN_FILTER_COUNTS_V2'
       )
       expect(described_class.folder_index_key(account_id, user_id)).to eq(
         'UNREAD_CONVERSATIONS::V2::ACCOUNT::1::USER::2::FOLDER_INDEX'

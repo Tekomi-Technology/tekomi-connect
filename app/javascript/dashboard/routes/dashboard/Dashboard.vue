@@ -26,7 +26,6 @@ const SoftphoneWidget = defineAsyncComponent(
   () => import('dashboard/components/tekomi/phone/SoftphoneWidget.vue')
 );
 
-import CopilotLauncher from 'dashboard/components-next/copilot/CopilotLauncher.vue';
 import CopilotContainer from 'dashboard/components/copilot/CopilotContainer.vue';
 
 import MobileSidebarLauncher from 'dashboard/components-next/sidebar/MobileSidebarLauncher.vue';
@@ -40,7 +39,6 @@ export default {
     WootKeyShortcutModal,
     AddAccountModal,
     UpgradePage,
-    CopilotLauncher,
     CopilotContainer,
     FloatingCallWidget,
     SoftphoneWidget,
@@ -163,7 +161,6 @@ export default {
         </UpgradePage>
         <template v-if="!showUpgradePage">
           <router-view />
-          <CopilotLauncher />
           <MobileSidebarLauncher
             :is-mobile-sidebar-open="isMobileSidebarOpen"
             @toggle="toggleMobileSidebar"

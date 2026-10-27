@@ -15,15 +15,7 @@ import { useWindowSize, useEventListener } from '@vueuse/core';
 import Button from 'dashboard/components-next/button/Button.vue';
 import SidebarGroup from './SidebarGroup.vue';
 import SidebarProfileMenu from './SidebarProfileMenu.vue';
-import ChannelLeaf from './ChannelLeaf.vue';
-import ChannelIcon from 'next/icon/ChannelIcon.vue';
 import Logo from 'next/icon/Logo.vue';
-import {
-  SIDEBAR_SORT_SECTIONS,
-  getSidebarSortOptions,
-  resolveSidebarSort,
-  sortSidebarItems,
-} from 'dashboard/helper/sidebarSort';
 
 const props = defineProps({
   isMobileSidebarOpen: {
@@ -40,6 +32,21 @@ const emit = defineEmits([
 ]);
 
 const { accountScopedRoute, isOnChatwootCloud } = useAccount();
+
+const CONVERSATION_LIST_PAGES = ['home', 'inbox_conversation'];
+
+const conversationListRoute = query => accountScopedRoute('home', {}, query);
+
+const FOLDER_PAGES = ['folder_conversations', 'conversations_through_folders'];
+
+const isMineScope = currentRoute =>
+  CONVERSATION_LIST_PAGES.includes(currentRoute.name) &&
+  currentRoute.query.scope === 'mine';
+
+const isConversationsPage = currentRoute =>
+  FOLDER_PAGES.includes(currentRoute.name) ||
+  (CONVERSATION_LIST_PAGES.includes(currentRoute.name) &&
+    currentRoute.query.scope !== 'mine');
 const { isEnterprise } = useConfig();
 const store = useStore();
 const pipelinesStore = usePipelinesStore();
@@ -76,8 +83,9 @@ const availabilityLabel = computed(() =>
 // Tenant branding can recolor the sidebar. The colors arrive as CSS variables on
 // <html>; here they replace the dark theme tokens the sidebar's children read.
 const sidebarColorClasses = computed(() => [
-  globalConfig.value.sidebarColorRgb &&
-    '[--solid-3:var(--sidebar-color)] [--background-color:var(--sidebar-color)] [--button-color:var(--sidebar-color)]',
+  globalConfig.value.sidebarColorRgb
+    ? '[--solid-3:var(--sidebar-color)] [--background-color:var(--sidebar-color)] [--button-color:var(--sidebar-color)]'
+    : '[--solid-3:11_42_68] [--background-color:11_42_68] dark:[--solid-3:11_22_38] dark:[--background-color:11_22_38]',
   globalConfig.value.sidebarTextColorRgb &&
     '[--slate-9:var(--sidebar-text-color)] [--slate-10:var(--sidebar-text-color)] [--slate-11:var(--sidebar-text-color)] [--slate-12:var(--sidebar-text-color)]',
 ]);
@@ -102,16 +110,6 @@ const hasConversationUnreadCounts = computed(() => {
   return isFeatureEnabledonAccount.value(
     accountId.value,
     FEATURE_FLAGS.CONVERSATION_UNREAD_COUNTS
-  );
-});
-
-const hasFilteredUnreadCounts = computed(() => {
-  return (
-    hasConversationUnreadCounts.value &&
-    isFeatureEnabledonAccount.value(
-      accountId.value,
-      FEATURE_FLAGS.UNREAD_COUNT_FOR_FILTERS
-    )
   );
 });
 
@@ -239,40 +237,8 @@ useEventListener(document, 'mouseup', onResizeEnd);
 useEventListener(document, 'touchmove', onResizeMove, { passive: false });
 useEventListener(document, 'touchend', onResizeEnd);
 
-const inboxes = useMapGetter('inboxes/getInboxes');
 const labels = useMapGetter('labels/getLabelsOnSidebar');
-const allUnreadCount = useMapGetter(
-  'conversationUnreadCounts/getAllUnreadCount'
-);
-const getInboxUnreadCount = useMapGetter(
-  'conversationUnreadCounts/getInboxUnreadCount'
-);
-const getLabelUnreadCount = useMapGetter(
-  'conversationUnreadCounts/getLabelUnreadCount'
-);
-const getTeamUnreadCount = useMapGetter(
-  'conversationUnreadCounts/getTeamUnreadCount'
-);
-const mentionsUnreadCount = useMapGetter(
-  'conversationUnreadCounts/getMentionsUnreadCount'
-);
-const participatingUnreadCount = useMapGetter(
-  'conversationUnreadCounts/getParticipatingUnreadCount'
-);
-const unattendedUnreadCount = useMapGetter(
-  'conversationUnreadCounts/getUnattendedUnreadCount'
-);
-const getFolderUnreadCount = useMapGetter(
-  'conversationUnreadCounts/getFolderUnreadCount'
-);
-const teams = useMapGetter('teams/getMyTeams');
 const contactCustomViews = useMapGetter('customViews/getContactCustomViews');
-const conversationCustomViews = useMapGetter(
-  'customViews/getConversationCustomViews'
-);
-const getSidebarSectionSort = useMapGetter(
-  'sidebarSortPreferences/getSectionSort'
-);
 
 onMounted(() => {
   store.dispatch('labels/get');
@@ -297,69 +263,6 @@ watch(
     if (currentAccountId && isEnabled) pipelinesStore.fetch();
   },
   { immediate: true }
-);
-
-const hasUnreadCountsForSection = section => {
-  if (section === SIDEBAR_SORT_SECTIONS.FOLDERS) {
-    return hasFilteredUnreadCounts.value;
-  }
-
-  return hasConversationUnreadCounts.value;
-};
-
-const getSortOptionsForSection = section =>
-  getSidebarSortOptions(section, {
-    hasUnreadCounts: hasUnreadCountsForSection(section),
-  });
-
-const getSortForSection = section =>
-  resolveSidebarSort(section, getSidebarSectionSort.value(section), {
-    hasUnreadCounts: hasUnreadCountsForSection(section),
-  });
-
-const updateSortPreference = (section, sortBy) => {
-  store.dispatch('sidebarSortPreferences/setSectionSort', {
-    section,
-    sortBy,
-  });
-};
-
-const buildSortConfig = section => ({
-  sortOptions: getSortOptionsForSection(section),
-  activeSort: getSortForSection(section),
-  onSortChange: sortBy => updateSortPreference(section, sortBy),
-});
-
-const sortedFolders = computed(() =>
-  sortSidebarItems(conversationCustomViews.value, {
-    sortBy: getSortForSection(SIDEBAR_SORT_SECTIONS.FOLDERS),
-    labelKey: view => view.name,
-    unreadCountKey: view => getFolderUnreadCount.value(view.id),
-  })
-);
-
-const sortedTeams = computed(() =>
-  sortSidebarItems(teams.value, {
-    sortBy: getSortForSection(SIDEBAR_SORT_SECTIONS.TEAMS),
-    labelKey: team => team.name,
-    unreadCountKey: team => getTeamUnreadCount.value(team.id),
-  })
-);
-
-const sortedInboxes = computed(() =>
-  sortSidebarItems(inboxes.value, {
-    sortBy: getSortForSection(SIDEBAR_SORT_SECTIONS.CHANNELS),
-    labelKey: inbox => inbox.name,
-    unreadCountKey: inbox => getInboxUnreadCount.value(inbox.id),
-  })
-);
-
-const sortedLabels = computed(() =>
-  sortSidebarItems(labels.value, {
-    sortBy: getSortForSection(SIDEBAR_SORT_SECTIONS.LABELS),
-    labelKey: label => label.title,
-    unreadCountKey: label => getLabelUnreadCount.value(label.id),
-  })
 );
 
 const closeMobileSidebar = () => {
@@ -401,7 +304,6 @@ const menuItems = computed(() => {
       name: 'Home',
       label: t('SIDEBAR.HOME'),
       icon: 'i-lucide-house',
-      iconColor: 'text-n-blue-10',
       to: accountScopedRoute('account_home'),
       activeOn: ['account_home'],
     },
@@ -409,142 +311,24 @@ const menuItems = computed(() => {
       name: 'Inbox',
       label: t('SIDEBAR.INBOX'),
       icon: 'i-lucide-inbox',
-      iconColor: 'text-n-teal-10',
-      to: accountScopedRoute('conversation_mine'),
-      activeOn: ['conversation_mine', 'conversation_through_mine'],
+      to: conversationListRoute({ scope: 'mine' }),
+      matchRoute: isMineScope,
+      getterKeys: { count: 'conversationUnreadCounts/getMineUnreadCount' },
     },
     {
       name: 'Conversation',
       label: t('SIDEBAR.CONVERSATIONS'),
       icon: 'i-lucide-message-circle',
-      iconColor: 'text-n-brand',
-      children: [
-        {
-          name: 'All',
-          label: t('SIDEBAR.ALL_CONVERSATIONS'),
-          icon: 'i-lucide-inbox',
-          badgeCount: allUnreadCount.value,
-          activeOn: ['inbox_conversation'],
-          to: accountScopedRoute('home'),
-        },
-        {
-          name: 'Mentions',
-          label: t('SIDEBAR.MENTIONED_CONVERSATIONS'),
-          icon: 'i-lucide-at-sign',
-          badgeCount: hasFilteredUnreadCounts.value
-            ? mentionsUnreadCount.value
-            : 0,
-          activeOn: ['conversation_through_mentions'],
-          to: accountScopedRoute('conversation_mentions'),
-        },
-        {
-          name: 'Participating',
-          label: t('SIDEBAR.PARTICIPATING_CONVERSATIONS'),
-          icon: 'i-lucide-user-round-check',
-          badgeCount: hasFilteredUnreadCounts.value
-            ? participatingUnreadCount.value
-            : 0,
-          activeOn: ['conversation_through_participating'],
-          to: accountScopedRoute('conversation_participating'),
-        },
-        {
-          name: 'Unattended',
-          activeOn: ['conversation_through_unattended'],
-          label: t('SIDEBAR.UNATTENDED_CONVERSATIONS'),
-          icon: 'i-lucide-clock-alert',
-          badgeCount: hasFilteredUnreadCounts.value
-            ? unattendedUnreadCount.value
-            : 0,
-          to: accountScopedRoute('conversation_unattended'),
-        },
-        {
-          name: 'Folders',
-          label: t('SIDEBAR.CUSTOM_VIEWS_FOLDER'),
-          icon: 'i-lucide-folder',
-          activeOn: ['conversations_through_folders'],
-          ...buildSortConfig(SIDEBAR_SORT_SECTIONS.FOLDERS),
-          collapsible: true,
-          showTreeLine: true,
-          children: sortedFolders.value.map(view => ({
-            name: `${view.name}-${view.id}`,
-            label: view.name,
-            badgeCount: hasFilteredUnreadCounts.value
-              ? getFolderUnreadCount.value(view.id)
-              : 0,
-            to: accountScopedRoute('folder_conversations', { id: view.id }),
-          })),
-        },
-        {
-          name: 'Teams',
-          label: t('SIDEBAR.TEAMS'),
-          icon: 'i-lucide-users',
-          activeOn: ['conversations_through_team'],
-          ...buildSortConfig(SIDEBAR_SORT_SECTIONS.TEAMS),
-          collapsible: true,
-          showTreeLine: true,
-          children: sortedTeams.value.map(team => ({
-            name: `${team.name}-${team.id}`,
-            label: team.name,
-            badgeCount: getTeamUnreadCount.value(team.id),
-            to: accountScopedRoute('team_conversations', { teamId: team.id }),
-          })),
-        },
-        {
-          name: 'Channels',
-          label: t('SIDEBAR.CHANNELS'),
-          icon: 'i-lucide-mailbox',
-          activeOn: ['conversation_through_inbox'],
-          ...buildSortConfig(SIDEBAR_SORT_SECTIONS.CHANNELS),
-          collapsible: true,
-          showTreeLine: true,
-          children: sortedInboxes.value.map(inbox => ({
-            name: `${inbox.name}-${inbox.id}`,
-            label: inbox.name,
-            badgeCount: getInboxUnreadCount.value(inbox.id),
-            icon: h(ChannelIcon, {
-              inbox,
-              useBrandIcon: true,
-              class: 'size-[16px]',
-            }),
-            to: accountScopedRoute('inbox_dashboard', { inbox_id: inbox.id }),
-            component: leafProps =>
-              h(ChannelLeaf, {
-                label: leafProps.label,
-                active: leafProps.active,
-                inbox,
-                badgeCount: leafProps.badgeCount,
-              }),
-          })),
-        },
-        {
-          name: 'Labels',
-          label: t('SIDEBAR.LABELS'),
-          icon: 'i-lucide-tag',
-          activeOn: ['conversations_through_label'],
-          ...buildSortConfig(SIDEBAR_SORT_SECTIONS.LABELS),
-          collapsible: true,
-          showTreeLine: true,
-          children: sortedLabels.value.map(label => ({
-            name: `${label.title}-${label.id}`,
-            label: label.title,
-            badgeCount: getLabelUnreadCount.value(label.id),
-            icon: h('span', {
-              class: `size-[8px] rounded-sm`,
-              style: { backgroundColor: label.color },
-            }),
-            to: accountScopedRoute('label_conversations', {
-              label: label.title,
-            }),
-          })),
-        },
-      ],
+      to: conversationListRoute(),
+      matchRoute: isConversationsPage,
+      getterKeys: { count: 'conversationUnreadCounts/getAllUnreadCount' },
     },
     ...(SHOW_TEKOMI_MENU
       ? [
           {
             name: 'Tekomi',
             icon: 'i-woot-tekomi',
-            iconColor: 'text-n-violet-10',
+            iconColor: 'text-n-teal-11',
             label: t('SIDEBAR.TEKOMI'),
             activeOn: ['tekomi_assistants_create_index'],
             children: [
@@ -638,7 +422,6 @@ const menuItems = computed(() => {
             name: 'Deals',
             label: t('SIDEBAR.DEALS'),
             icon: 'i-lucide-square-kanban',
-            iconColor: 'text-n-amber-10',
             activeOn: ['deals_dashboard_index', 'deals_show'],
             children: pipelinesStore.records.map(pipeline => ({
               name: `pipeline-${pipeline.id}`,
@@ -657,7 +440,6 @@ const menuItems = computed(() => {
             name: 'Calls',
             label: t('SIDEBAR.CALLS'),
             icon: 'i-lucide-phone',
-            iconColor: 'text-green-400',
             to: accountScopedRoute('calls_dashboard_index'),
             activeOn: ['calls_dashboard_index'],
           },
@@ -667,7 +449,6 @@ const menuItems = computed(() => {
       name: 'Contacts',
       label: t('SIDEBAR.CONTACTS'),
       icon: 'i-lucide-contact',
-      iconColor: 'text-n-iris-10',
       children: [
         {
           name: 'All Contacts',
@@ -742,7 +523,6 @@ const menuItems = computed(() => {
       name: 'Companies',
       label: t('SIDEBAR.COMPANIES'),
       icon: 'i-lucide-building-2',
-      iconColor: 'text-yellow-400',
       children: [
         {
           name: 'All Companies',
@@ -760,7 +540,6 @@ const menuItems = computed(() => {
       name: 'Reports',
       label: t('SIDEBAR.REPORTS'),
       icon: 'i-lucide-chart-spline',
-      iconColor: 'text-n-ruby-10',
       children: [
         {
           name: 'Report Overview',
@@ -809,14 +588,12 @@ const menuItems = computed(() => {
       name: 'Team Monitoring',
       label: t('SIDEBAR.TEAM_MONITORING'),
       icon: 'i-lucide-gauge',
-      iconColor: 'text-n-amber-10',
       to: accountScopedRoute('team_monitoring_index'),
     },
     {
       name: 'Campaigns',
       label: t('SIDEBAR.CAMPAIGNS'),
       icon: 'i-lucide-megaphone',
-      iconColor: 'text-n-teal-10',
       children: [
         {
           name: 'Live chat',
@@ -839,7 +616,6 @@ const menuItems = computed(() => {
       name: 'Portals',
       label: t('SIDEBAR.HELP_CENTER.TITLE'),
       icon: 'i-lucide-library-big',
-      iconColor: 'text-n-blue-10',
       children: [
         {
           name: 'Articles',
@@ -887,14 +663,12 @@ const menuItems = computed(() => {
       name: 'User Guide',
       label: t('SIDEBAR.USER_GUIDE'),
       icon: 'i-lucide-circle-help',
-      iconColor: 'text-n-teal-10',
       to: accountScopedRoute('user_guide_index'),
     },
     {
       name: 'Settings',
       label: t('SIDEBAR.SETTINGS'),
       icon: 'i-lucide-bolt',
-      iconColor: 'text-n-slate-11',
       children: [
         {
           name: 'Settings Account Settings',
@@ -1127,48 +901,29 @@ const menuItems = computed(() => {
     :style="isMobile ? undefined : { width: `${sidebarWidth}px` }"
   >
     <section class="relative z-50 flex flex-col flex-shrink-0">
-      <!-- Same height as the dashboard header, so the two bottom borders line up. -->
       <div
-        class="flex items-center min-w-0 h-14 border-b border-n-weak"
-        :class="isEffectivelyCollapsed ? 'justify-center px-1' : 'gap-2.5 px-3'"
+        class="flex items-center min-w-0 h-[72px]"
+        :class="isEffectivelyCollapsed ? 'justify-center px-1' : 'gap-2.5 px-5'"
       >
-        <Logo
-          v-if="isEffectivelyCollapsed"
-          dark
-          class="shrink-0 size-11 object-contain"
-        />
-        <!-- Logo on the left, name over tagline on the right, both centred on one row. -->
-        <template v-else>
-          <Logo
-            dark
-            variant="full"
-            class="h-7 w-auto max-w-[45%] shrink-0 object-contain object-left"
-          />
-          <span
-            class="flex flex-col justify-center items-start min-w-0 gap-0.5 leading-tight"
-          >
-            <span
-              class="text-[15px] font-bold tracking-[0.12em] text-n-slate-12 truncate"
-            >
-              {{ globalConfig.brandName || t('SIDEBAR_ITEMS.BRAND_NAME') }}
-            </span>
-            <span
-              class="text-[11px] font-medium italic tracking-wide text-n-brand truncate"
-            >
-              {{
-                globalConfig.brandTagline || t('SIDEBAR_ITEMS.BRAND_TAGLINE')
-              }}
-            </span>
-          </span>
-        </template>
+        <span
+          class="grid flex-shrink-0 p-[3px] overflow-hidden bg-white rounded-lg size-8 place-items-center shadow-[0_0_0_1px_rgba(255,255,255,0.12),0_4px_10px_-4px_rgba(0,0,0,0.45)]"
+        >
+          <Logo class="object-contain size-full" />
+        </span>
+        <span
+          v-if="!isEffectivelyCollapsed"
+          class="min-w-0 text-base font-bold tracking-[0.06em] text-white uppercase truncate"
+        >
+          {{ globalConfig.brandName || t('SIDEBAR_ITEMS.BRAND_NAME') }}
+        </span>
       </div>
     </section>
     <nav
       class="grid overflow-y-scroll flex-grow gap-2 pb-5 no-scrollbar min-w-0"
-      :class="isEffectivelyCollapsed ? 'px-1' : 'px-2'"
+      :class="isEffectivelyCollapsed ? 'px-1' : 'px-3'"
     >
       <ul
-        class="flex flex-col gap-1 m-0 list-none min-w-0"
+        class="flex flex-col gap-0.5 m-0 list-none min-w-0"
         :class="{ 'items-center': isEffectivelyCollapsed }"
       >
         <SidebarGroup
@@ -1183,9 +938,9 @@ const menuItems = computed(() => {
         class="pointer-events-none absolute inset-x-0 -top-8 h-8 bg-gradient-to-t from-n-background to-transparent"
       />
       <div
-        class="flex border-t border-n-weak"
+        class="flex"
         :class="
-          isEffectivelyCollapsed ? 'justify-center px-1 py-2' : 'px-2 py-2'
+          isEffectivelyCollapsed ? 'justify-center px-1 py-2' : 'px-3 pt-3'
         "
       >
         <SidebarProfileMenu
@@ -1195,7 +950,7 @@ const menuItems = computed(() => {
         />
       </div>
       <div
-        class="flex items-center gap-2 px-3 py-2.5 border-t border-n-weak"
+        class="flex items-center gap-2 px-4 pt-2.5 pb-3"
         :class="isEffectivelyCollapsed ? 'justify-center' : 'justify-between'"
         :title="isEffectivelyCollapsed ? availabilityLabel : undefined"
       >
@@ -1206,14 +961,14 @@ const menuItems = computed(() => {
           />
           <span
             v-if="!isEffectivelyCollapsed"
-            class="text-xs font-medium truncate text-n-slate-11"
+            class="text-xs font-semibold truncate text-n-slate-12"
           >
             {{ availabilityLabel }}
           </span>
         </span>
         <span
           v-if="!isEffectivelyCollapsed && globalConfig.appVersion"
-          class="flex-shrink-0 font-mono text-xxs text-n-slate-10"
+          class="flex-shrink-0 font-mono text-[11px] text-n-slate-10"
         >
           {{ `v${globalConfig.appVersion}` }}
         </span>

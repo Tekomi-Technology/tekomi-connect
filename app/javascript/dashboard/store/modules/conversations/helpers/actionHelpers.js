@@ -14,35 +14,6 @@ export const setContacts = (commit, chatList) => {
   );
 };
 
-export const isOnMentionsView = ({ route: { name: routeName } }) => {
-  const MENTION_ROUTES = [
-    'conversation_mentions',
-    'conversation_through_mentions',
-  ];
-  return MENTION_ROUTES.includes(routeName);
-};
-
-export const isOnUnattendedView = ({ route: { name: routeName } }) => {
-  const UNATTENDED_ROUTES = [
-    'conversation_unattended',
-    'conversation_through_unattended',
-  ];
-  return UNATTENDED_ROUTES.includes(routeName);
-};
-
-export const isOnParticipatingView = ({ route: { name: routeName } }) => {
-  const PARTICIPATING_ROUTES = [
-    'conversation_participating',
-    'conversation_through_participating',
-  ];
-  return PARTICIPATING_ROUTES.includes(routeName);
-};
-
-export const isOnMineView = ({ route: { name: routeName } }) => {
-  const MINE_ROUTES = ['conversation_mine', 'conversation_through_mine'];
-  return MINE_ROUTES.includes(routeName);
-};
-
 export const isOnFoldersView = ({ route: { name: routeName } }) => {
   const FOLDER_ROUTES = [
     'folder_conversations',

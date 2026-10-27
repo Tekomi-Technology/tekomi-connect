@@ -183,7 +183,7 @@ const openConversation = id =>
 const viewAllRoute = computed(() => ({
   name: 'home',
   params: { accountId: route.params.accountId },
-  ...(isVipTab.value && { query: { tab: wootConstants.ASSIGNEE_TYPE.VIP } }),
+  ...(isVipTab.value && { query: { filter: 'vip' } }),
 }));
 
 onMounted(() => {

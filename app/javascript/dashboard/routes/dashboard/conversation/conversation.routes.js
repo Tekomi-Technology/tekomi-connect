@@ -2,6 +2,7 @@
 import { frontendURL } from '../../../helper/URLHelper';
 import store from '../../../store';
 import ConversationView from './ConversationView.vue';
+import { conversationListQuery } from '../../../helper/URLHelper';
 
 const CONVERSATION_PERMISSIONS = [
   'administrator',
@@ -43,6 +44,103 @@ const redirectFolderConversationIfUnavailable = async (to, _from, next) => {
   });
 };
 
+const listProps = route => ({
+  inboxId: route.query.inbox_id || 0,
+  label: route.query.label || '',
+  teamId: route.query.team_id || '',
+  conversationType: route.query.scope === 'mine' ? 'mine' : '',
+  quickFilter: route.query.filter || '',
+  conversationId: route.params.conversation_id || 0,
+});
+
+const redirectToList = scopeFromRoute => to => ({
+  name: to.params.conversation_id ? 'inbox_conversation' : 'home',
+  params: {
+    accountId: to.params.accountId,
+    ...(to.params.conversation_id && {
+      conversation_id: to.params.conversation_id,
+    }),
+  },
+  query: { ...to.query, ...conversationListQuery(scopeFromRoute(to)) },
+});
+
+const legacyListRoutes = [
+  [
+    'inbox_dashboard',
+    'inbox/:inbox_id',
+    to => ({ inboxId: to.params.inbox_id }),
+  ],
+  ['label_conversations', 'label/:label', to => ({ label: to.params.label })],
+  ['team_conversations', 'team/:teamId', to => ({ teamId: to.params.teamId })],
+  [
+    'conversation_mentions',
+    'mentions/conversations',
+    () => ({ conversationType: 'mention' }),
+  ],
+  [
+    'conversation_unattended',
+    'unattended/conversations',
+    () => ({ conversationType: 'unattended' }),
+  ],
+  [
+    'conversation_participating',
+    'participating/conversations',
+    () => ({ conversationType: 'participating' }),
+  ],
+  [
+    'conversation_mine',
+    'mine/conversations',
+    () => ({ conversationType: 'mine' }),
+  ],
+];
+
+const legacyConversationRoutes = [
+  [
+    'conversation_through_inbox',
+    'inbox/:inbox_id/conversations/:conversation_id',
+    to => ({ inboxId: to.params.inbox_id }),
+  ],
+  [
+    'conversations_through_label',
+    'label/:label/conversations/:conversation_id',
+    to => ({ label: to.params.label }),
+  ],
+  [
+    'conversations_through_team',
+    'team/:teamId/conversations/:conversation_id',
+    to => ({ teamId: to.params.teamId }),
+  ],
+  [
+    'conversation_through_mentions',
+    'mentions/conversations/:conversation_id',
+    () => ({ conversationType: 'mention' }),
+  ],
+  [
+    'conversation_through_unattended',
+    'unattended/conversations/:conversation_id',
+    () => ({ conversationType: 'unattended' }),
+  ],
+  [
+    'conversation_through_participating',
+    'participating/conversations/:conversation_id',
+    () => ({ conversationType: 'participating' }),
+  ],
+  [
+    'conversation_through_mine',
+    'mine/conversations/:conversation_id',
+    () => ({ conversationType: 'mine' }),
+  ],
+];
+
+const legacyRedirects = [...legacyListRoutes, ...legacyConversationRoutes].map(
+  ([name, path, scopeFromRoute]) => ({
+    path: frontendURL(`accounts/:accountId/${path}`),
+    name,
+    meta: { permissions: CONVERSATION_PERMISSIONS },
+    redirect: redirectToList(scopeFromRoute),
+  })
+);
+
 export default {
   routes: [
     {
@@ -52,9 +150,7 @@ export default {
         permissions: CONVERSATION_PERMISSIONS,
       },
       component: ConversationView,
-      props: () => {
-        return { inboxId: 0 };
-      },
+      props: listProps,
     },
     {
       path: frontendURL('accounts/:accountId/conversations/:conversation_id'),
@@ -63,82 +159,7 @@ export default {
         permissions: CONVERSATION_PERMISSIONS,
       },
       component: ConversationView,
-      props: route => {
-        return { inboxId: 0, conversationId: route.params.conversation_id };
-      },
-    },
-    {
-      path: frontendURL('accounts/:accountId/inbox/:inbox_id'),
-      name: 'inbox_dashboard',
-      meta: {
-        permissions: CONVERSATION_PERMISSIONS,
-      },
-      component: ConversationView,
-      props: route => {
-        return { inboxId: route.params.inbox_id };
-      },
-    },
-    {
-      path: frontendURL(
-        'accounts/:accountId/inbox/:inbox_id/conversations/:conversation_id'
-      ),
-      name: 'conversation_through_inbox',
-      meta: {
-        permissions: CONVERSATION_PERMISSIONS,
-      },
-      component: ConversationView,
-      props: route => {
-        return {
-          conversationId: route.params.conversation_id,
-          inboxId: route.params.inbox_id,
-        };
-      },
-    },
-    {
-      path: frontendURL('accounts/:accountId/label/:label'),
-      name: 'label_conversations',
-      meta: {
-        permissions: CONVERSATION_PERMISSIONS,
-      },
-      component: ConversationView,
-      props: route => ({ label: route.params.label }),
-    },
-    {
-      path: frontendURL(
-        'accounts/:accountId/label/:label/conversations/:conversation_id'
-      ),
-      name: 'conversations_through_label',
-      meta: {
-        permissions: CONVERSATION_PERMISSIONS,
-      },
-      component: ConversationView,
-      props: route => ({
-        conversationId: route.params.conversation_id,
-        label: route.params.label,
-      }),
-    },
-    {
-      path: frontendURL('accounts/:accountId/team/:teamId'),
-      name: 'team_conversations',
-      meta: {
-        permissions: CONVERSATION_PERMISSIONS,
-      },
-      component: ConversationView,
-      props: route => ({ teamId: route.params.teamId }),
-    },
-    {
-      path: frontendURL(
-        'accounts/:accountId/team/:teamId/conversations/:conversationId'
-      ),
-      name: 'conversations_through_team',
-      meta: {
-        permissions: CONVERSATION_PERMISSIONS,
-      },
-      component: ConversationView,
-      props: route => ({
-        conversationId: route.params.conversationId,
-        teamId: route.params.teamId,
-      }),
+      props: listProps,
     },
     {
       path: frontendURL('accounts/:accountId/custom_view/:id'),
@@ -165,97 +186,6 @@ export default {
         foldersId: route.params.id,
       }),
     },
-    {
-      path: frontendURL('accounts/:accountId/mentions/conversations'),
-      name: 'conversation_mentions',
-      meta: {
-        permissions: CONVERSATION_PERMISSIONS,
-      },
-      component: ConversationView,
-      props: () => ({ conversationType: 'mention' }),
-    },
-    {
-      path: frontendURL(
-        'accounts/:accountId/mentions/conversations/:conversationId'
-      ),
-      name: 'conversation_through_mentions',
-      meta: {
-        permissions: CONVERSATION_PERMISSIONS,
-      },
-      component: ConversationView,
-      props: route => ({
-        conversationId: route.params.conversationId,
-        conversationType: 'mention',
-      }),
-    },
-    {
-      path: frontendURL('accounts/:accountId/unattended/conversations'),
-      name: 'conversation_unattended',
-      meta: {
-        permissions: CONVERSATION_PERMISSIONS,
-      },
-      component: ConversationView,
-      props: () => ({ conversationType: 'unattended' }),
-    },
-    {
-      path: frontendURL(
-        'accounts/:accountId/unattended/conversations/:conversationId'
-      ),
-      name: 'conversation_through_unattended',
-      meta: {
-        permissions: CONVERSATION_PERMISSIONS,
-      },
-      component: ConversationView,
-      props: route => ({
-        conversationId: route.params.conversationId,
-        conversationType: 'unattended',
-      }),
-    },
-    {
-      path: frontendURL('accounts/:accountId/participating/conversations'),
-      name: 'conversation_participating',
-      meta: {
-        permissions: CONVERSATION_PERMISSIONS,
-      },
-      component: ConversationView,
-      props: () => ({ conversationType: 'participating' }),
-    },
-    {
-      path: frontendURL(
-        'accounts/:accountId/participating/conversations/:conversationId'
-      ),
-      name: 'conversation_through_participating',
-      meta: {
-        permissions: CONVERSATION_PERMISSIONS,
-      },
-      component: ConversationView,
-      props: route => ({
-        conversationId: route.params.conversationId,
-        conversationType: 'participating',
-      }),
-    },
-    {
-      path: frontendURL('accounts/:accountId/mine/conversations'),
-      name: 'conversation_mine',
-      meta: {
-        permissions: CONVERSATION_PERMISSIONS,
-      },
-      component: ConversationView,
-      props: () => ({ conversationType: 'mine' }),
-    },
-    {
-      path: frontendURL(
-        'accounts/:accountId/mine/conversations/:conversationId'
-      ),
-      name: 'conversation_through_mine',
-      meta: {
-        permissions: CONVERSATION_PERMISSIONS,
-      },
-      component: ConversationView,
-      props: route => ({
-        conversationId: route.params.conversationId,
-        conversationType: 'mine',
-      }),
-    },
+    ...legacyRedirects,
   ],
 };

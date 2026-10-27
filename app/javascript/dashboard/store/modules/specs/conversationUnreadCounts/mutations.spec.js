@@ -37,6 +37,9 @@ describe('#mutations', () => {
           10: '11',
           12: -1,
         },
+        pinned_count: '4',
+        mine_all_count: 2,
+        mine_pinned_count: -3,
       });
 
       expect(state).toEqual({
@@ -48,6 +51,19 @@ describe('#mutations', () => {
         participatingCount: 9,
         unattendedCount: 0,
         folders: { 10: 11 },
+        quickFilters: {
+          unassigned_count: 0,
+          pinned_count: 4,
+          direct_count: 0,
+          group_count: 0,
+          mine_all_count: 2,
+          mine_unattended_count: 0,
+          mine_pinned_count: 0,
+          mine_direct_count: 0,
+          mine_group_count: 0,
+          mine_mentions_count: 0,
+          mine_participating_count: 0,
+        },
       });
     });
 
@@ -74,6 +90,19 @@ describe('#mutations', () => {
         participatingCount: 0,
         unattendedCount: 0,
         folders: {},
+        quickFilters: {
+          unassigned_count: 0,
+          pinned_count: 0,
+          direct_count: 0,
+          group_count: 0,
+          mine_all_count: 0,
+          mine_unattended_count: 0,
+          mine_pinned_count: 0,
+          mine_direct_count: 0,
+          mine_group_count: 0,
+          mine_mentions_count: 0,
+          mine_participating_count: 0,
+        },
       });
     });
 

@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useMapGetter } from 'dashboard/composables/store';
 import { getLastMessage } from 'dashboard/helper/conversationHelper';
 import Avatar from 'next/avatar/Avatar.vue';
 import ChannelIcon from 'dashboard/components-next/icon/ChannelIcon.vue';
@@ -55,7 +56,16 @@ const hasSlaPolicyId = computed(
 
 const isVip = computed(() => !!props.currentContact?.vip);
 
-const visibleLabels = computed(() => (props.chat.labels ?? []).slice(0, 2));
+const allLabels = useMapGetter('labels/getLabels');
+
+const visibleLabels = computed(() =>
+  (props.chat.labels ?? []).slice(0, 2).map(title => ({
+    title,
+    color: allLabels.value.find(label => label.title === title)?.color,
+  }))
+);
+
+const isAiHandling = computed(() => props.chat.status === 'pending');
 
 const priorityPillClass = computed(() => {
   const priority = props.chat.priority;
@@ -68,6 +78,7 @@ const priorityPillClass = computed(() => {
 
 const showBottomRow = computed(() => {
   return (
+    isAiHandling.value ||
     props.chat.priority ||
     isVip.value ||
     visibleLabels.value.length > 0 ||
@@ -114,7 +125,7 @@ watch(
     :class="[
       compact ? 'p-3' : 'p-4',
       {
-        'bg-n-brand/[0.05] hover:bg-n-brand/[0.07]': isActiveChat,
+        'bg-n-teal-2 hover:bg-n-teal-2': isActiveChat,
         'selected bg-n-slate-2': selected,
         'bg-n-amber-3 hover:bg-n-amber-4':
           isVip && chat.waiting_since && !isActiveChat && !selected,
@@ -125,7 +136,7 @@ watch(
   >
     <span
       v-if="isActiveChat"
-      class="absolute left-0 top-0 bottom-0 w-1 bg-n-brand rounded-r"
+      class="absolute top-0 bottom-0 w-[3px] start-0 bg-n-teal-9 rounded-e"
     />
     <div
       class="relative shrink-0"
@@ -151,6 +162,12 @@ watch(
           </label>
         </template>
       </Avatar>
+      <span
+        v-if="!hideThumbnail && inbox.channel_type"
+        class="absolute grid rounded-full -bottom-0.5 -end-0.5 size-4 place-items-center bg-n-solid-1 ring-1 ring-n-weak"
+      >
+        <ChannelIcon :inbox="inbox" use-brand-icon class="size-3" />
+      </span>
     </div>
     <div class="flex-1 min-w-0">
       <div class="flex items-start justify-between gap-2">
@@ -162,9 +179,9 @@ watch(
             {{ currentContact.name }}
           </h4>
           <span
-            v-if="hasUnread"
-            class="rounded-full bg-n-brand size-2 shrink-0"
-            :title="String(unreadCount)"
+            v-if="chat.pinned"
+            class="i-lucide-pin size-3 shrink-0 text-n-slate-10"
+            :title="t('CONVERSATION.CARD_CONTEXT_MENU.PIN')"
           />
         </div>
         <div class="flex items-center gap-1.5 shrink-0">
@@ -174,50 +191,59 @@ watch(
           >
             {{ inbox.name }}
           </span>
-          <span class="text-xs font-normal text-n-slate-11">
+          <span
+            class="text-xs"
+            :class="
+              hasUnread ? 'font-semibold text-n-teal-11' : 'text-n-slate-11'
+            "
+          >
             <TimeAgo
               :last-activity-timestamp="chat.timestamp"
               :created-at-timestamp="chat.created_at"
               :conversation-id="chat.id"
             />
           </span>
-          <ChannelIcon
-            v-if="inbox.channel_type"
-            :inbox="inbox"
-            use-brand-icon
-            class="size-4 shrink-0"
-          />
         </div>
       </div>
-      <VoiceCallStatus
-        v-if="voiceCallData.status"
-        key="voice-status-row"
-        :status="voiceCallData.status"
-        :direction="voiceCallData.direction"
-        :message-preview-class="messagePreviewClass"
-      />
-      <MessagePreview
-        v-else-if="lastMessageInChat"
-        key="message-preview"
-        :message="lastMessageInChat"
-        class="my-0.5 leading-5 min-w-0 text-[13px]"
-        :class="messagePreviewClass"
-      />
-      <p
-        v-else
-        key="no-messages"
-        class="text-n-slate-11 text-[13px] my-0.5 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
-        :class="messagePreviewClass"
-      >
-        <fluent-icon
-          size="16"
-          class="-mt-0.5 align-middle inline-block text-n-slate-10"
-          icon="info"
-        />
-        <span class="mx-0.5">
-          {{ $t(`CHAT_LIST.NO_MESSAGES`) }}
+      <div class="flex items-center min-w-0 gap-2">
+        <div class="flex-1 min-w-0">
+          <VoiceCallStatus
+            v-if="voiceCallData.status"
+            key="voice-status-row"
+            :status="voiceCallData.status"
+            :direction="voiceCallData.direction"
+            :message-preview-class="messagePreviewClass"
+          />
+          <MessagePreview
+            v-else-if="lastMessageInChat"
+            key="message-preview"
+            :message="lastMessageInChat"
+            class="my-0.5 leading-5 min-w-0 text-[13px]"
+            :class="messagePreviewClass"
+          />
+          <p
+            v-else
+            key="no-messages"
+            class="text-n-slate-11 text-[13px] my-0.5 min-w-0 overflow-hidden text-ellipsis whitespace-nowrap"
+            :class="messagePreviewClass"
+          >
+            <fluent-icon
+              size="16"
+              class="-mt-0.5 align-middle inline-block text-n-slate-10"
+              icon="info"
+            />
+            <span class="mx-0.5">
+              {{ $t(`CHAT_LIST.NO_MESSAGES`) }}
+            </span>
+          </p>
+        </div>
+        <span
+          v-if="hasUnread"
+          class="inline-grid h-5 px-1.5 text-[11px] font-bold text-white rounded-full shrink-0 min-w-5 place-items-center bg-n-teal-9"
+        >
+          {{ unreadCount > 99 ? '99+' : unreadCount }}
         </span>
-      </p>
+      </div>
       <div
         v-if="showBottomRow"
         class="flex items-center justify-between gap-1 mt-1.5"
@@ -238,14 +264,26 @@ watch(
           <VipBadge v-if="isVip" />
           <span
             v-for="label in visibleLabels"
-            :key="label"
-            class="px-2 py-0.5 rounded-full text-[11px] font-medium bg-n-alpha-2 text-n-slate-11 truncate max-w-28"
+            :key="label.title"
+            class="flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-medium bg-n-alpha-2 text-n-slate-11 max-w-28"
           >
-            {{ label }}
+            <span
+              v-if="label.color"
+              class="rounded-full size-1.5 shrink-0"
+              :style="{ backgroundColor: label.color }"
+            />
+            <span class="truncate">{{ label.title }}</span>
           </span>
         </div>
         <div
-          v-if="showAssignee || !assignee.name"
+          v-if="isAiHandling"
+          class="flex items-center gap-1 text-xs font-semibold text-n-teal-11 shrink-0"
+        >
+          <span class="i-lucide-sparkles size-3.5" />
+          <span class="hidden sm:inline">{{ t('CHAT_LIST.AI_HANDLING') }}</span>
+        </div>
+        <div
+          v-else-if="showAssignee || !assignee.name"
           class="flex items-center gap-1 text-xs text-n-slate-11 shrink-0"
         >
           <template v-if="assignee.name">

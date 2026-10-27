@@ -46,19 +46,33 @@ useKeyboardEvents(keyboardEvents);
 </script>
 
 <template>
-  <woot-tabs
-    :index="activeTabIndex"
-    class="w-full px-3 -mt-1 py-0 [&_ul]:p-0 h-10"
-    @change="onTabChange"
-  >
-    <woot-tabs-item
+  <div role="tablist" class="flex items-center w-full gap-1 px-3 py-2">
+    <button
       v-for="(item, index) in items"
       :key="item.key"
-      class="text-sm [&_a]:font-medium"
-      :index="index"
-      :name="item.name"
-      :count="item.count"
-      is-compact
-    />
-  </woot-tabs>
+      type="button"
+      role="tab"
+      :aria-selected="index === activeTabIndex"
+      class="flex items-center gap-1.5 h-7 px-2.5 rounded-lg text-[13px] whitespace-nowrap transition-colors"
+      :class="
+        index === activeTabIndex
+          ? 'bg-n-teal-3 text-n-teal-11 font-bold'
+          : 'text-n-slate-11 font-semibold hover:bg-n-alpha-2'
+      "
+      @click="onTabChange(index)"
+    >
+      {{ item.name }}
+      <span
+        v-if="item.count"
+        class="inline-grid h-[18px] min-w-[18px] px-1 place-items-center rounded-full text-[11px] font-semibold"
+        :class="
+          index === activeTabIndex
+            ? 'bg-n-teal-9 text-white'
+            : 'bg-n-alpha-2 text-n-slate-11'
+        "
+      >
+        {{ item.count > 99 ? '99+' : item.count }}
+      </span>
+    </button>
+  </div>
 </template>

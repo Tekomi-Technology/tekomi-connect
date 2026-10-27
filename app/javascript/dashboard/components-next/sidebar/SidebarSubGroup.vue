@@ -8,7 +8,7 @@ import Icon from 'next/icon/Icon.vue';
 import SidebarGroupLeaf from './SidebarGroupLeaf.vue';
 import SidebarGroupSeparator from './SidebarGroupSeparator.vue';
 
-import { useSidebarContext } from './provider';
+import { useSidebarContext, leafBindings } from './provider';
 
 const props = defineProps({
   name: { type: String, required: true },
@@ -159,7 +159,7 @@ watch([hasActiveChild, storageKey], expandSubGroupOnActiveChild, {
           <SidebarGroupLeaf
             v-for="child in children"
             v-show="shouldShowItem(child)"
-            v-bind="child"
+            v-bind="leafBindings(child)"
             :key="child.name"
             :active="activeChild?.name === child.name"
             :hide-tree-line="hideLeafTreeLine"

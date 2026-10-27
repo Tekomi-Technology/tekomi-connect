@@ -4,13 +4,36 @@
     "LOAD_MORE_CONVERSATIONS": "Load more conversations",
     "EOF": "All conversations loaded 🎉",
     "LIST": {
-      "404": "There are no active conversations in this group."
+      "404": "There are no active conversations in this group.",
+      "CLEAR_FILTERS": "Clear filters"
     },
     "FAILED_TO_SEND": "Failed to send",
     "FETCH_ERROR": "Couldn't load conversations. Please try again.",
     "TAB_HEADING": "Conversations",
     "MENTION_HEADING": "Mentions",
     "UNATTENDED_HEADING": "Unattended",
+    "AI_HANDLING": "AI is replying",
+    "FILTER_PANEL": {
+      "TITLE": "Messages",
+      "ALL": "All",
+      "ALL_CHANNELS": "All channels",
+      "SEARCH_CHANNELS": "Search channels",
+      "RELATED": "Related to you",
+      "COLLAPSE": "Collapse filters",
+      "EXPAND": "Show filters",
+      "SORT": "Sort"
+    },
+    "QUICK_FILTERS": {
+      "UNREAD": "Unread",
+      "UNATTENDED": "Unanswered",
+      "UNASSIGNED": "Unassigned",
+      "PINNED": "Pinned",
+      "DIRECT": "Direct messages",
+      "GROUP": "Group chats",
+      "MENTION": "Mentions",
+      "PARTICIPATING": "Participating",
+      "VIP": "VIP customers"
+    },
     "SEARCH": {
       "INPUT": "Search for People, Chats, Saved Replies .."
     },
@@ -30,7 +53,8 @@
     "STAGE_TABS": {
       "open": "Open",
       "in_progress": "In progress",
-      "resolved": "Resolved"
+      "resolved": "Resolved",
+      "awaiting_reply": "Awaiting reply"
     },
     "CHAT_STATUS_FILTER_ITEMS": {
       "open": {
@@ -159,14 +183,6 @@
     "SENDING": "Sending",
     "UNREAD_COUNT_OVERFLOW": "9+",
     "COLLAPSE_LIST": "Collapse conversation list",
-    "EXPAND_LIST": "Expand conversation list",
-    "DISPLAY_MODE": {
-      "LABEL": "Display mode",
-      "OPTIONS": {
-        "default": "Default",
-        "company": "Group by company",
-        "vip": "Starred customers only"
-      }
-    }
+    "EXPAND_LIST": "Expand conversation list"
   }
 }

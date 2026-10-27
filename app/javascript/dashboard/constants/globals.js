@@ -13,11 +13,6 @@ export default {
     IN_PROGRESS: 'in_progress',
     RESOLVED: 'resolved',
   },
-  DISPLAY_MODE: {
-    DEFAULT: 'default',
-    COMPANY: 'company',
-    VIP: 'vip',
-  },
   STATUS_TYPE: {
     OPEN: 'open',
     RESOLVED: 'resolved',
@@ -56,6 +51,7 @@ export default {
     'https://developers.facebook.com/docs/whatsapp/embedded-signup/custom-flows/onboarding-business-app-users#limitations',
   SMALL_SCREEN_BREAKPOINT: 768,
   LARGE_SCREEN_BREAKPOINT: 1024,
+  SIDE_PANEL_DOCK_BREAKPOINT: 1280,
   AVAILABILITY_STATUS_KEYS: ['online', 'busy', 'offline'],
   SNOOZE_OPTIONS: {
     UNTIL_NEXT_REPLY: 'until_next_reply',
